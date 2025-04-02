@@ -53,8 +53,9 @@ class HuffmanDecoder {
         if (node.value != null) {
           if (node.value == EOS_BYTE) {
             throw HuffmanDecodingException(
-                'More than 7 bit padding is not allowed. Found entire EOS '
-                'encoding');
+              'More than 7 bit padding is not allowed. Found entire EOS '
+              'encoding',
+            );
           }
           buffer.addByte(node.value!);
           node = _root;
@@ -67,7 +68,8 @@ class HuffmanDecoder {
     if (node != _root) {
       if (currentDepth > 7) {
         throw HuffmanDecodingException(
-            'Incomplete encoding of a byte or more than 7 bit padding.');
+          'Incomplete encoding of a byte or more than 7 bit padding.',
+        );
       }
 
       while (node.right != null) {

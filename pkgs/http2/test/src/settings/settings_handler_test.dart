@@ -19,7 +19,11 @@ void main() {
     test('successful-setting', () async {
       var writer = FrameWriterMock();
       var sh = SettingsHandler(
-          HPackEncoder(), writer, ActiveSettings(), ActiveSettings());
+        HPackEncoder(),
+        writer,
+        ActiveSettings(),
+        ActiveSettings(),
+      );
 
       // Start changing settings.
       var changed = sh.changeSettings(pushSettings);
@@ -30,8 +34,12 @@ void main() {
       expect(sh.acknowledgedSettings.enablePush, true);
 
       // Simulate remote end to respond with an ACK.
-      var header =
-          FrameHeader(0, FrameType.SETTINGS, SettingsFrame.FLAG_ACK, 0);
+      var header = FrameHeader(
+        0,
+        FrameType.SETTINGS,
+        SettingsFrame.FLAG_ACK,
+        0,
+      );
       sh.handleSettingsFrame(SettingsFrame(header, []));
 
       await changed;
@@ -43,7 +51,11 @@ void main() {
     test('ack-remote-settings-change', () {
       var writer = FrameWriterMock();
       var sh = SettingsHandler(
-          HPackEncoder(), writer, ActiveSettings(), ActiveSettings());
+        HPackEncoder(),
+        writer,
+        ActiveSettings(),
+        ActiveSettings(),
+      );
 
       // Check that settings haven't been applied.
       expect(sh.peerSettings.enablePush, true);
@@ -61,22 +73,36 @@ void main() {
     test('invalid-remote-ack', () {
       var writer = FrameWriterMock();
       var sh = SettingsHandler(
-          HPackEncoder(), writer, ActiveSettings(), ActiveSettings());
+        HPackEncoder(),
+        writer,
+        ActiveSettings(),
+        ActiveSettings(),
+      );
 
       // Simulates ACK even though we haven't sent any settings.
-      var header =
-          FrameHeader(0, FrameType.SETTINGS, SettingsFrame.FLAG_ACK, 0);
+      var header = FrameHeader(
+        0,
+        FrameType.SETTINGS,
+        SettingsFrame.FLAG_ACK,
+        0,
+      );
       var settingsFrame = SettingsFrame(header, const []);
 
-      expect(() => sh.handleSettingsFrame(settingsFrame),
-          throwsA(isProtocolException));
+      expect(
+        () => sh.handleSettingsFrame(settingsFrame),
+        throwsA(isProtocolException),
+      );
       verifyZeroInteractions(writer);
     });
 
     test('invalid-remote-settings-change', () {
       var writer = FrameWriterMock();
       var sh = SettingsHandler(
-          HPackEncoder(), writer, ActiveSettings(), ActiveSettings());
+        HPackEncoder(),
+        writer,
+        ActiveSettings(),
+        ActiveSettings(),
+      );
 
       // Check that settings haven't been applied.
       expect(sh.peerSettings.enablePush, true);
@@ -84,16 +110,22 @@ void main() {
       // Simulate remote end by setting the push setting.
       var header = FrameHeader(6, FrameType.SETTINGS, 0, 0);
       var settingsFrame = SettingsFrame(header, invalidPushSettings);
-      expect(() => sh.handleSettingsFrame(settingsFrame),
-          throwsA(isProtocolException));
+      expect(
+        () => sh.handleSettingsFrame(settingsFrame),
+        throwsA(isProtocolException),
+      );
       verifyZeroInteractions(writer);
     });
 
     test('change-max-header-table-size', () {
       var writer = FrameWriterMock();
       var mock = HPackEncoderMock();
-      var sh =
-          SettingsHandler(mock, writer, ActiveSettings(), ActiveSettings());
+      var sh = SettingsHandler(
+        mock,
+        writer,
+        ActiveSettings(),
+        ActiveSettings(),
+      );
 
       // Simulate remote end by setting the push setting.
       var header = FrameHeader(6, FrameType.SETTINGS, 0, 0);

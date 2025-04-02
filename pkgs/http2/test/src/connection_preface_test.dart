@@ -16,8 +16,9 @@ void main() {
 
       for (var size = 1; size <= data.length; size++) {
         var c = StreamController<List<int>>();
-        var resultF = readConnectionPreface(c.stream)
-            .fold<List<int>>([], (b, d) => b..addAll(d));
+        var resultF = readConnectionPreface(
+          c.stream,
+        ).fold<List<int>>([], (b, d) => b..addAll(d));
 
         for (var i = 0; i < (size - 1 + data.length) ~/ size; i++) {
           var from = size * i;
@@ -33,48 +34,66 @@ void main() {
 
     test('only-part-of-connection-sequence', () async {
       var c = StreamController<List<int>>();
-      var resultF = readConnectionPreface(c.stream)
-          .fold<List<int>>([], (b, d) => b..addAll(d));
+      var resultF = readConnectionPreface(
+        c.stream,
+      ).fold<List<int>>([], (b, d) => b..addAll(d));
 
       for (var i = 0; i < CONNECTION_PREFACE.length - 1; i++) {
         c.add([CONNECTION_PREFACE[i]]);
       }
       unawaited(c.close());
 
-      unawaited(resultF.catchError(expectAsync2((Object error, Object _) {
-        expect(error, contains('EOS before connection preface could be read'));
-        return <int>[];
-      })));
+      unawaited(
+        resultF.catchError(
+          expectAsync2((Object error, Object _) {
+            expect(
+              error,
+              contains('EOS before connection preface could be read'),
+            );
+            return <int>[];
+          }),
+        ),
+      );
     });
 
     test('wrong-connection-sequence', () async {
       var c = StreamController<List<int>>();
-      var resultF = readConnectionPreface(c.stream)
-          .fold<List<int>>([], (b, d) => b..addAll(d));
+      var resultF = readConnectionPreface(
+        c.stream,
+      ).fold<List<int>>([], (b, d) => b..addAll(d));
 
       for (var i = 0; i < CONNECTION_PREFACE.length; i++) {
         c.add([0xff]);
       }
       unawaited(c.close());
 
-      unawaited(resultF.catchError(expectAsync2((Object error, Object _) {
-        expect(error, contains('Connection preface does not match.'));
-        return <int>[];
-      })));
+      unawaited(
+        resultF.catchError(
+          expectAsync2((Object error, Object _) {
+            expect(error, contains('Connection preface does not match.'));
+            return <int>[];
+          }),
+        ),
+      );
     });
 
     test('incoming-socket-error', () async {
       var c = StreamController<List<int>>();
-      var resultF = readConnectionPreface(c.stream)
-          .fold<List<int>>([], (b, d) => b..addAll(d));
+      var resultF = readConnectionPreface(
+        c.stream,
+      ).fold<List<int>>([], (b, d) => b..addAll(d));
 
       c.addError('hello world');
       unawaited(c.close());
 
-      unawaited(resultF.catchError(expectAsync2((Object error, Object _) {
-        expect(error, contains('hello world'));
-        return <int>[];
-      })));
+      unawaited(
+        resultF.catchError(
+          expectAsync2((Object error, Object _) {
+            expect(error, contains('hello world'));
+            return <int>[];
+          }),
+        ),
+      );
     });
   });
 }

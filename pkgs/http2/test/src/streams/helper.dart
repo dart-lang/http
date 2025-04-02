@@ -20,10 +20,11 @@ void expectEmptyStream(Stream s) {
 }
 
 void streamTest(
-    String name,
-    Future<void> Function(ClientTransportConnection, ServerTransportConnection)
-        func,
-    {ClientSettings? settings}) {
+  String name,
+  Future<void> Function(ClientTransportConnection, ServerTransportConnection)
+  func, {
+  ClientSettings? settings,
+}) {
   return test(name, () {
     var bidirect = BidirectionalConnection();
     bidirect.settings = settings;

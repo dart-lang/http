@@ -20,7 +20,7 @@ class HeadersMessage extends Message {
   final List<Header> headers;
 
   HeadersMessage(int streamId, this.headers, bool endStream)
-      : super(streamId, endStream);
+    : super(streamId, endStream);
 
   @override
   String toString() =>
@@ -31,7 +31,7 @@ class DataMessage extends Message {
   final List<int> bytes;
 
   DataMessage(int streamId, this.bytes, bool endStream)
-      : super(streamId, endStream);
+    : super(streamId, endStream);
 
   @override
   String toString() =>
@@ -43,12 +43,17 @@ class PushPromiseMessage extends Message {
   final int promisedStreamId;
   final ClientTransportStream pushedStream;
 
-  PushPromiseMessage(int streamId, this.headers, this.promisedStreamId,
-      this.pushedStream, bool endStream)
-      : super(streamId, endStream);
+  PushPromiseMessage(
+    int streamId,
+    this.headers,
+    this.promisedStreamId,
+    this.pushedStream,
+    bool endStream,
+  ) : super(streamId, endStream);
 
   @override
-  String toString() => 'PushPromiseMessage(bytes: ${headers.length}, '
+  String toString() =>
+      'PushPromiseMessage(bytes: ${headers.length}, '
       'promisedStreamId: $promisedStreamId, endStream: $endStream)';
 }
 
@@ -67,9 +72,10 @@ class GoawayMessage extends Message {
   final List<int> debugData;
 
   GoawayMessage(this.lastStreamId, this.errorCode, this.debugData)
-      : super(0, false);
+    : super(0, false);
 
   @override
-  String toString() => 'GoawayMessage(lastStreamId: $lastStreamId, '
+  String toString() =>
+      'GoawayMessage(lastStreamId: $lastStreamId, '
       'errorCode: $errorCode, debugData: ${debugData.length})';
 }

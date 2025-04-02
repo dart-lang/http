@@ -14,8 +14,11 @@ import '../hpack/hpack_test.dart' show isHeader;
 void main() {
   group('frames', () {
     group('writer-reader', () {
-      writerReaderTest('data-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('data-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writeDataFrame(99, [1, 2, 3], endStream: true);
 
         var frames = await finishWriting(writer, reader);
@@ -30,8 +33,11 @@ void main() {
         expect(dataFrame.bytes, [1, 2, 3]);
       });
 
-      writerReaderTest('headers-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('headers-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writeHeadersFrame(99, [Header.ascii('a', 'b')], endStream: true);
 
         var frames = await finishWriting(writer, reader);
@@ -54,8 +60,11 @@ void main() {
         expect(headers[0], isHeader('a', 'b'));
       });
 
-      writerReaderTest('priority-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('priority-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writePriorityFrame(99, 44, 33, exclusive: true);
 
         var frames = await finishWriting(writer, reader);
@@ -69,8 +78,11 @@ void main() {
         expect(priorityFrame.weight, 33);
       });
 
-      writerReaderTest('rst-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('rst-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writeRstStreamFrame(99, 42);
 
         var frames = await finishWriting(writer, reader);
@@ -82,8 +94,11 @@ void main() {
         expect(rstFrame.errorCode, 42);
       });
 
-      writerReaderTest('settings-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('settings-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writeSettingsFrame([Setting(Setting.SETTINGS_ENABLE_PUSH, 1)]);
 
         var frames = await finishWriting(writer, reader);
@@ -95,12 +110,17 @@ void main() {
         expect(settingsFrame.header.streamId, 0);
         expect(settingsFrame.settings, hasLength(1));
         expect(
-            settingsFrame.settings[0].identifier, Setting.SETTINGS_ENABLE_PUSH);
+          settingsFrame.settings[0].identifier,
+          Setting.SETTINGS_ENABLE_PUSH,
+        );
         expect(settingsFrame.settings[0].value, 1);
       });
 
-      writerReaderTest('settings-frame-ack',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('settings-frame-ack', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writeSettingsAckFrame();
 
         var frames = await finishWriting(writer, reader);
@@ -113,8 +133,11 @@ void main() {
         expect(settingsFrame.settings, hasLength(0));
       });
 
-      writerReaderTest('push-promise-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('push-promise-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writePushPromiseFrame(99, 44, [Header.ascii('a', 'b')]);
 
         var frames = await finishWriting(writer, reader);
@@ -133,8 +156,11 @@ void main() {
         expect(headers[0], isHeader('a', 'b'));
       });
 
-      writerReaderTest('ping-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('ping-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writePingFrame(44, ack: true);
 
         var frames = await finishWriting(writer, reader);
@@ -147,8 +173,11 @@ void main() {
         expect(pingFrame.hasAckFlag, isTrue);
       });
 
-      writerReaderTest('goaway-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('goaway-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writeGoawayFrame(44, 33, [1, 2, 3]);
 
         var frames = await finishWriting(writer, reader);
@@ -162,8 +191,11 @@ void main() {
         expect(goawayFrame.debugData, [1, 2, 3]);
       });
 
-      writerReaderTest('window-update-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('window-update-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         writer.writeWindowUpdate(55, streamId: 99);
 
         var frames = await finishWriting(writer, reader);
@@ -175,8 +207,11 @@ void main() {
         expect(windowUpdateFrame.windowSizeIncrement, 55);
       });
 
-      writerReaderTest('frag-headers-frame',
-          (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
+      writerReaderTest('frag-headers-frame', (
+        FrameWriter writer,
+        FrameReader reader,
+        HPackDecoder decoder,
+      ) async {
         var headerName = [1];
         var headerValue = List.filled(1 << 14, 0x42);
         var header = Header(headerName, headerValue);
@@ -202,7 +237,7 @@ void main() {
 
         var headerBlock = <int>[
           ...headersFrame.headerBlockFragment,
-          ...contFrame.headerBlockFragment
+          ...contFrame.headerBlockFragment,
         ];
 
         var headers = decoder.decode(headerBlock);
@@ -214,8 +249,10 @@ void main() {
   });
 }
 
-void writerReaderTest(String name,
-    Future<void> Function(FrameWriter, FrameReader, HPackDecoder) func) {
+void writerReaderTest(
+  String name,
+  Future<void> Function(FrameWriter, FrameReader, HPackDecoder) func,
+) {
   test(name, () {
     var settings = ActiveSettings();
     var context = HPackContext();
@@ -227,6 +264,8 @@ void writerReaderTest(String name,
 }
 
 Future<List<Frame>> finishWriting(FrameWriter writer, FrameReader reader) {
-  return Future.wait([writer.close(), reader.startDecoding().toList()])
-      .then((results) => results.last as List<Frame>);
+  return Future.wait([
+    writer.close(),
+    reader.startDecoding().toList(),
+  ]).then((results) => results.last as List<Frame>);
 }
