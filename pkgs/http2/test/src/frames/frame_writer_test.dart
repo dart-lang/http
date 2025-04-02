@@ -18,9 +18,11 @@ void main() {
         var controller = StreamController<List<int>>();
         var writer = FrameWriter(context.encoder, controller, settings);
 
-        writer.doneFuture.then(expectAsync1((_) {
-          // We expect that the writer is done at this point.
-        }));
+        writer.doneFuture.then(
+          expectAsync1((_) {
+            // We expect that the writer is done at this point.
+          }),
+        );
 
         // We cancel here the reading part (simulates a dying socket).
         controller.stream.listen((_) {}).cancel();

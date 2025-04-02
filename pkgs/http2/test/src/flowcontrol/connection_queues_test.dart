@@ -19,10 +19,12 @@ void main() {
     test('connection-message-queue-out', () {
       var fw = MockFrameWriter();
       when(fw.bufferIndicator).thenReturn(BufferIndicator());
-      when(fw.writeHeadersFrame(any, any, endStream: anyNamed('endStream')))
-          .thenReturn(null);
-      when(fw.writeDataFrame(any, any, endStream: anyNamed('endStream')))
-          .thenReturn(null);
+      when(
+        fw.writeHeadersFrame(any, any, endStream: anyNamed('endStream')),
+      ).thenReturn(null);
+      when(
+        fw.writeDataFrame(any, any, endStream: anyNamed('endStream')),
+      ).thenReturn(null);
       var windowMock = MockOutgoingWindowHandler();
       var queue = ConnectionMessageQueueOut(windowMock, fw);
 
@@ -70,8 +72,9 @@ void main() {
       expect(queue.pendingMessages, 1);
       verify(windowMock.decreaseWindow(1)).called(1);
       verify(fw.bufferIndicator).called(greaterThan(0));
-      verify(fw.writeDataFrame(99, bytes.sublist(0, 1), endStream: false))
-          .called(1);
+      verify(
+        fw.writeDataFrame(99, bytes.sublist(0, 1), endStream: false),
+      ).called(1);
       verifyNoMoreInteractions(windowMock);
       verifyNoMoreInteractions(fw);
 
@@ -83,18 +86,23 @@ void main() {
       windowMock.peerWindowSize = bytes.length - 1;
       windowMock.positiveWindow.markUnBuffered();
       verify(windowMock.decreaseWindow(bytes.length - 1)).called(1);
-      verify(fw.writeDataFrame(99, bytes.sublist(1), endStream: true))
-          .called(1);
+      verify(
+        fw.writeDataFrame(99, bytes.sublist(1), endStream: true),
+      ).called(1);
       verifyNoMoreInteractions(windowMock);
       verify(fw.bufferIndicator).called(greaterThan(0));
       verifyNoMoreInteractions(fw);
 
       queue.startClosing();
-      queue.done.then(expectAsync1((_) {
-        expect(queue.pendingMessages, 0);
-        expect(() => queue.enqueueMessage(DataMessage(99, bytes, true)),
-            throwsA(const TypeMatcher<StateError>()));
-      }));
+      queue.done.then(
+        expectAsync1((_) {
+          expect(queue.pendingMessages, 0);
+          expect(
+            () => queue.enqueueMessage(DataMessage(99, bytes, true)),
+            throwsA(const TypeMatcher<StateError>()),
+          );
+        }),
+      );
     });
 
     test('connection-message-queue-in', () {
@@ -130,9 +138,9 @@ void main() {
       // specific queue.
       streamQueueMock.bufferIndicator.markUnBuffered();
       verify(windowMock.dataProcessed(bytes.length)).called(1);
-      var capturedMessage = verify(streamQueueMock.enqueueMessage(captureAny))
-          .captured
-          .single as DataMessage;
+      var capturedMessage =
+          verify(streamQueueMock.enqueueMessage(captureAny)).captured.single
+              as DataMessage;
       expect(capturedMessage.streamId, STREAM_ID);
       expect(capturedMessage.bytes, bytes);
 

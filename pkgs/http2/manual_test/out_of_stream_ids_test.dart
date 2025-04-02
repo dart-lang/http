@@ -23,9 +23,10 @@ import '../test/transport_test.dart';
 
 void main() {
   group('transport-test', () {
-    transportTest('client-runs-out-of-stream-ids',
-        (ClientTransportConnection client,
-            ServerTransportConnection server) async {
+    transportTest('client-runs-out-of-stream-ids', (
+      ClientTransportConnection client,
+      ServerTransportConnection server,
+    ) async {
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
           stream.sendHeaders([Header.ascii('x', 'y')], endStream: true);
@@ -45,8 +46,10 @@ void main() {
         }
 
         expect(client.isOpen, false);
-        expect(() => client.makeRequest(headers),
-            throwsA(const TypeMatcher<StateError>()));
+        expect(
+          () => client.makeRequest(headers),
+          throwsA(const TypeMatcher<StateError>()),
+        );
 
         await Future<void>.delayed(const Duration(seconds: 1));
         await client.finish();

@@ -34,7 +34,8 @@ class FrameDefragmenter {
       if (frame is ContinuationFrame) {
         if (_headersFrame!.header.streamId != frame.header.streamId) {
           throw ProtocolException(
-              'Defragmentation: frames have different stream ids.');
+            'Defragmentation: frames have different stream ids.',
+          );
         }
         _headersFrame = _headersFrame!.addBlockContinuation(frame);
 
@@ -47,14 +48,16 @@ class FrameDefragmenter {
         }
       } else {
         throw ProtocolException(
-            'Defragmentation: Incomplete frame must be followed by '
-            'continuation frame.');
+          'Defragmentation: Incomplete frame must be followed by '
+          'continuation frame.',
+        );
       }
     } else if (_pushPromiseFrame != null) {
       if (frame is ContinuationFrame) {
         if (_pushPromiseFrame!.header.streamId != frame.header.streamId) {
           throw ProtocolException(
-              'Defragmentation: frames have different stream ids.');
+            'Defragmentation: frames have different stream ids.',
+          );
         }
         _pushPromiseFrame = _pushPromiseFrame!.addBlockContinuation(frame);
 
@@ -67,8 +70,9 @@ class FrameDefragmenter {
         }
       } else {
         throw ProtocolException(
-            'Defragmentation: Incomplete frame must be followed by '
-            'continuation frame.');
+          'Defragmentation: Incomplete frame must be followed by '
+          'continuation frame.',
+        );
       }
     } else {
       if (frame is HeadersFrame) {

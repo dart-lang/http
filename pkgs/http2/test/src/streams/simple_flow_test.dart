@@ -21,12 +21,19 @@ void main() {
       void Function(StreamMessage) headersTestFun(String type) {
         return expectAsync1((StreamMessage msg) {
           expect(
-              msg,
-              isA<HeadersStreamMessage>()
-                  .having((m) => m.headers.first.name, 'headers.first.name',
-                      expectedHeaders.first.name)
-                  .having((m) => m.headers.first.value, 'headers.first.value',
-                      expectedHeaders.first.value));
+            msg,
+            isA<HeadersStreamMessage>()
+                .having(
+                  (m) => m.headers.first.name,
+                  'headers.first.name',
+                  expectedHeaders.first.name,
+                )
+                .having(
+                  (m) => m.headers.first.value,
+                  'headers.first.value',
+                  expectedHeaders.first.value,
+                ),
+          );
         });
       }
 
@@ -39,19 +46,29 @@ void main() {
           if (expectHeader) {
             expectHeader = false;
             expect(
-                msg,
-                isA<HeadersStreamMessage>()
-                    .having((m) => m.headers.first.name, 'headers.first.name',
-                        expectedHeaders.first.name)
-                    .having((m) => m.headers.first.value, 'headers.first.value',
-                        expectedHeaders.first.value));
+              msg,
+              isA<HeadersStreamMessage>()
+                  .having(
+                    (m) => m.headers.first.name,
+                    'headers.first.name',
+                    expectedHeaders.first.name,
+                  )
+                  .having(
+                    (m) => m.headers.first.value,
+                    'headers.first.value',
+                    expectedHeaders.first.value,
+                  ),
+            );
           } else {
             expect(msg, isA<DataStreamMessage>());
             var bytes = (msg as DataStreamMessage).bytes;
             expect(
-                bytes,
-                allBytes.sublist(
-                    numBytesReceived, numBytesReceived + bytes.length));
+              bytes,
+              allBytes.sublist(
+                numBytesReceived,
+                numBytesReceived + bytes.length,
+              ),
+            );
             numBytesReceived += bytes.length;
 
             if (numBytesReceived > allBytes.length) {
@@ -75,21 +92,27 @@ void main() {
         }
       }
 
-      streamTest('single-header-request--empty-response',
-          (ClientTransportConnection client,
-              ServerTransportConnection server) async {
-        server.incomingStreams
-            .listen(expectAsync1((TransportStream sStream) async {
-          sStream.incomingMessages
-              .listen(messageTestFun('server'), onDone: expectAsync0(() {}));
-          sStream.sendHeaders(expectedHeaders, endStream: true);
-          await serverReceivedAllBytes.future;
-        }));
+      streamTest('single-header-request--empty-response', (
+        ClientTransportConnection client,
+        ServerTransportConnection server,
+      ) async {
+        server.incomingStreams.listen(
+          expectAsync1((TransportStream sStream) async {
+            sStream.incomingMessages.listen(
+              messageTestFun('server'),
+              onDone: expectAsync0(() {}),
+            );
+            sStream.sendHeaders(expectedHeaders, endStream: true);
+            await serverReceivedAllBytes.future;
+          }),
+        );
 
         TransportStream cStream = client.makeRequest(expectedHeaders);
         sendData(cStream);
-        cStream.incomingMessages
-            .listen(headersTestFun('client'), onDone: expectAsync0(() {}));
+        cStream.incomingMessages.listen(
+          headersTestFun('client'),
+          onDone: expectAsync0(() {}),
+        );
       });
     });
   });

@@ -44,21 +44,27 @@ void main() {
       expect(bs.bufferIndicator.wouldBuffer, false);
 
       sub.pause();
-      Timer.run(expectAsync0(() {
-        expect(bs.bufferIndicator.wouldBuffer, true);
-        bs.sink.add([1]);
+      Timer.run(
+        expectAsync0(() {
+          expect(bs.bufferIndicator.wouldBuffer, true);
+          bs.sink.add([1]);
 
-        sub.resume();
-        Timer.run(expectAsync0(() {
-          expect(bs.bufferIndicator.wouldBuffer, false);
-          bs.sink.add([2]);
+          sub.resume();
+          Timer.run(
+            expectAsync0(() {
+              expect(bs.bufferIndicator.wouldBuffer, false);
+              bs.sink.add([2]);
 
-          Timer.run(expectAsync0(() {
-            sub.cancel();
-            expect(bs.bufferIndicator.wouldBuffer, false);
-          }));
-        }));
-      }));
+              Timer.run(
+                expectAsync0(() {
+                  sub.cancel();
+                  expect(bs.bufferIndicator.wouldBuffer, false);
+                }),
+              );
+            }),
+          );
+        }),
+      );
     });
 
     test('buffered-bytes-writer', () async {

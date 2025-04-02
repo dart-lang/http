@@ -20,10 +20,7 @@ void main() {
       var p1 = pingHandler.ping();
       var p2 = pingHandler.ping();
 
-      verifyInOrder([
-        writer.writePingFrame(1),
-        writer.writePingFrame(2),
-      ]);
+      verifyInOrder([writer.writePingFrame(1), writer.writePingFrame(2)]);
 
       var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
       pingHandler.processPingFrame(PingFrame(header, 1));
@@ -46,7 +43,7 @@ void main() {
 
       verifyInOrder([
         writer.writePingFrame(1, ack: true),
-        writer.writePingFrame(2, ack: true)
+        writer.writePingFrame(2, ack: true),
       ]);
       verifyNoMoreInteractions(writer);
     });
@@ -59,14 +56,20 @@ void main() {
       verify(writer.writePingFrame(1)).called(1);
 
       var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
-      expect(() => pingHandler.processPingFrame(PingFrame(header, 2)),
-          throwsA(isProtocolException));
+      expect(
+        () => pingHandler.processPingFrame(PingFrame(header, 2)),
+        throwsA(isProtocolException),
+      );
 
       // Ensure outstanding pings will be completed with an error once we call
       // `pingHandler.terminate()`.
-      unawaited(future.catchError(expectAsync2((Object error, Object _) {
-        expect(error, 'hello world');
-      })));
+      unawaited(
+        future.catchError(
+          expectAsync2((Object error, Object _) {
+            expect(error, 'hello world');
+          }),
+        ),
+      );
       pingHandler.terminate('hello world');
       verifyNoMoreInteractions(writer);
     });
@@ -77,9 +80,11 @@ void main() {
 
       pingHandler.terminate('hello world');
       expect(
-          () => pingHandler.processPingFrame(PingFrame(
-              FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1), 1)),
-          throwsA(isTerminatedException));
+        () => pingHandler.processPingFrame(
+          PingFrame(FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1), 1),
+        ),
+        throwsA(isTerminatedException),
+      );
       expect(pingHandler.ping(), throwsA(isTerminatedException));
       verifyZeroInteractions(writer);
     });
@@ -89,8 +94,10 @@ void main() {
       var pingHandler = instantiateHandler(writer);
 
       var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1);
-      expect(() => pingHandler.processPingFrame(PingFrame(header, 1)),
-          throwsA(isProtocolException));
+      expect(
+        () => pingHandler.processPingFrame(PingFrame(header, 1)),
+        throwsA(isProtocolException),
+      );
       verifyZeroInteractions(writer);
     });
 
@@ -101,14 +108,8 @@ void main() {
       final pingStream = StreamController<int>()..stream.listen(pings.add);
 
       PingHandler(writer, pingStream)
-        ..processPingFrame(PingFrame(
-          FrameHeader(8, FrameType.PING, 0, 0),
-          1,
-        ))
-        ..processPingFrame(PingFrame(
-          FrameHeader(8, FrameType.PING, 0, 0),
-          2,
-        ));
+        ..processPingFrame(PingFrame(FrameHeader(8, FrameType.PING, 0, 0), 1))
+        ..processPingFrame(PingFrame(FrameHeader(8, FrameType.PING, 0, 0), 2));
 
       await pingStream.close();
 

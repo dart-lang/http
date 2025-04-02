@@ -8,18 +8,22 @@ import 'package:http2/src/flowcontrol/window_handler.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:mockito/annotations.dart';
 
-@GenerateMocks([
-  FrameWriter,
-  IncomingWindowHandler,
-  OutgoingStreamWindowHandler,
-], customMocks: [
-  MockSpec<ConnectionMessageQueueOut>(fallbackGenerators: {
-    #ensureNotTerminatedSync: ensureNotTerminatedSyncFallback,
-  }),
-  MockSpec<StreamMessageQueueIn>(fallbackGenerators: {
-    #ensureNotTerminatedSync: ensureNotTerminatedSyncFallback,
-  })
-])
+@GenerateMocks(
+  [FrameWriter, IncomingWindowHandler, OutgoingStreamWindowHandler],
+  customMocks: [
+    MockSpec<ConnectionMessageQueueOut>(
+      fallbackGenerators: {
+        #ensureNotTerminatedSync: ensureNotTerminatedSyncFallback,
+      },
+    ),
+    MockSpec<StreamMessageQueueIn>(
+      fallbackGenerators: {
+        #ensureNotTerminatedSync: ensureNotTerminatedSyncFallback,
+      },
+    ),
+  ],
+)
 T ensureNotTerminatedSyncFallback<T>(T Function()? f) =>
     throw UnimplementedError(
-        'Method cannot be stubbed; requires fallback values for return');
+      'Method cannot be stubbed; requires fallback values for return',
+    );

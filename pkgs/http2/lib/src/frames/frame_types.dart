@@ -44,8 +44,12 @@ class FrameHeader {
 
   FrameHeader(this.length, this.type, this.flags, this.streamId);
 
-  Map toJson() =>
-      {'length': length, 'type': type, 'flags': flags, 'streamId': streamId};
+  Map toJson() => {
+    'length': length,
+    'type': type,
+    'flags': flags,
+    'streamId': streamId,
+  };
 }
 
 class Frame {
@@ -73,12 +77,12 @@ class DataFrame extends Frame {
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'padLength': padLength,
-      'bytes (length)': bytes.length,
-      'bytes (up to 4 bytes)': bytes.length > 4 ? bytes.sublist(0, 4) : bytes,
-    });
+  Map toJson() =>
+      super.toJson()..addAll({
+        'padLength': padLength,
+        'bytes (length)': bytes.length,
+        'bytes (up to 4 bytes)': bytes.length > 4 ? bytes.sublist(0, 4) : bytes,
+      });
 }
 
 class HeadersFrame extends Frame {
@@ -120,30 +124,47 @@ class HeadersFrame extends Frame {
     var fragment = frame.headerBlockFragment;
     var flags = header.flags | frame.header.flags;
     var fh = FrameHeader(
-        header.length + fragment.length, header.type, flags, header.streamId);
+      header.length + fragment.length,
+      header.type,
+      flags,
+      header.streamId,
+    );
 
-    var mergedHeaderBlockFragment =
-        Uint8List(headerBlockFragment.length + fragment.length);
+    var mergedHeaderBlockFragment = Uint8List(
+      headerBlockFragment.length + fragment.length,
+    );
 
     mergedHeaderBlockFragment.setRange(
-        0, headerBlockFragment.length, headerBlockFragment);
+      0,
+      headerBlockFragment.length,
+      headerBlockFragment,
+    );
 
     mergedHeaderBlockFragment.setRange(
-        headerBlockFragment.length, mergedHeaderBlockFragment.length, fragment);
+      headerBlockFragment.length,
+      mergedHeaderBlockFragment.length,
+      fragment,
+    );
 
-    return HeadersFrame(fh, padLength, exclusiveDependency, streamDependency,
-        weight, mergedHeaderBlockFragment);
+    return HeadersFrame(
+      fh,
+      padLength,
+      exclusiveDependency,
+      streamDependency,
+      weight,
+      mergedHeaderBlockFragment,
+    );
   }
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'padLength': padLength,
-      'exclusiveDependency': exclusiveDependency,
-      'streamDependency': streamDependency,
-      'weight': weight,
-      'headerBlockFragment (length)': headerBlockFragment.length
-    });
+  Map toJson() =>
+      super.toJson()..addAll({
+        'padLength': padLength,
+        'exclusiveDependency': exclusiveDependency,
+        'streamDependency': streamDependency,
+        'weight': weight,
+        'headerBlockFragment (length)': headerBlockFragment.length,
+      });
 }
 
 class PriorityFrame extends Frame {
@@ -161,12 +182,12 @@ class PriorityFrame extends Frame {
   );
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'exclusiveDependency': exclusiveDependency,
-      'streamDependency': streamDependency,
-      'weight': weight,
-    });
+  Map toJson() =>
+      super.toJson()..addAll({
+        'exclusiveDependency': exclusiveDependency,
+        'streamDependency': streamDependency,
+        'weight': weight,
+      });
 }
 
 class RstStreamFrame extends Frame {
@@ -177,10 +198,7 @@ class RstStreamFrame extends Frame {
   RstStreamFrame(super.header, this.errorCode);
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'errorCode': errorCode,
-    });
+  Map toJson() => super.toJson()..addAll({'errorCode': errorCode});
 }
 
 class Setting {
@@ -212,10 +230,9 @@ class SettingsFrame extends Frame {
   bool get hasAckFlag => _isFlagSet(header.flags, FLAG_ACK);
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'settings': settings.map((s) => s.toJson()).toList(),
-    });
+  Map toJson() =>
+      super.toJson()
+        ..addAll({'settings': settings.map((s) => s.toJson()).toList()});
 }
 
 class PushPromiseFrame extends Frame {
@@ -247,28 +264,43 @@ class PushPromiseFrame extends Frame {
     var fragment = frame.headerBlockFragment;
     var flags = header.flags | frame.header.flags;
     var fh = FrameHeader(
-        header.length + fragment.length, header.type, flags, header.streamId);
+      header.length + fragment.length,
+      header.type,
+      flags,
+      header.streamId,
+    );
 
-    var mergedHeaderBlockFragment =
-        Uint8List(headerBlockFragment.length + fragment.length);
+    var mergedHeaderBlockFragment = Uint8List(
+      headerBlockFragment.length + fragment.length,
+    );
 
     mergedHeaderBlockFragment.setRange(
-        0, headerBlockFragment.length, headerBlockFragment);
+      0,
+      headerBlockFragment.length,
+      headerBlockFragment,
+    );
 
     mergedHeaderBlockFragment.setRange(
-        headerBlockFragment.length, mergedHeaderBlockFragment.length, fragment);
+      headerBlockFragment.length,
+      mergedHeaderBlockFragment.length,
+      fragment,
+    );
 
     return PushPromiseFrame(
-        fh, padLength, promisedStreamId, mergedHeaderBlockFragment);
+      fh,
+      padLength,
+      promisedStreamId,
+      mergedHeaderBlockFragment,
+    );
   }
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'padLength': padLength,
-      'promisedStreamId': promisedStreamId,
-      'headerBlockFragment (len)': headerBlockFragment.length,
-    });
+  Map toJson() =>
+      super.toJson()..addAll({
+        'padLength': padLength,
+        'promisedStreamId': promisedStreamId,
+        'headerBlockFragment (len)': headerBlockFragment.length,
+      });
 }
 
 class PingFrame extends Frame {
@@ -283,10 +315,7 @@ class PingFrame extends Frame {
   bool get hasAckFlag => _isFlagSet(header.flags, FLAG_ACK);
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'opaqueData': opaqueData,
-    });
+  Map toJson() => super.toJson()..addAll({'opaqueData': opaqueData});
 }
 
 class GoawayFrame extends Frame {
@@ -297,12 +326,12 @@ class GoawayFrame extends Frame {
   GoawayFrame(super.header, this.lastStreamId, this.errorCode, this.debugData);
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'lastStreamId': lastStreamId,
-      'errorCode': errorCode,
-      'debugData (length)': debugData.length,
-    });
+  Map toJson() =>
+      super.toJson()..addAll({
+        'lastStreamId': lastStreamId,
+        'errorCode': errorCode,
+        'debugData (length)': debugData.length,
+      });
 }
 
 class WindowUpdateFrame extends Frame {
@@ -313,10 +342,8 @@ class WindowUpdateFrame extends Frame {
   WindowUpdateFrame(super.header, this.windowSizeIncrement);
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'windowSizeIncrement': windowSizeIncrement,
-    });
+  Map toJson() =>
+      super.toJson()..addAll({'windowSizeIncrement': windowSizeIncrement});
 }
 
 class ContinuationFrame extends Frame {
@@ -329,10 +356,9 @@ class ContinuationFrame extends Frame {
   bool get hasEndHeadersFlag => _isFlagSet(header.flags, FLAG_END_HEADERS);
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'headerBlockFragment (length)': headerBlockFragment.length,
-    });
+  Map toJson() =>
+      super.toJson()
+        ..addAll({'headerBlockFragment (length)': headerBlockFragment.length});
 }
 
 class UnknownFrame extends Frame {
@@ -341,8 +367,5 @@ class UnknownFrame extends Frame {
   UnknownFrame(super.header, this.data);
 
   @override
-  Map toJson() => super.toJson()
-    ..addAll({
-      'data (length)': data.length,
-    });
+  Map toJson() => super.toJson()..addAll({'data (length)': data.length});
 }

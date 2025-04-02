@@ -46,7 +46,10 @@ class StreamMessageQueueOut extends Object
   int writtenBytes = 0;
 
   StreamMessageQueueOut(
-      this.streamId, this.streamWindow, this.connectionMessageQueue) {
+    this.streamId,
+    this.streamWindow,
+    this.connectionMessageQueue,
+  ) {
     streamWindow.positiveWindow.bufferEmptyEvents.listen((_) {
       if (!wasTerminated) {
         _trySendData();
@@ -114,11 +117,17 @@ class StreamMessageQueueOut extends Object
           // TODO: Do not fragment if the number of bytes we can send is too low
           if (messageBytes.length > bytesAvailable) {
             var partA = viewOrSublist(messageBytes, 0, bytesAvailable);
-            var partB = viewOrSublist(messageBytes, bytesAvailable,
-                messageBytes.length - bytesAvailable);
+            var partB = viewOrSublist(
+              messageBytes,
+              bytesAvailable,
+              messageBytes.length - bytesAvailable,
+            );
             var messageA = DataMessage(message.streamId, partA, false);
-            var messageB =
-                DataMessage(message.streamId, partB, message.endStream);
+            var messageB = DataMessage(
+              message.streamId,
+              partB,
+              message.endStream,
+            );
 
             // Put the second fragment back into the front of the queue.
             _messages.addFirst(messageB);
@@ -218,8 +227,10 @@ class StreamMessageQueueIn extends Object
           // NOTE: If server pushes were enabled, the client is responsible for
           // either rejecting or handling them.
           assert(!_serverPushStreamsC.isClosed);
-          var transportStreamPush =
-              TransportStreamPush(message.headers, message.pushedStream);
+          var transportStreamPush = TransportStreamPush(
+            message.headers,
+            message.pushedStream,
+          );
           _serverPushStreamsC.add(transportStreamPush);
           return;
         }
@@ -262,12 +273,14 @@ class StreamMessageQueueIn extends Object
       final message = _pendingMessages.removeFirst();
       assert(!_incomingMessagesC.isClosed);
       if (message is HeadersMessage) {
-        _incomingMessagesC.add(HeadersStreamMessage(message.headers,
-            endStream: message.endStream));
+        _incomingMessagesC.add(
+          HeadersStreamMessage(message.headers, endStream: message.endStream),
+        );
       } else if (message is DataMessage) {
         if (message.bytes.isNotEmpty) {
           _incomingMessagesC.add(
-              DataStreamMessage(message.bytes, endStream: message.endStream));
+            DataStreamMessage(message.bytes, endStream: message.endStream),
+          );
         }
       } else {
         // This can never happen.
@@ -293,12 +306,17 @@ class StreamMessageQueueIn extends Object
           if (message is HeadersMessage) {
             // NOTE: Header messages do not affect flow control - only
             // data messages do.
-            _incomingMessagesC.add(HeadersStreamMessage(message.headers,
-                endStream: message.endStream));
+            _incomingMessagesC.add(
+              HeadersStreamMessage(
+                message.headers,
+                endStream: message.endStream,
+              ),
+            );
           } else if (message is DataMessage) {
             if (message.bytes.isNotEmpty) {
-              _incomingMessagesC.add(DataStreamMessage(message.bytes,
-                  endStream: message.endStream));
+              _incomingMessagesC.add(
+                DataStreamMessage(message.bytes, endStream: message.endStream),
+              );
               windowHandler.dataProcessed(message.bytes.length);
             }
           } else {

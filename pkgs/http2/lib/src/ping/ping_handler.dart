@@ -21,8 +21,8 @@ class PingHandler extends Object with TerminatableMixin {
   int _nextId = 1;
 
   PingHandler(this._frameWriter, StreamController<int> pingStream)
-      : pingReceived = pingStream.sink,
-        isListeningToPings = (() => pingStream.hasListener);
+    : pingReceived = pingStream.sink,
+      isListeningToPings = (() => pingStream.hasListener);
 
   @override
   void onTerminated(Object? error) {
@@ -30,7 +30,8 @@ class PingHandler extends Object with TerminatableMixin {
     _remainingPings.clear();
     for (final ping in remainingPings) {
       ping.completeError(
-          error ?? 'Remaining ping completed with unspecified error');
+        error ?? 'Remaining ping completed with unspecified error',
+      );
     }
   }
 
@@ -53,7 +54,8 @@ class PingHandler extends Object with TerminatableMixin {
           // NOTE: It is not specified what happens when one gets an ACK for a
           // ping we never sent. We be very strict and fail in this case.
           throw ProtocolException(
-              'Received ping ack with unknown opaque data.');
+            'Received ping ack with unknown opaque data.',
+          );
         }
       }
     });
