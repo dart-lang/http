@@ -1,5 +1,7 @@
 ## 3.0.0-wip
 
+- Require Dart SDK `3.7.0`.
+
 ## 2.3.1
 
 - Require Dart 3.2
