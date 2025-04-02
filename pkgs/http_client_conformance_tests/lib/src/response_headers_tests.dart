@@ -11,8 +11,15 @@ import 'response_headers_server_vm.dart'
     if (dart.library.js_interop) 'response_headers_server_web.dart';
 
 /// Tests that the [Client] correctly processes response headers.
+///
+/// If [supportsFoldedHeaders] is `false` then the tests that assume that the
+/// [Client] can parse folded headers will be skipped.
+///
+/// If [correctlyHandlesNullHeaderValues] is `false` then the tests that assume
+/// that the [Client] correctly deals with NUL in header values are skipped.
 void testResponseHeaders(Client client,
-    {bool supportsFoldedHeaders = true}) async {
+    {bool supportsFoldedHeaders = true,
+    bool correctlyHandlesNullHeaderValues = true}) async {
   group('server headers', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
@@ -123,6 +130,79 @@ void testResponseHeaders(Client client,
           matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
     });
 
+    group('invalid headers values', () {
+      // From RFC-9110:
+      // Field values containing CR, LF, or NUL characters are invalid and
+      // dangerous, due to the varying ways that implementations might parse and
+      // interpret those characters; a recipient of CR, LF, or NUL within a
+      // field value MUST either reject the message or replace each of those
+      // characters with SP before further processing or forwarding of that
+      // message.
+      test('NUL', () async {
+        httpServerChannel.sink.add('invalid: 1\x002\r\n');
+
+        try {
+          final response = await client.get(Uri.http(host, ''));
+          expect(response.headers['invalid'], '1 2');
+        } on ClientException {
+          // The client rejected the response, which is allowed per RFC-9110.
+        }
+      },
+          skip: !correctlyHandlesNullHeaderValues
+              ? 'does not correctly handle NUL in header values'
+              : false);
+
+      // Bare CR/LF seem to be interpreted the same as CR + LF by most clients
+      // so allow that behavior.
+      test('LF', () async {
+        httpServerChannel.sink.add('foo: 1\n2\r\n');
+
+        try {
+          final response = await client.get(Uri.http(host, ''));
+          expect(
+              response.headers['foo'],
+              anyOf(
+                  '1 2', // RFC-specified behavior
+                  // Common client behavior (Cronet, Apple URL Loading System).
+                  '1'));
+        } on ClientException {
+          // The client rejected the response, which is allowed per RFC-9110.
+        }
+      });
+
+      test('CR', () async {
+        httpServerChannel.sink.add('foo: 1\r2\r\n');
+
+        try {
+          final response = await client.get(Uri.http(host, ''));
+          expect(
+              response.headers['foo'],
+              anyOf(
+                '1 2', // RFC-specified behavior
+                // Common client behavior (Cronet, Apple URL Loading System).
+                '1',
+                '1\r2', // Common client behavior (Java).
+              ));
+        } on ClientException {
+          // The client rejected the response, which is allowed per RFC-9110.
+        }
+      });
+    });
+
+    test('quotes', () async {
+      httpServerChannel.sink.add('FOO: "1, 2, 3"\r\n');
+
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.headers['foo'], '"1, 2, 3"');
+    });
+
+    test('nested quotes', () async {
+      httpServerChannel.sink.add('FOO: "\\"1, 2, 3\\""\r\n');
+
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.headers['foo'], '"\\"1, 2, 3\\""');
+    });
+
     group('content length', () {
       test('surrounded in spaces', () async {
         // RFC-2616 4.2 says:
@@ -132,9 +212,7 @@ void testResponseHeaders(Client client,
         httpServerChannel.sink.add('content-length: \t 0 \t \r\n');
         final response = await client.get(Uri.http(host, ''));
         expect(response.contentLength, 0);
-      },
-          skip: 'Enable after https://github.com/dart-lang/sdk/issues/51532 '
-              'is fixed');
+      });
 
       test('non-integer', () async {
         httpServerChannel.sink.add('content-length: cat\r\n');
@@ -163,9 +241,7 @@ void testResponseHeaders(Client client,
 
         final response = await client.get(Uri.http(host, ''));
         expect(response.headers['foo'], 'BAR BAZ');
-      },
-          skip: 'Enable after https://github.com/dart-lang/sdk/issues/53185 '
-              'is fixed');
+      });
 
       test('extra whitespace', () async {
         httpServerChannel.sink.add('foo: BAR   \t   \r\n   \t   BAZ \t \r\n');

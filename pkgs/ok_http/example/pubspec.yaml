@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.0.0
-  http_image_provider: ^0.0.3
+  http_image_provider: ^1.0.0
   ok_http:
     path: ../
   provider: ^6.1.1
@@ -33,3 +33,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - test_certs/  # Used in integration tests.

@@ -5,26 +5,22 @@ description: |
 
   Regenerate bindings with `flutter packages pub run ffigen --config ffigen.yaml`.
 language: 'objc'
-output: 'lib/src/native_cupertino_bindings.dart'
+output:
+  bindings: 'lib/src/native_cupertino_bindings.dart'
+  objc-bindings: 'darwin/cupertino_http/Sources/cupertino_http/native_cupertino_bindings.m'
 headers:
   entry-points:
-    - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSArray.h'
-    - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSData.h'
-    - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSDictionary.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLCache.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLRequest.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLSession.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURL.h'
+    - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSLock.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSProgress.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLResponse.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSHTTPCookieStorage.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSOperation.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSError.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSDictionary.h'
-    - 'src/CUPHTTPClientDelegate.h'
-    - 'src/CUPHTTPForwardedDelegate.h'
-    - 'src/CUPHTTPCompletionHelper.h'
-    - 'src/CUPHTTPStreamToNSInputStreamAdapter.h'
 preamble: |
   // ignore_for_file: always_specify_types
   // ignore_for_file: camel_case_types
@@ -32,6 +28,38 @@ preamble: |
   // ignore_for_file: unused_element
   // ignore_for_file: unused_field
   // ignore_for_file: return_of_invalid_type
+objc-interfaces:
+  include:
+    - 'NSCondition'
+    - 'NSHTTPURLResponse'
+    - 'NSMutableURLRequest'
+    - 'NSOperationQueue'
+    - 'NSURLCache'
+    - 'NSURLRequest'
+    - 'NSURLResponse'
+    - 'NSURLSession'
+    - 'NSURLSessionConfiguration'
+    - 'NSURLSessionDownloadTask'
+    - 'NSURLSessionTask'
+    - 'NSURLSessionWebSocketMessage'
+    - 'NSURLSessionWebSocketTask'
+objc-protocols:
+  include:
+    - 'NSURLSessionDataDelegate'
+    - 'NSURLSessionDownloadDelegate'
+    - 'NSURLSessionWebSocketDelegate'
 comments:
   style: any
   length: full
+enums:
+  include:
+    - 'NSHTTPCookieAcceptPolicy'
+    - 'NSURLRequestCachePolicy'
+    - 'NSURLRequestNetworkServiceType'
+    - 'NSURLSessionMultipathServiceType'
+    - 'NSURLSessionResponseDisposition'
+    - 'NSURLSessionTaskState'
+    - 'NSURLSessionWebSocketMessageType'
+  as-int: 
+    include:
+      - 'NSURLSessionWebSocketCloseCode'

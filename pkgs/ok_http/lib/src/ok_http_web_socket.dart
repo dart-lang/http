@@ -11,9 +11,17 @@ import 'package:web_socket/web_socket.dart';
 
 import 'jni/bindings.dart' as bindings;
 
+extension on List<int> {
+  JByteArray toJByteArray() => JByteArray(length)..setRange(0, length, this);
+}
+
 /// A [WebSocket] implemented using the OkHttp library's
 /// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
 /// API.
+///
+/// > [!NOTE]
+/// > The [WebSocket] interface is currently experimental and may change in the
+/// > future.
 ///
 /// Example usage of [OkHttpWebSocket]:
 /// ```dart
@@ -37,6 +45,11 @@ import 'jni/bindings.dart' as bindings;
 ///   });
 /// }
 /// ```
+///
+/// > [!TIP]
+/// > [`AdapterWebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/adapter_web_socket_channel/AdapterWebSocketChannel-class.html)
+/// > can be used to adapt a [OkHttpWebSocket] into a
+/// > [`WebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html).
 class OkHttpWebSocket implements WebSocket {
   late bindings.OkHttpClient _client;
   late final bindings.WebSocket _webSocket;
@@ -51,7 +64,7 @@ class OkHttpWebSocket implements WebSocket {
   OkHttpWebSocket._() {
     // Add the WebSocketInterceptor to prevent response parsing errors.
     _client = bindings.WebSocketInterceptor.Companion
-        .addWSInterceptor(bindings.OkHttpClient_Builder())
+        .addWSInterceptor(bindings.OkHttpClient$Builder())
         .build();
   }
 
@@ -73,9 +86,8 @@ class OkHttpWebSocket implements WebSocket {
       throw ArgumentError.value(
           url, 'url', 'only ws: and wss: schemes are supported');
     }
-
     final requestBuilder =
-        bindings.Request_Builder().url1(url.toString().toJString());
+        bindings.Request$Builder().url$1(url.toString().toJString());
 
     if (protocols != null) {
       requestBuilder.addHeader('Sec-WebSocket-Protocol'.toJString(),
@@ -87,14 +99,14 @@ class OkHttpWebSocket implements WebSocket {
     _client.newWebSocket(
         requestBuilder.build(),
         bindings.WebSocketListenerProxy(
-            bindings.WebSocketListenerProxy_WebSocketListener.implement(
-                bindings.$WebSocketListenerProxy_WebSocketListenerImpl(
+            bindings.WebSocketListenerProxy$WebSocketListener.implement(
+                bindings.$WebSocketListenerProxy$WebSocketListener(
           onOpen: (webSocket, response) {
             _webSocket = webSocket;
 
             var protocolHeader =
-                response.header1('sec-websocket-protocol'.toJString());
-            if (!protocolHeader.isNull) {
+                response.header$1('sec-websocket-protocol'.toJString());
+            if (protocolHeader != null) {
               _protocol = protocolHeader.toDartString(releaseOriginal: true);
               if (!(protocols?.contains(_protocol) ?? true)) {
                 openCompleter
@@ -110,11 +122,11 @@ class OkHttpWebSocket implements WebSocket {
             if (_events.isClosed) return;
             _events.add(TextDataReceived(string.toDartString()));
           },
-          onMessage1:
+          onMessage$1:
               (bindings.WebSocket webSocket, bindings.ByteString byteString) {
             if (_events.isClosed) return;
-            _events.add(
-                BinaryDataReceived(byteString.toByteArray().toUint8List()));
+            _events.add(BinaryDataReceived(
+                Uint8List.fromList(byteString.toByteArray().toList())));
           },
           onClosing:
               (bindings.WebSocket webSocket, int i, JString string) async {
@@ -126,7 +138,7 @@ class OkHttpWebSocket implements WebSocket {
             await _events.close();
           },
           onFailure: (bindings.WebSocket webSocket, JObject throwable,
-              bindings.Response response) {
+              bindings.Response? response) {
             if (_events.isClosed) return;
 
             var throwableString = throwable.toString();
@@ -178,8 +190,7 @@ class OkHttpWebSocket implements WebSocket {
       return;
     }
 
-    _webSocket.close(
-        code, reason?.toJString() ?? JString.fromReference(jNullReference));
+    _webSocket.close(code, reason?.toJString());
   }
 
   @override
@@ -193,7 +204,7 @@ class OkHttpWebSocket implements WebSocket {
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
-    _webSocket.send1(bindings.ByteString.of(b.toJArray()));
+    _webSocket.send$1(bindings.ByteString.of(b.toJByteArray()));
   }
 
   @override
@@ -211,19 +222,9 @@ class OkHttpWebSocket implements WebSocket {
     _client.dispatcher().executorService().shutdown();
     _client.connectionPool().evictAll();
     var cache = _client.cache();
-    if (!cache.isNull) {
+    if (cache != null) {
       cache.close();
     }
     _client.release();
   }
-}
-
-extension on Uint8List {
-  JArray<jbyte> toJArray() =>
-      JArray(jbyte.type, length)..setRange(0, length, this);
-}
-
-extension on JArray<jbyte> {
-  Uint8List toUint8List({int? length}) =>
-      getRange(0, length ?? this.length).buffer.asUint8List();
 }

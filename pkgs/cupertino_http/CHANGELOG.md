@@ -1,3 +1,46 @@
+## 2.1.0
+
+* Remove some unnecessary native code.
+* Upgrade to `package:objective_c` 7.0.
+* Upgrade to `package:ffigen` 18.0.
+* Fix a [bug](https://github.com/dart-lang/http/issues/1702) where
+  `package:cupertino_http` did not work with `package:firebase_performance`
+  enabled.
+
+## 2.0.2
+
+* Upgrade to `package:objective_c` 4.1.
+* Upgrade to `package:ffigen` 16.1.
+* Fixes a bug where responses were not processed correctly:
+  * [#1413](https://github.com/dart-lang/http/issues/1413)
+  * [#1446](https://github.com/dart-lang/http/issues/1446)
+
+## 2.0.1
+
+* Fix a [bug](https://github.com/dart-lang/http/issues/1398) where
+  `package:cupertino_http` only worked with iOS 17+. 
+
+## 2.0.0
+
+* The behavior of `CupertinoClient` and `CupertinoWebSocket` has not changed.
+* **Breaking:** `MutableURLRequest.httpBodyStream` now takes a `NSInputStream`
+  instead of a `Stream<List<int>>`.
+* **Breaking:** The following enums/classes previous defined by
+  `package:cupertino_http` are now imported from `package:objective_c`:
+    * `NSData`
+    * `NSError`
+    * `NSHTTPCookieAcceptPolicy`
+    * `NSMutableData`
+    * `NSURLRequestCachePolicy`
+    * `NSURLRequestNetworkServiceType`
+    * `NSURLSessionMultipathServiceType`
+    * `NSURLSessionResponseDisposition`
+    * `NSURLSessionTaskState`
+    * `NSURLSessionWebSocketCloseCode`
+    * `NSURLSessionWebSocketMessageType`
+* **Breaking:** `URLSession.dataTaskWithCompletionHandler` is no longer
+  supported for background sessions.
+
 ## 1.5.1
 
 * Allow `1000` as a `code` argument in `CupertinoWebSocket.close`.

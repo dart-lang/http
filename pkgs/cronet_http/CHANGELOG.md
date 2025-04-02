@@ -1,3 +1,10 @@
+## 1.3.3
+
+* Throw `ClientException` if `CronetClient.send` runs out of Java heap while
+  allocating memory for the request body.
+* Upgrade `package:jni` and `package:jnigen` to 0.12.0.
+* Use declarative style in Gradle plugins.
+
 ## 1.3.2
 
 * Upgrade `package:jni` to 0.10.1 and `package:jnigen` to 0.10.0 to fix method

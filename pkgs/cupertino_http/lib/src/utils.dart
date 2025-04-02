@@ -2,91 +2,39 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:ffi';
-import 'dart:io';
-
-import 'native_cupertino_bindings.dart' as ncb;
-
-const _packageName = 'cupertino_http';
-const _libName = _packageName;
-
-/// Access to symbols that are linked into the process.
-///
-/// The "Foundation" framework is linked to Dart so no additional
-/// libraries need to be loaded to access those symbols.
-final ncb.NativeCupertinoHttp linkedLibs = () {
-  if (Platform.isMacOS || Platform.isIOS) {
-    final lib = DynamicLibrary.process();
-    return ncb.NativeCupertinoHttp(lib);
-  }
-  throw UnsupportedError(
-      'Platform ${Platform.operatingSystem} is not supported');
-}();
-
-/// Access to symbols that are available in the cupertino_http helper shared
-/// library.
-final ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
-
-DynamicLibrary _loadHelperDynamicLibrary() {
-  if (Platform.isMacOS || Platform.isIOS) {
-    return DynamicLibrary.open('$_libName.framework/$_libName');
-  }
-
-  throw UnsupportedError(
-      'Platform ${Platform.operatingSystem} is not supported');
-}
-
-ncb.NativeCupertinoHttp _loadHelperLibrary() {
-  final lib = _loadHelperDynamicLibrary();
-
-  final initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
-      int Function(Pointer<Void>)>('Dart_InitializeApiDL');
-  final initializeResult = initializeApi(NativeApi.initializeApiDLData);
-  if (initializeResult != 0) {
-    throw StateError('failed to init API.');
-  }
-
-  return ncb.NativeCupertinoHttp(lib);
-}
-
-String? toStringOrNull(ncb.NSString? s) {
-  if (s == null) {
-    return null;
-  }
-
-  return s.toString();
-}
+import 'package:objective_c/objective_c.dart';
 
 /// Converts a NSDictionary containing NSString keys and NSString values into
 /// an equivalent map.
-Map<String, String> stringNSDictionaryToMap(ncb.NSDictionary d) {
-  // TODO(https://github.com/dart-lang/ffigen/issues/374): Make this
-  // function type safe. Currently it will unconditionally cast both keys and
-  // values to NSString with a likely crash down the line if that isn't their
-  // true types.
+Map<String, String> stringNSDictionaryToMap(NSDictionary d) {
   final m = <String, String>{};
-
-  final keys = ncb.NSArray.castFrom(d.allKeys);
+  final keys = NSArray.castFrom(d.allKeys);
   for (var i = 0; i < keys.count; ++i) {
     final nsKey = keys.objectAtIndex_(i);
-    final key = ncb.NSString.castFrom(nsKey).toString();
-    final value = ncb.NSString.castFrom(d.objectForKey_(nsKey)!).toString();
+    if (!NSString.isInstance(nsKey)) {
+      throw UnsupportedError('keys must be strings');
+    }
+    final key = NSString.castFrom(nsKey).toDartString();
+    final nsValue = d.objectForKey_(nsKey);
+    if (nsValue == null || !NSString.isInstance(nsValue)) {
+      throw UnsupportedError('values must be strings');
+    }
+    final value = NSString.castFrom(nsValue).toDartString();
     m[key] = value;
   }
 
   return m;
 }
 
-ncb.NSArray stringIterableToNSArray(Iterable<String> strings) {
-  final array =
-      ncb.NSMutableArray.arrayWithCapacity_(linkedLibs, strings.length);
+NSArray stringIterableToNSArray(Iterable<String> strings) {
+  final array = NSMutableArray.arrayWithCapacity_(strings.length);
 
   var index = 0;
   for (var s in strings) {
-    array.setObject_atIndexedSubscript_(s.toNSString(linkedLibs), index++);
+    array.setObject_atIndexedSubscript_(s.toNSString(), index++);
   }
   return array;
 }
 
-ncb.NSURL uriToNSURL(Uri uri) => ncb.NSURL
-    .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs))!;
+NSURL uriToNSURL(Uri uri) => NSURL.URLWithString_(uri.toString().toNSString())!;
+Uri nsurlToUri(NSURL url) => Uri.parse(url.absoluteString!.toDartString());

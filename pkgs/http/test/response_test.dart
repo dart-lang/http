@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
@@ -44,6 +45,49 @@ void main() {
       var response = http.Response.bytes([102, 246, 248, 98, 227, 114], 200,
           headers: {'content-type': 'text/plain; charset=iso-8859-1'});
       expect(response.body, equals('föøbãr'));
+    });
+
+    test(
+        'decoding with empty charset if content type is application/json, Russian text',
+        () {
+      final utf8Bytes = utf8.encode('{"foo":"Привет, мир!"}');
+      var response = http.Response.bytes(utf8Bytes, 200,
+          headers: {'content-type': 'application/json'});
+      expect(response.body, equals('{"foo":"Привет, мир!"}'));
+    });
+
+    test(
+        'test decoding with empty charset if content type is application/json, Chinese text',
+        () {
+      final chineseUtf8Bytes = utf8.encode('{"foo":"你好，世界！"}');
+      var responseChinese = http.Response.bytes(chineseUtf8Bytes, 200,
+          headers: {'content-type': 'application/json'});
+
+      expect(responseChinese.body, equals('{"foo":"你好，世界！"}'));
+    });
+
+    test(
+        'test decoding with empty charset if content type is application/json, Korean text',
+        () {
+      final koreanUtf8Bytes = utf8.encode('{"foo":"안녕하세요, 세계!"}');
+      var responseKorean = http.Response.bytes(koreanUtf8Bytes, 200,
+          headers: {'content-type': 'application/json'});
+      expect(responseKorean.body, equals('{"foo":"안녕하세요, 세계!"}'));
+    });
+
+    test('respects the inferred encoding for application/json content-type',
+        () {
+      final latin1Bytes = latin1.encode('{"foo":"Olá, mundo!"}');
+      var response = http.Response.bytes(latin1Bytes, 200,
+          headers: {'content-type': 'application/json; charset=iso-8859-1'});
+      expect(response.body, equals('{"foo":"Olá, mundo!"}'));
+    });
+
+    test('latin1 decode on empty charset if content type is text/plain', () {
+      final latin1Bytes = latin1.encode('Hello, wold!');
+      var response = http.Response.bytes(latin1Bytes, 200,
+          headers: {'content-type': 'text/plain'});
+      expect(response.body, equals('Hello, wold!'));
     });
   });
 

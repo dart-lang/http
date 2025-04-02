@@ -4,8 +4,7 @@ group = "com.example.ok_http"
 version = "1.0"
 
 buildscript {
-    // Required to support `okhttp:4.12.0`.
-    ext.kotlin_version = '1.9.23'
+    ext.kotlin_version = '1.8.22'
     repositories {
         google()
         mavenCentral()
@@ -13,7 +12,7 @@ buildscript {
 
     dependencies {
         // The Android Gradle Plugin knows how to build native code with the NDK.
-        classpath("com.android.tools.build:gradle:7.3.0")
+        classpath("com.android.tools.build:gradle:8.1.2")
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -34,7 +33,7 @@ android {
     }
     
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_11
     }
 
     sourceSets {
@@ -43,7 +42,7 @@ android {
 
     // Bumping the plugin compileSdk version requires all clients of this plugin
     // to bump the version in their app.
-    compileSdk = 34
+    compileSdk = 35
 
     // Use the NDK version
     // declared in /android/app/build.gradle file of the Flutter project.
@@ -52,8 +51,8 @@ android {
     ndkVersion = android.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     defaultConfig {
