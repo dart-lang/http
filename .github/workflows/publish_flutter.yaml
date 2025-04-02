@@ -15,6 +15,7 @@ jobs:
     with:
       use-flutter: true
       ignore-packages: pkgs/http,pkgs/http_profile,pkgs/web_socket
+      write-comments: false
     permissions:
       id-token: write # Required for authentication using OIDC
       pull-requests: write # Required for writing the pull request note
