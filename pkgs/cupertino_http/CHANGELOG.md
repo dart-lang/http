@@ -1,3 +1,7 @@
+## 2.1.1-wip
+
+* Support `package:web_socket` 1.0.0.
+
 ## 2.1.0
 
 * Remove some unnecessary native code.
