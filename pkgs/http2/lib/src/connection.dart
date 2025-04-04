@@ -319,8 +319,8 @@ abstract class Connection {
   }
 
   /// Terminates this connection forcefully.
-  Future<void> terminate([int? errorCode]) {
-    return _terminate(errorCode ?? ErrorCode.NO_ERROR);
+  Future<void> terminate([int? errorCode, String? message]) {
+    return _terminate(errorCode ?? ErrorCode.NO_ERROR, message: message);
   }
 
   void _activeStateHandler(bool isActive) =>
