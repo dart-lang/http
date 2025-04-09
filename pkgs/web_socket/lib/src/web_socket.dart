@@ -83,6 +83,15 @@ final class CloseReceived extends WebSocketEvent {
 class WebSocketException implements Exception {
   final String message;
   WebSocketException([this.message = '']);
+
+  @override
+  String toString() {
+    if (message.isEmpty) {
+      return 'WebSocketException';
+    } else {
+      return 'WebSocketException: $message';
+    }
+  }
 }
 
 /// Thrown if [WebSocket.sendText], [WebSocket.sendBytes], or
