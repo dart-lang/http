@@ -1,4 +1,4 @@
-## 3.0.3-wip
+## 3.0.3
 
 - Support `package:web_socket` 1.0.0.
 

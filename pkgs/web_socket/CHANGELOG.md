@@ -1,4 +1,4 @@
-## 1.0.0-wip
+## 1.0.0
 
 - First non-experimental release; no semantic changes from version `0.1.6`.
 

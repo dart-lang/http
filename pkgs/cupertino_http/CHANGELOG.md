@@ -1,4 +1,4 @@
-## 2.1.1-wip
+## 2.1.1
 
 * Support `package:web_socket` 1.0.0.
 
