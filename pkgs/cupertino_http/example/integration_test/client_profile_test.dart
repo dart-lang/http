@@ -275,14 +275,14 @@ void main() {
             while (true) {
               request.response.write('Hello World');
               await request.response.flush();
-              await Future<void>.delayed(Duration(seconds: 0));
+              await Future<void>.delayed(const Duration(seconds: 0));
             }
           });
         final cancelCompleter = Completer<void>();
         successServerUri = Uri.http('localhost:${successServer.port}');
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
         final request = StreamedRequest('GET', successServerUri);
-        request.sink.close();
+        unawaited(request.sink.close());
         final response = await client.send(request);
 
         var i = 0;

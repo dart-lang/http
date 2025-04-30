@@ -71,7 +71,7 @@ void testResponseBodyStreamed(Client client,
           .listen((s) async {
         final lastReceived = int.parse(s.trim());
         if (lastReceived == 1000) {
-          subscription.cancel();
+          unawaited(subscription.cancel());
           cancelled.complete();
         }
       });
