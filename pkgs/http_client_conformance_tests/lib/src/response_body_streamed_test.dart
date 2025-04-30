@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart';
@@ -21,16 +22,16 @@ import 'response_body_streamed_server_vm.dart'
 void testResponseBodyStreamed(Client client,
     {bool canStreamResponseBody = true}) async {
   group('streamed response body', () {
-    late final String host;
-    late final StreamChannel<Object?> httpServerChannel;
-    late final StreamQueue<Object?> httpServerQueue;
+    late String host;
+    late StreamChannel<Object?> httpServerChannel;
+    late StreamQueue<Object?> httpServerQueue;
 
-    setUpAll(() async {
+    setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
-    tearDownAll(() => httpServerChannel.sink.add(null));
+    tearDown(() => httpServerChannel.sink.add(null));
 
     test('large response streamed without content length', () async {
       // The server continuously streams data to the client until
@@ -56,6 +57,25 @@ void testResponseBodyStreamed(Client client,
       expect(response.reasonPhrase, 'OK');
       expect(response.request!.method, 'GET');
       expect(response.statusCode, 200);
-    }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
-  });
+    });
+
+    test('cancel streamed response', () async {
+      final request = Request('GET', Uri.http(host, ''));
+      final response = await client.send(request);
+      final cancelled = Completer<void>();
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+      late StreamSubscription<String> subscription;
+      subscription = const LineSplitter()
+          .bind(const Utf8Decoder().bind(response.stream))
+          .listen((s) async {
+        final lastReceived = int.parse(s.trim());
+        if (lastReceived == 1000) {
+          subscription.cancel();
+          cancelled.complete();
+        }
+      });
+      await cancelled.future;
+    });
+  }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
 }

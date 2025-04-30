@@ -261,6 +261,59 @@ void main() {
       });
     });
 
+    group('cancel streaming GET response', () {
+      late HttpServer successServer;
+      late Uri successServerUri;
+      late HttpClientRequestProfile profile;
+      late List<int> receivedData;
+
+      setUpAll(() async {
+        successServer = (await HttpServer.bind('localhost', 0))
+          ..listen((request) async {
+            await request.drain<void>();
+            request.response.headers.set('Content-Type', 'text/plain');
+            while (true) {
+              request.response.write('Hello World');
+              await request.response.flush();
+              await Future<void>.delayed(Duration(seconds: 0));
+            }
+          });
+        final cancelCompleter = Completer<void>();
+        successServerUri = Uri.http('localhost:${successServer.port}');
+        final client = CupertinoClientWithProfile.defaultSessionConfiguration();
+        final request = StreamedRequest('GET', successServerUri);
+        request.sink.close();
+        final response = await client.send(request);
+
+        var i = 0;
+        late final StreamSubscription<List<int>> s;
+        receivedData = [];
+        s = response.stream.listen((d) {
+          receivedData += d;
+          if (++i == 1000) {
+            s.cancel();
+            cancelCompleter.complete();
+          }
+        });
+        await cancelCompleter.future;
+        profile = client.profile!;
+      });
+      tearDownAll(() {
+        successServer.close();
+      });
+
+      test('request attributes', () async {
+        expect(profile.requestData.contentLength, isNull);
+        expect(profile.requestData.startTime, isNotNull);
+        expect(profile.requestData.endTime, isNotNull);
+        // Extra data could be received before the cancel event is dispatched
+        // by the url loading framework so check that
+        // `profile.responseData.bodyBytes` starts with `receivedData`.
+        expect(profile.responseData.bodyBytes.sublist(0, receivedData.length),
+            receivedData);
+      });
+    });
+
     group('redirects', () {
       late HttpServer successServer;
       late Uri successServerUri;
