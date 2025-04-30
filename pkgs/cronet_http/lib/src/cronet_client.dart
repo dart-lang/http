@@ -164,6 +164,7 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
       responseStream = StreamController(onCancel: () {
         // The user did `response.stream.cancel()`. We can just pretend that
         // the response completed normally.
+        if (done) return;
         done = true;
         urlRequest.cancel();
         responseStream!.sink.close();
