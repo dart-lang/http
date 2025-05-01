@@ -1,5 +1,5 @@
 #!/bin/bash
-# Created with package:mono_repo v6.6.2
+# Created with package:mono_repo v6.6.3
 
 # Support built in commands on windows out of the box.
 
@@ -76,6 +76,10 @@ for PKG in ${PKGS}; do
         flutter test || EXIT_CODE=$?
         ;;
       command_1)
+        echo 'xvfb-run -s "-screen 0 1024x768x24" dart test --test-randomize-ordering-seed=random --platform firefox'
+        xvfb-run -s "-screen 0 1024x768x24" dart test --test-randomize-ordering-seed=random --platform firefox || EXIT_CODE=$?
+        ;;
+      command_2)
         echo 'dart run --define=no_default_http_client=true test/no_default_http_client_test.dart'
         dart run --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
         ;;
@@ -88,22 +92,26 @@ for PKG in ${PKGS}; do
         flutter test --platform chrome || EXIT_CODE=$?
         ;;
       test_2)
-        echo 'dart test --platform vm'
-        dart test --platform vm || EXIT_CODE=$?
+        echo 'dart test --test-randomize-ordering-seed=random --platform vm'
+        dart test --test-randomize-ordering-seed=random --platform vm || EXIT_CODE=$?
         ;;
       test_3)
-        echo 'dart test --platform chrome'
-        dart test --platform chrome || EXIT_CODE=$?
+        echo 'dart test --test-randomize-ordering-seed=random --platform chrome'
+        dart test --test-randomize-ordering-seed=random --platform chrome || EXIT_CODE=$?
         ;;
       test_4)
         echo 'dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm'
         dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm || EXIT_CODE=$?
         ;;
       test_5)
+        echo 'dart test --platform vm'
+        dart test --platform vm || EXIT_CODE=$?
+        ;;
+      test_6)
         echo 'dart test --test-randomize-ordering-seed=random -p vm'
         dart test --test-randomize-ordering-seed=random -p vm || EXIT_CODE=$?
         ;;
-      test_6)
+      test_7)
         echo 'dart test --test-randomize-ordering-seed=random -p chrome -c dart2js'
         dart test --test-randomize-ordering-seed=random -p chrome -c dart2js || EXIT_CODE=$?
         ;;

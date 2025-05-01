@@ -182,6 +182,7 @@ void testResponseHeaders(Client client,
                 // Common client behavior (Cronet, Apple URL Loading System).
                 '1',
                 '1\r2', // Common client behavior (Java).
+                isNull, // Common client behavior (Firefox).
               ));
         } on ClientException {
           // The client rejected the response, which is allowed per RFC-9110.

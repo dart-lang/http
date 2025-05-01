@@ -9,10 +9,15 @@ stages:
     sdk:
     - dev
 - unit_test:
-  - test: --platform vm
+  - test: --test-randomize-ordering-seed=random --platform vm
     os:
     - linux
-  - test: --platform chrome
+  - test: --test-randomize-ordering-seed=random --platform chrome
+    os:
+    - linux
+  # Firefox needs an X server to run.
+  - command: xvfb-run -s "-screen 0 1024x768x24"
+      dart test --test-randomize-ordering-seed=random --platform firefox
     os:
     - linux
   - command: dart run --define=no_default_http_client=true test/no_default_http_client_test.dart
