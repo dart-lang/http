@@ -409,7 +409,7 @@ jobs:
       - job_005
       - job_006
   job_010:
-    name: "unit_test; linux; Dart 3.4.0; PKG: pkgs/http; `xvfb-run -s \"-screen 0 1024x768x24\" && dart test --test-randomize-ordering-seed=random --platform firefox`"
+    name: "unit_test; linux; Dart 3.4.0; PKG: pkgs/http; `xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -434,8 +434,8 @@ jobs:
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: pkgs/http
-      - name: "pkgs/http; xvfb-run -s \"-screen 0 1024x768x24\" && dart test --test-randomize-ordering-seed=random --platform firefox"
-        run: "xvfb-run -s \"-screen 0 1024x768x24\" && dart test --test-randomize-ordering-seed=random --platform firefox"
+      - name: "pkgs/http; xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox"
+        run: "xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox"
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
     needs:
@@ -705,7 +705,7 @@ jobs:
       - job_005
       - job_006
   job_018:
-    name: "unit_test; linux; Dart dev; PKG: pkgs/http; `xvfb-run -s \"-screen 0 1024x768x24\" && dart test --test-randomize-ordering-seed=random --platform firefox`"
+    name: "unit_test; linux; Dart dev; PKG: pkgs/http; `xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -730,8 +730,8 @@ jobs:
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: pkgs/http
-      - name: "pkgs/http; xvfb-run -s \"-screen 0 1024x768x24\" && dart test --test-randomize-ordering-seed=random --platform firefox"
-        run: "xvfb-run -s \"-screen 0 1024x768x24\" && dart test --test-randomize-ordering-seed=random --platform firefox"
+      - name: "pkgs/http; xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox"
+        run: "xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox"
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
     needs:

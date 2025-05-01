@@ -76,8 +76,8 @@ for PKG in ${PKGS}; do
         flutter test || EXIT_CODE=$?
         ;;
       command_1)
-        echo 'xvfb-run -s "-screen 0 1024x768x24" && dart test --test-randomize-ordering-seed=random --platform firefox'
-        xvfb-run -s "-screen 0 1024x768x24" && dart test --test-randomize-ordering-seed=random --platform firefox || EXIT_CODE=$?
+        echo 'xvfb-run -s "-screen 0 1024x768x24" dart test --test-randomize-ordering-seed=random --platform firefox'
+        xvfb-run -s "-screen 0 1024x768x24" dart test --test-randomize-ordering-seed=random --platform firefox || EXIT_CODE=$?
         ;;
       command_2)
         echo 'dart run --define=no_default_http_client=true test/no_default_http_client_test.dart'
