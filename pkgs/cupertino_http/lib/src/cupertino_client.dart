@@ -27,7 +27,7 @@ class NSErrorClientExceptions extends ClientException {
   @override
   String toString() {
     final b = StringBuffer(
-        'NSErrorClientExceptions: ${error.localizedDescription.toDartString()} '
+        'NSErrorClientException: ${error.localizedDescription.toDartString()} '
         '[domain=${error.domain.toDartString()}, code=${error.code}]');
 
     if (uri != null) {

@@ -26,7 +26,7 @@ void main() {
               .having(
                   (e) => e.toString(),
                   'toString()',
-                  'NSErrorClientExceptions: A server with the specified '
+                  'NSErrorClientException: A server with the specified '
                       'hostname could not be found. '
                       '[domain=NSURLErrorDomain, code=-1003], '
                       'uri=http://doesnotexist/')));
