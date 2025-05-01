@@ -1,3 +1,7 @@
+## 1.3.4-wip
+
+* Cancel requests when the response stream is cancelled.
+
 ## 1.3.3
 
 * Throw `ClientException` if `CronetClient.send` runs out of Java heap while
