@@ -15,6 +15,7 @@ stages:
   - test: --test-randomize-ordering-seed=random --platform chrome
     os:
     - linux
+  # Firefox needs a X server to work.
   - command: xvfb-run -s "-screen 0 1024x768x24" &&
       dart test --test-randomize-ordering-seed=random --platform firefox
     os:
