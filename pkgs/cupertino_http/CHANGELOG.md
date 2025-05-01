@@ -1,6 +1,8 @@
-## 2.1.2-wip
+## 2.2.0
 
 * Cancel requests when the response stream is cancelled.
+* Add a new exception type `NSErrorClientException` that contains the
+  `NSError` associated with the failure.
 
 ## 2.1.1
 

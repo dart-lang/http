@@ -92,5 +92,6 @@ import 'package:http/http.dart';
 import 'src/cupertino_client.dart';
 
 export 'src/cupertino_api.dart';
-export 'src/cupertino_client.dart' show CupertinoClient;
+export 'src/cupertino_client.dart'
+    show CupertinoClient, NSErrorClientExceptions;
 export 'src/cupertino_web_socket.dart';
