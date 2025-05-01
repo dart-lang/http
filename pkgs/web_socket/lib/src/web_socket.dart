@@ -98,6 +98,15 @@ class WebSocketException implements Exception {
 /// [WebSocket.close] is called when the [WebSocket] is closed.
 class WebSocketConnectionClosed extends WebSocketException {
   WebSocketConnectionClosed([super.message = 'Connection Closed']);
+
+  @override
+  String toString() {
+    if (message.isEmpty) {
+      return 'WebSocketConnectionClosed';
+    } else {
+      return 'WebSocketConnectionClosed: $message';
+    }
+  }
 }
 
 /// The interface for WebSocket connections.
