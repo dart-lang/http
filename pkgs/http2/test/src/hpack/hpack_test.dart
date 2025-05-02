@@ -33,7 +33,7 @@ void main() {
           0x2e,
           0x63,
           0x6f,
-          0x6d
+          0x6d,
         ]);
         expect(headers, hasLength(4));
         expect(headers[0], isHeader(':method', 'GET'));
@@ -56,7 +56,7 @@ void main() {
           0x61,
           0x63,
           0x68,
-          0x65
+          0x65,
         ]);
         expect(headers, hasLength(5));
         expect(headers[0], isHeader(':method', 'GET'));
@@ -95,7 +95,7 @@ void main() {
           0x61,
           0x6c,
           0x75,
-          0x65
+          0x65,
         ]);
         expect(headers, hasLength(5));
         expect(headers[0], isHeader(':method', 'GET'));
@@ -127,7 +127,7 @@ void main() {
           0xab,
           0x90,
           0xf4,
-          0xff
+          0xff,
         ]);
         expect(headers, hasLength(4));
         expect(headers[0], isHeader(':method', 'GET'));
@@ -148,7 +148,7 @@ void main() {
           0x10,
           0x64,
           0x9c,
-          0xbf
+          0xbf,
         ]);
         expect(headers, hasLength(5));
         expect(headers[0], isHeader(':method', 'GET'));
@@ -182,7 +182,7 @@ void main() {
           0xb8,
           0xe8,
           0xb4,
-          0xbf
+          0xbf,
         ]);
         expect(headers, hasLength(5));
         expect(headers[0], isHeader(':method', 'GET'));
@@ -267,7 +267,7 @@ void main() {
           0x2e,
           0x63,
           0x6f,
-          0x6d
+          0x6d,
         ]);
         expect(headers, hasLength(4));
         expect(headers[0], isHeader(':status', '302'));
@@ -276,8 +276,16 @@ void main() {
         expect(headers[3], isHeader('location', 'https://www.example.com'));
 
         // Second response
-        headers = context.decoder
-            .decode([0x48, 0x03, 0x33, 0x30, 0x37, 0xc1, 0xc0, 0xbf]);
+        headers = context.decoder.decode([
+          0x48,
+          0x03,
+          0x33,
+          0x30,
+          0x37,
+          0xc1,
+          0xc0,
+          0xbf,
+        ]);
         expect(headers, hasLength(4));
         expect(headers[0], isHeader(':status', '307'));
         expect(headers[1], isHeader('cache-control', 'private'));
@@ -383,7 +391,7 @@ void main() {
           0x6f,
           0x6e,
           0x3d,
-          0x31
+          0x31,
         ]);
         expect(headers, hasLength(6));
         expect(headers[0], isHeader(':status', '200'));
@@ -392,9 +400,12 @@ void main() {
         expect(headers[3], isHeader('location', 'https://www.example.com'));
         expect(headers[4], isHeader('content-encoding', 'gzip'));
         expect(
-            headers[5],
-            isHeader('set-cookie',
-                'foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1'));
+          headers[5],
+          isHeader(
+            'set-cookie',
+            'foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1',
+          ),
+        );
       });
 
       test('C.6 response with huffman encoding', () {
@@ -456,7 +467,7 @@ void main() {
           0x82,
           0xae,
           0x43,
-          0xd3
+          0xd3,
         ]);
         expect(headers, hasLength(4));
         expect(headers[0], isHeader(':status', '302'));
@@ -465,8 +476,16 @@ void main() {
         expect(headers[3], isHeader('location', 'https://www.example.com'));
 
         // Second response
-        headers = context.decoder
-            .decode([0x48, 0x83, 0x64, 0x0e, 0xff, 0xc1, 0xc0, 0xbf]);
+        headers = context.decoder.decode([
+          0x48,
+          0x83,
+          0x64,
+          0x0e,
+          0xff,
+          0xc1,
+          0xc0,
+          0xbf,
+        ]);
         expect(headers, hasLength(4));
         expect(headers[0], isHeader(':status', '307'));
         expect(headers[1], isHeader('cache-control', 'private'));
@@ -553,7 +572,7 @@ void main() {
           0x06,
           0x3d,
           0x50,
-          0x07
+          0x07,
         ]);
         expect(headers, hasLength(6));
         expect(headers[0], isHeader(':status', '200'));
@@ -562,37 +581,48 @@ void main() {
         expect(headers[3], isHeader('location', 'https://www.example.com'));
         expect(headers[4], isHeader('content-encoding', 'gzip'));
         expect(
-            headers[5],
-            isHeader('set-cookie',
-                'foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1'));
+          headers[5],
+          isHeader(
+            'set-cookie',
+            'foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1',
+          ),
+        );
       });
     });
 
     group('negative-decoder-tests', () {
       test('invalid-integer-encoding', () {
         var context = HPackContext();
-        expect(() => context.decoder.decode([1 << 6, 0xff]),
-            throwsA(isHPackDecodingException));
+        expect(
+          () => context.decoder.decode([1 << 6, 0xff]),
+          throwsA(isHPackDecodingException),
+        );
       });
 
       test('index-out-of-table-size', () {
         var context = HPackContext();
-        expect(() => context.decoder.decode([0x7f]),
-            throwsA(isHPackDecodingException));
+        expect(
+          () => context.decoder.decode([0x7f]),
+          throwsA(isHPackDecodingException),
+        );
       });
 
       test('invalid-update-dynamic-table-size', () {
         var context = HPackContext();
-        expect(() => context.decoder.decode([0x3f]),
-            throwsA(isHPackDecodingException));
+        expect(
+          () => context.decoder.decode([0x3f]),
+          throwsA(isHPackDecodingException),
+        );
       });
 
       test('update-dynamic-table-size-too-high', () {
         var context = HPackContext();
         // Tries to set dynamic table to 4097 (max is 4096 by default)
         var bytes = TestHelper.newInteger(0x20, 5, 4097);
-        expect(() => context.decoder.decode(bytes),
-            throwsA(isHPackDecodingException));
+        expect(
+          () => context.decoder.decode(bytes),
+          throwsA(isHPackDecodingException),
+        );
       });
     });
 
@@ -609,8 +639,10 @@ void main() {
       test('update-dynamic-table-size-too-high', () {
         var context = HPackContext();
         // Sets dynamic table to 4096
-        expect(context.decoder.decode(TestHelper.newInteger(0x20, 5, 4096)),
-            <void>[]);
+        expect(
+          context.decoder.decode(TestHelper.newInteger(0x20, 5, 4096)),
+          <void>[],
+        );
       });
 
       test('dynamic table entry', () {
@@ -649,8 +681,9 @@ void main() {
 
         // We're reducing now the size by 1 byte, which should evict the last
         // entry.
-        headers =
-            context.decoder.decode(TestHelper.setDynamicTableSize(4096 - 1));
+        headers = context.decoder.decode(
+          TestHelper.setDynamicTableSize(4096 - 1),
+        );
         expect(headers, hasLength(0));
 
         headers = context.decoder.decode(TestHelper.dynamicTableLookup(0));
@@ -662,8 +695,10 @@ void main() {
         TestHelper.expectHeader(headers[0], 1024, char0, charC);
 
         // Since we reduce the size by 1 byte, the last entry must be gone now.
-        expect(() => context.decoder.decode(TestHelper.dynamicTableLookup(2)),
-            throwsA(isHPackDecodingException));
+        expect(
+          () => context.decoder.decode(TestHelper.dynamicTableLookup(2)),
+          throwsA(isHPackDecodingException),
+        );
       });
     });
 
@@ -671,18 +706,31 @@ void main() {
       test('simple-encoding', () {
         var context = HPackContext();
         var headers = [Header.ascii('key', 'value')];
-        expect(context.encoder.encode(headers),
-            [0x00, 0x03, 0x6b, 0x65, 0x79, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65]);
+        expect(context.encoder.encode(headers), [
+          0x00,
+          0x03,
+          0x6b,
+          0x65,
+          0x79,
+          0x05,
+          0x76,
+          0x61,
+          0x6c,
+          0x75,
+          0x65,
+        ]);
       });
 
       test('simple-encoding-long-value', () {
         var context = HPackContext();
         var headers = [
-          Header([0x42], List.filled(300, 0x84))
+          Header([0x42], List.filled(300, 0x84)),
         ];
 
-        expect(context.decoder.decode(context.encoder.encode(headers)).first,
-            equalsHeader(headers.first));
+        expect(
+          context.decoder.decode(context.encoder.encode(headers)).first,
+          equalsHeader(headers.first),
+        );
 
         expect(context.encoder.encode(headers), [
           // Literal Header Field with Incremental Indexing - Indexed Name

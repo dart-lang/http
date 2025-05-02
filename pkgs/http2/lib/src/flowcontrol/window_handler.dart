@@ -31,8 +31,9 @@ abstract class AbstractOutgoingWindowHandler {
     var increment = frame.windowSizeIncrement;
     if ((_peerWindow.size + increment) > Window.MAX_WINDOW_SIZE) {
       throw FlowControlException(
-          'Window update received from remote peer would make flow control '
-          'window too large.');
+        'Window update received from remote peer would make flow control '
+        'window too large.',
+      );
     } else {
       _peerWindow.modify(increment);
     }
@@ -74,8 +75,9 @@ class OutgoingStreamWindowHandler extends AbstractOutgoingWindowHandler {
   void processInitialWindowSizeSettingChange(int difference) {
     if ((_peerWindow.size + difference) > Window.MAX_WINDOW_SIZE) {
       throw FlowControlException(
-          'Window update received from remote peer would make flow control '
-          'window too large.');
+        'Window update received from remote peer would make flow control '
+        'window too large.',
+      );
     } else {
       _peerWindow.modify(difference);
       if (_peerWindow.size <= 0) {
@@ -102,10 +104,13 @@ class IncomingWindowHandler {
   final int _streamId;
 
   IncomingWindowHandler.stream(
-      this._frameWriter, this._localWindow, this._streamId);
+    this._frameWriter,
+    this._localWindow,
+    this._streamId,
+  );
 
   IncomingWindowHandler.connection(this._frameWriter, this._localWindow)
-      : _streamId = 0;
+    : _streamId = 0;
 
   /// The current size for the incoming data window.
   ///
@@ -141,7 +146,8 @@ class IncomingWindowHandler {
     //
     if (_localWindow.size < 0) {
       throw FlowControlException(
-          'Connection level flow control window became negative.');
+        'Connection level flow control window became negative.',
+      );
     }
   }
 

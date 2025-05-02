@@ -11,9 +11,13 @@ import 'package:http2/transport.dart';
 import 'package:test/test.dart';
 
 void main() {
-  var context = SecurityContext()
-    ..useCertificateChain('test/certificates/server_chain.pem')
-    ..usePrivateKey('test/certificates/server_key.pem', password: 'dartdart');
+  var context =
+      SecurityContext()
+        ..useCertificateChain('test/certificates/server_chain.pem')
+        ..usePrivateKey(
+          'test/certificates/server_key.pem',
+          password: 'dartdart',
+        );
 
   group('multiprotocol-server', () {
     test('http/1.1', () async {
@@ -22,16 +26,17 @@ void main() {
       var server = await MultiProtocolHttpServer.bind('localhost', 0, context);
       var requestNr = 0;
       server.startServing(
-          expectAsync1((HttpRequest request) async {
-            await handleHttp11Request(request, requestNr++);
-            if (requestNr == Count) {
-              await server.close();
-            }
-          }, count: Count),
-          expectAsync1((ServerTransportStream stream) {}, count: 0));
+        expectAsync1((HttpRequest request) async {
+          await handleHttp11Request(request, requestNr++);
+          if (requestNr == Count) {
+            await server.close();
+          }
+        }, count: Count),
+        expectAsync1((ServerTransportStream stream) {}, count: 0),
+      );
 
       var client = HttpClient();
-      client.badCertificateCallback = (_, __, ___) => true;
+      client.badCertificateCallback = (_, _, _) => true;
       for (var i = 0; i < Count; i++) {
         await makeHttp11Request(server, client, i);
       }
@@ -43,17 +48,21 @@ void main() {
       var server = await MultiProtocolHttpServer.bind('localhost', 0, context);
       var requestNr = 0;
       server.startServing(
-          expectAsync1((HttpRequest request) {}, count: 0),
-          expectAsync1((ServerTransportStream stream) async {
-            await handleHttp2Request(stream, requestNr++);
-            if (requestNr == Count) {
-              await server.close();
-            }
-          }, count: Count));
+        expectAsync1((HttpRequest request) {}, count: 0),
+        expectAsync1((ServerTransportStream stream) async {
+          await handleHttp2Request(stream, requestNr++);
+          if (requestNr == Count) {
+            await server.close();
+          }
+        }, count: Count),
+      );
 
-      var socket = await SecureSocket.connect('localhost', server.port,
-          onBadCertificate: (_) => true,
-          supportedProtocols: ['http/1.1', 'h2']);
+      var socket = await SecureSocket.connect(
+        'localhost',
+        server.port,
+        onBadCertificate: (_) => true,
+        supportedProtocols: ['http/1.1', 'h2'],
+      );
       var connection = ClientTransportConnection.viaSocket(socket);
       for (var i = 0; i < Count; i++) {
         await makeHttp2Request(server, connection, i);
@@ -64,9 +73,13 @@ void main() {
 }
 
 Future makeHttp11Request(
-    MultiProtocolHttpServer server, HttpClient client, int i) async {
-  var request =
-      await client.getUrl(Uri.parse('https://localhost:${server.port}/abc$i'));
+  MultiProtocolHttpServer server,
+  HttpClient client,
+  int i,
+) async {
+  var request = await client.getUrl(
+    Uri.parse('https://localhost:${server.port}/abc$i'),
+  );
   var response = await request.close();
   var body = await response.cast<List<int>>().transform(utf8.decoder).join('');
   expect(body, 'answer$i');
@@ -79,8 +92,11 @@ Future handleHttp11Request(HttpRequest request, int i) async {
   await request.response.close();
 }
 
-Future makeHttp2Request(MultiProtocolHttpServer server,
-    ClientTransportConnection connection, int i) async {
+Future makeHttp2Request(
+  MultiProtocolHttpServer server,
+  ClientTransportConnection connection,
+  int i,
+) async {
   expect(connection.isOpen, true);
   var headers = [
     Header.ascii(':method', 'GET'),
@@ -113,9 +129,9 @@ Future handleHttp2Request(ServerTransportStream stream, int i) async {
   expect(headers[':path'], '/abc$i');
   expect(await si.moveNext(), false);
 
-  stream.outgoingMessages.add(HeadersStreamMessage([
-    Header.ascii(':status', '200'),
-  ]));
+  stream.outgoingMessages.add(
+    HeadersStreamMessage([Header.ascii(':status', '200')]),
+  );
 
   stream.outgoingMessages.add(DataStreamMessage(ascii.encode('answer$i')));
   await stream.outgoingMessages.close();

@@ -15,6 +15,8 @@ import 'cupertino_api.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
 
+const _nsurlErrorCancelled = -999;
+
 /// This class can be removed when `package:http` v2 is released.
 class _StreamedResponseWithUrl extends StreamedResponse
     implements BaseResponseWithUrl {
@@ -33,12 +35,12 @@ class _StreamedResponseWithUrl extends StreamedResponse
 class _TaskTracker {
   final responseCompleter = Completer<URLResponse>();
   final BaseRequest request;
-  final responseController = StreamController<Uint8List>();
+  final StreamController<Uint8List> responseController;
   final HttpClientRequestProfile? profile;
   int numRedirects = 0;
   Uri? lastUrl; // The last URL redirected to.
 
-  _TaskTracker(this.request, this.profile);
+  _TaskTracker(this.request, this.responseController, this.profile);
 
   void close() {
     responseController.close();
@@ -167,7 +169,13 @@ class CupertinoClient extends BaseClient {
   static void _onComplete(
       URLSession session, URLSessionTask task, NSError? error) {
     final taskTracker = _tracker(task);
-    if (error != null) {
+    // The task will only be cancelled if the user calls
+    // `StreamedResponse.stream.cancel()`, which can only happen if the response
+    // has already been received. Therefore, it is safe to handle task
+    // cancellation errors as if the response completed normally.
+    if (error != null &&
+        !(error.domain.toDartString() == 'NSURLErrorDomain' &&
+            error.code == _nsurlErrorCancelled)) {
       final exception = ClientException(
           error.localizedDescription.toDartString(), taskTracker.request.url);
       if (taskTracker.profile != null &&
@@ -338,7 +346,10 @@ class CupertinoClient extends BaseClient {
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
     final task = urlSession.dataTaskWithRequest(urlRequest);
-    final taskTracker = _TaskTracker(request, profile);
+    final subscription = StreamController<Uint8List>(onCancel: () {
+      task.cancel();
+    });
+    final taskTracker = _TaskTracker(request, subscription, profile);
     _tasks[task] = taskTracker;
     task.resume();
 

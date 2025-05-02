@@ -14,7 +14,7 @@ import 'dart:io';
 class ArtificialServerSocket extends StreamView<Socket>
     implements ServerSocket {
   ArtificialServerSocket(this.address, this.port, Stream<Socket> stream)
-      : super(stream);
+    : super(stream);
 
   // ########################################################################
   // These are the methods of [ServerSocket] in addition to [Stream<Socket>].

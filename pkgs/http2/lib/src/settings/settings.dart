@@ -71,13 +71,14 @@ class ActiveSettings {
   /// enforced. The initial value of this setting is unlimited.
   int? maxHeaderListSize;
 
-  ActiveSettings(
-      {this.headerTableSize = 4096,
-      this.enablePush = true,
-      this.maxConcurrentStreams,
-      this.initialWindowSize = (1 << 16) - 1,
-      this.maxFrameSize = 1 << 14,
-      this.maxHeaderListSize});
+  ActiveSettings({
+    this.headerTableSize = 4096,
+    this.enablePush = true,
+    this.maxConcurrentStreams,
+    this.initialWindowSize = (1 << 16) - 1,
+    this.maxFrameSize = 1 << 14,
+    this.maxHeaderListSize,
+  });
 }
 
 /// Handles remote and local connection [Setting]s.
@@ -104,16 +105,21 @@ class SettingsHandler extends Object with TerminatableMixin {
   /// The peer settings, which we ACKed and are obeying.
   final ActiveSettings _peerSettings;
 
-  final _onInitialWindowSizeChangeController =
-      StreamController<int>.broadcast(sync: true);
+  final _onInitialWindowSizeChangeController = StreamController<int>.broadcast(
+    sync: true,
+  );
 
   /// Events are fired when a SettingsFrame changes the initial size
   /// of stream windows.
   Stream<int> get onInitialWindowSizeChange =>
       _onInitialWindowSizeChangeController.stream;
 
-  SettingsHandler(this._hpackEncoder, this._frameWriter,
-      this._acknowledgedSettings, this._peerSettings);
+  SettingsHandler(
+    this._hpackEncoder,
+    this._frameWriter,
+    this._acknowledgedSettings,
+    this._peerSettings,
+  );
 
   /// The settings for this endpoint of the connection which the remote peer
   /// has ACKed and uses.
@@ -137,8 +143,9 @@ class SettingsHandler extends Object with TerminatableMixin {
           // which were never sent to the other side. We consider this definitly
           // an error.
           throw ProtocolException(
-              'Received an acknowledged settings frame which did not have a '
-              'outstanding settings request.');
+            'Received an acknowledged settings frame which did not have a '
+            'outstanding settings request.',
+          );
         }
         var settingChanges = _toBeAcknowledgedSettings.removeAt(0);
         var completer = _toBeAcknowledgedCompleters.removeAt(0);
@@ -172,7 +179,10 @@ class SettingsHandler extends Object with TerminatableMixin {
   }
 
   void _modifySettings(
-      ActiveSettings base, List<Setting> changes, bool peerSettings) {
+    ActiveSettings base,
+    List<Setting> changes,
+    bool peerSettings,
+  ) {
     for (var setting in changes) {
       switch (setting.identifier) {
         case Setting.SETTINGS_ENABLE_PUSH:
@@ -182,7 +192,8 @@ class SettingsHandler extends Object with TerminatableMixin {
             base.enablePush = true;
           } else {
             throw ProtocolException(
-                'The push setting can be only set to 0 or 1.');
+              'The push setting can be only set to 0 or 1.',
+            );
           }
           break;
 

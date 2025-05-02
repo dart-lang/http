@@ -83,12 +83,30 @@ final class CloseReceived extends WebSocketEvent {
 class WebSocketException implements Exception {
   final String message;
   WebSocketException([this.message = '']);
+
+  @override
+  String toString() {
+    if (message.isEmpty) {
+      return 'WebSocketException';
+    } else {
+      return 'WebSocketException: $message';
+    }
+  }
 }
 
 /// Thrown if [WebSocket.sendText], [WebSocket.sendBytes], or
 /// [WebSocket.close] is called when the [WebSocket] is closed.
 class WebSocketConnectionClosed extends WebSocketException {
   WebSocketConnectionClosed([super.message = 'Connection Closed']);
+
+  @override
+  String toString() {
+    if (message.isEmpty) {
+      return 'WebSocketConnectionClosed';
+    } else {
+      return 'WebSocketConnectionClosed: $message';
+    }
+  }
 }
 
 /// The interface for WebSocket connections.

@@ -31,9 +31,10 @@ class HPackContext {
   final HPackEncoder encoder = HPackEncoder();
   final HPackDecoder decoder = HPackDecoder();
 
-  HPackContext(
-      {int maxSendingHeaderTableSize = 4096,
-      int maxReceivingHeaderTableSize = 4096}) {
+  HPackContext({
+    int maxSendingHeaderTableSize = 4096,
+    int maxReceivingHeaderTableSize = 4096,
+  }) {
     encoder.updateMaxSendingHeaderTableSize(maxSendingHeaderTableSize);
     decoder.updateMaxReceivingHeaderTableSize(maxReceivingHeaderTableSize);
   }
@@ -140,16 +141,19 @@ class HPackDecoder {
         } else if (isWithoutIndexing) {
           headers.add(readHeaderFieldInternal(readInteger(4)));
         } else if (isNeverIndexing) {
-          headers
-              .add(readHeaderFieldInternal(readInteger(4), neverIndexed: true));
+          headers.add(
+            readHeaderFieldInternal(readInteger(4), neverIndexed: true),
+          );
         } else if (isDynamicTableSizeUpdate) {
           var newMaxSize = readInteger(5);
           if (newMaxSize <= _maxHeaderTableSize) {
             _table.updateMaxSize(newMaxSize);
           } else {
-            throw HPackDecodingException('Dynamic table size update failed: '
-                'A new value of $newMaxSize exceeds the limit of '
-                '$_maxHeaderTableSize');
+            throw HPackDecodingException(
+              'Dynamic table size update failed: '
+              'A new value of $newMaxSize exceeds the limit of '
+              '$_maxHeaderTableSize',
+            );
           }
         } else {
           throw HPackDecodingException('Invalid encoding of headers.');
@@ -310,7 +314,8 @@ class IndexTable {
   Header lookup(int index) {
     if (index <= 0) {
       throw HPackDecodingException(
-          'Invalid index (was: $index) for table lookup.');
+        'Invalid index (was: $index) for table lookup.',
+      );
     }
     if (index < _staticTable.length) {
       return _staticTable[index]!;
@@ -320,7 +325,8 @@ class IndexTable {
       return _dynamicTable[index];
     }
     throw HPackDecodingException(
-        'Invalid index (was: $index) for table lookup.');
+      'Invalid index (was: $index) for table lookup.',
+    );
   }
 
   /// Adds a new header field to the dynamic table - and evicts entries as

@@ -68,8 +68,10 @@ class BufferedSink {
         // Currently `_doneFuture` will just complete normally if the sink
         // cancelled.
       };
-    _doneFuture =
-        Future.wait([_controller.stream.pipe(dataSink), dataSink.done]);
+    _doneFuture = Future.wait([
+      _controller.stream.pipe(dataSink),
+      dataSink.done,
+    ]);
   }
 
   /// The underlying sink.
@@ -88,7 +90,7 @@ class BufferedBytesWriter {
   final BufferedSink _bufferedSink;
 
   BufferedBytesWriter(StreamSink<List<int>> outgoing)
-      : _bufferedSink = BufferedSink(outgoing);
+    : _bufferedSink = BufferedSink(outgoing);
 
   /// An indicator whether the underlying sink is buffering at the moment.
   BufferIndicator get bufferIndicator => _bufferedSink.bufferIndicator;
@@ -100,7 +102,8 @@ class BufferedBytesWriter {
   void add(List<int> data) {
     if (_builder.length > 0) {
       throw StateError(
-          'Cannot trigger an asynchronous write while there is buffered data.');
+        'Cannot trigger an asynchronous write while there is buffered data.',
+      );
     }
     _bufferedSink.sink.add(data);
   }

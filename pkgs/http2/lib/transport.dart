@@ -36,10 +36,11 @@ class ClientSettings extends Settings {
   /// Whether the client allows pushes from the server (defaults to false).
   final bool allowServerPushes;
 
-  const ClientSettings(
-      {super.concurrentStreamLimit,
-      super.streamWindowSize,
-      this.allowServerPushes = false});
+  const ClientSettings({
+    super.concurrentStreamLimit,
+    super.streamWindowSize,
+    this.allowServerPushes = false,
+  });
 }
 
 /// Represents a HTTP/2 connection.
@@ -73,17 +74,21 @@ abstract class TransportConnection {
   Future finish();
 
   /// Terminates this connection forcefully.
-  Future terminate([int? errorCode]);
+  Future terminate([int? errorCode, String? message]);
 }
 
 abstract class ClientTransportConnection extends TransportConnection {
-  factory ClientTransportConnection.viaSocket(Socket socket,
-          {ClientSettings? settings}) =>
+  factory ClientTransportConnection.viaSocket(
+    Socket socket, {
+    ClientSettings? settings,
+  }) =>
       ClientTransportConnection.viaStreams(socket, socket, settings: settings);
 
   factory ClientTransportConnection.viaStreams(
-      Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
-      {ClientSettings? settings}) {
+    Stream<List<int>> incoming,
+    StreamSink<List<int>> outgoing, {
+    ClientSettings? settings,
+  }) {
     settings ??= const ClientSettings();
     return ClientConnection(incoming, outgoing, settings);
   }
@@ -93,21 +98,31 @@ abstract class ClientTransportConnection extends TransportConnection {
   bool get isOpen;
 
   /// Creates a new outgoing stream.
-  ClientTransportStream makeRequest(List<Header> headers,
-      {bool endStream = false});
+  ClientTransportStream makeRequest(
+    List<Header> headers, {
+    bool endStream = false,
+  });
 }
 
 abstract class ServerTransportConnection extends TransportConnection {
-  factory ServerTransportConnection.viaSocket(Socket socket,
-      {ServerSettings? settings}) {
-    return ServerTransportConnection.viaStreams(socket, socket,
-        settings: settings);
+  factory ServerTransportConnection.viaSocket(
+    Socket socket, {
+    ServerSettings? settings,
+  }) {
+    return ServerTransportConnection.viaStreams(
+      socket,
+      socket,
+      settings: settings,
+    );
   }
 
   factory ServerTransportConnection.viaStreams(
-      Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
-      {ServerSettings? settings =
-          const ServerSettings(concurrentStreamLimit: 1000)}) {
+    Stream<List<int>> incoming,
+    StreamSink<List<int>> outgoing, {
+    ServerSettings? settings = const ServerSettings(
+      concurrentStreamLimit: 1000,
+    ),
+  }) {
     settings ??= const ServerSettings();
     return ServerConnection(incoming, outgoing, settings);
   }
@@ -234,7 +249,7 @@ class TransportConnectionException extends TransportException {
   final int errorCode;
 
   TransportConnectionException(this.errorCode, String details)
-      : super('Connection error: $details (errorCode: $errorCode)');
+    : super('Connection error: $details (errorCode: $errorCode)');
 }
 
 /// An exception thrown when a HTTP/2 stream error occured.

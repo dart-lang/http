@@ -1,3 +1,11 @@
+## 2.1.2-wip
+
+* Cancel requests when the response stream is cancelled.
+
+## 2.1.1
+
+* Support `package:web_socket` 1.0.0.
+
 ## 2.1.0
 
 * Remove some unnecessary native code.

@@ -112,32 +112,47 @@ class ConnectionMessageQueueOut extends Object
     var message = _messages.first;
     if (message is HeadersMessage) {
       _messages.removeFirst();
-      _frameWriter.writeHeadersFrame(message.streamId, message.headers,
-          endStream: message.endStream);
+      _frameWriter.writeHeadersFrame(
+        message.streamId,
+        message.headers,
+        endStream: message.endStream,
+      );
     } else if (message is PushPromiseMessage) {
       _messages.removeFirst();
       _frameWriter.writePushPromiseFrame(
-          message.streamId, message.promisedStreamId, message.headers);
+        message.streamId,
+        message.promisedStreamId,
+        message.headers,
+      );
     } else if (message is DataMessage) {
       _messages.removeFirst();
 
       if (_connectionWindow.peerWindowSize >= message.bytes.length) {
         _connectionWindow.decreaseWindow(message.bytes.length);
-        _frameWriter.writeDataFrame(message.streamId, message.bytes,
-            endStream: message.endStream);
+        _frameWriter.writeDataFrame(
+          message.streamId,
+          message.bytes,
+          endStream: message.endStream,
+        );
       } else {
         // NOTE: We need to fragment the DataMessage.
         // TODO: Do not fragment if the number of bytes we can send is too low
         var len = _connectionWindow.peerWindowSize;
         var head = viewOrSublist(message.bytes, 0, len);
-        var tail =
-            viewOrSublist(message.bytes, len, message.bytes.length - len);
+        var tail = viewOrSublist(
+          message.bytes,
+          len,
+          message.bytes.length - len,
+        );
 
         _connectionWindow.decreaseWindow(head.length);
         _frameWriter.writeDataFrame(message.streamId, head, endStream: false);
 
-        var tailMessage =
-            DataMessage(message.streamId, tail, message.endStream);
+        var tailMessage = DataMessage(
+          message.streamId,
+          tail,
+          message.endStream,
+        );
         _messages.addFirst(tailMessage);
       }
     } else if (message is ResetStreamMessage) {
@@ -146,7 +161,10 @@ class ConnectionMessageQueueOut extends Object
     } else if (message is GoawayMessage) {
       _messages.removeFirst();
       _frameWriter.writeGoawayFrame(
-          message.lastStreamId, message.errorCode, message.debugData);
+        message.lastStreamId,
+        message.errorCode,
+        message.debugData,
+      );
     } else {
       throw StateError('Unexpected message in queue: ${message.runtimeType}');
     }
@@ -195,7 +213,9 @@ class ConnectionMessageQueueIn extends Object
   int _count = 0;
 
   ConnectionMessageQueueIn(
-      this._windowUpdateHandler, this._catchProtocolErrors);
+    this._windowUpdateHandler,
+    this._catchProtocolErrors,
+  );
 
   @override
   void onTerminated(Object? error) {
@@ -224,8 +244,9 @@ class ConnectionMessageQueueIn extends Object
   void insertNewStreamMessageQueue(int streamId, StreamMessageQueueIn mq) {
     if (_stream2messageQueue.containsKey(streamId)) {
       throw ArgumentError(
-          'Cannot register a SteramMessageQueueIn for the same streamId '
-          'multiple times');
+        'Cannot register a SteramMessageQueueIn for the same streamId '
+        'multiple times',
+      );
     }
 
     var pendingMessages = Queue<Message>();
@@ -265,8 +286,11 @@ class ConnectionMessageQueueIn extends Object
   /// stream.
   void processHeadersFrame(HeadersFrame frame) {
     var streamId = frame.header.streamId;
-    var message =
-        HeadersMessage(streamId, frame.decodedHeaders, frame.hasEndStreamFlag);
+    var message = HeadersMessage(
+      streamId,
+      frame.decodedHeaders,
+      frame.hasEndStreamFlag,
+    );
     // NOTE: Header frames do not affect flow control - only data frames do.
     _addMessage(streamId, message);
   }
@@ -274,10 +298,17 @@ class ConnectionMessageQueueIn extends Object
   /// Processes an incoming [PushPromiseFrame] which is addressed to a specific
   /// stream.
   void processPushPromiseFrame(
-      PushPromiseFrame frame, ClientTransportStream pushedStream) {
+    PushPromiseFrame frame,
+    ClientTransportStream pushedStream,
+  ) {
     var streamId = frame.header.streamId;
-    var message = PushPromiseMessage(streamId, frame.decodedHeaders,
-        frame.promisedStreamId, pushedStream, false);
+    var message = PushPromiseMessage(
+      streamId,
+      frame.decodedHeaders,
+      frame.promisedStreamId,
+      pushedStream,
+      false,
+    );
 
     // NOTE:
     //    * Header frames do not affect flow control - only data frames do.
@@ -307,7 +338,10 @@ class ConnectionMessageQueueIn extends Object
   }
 
   void _tryDispatch(
-      int streamId, StreamMessageQueueIn mq, Queue<Message> pendingMessages) {
+    int streamId,
+    StreamMessageQueueIn mq,
+    Queue<Message> pendingMessages,
+  ) {
     var bytesDeliveredToStream = 0;
     while (!mq.bufferIndicator.wouldBuffer && pendingMessages.isNotEmpty) {
       _count--;

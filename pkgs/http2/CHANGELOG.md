@@ -1,4 +1,7 @@
-## 2.3.2-wip
+## 3.0.0
+
+- Require Dart SDK `3.7.0`.
+- Add support for providing custom message when terminating a connection.
 
 ## 2.3.1
 

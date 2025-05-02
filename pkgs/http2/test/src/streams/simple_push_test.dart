@@ -55,35 +55,41 @@ void main() {
         return stream.outgoingMessages.done;
       }
 
-      streamTest('server-push', (ClientTransportConnection client,
-          ServerTransportConnection server) async {
-        server.incomingStreams
-            .listen(expectAsync1((ServerTransportStream sStream) async {
-          var pushStream = sStream.push(expectedHeaders);
-          pushStream.sendHeaders(expectedHeaders);
-          await sendData(pushStream, 'pushing "hello world" :)');
+      streamTest('server-push', (
+        ClientTransportConnection client,
+        ServerTransportConnection server,
+      ) async {
+        server.incomingStreams.listen(
+          expectAsync1((ServerTransportStream sStream) async {
+            var pushStream = sStream.push(expectedHeaders);
+            pushStream.sendHeaders(expectedHeaders);
+            await sendData(pushStream, 'pushing "hello world" :)');
 
-          unawaited(sStream.incomingMessages.drain());
-          sStream.sendHeaders(expectedHeaders, endStream: true);
+            unawaited(sStream.incomingMessages.drain());
+            sStream.sendHeaders(expectedHeaders, endStream: true);
 
-          await serverReceivedAllBytes.future;
-        }));
+            await serverReceivedAllBytes.future;
+          }),
+        );
 
         var cStream = client.makeRequest(expectedHeaders, endStream: true);
-        cStream.incomingMessages
-            .listen(headersTestFun(), onDone: expectAsync0(() {}));
-        cStream.peerPushes
-            .listen(expectAsync1((TransportStreamPush push) async {
-          testHeaders(push.requestHeaders);
+        cStream.incomingMessages.listen(
+          headersTestFun(),
+          onDone: expectAsync0(() {}),
+        );
+        cStream.peerPushes.listen(
+          expectAsync1((TransportStreamPush push) async {
+            testHeaders(push.requestHeaders);
 
-          var iterator = StreamIterator(push.stream.incomingMessages);
-          var hasNext = await iterator.moveNext();
-          expect(hasNext, isTrue);
-          testHeaders((iterator.current as HeadersStreamMessage).headers);
+            var iterator = StreamIterator(push.stream.incomingMessages);
+            var hasNext = await iterator.moveNext();
+            expect(hasNext, isTrue);
+            testHeaders((iterator.current as HeadersStreamMessage).headers);
 
-          var msg = await readData(iterator);
-          expect(msg, 'pushing "hello world" :)');
-        }));
+            var msg = await readData(iterator);
+            expect(msg, 'pushing "hello world" :)');
+          }),
+        );
       }, settings: const ClientSettings(allowServerPushes: true));
     });
   });

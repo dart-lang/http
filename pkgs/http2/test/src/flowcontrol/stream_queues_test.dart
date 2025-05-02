@@ -25,8 +25,11 @@ void main() {
         when(windowMock.decreaseWindow(any)).thenReturn(null);
 
         windowMock.positiveWindow.markUnBuffered();
-        var queue =
-            StreamMessageQueueOut(STREAM_ID, windowMock, connectionQueueMock);
+        var queue = StreamMessageQueueOut(
+          STREAM_ID,
+          windowMock,
+          connectionQueueMock,
+        );
 
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         expect(queue.pendingMessages, 0);
@@ -35,9 +38,9 @@ void main() {
         queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         verify(windowMock.decreaseWindow(BYTES.length)).called(1);
         final capturedMessage =
-            verify(connectionQueueMock.enqueueMessage(captureAny))
-                .captured
-                .single;
+            verify(
+              connectionQueueMock.enqueueMessage(captureAny),
+            ).captured.single;
         expect(capturedMessage, const TypeMatcher<DataMessage>());
         var capturedDataMessage = capturedMessage as DataMessage;
         expect(capturedDataMessage.bytes, BYTES);
@@ -51,8 +54,11 @@ void main() {
         when(windowMock.positiveWindow).thenReturn(BufferIndicator());
         when(windowMock.decreaseWindow(any)).thenReturn(null);
         windowMock.positiveWindow.markUnBuffered();
-        var queue =
-            StreamMessageQueueOut(STREAM_ID, windowMock, connectionQueueMock);
+        var queue = StreamMessageQueueOut(
+          STREAM_ID,
+          windowMock,
+          connectionQueueMock,
+        );
 
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         expect(queue.pendingMessages, 0);
@@ -83,8 +89,11 @@ void main() {
         var windowMock = MockOutgoingStreamWindowHandler();
         when(windowMock.positiveWindow).thenReturn(BufferIndicator());
         windowMock.positiveWindow.markUnBuffered();
-        var queue =
-            StreamMessageQueueOut(STREAM_ID, windowMock, connectionQueueMock);
+        var queue = StreamMessageQueueOut(
+          STREAM_ID,
+          windowMock,
+          connectionQueueMock,
+        );
 
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         expect(queue.pendingMessages, 0);
@@ -108,17 +117,20 @@ void main() {
         var queue = StreamMessageQueueIn(windowMock);
 
         expect(queue.pendingMessages, 0);
-        queue.messages.listen(expectAsync1((StreamMessage message) {
-          expect(message, isA<DataStreamMessage>());
+        queue.messages.listen(
+          expectAsync1((StreamMessage message) {
+            expect(message, isA<DataStreamMessage>());
 
-          var dataMessage = message as DataStreamMessage;
-          expect(dataMessage.bytes, BYTES);
-        }), onDone: expectAsync0(() {}));
+            var dataMessage = message as DataStreamMessage;
+            expect(dataMessage.bytes, BYTES);
+          }),
+          onDone: expectAsync0(() {}),
+        );
         queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         verifyInOrder([
           windowMock.gotData(BYTES.length),
-          windowMock.dataProcessed(BYTES.length)
+          windowMock.dataProcessed(BYTES.length),
         ]);
         verifyNoMoreInteractions(windowMock);
       });
@@ -132,8 +144,10 @@ void main() {
       when(windowMock.gotData(any)).thenReturn(null);
       var queue = StreamMessageQueueIn(windowMock);
 
-      var sub = queue.messages.listen(expectAsync1((_) {}, count: 0),
-          onDone: expectAsync0(() {}, count: 0));
+      var sub = queue.messages.listen(
+        expectAsync1((_) {}, count: 0),
+        onDone: expectAsync0(() {}, count: 0),
+      );
       sub.pause();
 
       expect(queue.pendingMessages, 0);

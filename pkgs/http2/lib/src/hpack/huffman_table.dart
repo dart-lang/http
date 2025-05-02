@@ -5,8 +5,10 @@
 import 'huffman.dart';
 
 /// The huffman codec for encoding/decoding HTTP/2 header blocks.
-final HuffmanCodec http2HuffmanCodec = HuffmanCodec(HuffmanEncoder(_codeWords),
-    HuffmanDecoder(generateHuffmanTree(_codeWords)));
+final HuffmanCodec http2HuffmanCodec = HuffmanCodec(
+  HuffmanEncoder(_codeWords),
+  HuffmanDecoder(generateHuffmanTree(_codeWords)),
+);
 
 /// This is the integer representing the End-of-String symbol
 /// (it is not representable by a byte).

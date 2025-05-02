@@ -33,7 +33,7 @@ const List<int> CONNECTION_PREFACE = [
   0x0d,
   0x0a,
   0x0d,
-  0x0a
+  0x0a,
 ];
 
 /// Reads the connection preface from [incoming].
@@ -96,14 +96,17 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
   }
 
   result.onListen = () {
-    subscription =
-        incoming.listen(onData, onError: result.addError, onDone: () {
-      if (!connectionPrefaceRead) {
-        terminate('EOS before connection preface could be read.');
-      } else {
-        result.close();
-      }
-    });
+    subscription = incoming.listen(
+      onData,
+      onError: result.addError,
+      onDone: () {
+        if (!connectionPrefaceRead) {
+          terminate('EOS before connection preface could be read.');
+        } else {
+          result.close();
+        }
+      },
+    );
     result
       ..onPause = subscription.pause
       ..onResume = subscription.resume

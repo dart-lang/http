@@ -14,11 +14,12 @@ import 'package:test/test.dart';
 void main() {
   group('server-tests', () {
     group('normal', () {
-      serverTest('gracefull-shutdown-for-unused-connection',
-          (ServerTransportConnection server,
-              FrameWriter clientWriter,
-              StreamIterator<Frame> clientReader,
-              Future<Frame> Function() nextFrame) async {
+      serverTest('gracefull-shutdown-for-unused-connection', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
         Future serverFun() async {
           expect(await server.incomingStreams.toList(), isEmpty);
           await server.finish();
@@ -42,11 +43,12 @@ void main() {
     });
 
     group('client-errors', () {
-      serverTest('no-settings-frame-at-beginning',
-          (ServerTransportConnection server,
-              FrameWriter clientWriter,
-              StreamIterator<Frame> clientReader,
-              Future<Frame> Function() nextFrame) async {
+      serverTest('no-settings-frame-at-beginning', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
         Future serverFun() async {
           // TODO: Do we want to get an error in this case?
           expect(await server.incomingStreams.toList(), isEmpty);
@@ -61,9 +63,13 @@ void main() {
 
           // Make sure the client gets a [GoawayFrame] frame.
           expect(
-              await nextFrame(),
-              isA<GoawayFrame>().having(
-                  (f) => f.errorCode, 'errorCode', ErrorCode.PROTOCOL_ERROR));
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
+            ),
+          );
 
           // Make sure the server ended the connection.
           expect(await clientReader.moveNext(), false);
@@ -72,11 +78,12 @@ void main() {
         await Future.wait([serverFun(), clientFun()]);
       });
 
-      serverTest('data-frame-for-invalid-stream',
-          (ServerTransportConnection server,
-              FrameWriter clientWriter,
-              StreamIterator<Frame> clientReader,
-              Future<Frame> Function() nextFrame) async {
+      serverTest('data-frame-for-invalid-stream', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
         Future serverFun() async {
           await server.incomingStreams.toList();
           await server.finish();
@@ -95,11 +102,15 @@ void main() {
           var frame = await nextFrame();
           expect(frame is WindowUpdateFrame, true);
           expect(
-              await nextFrame(),
-              isA<RstStreamFrame>()
-                  .having(
-                      (f) => f.errorCode, 'errorCode', ErrorCode.STREAM_CLOSED)
-                  .having((f) => f.header.streamId, 'header.streamId', 3));
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having(
+                  (f) => f.errorCode,
+                  'errorCode',
+                  ErrorCode.STREAM_CLOSED,
+                )
+                .having((f) => f.header.streamId, 'header.streamId', 3),
+          );
 
           // Tell the server to finish.
           clientWriter.writeGoawayFrame(3, ErrorCode.NO_ERROR, []);
@@ -111,11 +122,12 @@ void main() {
         await Future.wait([serverFun(), clientFun()]);
       });
 
-      serverTest('data-frame-after-stream-closed',
-          (ServerTransportConnection server,
-              FrameWriter clientWriter,
-              StreamIterator<Frame> clientReader,
-              Future<Frame> Function() nextFrame) async {
+      serverTest('data-frame-after-stream-closed', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
         Future serverFun() async {
           await server.incomingStreams.toList();
           await server.finish();
@@ -127,8 +139,9 @@ void main() {
           clientWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
 
-          clientWriter.writeHeadersFrame(3, [Header.ascii('a', 'b')],
-              endStream: true);
+          clientWriter.writeHeadersFrame(3, [
+            Header.ascii('a', 'b'),
+          ], endStream: true);
 
           // Write data frame to non-existent stream (stream 3 was closed
           // above).
@@ -136,11 +149,15 @@ void main() {
 
           // Make sure the client gets a [RstStreamFrame] frame.
           expect(
-              await nextFrame(),
-              isA<RstStreamFrame>()
-                  .having(
-                      (f) => f.errorCode, 'errorCode', ErrorCode.STREAM_CLOSED)
-                  .having((f) => f.header.streamId, 'header.streamId', 3));
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having(
+                  (f) => f.errorCode,
+                  'errorCode',
+                  ErrorCode.STREAM_CLOSED,
+                )
+                .having((f) => f.header.streamId, 'header.streamId', 3),
+          );
 
           // Tell the server to finish.
           clientWriter.writeGoawayFrame(3, ErrorCode.NO_ERROR, []);
@@ -154,10 +171,12 @@ void main() {
     });
 
     group('server-errors', () {
-      serverTest('server-resets-stream', (ServerTransportConnection server,
-          FrameWriter clientWriter,
-          StreamIterator<Frame> clientReader,
-          Future<Frame> Function() nextFrame) async {
+      serverTest('server-resets-stream', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
         Future serverFun() async {
           var it = StreamIterator(server.incomingStreams);
           expect(await it.moveNext(), true);
@@ -176,15 +195,17 @@ void main() {
           clientWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
 
-          clientWriter.writeHeadersFrame(1, [Header.ascii('a', 'b')],
-              endStream: false);
+          clientWriter.writeHeadersFrame(1, [
+            Header.ascii('a', 'b'),
+          ], endStream: false);
 
           // Make sure the client gets a [RstStreamFrame] frame.
           expect(
-              await nextFrame(),
-              isA<RstStreamFrame>()
-                  .having((f) => f.errorCode, 'errorCode', ErrorCode.CANCEL)
-                  .having((f) => f.header.streamId, 'header.streamId', 1));
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having((f) => f.errorCode, 'errorCode', ErrorCode.CANCEL)
+                .having((f) => f.header.streamId, 'header.streamId', 1),
+          );
 
           // Tell the server to finish.
           clientWriter.writeGoawayFrame(3, ErrorCode.NO_ERROR, []);
@@ -200,13 +221,15 @@ void main() {
 }
 
 void serverTest(
-    String name,
-    void Function(
-            ServerTransportConnection,
-            FrameWriter,
-            StreamIterator<Frame> frameReader,
-            Future<Frame> Function() readNext)
-        func) {
+  String name,
+  void Function(
+    ServerTransportConnection,
+    FrameWriter,
+    StreamIterator<Frame> frameReader,
+    Future<Frame> Function() readNext,
+  )
+  func,
+) {
   return test(name, () {
     var streams = ClientErrorStreams();
     var clientReader = streams.clientConnectionFrameReader;
@@ -216,8 +239,12 @@ void serverTest(
       return clientReader.current;
     }
 
-    return func(streams.serverConnection, streams.clientConnectionFrameWriter,
-        clientReader, readNext);
+    return func(
+      streams.serverConnection,
+      streams.clientConnectionFrameWriter,
+      clientReader,
+      readNext,
+    );
   });
 }
 

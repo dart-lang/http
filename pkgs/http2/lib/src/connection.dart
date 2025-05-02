@@ -148,31 +148,41 @@ abstract class Connection {
   /// The state of this connection.
   late ConnectionState _state;
 
-  Connection(Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
-      Settings settings,
-      {this.isClientConnection = true}) {
+  Connection(
+    Stream<List<int>> incoming,
+    StreamSink<List<int>> outgoing,
+    Settings settings, {
+    this.isClientConnection = true,
+  }) {
     _setupConnection(incoming, outgoing, settings);
   }
 
   /// Runs all setup necessary before new streams can be created with the remote
   /// peer.
-  void _setupConnection(Stream<List<int>> incoming,
-      StreamSink<List<int>> outgoing, Settings settingsObject) {
+  void _setupConnection(
+    Stream<List<int>> incoming,
+    StreamSink<List<int>> outgoing,
+    Settings settingsObject,
+  ) {
     // Setup frame reading.
     var incomingFrames =
         FrameReader(incoming, acknowledgedSettings).startDecoding();
-    _frameReaderSubscription = incomingFrames.listen((Frame frame) {
-      _catchProtocolErrors(() => _handleFrameImpl(frame));
-    }, onError: (error, stack) {
-      _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
-    }, onDone: () {
-      // Ensure existing messages from lower levels are sent to the upper
-      // levels before we terminate everything.
-      _incomingQueue.forceDispatchIncomingMessages();
-      _streams.forceDispatchIncomingMessages();
+    _frameReaderSubscription = incomingFrames.listen(
+      (Frame frame) {
+        _catchProtocolErrors(() => _handleFrameImpl(frame));
+      },
+      onError: (error, stack) {
+        _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+      },
+      onDone: () {
+        // Ensure existing messages from lower levels are sent to the upper
+        // levels before we terminate everything.
+        _incomingQueue.forceDispatchIncomingMessages();
+        _streams.forceDispatchIncomingMessages();
 
-      _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
-    });
+        _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+      },
+    );
 
     // Setup frame writing.
     _frameWriter = FrameWriter(_hpackContext.encoder, outgoing, peerSettings);
@@ -181,8 +191,12 @@ abstract class Connection {
     });
 
     // Setup handlers.
-    _settingsHandler = SettingsHandler(_hpackContext.encoder, _frameWriter,
-        acknowledgedSettings, peerSettings);
+    _settingsHandler = SettingsHandler(
+      _hpackContext.encoder,
+      _frameWriter,
+      acknowledgedSettings,
+      peerSettings,
+    );
     _pingHandler = PingHandler(_frameWriter, _pingReceived);
 
     var settings = _decodeSettings(settingsObject);
@@ -192,8 +206,10 @@ abstract class Connection {
       // TODO: The [error] can contain sensitive information we now expose via
       // a [Goaway] frame. We should somehow ensure we're only sending useful
       // but non-sensitive information.
-      _terminate(ErrorCode.PROTOCOL_ERROR,
-          message: 'Failed to set initial settings (error: $error).');
+      _terminate(
+        ErrorCode.PROTOCOL_ERROR,
+        message: 'Failed to set initial settings (error: $error).',
+      );
     });
 
     _settingsHandler.onInitialWindowSizeChange.listen((int difference) {
@@ -206,31 +222,39 @@ abstract class Connection {
     // size of the outgoing connection window.
     _connectionWindowHandler = OutgoingConnectionWindowHandler(_peerWindow);
 
-    var connectionWindowUpdater =
-        IncomingWindowHandler.connection(_frameWriter, _localWindow);
+    var connectionWindowUpdater = IncomingWindowHandler.connection(
+      _frameWriter,
+      _localWindow,
+    );
 
     // Setup queues for outgoing/incoming messages on the connection level.
-    _outgoingQueue =
-        ConnectionMessageQueueOut(_connectionWindowHandler, _frameWriter);
-    _incomingQueue =
-        ConnectionMessageQueueIn(connectionWindowUpdater, _catchProtocolErrors);
+    _outgoingQueue = ConnectionMessageQueueOut(
+      _connectionWindowHandler,
+      _frameWriter,
+    );
+    _incomingQueue = ConnectionMessageQueueIn(
+      connectionWindowUpdater,
+      _catchProtocolErrors,
+    );
 
     if (isClientConnection) {
       _streams = StreamHandler.client(
-          _frameWriter,
-          _incomingQueue,
-          _outgoingQueue,
-          _settingsHandler.peerSettings,
-          _settingsHandler.acknowledgedSettings,
-          _activeStateHandler);
+        _frameWriter,
+        _incomingQueue,
+        _outgoingQueue,
+        _settingsHandler.peerSettings,
+        _settingsHandler.acknowledgedSettings,
+        _activeStateHandler,
+      );
     } else {
       _streams = StreamHandler.server(
-          _frameWriter,
-          _incomingQueue,
-          _outgoingQueue,
-          _settingsHandler.peerSettings,
-          _settingsHandler.acknowledgedSettings,
-          _activeStateHandler);
+        _frameWriter,
+        _incomingQueue,
+        _outgoingQueue,
+        _settingsHandler.peerSettings,
+        _settingsHandler.acknowledgedSettings,
+        _activeStateHandler,
+      );
     }
 
     // NOTE: We're not waiting until initial settings have been exchanged
@@ -245,15 +269,17 @@ abstract class Connection {
     // By default a endpoint can make an unlimited number of concurrent streams.
     var concurrentStreamLimit = settings.concurrentStreamLimit;
     if (concurrentStreamLimit != null) {
-      settingsList.add(Setting(
-          Setting.SETTINGS_MAX_CONCURRENT_STREAMS, concurrentStreamLimit));
+      settingsList.add(
+        Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS, concurrentStreamLimit),
+      );
     }
 
     // By default the stream level flow control window is 64 KiB.
     var streamWindowSize = settings.streamWindowSize;
     if (streamWindowSize != null) {
-      settingsList
-          .add(Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, streamWindowSize));
+      settingsList.add(
+        Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, streamWindowSize),
+      );
     }
 
     if (settings is ClientSettings) {
@@ -274,7 +300,8 @@ abstract class Connection {
   Future<void> ping() {
     return _pingHandler.ping().catchError((e, s) {
       return Future<void>.error(
-          TransportException('The connection has been terminated.'));
+        TransportException('The connection has been terminated.'),
+      );
     }, test: (e) => e is TerminatedException);
   }
 
@@ -283,13 +310,17 @@ abstract class Connection {
     _finishing(active: true);
 
     // TODO: There is probably more we need to wait for.
-    return _streams.done.whenComplete(() =>
-        Future.wait([_frameWriter.close(), _frameReaderSubscription.cancel()]));
+    return _streams.done.whenComplete(
+      () => Future.wait([
+        _frameWriter.close(),
+        _frameReaderSubscription.cancel(),
+      ]),
+    );
   }
 
   /// Terminates this connection forcefully.
-  Future<void> terminate([int? errorCode]) {
-    return _terminate(errorCode ?? ErrorCode.NO_ERROR);
+  Future<void> terminate([int? errorCode, String? message]) {
+    return _terminate(errorCode ?? ErrorCode.NO_ERROR, message: message);
   }
 
   void _activeStateHandler(bool isActive) =>
@@ -322,8 +353,10 @@ abstract class Connection {
     // we terminate the connection.
     if (_state.isInitialized) {
       if (frame is! SettingsFrame) {
-        _terminate(ErrorCode.PROTOCOL_ERROR,
-            message: 'Expected to first receive a settings frame.');
+        _terminate(
+          ErrorCode.PROTOCOL_ERROR,
+          message: 'Expected to first receive a settings frame.',
+        );
         return;
       }
       _state.state = ConnectionState.Operational;
@@ -338,11 +371,13 @@ abstract class Connection {
     // [This needs to be done even if the frames get ignored, since the entire
     //  connection shares one HPack compression context.]
     if (frame is HeadersFrame) {
-      frame.decodedHeaders =
-          _hpackContext.decoder.decode(frame.headerBlockFragment);
+      frame.decodedHeaders = _hpackContext.decoder.decode(
+        frame.headerBlockFragment,
+      );
     } else if (frame is PushPromiseFrame) {
-      frame.decodedHeaders =
-          _hpackContext.decoder.decode(frame.headerBlockFragment);
+      frame.decodedHeaders = _hpackContext.decoder.decode(
+        frame.headerBlockFragment,
+      );
     }
     if (_frameReceived.hasListener) {
       _frameReceived.add(null);
@@ -363,7 +398,8 @@ abstract class Connection {
         // We can safely ignore these.
       } else {
         throw ProtocolException(
-            'Cannot handle frame type ${frame.runtimeType} with stream-id 0.');
+          'Cannot handle frame type ${frame.runtimeType} with stream-id 0.',
+        );
       }
     } else {
       _streams.processStreamFrame(_state, frame);
@@ -392,10 +428,13 @@ abstract class Connection {
       _state.state = ConnectionState.Finishing;
       _state.finishingState |= ConnectionState.FinishingActive;
 
-      _outgoingQueue.enqueueMessage(GoawayMessage(
+      _outgoingQueue.enqueueMessage(
+        GoawayMessage(
           _streams.highestPeerInitiatedStream,
           ErrorCode.NO_ERROR,
-          message != null ? utf8.encode(message) : []));
+          message != null ? utf8.encode(message) : [],
+        ),
+      );
     } else {
       _state.state = ConnectionState.Finishing;
       _state.finishingState |= ConnectionState.FinishingPassive;
@@ -407,18 +446,24 @@ abstract class Connection {
   /// Terminates this connection (if it is not already terminated).
   ///
   /// The returned future will never complete with an error.
-  Future _terminate(int errorCode,
-      {bool causedByTransportError = false, String? message}) {
+  Future _terminate(
+    int errorCode, {
+    bool causedByTransportError = false,
+    String? message,
+  }) {
     // TODO: When do we complete here?
     if (_state.state != ConnectionState.Terminated) {
       _state.state = ConnectionState.Terminated;
 
       var cancelFuture = Future.sync(_frameReaderSubscription.cancel);
       if (!causedByTransportError) {
-        _outgoingQueue.enqueueMessage(GoawayMessage(
+        _outgoingQueue.enqueueMessage(
+          GoawayMessage(
             _streams.highestPeerInitiatedStream,
             errorCode,
-            message != null ? utf8.encode(message) : []));
+            message != null ? utf8.encode(message) : [],
+          ),
+        );
       }
       var closeFuture = _frameWriter.close().catchError((e, s) {
         // We ignore any errors after writing to [GoawayFrame]
@@ -428,7 +473,9 @@ abstract class Connection {
       // (e.g. if there is a pending connection.ping(), it's returned
       //  Future will complete with this error).
       var exception = TransportConnectionException(
-          errorCode, 'Connection is being forcefully terminated.');
+        errorCode,
+        'Connection is being forcefully terminated.',
+      );
 
       // Close all streams & stream queues
       _streams.terminate(exception);
@@ -440,8 +487,10 @@ abstract class Connection {
       _pingHandler.terminate(exception);
       _settingsHandler.terminate(exception);
 
-      return Future.wait([cancelFuture, closeFuture])
-          .catchError((_) => const <void>[]);
+      return Future.wait([
+        cancelFuture,
+        closeFuture,
+      ]).catchError((_) => const <void>[]);
     }
     return Future<void>.value();
   }
@@ -449,10 +498,13 @@ abstract class Connection {
 
 class ClientConnection extends Connection implements ClientTransportConnection {
   ClientConnection._(super.incoming, super.outgoing, super.settings)
-      : super(isClientConnection: true);
+    : super(isClientConnection: true);
 
-  factory ClientConnection(Stream<List<int>> incoming,
-      StreamSink<List<int>> outgoing, ClientSettings clientSettings) {
+  factory ClientConnection(
+    Stream<List<int>> incoming,
+    StreamSink<List<int>> outgoing,
+    ClientSettings clientSettings,
+  ) {
     outgoing.add(CONNECTION_PREFACE);
     return ClientConnection._(incoming, outgoing, clientSettings);
   }
@@ -462,16 +514,20 @@ class ClientConnection extends Connection implements ClientTransportConnection {
       !_state.isFinishing && !_state.isTerminated && _streams.canOpenStream;
 
   @override
-  ClientTransportStream makeRequest(List<Header> headers,
-      {bool endStream = false}) {
+  ClientTransportStream makeRequest(
+    List<Header> headers, {
+    bool endStream = false,
+  }) {
     if (_state.isFinishing) {
       throw StateError(
-          'The http/2 connection is finishing and can therefore not be used to '
-          'make new streams.');
+        'The http/2 connection is finishing and can therefore not be used to '
+        'make new streams.',
+      );
     } else if (_state.isTerminated) {
       throw StateError(
-          'The http/2 connection is no longer active and can therefore not be '
-          'used to make new streams.');
+        'The http/2 connection is no longer active and can therefore not be '
+        'used to make new streams.',
+      );
     }
     var hStream = _streams.newStream(headers, endStream: endStream);
     if (_streams.ranOutOfStreamIds) {
@@ -489,10 +545,13 @@ class ClientConnection extends Connection implements ClientTransportConnection {
 
 class ServerConnection extends Connection implements ServerTransportConnection {
   ServerConnection._(super.incoming, super.outgoing, super.settings)
-      : super(isClientConnection: false);
+    : super(isClientConnection: false);
 
-  factory ServerConnection(Stream<List<int>> incoming,
-      StreamSink<List<int>> outgoing, ServerSettings serverSettings) {
+  factory ServerConnection(
+    Stream<List<int>> incoming,
+    StreamSink<List<int>> outgoing,
+    ServerSettings serverSettings,
+  ) {
     var frameBytes = readConnectionPreface(incoming);
     return ServerConnection._(frameBytes, outgoing, serverSettings);
   }

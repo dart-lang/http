@@ -35,25 +35,28 @@ void main() {
 
       test('data-frame--max-frame-size', () {
         var body = List.filled(maxFrameSize, 0x42);
-        dataFrame(body).listen(expectAsync1((Frame frame) {
-          expect(frame, isA<DataFrame>());
-          expect(frame.header, hasLength(body.length));
-          expect(frame.header.flags, 0);
-          var dataFrame = frame as DataFrame;
-          expect(dataFrame.hasEndStreamFlag, isFalse);
-          expect(dataFrame.hasPaddedFlag, isFalse);
-          expect(dataFrame.bytes, body);
-        }),
-            onError:
-                expectAsync2((Object error, StackTrace stack) {}, count: 0));
+        dataFrame(body).listen(
+          expectAsync1((Frame frame) {
+            expect(frame, isA<DataFrame>());
+            expect(frame.header, hasLength(body.length));
+            expect(frame.header.flags, 0);
+            var dataFrame = frame as DataFrame;
+            expect(dataFrame.hasEndStreamFlag, isFalse);
+            expect(dataFrame.hasPaddedFlag, isFalse);
+            expect(dataFrame.bytes, body);
+          }),
+          onError: expectAsync2((Object error, StackTrace stack) {}, count: 0),
+        );
       });
 
       test('data-frame--max-frame-size-plus-1', () {
         var body = List.filled(maxFrameSize + 1, 0x42);
-        dataFrame(body).listen(expectAsync1((_) {}, count: 0),
-            onError: expectAsync2((Object error, StackTrace stack) {
-          expect('$error', contains('Incoming frame is too big'));
-        }));
+        dataFrame(body).listen(
+          expectAsync1((_) {}, count: 0),
+          onError: expectAsync2((Object error, StackTrace stack) {
+            expect('$error', contains('Incoming frame is too big'));
+          }),
+        );
       });
 
       test('incomplete-header', () {
@@ -66,10 +69,12 @@ void main() {
           ..add([1])
           ..close();
 
-        reader.startDecoding().listen(expectAsync1((_) {}, count: 0),
-            onError: expectAsync2((Object error, StackTrace stack) {
-          expect('$error', contains('incomplete frame'));
-        }));
+        reader.startDecoding().listen(
+          expectAsync1((_) {}, count: 0),
+          onError: expectAsync2((Object error, StackTrace stack) {
+            expect('$error', contains('incomplete frame'));
+          }),
+        );
       });
 
       test('incomplete-frame', () {
@@ -87,10 +92,12 @@ void main() {
           ..add([0, 0, 255, 0, 0, 0, 0, 0, 1])
           ..close();
 
-        reader.startDecoding().listen(expectAsync1((_) {}, count: 0),
-            onError: expectAsync2((Object error, StackTrace stack) {
-          expect('$error', contains('incomplete frame'));
-        }));
+        reader.startDecoding().listen(
+          expectAsync1((_) {}, count: 0),
+          onError: expectAsync2((Object error, StackTrace stack) {
+            expect('$error', contains('incomplete frame'));
+          }),
+        );
       });
 
       test('connection-error', () {
@@ -103,10 +110,12 @@ void main() {
           ..addError('hello world')
           ..close();
 
-        reader.startDecoding().listen(expectAsync1((_) {}, count: 0),
-            onError: expectAsync2((Object error, StackTrace stack) {
-          expect('$error', contains('hello world'));
-        }));
+        reader.startDecoding().listen(
+          expectAsync1((_) {}, count: 0),
+          onError: expectAsync2((Object error, StackTrace stack) {
+            expect('$error', contains('hello world'));
+          }),
+        );
       });
     });
   });

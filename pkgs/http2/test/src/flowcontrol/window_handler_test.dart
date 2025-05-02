@@ -13,9 +13,13 @@ import '../error_matchers.dart';
 void main() {
   group('flowcontrol', () {
     void testAbstractOutgoingWindowHandler(
-        AbstractOutgoingWindowHandler handler, Window window, int initialSize) {
-      var sub = handler.positiveWindow.bufferEmptyEvents
-          .listen(expectAsync1((_) {}, count: 0));
+      AbstractOutgoingWindowHandler handler,
+      Window window,
+      int initialSize,
+    ) {
+      var sub = handler.positiveWindow.bufferEmptyEvents.listen(
+        expectAsync1((_) {}, count: 0),
+      );
 
       expect(handler.peerWindowSize, initialSize);
       expect(window.size, initialSize);
@@ -40,10 +44,12 @@ void main() {
       expect(handler.positiveWindow.wouldBuffer, isFalse);
       handler.decreaseWindow(window.size);
       expect(handler.positiveWindow.wouldBuffer, isTrue);
-      sub = handler.positiveWindow.bufferEmptyEvents.listen(expectAsync1((_) {
-        expect(handler.peerWindowSize, 1);
-        expect(window.size, 1);
-      }));
+      sub = handler.positiveWindow.bufferEmptyEvents.listen(
+        expectAsync1((_) {
+          expect(handler.peerWindowSize, 1);
+          expect(window.size, 1);
+        }),
+      );
 
       // Now we trigger the 1 byte window increase
       handler.processWindowUpdate(WindowUpdateFrame(frameHeader, 1));
@@ -52,8 +58,10 @@ void main() {
       // If the remote end sends us [WindowUpdateFrame]s which increase it above
       // the maximum size, we throw a [FlowControlException].
       var frame = WindowUpdateFrame(frameHeader, Window.MAX_WINDOW_SIZE);
-      expect(() => handler.processWindowUpdate(frame),
-          throwsA(isFlowControlException));
+      expect(
+        () => handler.processWindowUpdate(frame),
+        throwsA(isFlowControlException),
+      );
     }
 
     test('outgoing-connection-window-handler', () {
@@ -80,8 +88,9 @@ void main() {
       handler = OutgoingStreamWindowHandler(window);
 
       expect(handler.positiveWindow.wouldBuffer, isFalse);
-      final bufferEmpty = handler.positiveWindow.bufferEmptyEvents
-          .listen(expectAsync1((_) {}, count: 0));
+      final bufferEmpty = handler.positiveWindow.bufferEmptyEvents.listen(
+        expectAsync1((_) {}, count: 0),
+      );
       handler.processInitialWindowSizeSettingChange(-window.size);
       expect(handler.positiveWindow.wouldBuffer, isTrue);
       expect(handler.peerWindowSize, 0);
@@ -93,9 +102,11 @@ void main() {
       expect(window.size, 1);
 
       expect(
-          () => handler.processInitialWindowSizeSettingChange(
-              Window.MAX_WINDOW_SIZE + 1),
-          throwsA(isFlowControlException));
+        () => handler.processInitialWindowSizeSettingChange(
+          Window.MAX_WINDOW_SIZE + 1,
+        ),
+        throwsA(isFlowControlException),
+      );
     });
 
     test('incoming-window-handler', () {
