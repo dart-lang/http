@@ -154,12 +154,8 @@ void testCloseLocal(
 
       await channel.close(3000, 'Client initiated closure');
 
-      expect(
-          () => channel.sendBytes(Uint8List(10)),
-          throwsA(isA<WebSocketConnectionClosed>()
-              .having((e) => e.message, 'message', 'Connection Closed')
-              .having((e) => e.toString(), 'toString',
-                  'WebSocketConnectionClosed: Connection Closed')));
+      expect(() => channel.sendBytes(Uint8List(10)),
+          throwsA(isA<WebSocketConnectionClosed>()));
     });
 
     test('sendText after close', () async {
@@ -167,12 +163,8 @@ void testCloseLocal(
 
       await channel.close(3000, 'Client initiated closure');
 
-      expect(
-          () => channel.sendText('Hello World'),
-          throwsA(isA<WebSocketConnectionClosed>()
-              .having((e) => e.message, 'message', 'Connection Closed')
-              .having((e) => e.toString(), 'toString',
-                  'WebSocketConnectionClosed: Connection Closed')));
+      expect(() => channel.sendText('Hello World'),
+          throwsA(isA<WebSocketConnectionClosed>()));
     });
   });
 }

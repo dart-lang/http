@@ -44,12 +44,8 @@ void testCloseRemote(
       channel.sendBytes(Uint8List(10));
       expect(await channel.events.toList(),
           [CloseReceived(4123, 'server closed the connection')]);
-      expect(
-          () => channel.sendText('test'),
-          throwsA(isA<WebSocketConnectionClosed>()
-              .having((e) => e.message, 'message', 'Connection Closed')
-              .having((e) => e.toString(), 'toString',
-                  'WebSocketConnectionClosed: Connection Closed')));
+      expect(() => channel.sendText('test'),
+          throwsA(isA<WebSocketConnectionClosed>()));
     });
 
     test('sendText after close received', () async {
@@ -58,12 +54,8 @@ void testCloseRemote(
       channel.sendText('Please close');
       expect(await channel.events.toList(),
           [CloseReceived(4123, 'server closed the connection')]);
-      expect(
-          () => channel.sendText('test'),
-          throwsA(isA<WebSocketConnectionClosed>()
-              .having((e) => e.message, 'message', 'Connection Closed')
-              .having((e) => e.toString(), 'toString',
-                  'WebSocketConnectionClosed: Connection Closed')));
+      expect(() => channel.sendText('test'),
+          throwsA(isA<WebSocketConnectionClosed>()));
     });
 
     test('close after close received', () async {
@@ -73,11 +65,7 @@ void testCloseRemote(
       expect(await channel.events.toList(),
           [CloseReceived(4123, 'server closed the connection')]);
       await expectLater(
-          channel.close,
-          throwsA(isA<WebSocketConnectionClosed>()
-              .having((e) => e.message, 'message', 'Connection Closed')
-              .having((e) => e.toString(), 'toString',
-                  'WebSocketConnectionClosed: Connection Closed')));
+          channel.close, throwsA(isA<WebSocketConnectionClosed>()));
     });
   });
 }

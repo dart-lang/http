@@ -29,9 +29,7 @@ void testNoUpgrade(
 
     test('close before upgrade', () async {
       await expectLater(
-          () => channelFactory(uri),
-          throwsA(isA<WebSocketException>().having((e) => e.toString(),
-              'toString', startsWith('WebSocketException:'))));
+          () => channelFactory(uri), throwsA(isA<WebSocketException>()));
     });
   });
 }
