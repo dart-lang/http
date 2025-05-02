@@ -17,6 +17,26 @@ final _digitRegex = RegExp(r'^\d+$');
 
 const _nsurlErrorCancelled = -999;
 
+/// A [ClientException] generated from an [NSError].
+class NSErrorClientException extends ClientException {
+  final NSError error;
+
+  NSErrorClientException(this.error, [Uri? uri])
+      : super(error.localizedDescription.toDartString(), uri);
+
+  @override
+  String toString() {
+    final b = StringBuffer(
+        'NSErrorClientException: ${error.localizedDescription.toDartString()} '
+        '[domain=${error.domain.toDartString()}, code=${error.code}]');
+
+    if (uri != null) {
+      b.write(', uri=$uri');
+    }
+    return b.toString();
+  }
+}
+
 /// This class can be removed when `package:http` v2 is released.
 class _StreamedResponseWithUrl extends StreamedResponse
     implements BaseResponseWithUrl {
@@ -176,8 +196,7 @@ class CupertinoClient extends BaseClient {
     if (error != null &&
         !(error.domain.toDartString() == 'NSURLErrorDomain' &&
             error.code == _nsurlErrorCancelled)) {
-      final exception = ClientException(
-          error.localizedDescription.toDartString(), taskTracker.request.url);
+      final exception = NSErrorClientException(error, taskTracker.request.url);
       if (taskTracker.profile != null &&
           taskTracker.profile!.requestData.endTime == null) {
         // Error occurred during the request.
