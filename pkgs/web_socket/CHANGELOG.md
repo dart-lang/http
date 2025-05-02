@@ -1,3 +1,8 @@
+## 1.0.1-wip
+
+- Fix a bug where `WebSocketException`/`WebSocketConnectionClosed` did not
+  have a useful string representation.
+
 ## 1.0.0
 
 - First non-experimental release; no semantic changes from version `0.1.6`.
