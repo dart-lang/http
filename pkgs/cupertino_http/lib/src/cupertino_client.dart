@@ -18,10 +18,10 @@ final _digitRegex = RegExp(r'^\d+$');
 const _nsurlErrorCancelled = -999;
 
 /// A [ClientException] generated from an [NSError].
-class NSErrorClientExceptions extends ClientException {
+class NSErrorClientException extends ClientException {
   final NSError error;
 
-  NSErrorClientExceptions(this.error, [Uri? uri])
+  NSErrorClientException(this.error, [Uri? uri])
       : super(error.localizedDescription.toDartString(), uri);
 
   @override
@@ -196,7 +196,7 @@ class CupertinoClient extends BaseClient {
     if (error != null &&
         !(error.domain.toDartString() == 'NSURLErrorDomain' &&
             error.code == _nsurlErrorCancelled)) {
-      final exception = NSErrorClientExceptions(error, taskTracker.request.url);
+      final exception = NSErrorClientException(error, taskTracker.request.url);
       if (taskTracker.profile != null &&
           taskTracker.profile!.requestData.endTime == null) {
         // Error occurred during the request.
