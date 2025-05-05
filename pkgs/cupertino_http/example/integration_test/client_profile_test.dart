@@ -308,11 +308,7 @@ void main() {
         expect(profile.requestData.contentLength, isNull);
         expect(profile.requestData.startTime, isNotNull);
         expect(profile.requestData.endTime, isNotNull);
-        // Extra data could be received before the cancel event is dispatched
-        // by the url loading framework so check that
-        // `profile.responseData.bodyBytes` starts with `receivedData`.
-        expect(profile.responseData.bodyBytes.sublist(0, receivedData.length),
-            receivedData);
+        expect(profile.responseData.bodyBytes, receivedData);
       });
     });
 

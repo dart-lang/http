@@ -56,6 +56,9 @@ class _TaskTracker {
   final responseCompleter = Completer<URLResponse>();
   final BaseRequest request;
   final StreamController<Uint8List> responseController;
+
+  /// Whether the response stream subscription has been cancelled.
+  bool responseListenerCancelled = false;
   final HttpClientRequestProfile? profile;
   int numRedirects = 0;
   Uri? lastUrl; // The last URL redirected to.
@@ -211,6 +214,7 @@ class CupertinoClient extends BaseClient {
         taskTracker.responseCompleter.completeError(exception);
       }
     } else {
+      assert(error == null || taskTracker.responseListenerCancelled);
       assert(taskTracker.profile == null ||
           taskTracker.profile!.requestData.endTime != null);
 
@@ -226,6 +230,7 @@ class CupertinoClient extends BaseClient {
 
   static void _onData(URLSession session, URLSessionTask task, NSData data) {
     final taskTracker = _tracker(task);
+    if (taskTracker.responseListenerCancelled) return;
     taskTracker.responseController.add(data.toList());
     taskTracker.profile?.responseData.bodySink.add(data.toList());
   }
@@ -366,6 +371,9 @@ class CupertinoClient extends BaseClient {
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
     final task = urlSession.dataTaskWithRequest(urlRequest);
     final subscription = StreamController<Uint8List>(onCancel: () {
+      final taskTracker = _tasks[task];
+      if (taskTracker == null) return;
+      taskTracker.responseListenerCancelled = true;
       task.cancel();
     });
     final taskTracker = _TaskTracker(request, subscription, profile);
