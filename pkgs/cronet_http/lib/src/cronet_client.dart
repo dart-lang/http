@@ -28,6 +28,50 @@ class _StreamedResponseWithUrl extends StreamedResponse
       super.reasonPhrase});
 }
 
+/// An HTTP response from the Cronet network stack.
+///
+/// The response body is received asynchronously after the headers have been
+/// received.
+class CronetStreamedResponse extends _StreamedResponseWithUrl {
+  final jb.UrlResponseInfo _responseInfo;
+
+  /// The protocol (for example `'quic/1+spdy/3'`) negotiated with the server.
+  ///
+  /// It will be the empty string if no protocol was negotiated, the protocol is
+  /// not known, or when using plain HTTP or HTTPS.
+  String get negotiatedProtocol =>
+      _responseInfo.getNegotiatedProtocol().toDartString(releaseOriginal: true);
+
+  String get proxyServer =>
+      _responseInfo.getProxyServer().toDartString(releaseOriginal: true);
+
+  /// The minimum count of bytes received from the network to process this
+  /// request.
+  ///
+  /// This count may ignore certain overheads (for example IP and TCP/UDP
+  /// framing, SSL handshake and framing, proxy handling). This count is taken
+  /// prior to decompression (for example GZIP) and includes headers and data
+  /// from all redirects. This value may change as more response data is
+  /// received from the network.
+  int get receivedByteCount => _responseInfo.getReceivedByteCount();
+
+  /// Whether the response came from the cache.
+  ///
+  /// Is `true` for requests that were revalidated over the network before being
+  /// retrieved from the cache
+  bool get wasCached => _responseInfo.wasCached();
+
+  CronetStreamedResponse._(super.stream, super.statusCode,
+      {required jb.UrlResponseInfo responseInfo,
+      required super.url,
+      super.contentLength,
+      super.request,
+      super.headers,
+      super.isRedirect,
+      super.reasonPhrase})
+      : _responseInfo = responseInfo;
+}
+
 /// The type of caching to use when making HTTP requests.
 enum CacheMode {
   disabled,
@@ -186,9 +230,10 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
         case final contentLengthHeader?:
           contentLength = int.parse(contentLengthHeader);
       }
-      responseCompleter.complete(_StreamedResponseWithUrl(
+      responseCompleter.complete(CronetStreamedResponse._(
         responseStream!.stream,
         responseInfo.getHttpStatusCode(),
+        responseInfo: responseInfo,
         url: Uri.parse(
             responseInfo.getUrl().toDartString(releaseOriginal: true)),
         contentLength: contentLength,
@@ -353,8 +398,9 @@ class CronetClient extends BaseClient {
           requestMethod: request.method,
           requestUri: request.url.toString());
 
+  /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<CronetStreamedResponse> send(BaseRequest request) async {
     if (_isClosed) {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
@@ -389,7 +435,7 @@ class CronetClient extends BaseClient {
     final body = await stream.toBytes();
     profile?.requestData.bodySink.add(body);
 
-    final responseCompleter = Completer<StreamedResponse>();
+    final responseCompleter = Completer<CronetStreamedResponse>();
 
     final builder = engine._engine.newUrlRequestBuilder(
       request.url.toString().toJString(),

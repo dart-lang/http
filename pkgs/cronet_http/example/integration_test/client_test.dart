@@ -2,7 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:cronet_http/cronet_http.dart';
+import 'package:http/http.dart';
 import 'package:http_client_conformance_tests/http_client_conformance_tests.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:integration_test/integration_test.dart';
@@ -52,8 +55,42 @@ Future<void> testConformance() async {
   });
 }
 
+Future<void> testCronetStreamedResponse() async {
+  group('streamed response', () {
+    late HttpServer server;
+    late Uri serverUri;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          request.response.headers.set('Content-Type', 'text/plain');
+          request.response.headers
+              .set('Cache-Control', 'public, max-age=30, immutable');
+          request.response.headers.set('etag', '12345');
+          await request.response.close();
+        });
+      serverUri = Uri.http('localhost:${server.port}');
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('wasCached', () async {
+      final client = CronetClient.defaultCronetEngine();
+
+      final response1 = await client.send(Request('GET', serverUri));
+      final response2 = await client.send(Request('GET', serverUri));
+
+      expect(response1.wasCached, isFalse);
+      expect(response2.wasCached, isTrue);
+    });
+  });
+}
+
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   await testConformance();
+  await testCronetStreamedResponse();
 }
