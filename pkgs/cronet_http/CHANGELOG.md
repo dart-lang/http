@@ -1,4 +1,4 @@
-## 1.3.4-wip
+## 1.3.4
 
 * Cancel requests when the response stream is cancelled.
 

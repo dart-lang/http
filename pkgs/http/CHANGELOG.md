@@ -1,4 +1,4 @@
-## 1.4.0-wip
+## 1.4.0
 
 * Fixed default encoding for application/json without a charset
   to use utf8 instead of latin1, ensuring proper JSON decoding.
