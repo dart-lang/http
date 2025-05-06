@@ -56,7 +56,7 @@ Future<void> testConformance() async {
 }
 
 Future<void> testCronetStreamedResponse() async {
-  group('streamed response', () {
+  group('CronetStreamedResponse', () {
     late HttpServer server;
     late Uri serverUri;
 
@@ -76,11 +76,33 @@ Future<void> testCronetStreamedResponse() async {
       server.close();
     });
 
-    test('wasCached', () async {
+    test('negotiatedProtocol', () async {
       final client = CronetClient.defaultCronetEngine();
 
+      final response = await client.send(Request('GET', serverUri));
+      await response.stream.drain<void>();
+
+      expect(response.negotiatedProtocol, 'unknown');
+    });
+
+    test('receivedByteCount', () async {
+      final client = CronetClient.defaultCronetEngine();
+
+      final response = await client.send(Request('GET', serverUri));
+      await response.stream.drain<void>();
+
+      expect(response.receivedByteCount, greaterThan(0));
+    });
+
+    test('wasCached', () async {
+      final engine = CronetEngine.build(
+          cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024);
+      final client = CronetClient.fromCronetEngine(engine);
+
       final response1 = await client.send(Request('GET', serverUri));
+      await response1.stream.drain<void>();
       final response2 = await client.send(Request('GET', serverUri));
+      await response2.stream.drain<void>();
 
       expect(response1.wasCached, isFalse);
       expect(response2.wasCached, isTrue);

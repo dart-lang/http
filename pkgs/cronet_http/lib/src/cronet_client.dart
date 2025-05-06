@@ -37,13 +37,10 @@ class CronetStreamedResponse extends _StreamedResponseWithUrl {
 
   /// The protocol (for example `'quic/1+spdy/3'`) negotiated with the server.
   ///
-  /// It will be the empty string if no protocol was negotiated, the protocol is
-  /// not known, or when using plain HTTP or HTTPS.
+  /// It will be the empty string or `'unknown'` if no protocol was negotiated,
+  /// the protocol is not known, or when using plain HTTP or HTTPS.
   String get negotiatedProtocol =>
       _responseInfo.getNegotiatedProtocol().toDartString(releaseOriginal: true);
-
-  String get proxyServer =>
-      _responseInfo.getProxyServer().toDartString(releaseOriginal: true);
 
   /// The minimum count of bytes received from the network to process this
   /// request.
@@ -192,7 +189,7 @@ Map<String, String> _cronetToClientHeaders(
 
 jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
     BaseRequest request,
-    Completer<StreamedResponse> responseCompleter,
+    Completer<CronetStreamedResponse> responseCompleter,
     HttpClientRequestProfile? profile) {
   StreamController<List<int>>? responseStream;
   JByteBuffer? jByteBuffer;
@@ -264,9 +261,12 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
 
       if (!request.followRedirects) {
         urlRequest.cancel();
-        responseCompleter.complete(StreamedResponse(
+        responseCompleter.complete(CronetStreamedResponse._(
             const Stream.empty(), // Cronet provides no body for redirects.
             responseInfo.getHttpStatusCode(),
+            responseInfo: responseInfo,
+            url: Uri.parse(
+                responseInfo.getUrl().toDartString(releaseOriginal: true)),
             contentLength: 0,
             reasonPhrase: responseInfo
                 .getHttpStatusText()

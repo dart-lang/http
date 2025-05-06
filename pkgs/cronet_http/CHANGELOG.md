@@ -1,3 +1,8 @@
+## 1.4.0-wip
+
+* Add a new `CronetStreamedResponse` class that provides additional information
+  about the HTTP response.
+
 ## 1.3.4
 
 * Cancel requests when the response stream is cancelled.
