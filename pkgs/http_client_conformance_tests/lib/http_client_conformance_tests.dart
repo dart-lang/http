@@ -4,23 +4,7 @@
 
 import 'package:http/http.dart';
 
-import 'src/close_tests.dart';
-import 'src/compressed_response_body_tests.dart';
-import 'src/isolate_test.dart';
-import 'src/multipart_tests.dart';
-import 'src/multiple_clients_tests.dart';
-import 'src/redirect_tests.dart';
-import 'src/request_body_streamed_tests.dart';
-import 'src/request_body_tests.dart';
-import 'src/request_cookies_test.dart';
-import 'src/request_headers_tests.dart';
-import 'src/request_methods_tests.dart';
-import 'src/response_body_streamed_test.dart';
-import 'src/response_body_tests.dart';
-import 'src/response_cookies_test.dart';
-import 'src/response_headers_tests.dart';
-import 'src/response_status_line_tests.dart';
-import 'src/server_errors_test.dart';
+import 'http_client_conformance_tests.dart';
 
 export 'src/close_tests.dart' show testClose;
 export 'src/compressed_response_body_tests.dart'
@@ -40,6 +24,7 @@ export 'src/response_cookies_test.dart' show testResponseCookies;
 export 'src/response_headers_tests.dart' show testResponseHeaders;
 export 'src/response_status_line_tests.dart' show testResponseStatusLine;
 export 'src/server_errors_test.dart' show testServerErrors;
+export 'src/stress_test.dart' show stressTestConcurrentRequests;
 
 /// Runs the entire test suite against the given [Client].
 ///
