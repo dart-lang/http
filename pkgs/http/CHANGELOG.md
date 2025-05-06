@@ -1,3 +1,7 @@
+## 1.4.1
+
+* Clarify that some header names may not be sent/received.
+
 ## 1.4.0
 
 * Fixed default encoding for application/json without a charset
