@@ -1,9 +1,7 @@
 name: web_socket_channel
 version: 3.0.3
 description: >-
-  StreamChannel wrappers for WebSockets. Provides a cross-platform
-  WebSocketChannel API, a cross-platform implementation of that API that
-  communicates over an underlying StreamChannel.
+  A WebSocket API that enables cross-platform communication via StreamChannel.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/web_socket_channel
 
 environment:
