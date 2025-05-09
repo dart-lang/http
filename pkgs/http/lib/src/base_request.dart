@@ -81,7 +81,13 @@ abstract class BaseRequest {
 
   // TODO(nweiz): automatically parse cookies from headers
 
-  // TODO(nweiz): make this a HttpHeaders object
+  /// The HTTP headers sent to the server.
+  ///
+  /// Header names are converted to lowercase when sent to the server.
+  ///
+  /// Some headers may not be sent by the [Client] for security or privacy
+  /// reasons. For example, browser-based clients may only sent headers in the
+  /// CORS safelist or specifically allowed by the server.
   final Map<String, String> headers;
 
   /// Whether [finalize] has been called.

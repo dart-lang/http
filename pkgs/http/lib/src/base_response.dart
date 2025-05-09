@@ -52,6 +52,10 @@ abstract class BaseResponse {
   /// If a header value contains whitespace then that whitespace may be replaced
   /// by a single space. Leading and trailing whitespace in header values are
   /// always removed.
+  ///
+  /// Some headers may be excluded by the [Client] for security or privacy
+  /// reasons. For example, browser-based clients can only return headers in the
+  /// CORS safelist or specifically allowed by the server.
   final Map<String, String> headers;
 
   final bool isRedirect;
