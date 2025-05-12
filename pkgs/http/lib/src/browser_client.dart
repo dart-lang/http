@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:js_interop';
-
 import 'package:web/web.dart'
     show
         AbortController,
@@ -30,6 +29,38 @@ BaseClient createClient() {
   return BrowserClient();
 }
 
+/// Caching mode used by the [BrowserClient].
+///
+/// Sets the request cache value of the browser Fetch API.
+/// [`Request.cache`](https://developer.mozilla.org/en-US/docs/Web/API/Request/cache) property.
+enum CacheMode {
+  defaultType('default'),
+  reload('reload'),
+  noStore('no-store'),
+  noCache('no-cache'),
+  forceCache('force-cache'),
+  onlyIfCached('only-if-cached');
+
+  final String cacheType;
+
+  const CacheMode(this.cacheType);
+}
+
+/// Request mode used by the [BrowserClient].
+///
+/// Sets the request mode value of the browser Fetch API.
+/// [`Request.mode`](https://developer.mozilla.org/en-US/docs/Web/API/Request/mode) property.
+enum RequestMode {
+  sameOrigin('same-origin'),
+  noCors('no-cors'),
+  cors('cors'),
+  navigate('navigate');
+
+  final String requestType;
+
+  const RequestMode(this.requestType);
+}
+
 @JS('fetch')
 external JSPromise<Response> _fetch(
   RequestInfo input, [
@@ -50,6 +81,23 @@ external JSPromise<Response> _fetch(
 /// once all the data is available.
 class BrowserClient extends BaseClient {
   final _abortController = AbortController();
+
+  final CacheMode _cacheMode;
+
+  final RequestMode _requestMode;
+  /// Create a new browser-based HTTP Client.
+  ///
+  /// If [cacheMode] is provided then it can be used to cache the request
+  /// in the browser.
+  ///
+  /// For example:
+  /// ```dart
+  /// final client = BrowserClient(cacheMode: CacheMode.reload);
+  /// ```
+  BrowserClient({RequestMode requestMode = RequestMode.cors,
+    CacheMode cacheMode = CacheMode.defaultType})
+      : _cacheMode = cacheMode,
+        _requestMode = requestMode;
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
@@ -74,6 +122,8 @@ class BrowserClient extends BaseClient {
         RequestInit(
           method: request.method,
           body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
+          cache: _cacheMode.cacheType,
+          mode: _requestMode.requestType,
           credentials: withCredentials ? 'include' : 'same-origin',
           headers: {
             if (request.contentLength case final contentLength?)
