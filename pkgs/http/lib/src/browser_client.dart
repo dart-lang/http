@@ -71,7 +71,7 @@ class BrowserClient extends BaseClient {
     final bodyBytes = await request.finalize().toBytes();
     try {
       Future<void>? canceller;
-      if (request case Abortable(:final Future<void> abortTrigger)) {
+      if (request case Abortable(:final abortTrigger?)) {
         canceller = abortTrigger.whenComplete(() => _abortController.abort());
       }
 

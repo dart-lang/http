@@ -125,7 +125,7 @@ class IOClient extends BaseClient {
       });
 
       Future<void>? canceller;
-      if (request case Abortable(:final Future<void> abortTrigger)) {
+      if (request case Abortable(:final abortTrigger?)) {
         canceller = abortTrigger
             .whenComplete(() => ioRequest.abort(const AbortedRequest()));
       }
