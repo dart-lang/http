@@ -8,7 +8,8 @@
   to use utf8 instead of latin1, ensuring proper JSON decoding.
 * Avoid references to `window` in `BrowserClient`, restoring support for web
   workers and NodeJS.
-
+* Added caching options for `BrowserClient`.
+ 
 ## 1.3.0
 
 * Fixed unintended HTML tags in doc comments.
