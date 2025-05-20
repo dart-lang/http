@@ -14,6 +14,7 @@ import 'package:web/web.dart'
         RequestInit,
         Response;
 
+import 'abortable.dart';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
@@ -69,6 +70,11 @@ class BrowserClient extends BaseClient {
 
     final bodyBytes = await request.finalize().toBytes();
     try {
+      Future<void>? canceller;
+      if (request case Abortable(:final Future<void> abortTrigger)) {
+        canceller = abortTrigger.whenComplete(() => _abortController.abort());
+      }
+
       final response = await _fetch(
         '${request.url}'.toJS,
         RequestInit(
@@ -85,6 +91,8 @@ class BrowserClient extends BaseClient {
           redirect: request.followRedirects ? 'follow' : 'error',
         ),
       ).toDart;
+
+      canceller?.ignore();
 
       final contentLengthHeader = response.headers.get('content-length');
 

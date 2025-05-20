@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert' as convert;
 
 import 'package:http/http.dart' as http;
@@ -9,6 +10,14 @@ void main(List<String> arguments) async {
       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
 
   // Await the http get response, then decode the json-formatted response.
+  try {
+    final e =
+        await http.AbortableRequest('GET', url, abortTrigger: Future.error(10))
+            .send();
+    await e.stream.drain<void>();
+  } on http.AbortedRequest {
+    print('Cancelled');
+  }
   var response = await http.get(url);
   if (response.statusCode == 200) {
     var jsonResponse =

@@ -4,6 +4,7 @@
 
 import 'dart:io';
 
+import 'abortable.dart';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'base_response.dart';
@@ -123,7 +124,15 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
+      Future<void>? canceller;
+      if (request case Abortable(:final Future<void> abortTrigger)) {
+        canceller = abortTrigger
+            .whenComplete(() => ioRequest.abort(const AbortedRequest()));
+      }
+
       var response = await stream.pipe(ioRequest) as HttpClientResponse;
+
+      canceller?.ignore();
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
