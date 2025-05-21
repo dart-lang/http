@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'base_request.dart';
 import 'client.dart';
+import 'exception.dart';
 
 /// Enables a request to be recognised by a [Client] as abortable
 abstract mixin class Abortable implements BaseRequest {
@@ -25,11 +26,13 @@ abstract mixin class Abortable implements BaseRequest {
   abstract final Future<void>? abortTrigger;
 }
 
-/// Thrown when a HTTP request is aborted using [Abortable.abortTrigger]
+/// Thrown when a HTTP request is aborted
 ///
-/// This is not thrown when `abortTrigger` is completed after the request has
-/// already completed.
+/// Usually, this is due to [Abortable.abortTrigger] completing before the
+/// request is already complete. However, some clients' [Client.close]
+/// implementation may cause open requests to throw this (or a standard
+/// [ClientException]).
 class AbortedRequest implements Exception {
-  /// Indicator that the request has been aborted by [Abortable.abortTrigger]
+  /// Indicator that the request has been aborted
   const AbortedRequest();
 }

@@ -8,6 +8,7 @@ import 'dart:js_interop';
 import 'package:web/web.dart'
     show
         AbortController,
+        DOMException,
         HeadersInit,
         ReadableStreamDefaultReader,
         RequestInfo,
@@ -50,8 +51,6 @@ external JSPromise<Response> _fetch(
 /// Responses are streamed but requests are not. A request will only be sent
 /// once all the data is available.
 class BrowserClient extends BaseClient {
-  final _abortController = AbortController();
-
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
   ///
@@ -59,6 +58,7 @@ class BrowserClient extends BaseClient {
   bool withCredentials = false;
 
   bool _isClosed = false;
+  var _abortController = AbortController();
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
@@ -72,7 +72,13 @@ class BrowserClient extends BaseClient {
     try {
       Future<void>? canceller;
       if (request case Abortable(:final abortTrigger?)) {
-        canceller = abortTrigger.whenComplete(() => _abortController.abort());
+        canceller = abortTrigger.whenComplete(() {
+          _abortController.abort();
+          // We have to reinstantiate the controller on every abort, otherwise
+          // all future requests with this client are also aborted.
+          // We cannot do this within `send`, as `close` requires access.
+          _abortController = AbortController();
+        });
       }
 
       final response = await _fetch(
@@ -122,6 +128,12 @@ class BrowserClient extends BaseClient {
         url: Uri.parse(response.url),
         reasonPhrase: response.statusText,
       );
+    } on DOMException catch (e, st) {
+      // We need to catch the abortion here, not around the `_fetch` method, as
+      // `_readBody` can also throw
+      if (e.name == 'AbortError') throw AbortedRequest();
+
+      _rethrowAsClientException(e, st, request);
     } catch (e, st) {
       _rethrowAsClientException(e, st, request);
     }
@@ -129,7 +141,8 @@ class BrowserClient extends BaseClient {
 
   /// Closes the client.
   ///
-  /// This terminates all active requests.
+  /// This terminates all active requests, which may cause them to throw
+  /// [AbortedRequest] or [ClientException].
   @override
   void close() {
     _isClosed = true;
