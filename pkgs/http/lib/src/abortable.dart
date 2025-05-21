@@ -25,7 +25,7 @@ abstract mixin class Abortable implements BaseRequest {
   abstract final Future<void>? abortTrigger;
 }
 
-/// Thrown when a request is aborted using [Abortable.abortTrigger]
+/// Thrown when a HTTP request is aborted using [Abortable.abortTrigger]
 ///
 /// This is not thrown when `abortTrigger` is completed after the request has
 /// already completed.
