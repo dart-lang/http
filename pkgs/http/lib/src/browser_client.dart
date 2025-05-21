@@ -58,7 +58,7 @@ class BrowserClient extends BaseClient {
   bool withCredentials = false;
 
   bool _isClosed = false;
-  var _abortController = AbortController();
+  final _openRequestAbortControllers = <AbortController>[];
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
@@ -68,17 +68,14 @@ class BrowserClient extends BaseClient {
           'HTTP request failed. Client is already closed.', request.url);
     }
 
+    final _abortController = AbortController();
+    _openRequestAbortControllers.add(_abortController);
+
     final bodyBytes = await request.finalize().toBytes();
     try {
       Future<void>? canceller;
       if (request case Abortable(:final abortTrigger?)) {
-        canceller = abortTrigger.whenComplete(() {
-          _abortController.abort();
-          // We have to reinstantiate the controller on every abort, otherwise
-          // all future requests with this client are also aborted.
-          // We cannot do this within `send`, as `close` requires access.
-          _abortController = AbortController();
-        });
+        canceller = abortTrigger.whenComplete(() => _abortController.abort());
       }
 
       final response = await _fetch(
@@ -129,13 +126,15 @@ class BrowserClient extends BaseClient {
         reasonPhrase: response.statusText,
       );
     } on DOMException catch (e, st) {
-      // We need to catch the abortion here, not around the `_fetch` method, as
-      // `_readBody` can also throw
-      if (e.name == 'AbortError') throw AbortedRequest();
+      if (e.name == 'AbortError') {
+        Error.throwWithStackTrace(AbortedRequest(), st);
+      }
 
       _rethrowAsClientException(e, st, request);
     } catch (e, st) {
       _rethrowAsClientException(e, st, request);
+    } finally {
+      _openRequestAbortControllers.remove(_abortController);
     }
   }
 
@@ -145,8 +144,10 @@ class BrowserClient extends BaseClient {
   /// [AbortedRequest] or [ClientException].
   @override
   void close() {
+    for (final abortController in _openRequestAbortControllers) {
+      abortController.abort();
+    }
     _isClosed = true;
-    _abortController.abort();
   }
 }
 
@@ -179,6 +180,12 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
       }
       yield (chunk.value! as JSUint8Array).toDart;
     }
+  } on DOMException catch (e, st) {
+    isError = true;
+
+    if (e.name == 'AbortError') Error.throwWithStackTrace(AbortedRequest(), st);
+
+    _rethrowAsClientException(e, st, request);
   } catch (e, st) {
     isError = true;
     _rethrowAsClientException(e, st, request);
