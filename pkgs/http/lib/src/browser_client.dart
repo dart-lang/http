@@ -127,7 +127,7 @@ class BrowserClient extends BaseClient {
       );
     } on DOMException catch (e, st) {
       if (e.name == 'AbortError') {
-        Error.throwWithStackTrace(AbortedRequest(), st);
+        Error.throwWithStackTrace(const AbortedRequest(), st);
       }
 
       _rethrowAsClientException(e, st, request);
@@ -183,7 +183,9 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
   } on DOMException catch (e, st) {
     isError = true;
 
-    if (e.name == 'AbortError') Error.throwWithStackTrace(AbortedRequest(), st);
+    if (e.name == 'AbortError') {
+      Error.throwWithStackTrace(const AbortedRequest(), st);
+    }
 
     _rethrowAsClientException(e, st, request);
   } catch (e, st) {
