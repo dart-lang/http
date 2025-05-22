@@ -97,7 +97,7 @@ void testAbort(
           throwsA(
               isA<ClientException>().having((e) => e.uri, 'uri', serverUrl)));
       expect(i, 1000);
-    });
+    }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
 
     test('after streaming response', () async {
       final request = Request('GET', serverUrl);
@@ -105,6 +105,20 @@ void testAbort(
       final response = await client.send(request);
       await response.stream.drain<void>();
       // Trigger abort, should have no effect.
+    });
+
+    test('after response, client still useable', () async {
+      final request = Request('GET', serverUrl);
+
+      final abortResponse = await client.send(request);
+      // TODO: Trigger abort
+      try {
+        await abortResponse.stream.drain<void>();
+      } on ClientException {}
+
+      final response = await client.get(serverUrl);
+      expect(response.statusCode, 200);
+      expect(response.body, endsWith('10000\n'));
     });
   });
 }
