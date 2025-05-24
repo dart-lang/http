@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
+
 import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
@@ -43,82 +45,119 @@ void testAbort(
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('before request', () async {
-      final request = Request('GET', serverUrl);
-
-      // TODO: Trigger abort
+      final abortTrigger = Completer<void>();
+      final request = AbortableRequest(
+        'GET',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
+      abortTrigger.complete();
 
       expect(
-          client.send(request),
-          throwsA(
-              isA<ClientException>().having((e) => e.uri, 'uri', serverUrl)));
+        client.send(request),
+        throwsA(isA<AbortedRequest>()),
+      );
     });
 
     test('during request stream', () async {
-      final request = StreamedRequest('POST', serverUrl);
+      final abortTrigger = Completer<void>();
+
+      final request = AbortableStreamedRequest(
+        'POST',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
 
       final response = client.send(request);
       request.sink.add('Hello World'.codeUnits);
-      // TODO: Trigger abort
+
+      abortTrigger.complete();
 
       expect(
-          response,
-          throwsA(
-              isA<ClientException>().having((e) => e.uri, 'uri', serverUrl)));
+        response,
+        throwsA(isA<AbortedRequest>()),
+      );
       await request
           .sink.done; // Verify that the stream subscription was cancelled.
     }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
 
     test('after response', () async {
-      final request = Request('GET', serverUrl);
+      final abortTrigger = Completer<void>();
 
+      final request = AbortableRequest(
+        'GET',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
       final response = await client.send(request);
 
-      // TODO: Trigger abort
+      abortTrigger.complete();
 
       expect(
-          response.stream.single,
-          throwsA(
-              isA<ClientException>().having((e) => e.uri, 'uri', serverUrl)));
+        response.stream.single,
+        throwsA(isA<AbortedRequest>()),
+      );
     });
 
     test('while streaming response', () async {
-      final request = Request('GET', serverUrl);
+      final abortTrigger = Completer<void>();
 
+      final request = AbortableRequest(
+        'GET',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
       final response = await client.send(request);
 
       var i = 0;
-      expect(
-          response.stream.listen((data) {
-            ++i;
-            if (i == 1000) {
-              // TODO: Trigger abort
-            }
-          }).asFuture<void>(),
-          throwsA(
-              isA<ClientException>().having((e) => e.uri, 'uri', serverUrl)));
+      final subscription = response.stream.listen((data) {
+        ++i;
+        if (i == 1000) abortTrigger.complete();
+      }).asFuture<void>();
+      expect(subscription, throwsA(isA<AbortedRequest>()));
+      await subscription.catchError((_) => null);
       expect(i, 1000);
     }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
 
     test('after streaming response', () async {
-      final request = Request('GET', serverUrl);
+      final abortTrigger = Completer<void>();
+
+      final request = AbortableRequest(
+        'GET',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
 
       final response = await client.send(request);
       await response.stream.drain<void>();
-      // Trigger abort, should have no effect.
+
+      abortTrigger.complete();
     });
 
     test('after response, client still useable', () async {
-      final request = Request('GET', serverUrl);
+      final abortTrigger = Completer<void>();
+
+      final request = AbortableRequest(
+        'GET',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
 
       final abortResponse = await client.send(request);
-      // TODO: Trigger abort
+
+      abortTrigger.complete();
+
+      bool triggeredAbortedRequest = false;
       try {
         await abortResponse.stream.drain<void>();
-      } on ClientException {}
+      } on AbortedRequest {
+        triggeredAbortedRequest = true;
+      }
 
       final response = await client.get(serverUrl);
       expect(response.statusCode, 200);
-      expect(response.body, endsWith('10000\n'));
+      expect(response.body, endsWith('9999\n'));
+      expect(triggeredAbortedRequest, true);
     });
   });
 }

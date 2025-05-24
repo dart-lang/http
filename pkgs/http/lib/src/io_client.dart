@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:io';
 
 import 'abortable.dart';
@@ -124,15 +125,45 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      Future<void>? canceller;
+      // We can only abort the actual connection up until the point we obtain
+      // the response.
+      // After that point, the full response bytes are always available.
+      // However, we instead inject an error into the response stream to match
+      // the behaviour of `BrowserClient`.
+
+      StreamSubscription<List<int>>? subscription;
+      final controller = StreamController<List<int>>(sync: true);
+
       if (request case Abortable(:final abortTrigger?)) {
-        canceller = abortTrigger
-            .whenComplete(() => ioRequest.abort(const AbortedRequest()));
+        abortTrigger.whenComplete(() async {
+          if (subscription == null) {
+            ioRequest.abort(const AbortedRequest());
+          } else {
+            if (!controller.isClosed) {
+              controller.addError(const AbortedRequest());
+            }
+            await subscription.cancel();
+          }
+          await controller.close();
+        });
       }
 
-      var response = await stream.pipe(ioRequest) as HttpClientResponse;
+      final response = await stream.pipe(ioRequest) as HttpClientResponse;
 
-      canceller?.ignore();
+      subscription = response.listen(
+        controller.add,
+        onDone: controller.close,
+        onError: (Object err, StackTrace stackTrace) {
+          if (err is HttpException) {
+            controller.addError(
+              ClientException(err.message, err.uri),
+              stackTrace,
+            );
+          } else {
+            controller.addError(err, stackTrace);
+          }
+        },
+      );
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
@@ -143,22 +174,20 @@ class IOClient extends BaseClient {
       });
 
       return _IOStreamedResponseV2(
-          response.handleError((Object error) {
-            final httpException = error as HttpException;
-            throw ClientException(httpException.message, httpException.uri);
-          }, test: (error) => error is HttpException),
-          response.statusCode,
-          contentLength:
-              response.contentLength == -1 ? null : response.contentLength,
-          request: request,
-          headers: headers,
-          isRedirect: response.isRedirect,
-          url: response.redirects.isNotEmpty
-              ? response.redirects.last.location
-              : request.url,
-          persistentConnection: response.persistentConnection,
-          reasonPhrase: response.reasonPhrase,
-          inner: response);
+        controller.stream,
+        response.statusCode,
+        contentLength:
+            response.contentLength == -1 ? null : response.contentLength,
+        request: request,
+        headers: headers,
+        isRedirect: response.isRedirect,
+        url: response.redirects.isNotEmpty
+            ? response.redirects.last.location
+            : request.url,
+        persistentConnection: response.persistentConnection,
+        reasonPhrase: response.reasonPhrase,
+        inner: response,
+      );
     } on SocketException catch (error) {
       throw _ClientSocketException(error, request.url);
     } on HttpException catch (error) {
