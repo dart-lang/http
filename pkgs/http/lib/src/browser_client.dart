@@ -8,12 +8,14 @@ import 'dart:js_interop';
 import 'package:web/web.dart'
     show
         AbortController,
+        DOMException,
         HeadersInit,
         ReadableStreamDefaultReader,
         RequestInfo,
         RequestInit,
         Response;
 
+import 'abortable.dart';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
@@ -49,8 +51,6 @@ external JSPromise<Response> _fetch(
 /// Responses are streamed but requests are not. A request will only be sent
 /// once all the data is available.
 class BrowserClient extends BaseClient {
-  final _abortController = AbortController();
-
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
   ///
@@ -58,6 +58,7 @@ class BrowserClient extends BaseClient {
   bool withCredentials = false;
 
   bool _isClosed = false;
+  final _openRequestAbortControllers = <AbortController>[];
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
@@ -67,8 +68,16 @@ class BrowserClient extends BaseClient {
           'HTTP request failed. Client is already closed.', request.url);
     }
 
+    final _abortController = AbortController();
+    _openRequestAbortControllers.add(_abortController);
+
     final bodyBytes = await request.finalize().toBytes();
     try {
+      Future<void>? canceller;
+      if (request case Abortable(:final abortTrigger?)) {
+        canceller = abortTrigger.whenComplete(() => _abortController.abort());
+      }
+
       final response = await _fetch(
         '${request.url}'.toJS,
         RequestInit(
@@ -85,6 +94,8 @@ class BrowserClient extends BaseClient {
           redirect: request.followRedirects ? 'follow' : 'error',
         ),
       ).toDart;
+
+      canceller?.ignore();
 
       final contentLengthHeader = response.headers.get('content-length');
 
@@ -114,18 +125,29 @@ class BrowserClient extends BaseClient {
         url: Uri.parse(response.url),
         reasonPhrase: response.statusText,
       );
+    } on DOMException catch (e, st) {
+      if (e.name == 'AbortError') {
+        Error.throwWithStackTrace(const AbortedRequest(), st);
+      }
+
+      _rethrowAsClientException(e, st, request);
     } catch (e, st) {
       _rethrowAsClientException(e, st, request);
+    } finally {
+      _openRequestAbortControllers.remove(_abortController);
     }
   }
 
   /// Closes the client.
   ///
-  /// This terminates all active requests.
+  /// This terminates all active requests, which may cause them to throw
+  /// [AbortedRequest] or [ClientException].
   @override
   void close() {
+    for (final abortController in _openRequestAbortControllers) {
+      abortController.abort();
+    }
     _isClosed = true;
-    _abortController.abort();
   }
 }
 
@@ -158,6 +180,14 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
       }
       yield (chunk.value! as JSUint8Array).toDart;
     }
+  } on DOMException catch (e, st) {
+    isError = true;
+
+    if (e.name == 'AbortError') {
+      Error.throwWithStackTrace(const AbortedRequest(), st);
+    }
+
+    _rethrowAsClientException(e, st, request);
   } catch (e, st) {
     isError = true;
     _rethrowAsClientException(e, st, request);

@@ -133,7 +133,18 @@ final class RetryClient extends BaseClient {
 
   /// Returns a copy of [original] with the given [body].
   StreamedRequest _copyRequest(BaseRequest original, Stream<List<int>> body) {
-    final request = StreamedRequest(original.method, original.url)
+    final StreamedRequest request;
+    if (original case Abortable(:final abortTrigger?)) {
+      request = AbortableStreamedRequest(
+        original.method,
+        original.url,
+        abortTrigger: abortTrigger,
+      );
+    } else {
+      request = StreamedRequest(original.method, original.url);
+    }
+
+    request
       ..contentLength = original.contentLength
       ..followRedirects = original.followRedirects
       ..headers.addAll(original.headers)

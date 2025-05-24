@@ -7,6 +7,7 @@ import 'dart:collection';
 import 'package:meta/meta.dart';
 
 import '../http.dart' show ClientException, get;
+import 'abortable.dart';
 import 'base_client.dart';
 import 'base_response.dart';
 import 'byte_stream.dart';
@@ -20,6 +21,10 @@ import 'utils.dart';
 /// [BaseClient.send], which allows the user to provide fine-grained control
 /// over the request properties. However, usually it's easier to use convenience
 /// methods like [get] or [BaseClient.get].
+///
+/// Subclasses/implementers should mixin/implement [Abortable] to support
+/// abortion of requests. A future breaking version of 'package:http' will
+/// merge [Abortable] into [BaseRequest], making it a requirement.
 abstract class BaseRequest {
   /// The HTTP method of the request.
   ///
