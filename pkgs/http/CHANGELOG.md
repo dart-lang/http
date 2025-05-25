@@ -1,5 +1,6 @@
-## 1.4.1
+## 1.5.0
 
+* Added support for abortion of requests
 * Clarify that some header names may not be sent/received.
 
 ## 1.4.0
