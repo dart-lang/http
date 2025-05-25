@@ -6,32 +6,37 @@ import 'dart:async';
 
 import 'base_request.dart';
 import 'client.dart';
-import 'exception.dart';
+import 'streamed_response.dart';
 
 /// Enables a request to be recognised by a [Client] as abortable
 abstract mixin class Abortable implements BaseRequest {
-  /// This request will be aborted if this completes
+  /// Completion of this future aborts this request (if the client supports
+  /// abortion)
+  ///
+  /// Requests/responses may be aborted at any time during their lifecycle.
+  ///
+  ///  * If completed before the request has been finalized and sent,
+  ///    [Client.send] completes with an [AbortedRequest] exception
+  ///  * If completed after the response headers are available, or whilst
+  ///    streaming response bytes, clients inject [AbortedRequest] into the
+  ///    [StreamedResponse.stream] then finish it early
+  ///  * If completed after the response is fully complete, there is no effect
   ///
   /// A common pattern is aborting a request when another event occurs (such as
-  /// a user action). A [Completer] may be used to implement this.
-  ///
-  /// Another pattern is a timeout. Use [Future.delayed] to achieve this.
+  /// a user action): use a [Completer] to implement this. To implement a
+  /// timeout (to abort the request after a set time has elapsed), use
+  /// [Future.delayed].
   ///
   /// This future must not complete to an error.
   ///
-  /// This future may complete at any time - a [AbortedRequest] will be thrown
-  /// by [send]/[Client.send] if it is completed before the request is complete.
-  ///
-  /// Non-'package:http' [Client]s may unexpectedly not support this trigger.
+  /// Some clients may not support abortion, or may not support this trigger.
   abstract final Future<void>? abortTrigger;
 }
 
-/// Thrown when a HTTP request is aborted
+/// Thrown when an HTTP request is aborted
 ///
-/// Usually, this is due to [Abortable.abortTrigger] completing before the
-/// request is already complete. However, some clients' [Client.close]
-/// implementation may cause open requests to throw this (or a standard
-/// [ClientException]).
+/// Usually, this is due to [Abortable.abortTrigger]. See documentation on that
+/// property for more info.
 class AbortedRequest implements Exception {
   /// Indicator that the request has been aborted
   const AbortedRequest();
