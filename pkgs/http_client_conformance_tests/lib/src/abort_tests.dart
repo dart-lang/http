@@ -109,14 +109,19 @@ void testAbort(
       );
       final response = await client.send(request);
 
+      // We want to count data bytes, not 'packet' count, because different
+      // clients will use different size/numbers of 'packet's
       var i = 0;
-      final subscription = response.stream.listen((data) {
-        ++i;
-        if (i == 1000) abortTrigger.complete();
-      }).asFuture<void>();
-      expect(subscription, throwsA(isA<AbortedRequest>()));
-      await subscription.catchError((_) => null);
-      expect(i, 1000);
+      expect(
+        response.stream.listen(
+          (data) {
+            i += data.length;
+            if (i >= 1000 && !abortTrigger.isCompleted) abortTrigger.complete();
+          },
+        ).asFuture<void>(),
+        throwsA(isA<AbortedRequest>()),
+      );
+      expect(i, lessThan(48890));
     }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
 
     test('after streaming response', () async {
