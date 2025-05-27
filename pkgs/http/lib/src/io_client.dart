@@ -131,36 +131,38 @@ class IOClient extends BaseClient {
       // However, we instead inject an error into the response stream to match
       // the behaviour of `BrowserClient`.
 
-      StreamSubscription<List<int>>? subscription;
-      final controller = StreamController<List<int>>(sync: true);
+      StreamSubscription<List<int>>? ioResponseSubscription;
+      final responseController = StreamController<List<int>>(sync: true);
 
       if (request case Abortable(:final abortTrigger?)) {
-        unawaited(abortTrigger.whenComplete(() async {
-          if (subscription == null) {
-            ioRequest.abort(const AbortedRequest());
-          } else {
-            if (!controller.isClosed) {
-              controller.addError(const AbortedRequest());
+        unawaited(
+          abortTrigger.whenComplete(() async {
+            if (ioResponseSubscription == null) {
+              ioRequest.abort(AbortedRequest(request.url));
+            } else {
+              if (!responseController.isClosed) {
+                responseController.addError(AbortedRequest(request.url));
+              }
+              await ioResponseSubscription.cancel();
             }
-            await subscription.cancel();
-          }
-          await controller.close();
-        }));
+            await responseController.close();
+          }),
+        );
       }
 
       final response = await stream.pipe(ioRequest) as HttpClientResponse;
 
-      subscription = response.listen(
-        controller.add,
-        onDone: controller.close,
+      ioResponseSubscription = response.listen(
+        responseController.add,
+        onDone: responseController.close,
         onError: (Object err, StackTrace stackTrace) {
           if (err is HttpException) {
-            controller.addError(
+            responseController.addError(
               ClientException(err.message, err.uri),
               stackTrace,
             );
           } else {
-            controller.addError(err, stackTrace);
+            responseController.addError(err, stackTrace);
           }
         },
       );
@@ -174,7 +176,7 @@ class IOClient extends BaseClient {
       });
 
       return _IOStreamedResponseV2(
-        controller.stream,
+        responseController.stream,
         response.statusCode,
         contentLength:
             response.contentLength == -1 ? null : response.contentLength,

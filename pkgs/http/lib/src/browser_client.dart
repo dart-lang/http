@@ -74,7 +74,9 @@ class BrowserClient extends BaseClient {
     final bodyBytes = await request.finalize().toBytes();
     try {
       if (request case Abortable(:final abortTrigger?)) {
-        unawaited(abortTrigger.whenComplete(_abortController.abort));
+        // Tear-offs of external extension type interop members are disallowed
+        // ignore: unnecessary_lambdas
+        unawaited(abortTrigger.whenComplete(() => _abortController.abort()));
       }
 
       final response = await _fetch(
@@ -122,12 +124,6 @@ class BrowserClient extends BaseClient {
         url: Uri.parse(response.url),
         reasonPhrase: response.statusText,
       );
-    } on DOMException catch (e, st) {
-      if (e.name == 'AbortError') {
-        Error.throwWithStackTrace(const AbortedRequest(), st);
-      }
-
-      _rethrowAsClientException(e, st, request);
     } catch (e, st) {
       _rethrowAsClientException(e, st, request);
     } finally {
@@ -149,6 +145,9 @@ class BrowserClient extends BaseClient {
 }
 
 Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
+  if (e case DOMException(:final name) when name == 'AbortError') {
+    Error.throwWithStackTrace(AbortedRequest(request.url), st);
+  }
   if (e is! ClientException) {
     var message = e.toString();
     if (message.startsWith('TypeError: ')) {
@@ -177,14 +176,6 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
       }
       yield (chunk.value! as JSUint8Array).toDart;
     }
-  } on DOMException catch (e, st) {
-    isError = true;
-
-    if (e.name == 'AbortError') {
-      Error.throwWithStackTrace(const AbortedRequest(), st);
-    }
-
-    _rethrowAsClientException(e, st, request);
   } catch (e, st) {
     isError = true;
     _rethrowAsClientException(e, st, request);

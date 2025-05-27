@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'base_request.dart';
 import 'client.dart';
+import 'exception.dart';
 import 'streamed_response.dart';
 
 /// An HTTP request that can be aborted before it completes.
@@ -37,7 +38,6 @@ abstract mixin class Abortable implements BaseRequest {
 ///
 /// This exception is triggered when [Abortable.abortTrigger] completes.
 /// property for more info.
-class AbortedRequest implements Exception {
-  /// Indicator that the request has been aborted
-  const AbortedRequest();
+class AbortedRequest extends ClientException {
+  AbortedRequest([Uri? uri]) : super('Request aborted by `abortTrigger`', uri);
 }

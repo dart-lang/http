@@ -22,7 +22,6 @@ void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
-
       await request.drain<void>();
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
