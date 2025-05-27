@@ -59,6 +59,7 @@ class _TaskTracker {
 
   /// Whether the response stream subscription has been cancelled.
   bool responseListenerCancelled = false;
+  bool requestAborted = false;
   final HttpClientRequestProfile? profile;
   int numRedirects = 0;
   Uri? lastUrl; // The last URL redirected to.
@@ -192,14 +193,22 @@ class CupertinoClient extends BaseClient {
   static void _onComplete(
       URLSession session, URLSessionTask task, NSError? error) {
     final taskTracker = _tracker(task);
-    // The task will only be cancelled if the user calls
-    // `StreamedResponse.stream.cancel()`, which can only happen if the response
-    // has already been received. Therefore, it is safe to handle task
-    // cancellation errors as if the response completed normally.
+
+    // There are two ways that the request can be cancelled:
+    // 1. The user calls `StreamedResponse.stream.cancel()`, which can only
+    //    happen if the response has already been received.
+    // 2. The user aborts the request, which can happen at any point in the
+    //    request lifecycle and results in `AbortedRequest` being thrown.
+    final isCancelError = error?.domain.toDartString() == 'NSURLErrorDomain' &&
+        error?.code == _nsurlErrorCancelled;
     if (error != null &&
-        !(error.domain.toDartString() == 'NSURLErrorDomain' &&
-            error.code == _nsurlErrorCancelled)) {
-      final exception = NSErrorClientException(error, taskTracker.request.url);
+        !(isCancelError && taskTracker.responseListenerCancelled)) {
+      final Exception exception;
+      if (isCancelError) {
+        exception = const AbortedRequest();
+      } else {
+        exception = NSErrorClientException(error, taskTracker.request.url);
+      }
       if (taskTracker.profile != null &&
           taskTracker.profile!.requestData.endTime == null) {
         // Error occurred during the request.
@@ -230,7 +239,9 @@ class CupertinoClient extends BaseClient {
 
   static void _onData(URLSession session, URLSessionTask task, NSData data) {
     final taskTracker = _tracker(task);
-    if (taskTracker.responseListenerCancelled) return;
+    if (taskTracker.responseListenerCancelled || taskTracker.requestAborted) {
+      return;
+    }
     taskTracker.responseController.add(data.toList());
     taskTracker.profile?.responseData.bodySink.add(data.toList());
   }
@@ -349,6 +360,7 @@ class CupertinoClient extends BaseClient {
           'Content-Length', '${request.contentLength}');
     }
 
+    NSInputStream? nsStream;
     if (request is Request) {
       // Optimize the (typical) `Request` case since assigning to
       // `httpBodyStream` requires a lot of expensive setup and data passing.
@@ -359,10 +371,12 @@ class CupertinoClient extends BaseClient {
       // then setting `httpBodyStream` will cause the request to fail -
       // even if the stream is empty.
       if (profile == null) {
-        urlRequest.httpBodyStream = s.toNSInputStream();
+        nsStream = s.toNSInputStream();
+        urlRequest.httpBodyStream = nsStream;
       } else {
         final splitter = StreamSplitter(s);
-        urlRequest.httpBodyStream = splitter.split().toNSInputStream();
+        nsStream = splitter.split().toNSInputStream();
+        urlRequest.httpBodyStream = nsStream;
         unawaited(profile.requestData.bodySink.addStream(splitter.split()));
       }
     }
@@ -370,6 +384,15 @@ class CupertinoClient extends BaseClient {
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
     final task = urlSession.dataTaskWithRequest(urlRequest);
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(() {
+        final taskTracker = _tasks[task];
+        if (taskTracker == null) return;
+        taskTracker.requestAborted = true;
+        task.cancel();
+      }));
+    }
+
     final subscription = StreamController<Uint8List>(onCancel: () {
       final taskTracker = _tasks[task];
       if (taskTracker == null) return;
@@ -383,7 +406,19 @@ class CupertinoClient extends BaseClient {
     final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
 
     late URLResponse result;
-    result = await taskTracker.responseCompleter.future;
+    try {
+      result = await taskTracker.responseCompleter.future;
+    } finally {
+      // If the request is aborted before the `NSUrlSessionTask` opens the
+      // `NSInputStream` attached to `NSMutableURLRequest.HTTPBodyStream`, then
+      // the task will not close the `NSInputStream`.
+      //
+      // This will cause the Dart portion of the `NSInputStream` implementation
+      // to hang waiting for a close message.
+      if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
+        nsStream?.close();
+      }
+    }
 
     final response = result as HTTPURLResponse;
 
