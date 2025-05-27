@@ -14,12 +14,12 @@ import 'src/request.dart';
 import 'src/response.dart';
 import 'src/streamed_request.dart';
 
+export 'src/abortable.dart';
 export 'src/base_client.dart';
 export 'src/base_request.dart';
 export 'src/base_response.dart'
     show BaseResponse, BaseResponseWithUrl, HeadersWithSplitValues;
 export 'src/byte_stream.dart';
-export 'src/abortable.dart';
 export 'src/client.dart' hide zoneClient;
 export 'src/exception.dart';
 export 'src/multipart_file.dart';

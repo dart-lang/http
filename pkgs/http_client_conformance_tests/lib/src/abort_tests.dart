@@ -152,7 +152,7 @@ void testAbort(
 
       abortTrigger.complete();
 
-      bool triggeredAbortedRequest = false;
+      var triggeredAbortedRequest = false;
       try {
         await abortResponse.stream.drain<void>();
       } on AbortedRequest {

@@ -135,7 +135,7 @@ class IOClient extends BaseClient {
       final controller = StreamController<List<int>>(sync: true);
 
       if (request case Abortable(:final abortTrigger?)) {
-        abortTrigger.whenComplete(() async {
+        unawaited(abortTrigger.whenComplete(() async {
           if (subscription == null) {
             ioRequest.abort(const AbortedRequest());
           } else {
@@ -145,7 +145,7 @@ class IOClient extends BaseClient {
             await subscription.cancel();
           }
           await controller.close();
-        });
+        }));
       }
 
       final response = await stream.pipe(ioRequest) as HttpClientResponse;

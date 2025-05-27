@@ -73,9 +73,8 @@ class BrowserClient extends BaseClient {
 
     final bodyBytes = await request.finalize().toBytes();
     try {
-      Future<void>? canceller;
       if (request case Abortable(:final abortTrigger?)) {
-        canceller = abortTrigger.whenComplete(() => _abortController.abort());
+        unawaited(abortTrigger.whenComplete(_abortController.abort));
       }
 
       final response = await _fetch(
@@ -94,8 +93,6 @@ class BrowserClient extends BaseClient {
           redirect: request.followRedirects ? 'follow' : 'error',
         ),
       ).toDart;
-
-      canceller?.ignore();
 
       final contentLengthHeader = response.headers.get('content-length');
 
