@@ -7,8 +7,8 @@ export 'server_queue_helpers.dart' show StreamQueueOfNullableObjectExtension;
 
 /// Starts the redirect test HTTP server out-of-process.
 Future<StreamChannel<Object?>> startServer() async => spawnHybridUri(
-  Uri(
-    scheme: 'package',
-    path: 'http_client_conformance_tests/src/abort_server.dart',
-  ),
-);
+      Uri(
+        scheme: 'package',
+        path: 'http_client_conformance_tests/src/abort_server.dart',
+      ),
+    );
