@@ -202,8 +202,6 @@ class IOClient extends BaseClient {
   ///
   /// The behavior of `close` is not defined if there are requests executing when `close`
   /// is called.
-  /// [AbortedRequest] or [ClientException]/[SocketException]. If a client
-  /// remains unclosed, the Dart process may not terminate.
   @override
   void close() {
     if (_inner != null) {
