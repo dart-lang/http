@@ -162,7 +162,7 @@ class MultipartRequest extends BaseRequest {
   }
 }
 
-/// A [MultipartRequest] which supports abortion using [abortTrigger]
+/// A [MultipartRequest] which supports abortion using [abortTrigger].
 ///
 /// A future breaking version of 'package:http' will merge this into
 /// [MultipartRequest], making it a requirement.

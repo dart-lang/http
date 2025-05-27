@@ -197,7 +197,11 @@ class IOClient extends BaseClient {
 
   /// Closes the client.
   ///
-  /// Terminates all active connections, which may cause them to throw
+  /// Terminates all active connections. If a client remains unclosed, the Dart
+  /// process may not terminate.
+  ///
+  /// The behavior of `close` is not defined if there are requests executing when `close`
+  /// is called.
   /// [AbortedRequest] or [ClientException]/[SocketException]. If a client
   /// remains unclosed, the Dart process may not terminate.
   @override

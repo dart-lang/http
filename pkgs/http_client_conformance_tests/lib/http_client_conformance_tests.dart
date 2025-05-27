@@ -94,8 +94,7 @@ void testAll(
   bool canSendCookieHeaders = false,
   bool canReceiveSetCookieHeaders = false,
   bool supportsMultipartRequest = true,
-  // TODO: make this false, for now true to see what breaks.
-  bool supportsAbort = true,
+  bool supportsAbort = false,
 }) {
   testRequestBody(clientFactory());
   testRequestBodyStreamed(clientFactory(),

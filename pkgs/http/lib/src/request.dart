@@ -184,7 +184,7 @@ class Request extends BaseRequest {
   }
 }
 
-/// A [Request] which supports abortion using [abortTrigger]
+/// A [Request] which supports abortion using [abortTrigger].
 ///
 /// A future breaking version of 'package:http' will merge this into [Request],
 /// making it a requirement.

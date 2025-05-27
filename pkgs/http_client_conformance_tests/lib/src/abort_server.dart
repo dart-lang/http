@@ -22,8 +22,6 @@ void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
-      // TODO: might have to ignore exceptions in the server because it will
-      // probably be disconnected
 
       await request.drain<void>();
       request.response.headers.set('Access-Control-Allow-Origin', '*');

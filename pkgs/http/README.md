@@ -116,15 +116,19 @@ the [`RetryClient()`][new RetryClient] constructor.
 ## Aborting requests
 
 Some clients, such as [`BrowserClient`][browserclient], [`IOClient`][ioclient], and
-[`RetryClient`][retryclient], support abortion of requests in-flight.
+[`RetryClient`][retryclient], support aborting requests before they complete.
 
-Abortion in this way can only be performed when using [`Client.send`][clientsend] or
+Aborting in this way can only be performed when using [`Client.send`][clientsend] or
 [`BaseRequest.send`][baserequestsend] with an [`Abortable`][abortable] request (such
 as [`AbortableRequest`][abortablerequest]).
 
 To abort a request, complete the [`Abortable.abortTrigger`][aborttrigger].
 
-Depending on when the abortion is triggered, an [`AbortedRequest`][abortedrequest] may be thrown in different places.
+If the request is aborted before the response `Future` completes, then the response
+`Future` will complete with [`AbortedRequest`][abortedrequest]. If the response is
+a `StreamedResponse` and the the request is cancelled while the response stream
+is being consumed, then the response stream will contain a
+[`AbortedRequest`][abortedrequest].
 
 ```dart
 import 'dart:async';
@@ -135,7 +139,7 @@ Future<void> main() async {
   final client = Client();
   final request = AbortableRequest(
     'GET',
-    Uri.parse('http://example.org'),
+    Uri.https('example.com'),
     abortTrigger: abortTrigger.future,
   );
 

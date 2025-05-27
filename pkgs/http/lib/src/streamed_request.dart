@@ -55,7 +55,7 @@ class StreamedRequest extends BaseRequest {
   }
 }
 
-/// A [StreamedRequest] which supports abortion using [abortTrigger]
+/// A [StreamedRequest] which supports abortion using [abortTrigger].
 ///
 /// A future breaking version of 'package:http' will merge this into
 /// [StreamedRequest], making it a requirement.

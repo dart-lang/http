@@ -1,6 +1,6 @@
-## 1.5.0
+## 1.5.0-wip
 
-* Added support for abortion of requests
+* Added support for aborting requests before they complete.
 * Clarify that some header names may not be sent/received.
 
 ## 1.4.0
