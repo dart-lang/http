@@ -68,15 +68,15 @@ class BrowserClient extends BaseClient {
           'HTTP request failed. Client is already closed.', request.url);
     }
 
-    final _abortController = AbortController();
-    _openRequestAbortControllers.add(_abortController);
+    final abortController = AbortController();
+    _openRequestAbortControllers.add(abortController);
 
     final bodyBytes = await request.finalize().toBytes();
     try {
       if (request case Abortable(:final abortTrigger?)) {
         // Tear-offs of external extension type interop members are disallowed
         // ignore: unnecessary_lambdas
-        unawaited(abortTrigger.whenComplete(() => _abortController.abort()));
+        unawaited(abortTrigger.whenComplete(() => abortController.abort()));
       }
 
       final response = await _fetch(
@@ -91,7 +91,7 @@ class BrowserClient extends BaseClient {
             for (var header in request.headers.entries)
               header.key: header.value,
           }.jsify()! as HeadersInit,
-          signal: _abortController.signal,
+          signal: abortController.signal,
           redirect: request.followRedirects ? 'follow' : 'error',
         ),
       ).toDart;
@@ -127,7 +127,7 @@ class BrowserClient extends BaseClient {
     } catch (e, st) {
       _rethrowAsClientException(e, st, request);
     } finally {
-      _openRequestAbortControllers.remove(_abortController);
+      _openRequestAbortControllers.remove(abortController);
     }
   }
 
