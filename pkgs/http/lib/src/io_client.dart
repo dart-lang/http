@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import '../http.dart';
 import 'abortable.dart';
 import 'base_client.dart';
 import 'base_request.dart';
@@ -138,6 +139,10 @@ class IOClient extends BaseClient {
         unawaited(
           abortTrigger.whenComplete(() async {
             if (ioResponseSubscription == null) {
+              // TODO: This is ugly, I want to see what happens
+              if (request is AbortableStreamedRequest) {
+                unawaited(request.sink.close());
+              }
               ioRequest.abort(AbortedRequest(request.url));
             } else {
               if (!responseController.isClosed) {
