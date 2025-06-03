@@ -6,12 +6,6 @@ import 'dart:async';
 import 'dart:io';
 
 import '../http.dart';
-import 'abortable.dart';
-import 'base_client.dart';
-import 'base_request.dart';
-import 'base_response.dart';
-import 'client.dart';
-import 'exception.dart';
 import 'io_streamed_response.dart';
 
 /// Create an [IOClient].
