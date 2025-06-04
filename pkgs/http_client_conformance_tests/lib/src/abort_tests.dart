@@ -77,8 +77,14 @@ void testAbort(
         response,
         throwsA(isA<AbortedRequest>()),
       );
-      await request
-          .sink.done; // Verify that the stream subscription was cancelled.
+
+      // Ensure that `request.sink` is still writeable after the request is
+      // aborted.
+      for (int i = 0; i < 1000; ++i) {
+        request.sink.add('Hello World'.codeUnits);
+        await Future<void>.delayed(const Duration());
+      }
+      await request.sink.close();
     }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
 
     test('after response', () async {

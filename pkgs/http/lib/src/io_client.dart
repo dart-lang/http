@@ -133,10 +133,6 @@ class IOClient extends BaseClient {
         unawaited(
           abortTrigger.whenComplete(() async {
             if (ioResponseSubscription == null) {
-              // TODO: This is ugly, I want to see what happens
-              if (request is AbortableStreamedRequest) {
-                unawaited(request.sink.close());
-              }
               ioRequest.abort(AbortedRequest(request.url));
             } else {
               if (!responseController.isClosed) {
