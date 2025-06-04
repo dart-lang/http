@@ -127,7 +127,7 @@ class IOClient extends BaseClient {
       // the behaviour of `BrowserClient`.
 
       StreamSubscription<List<int>>? ioResponseSubscription;
-      final responseController = StreamController<List<int>>(sync: true);
+      var responseController = StreamController<List<int>>();
 
       if (request case Abortable(:final abortTrigger?)) {
         unawaited(
@@ -138,7 +138,7 @@ class IOClient extends BaseClient {
               if (!responseController.isClosed) {
                 responseController.addError(AbortedRequest(request.url));
               }
-              await ioResponseSubscription.cancel();
+              await ioResponseSubscription!.cancel();
             }
             await responseController.close();
           }),
@@ -147,20 +147,25 @@ class IOClient extends BaseClient {
 
       final response = await stream.pipe(ioRequest) as HttpClientResponse;
 
-      ioResponseSubscription = response.listen(
-        responseController.add,
-        onDone: responseController.close,
-        onError: (Object err, StackTrace stackTrace) {
-          if (err is HttpException) {
-            responseController.addError(
-              ClientException(err.message, err.uri),
-              stackTrace,
+      // DO NOT SUBMIT: This controller handling is probably not sufficient!
+      responseController = StreamController<List<int>>(
+          onListen: () {
+            ioResponseSubscription = response.listen(
+              responseController.add,
+              onDone: responseController.close,
+              onError: (Object err, StackTrace stackTrace) {
+                if (err is HttpException) {
+                  responseController.addError(
+                    ClientException(err.message, err.uri),
+                    stackTrace,
+                  );
+                } else {
+                  responseController.addError(err, stackTrace);
+                }
+              },
             );
-          } else {
-            responseController.addError(err, stackTrace);
-          }
-        },
-      );
+          },
+          sync: true);
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
