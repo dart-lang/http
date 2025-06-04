@@ -147,7 +147,9 @@ class IOClient extends BaseClient {
 
       final response = await stream.pipe(ioRequest) as HttpClientResponse;
 
-      // DO NOT SUBMIT: This controller handling is probably not sufficient!
+      // !!! DO NOT SUBMIT !!!
+      // This is incorrect because errors added to the response controller
+      // before they are listened to by the client will be lost.
       responseController = StreamController<List<int>>(
           onListen: () {
             ioResponseSubscription = response.listen(
@@ -165,6 +167,9 @@ class IOClient extends BaseClient {
               },
             );
           },
+          onPause: () => ioResponseSubscription!.pause(),
+          onResume: () => ioResponseSubscription!.resume(),
+          onCancel: () => ioResponseSubscription!.cancel(),
           sync: true);
 
       var headers = <String, String>{};
