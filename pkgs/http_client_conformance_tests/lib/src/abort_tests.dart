@@ -80,7 +80,7 @@ void testAbort(
 
       // Ensure that `request.sink` is still writeable after the request is
       // aborted.
-      for (int i = 0; i < 1000; ++i) {
+      for (var i = 0; i < 1000; ++i) {
         request.sink.add('Hello World'.codeUnits);
         await Future<void>.delayed(const Duration());
       }
