@@ -59,6 +59,33 @@ void testAbort(
       );
     });
 
+    test('before first streamed item', () async {
+      final abortTrigger = Completer<void>();
+
+      final request = AbortableStreamedRequest(
+        'POST',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
+
+      final response = client.send(request);
+
+      abortTrigger.complete();
+
+      expect(
+        response,
+        throwsA(isA<AbortedRequest>()),
+      );
+
+      // Ensure that `request.sink` is still writeable after the request is
+      // aborted.
+      for (var i = 0; i < 1000; ++i) {
+        request.sink.add('Hello World'.codeUnits);
+        await Future<void>.delayed(const Duration());
+      }
+      await request.sink.close();
+    }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
+
     test('during request stream', () async {
       final abortTrigger = Completer<void>();
 
