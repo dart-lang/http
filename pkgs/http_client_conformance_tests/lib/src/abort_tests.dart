@@ -114,7 +114,7 @@ void testAbort(
       await request.sink.close();
     }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
 
-    test('after response', () async {
+    test('after response, response stream listener', () async {
       final abortTrigger = Completer<void>();
 
       final request = AbortableRequest(
@@ -125,6 +125,27 @@ void testAbort(
       final response = await client.send(request);
 
       abortTrigger.complete();
+
+      expect(
+        response.stream.single,
+        throwsA(isA<AbortedRequest>()),
+      );
+    });
+
+    test('after response, response stream no listener', () async {
+      final abortTrigger = Completer<void>();
+
+      final request = AbortableRequest(
+        'GET',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
+      final response = await client.send(request);
+
+      abortTrigger.complete();
+      // Ensure that the abort has time to run before listening to the response
+      // stream
+      await Future<void>.delayed(const Duration());
 
       expect(
         response.stream.single,
