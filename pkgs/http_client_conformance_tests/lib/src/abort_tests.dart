@@ -241,5 +241,5 @@ void testAbort(
       expect(response.body, endsWith('9999\n'));
       expect(triggeredAbortedRequest, true);
     });
-  }, skip: supportsAbort ? true : 'does not support aborting requests');
+  }, skip: supportsAbort ? false : 'does not support aborting requests');
 }
