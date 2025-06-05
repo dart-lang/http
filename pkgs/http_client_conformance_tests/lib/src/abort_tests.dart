@@ -153,6 +153,29 @@ void testAbort(
       );
     });
 
+    test('after response, response stream paused', () async {
+      final abortTrigger = Completer<void>();
+
+      final request = AbortableRequest(
+        'GET',
+        serverUrl,
+        abortTrigger: abortTrigger.future,
+      );
+      final response = await client.send(request);
+
+      final subscription = response.stream.listen(print)..pause();
+      abortTrigger.complete();
+      // Ensure that the abort has time to run before listening to the response
+      // stream
+      await Future<void>.delayed(const Duration());
+      subscription.resume();
+
+      expect(
+        subscription.asFuture<void>(),
+        throwsA(isA<AbortedRequest>()),
+      );
+    });
+
     test('while streaming response', () async {
       final abortTrigger = Completer<void>();
 
