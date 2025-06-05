@@ -26,7 +26,7 @@ import 'abort_server_vm.dart'
 /// skipped.
 void testAbort(
   Client client, {
-  bool supportsAbort = true,
+  bool supportsAbort = false,
   bool canStreamRequestBody = true,
   bool canStreamResponseBody = true,
 }) {
@@ -241,5 +241,5 @@ void testAbort(
       expect(response.body, endsWith('9999\n'));
       expect(triggeredAbortedRequest, true);
     });
-  });
+  }, skip: supportsAbort ? true : 'does not support aborting requests');
 }
