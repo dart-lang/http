@@ -120,57 +120,76 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      // We can only abort the actual connection up until the point we obtain
-      // the response.
-      // After that point, the full response bytes are always available.
-      // However, we instead inject an error into the response stream to match
-      // the behaviour of `BrowserClient`.
+      // SDK request aborting is only effective up until the request is closed,
+      // at which point the full response always becomes available.
+      // This occurs at `pipe`, which automatically closes the request once the
+      // request stream has been pumped in.
+      // Therefore, we have multiple strategies:
+      //  * If the user aborts before we have a response, we can use SDK abort,
+      //    which causes the `pipe` (and therefore this method) to throw the
+      //    aborted error
+      //  * If the user aborts after we have a response but before they listen
+      //    to it, we immediately emit the aborted error then close the response
+      //    as soon as they listen to it
+      //  * If the user aborts whilst streaming the response, we inject the
+      //    aborted error, then close the response
 
-      StreamSubscription<List<int>>? ioResponseSubscription;
-      var responseController = StreamController<List<int>>();
+      bool isAborted = false;
+      bool hasResponse = false;
 
       if (request case Abortable(:final abortTrigger?)) {
         unawaited(
-          abortTrigger.whenComplete(() async {
-            if (ioResponseSubscription == null) {
-              ioRequest.abort(AbortedRequest(request.url));
-            } else {
-              if (!responseController.isClosed) {
-                responseController.addError(AbortedRequest(request.url));
-              }
-              await ioResponseSubscription!.cancel();
-            }
-            await responseController.close();
+          abortTrigger.whenComplete(() {
+            isAborted = true;
+            if (!hasResponse) ioRequest.abort(AbortedRequest(request.url));
           }),
         );
       }
 
       final response = await stream.pipe(ioRequest) as HttpClientResponse;
+      hasResponse = true;
 
-      // !!! DO NOT SUBMIT !!!
-      // This is incorrect because errors added to the response controller
-      // before they are listened to by the client will be lost.
-      responseController = StreamController<List<int>>(
-          onListen: () {
-            ioResponseSubscription = response.listen(
-              responseController.add,
-              onDone: responseController.close,
-              onError: (Object err, StackTrace stackTrace) {
-                if (err is HttpException) {
-                  responseController.addError(
-                    ClientException(err.message, err.uri),
-                    stackTrace,
-                  );
-                } else {
-                  responseController.addError(err, stackTrace);
-                }
-              },
-            );
-          },
-          onPause: () => ioResponseSubscription!.pause(),
-          onResume: () => ioResponseSubscription!.resume(),
-          onCancel: () => ioResponseSubscription!.cancel(),
-          sync: true);
+      StreamSubscription<List<int>>? ioResponseSubscription;
+
+      late final StreamController<List<int>> responseController;
+      responseController = StreamController(
+        onListen: () {
+          if (isAborted) {
+            responseController
+              ..addError(AbortedRequest(request.url))
+              ..close();
+            return;
+          } else if (request case Abortable(:final abortTrigger?)) {
+            abortTrigger.whenComplete(() {
+              if (!responseController.isClosed) {
+                responseController
+                  ..addError(AbortedRequest(request.url))
+                  ..close();
+              }
+              ioResponseSubscription?.cancel();
+            });
+          }
+
+          ioResponseSubscription = response.listen(
+            responseController.add,
+            onDone: responseController.close,
+            onError: (Object err, StackTrace stackTrace) {
+              if (err is HttpException) {
+                responseController.addError(
+                  ClientException(err.message, err.uri),
+                  stackTrace,
+                );
+              } else {
+                responseController.addError(err, stackTrace);
+              }
+            },
+          );
+        },
+        onPause: () => ioResponseSubscription?.pause(),
+        onResume: () => ioResponseSubscription?.resume(),
+        onCancel: () => ioResponseSubscription?.cancel(),
+        sync: true,
+      );
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
