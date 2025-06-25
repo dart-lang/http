@@ -134,8 +134,8 @@ class IOClient extends BaseClient {
       //  * If the user aborts whilst streaming the response, we inject the
       //    aborted error, then close the response
 
-      bool isAborted = false;
-      bool hasResponse = false;
+      var isAborted = false;
+      var hasResponse = false;
 
       if (request case Abortable(:final abortTrigger?)) {
         unawaited(
