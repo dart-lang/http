@@ -17,9 +17,9 @@ abstract mixin class Abortable implements BaseRequest {
   /// Requests/responses may be aborted at any time during their lifecycle.
   ///
   ///  * If completed before the request has been finalized and sent,
-  ///    [Client.send] completes with an [AbortedRequest] exception.
+  ///    [Client.send] completes with an [RequestAborted] exception.
   ///  * If completed after the response headers are available, or whilst
-  ///    streaming the response, clients inject [AbortedRequest] into the
+  ///    streaming the response, clients inject [RequestAborted] into the
   ///    [StreamedResponse.stream] then close the stream.
   ///  * If completed after the response is fully complete, there is no effect.
   ///
@@ -38,6 +38,6 @@ abstract mixin class Abortable implements BaseRequest {
 ///
 /// This exception is triggered when [Abortable.abortTrigger] completes.
 /// property for more info.
-class AbortedRequest extends ClientException {
-  AbortedRequest([Uri? uri]) : super('Request aborted by `abortTrigger`', uri);
+class RequestAborted extends ClientException {
+  RequestAborted([Uri? uri]) : super('Request aborted by `abortTrigger`', uri);
 }

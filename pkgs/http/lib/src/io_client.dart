@@ -141,7 +141,7 @@ class IOClient extends BaseClient {
         unawaited(
           abortTrigger.whenComplete(() {
             isAborted = true;
-            if (!hasResponse) ioRequest.abort(AbortedRequest(request.url));
+            if (!hasResponse) ioRequest.abort(RequestAborted(request.url));
           }),
         );
       }
@@ -156,14 +156,14 @@ class IOClient extends BaseClient {
         onListen: () {
           if (isAborted) {
             responseController
-              ..addError(AbortedRequest(request.url))
+              ..addError(RequestAborted(request.url))
               ..close();
             return;
           } else if (request case Abortable(:final abortTrigger?)) {
             abortTrigger.whenComplete(() {
               if (!responseController.isClosed) {
                 responseController
-                  ..addError(AbortedRequest(request.url))
+                  ..addError(RequestAborted(request.url))
                   ..close();
               }
               ioResponseSubscription?.cancel();

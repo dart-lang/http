@@ -55,7 +55,7 @@ void testAbort(
 
       expect(
         client.send(request),
-        throwsA(isA<AbortedRequest>()),
+        throwsA(isA<RequestAborted>()),
       );
     });
 
@@ -74,7 +74,7 @@ void testAbort(
 
       expect(
         response,
-        throwsA(isA<AbortedRequest>()),
+        throwsA(isA<RequestAborted>()),
       );
 
       // Ensure that `request.sink` is still writeable after the request is
@@ -102,7 +102,7 @@ void testAbort(
 
       expect(
         response,
-        throwsA(isA<AbortedRequest>()),
+        throwsA(isA<RequestAborted>()),
       );
 
       // Ensure that `request.sink` is still writeable after the request is
@@ -128,7 +128,7 @@ void testAbort(
 
       expect(
         response.stream.single,
-        throwsA(isA<AbortedRequest>()),
+        throwsA(isA<RequestAborted>()),
       );
     });
 
@@ -149,7 +149,7 @@ void testAbort(
 
       expect(
         response.stream.single,
-        throwsA(isA<AbortedRequest>()),
+        throwsA(isA<RequestAborted>()),
       );
     });
 
@@ -172,7 +172,7 @@ void testAbort(
 
       expect(
         subscription.asFuture<void>(),
-        throwsA(isA<AbortedRequest>()),
+        throwsA(isA<RequestAborted>()),
       );
     });
 
@@ -196,7 +196,7 @@ void testAbort(
             if (i >= 1000 && !abortTrigger.isCompleted) abortTrigger.complete();
           },
         ).asFuture<void>(),
-        throwsA(isA<AbortedRequest>()),
+        throwsA(isA<RequestAborted>()),
       );
       expect(i, lessThan(48890));
     }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
@@ -232,7 +232,7 @@ void testAbort(
       var triggeredAbortedRequest = false;
       try {
         await abortResponse.stream.drain<void>();
-      } on AbortedRequest {
+      } on RequestAborted {
         triggeredAbortedRequest = true;
       }
 
