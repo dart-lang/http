@@ -79,6 +79,7 @@ export 'src/server_errors_test.dart' show testServerErrors;
 ///
 /// If [supportsAbort] is `false` then tests that assume that requests can be
 /// aborted will be skipped.
+///
 /// The tests are run against a series of HTTP servers that are started by the
 /// tests. If the tests are run in the browser, then the test servers are
 /// started in another process. Otherwise, the test servers are run in-process.
