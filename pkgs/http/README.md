@@ -122,7 +122,7 @@ Aborting in this way can only be performed when using [`Client.send`][clientsend
 [`BaseRequest.send`][baserequestsend] with an [`Abortable`][abortable] request (such
 as [`AbortableRequest`][abortablerequest]).
 
-To abort a request, complete the [`Abortable.abortTrigger`][aborttrigger].
+To abort a request, complete the [`Abortable.abortTrigger`][aborttrigger] `Future`.
 
 If the request is aborted before the response `Future` completes, then the response
 `Future` will complete with [`AbortedRequest`][abortedrequest]. If the response is
