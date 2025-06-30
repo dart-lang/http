@@ -87,7 +87,7 @@ void testAbort(
     },
         skip: supportsAbort
             ? (canStreamRequestBody ? false : 'does not stream response bodies')
-            : 'does not stream request bodies');
+            : 'does not support aborting requests');
 
     test('during request stream', () async {
       final abortTrigger = Completer<void>();
@@ -115,7 +115,10 @@ void testAbort(
         await Future<void>.delayed(const Duration());
       }
       await request.sink.close();
-    }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
+    },
+        skip: supportsAbort
+            ? (canStreamRequestBody ? false : 'does not stream request bodies')
+            : 'does not support aborting requests');
 
     test('after response, response stream listener', () async {
       final abortTrigger = Completer<void>();
