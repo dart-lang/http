@@ -23,7 +23,7 @@ import 'utils.dart';
 /// methods like [get] or [BaseClient.get].
 ///
 /// Subclasses/implementers should mixin/implement [Abortable] to support
-/// abortion of requests. A future breaking version of 'package:http' will
+/// request cancellation. A future breaking version of 'package:http' will
 /// merge [Abortable] into [BaseRequest], making it a requirement.
 abstract class BaseRequest {
   /// The HTTP method of the request.

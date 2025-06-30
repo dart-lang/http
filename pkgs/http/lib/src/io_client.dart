@@ -124,6 +124,7 @@ class IOClient extends BaseClient {
       // at which point the full response always becomes available.
       // This occurs at `pipe`, which automatically closes the request once the
       // request stream has been pumped in.
+      //
       // Therefore, we have multiple strategies:
       //  * If the user aborts before we have a response, we can use SDK abort,
       //    which causes the `pipe` (and therefore this method) to throw the
