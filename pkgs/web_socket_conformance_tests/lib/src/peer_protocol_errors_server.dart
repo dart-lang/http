@@ -30,7 +30,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       socket.write('marry had a little lamb whose fleece was white as snow');
     });
   }, (e, s) {
-    // dart:io sometimes asynchronous throws a `SocketException` with
+    // dart:io sometimes asynchronously throws a `SocketException` with
     //`errorCode` 54.
     // See https://github.com/dart-lang/http/pull/1786 for a full traceback.
     if (e is! SocketException || e.osError?.errorCode != 54)
