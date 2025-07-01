@@ -27,11 +27,11 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.contentLength = 0;
       final socket = await request.response.detachSocket();
       socket.write('marry had a little lamb whose fleece was white as snow');
-    });
+    }, onError: () {});
 
   channel.sink.add(server.port);
 
   await channel
       .stream.first; // Any writes indicates that the server should exit.
-  unawaited(server.close());
+  server.close().ignore();
 }
