@@ -27,7 +27,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.contentLength = 0;
       final socket = await request.response.detachSocket();
       socket.write('marry had a little lamb whose fleece was white as snow');
-    }, onError: () {});
+    }, onError: (_) {});
 
   channel.sink.add(server.port);
 
