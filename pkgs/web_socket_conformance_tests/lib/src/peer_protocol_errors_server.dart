@@ -15,30 +15,31 @@ const _webSocketGuid = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 void hybridMain(StreamChannel<Object?> channel) async {
   late final HttpServer server;
   server = await HttpServer.bind('localhost', 0);
-  try {
-    await server.listen((request) async {
-      var key = request.headers.value('Sec-WebSocket-Key');
-      var digest = sha1.convert('$key$_webSocketGuid'.codeUnits);
-      var accept = base64.encode(digest.bytes);
-      request.response
-        ..statusCode = HttpStatus.switchingProtocols
-        ..headers.add(HttpHeaders.connectionHeader, 'Upgrade')
-        ..headers.add(HttpHeaders.upgradeHeader, 'websocket')
-        ..headers.add('Sec-WebSocket-Accept', accept);
-      request.response.contentLength = 0;
-      final socket = await request.response.detachSocket();
-      socket.write('marry had a little lamb whose fleece was white as snow');
-    }, onError: (Object e) {
-      print('got $e');
-    }).asFuture<void>();
-  } on Exception catch (e, s) {
-    print(e);
-    print(s);
-  }
+  server
+      .listen((request) async {
+        var key = request.headers.value('Sec-WebSocket-Key');
+        var digest = sha1.convert('$key$_webSocketGuid'.codeUnits);
+        var accept = base64.encode(digest.bytes);
+        request.response
+          ..statusCode = HttpStatus.switchingProtocols
+          ..headers.add(HttpHeaders.connectionHeader, 'Upgrade')
+          ..headers.add(HttpHeaders.upgradeHeader, 'websocket')
+          ..headers.add('Sec-WebSocket-Accept', accept);
+        request.response.contentLength = 0;
+        final socket = await request.response.detachSocket();
+        socket.write('marry had a little lamb whose fleece was white as snow');
+      }, onError: (Object e) {
+        print('got $e');
+      })
+      .asFuture<void>()
+      .catchError((Object e, Object s) {
+        print(e);
+        print(s);
+      });
 
   channel.sink.add(server.port);
 
   await channel
       .stream.first; // Any writes indicates that the server should exit.
-  server.close().ignore();
+  unawaited(server.close());
 }
