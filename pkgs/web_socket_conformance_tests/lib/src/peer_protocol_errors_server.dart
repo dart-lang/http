@@ -16,34 +16,25 @@ void hybridMain(StreamChannel<Object?> channel) async {
   late final HttpServer server;
   server = await HttpServer.bind('localhost', 0);
   runZonedGuarded(() {
-    unawaited(server
-        .listen((request) async {
-          var key = request.headers.value('Sec-WebSocket-Key');
-          var digest = sha1.convert('$key$_webSocketGuid'.codeUnits);
-          var accept = base64.encode(digest.bytes);
-          request.response
-            ..statusCode = HttpStatus.switchingProtocols
-            ..headers.add(HttpHeaders.connectionHeader, 'Upgrade')
-            ..headers.add(HttpHeaders.upgradeHeader, 'websocket')
-            ..headers.add('Sec-WebSocket-Accept', accept);
-          request.response.contentLength = 0;
-          final socket = await request.response.detachSocket();
-          socket
-              .write('marry had a little lamb whose fleece was white as snow');
-        }, onError: (Object e) {
-          print('got $e');
-        })
-        .asFuture<void>()
-        .catchError((Object e, Object s) {
-          print(e);
-          print(s);
-          throw e as Exception;
-        }));
+    server.listen((request) async {
+      var key = request.headers.value('Sec-WebSocket-Key');
+      var digest = sha1.convert('$key$_webSocketGuid'.codeUnits);
+      var accept = base64.encode(digest.bytes);
+      request.response
+        ..statusCode = HttpStatus.switchingProtocols
+        ..headers.add(HttpHeaders.connectionHeader, 'Upgrade')
+        ..headers.add(HttpHeaders.upgradeHeader, 'websocket')
+        ..headers.add('Sec-WebSocket-Accept', accept);
+      request.response.contentLength = 0;
+      final socket = await request.response.detachSocket();
+      socket.write('marry had a little lamb whose fleece was white as snow');
+    });
   }, (e, s) {
-    print('Here!!!');
-    print(e);
-    print(s);
-    throw e as Exception;
+    // dart:io sometimes asynchronous throws a `SocketException` with
+    //`errorCode` 54.
+    // See https://github.com/dart-lang/http/pull/1786 for a full traceback.
+    if (e is! SocketException || e.osError?.errorCode != 54)
+      throw e as Exception;
   });
   channel.sink.add(server.port);
 
