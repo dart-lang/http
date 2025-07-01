@@ -15,7 +15,7 @@ const _webSocketGuid = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 void hybridMain(StreamChannel<Object?> channel) async {
   late final HttpServer server;
   server = await HttpServer.bind('localhost', 0);
-  try {
+  runZonedGuarded(() {
     unawaited(server
         .listen((request) async {
           var key = request.headers.value('Sec-WebSocket-Key');
@@ -38,11 +38,11 @@ void hybridMain(StreamChannel<Object?> channel) async {
           print(e);
           print(s);
         }));
-  } on Exception catch (e, s) {
+  }, (e, s) {
     print('Here!!!');
     print(e);
     print(s);
-  }
+  });
   channel.sink.add(server.port);
 
   await channel
