@@ -37,13 +37,13 @@ void hybridMain(StreamChannel<Object?> channel) async {
         .catchError((Object e, Object s) {
           print(e);
           print(s);
-          throw e;
+          throw e as Exception;
         }));
   }, (e, s) {
     print('Here!!!');
     print(e);
     print(s);
-    throw e;
+    throw e as Exception;
   });
   channel.sink.add(server.port);
 
