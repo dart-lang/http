@@ -14,8 +14,9 @@ const _webSocketGuid = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 /// WebSocket upgrade.
 void hybridMain(StreamChannel<Object?> channel) async {
   late final HttpServer server;
-  server = (await HttpServer.bind('localhost', 0))
-    ..listen((request) async {
+  server = (await HttpServer.bind('localhost', 0));
+  try {
+    server.listen((request) async {
       var key = request.headers.value('Sec-WebSocket-Key');
       var digest = sha1.convert('$key$_webSocketGuid'.codeUnits);
       var accept = base64.encode(digest.bytes);
@@ -29,7 +30,11 @@ void hybridMain(StreamChannel<Object?> channel) async {
       socket.write('marry had a little lamb whose fleece was white as snow');
     }, onError: (Object e) {
       print('got $e');
-    });
+    }).asFuture<void>();
+  } on Exception catch (e, s) {
+    print(e);
+    print(s);
+  }
 
   channel.sink.add(server.port);
 
