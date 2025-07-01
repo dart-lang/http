@@ -14,9 +14,9 @@ const _webSocketGuid = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 /// WebSocket upgrade.
 void hybridMain(StreamChannel<Object?> channel) async {
   late final HttpServer server;
-  server = (await HttpServer.bind('localhost', 0));
+  server = await HttpServer.bind('localhost', 0);
   try {
-    server.listen((request) async {
+    await server.listen((request) async {
       var key = request.headers.value('Sec-WebSocket-Key');
       var digest = sha1.convert('$key$_webSocketGuid'.codeUnits);
       var accept = base64.encode(digest.bytes);
