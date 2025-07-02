@@ -201,8 +201,8 @@ void testAbort(
         var i = 0;
         await expectLater(
           response.stream
-              .transform(Utf8Decoder())
-              .transform(LineSplitter())
+              .transform(const Utf8Decoder())
+              .transform(const LineSplitter())
               .listen(
             (_) {
               if (++i >= 1000 && !abortTrigger.isCompleted) {
