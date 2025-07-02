@@ -31,7 +31,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
     });
   }, (e, s) {
     // dart:io sometimes asynchronously throws a `SocketException` with
-    //`errorCode` 54.
+    // `errorCode` 54.
     // See https://github.com/dart-lang/http/pull/1786 for a full traceback.
     if (e is! SocketException || e.osError?.errorCode != 54) {
       throw e as Exception;
