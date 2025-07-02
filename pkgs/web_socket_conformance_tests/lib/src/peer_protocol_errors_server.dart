@@ -14,8 +14,9 @@ const _webSocketGuid = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 /// WebSocket upgrade.
 void hybridMain(StreamChannel<Object?> channel) async {
   late final HttpServer server;
-  server = (await HttpServer.bind('localhost', 0))
-    ..listen((request) async {
+  server = await HttpServer.bind('localhost', 0);
+  runZonedGuarded(() {
+    server.listen((request) async {
       var key = request.headers.value('Sec-WebSocket-Key');
       var digest = sha1.convert('$key$_webSocketGuid'.codeUnits);
       var accept = base64.encode(digest.bytes);
@@ -28,7 +29,14 @@ void hybridMain(StreamChannel<Object?> channel) async {
       final socket = await request.response.detachSocket();
       socket.write('marry had a little lamb whose fleece was white as snow');
     });
-
+  }, (e, s) {
+    // dart:io sometimes asynchronously throws a `SocketException` with
+    // `errorCode` 54.
+    // See https://github.com/dart-lang/http/pull/1786 for a full traceback.
+    if (e is! SocketException || e.osError?.errorCode != 54) {
+      throw e as Exception;
+    }
+  });
   channel.sink.add(server.port);
 
   await channel
