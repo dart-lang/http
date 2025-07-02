@@ -195,9 +195,8 @@ void testAbort(
         );
         final response = await client.send(request);
 
-        // We split the recieved response into lines and ensure we recieved
-        // fewer than the 10000 we sent
-        // 1 line = 1 `i`
+        // Verify that fewer than the 10000 lines sent by the server are
+        // received.
         var i = 0;
         await expectLater(
           response.stream
