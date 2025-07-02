@@ -14,6 +14,7 @@ import 'src/request.dart';
 import 'src/response.dart';
 import 'src/streamed_request.dart';
 
+export 'src/abortable.dart';
 export 'src/base_client.dart';
 export 'src/base_request.dart';
 export 'src/base_response.dart'

@@ -2,13 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:io';
 
-import 'base_client.dart';
-import 'base_request.dart';
-import 'base_response.dart';
-import 'client.dart';
-import 'exception.dart';
+import '../http.dart';
 import 'io_streamed_response.dart';
 
 /// Create an [IOClient].
@@ -123,7 +120,79 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      var response = await stream.pipe(ioRequest) as HttpClientResponse;
+      // SDK request aborting is only effective up until the request is closed,
+      // at which point the full response always becomes available.
+      // This occurs at `pipe`, which automatically closes the request once the
+      // request stream has been pumped in.
+      //
+      // Therefore, we have multiple strategies:
+      //  * If the user aborts before we have a response, we can use SDK abort,
+      //    which causes the `pipe` (and therefore this method) to throw the
+      //    aborted error
+      //  * If the user aborts after we have a response but before they listen
+      //    to it, we immediately emit the aborted error then close the response
+      //    as soon as they listen to it
+      //  * If the user aborts whilst streaming the response, we inject the
+      //    aborted error, then close the response
+
+      var isAborted = false;
+      var hasResponse = false;
+
+      if (request case Abortable(:final abortTrigger?)) {
+        unawaited(
+          abortTrigger.whenComplete(() {
+            isAborted = true;
+            if (!hasResponse) {
+              ioRequest.abort(RequestAbortedException(request.url));
+            }
+          }),
+        );
+      }
+
+      final response = await stream.pipe(ioRequest) as HttpClientResponse;
+      hasResponse = true;
+
+      StreamSubscription<List<int>>? ioResponseSubscription;
+
+      late final StreamController<List<int>> responseController;
+      responseController = StreamController(
+        onListen: () {
+          if (isAborted) {
+            responseController
+              ..addError(RequestAbortedException(request.url))
+              ..close();
+            return;
+          } else if (request case Abortable(:final abortTrigger?)) {
+            abortTrigger.whenComplete(() {
+              if (!responseController.isClosed) {
+                responseController
+                  ..addError(RequestAbortedException(request.url))
+                  ..close();
+              }
+              ioResponseSubscription?.cancel();
+            });
+          }
+
+          ioResponseSubscription = response.listen(
+            responseController.add,
+            onDone: responseController.close,
+            onError: (Object err, StackTrace stackTrace) {
+              if (err is HttpException) {
+                responseController.addError(
+                  ClientException(err.message, err.uri),
+                  stackTrace,
+                );
+              } else {
+                responseController.addError(err, stackTrace);
+              }
+            },
+          );
+        },
+        onPause: () => ioResponseSubscription?.pause(),
+        onResume: () => ioResponseSubscription?.resume(),
+        onCancel: () => ioResponseSubscription?.cancel(),
+        sync: true,
+      );
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
@@ -134,22 +203,20 @@ class IOClient extends BaseClient {
       });
 
       return _IOStreamedResponseV2(
-          response.handleError((Object error) {
-            final httpException = error as HttpException;
-            throw ClientException(httpException.message, httpException.uri);
-          }, test: (error) => error is HttpException),
-          response.statusCode,
-          contentLength:
-              response.contentLength == -1 ? null : response.contentLength,
-          request: request,
-          headers: headers,
-          isRedirect: response.isRedirect,
-          url: response.redirects.isNotEmpty
-              ? response.redirects.last.location
-              : request.url,
-          persistentConnection: response.persistentConnection,
-          reasonPhrase: response.reasonPhrase,
-          inner: response);
+        responseController.stream,
+        response.statusCode,
+        contentLength:
+            response.contentLength == -1 ? null : response.contentLength,
+        request: request,
+        headers: headers,
+        isRedirect: response.isRedirect,
+        url: response.redirects.isNotEmpty
+            ? response.redirects.last.location
+            : request.url,
+        persistentConnection: response.persistentConnection,
+        reasonPhrase: response.reasonPhrase,
+        inner: response,
+      );
     } on SocketException catch (error) {
       throw _ClientSocketException(error, request.url);
     } on HttpException catch (error) {
@@ -161,6 +228,9 @@ class IOClient extends BaseClient {
   ///
   /// Terminates all active connections. If a client remains unclosed, the Dart
   /// process may not terminate.
+  ///
+  /// The behavior of `close` is not defined if there are requests executing
+  /// when `close` is called.
   @override
   void close() {
     if (_inner != null) {

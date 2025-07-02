@@ -113,6 +113,8 @@ final class RetryClient extends BaseClient {
       StreamedResponse? response;
       try {
         response = await _inner.send(_copyRequest(request, splitter.split()));
+      } on RequestAbortedException {
+        rethrow;
       } catch (error, stackTrace) {
         if (i == _retries || !await _whenError(error, stackTrace)) rethrow;
       }
@@ -122,7 +124,7 @@ final class RetryClient extends BaseClient {
 
         // Make sure the response stream is listened to so that we don't leave
         // dangling connections.
-        _unawaited(response.stream.listen((_) {}).cancel().catchError((_) {}));
+        unawaited(response.stream.listen((_) {}).cancel().catchError((_) {}));
       }
 
       await Future<void>.delayed(_delay(i));
@@ -133,7 +135,18 @@ final class RetryClient extends BaseClient {
 
   /// Returns a copy of [original] with the given [body].
   StreamedRequest _copyRequest(BaseRequest original, Stream<List<int>> body) {
-    final request = StreamedRequest(original.method, original.url)
+    final StreamedRequest request;
+    if (original case Abortable(:final abortTrigger?)) {
+      request = AbortableStreamedRequest(
+        original.method,
+        original.url,
+        abortTrigger: abortTrigger,
+      );
+    } else {
+      request = StreamedRequest(original.method, original.url);
+    }
+
+    request
       ..contentLength = original.contentLength
       ..followRedirects = original.followRedirects
       ..headers.addAll(original.headers)
@@ -158,5 +171,3 @@ bool _defaultWhenError(Object error, StackTrace stackTrace) => false;
 
 Duration _defaultDelay(int retryCount) =>
     const Duration(milliseconds: 500) * math.pow(1.5, retryCount);
-
-void _unawaited(Future<void>? f) {}
