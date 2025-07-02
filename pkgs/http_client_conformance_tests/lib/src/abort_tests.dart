@@ -55,7 +55,7 @@ void testAbort(
 
       expect(
         client.send(request),
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
     });
 
@@ -74,7 +74,7 @@ void testAbort(
 
       expect(
         response,
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
 
       // Ensure that `request.sink` is still writeable after the request is
@@ -105,7 +105,7 @@ void testAbort(
 
       expect(
         response,
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
 
       // Ensure that `request.sink` is still writeable after the request is
@@ -134,7 +134,7 @@ void testAbort(
 
       expect(
         response.stream.single,
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
     });
 
@@ -155,7 +155,7 @@ void testAbort(
 
       expect(
         response.stream.single,
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
     });
 
@@ -178,7 +178,7 @@ void testAbort(
 
       expect(
         subscription.asFuture<void>(),
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
     });
 
@@ -202,7 +202,7 @@ void testAbort(
             if (i >= 1000 && !abortTrigger.isCompleted) abortTrigger.complete();
           },
         ).asFuture<void>(),
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
       expect(i, lessThan(48890));
     },
@@ -240,17 +240,17 @@ void testAbort(
 
       abortTrigger.complete();
 
-      var triggeredAbortedRequest = false;
+      var requestAbortCaught = false;
       try {
         await abortResponse.stream.drain<void>();
-      } on RequestAborted {
-        triggeredAbortedRequest = true;
+      } on RequestAbortedException {
+        requestAbortCaught = true;
       }
 
       final response = await client.get(serverUrl);
       expect(response.statusCode, 200);
       expect(response.body, endsWith('9999\n'));
-      expect(triggeredAbortedRequest, true);
+      expect(requestAbortCaught, true);
     });
   }, skip: supportsAbort ? false : 'does not support aborting requests');
 }

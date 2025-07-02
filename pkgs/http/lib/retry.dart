@@ -113,7 +113,7 @@ final class RetryClient extends BaseClient {
       StreamedResponse? response;
       try {
         response = await _inner.send(_copyRequest(request, splitter.split()));
-      } on RequestAborted {
+      } on RequestAbortedException {
         rethrow;
       } catch (error, stackTrace) {
         if (i == _retries || !await _whenError(error, stackTrace)) rethrow;
