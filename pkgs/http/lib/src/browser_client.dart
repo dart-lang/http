@@ -134,7 +134,7 @@ class BrowserClient extends BaseClient {
   /// Closes the client.
   ///
   /// This terminates all active requests, which may cause them to throw
-  /// [RequestAborted] or [ClientException].
+  /// [RequestAbortedException] or [ClientException].
   @override
   void close() {
     for (final abortController in _openRequestAbortControllers) {
@@ -146,7 +146,7 @@ class BrowserClient extends BaseClient {
 
 Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
   if (e case DOMException(:final name) when name == 'AbortError') {
-    Error.throwWithStackTrace(RequestAborted(request.url), st);
+    Error.throwWithStackTrace(RequestAbortedException(request.url), st);
   }
   if (e is! ClientException) {
     var message = e.toString();

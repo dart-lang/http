@@ -125,10 +125,10 @@ as [`AbortableRequest`][abortablerequest]).
 To abort a request, complete the [`Abortable.abortTrigger`][aborttrigger] `Future`.
 
 If the request is aborted before the response `Future` completes, then the response
-`Future` will complete with [`AbortedRequest`][abortedrequest]. If the response is
-a `StreamedResponse` and the the request is cancelled while the response stream
-is being consumed, then the response stream will contain a
-[`AbortedRequest`][abortedrequest].
+`Future` will complete with [`RequestAbortedException`][requestabortedexception]. If
+the response is a `StreamedResponse` and the the request is cancelled while the
+response stream is being consumed, then the response stream will contain a
+[`RequestAbortedException`][requestabortedexception].
 
 ```dart
 import 'dart:async';
@@ -150,7 +150,7 @@ Future<void> main() async {
   final StreamedResponse response;
   try {
     response = await client.send(request);
-  } on AbortedRequest {
+  } on RequestAbortedException {
     // request aborted before it was fully sent
     rethrow;
   }
@@ -161,7 +161,7 @@ Future<void> main() async {
       // consume response bytes
     },
     onError: (Object err) {
-      if (err is AbortedRequest) {
+      if (err is RequestAbortedException) {
         // request aborted whilst response bytes are being streamed;
         // the stream will always be finished early
       }
@@ -179,7 +179,7 @@ Future<void> main() async {
         // consume response bytes
       },
     ).asFuture<void>();
-  } on AbortedRequest {
+  } on RequestAbortedException {
     // request aborted whilst response bytes are being streamed
     rethrow;
   }
@@ -195,7 +195,7 @@ Future<void> main() async {
 [abortable]: https://pub.dev/documentation/http/latest/http/Abortable-class.html
 [abortablerequest]: https://pub.dev/documentation/http/latest/http/AbortableRequest-class.html
 [aborttrigger]: https://pub.dev/documentation/http/latest/http/Abortable/abortTrigger.html
-[abortedrequest]: https://pub.dev/documentation/http/latest/http/AbortedRequest-class.html
+[requestabortedexception]: https://pub.dev/documentation/http/latest/http/RequestAbortedException-class.html
 
 
 ## Choosing an implementation

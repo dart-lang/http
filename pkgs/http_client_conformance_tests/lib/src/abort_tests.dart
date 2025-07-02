@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
@@ -55,7 +56,7 @@ void testAbort(
 
       expect(
         client.send(request),
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
     });
 
@@ -74,7 +75,7 @@ void testAbort(
 
       expect(
         response,
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
 
       // Ensure that `request.sink` is still writeable after the request is
@@ -105,7 +106,7 @@ void testAbort(
 
       expect(
         response,
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
 
       // Ensure that `request.sink` is still writeable after the request is
@@ -134,7 +135,7 @@ void testAbort(
 
       expect(
         response.stream.single,
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
     });
 
@@ -155,7 +156,7 @@ void testAbort(
 
       expect(
         response.stream.single,
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
     });
 
@@ -178,39 +179,45 @@ void testAbort(
 
       expect(
         subscription.asFuture<void>(),
-        throwsA(isA<RequestAborted>()),
+        throwsA(isA<RequestAbortedException>()),
       );
     });
 
-    test('while streaming response', () async {
-      final abortTrigger = Completer<void>();
+    test(
+      'while streaming response',
+      () async {
+        final abortTrigger = Completer<void>();
 
-      final request = AbortableRequest(
-        'GET',
-        serverUrl,
-        abortTrigger: abortTrigger.future,
-      );
-      final response = await client.send(request);
+        final request = AbortableRequest(
+          'GET',
+          serverUrl,
+          abortTrigger: abortTrigger.future,
+        );
+        final response = await client.send(request);
 
-      // We want to count data bytes, not 'packet' count, because different
-      // clients will use different size/numbers of 'packet's
-      var i = 0;
-      expect(
-        response.stream.listen(
-          (data) {
-            i += data.length;
-            if (i >= 1000 && !abortTrigger.isCompleted) abortTrigger.complete();
-          },
-        ).asFuture<void>(),
-        throwsA(isA<RequestAborted>()),
-      );
-      expect(i, lessThan(48890));
-    },
-        skip: supportsAbort
-            ? (canStreamResponseBody
-                ? false
-                : 'does not stream response bodies')
-            : 'does not support aborting requests');
+        // We split the recieved response into lines and ensure we recieved
+        // fewer than the 10000 we sent
+        // 1 line = 1 `i`
+        var i = 0;
+        await expectLater(
+          response.stream
+              .transform(Utf8Decoder())
+              .transform(LineSplitter())
+              .listen(
+            (_) {
+              if (++i >= 1000 && !abortTrigger.isCompleted) {
+                abortTrigger.complete();
+              }
+            },
+          ).asFuture<void>(),
+          throwsA(isA<RequestAbortedException>()),
+        );
+        expect(i, lessThan(10000));
+      },
+      skip: supportsAbort
+          ? (canStreamResponseBody ? false : 'does not stream response bodies')
+          : 'does not support aborting requests',
+    );
 
     test('after streaming response', () async {
       final abortTrigger = Completer<void>();
@@ -240,17 +247,17 @@ void testAbort(
 
       abortTrigger.complete();
 
-      var triggeredAbortedRequest = false;
+      var requestAbortCaught = false;
       try {
         await abortResponse.stream.drain<void>();
-      } on RequestAborted {
-        triggeredAbortedRequest = true;
+      } on RequestAbortedException {
+        requestAbortCaught = true;
       }
 
       final response = await client.get(serverUrl);
       expect(response.statusCode, 200);
       expect(response.body, endsWith('9999\n'));
-      expect(triggeredAbortedRequest, true);
+      expect(requestAbortCaught, true);
     });
   }, skip: supportsAbort ? false : 'does not support aborting requests');
 }
