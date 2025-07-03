@@ -11,11 +11,15 @@ import 'package:http/src/utils.dart';
 import 'package:stream_channel/stream_channel.dart';
 
 void hybridMain(StreamChannel<dynamic> channel) async {
+  var numOfRequests = 0;
   final server = await HttpServer.bind('localhost', 0);
   final url = Uri.http('localhost:${server.port}', '');
   server.listen((request) async {
     var path = request.uri.path;
     var response = request.response;
+    response.headers
+      ..set('Cache-Control', 'public, max-age=30, immutable')
+      ..set('etag', '312424');
 
     if (path == '/error') {
       response
@@ -53,6 +57,15 @@ void hybridMain(StreamChannel<dynamic> channel) async {
       return;
     }
 
+    // For browser runtime testing...
+    if (path == '/echo') {
+      ++numOfRequests;
+
+      response
+        ..headers.add('Access-Control-Allow-Origin', '*')
+        ..headers.add('Access-Control-Allow-Methods', 'POST, GET');
+    }
+
     var requestBodyBytes = await ByteStream(request).toBytes();
     var encodingName = request.uri.queryParameters['response-encoding'];
     var outputEncoding =
@@ -88,6 +101,7 @@ void hybridMain(StreamChannel<dynamic> channel) async {
       'path': request.uri.path,
       if (requestBody != null) 'body': requestBody,
       'headers': headers,
+      if (path == '/echo') 'numOfRequests': numOfRequests
     };
 
     var body = json.encode(content);
