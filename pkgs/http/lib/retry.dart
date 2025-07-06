@@ -52,6 +52,11 @@ final class RetryClient extends BaseClient {
   /// the client has a chance to perform side effects like logging. The
   /// `response` parameter will be null if the request was retried due to an
   /// error for which [whenError] returned `true`.
+  ///
+  /// If the inner client supports aborting requests, then this client will
+  /// forward any [RequestAbortedException]s thrown. A request will not be
+  /// retried if it is aborted (even if the inner client does not support
+  /// aborting requests).
   RetryClient(
     this._inner, {
     int retries = 3,
@@ -108,10 +113,19 @@ final class RetryClient extends BaseClient {
   Future<StreamedResponse> send(BaseRequest request) async {
     final splitter = StreamSplitter(request.finalize());
 
+    bool aborted = false;
+    if (request case Abortable(:final abortTrigger?)) {
+      abortTrigger.whenComplete(() => aborted = true);
+    }
+
     var i = 0;
     for (;;) {
       StreamedResponse? response;
       try {
+        // If the inner client doesn't support abortable, we still try to avoid
+        // re-requests when aborted
+        if (aborted) throw RequestAbortedException(request.url);
+
         response = await _inner.send(_copyRequest(request, splitter.split()));
       } on RequestAbortedException {
         rethrow;
