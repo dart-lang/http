@@ -294,7 +294,9 @@ void main() {
       MockClient.streaming(
         expectAsync2(
           (_, __) async {
-            if (++count == 1) return StreamedResponse(Stream.empty(), 503);
+            if (++count == 1) {
+              return StreamedResponse(const Stream.empty(), 503);
+            }
             return StreamedResponse(
               Stream.error(RequestAbortedException()),
               200,

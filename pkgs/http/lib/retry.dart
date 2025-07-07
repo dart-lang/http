@@ -113,9 +113,9 @@ final class RetryClient extends BaseClient {
   Future<StreamedResponse> send(BaseRequest request) async {
     final splitter = StreamSplitter(request.finalize());
 
-    bool aborted = false;
+    var aborted = false;
     if (request case Abortable(:final abortTrigger?)) {
-      abortTrigger.whenComplete(() => aborted = true);
+      unawaited(abortTrigger.whenComplete(() => aborted = true));
     }
 
     var i = 0;
