@@ -132,6 +132,7 @@ response stream is being consumed, then the response stream will contain a
 
 ```dart
 import 'dart:async';
+
 import 'package:http/http.dart' as http;
 
 Future<void> main() async {
