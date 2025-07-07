@@ -24,6 +24,8 @@ import 'web_socket_conformance_test.dart' as web_socket_conformance_test;
 /// This is faster than running each test individually using
 /// `flutter test integration_test/` because only one compilation step and
 /// application launch is required.
+///
+/// Does **not** run the stress tests.
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
