@@ -316,7 +316,7 @@ void main() {
     );
   });
 
-  test('abort without supporting inner client', () async {
+  test('abort without abortable inner client', () async {
     final abortCompleter = Completer<void>();
 
     var count = 0;
