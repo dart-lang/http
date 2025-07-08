@@ -205,7 +205,7 @@ class CupertinoClient extends BaseClient {
         !(isCancelError && taskTracker.responseListenerCancelled)) {
       final Exception exception;
       if (isCancelError) {
-        exception = const AbortedRequest();
+        exception = RequestAbortedException();
       } else {
         exception = NSErrorClientException(error, taskTracker.request.url);
       }
