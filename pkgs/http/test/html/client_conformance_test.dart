@@ -10,10 +10,13 @@ import 'package:http_client_conformance_tests/http_client_conformance_tests.dart
 import 'package:test/test.dart';
 
 void main() {
-  testAll(BrowserClient.new,
-      redirectAlwaysAllowed: true,
-      canStreamRequestBody: false,
-      canStreamResponseBody: true,
-      canWorkInIsolates: false,
-      supportsMultipartRequest: false);
+  testAll(
+    BrowserClient.new,
+    redirectAlwaysAllowed: true,
+    canStreamRequestBody: false,
+    canStreamResponseBody: true,
+    canWorkInIsolates: false,
+    supportsMultipartRequest: false,
+    supportsAbort: true,
+  );
 }

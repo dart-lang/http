@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'abortable.dart';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
@@ -52,4 +53,16 @@ class StreamedRequest extends BaseRequest {
     super.finalize();
     return ByteStream(_controller.stream);
   }
+}
+
+/// A [StreamedRequest] which supports abortion using [abortTrigger].
+///
+/// A future breaking version of 'package:http' will merge this into
+/// [StreamedRequest], making it a requirement.
+final class AbortableStreamedRequest extends StreamedRequest with Abortable {
+  AbortableStreamedRequest(super.method, super.url, {this.abortTrigger})
+      : super();
+
+  @override
+  final Future<void>? abortTrigger;
 }

@@ -16,5 +16,6 @@ void main() {
     canSendCookieHeaders: true,
     correctlyHandlesNullHeaderValues:
         false, // https://github.com/dart-lang/sdk/issues/56636
+    supportsAbort: true,
   );
 }

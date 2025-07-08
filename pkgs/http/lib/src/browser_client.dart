@@ -8,12 +8,14 @@ import 'dart:js_interop';
 import 'package:web/web.dart'
     show
         AbortController,
+        DOMException,
         HeadersInit,
         ReadableStreamDefaultReader,
         RequestInfo,
         RequestInit,
         Response;
 
+import 'abortable.dart';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
@@ -49,8 +51,6 @@ external JSPromise<Response> _fetch(
 /// Responses are streamed but requests are not. A request will only be sent
 /// once all the data is available.
 class BrowserClient extends BaseClient {
-  final _abortController = AbortController();
-
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
   ///
@@ -58,6 +58,7 @@ class BrowserClient extends BaseClient {
   bool withCredentials = false;
 
   bool _isClosed = false;
+  final _openRequestAbortControllers = <AbortController>[];
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
@@ -67,8 +68,17 @@ class BrowserClient extends BaseClient {
           'HTTP request failed. Client is already closed.', request.url);
     }
 
+    final abortController = AbortController();
+    _openRequestAbortControllers.add(abortController);
+
     final bodyBytes = await request.finalize().toBytes();
     try {
+      if (request case Abortable(:final abortTrigger?)) {
+        // Tear-offs of external extension type interop members are disallowed
+        // ignore: unnecessary_lambdas
+        unawaited(abortTrigger.whenComplete(() => abortController.abort()));
+      }
+
       final response = await _fetch(
         '${request.url}'.toJS,
         RequestInit(
@@ -81,7 +91,7 @@ class BrowserClient extends BaseClient {
             for (var header in request.headers.entries)
               header.key: header.value,
           }.jsify()! as HeadersInit,
-          signal: _abortController.signal,
+          signal: abortController.signal,
           redirect: request.followRedirects ? 'follow' : 'error',
         ),
       ).toDart;
@@ -116,20 +126,28 @@ class BrowserClient extends BaseClient {
       );
     } catch (e, st) {
       _rethrowAsClientException(e, st, request);
+    } finally {
+      _openRequestAbortControllers.remove(abortController);
     }
   }
 
   /// Closes the client.
   ///
-  /// This terminates all active requests.
+  /// This terminates all active requests, which may cause them to throw
+  /// [RequestAbortedException] or [ClientException].
   @override
   void close() {
+    for (final abortController in _openRequestAbortControllers) {
+      abortController.abort();
+    }
     _isClosed = true;
-    _abortController.abort();
   }
 }
 
 Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
+  if (e case DOMException(:final name) when name == 'AbortError') {
+    Error.throwWithStackTrace(RequestAbortedException(request.url), st);
+  }
   if (e is! ClientException) {
     var message = e.toString();
     if (message.startsWith('TypeError: ')) {
