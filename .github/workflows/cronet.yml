@@ -51,5 +51,6 @@ jobs:
         if: always() && steps.install.outcome == 'success'
         run: flutter analyze --fatal-infos
       - run: cd example && flutter build apk && cd ..
+      - run: sed -i 's/0.12.0/0.14.2/' pubspec.yaml
       - run: dart run ffigen --config ffigen.yaml
       - run: git diff
