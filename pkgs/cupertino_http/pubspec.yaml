@@ -32,7 +32,3 @@ flutter:
       macos:
         ffiPlugin: true
         sharedDarwinSource: true
-
-dependency_overrides:
-  http:
-    path: ../http

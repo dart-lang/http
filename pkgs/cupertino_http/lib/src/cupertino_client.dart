@@ -198,7 +198,8 @@ class CupertinoClient extends BaseClient {
     // 1. The user calls `StreamedResponse.stream.cancel()`, which can only
     //    happen if the response has already been received.
     // 2. The user aborts the request, which can happen at any point in the
-    //    request lifecycle and results in `AbortedRequest` being thrown.
+    //    request lifecycle and causes `CupertinoClient.send` to throw
+    //    a `RequestAbortedException` exception.
     final isCancelError = error?.domain.toDartString() == 'NSURLErrorDomain' &&
         error?.code == _nsurlErrorCancelled;
     if (error != null &&
