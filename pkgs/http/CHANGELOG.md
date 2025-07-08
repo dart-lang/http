@@ -1,4 +1,4 @@
-## 1.5.0-wip
+## 1.5.0-beta
 
 * Added support for aborting requests before they complete.
 * Clarify that some header names may not be sent/received.
