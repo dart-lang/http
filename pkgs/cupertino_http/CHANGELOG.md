@@ -1,3 +1,7 @@
+## 2.3.0-wip
+
+* Add the ability to abort requests.
+
 ## 2.2.0
 
 * Cancel requests when the response stream is cancelled.

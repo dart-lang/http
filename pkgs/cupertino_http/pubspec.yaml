@@ -1,5 +1,5 @@
 name: cupertino_http
-version: 2.2.0
+version: 2.3.0-wip
 description: >-
   A macOS/iOS Flutter plugin that provides access to the Foundation URL
   Loading System.
