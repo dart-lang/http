@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'abortable.dart';
 import 'base_request.dart';
 import 'boundary_characters.dart';
 import 'byte_stream.dart';
@@ -159,4 +160,16 @@ class MultipartRequest extends BaseRequest {
         growable: false);
     return '$prefix${String.fromCharCodes(list)}';
   }
+}
+
+/// A [MultipartRequest] which supports abortion using [abortTrigger].
+///
+/// A future breaking version of 'package:http' will merge this into
+/// [MultipartRequest], making it a requirement.
+final class AbortableMultipartRequest extends MultipartRequest with Abortable {
+  AbortableMultipartRequest(super.method, super.url, {this.abortTrigger})
+      : super();
+
+  @override
+  final Future<void>? abortTrigger;
 }

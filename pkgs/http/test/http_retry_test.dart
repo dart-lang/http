@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
+
 import 'package:fake_async/fake_async.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
@@ -251,5 +253,95 @@ void main() {
 
     final response = await client.get(Uri.http('example.org', ''));
     expect(response.statusCode, equals(200));
+  });
+
+  test('abort in first response', () async {
+    final client = RetryClient(
+      MockClient(expectAsync1((_) async => throw RequestAbortedException())),
+      delay: (_) => Duration.zero,
+    );
+
+    expect(
+      client.get(Uri.http('example.org', '')),
+      throwsA(isA<RequestAbortedException>()),
+    );
+  });
+
+  test('abort in second response', () async {
+    var count = 0;
+    final client = RetryClient(
+      MockClient(
+        expectAsync1(
+          (_) async {
+            if (++count == 1) return Response('', 503);
+            throw RequestAbortedException();
+          },
+          count: 2,
+        ),
+      ),
+      delay: (_) => Duration.zero,
+    );
+
+    expect(
+      client.get(Uri.http('example.org', '')),
+      throwsA(isA<RequestAbortedException>()),
+    );
+  });
+
+  test('abort in second response stream', () async {
+    var count = 0;
+    final client = RetryClient(
+      MockClient.streaming(
+        expectAsync2(
+          (_, __) async {
+            if (++count == 1) {
+              return StreamedResponse(const Stream.empty(), 503);
+            }
+            return StreamedResponse(
+              Stream.error(RequestAbortedException()),
+              200,
+            );
+          },
+          count: 2,
+        ),
+      ),
+      delay: (_) => Duration.zero,
+    );
+
+    expect(
+      (await client.send(StreamedRequest('GET', Uri.http('example.org', ''))))
+          .stream
+          .single,
+      throwsA(isA<RequestAbortedException>()),
+    );
+  });
+
+  test('abort without abortable inner client', () async {
+    final abortCompleter = Completer<void>();
+
+    var count = 0;
+    final client = RetryClient(
+      MockClient(
+        expectAsync1(
+          (_) async {
+            if (++count == 2) abortCompleter.complete();
+            return Response('', 503);
+          },
+          count: 2,
+        ),
+      ),
+      delay: (_) => Duration.zero,
+    );
+
+    expect(
+      client.send(
+        AbortableRequest(
+          'GET',
+          Uri.http('example.org', ''),
+          abortTrigger: abortCompleter.future,
+        ),
+      ),
+      throwsA(isA<RequestAbortedException>()),
+    );
   });
 }

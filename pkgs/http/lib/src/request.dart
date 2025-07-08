@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import 'package:http_parser/http_parser.dart';
 
+import 'abortable.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
 import 'utils.dart';
@@ -181,4 +182,15 @@ class Request extends BaseRequest {
     if (!finalized) return;
     throw StateError("Can't modify a finalized Request.");
   }
+}
+
+/// A [Request] which supports abortion using [abortTrigger].
+///
+/// A future breaking version of 'package:http' will merge this into [Request],
+/// making it a requirement.
+final class AbortableRequest extends Request with Abortable {
+  AbortableRequest(super.method, super.url, {this.abortTrigger}) : super();
+
+  @override
+  final Future<void>? abortTrigger;
 }
