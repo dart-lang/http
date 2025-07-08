@@ -51,5 +51,5 @@ jobs:
         if: always() && steps.install.outcome == 'success'
         run: flutter analyze --fatal-infos
       - run: cd example && flutter build apk && cd ..
-      - run: dart run --config ffigen.yaml
+      - run: dart run ffigen --config ffigen.yaml
       - run: git diff
