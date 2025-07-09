@@ -49,6 +49,7 @@ void main() {
       canReceiveSetCookieHeaders: true,
       canSendCookieHeaders: true,
       correctlyHandlesNullHeaderValues: false,
+      supportsAbort: true,
     );
   });
 }
