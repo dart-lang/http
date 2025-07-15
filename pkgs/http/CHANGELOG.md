@@ -1,4 +1,4 @@
-## 1.5.1-wip
+## 1.5.0-beta.2
 
 * Fixed a bug in `IOClient` where the `HttpClient`'s response stream was
   cancelled after the response stream was completed.
