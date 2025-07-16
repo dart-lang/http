@@ -416,6 +416,8 @@ class CupertinoClient extends BaseClient {
       //
       // This will cause the Dart portion of the `NSInputStream` implementation
       // to hang waiting for a close message.
+      //
+      // See https://github.com/dart-lang/native/issues/2333
       if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
         nsStream?.close();
       }
