@@ -84,13 +84,14 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
 
   /// from: `public abstract void onRedirectReceived(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.lang.String string)`
   void onRedirectReceived(
-    UrlRequest urlRequest,
-    UrlResponseInfo urlResponseInfo,
-    jni$_.JString string,
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JString? string,
   ) {
-    final _$urlRequest = urlRequest.reference;
-    final _$urlResponseInfo = urlResponseInfo.reference;
-    final _$string = string.reference;
+    final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
+    final _$urlResponseInfo =
+        urlResponseInfo?.reference ?? jni$_.jNullReference;
+    final _$string = string?.reference ?? jni$_.jNullReference;
     _onRedirectReceived(
             reference.pointer,
             _id_onRedirectReceived as jni$_.JMethodIDPtr,
@@ -125,10 +126,11 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
   /// from: `public abstract void onResponseStarted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)`
   void onResponseStarted(
     UrlRequest? urlRequest,
-    UrlResponseInfo urlResponseInfo,
+    UrlResponseInfo? urlResponseInfo,
   ) {
     final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
-    final _$urlResponseInfo = urlResponseInfo.reference;
+    final _$urlResponseInfo =
+        urlResponseInfo?.reference ?? jni$_.jNullReference;
     _onResponseStarted(
             reference.pointer,
             _id_onResponseStarted as jni$_.JMethodIDPtr,
@@ -163,13 +165,14 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
 
   /// from: `public abstract void onReadCompleted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.nio.ByteBuffer byteBuffer)`
   void onReadCompleted(
-    UrlRequest urlRequest,
-    UrlResponseInfo urlResponseInfo,
-    jni$_.JByteBuffer byteBuffer,
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JByteBuffer? byteBuffer,
   ) {
-    final _$urlRequest = urlRequest.reference;
-    final _$urlResponseInfo = urlResponseInfo.reference;
-    final _$byteBuffer = byteBuffer.reference;
+    final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
+    final _$urlResponseInfo =
+        urlResponseInfo?.reference ?? jni$_.jNullReference;
+    final _$byteBuffer = byteBuffer?.reference ?? jni$_.jNullReference;
     _onReadCompleted(
             reference.pointer,
             _id_onReadCompleted as jni$_.JMethodIDPtr,
@@ -203,10 +206,10 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
 
   /// from: `public abstract void onSucceeded(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)`
   void onSucceeded(
-    UrlRequest urlRequest,
+    UrlRequest? urlRequest,
     UrlResponseInfo? urlResponseInfo,
   ) {
-    final _$urlRequest = urlRequest.reference;
+    final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
     _onSucceeded(reference.pointer, _id_onSucceeded as jni$_.JMethodIDPtr,
@@ -240,14 +243,15 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
 
   /// from: `public abstract void onFailed(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, org.chromium.net.CronetException cronetException)`
   void onFailed(
-    UrlRequest urlRequest,
+    UrlRequest? urlRequest,
     UrlResponseInfo? urlResponseInfo,
-    CronetException cronetException,
+    CronetException? cronetException,
   ) {
-    final _$urlRequest = urlRequest.reference;
+    final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
-    final _$cronetException = cronetException.reference;
+    final _$cronetException =
+        cronetException?.reference ?? jni$_.jNullReference;
     _onFailed(
             reference.pointer,
             _id_onFailed as jni$_.JMethodIDPtr,
@@ -292,9 +296,9 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
       if ($d ==
           r'onRedirectReceived(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V') {
         _$impls[$p]!.onRedirectReceived(
-          $a![0]!.as(const $UrlRequest$Type(), releaseOriginal: true),
-          $a![1]!.as(const $UrlResponseInfo$Type(), releaseOriginal: true),
-          $a![2]!.as(const jni$_.JStringType(), releaseOriginal: true),
+          $a![0]?.as(const $UrlRequest$Type(), releaseOriginal: true),
+          $a![1]?.as(const $UrlResponseInfo$Type(), releaseOriginal: true),
+          $a![2]?.as(const jni$_.JStringType(), releaseOriginal: true),
         );
         return jni$_.nullptr;
       }
@@ -302,23 +306,23 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
           r'onResponseStarted(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V') {
         _$impls[$p]!.onResponseStarted(
           $a![0]?.as(const $UrlRequest$Type(), releaseOriginal: true),
-          $a![1]!.as(const $UrlResponseInfo$Type(), releaseOriginal: true),
+          $a![1]?.as(const $UrlResponseInfo$Type(), releaseOriginal: true),
         );
         return jni$_.nullptr;
       }
       if ($d ==
           r'onReadCompleted(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V') {
         _$impls[$p]!.onReadCompleted(
-          $a![0]!.as(const $UrlRequest$Type(), releaseOriginal: true),
-          $a![1]!.as(const $UrlResponseInfo$Type(), releaseOriginal: true),
-          $a![2]!.as(const jni$_.JByteBufferType(), releaseOriginal: true),
+          $a![0]?.as(const $UrlRequest$Type(), releaseOriginal: true),
+          $a![1]?.as(const $UrlResponseInfo$Type(), releaseOriginal: true),
+          $a![2]?.as(const jni$_.JByteBufferType(), releaseOriginal: true),
         );
         return jni$_.nullptr;
       }
       if ($d ==
           r'onSucceeded(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V') {
         _$impls[$p]!.onSucceeded(
-          $a![0]!.as(const $UrlRequest$Type(), releaseOriginal: true),
+          $a![0]?.as(const $UrlRequest$Type(), releaseOriginal: true),
           $a![1]?.as(const $UrlResponseInfo$Type(), releaseOriginal: true),
         );
         return jni$_.nullptr;
@@ -326,9 +330,9 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
       if ($d ==
           r'onFailed(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V') {
         _$impls[$p]!.onFailed(
-          $a![0]!.as(const $UrlRequest$Type(), releaseOriginal: true),
+          $a![0]?.as(const $UrlRequest$Type(), releaseOriginal: true),
           $a![1]?.as(const $UrlResponseInfo$Type(), releaseOriginal: true),
-          $a![2]!.as(const $CronetException$Type(), releaseOriginal: true),
+          $a![2]?.as(const $CronetException$Type(), releaseOriginal: true),
         );
         return jni$_.nullptr;
       }
@@ -387,65 +391,65 @@ class UrlRequestCallbackProxy$UrlRequestCallbackInterface
 
 abstract base mixin class $UrlRequestCallbackProxy$UrlRequestCallbackInterface {
   factory $UrlRequestCallbackProxy$UrlRequestCallbackInterface({
-    required void Function(UrlRequest urlRequest,
-            UrlResponseInfo urlResponseInfo, jni$_.JString string)
+    required void Function(UrlRequest? urlRequest,
+            UrlResponseInfo? urlResponseInfo, jni$_.JString? string)
         onRedirectReceived,
     bool onRedirectReceived$async,
     required void Function(
-            UrlRequest? urlRequest, UrlResponseInfo urlResponseInfo)
+            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
         onResponseStarted,
     bool onResponseStarted$async,
-    required void Function(UrlRequest urlRequest,
-            UrlResponseInfo urlResponseInfo, jni$_.JByteBuffer byteBuffer)
+    required void Function(UrlRequest? urlRequest,
+            UrlResponseInfo? urlResponseInfo, jni$_.JByteBuffer? byteBuffer)
         onReadCompleted,
     bool onReadCompleted$async,
     required void Function(
-            UrlRequest urlRequest, UrlResponseInfo? urlResponseInfo)
+            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
         onSucceeded,
     bool onSucceeded$async,
-    required void Function(UrlRequest urlRequest,
-            UrlResponseInfo? urlResponseInfo, CronetException cronetException)
+    required void Function(UrlRequest? urlRequest,
+            UrlResponseInfo? urlResponseInfo, CronetException? cronetException)
         onFailed,
     bool onFailed$async,
   }) = _$UrlRequestCallbackProxy$UrlRequestCallbackInterface;
 
-  void onRedirectReceived(UrlRequest urlRequest,
-      UrlResponseInfo urlResponseInfo, jni$_.JString string);
+  void onRedirectReceived(UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo, jni$_.JString? string);
   bool get onRedirectReceived$async => false;
   void onResponseStarted(
-      UrlRequest? urlRequest, UrlResponseInfo urlResponseInfo);
+      UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo);
   bool get onResponseStarted$async => false;
-  void onReadCompleted(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      jni$_.JByteBuffer byteBuffer);
+  void onReadCompleted(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
+      jni$_.JByteBuffer? byteBuffer);
   bool get onReadCompleted$async => false;
-  void onSucceeded(UrlRequest urlRequest, UrlResponseInfo? urlResponseInfo);
+  void onSucceeded(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo);
   bool get onSucceeded$async => false;
-  void onFailed(UrlRequest urlRequest, UrlResponseInfo? urlResponseInfo,
-      CronetException cronetException);
+  void onFailed(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
+      CronetException? cronetException);
   bool get onFailed$async => false;
 }
 
 final class _$UrlRequestCallbackProxy$UrlRequestCallbackInterface
     with $UrlRequestCallbackProxy$UrlRequestCallbackInterface {
   _$UrlRequestCallbackProxy$UrlRequestCallbackInterface({
-    required void Function(UrlRequest urlRequest,
-            UrlResponseInfo urlResponseInfo, jni$_.JString string)
+    required void Function(UrlRequest? urlRequest,
+            UrlResponseInfo? urlResponseInfo, jni$_.JString? string)
         onRedirectReceived,
     this.onRedirectReceived$async = false,
     required void Function(
-            UrlRequest? urlRequest, UrlResponseInfo urlResponseInfo)
+            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
         onResponseStarted,
     this.onResponseStarted$async = false,
-    required void Function(UrlRequest urlRequest,
-            UrlResponseInfo urlResponseInfo, jni$_.JByteBuffer byteBuffer)
+    required void Function(UrlRequest? urlRequest,
+            UrlResponseInfo? urlResponseInfo, jni$_.JByteBuffer? byteBuffer)
         onReadCompleted,
     this.onReadCompleted$async = false,
     required void Function(
-            UrlRequest urlRequest, UrlResponseInfo? urlResponseInfo)
+            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
         onSucceeded,
     this.onSucceeded$async = false,
-    required void Function(UrlRequest urlRequest,
-            UrlResponseInfo? urlResponseInfo, CronetException cronetException)
+    required void Function(UrlRequest? urlRequest,
+            UrlResponseInfo? urlResponseInfo, CronetException? cronetException)
         onFailed,
     this.onFailed$async = false,
   })  : _onRedirectReceived = onRedirectReceived,
@@ -454,43 +458,43 @@ final class _$UrlRequestCallbackProxy$UrlRequestCallbackInterface
         _onSucceeded = onSucceeded,
         _onFailed = onFailed;
 
-  final void Function(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      jni$_.JString string) _onRedirectReceived;
+  final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
+      jni$_.JString? string) _onRedirectReceived;
   final bool onRedirectReceived$async;
-  final void Function(UrlRequest? urlRequest, UrlResponseInfo urlResponseInfo)
+  final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
       _onResponseStarted;
   final bool onResponseStarted$async;
-  final void Function(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      jni$_.JByteBuffer byteBuffer) _onReadCompleted;
+  final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
+      jni$_.JByteBuffer? byteBuffer) _onReadCompleted;
   final bool onReadCompleted$async;
-  final void Function(UrlRequest urlRequest, UrlResponseInfo? urlResponseInfo)
+  final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
       _onSucceeded;
   final bool onSucceeded$async;
-  final void Function(UrlRequest urlRequest, UrlResponseInfo? urlResponseInfo,
-      CronetException cronetException) _onFailed;
+  final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
+      CronetException? cronetException) _onFailed;
   final bool onFailed$async;
 
-  void onRedirectReceived(UrlRequest urlRequest,
-      UrlResponseInfo urlResponseInfo, jni$_.JString string) {
+  void onRedirectReceived(UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo, jni$_.JString? string) {
     return _onRedirectReceived(urlRequest, urlResponseInfo, string);
   }
 
   void onResponseStarted(
-      UrlRequest? urlRequest, UrlResponseInfo urlResponseInfo) {
+      UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo) {
     return _onResponseStarted(urlRequest, urlResponseInfo);
   }
 
-  void onReadCompleted(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      jni$_.JByteBuffer byteBuffer) {
+  void onReadCompleted(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
+      jni$_.JByteBuffer? byteBuffer) {
     return _onReadCompleted(urlRequest, urlResponseInfo, byteBuffer);
   }
 
-  void onSucceeded(UrlRequest urlRequest, UrlResponseInfo? urlResponseInfo) {
+  void onSucceeded(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo) {
     return _onSucceeded(urlRequest, urlResponseInfo);
   }
 
-  void onFailed(UrlRequest urlRequest, UrlResponseInfo? urlResponseInfo,
-      CronetException cronetException) {
+  void onFailed(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
+      CronetException? cronetException) {
     return _onFailed(urlRequest, urlResponseInfo, cronetException);
   }
 }
@@ -685,13 +689,14 @@ class UrlRequestCallbackProxy extends UrlRequest$Callback {
 
   /// from: `public void onRedirectReceived(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.lang.String string)`
   void onRedirectReceived(
-    UrlRequest urlRequest,
-    UrlResponseInfo urlResponseInfo,
-    jni$_.JString string,
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JString? string,
   ) {
-    final _$urlRequest = urlRequest.reference;
-    final _$urlResponseInfo = urlResponseInfo.reference;
-    final _$string = string.reference;
+    final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
+    final _$urlResponseInfo =
+        urlResponseInfo?.reference ?? jni$_.jNullReference;
+    final _$string = string?.reference ?? jni$_.jNullReference;
     _onRedirectReceived(
             reference.pointer,
             _id_onRedirectReceived as jni$_.JMethodIDPtr,
@@ -726,10 +731,11 @@ class UrlRequestCallbackProxy extends UrlRequest$Callback {
   /// from: `public void onResponseStarted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)`
   void onResponseStarted(
     UrlRequest? urlRequest,
-    UrlResponseInfo urlResponseInfo,
+    UrlResponseInfo? urlResponseInfo,
   ) {
     final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
-    final _$urlResponseInfo = urlResponseInfo.reference;
+    final _$urlResponseInfo =
+        urlResponseInfo?.reference ?? jni$_.jNullReference;
     _onResponseStarted(
             reference.pointer,
             _id_onResponseStarted as jni$_.JMethodIDPtr,
@@ -764,13 +770,14 @@ class UrlRequestCallbackProxy extends UrlRequest$Callback {
 
   /// from: `public void onReadCompleted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.nio.ByteBuffer byteBuffer)`
   void onReadCompleted(
-    UrlRequest urlRequest,
-    UrlResponseInfo urlResponseInfo,
-    jni$_.JByteBuffer byteBuffer,
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JByteBuffer? byteBuffer,
   ) {
-    final _$urlRequest = urlRequest.reference;
-    final _$urlResponseInfo = urlResponseInfo.reference;
-    final _$byteBuffer = byteBuffer.reference;
+    final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
+    final _$urlResponseInfo =
+        urlResponseInfo?.reference ?? jni$_.jNullReference;
+    final _$byteBuffer = byteBuffer?.reference ?? jni$_.jNullReference;
     _onReadCompleted(
             reference.pointer,
             _id_onReadCompleted as jni$_.JMethodIDPtr,
@@ -804,10 +811,10 @@ class UrlRequestCallbackProxy extends UrlRequest$Callback {
 
   /// from: `public void onSucceeded(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)`
   void onSucceeded(
-    UrlRequest urlRequest,
+    UrlRequest? urlRequest,
     UrlResponseInfo? urlResponseInfo,
   ) {
-    final _$urlRequest = urlRequest.reference;
+    final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
     _onSucceeded(reference.pointer, _id_onSucceeded as jni$_.JMethodIDPtr,
@@ -841,14 +848,15 @@ class UrlRequestCallbackProxy extends UrlRequest$Callback {
 
   /// from: `public void onFailed(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, org.chromium.net.CronetException cronetException)`
   void onFailed(
-    UrlRequest urlRequest,
+    UrlRequest? urlRequest,
     UrlResponseInfo? urlResponseInfo,
-    CronetException cronetException,
+    CronetException? cronetException,
   ) {
-    final _$urlRequest = urlRequest.reference;
+    final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
-    final _$cronetException = cronetException.reference;
+    final _$cronetException =
+        cronetException?.reference ?? jni$_.jNullReference;
     _onFailed(
             reference.pointer,
             _id_onFailed as jni$_.JMethodIDPtr,
