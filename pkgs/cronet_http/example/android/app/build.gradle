@@ -28,12 +28,12 @@ android {
     namespace 'io.flutter.cronet_http_example'
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 
     sourceSets {
@@ -68,9 +68,36 @@ flutter {
 dependencies {
     // TODO(#1112): org.jetbrains.kotlin:kotlin-bom artifact purpose is to align kotlin stdlib and related code versions.
     // This should be removed when https://github.com/flutter/flutter/issues/125062 is fixed.
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+    // implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     // ""com.google.android.gms:play-services-cronet" is only present so that
     // `jnigen` will work. Applications should not include this line.
     // The version should be synced with `pkgs/cronet_http/android/build.gradle`.
     implementation "com.google.android.gms:play-services-cronet:18.0.1"
+}
+
+// // Gradle stub for listing dependencies in jnigen. If found in
+// // android/build.gradle, please delete the following function.
+task getReleaseCompileClasspath(type: Copy) {
+  project.afterEvaluate {
+    try {
+      def app = project(':app')
+      println "ok so far 1"
+      def android = app.android
+      def cp = [android.getBootClasspath()[0]]
+      println "ok so far 2"
+      android.applicationVariants.each { variant ->
+        if (variant.name.equals('release')) {
+          println "ok so far 3"
+          println variant.javaCompile.classpath
+          cp += variant.javaCompile.classpath.getFiles()
+          println "ok so far 4"
+        }
+      }
+      cp.each { println it }
+    } catch (Exception e) {
+      System.err.println("Gradle stub cannot find JAR libraries. This might be because no APK build has happened yet.")
+      System.err.println("If you are seeing this error in `flutter build` output, it is likely that `jnigen` left some stubs in the build.gradle file. Please restore that file from your version control system or manually remove the stub functions named getReleaseCompileClasspath and / or getSources.")
+      throw e
+    }
+  }
 }
