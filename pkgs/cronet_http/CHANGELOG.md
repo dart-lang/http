@@ -1,4 +1,4 @@
-## 1.4.0-wip
+## 1.4.0
 
 * Add a new `CronetStreamedResponse` class that provides additional information
   about the HTTP response.
