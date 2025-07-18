@@ -2,6 +2,7 @@
 
 * Add a new `CronetStreamedResponse` class that provides additional information
   about the HTTP response.
+* Upgrade `package:jni` and `package:jnigen` to 0.14.2.
 
 ## 1.3.4
 
