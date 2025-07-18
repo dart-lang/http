@@ -19,58 +19,69 @@ import org.chromium.net.UrlRequest
 import org.chromium.net.UrlResponseInfo
 import java.nio.ByteBuffer
 
+// Due to a bug (https://github.com/dart-lang/native/issues/2421) where JNIgen
+// does not synchronize the nullabilities across the class hierarchy and the
+// fact that UrlRequest.Callback is a Java class with no nullability
+// annotations, generating both `UrlRequestCallbackProxy` and
+// `UrlRequest.Callback` together with different nullabilities causes the
+// super method to have a looser type for parameters which is a Dart compilation
+// error. 
+// That is why all of the parameters of this class are defined as nullable to
+// match `UrlRequest.Callback` while in reality only `onFailed`'s `info`
+// parameter is nullable as specified in the cronet source code:
+// https://source.chromium.org/chromium/chromium/src/+/main:components/cronet/android/api/src/org/chromium/net/UrlRequest.java;l=232
 
 class UrlRequestCallbackProxy(val callback: UrlRequestCallbackInterface) : UrlRequest.Callback() {
     public interface UrlRequestCallbackInterface {
         fun onRedirectReceived(
-            request: UrlRequest,
-            info: UrlResponseInfo,
-            newLocationUrl: String
-        )
-
-        fun onResponseStarted(request: UrlRequest?, info: UrlResponseInfo)
-        fun onReadCompleted(
-            request: UrlRequest,
-            info: UrlResponseInfo,
-            byteBuffer: ByteBuffer
-        )
-
-        fun onSucceeded(request: UrlRequest, info: UrlResponseInfo?)
-        fun onFailed(
-            request: UrlRequest,
+            request: UrlRequest?,
             info: UrlResponseInfo?,
-            error: CronetException
+            newLocationUrl: String?
+        )
+
+        fun onResponseStarted(request: UrlRequest?, info: UrlResponseInfo?)
+        fun onReadCompleted(
+            request: UrlRequest?,
+            info: UrlResponseInfo?,
+            byteBuffer: ByteBuffer?
+        )
+
+        fun onSucceeded(request: UrlRequest?, info: UrlResponseInfo?)
+        fun onFailed(
+            request: UrlRequest?,
+            info: UrlResponseInfo?,
+            error: CronetException?
         )
     }
 
     override fun onRedirectReceived(
-        request: UrlRequest,
-        info: UrlResponseInfo,
-        newLocationUrl: String
+        request: UrlRequest?,
+        info: UrlResponseInfo?,
+        newLocationUrl: String?
     ) {
         callback.onRedirectReceived(request, info, newLocationUrl);
     }
 
-    override fun onResponseStarted(request: UrlRequest?, info: UrlResponseInfo) {
+    override fun onResponseStarted(request: UrlRequest?, info: UrlResponseInfo?) {
         callback.onResponseStarted(request, info);
     }
 
     override fun onReadCompleted(
-        request: UrlRequest,
-        info: UrlResponseInfo,
-        byteBuffer: ByteBuffer
+        request: UrlRequest?,
+        info: UrlResponseInfo?,
+        byteBuffer: ByteBuffer?
     ) {
         callback.onReadCompleted(request, info, byteBuffer);
     }
 
-    override fun onSucceeded(request: UrlRequest, info: UrlResponseInfo?) {
+    override fun onSucceeded(request: UrlRequest?, info: UrlResponseInfo?) {
         callback.onSucceeded(request, info);
     }
 
     override fun onFailed(
-        request: UrlRequest,
+        request: UrlRequest?,
         info: UrlResponseInfo?,
-        error: CronetException
+        error: CronetException?
     ) {
         callback.onFailed(request, info, error);
     }
