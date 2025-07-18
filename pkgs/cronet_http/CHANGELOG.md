@@ -2,6 +2,7 @@
 
 * Add a new `CronetStreamedResponse` class that provides additional information
   about the HTTP response.
+* Fix a Flutter warning by upgrading to Kotlin 1.18.10.
 * Upgrade `package:jni` and `package:jnigen` to 0.14.2.
 
 ## 1.3.4

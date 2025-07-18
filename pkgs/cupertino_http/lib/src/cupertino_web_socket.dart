@@ -18,7 +18,8 @@ class ConnectionException extends WebSocketException {
   ConnectionException(super.message, this.error);
 
   @override
-  String toString() => 'CupertinoErrorWebSocketException: $message $error';
+  String toString() => 'CupertinoErrorWebSocketException: $message '
+      '[${error.localizedDescription.toDartString()}]';
 }
 
 /// A [WebSocket] implemented using the

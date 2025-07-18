@@ -175,7 +175,13 @@ class IOClient extends BaseClient {
 
           ioResponseSubscription = response.listen(
             responseController.add,
-            onDone: responseController.close,
+            onDone: () {
+              // `reponseController.close` will trigger the `onCancel` callback.
+              // Assign `ioResponseSubscription` to `null` to avoid calling its
+              // `cancel` method.
+              ioResponseSubscription = null;
+              unawaited(responseController.close());
+            },
             onError: (Object err, StackTrace stackTrace) {
               if (err is HttpException) {
                 responseController.addError(
