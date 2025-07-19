@@ -40,6 +40,7 @@ class UrlRequestCallbackProxy(val callback: UrlRequestCallbackInterface) : UrlRe
         )
 
         fun onResponseStarted(request: UrlRequest?, info: UrlResponseInfo?)
+
         fun onReadCompleted(
             request: UrlRequest?,
             info: UrlResponseInfo?,
@@ -47,6 +48,9 @@ class UrlRequestCallbackProxy(val callback: UrlRequestCallbackInterface) : UrlRe
         )
 
         fun onSucceeded(request: UrlRequest?, info: UrlResponseInfo?)
+
+        fun onCanceled(request: UrlRequest?, info: UrlResponseInfo?)
+
         fun onFailed(
             request: UrlRequest?,
             info: UrlResponseInfo?,
@@ -76,6 +80,10 @@ class UrlRequestCallbackProxy(val callback: UrlRequestCallbackInterface) : UrlRe
 
     override fun onSucceeded(request: UrlRequest?, info: UrlResponseInfo?) {
         callback.onSucceeded(request, info);
+    }
+
+    override fun onCanceled(request: UrlRequest?, info: UrlResponseInfo?) {
+        callback.onCanceled(request, info);
     }
 
     override fun onFailed(

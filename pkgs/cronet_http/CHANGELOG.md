@@ -1,3 +1,7 @@
+## 1.5.0-wip
+
+* Add the ability to abort requests.
+
 ## 1.4.0
 
 * Add a new `CronetStreamedResponse` class that provides additional information
