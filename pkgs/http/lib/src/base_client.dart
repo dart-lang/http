@@ -106,3 +106,10 @@ abstract mixin class BaseClient implements Client {
   @override
   void close() {}
 }
+
+abstract class ClosableBaseClient extends BaseClient {
+  bool get isClosed;
+
+  @override
+  void close();
+}
