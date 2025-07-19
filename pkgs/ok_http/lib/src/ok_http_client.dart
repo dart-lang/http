@@ -213,8 +213,11 @@ Future<String?> choosePrivateKeyAlias({
 ///   }
 /// }
 /// ```
-class OkHttpClient extends BaseClient {
+class OkHttpClient extends ClosableBaseClient {
   late bindings.OkHttpClient _client;
+
+  @override
+  bool get isClosed => _isClosed;
   bool _isClosed = false;
 
   /// The configuration for this client, applied on a per-call basis.

@@ -1,3 +1,8 @@
+## 0.2.0-wip
+
+* Implements `ClosableBaseClient`.
+* Expose `OkHttpClient.close`.
+
 ## 0.1.1-wip
 
 - `OkHttpClient` now receives an `OkHttpClientConfiguration` to configure the client on a per-call basis.

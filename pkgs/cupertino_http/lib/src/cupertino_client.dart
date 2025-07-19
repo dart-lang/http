@@ -94,9 +94,11 @@ class _TaskTracker {
 ///   }
 /// }
 /// ```
-class CupertinoClient extends BaseClient {
+class CupertinoClient extends ClosableBaseClient {
   static final Map<URLSessionTask, _TaskTracker> _tasks = {};
 
+  @override
+  bool get isClosed => _urlSession == null;
   URLSession? _urlSession;
 
   CupertinoClient._(this._urlSession);

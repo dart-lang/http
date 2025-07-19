@@ -1,3 +1,8 @@
+## 2.4.0-wip
+
+* Implements `ClosableBaseClient`.
+* Expose `CronetEngine.close` and `CronetClient.close`.
+
 ## 2.3.0-wip
 
 * Add the ability to abort requests.

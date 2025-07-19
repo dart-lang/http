@@ -1,3 +1,8 @@
+## 1.5.0-wip
+
+* Introduce `ClosableBaseClient` specifically for clients that can be closed.## 0.2.0-wip
+* Expose `IOClient.close` and `BrowserClient.close`.
+
 ## 1.5.0-beta.2
 
 * Fixed a bug in `IOClient` where the `HttpClient`'s response stream was

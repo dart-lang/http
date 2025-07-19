@@ -1,3 +1,8 @@
+## 1.5.0-wip
+
+* Implements `ClosableBaseClient`.
+* Expose `CronetEngine.close` and `CronetClient.close`.
+
 ## 1.4.0
 
 * Add a new `CronetStreamedResponse` class that provides additional information
