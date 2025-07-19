@@ -1,3 +1,7 @@
+## 1.4.1-wip
+
+* Upgrade Cronet dependencies version.
+
 ## 1.4.0
 
 * Add a new `CronetStreamedResponse` class that provides additional information
