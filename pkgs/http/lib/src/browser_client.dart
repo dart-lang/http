@@ -50,14 +50,17 @@ external JSPromise<Response> _fetch(
 ///
 /// Responses are streamed but requests are not. A request will only be sent
 /// once all the data is available.
-class BrowserClient extends BaseClient {
+class BrowserClient extends ClosableBaseClient {
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
   ///
   /// Defaults to `false`.
   bool withCredentials = false;
 
+  @override
+  bool get isClosed => _isClosed;
   bool _isClosed = false;
+
   final _openRequestAbortControllers = <AbortController>[];
 
   /// Sends an HTTP request and asynchronously returns the response.

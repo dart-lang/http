@@ -82,9 +82,13 @@ class _IOStreamedResponseV2 extends IOStreamedResponse
 ///   // would be caught by this handler.
 /// }
 /// ```
-class IOClient extends BaseClient {
+class IOClient extends ClosableBaseClient {
   /// The underlying `dart:io` HTTP client.
   HttpClient? _inner;
+
+  @override
+  bool get isClosed => _isClosed;
+  bool _isClosed = false;
 
   /// Create a new `dart:io`-based HTTP [Client].
   ///
@@ -103,7 +107,7 @@ class IOClient extends BaseClient {
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<IOStreamedResponse> send(BaseRequest request) async {
-    if (_inner == null) {
+    if (_inner == null || _isClosed) {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
     }
@@ -243,5 +247,6 @@ class IOClient extends BaseClient {
       _inner!.close(force: true);
       _inner = null;
     }
+    _isClosed = true;
   }
 }

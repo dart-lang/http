@@ -81,6 +81,8 @@ enum CacheMode {
 /// An environment that can be used to make HTTP requests.
 class CronetEngine {
   late final jb.CronetEngine _engine;
+
+  bool get isClosed => _isClosed;
   bool _isClosed = false;
 
   CronetEngine._(this._engine);
@@ -351,9 +353,12 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
 /// A HTTP [Client] based on the
 /// [Cronet](https://developer.android.com/guide/topics/connectivity/cronet)
 /// network stack.
-class CronetClient extends BaseClient {
+class CronetClient extends ClosableBaseClient {
   static final _executor = jb.Executors.newCachedThreadPool();
   CronetEngine? _engine;
+
+  @override
+  bool get isClosed => _isClosed;
   bool _isClosed = false;
 
   /// Indicates that [CronetClient] is responsible for closing [_engine].
@@ -414,7 +419,7 @@ class CronetClient extends BaseClient {
     final engine = _engine ?? CronetEngine.build();
     _engine = engine;
 
-    if (engine._isClosed) {
+    if (engine.isClosed) {
       throw ClientException(
           'HTTP request failed. CronetEngine is already closed.', request.url);
     }
