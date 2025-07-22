@@ -1,6 +1,7 @@
 ## 1.5.0-wip
 
 * Add the ability to abort requests.
+* Upgrade Cronet dependencies version.
 
 ## 1.4.0
 
