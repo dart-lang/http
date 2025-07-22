@@ -205,11 +205,9 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       // https://source.chromium.org/chromium/chromium/src/+/main:components/cronet/android/api/src/org/chromium/net/UrlRequest.java;l=232
       jb.$UrlRequestCallbackProxy$UrlRequestCallbackInterface(
     onResponseStarted: (urlRequest, responseInfo) {
-      print('onResponseStarted');
       responseStream = StreamController(onCancel: () {
         // The user did `response.stream.cancel()`. We can just pretend that
         // the response completed normally.
-        print('onCancel (stream)');
         if (responseStreamCancelled) return;
         responseStreamCancelled = true;
         urlRequest!.cancel();
@@ -310,7 +308,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       }
     },
     onReadCompleted: (urlRequest, responseInfo, byteBuffer) {
-      print('onReadCompleted');
       if (responseStreamCancelled) return;
       byteBuffer!.flip();
       final data = jByteBuffer!.asUint8List().sublist(0, byteBuffer.remaining);
@@ -321,7 +318,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       urlRequest!.read(byteBuffer);
     },
     onSucceeded: (urlRequest, responseInfo) {
-      print('onSucceeded');
       if (responseStreamCancelled) return;
       responseStreamCancelled = true;
       responseStream!.sink.close();
@@ -329,7 +325,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       profile?.responseData.close();
     },
     onFailed: (urlRequest, responseInfo /* can be null */, cronetException) {
-      print('onFailed');
       if (responseStreamCancelled) return;
       responseStreamCancelled = true;
       final error = ClientException(
@@ -353,7 +348,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
     // Will always be the last callback invoked.
     // See https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/UrlRequest#cancel()
     onCanceled: (urlRequest, urlResponseInfo) {
-      print('onCanceled');
       if (responseStreamCancelled) return;
       responseStreamCancelled = true;
       final error = RequestAbortedException(request.url);
@@ -509,14 +503,7 @@ class CronetClient extends BaseClient {
 
     final cronetRequest = builder.build()!;
     if (request case Abortable(:final abortTrigger?)) {
-      unawaited(abortTrigger.whenComplete(() {
-/*        final taskTracker = _tasks[task];
-        if (taskTracker == null) return;
-        taskTracker.requestAborted = true;
-        */
-        print('Cancelling!');
-        cronetRequest.cancel();
-      }));
+      unawaited(abortTrigger.whenComplete(cronetRequest.cancel));
     }
     cronetRequest.start();
     return responseCompleter.future;

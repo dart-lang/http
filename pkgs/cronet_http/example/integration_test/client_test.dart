@@ -53,6 +53,9 @@ Future<void> testConformance() async {
         return CronetClient.fromCronetEngine(engine);
       },
       canStreamRequestBody: false,
+      canReceiveSetCookieHeaders: true,
+      canSendCookieHeaders: true,
+      supportsAbort: true,
     );
   });
 }

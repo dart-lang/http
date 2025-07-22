@@ -221,29 +221,30 @@ void main() {
       late List<int> receivedData;
 
       setUpAll(() async {
+        final cancelCompleter = Completer<void>();
         successServer = (await HttpServer.bind('localhost', 0))
           ..listen((request) async {
             await request.drain<void>();
             request.response.headers.set('Content-Type', 'text/plain');
-            while (true) {
+            while (!cancelCompleter.isCompleted) {
               request.response.write('Hello World');
               await request.response.flush();
-              await Future<void>.delayed(const Duration(seconds: 0));
+              // Let the event loop run.
+              await Future(() {});
             }
+            await request.response.close();
           });
-        final cancelCompleter = Completer<void>();
         successServerUri = Uri.http('localhost:${successServer.port}');
         final client = CronetClientWithProfile.defaultCronetEngine();
         final request = StreamedRequest('GET', successServerUri);
         unawaited(request.sink.close());
         final response = await client.send(request);
-
         var i = 0;
         late final StreamSubscription<List<int>> s;
         receivedData = [];
         s = response.stream.listen((d) {
           receivedData += d;
-          if (++i == 1000) {
+          if (++i == 2) {
             s.cancel();
             cancelCompleter.complete();
           }
@@ -260,6 +261,121 @@ void main() {
         expect(profile.requestData.startTime, isNotNull);
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.responseData.bodyBytes, receivedData);
+      });
+    });
+
+    group('abort before response', () {
+      late HttpServer successServer;
+      late Uri successServerUri;
+      late HttpClientRequestProfile profile;
+
+      setUpAll(() async {
+        final abortCompleter = Completer<void>();
+        successServer = (await HttpServer.bind('localhost', 0))
+          ..listen((request) async {
+            await request.drain<void>();
+            request.response.headers.set('Content-Type', 'text/plain');
+            await request.response.close();
+          });
+        successServerUri = Uri.http('localhost:${successServer.port}');
+        final client = CronetClientWithProfile.defaultCronetEngine();
+        final request = AbortableStreamedRequest('GET', successServerUri,
+            abortTrigger: abortCompleter.future);
+        final responseFuture = client.send(request);
+        abortCompleter.complete();
+        unawaited(request.sink.close());
+        try {
+          await responseFuture;
+        } on RequestAbortedException {
+          // Expected failure.
+        }
+        profile = client.profile!;
+      });
+      tearDownAll(() {
+        successServer.close();
+      });
+
+      test('request attributes', () async {
+        expect(profile.requestData.contentLength, isNull);
+        expect(profile.requestData.startTime, isNotNull);
+        expect(profile.requestData.endTime, isNotNull);
+        expect(profile.requestData.error, contains('aborted'));
+        expect(profile.responseData.bodyBytes, isEmpty);
+      });
+
+      test('response attributes', () {
+        expect(profile.responseData.bodyBytes, isEmpty);
+        expect(profile.responseData.compressionState, isNull);
+        expect(profile.responseData.contentLength, isNull);
+        expect(profile.responseData.endTime, isNull);
+        expect(profile.responseData.error, isNull);
+        expect(profile.responseData.headers, isNull);
+        expect(profile.responseData.isRedirect, isNull);
+        expect(profile.responseData.persistentConnection, isNull);
+        expect(profile.responseData.reasonPhrase, isNull);
+        expect(profile.responseData.redirects, isEmpty);
+        expect(profile.responseData.startTime, isNull);
+        expect(profile.responseData.statusCode, isNull);
+      });
+    });
+
+    group('abort during response', () {
+      late HttpServer successServer;
+      late Uri successServerUri;
+      late HttpClientRequestProfile profile;
+      RequestAbortedException? streamException;
+
+      setUpAll(() async {
+        final abortCompleter = Completer<void>();
+        successServer = (await HttpServer.bind('localhost', 0))
+          ..listen((request) async {
+            await request.drain<void>();
+            request.response.headers.set('Content-Type', 'text/plain');
+            while (!abortCompleter.isCompleted) {
+              request.response.write('Hello World');
+              await request.response.flush();
+              // Let the event loop run.
+              await Future(() {});
+            }
+            await request.response.close();
+          });
+        successServerUri = Uri.http('localhost:${successServer.port}');
+        final client = CronetClientWithProfile.defaultCronetEngine();
+        final request = AbortableStreamedRequest('GET', successServerUri,
+            abortTrigger: abortCompleter.future);
+        unawaited(request.sink.close());
+        final response = await client.send(request);
+        var i = 0;
+
+        try {
+          await response.stream.listen((d) {
+            if (++i == 2) {
+              abortCompleter.complete();
+            }
+          }).asFuture<void>();
+        } on RequestAbortedException catch (e) {
+          streamException = e;
+        }
+
+        profile = client.profile!;
+      });
+      tearDownAll(() {
+        successServer.close();
+      });
+
+      test('stream exception', () async {
+        expect(streamException, isA<RequestAbortedException>());
+      });
+
+      test('request attributes', () async {
+        expect(profile.requestData.contentLength, isNull);
+        expect(profile.requestData.startTime, isNotNull);
+        expect(profile.requestData.endTime, isNotNull);
+      });
+
+      test('response attributes', () {
+        expect(profile.responseData.error, contains('aborted'));
+        expect(profile.responseData.bodyBytes, isNotEmpty);
       });
     });
 
