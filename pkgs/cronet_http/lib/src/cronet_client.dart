@@ -347,7 +347,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
     },
     // Will always be the last callback invoked.
     // See https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/UrlRequest#cancel()
-    onCanceled: (urlRequest, urlResponseInfo) {
+    onCanceled: (urlRequest, urlResponseInfo /* can be null */) {
       if (responseStreamCancelled) return;
       responseStreamCancelled = true;
       final error = RequestAbortedException(request.url);
