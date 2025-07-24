@@ -93,21 +93,37 @@ class Request extends BaseRequest {
   /// This is converted to and from [bodyBytes] using [encoding].
   ///
   /// When this is set, if the request does not yet have a `Content-Type`
-  /// header, one will be added with the type `text/plain`. Then the `charset`
-  /// parameter of the `Content-Type` header (whether new or pre-existing) will
-  /// be set to [encoding] if it wasn't already set.
+  /// header, one will be added with the type `text/plain` and appropriate
+  /// `charset` parameter.
   ///
-  /// To set the body of the request, without setting the `Content-Type` header,
-  /// use [bodyBytes].
+  /// If request has `Content-Type` header with MIME media type name `text` or
+  /// is an XML MIME type (e.g. `application/xml` or `image/svg+xml) but
+  /// without `charset` parameter, then the `charset` parameter will be set to
+  /// [encoding].
+  ///
+  /// To set the body of the request, without changing the `Content-Type`
+  /// header, use [bodyBytes].
   String get body => encoding.decode(bodyBytes);
 
   set body(String value) {
+    // IANA defines known media types here:
+    // https://www.iana.org/assignments/media-types/media-types.xhtml
     bodyBytes = encoding.encode(value);
     var contentType = _contentType;
     if (contentType == null) {
       _contentType = MediaType('text', 'plain', {'charset': encoding.name});
     } else if ((contentType.type == 'text' ||
-            contentType.mimeType == 'application/xml') &&
+            // XML media types defined by RFC 7303.
+            // Note that some media types (e.g. cda+xml) specify that the
+            // charset, when present, must be utf-8.
+            contentType.mimeType == 'application/xml' ||
+            contentType.mimeType == 'application/xml-external-parsed-entity' ||
+            contentType.mimeType == 'application/xml-dtd' ||
+            contentType.mimeType.endsWith('+xml')) &&
+        // RFC 8259, 9 says that "charset" is not defined for JSON.
+        // Some non-text, non-xml formats do specify charset
+        // (e.g. application/news-checkgroups) but the user will have to set the
+        // charset themselves if those cases.
         !contentType.parameters.containsKey('charset')) {
       _contentType = contentType.change(parameters: {'charset': encoding.name});
     }
