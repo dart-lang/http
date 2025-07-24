@@ -17,10 +17,10 @@ class Request extends BaseRequest {
   /// Whether the given MIME type should have a 'charset' parameter.
   bool _shouldHaveCharset(MediaType? contentType) =>
       contentType != null &&
-      // RFC 8259, 9 says that "charset" is not defined for JSON.
-      // Some non-text, non-xml formats do specify charset
+      // RFC 8259, section 9 says that "charset" is not defined for JSON.
+      // Some uncommon non-text, non-xml types do specify charset
       // (e.g. application/news-checkgroups) but the user will have to set the
-      // charset themselves if those cases.
+      // charset themselves for those types.
       (contentType.type == 'text' ||
           // XML media types defined by RFC 7303.
           // Note that some media types (e.g. cda+xml) specify that the
