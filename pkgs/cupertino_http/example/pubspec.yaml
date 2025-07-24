@@ -38,3 +38,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+# Use the checked-in version of `package:http` for consistency with tests
+dependency_overrides:
+  http:
+    path: ../../http/
