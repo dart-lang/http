@@ -65,14 +65,20 @@ void hybridMain(StreamChannel<dynamic> channel) async {
     dynamic requestBody;
     if (requestBodyBytes.isEmpty) {
       requestBody = null;
-    } else if (request.headers.contentType?.charset != null) {
-      var encoding =
-          requiredEncodingForCharset(request.headers.contentType!.charset!);
-      requestBody = encoding.decode(requestBodyBytes);
     } else {
-      requestBody = requestBodyBytes;
+      requestBody = switch ((
+        request.headers.contentType?.mimeType,
+        request.headers.contentType?.charset
+      )) {
+        (_, var charset?) =>
+          requiredEncodingForCharset(charset).decode(requestBodyBytes),
+        // This is not a complete set of mime types that default to utf-8,
+        // just the ones found in the tests.
+        ('application/json' || 'application/x-www-form-urlencoded', null) =>
+          utf8.decode(requestBodyBytes),
+        _ => requestBodyBytes,
+      };
     }
-
     final headers = <String, List<String>>{};
 
     request.headers.forEach((name, values) {
