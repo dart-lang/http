@@ -14,6 +14,22 @@ import 'utils.dart';
 
 /// An HTTP request where the entire request body is known in advance.
 class Request extends BaseRequest {
+  /// Whether the given MIME type should have a 'charset' parameter.
+  bool _shouldHaveCharset(MediaType? contentType) =>
+      contentType != null &&
+      // RFC 8259, 9 says that "charset" is not defined for JSON.
+      // Some non-text, non-xml formats do specify charset
+      // (e.g. application/news-checkgroups) but the user will have to set the
+      // charset themselves if those cases.
+      (contentType.type == 'text' ||
+          // XML media types defined by RFC 7303.
+          // Note that some media types (e.g. cda+xml) specify that the
+          // charset, when present, must be utf-8.
+          contentType.mimeType == 'application/xml' ||
+          contentType.mimeType == 'application/xml-external-parsed-entity' ||
+          contentType.mimeType == 'application/xml-dtd' ||
+          contentType.mimeType.endsWith('+xml'));
+
   /// The size of the request body, in bytes. This is calculated from
   /// [bodyBytes].
   ///
@@ -107,21 +123,6 @@ class Request extends BaseRequest {
   /// header, use [bodyBytes].
   String get body => encoding.decode(bodyBytes);
 
-  bool _should(MediaType? contentType) =>
-      contentType != null &&
-      // RFC 8259, 9 says that "charset" is not defined for JSON.
-      // Some non-text, non-xml formats do specify charset
-      // (e.g. application/news-checkgroups) but the user will have to set the
-      // charset themselves if those cases.
-      (contentType.type == 'text' ||
-          // XML media types defined by RFC 7303.
-          // Note that some media types (e.g. cda+xml) specify that the
-          // charset, when present, must be utf-8.
-          contentType.mimeType == 'application/xml' ||
-          contentType.mimeType == 'application/xml-external-parsed-entity' ||
-          contentType.mimeType == 'application/xml-dtd' ||
-          contentType.mimeType.endsWith('+xml'));
-
   set body(String value) {
     // IANA defines known media types here:
     // https://www.iana.org/assignments/media-types/media-types.xhtml
@@ -129,11 +130,7 @@ class Request extends BaseRequest {
     var contentType = _contentType;
     if (contentType == null) {
       _contentType = MediaType('text', 'plain', {'charset': encoding.name});
-    } else if (_should(_contentType) &&
-        // RFC 8259, 9 says that "charset" is not defined for JSON.
-        // Some non-text, non-xml formats do specify charset
-        // (e.g. application/news-checkgroups) but the user will have to set the
-        // charset themselves if those cases.
+    } else if (_shouldHaveCharset(_contentType) &&
         !contentType.parameters.containsKey('charset')) {
       _contentType = contentType.change(parameters: {'charset': encoding.name});
     }
