@@ -61,8 +61,9 @@ class Request extends BaseRequest {
     _checkFinalized();
     _defaultEncoding = value;
     var contentType = _contentType;
-    if (contentType == null || !contentType.parameters.containsKey('charset'))
+    if (contentType == null || !contentType.parameters.containsKey('charset')) {
       return;
+    }
     _contentType = contentType.change(parameters: {'charset': value.name});
   }
 
@@ -106,7 +107,8 @@ class Request extends BaseRequest {
   /// header, use [bodyBytes].
   String get body => encoding.decode(bodyBytes);
 
-  bool _should(MediaType? contentType) => (contentType != null &&
+  bool _should(MediaType? contentType) =>
+      contentType != null &&
       // RFC 8259, 9 says that "charset" is not defined for JSON.
       // Some non-text, non-xml formats do specify charset
       // (e.g. application/news-checkgroups) but the user will have to set the
@@ -118,7 +120,7 @@ class Request extends BaseRequest {
           contentType.mimeType == 'application/xml' ||
           contentType.mimeType == 'application/xml-external-parsed-entity' ||
           contentType.mimeType == 'application/xml-dtd' ||
-          contentType.mimeType.endsWith('+xml')));
+          contentType.mimeType.endsWith('+xml'));
 
   set body(String value) {
     // IANA defines known media types here:
