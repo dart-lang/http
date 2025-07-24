@@ -1,3 +1,8 @@
+## 1.5.0-beta.3
+
+* **Breaking** Change the behavior of `Request.body` so that a charset
+  parameter is only added for text and XML media types.
+
 ## 1.5.0-beta.2
 
 * Fixed a bug in `IOClient` where the `HttpClient`'s response stream was
