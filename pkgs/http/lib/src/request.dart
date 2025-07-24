@@ -115,8 +115,8 @@ class Request extends BaseRequest {
   /// `charset` parameter.
   ///
   /// If request has `Content-Type` header with MIME media type name `text` or
-  /// is an XML MIME type (e.g. `application/xml` or `image/svg+xml) but
-  /// without `charset` parameter, then the `charset` parameter will be set to
+  /// is an XML MIME type (e.g. `application/xml` or `image/svg+xml`) without
+  /// `charset` parameter, then the `charset` parameter will be set to
   /// [encoding].
   ///
   /// To set the body of the request, without changing the `Content-Type`
