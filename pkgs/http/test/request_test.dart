@@ -211,9 +211,27 @@ void main() {
         () {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'text/plain';
-      request.body = '{"hello": "world"}';
+      request.body = 'Hello World!';
       expect(
           request.headers['Content-Type'], equals('text/plain; charset=utf-8'));
+    });
+
+    test('is modified to include utf-8 if body is set and mine type is xml',
+        () {
+      var request = http.Request('POST', dummyUrl);
+      request.headers['Content-Type'] = 'application/xml';
+      request.body = '<?xml...';
+      expect(request.headers['Content-Type'],
+          equals('application/xml; charset=utf-8'));
+    });
+
+    test(
+        'is not modified to include utf-8 if body is set and mine type is json',
+        () {
+      var request = http.Request('POST', dummyUrl);
+      request.headers['Content-Type'] = 'application/json';
+      request.body = '{"hello": "world"}';
+      expect(request.headers['Content-Type'], equals('application/json'));
     });
 
     test(
