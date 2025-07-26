@@ -613,12 +613,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             _handleHeadersFrame(newStream, frame);
             _newStreamsC.add(newStream);
           } else {
-            // A server cannot open new streams to the client. The only way
-            // for a server to start a new stream is via a PUSH_PROMISE_FRAME.
-            throw ProtocolException(
-              'HTTP/2 clients cannot receive HEADER_FRAMEs as a connection'
-              'attempt.',
-            );
+            // We must be able to receive header frames for streams that have
+            // already been closed. This can occur if we send RST_STREAM while
+            // the server already had header frames in flight.
+            //
+            // Still respond with an error, as the stream is closed.
+            throw _throwStreamClosedException(frame.header.streamId);
           }
         } else if (frame is WindowUpdateFrame) {
           if (frameBelongsToIdleStream()) {
