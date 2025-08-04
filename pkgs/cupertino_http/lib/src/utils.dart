@@ -10,12 +10,12 @@ Map<String, String> stringNSDictionaryToMap(NSDictionary d) {
   final m = <String, String>{};
   final keys = NSArray.castFrom(d.allKeys);
   for (var i = 0; i < keys.count; ++i) {
-    final nsKey = keys.objectAtIndex_(i);
+    final nsKey = keys.objectAtIndex(i);
     if (!NSString.isInstance(nsKey)) {
       throw UnsupportedError('keys must be strings');
     }
     final key = NSString.castFrom(nsKey).toDartString();
-    final nsValue = d.objectForKey_(nsKey);
+    final nsValue = d.objectForKey(nsKey);
     if (nsValue == null || !NSString.isInstance(nsValue)) {
       throw UnsupportedError('values must be strings');
     }
@@ -27,14 +27,14 @@ Map<String, String> stringNSDictionaryToMap(NSDictionary d) {
 }
 
 NSArray stringIterableToNSArray(Iterable<String> strings) {
-  final array = NSMutableArray.arrayWithCapacity_(strings.length);
+  final array = NSMutableArray.arrayWithCapacity(strings.length);
 
   var index = 0;
   for (var s in strings) {
-    array.setObject_atIndexedSubscript_(s.toNSString(), index++);
+    array.setObject(s.toNSString(), atIndexedSubscript: index++);
   }
   return array;
 }
 
-NSURL uriToNSURL(Uri uri) => NSURL.URLWithString_(uri.toString().toNSString())!;
+NSURL uriToNSURL(Uri uri) => NSURL.URLWithString(uri.toString().toNSString())!;
 Uri nsurlToUri(NSURL url) => Uri.parse(url.absoluteString!.toDartString());

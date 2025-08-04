@@ -2,6 +2,7 @@
 
 * Add the ability to abort requests.
 * Make `ConnectionException.toString` more helpful.
+* Upgrade to `package:objective_c` 8.0.
 
 ## 2.2.0
 

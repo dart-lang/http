@@ -52,219 +52,11 @@ class NativeCupertinoHttp {
       ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Int)>> Function(
           int, ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>)>();
 
-  int getpriority(
-    int arg0,
-    int arg1,
-  ) {
-    return _getpriority(
-      arg0,
-      arg1,
-    );
-  }
-
-  late final _getpriorityPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, id_t)>>(
-          'getpriority');
-  late final _getpriority =
-      _getpriorityPtr.asFunction<int Function(int, int)>();
-
-  int getiopolicy_np(
-    int arg0,
-    int arg1,
-  ) {
-    return _getiopolicy_np(
-      arg0,
-      arg1,
-    );
-  }
-
-  late final _getiopolicy_npPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Int)>>(
-          'getiopolicy_np');
-  late final _getiopolicy_np =
-      _getiopolicy_npPtr.asFunction<int Function(int, int)>();
-
-  int getrlimit(
-    int arg0,
-    ffi.Pointer<rlimit> arg1,
-  ) {
-    return _getrlimit(
-      arg0,
-      arg1,
-    );
-  }
-
-  late final _getrlimitPtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<rlimit>)>>(
-      'getrlimit');
-  late final _getrlimit =
-      _getrlimitPtr.asFunction<int Function(int, ffi.Pointer<rlimit>)>();
-
-  int getrusage(
-    int arg0,
-    ffi.Pointer<rusage> arg1,
-  ) {
-    return _getrusage(
-      arg0,
-      arg1,
-    );
-  }
-
-  late final _getrusagePtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<rusage>)>>(
-      'getrusage');
-  late final _getrusage =
-      _getrusagePtr.asFunction<int Function(int, ffi.Pointer<rusage>)>();
-
-  int setpriority(
-    int arg0,
-    int arg1,
-    int arg2,
-  ) {
-    return _setpriority(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _setpriorityPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, id_t, ffi.Int)>>(
-          'setpriority');
-  late final _setpriority =
-      _setpriorityPtr.asFunction<int Function(int, int, int)>();
-
-  int setiopolicy_np(
-    int arg0,
-    int arg1,
-    int arg2,
-  ) {
-    return _setiopolicy_np(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _setiopolicy_npPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Int, ffi.Int)>>(
-          'setiopolicy_np');
-  late final _setiopolicy_np =
-      _setiopolicy_npPtr.asFunction<int Function(int, int, int)>();
-
-  int setrlimit(
-    int arg0,
-    ffi.Pointer<rlimit> arg1,
-  ) {
-    return _setrlimit(
-      arg0,
-      arg1,
-    );
-  }
-
-  late final _setrlimitPtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<rlimit>)>>(
-      'setrlimit');
-  late final _setrlimit =
-      _setrlimitPtr.asFunction<int Function(int, ffi.Pointer<rlimit>)>();
-
-  int wait$1(
-    ffi.Pointer<ffi.Int> arg0,
-  ) {
-    return _wait$1(
-      arg0,
-    );
-  }
-
-  late final _wait$1Ptr =
-      _lookup<ffi.NativeFunction<pid_t Function(ffi.Pointer<ffi.Int>)>>('wait');
-  late final _wait$1 =
-      _wait$1Ptr.asFunction<int Function(ffi.Pointer<ffi.Int>)>();
-
-  int waitpid(
-    int arg0,
-    ffi.Pointer<ffi.Int> arg1,
-    int arg2,
-  ) {
-    return _waitpid(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _waitpidPtr = _lookup<
-      ffi.NativeFunction<
-          pid_t Function(pid_t, ffi.Pointer<ffi.Int>, ffi.Int)>>('waitpid');
-  late final _waitpid =
-      _waitpidPtr.asFunction<int Function(int, ffi.Pointer<ffi.Int>, int)>();
-
-  int waitid(
-    idtype_t arg0,
-    Dart__uint32_t arg1,
-    ffi.Pointer<siginfo_t> arg2,
-    int arg3,
-  ) {
-    return _waitid(
-      arg0.value,
-      arg1,
-      arg2,
-      arg3,
-    );
-  }
-
-  late final _waitidPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.UnsignedInt, id_t, ffi.Pointer<siginfo_t>,
-              ffi.Int)>>('waitid');
-  late final _waitid = _waitidPtr
-      .asFunction<int Function(int, int, ffi.Pointer<siginfo_t>, int)>();
-
-  int wait3(
-    ffi.Pointer<ffi.Int> arg0,
-    int arg1,
-    ffi.Pointer<rusage> arg2,
-  ) {
-    return _wait3(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _wait3Ptr = _lookup<
-      ffi.NativeFunction<
-          pid_t Function(
-              ffi.Pointer<ffi.Int>, ffi.Int, ffi.Pointer<rusage>)>>('wait3');
-  late final _wait3 = _wait3Ptr.asFunction<
-      int Function(ffi.Pointer<ffi.Int>, int, ffi.Pointer<rusage>)>();
-
-  int wait4(
-    int arg0,
-    ffi.Pointer<ffi.Int> arg1,
-    int arg2,
-    ffi.Pointer<rusage> arg3,
-  ) {
-    return _wait4(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-    );
-  }
-
-  late final _wait4Ptr = _lookup<
-      ffi.NativeFunction<
-          pid_t Function(pid_t, ffi.Pointer<ffi.Int>, ffi.Int,
-              ffi.Pointer<rusage>)>>('wait4');
-  late final _wait4 = _wait4Ptr.asFunction<
-      int Function(int, ffi.Pointer<ffi.Int>, int, ffi.Pointer<rusage>)>();
-
   ffi.Pointer<ffi.Void> alloca(
-    int arg0,
+    int __size,
   ) {
     return _alloca(
-      arg0,
+      __size,
     );
   }
 
@@ -924,12 +716,12 @@ class NativeCupertinoHttp {
   int mbstowcs(
     ffi.Pointer<ffi.WChar> arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __n,
   ) {
     return _mbstowcs(
       arg0,
       arg1,
-      arg2,
+      __n,
     );
   }
 
@@ -943,12 +735,12 @@ class NativeCupertinoHttp {
   int mbtowc(
     ffi.Pointer<ffi.WChar> arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __n,
   ) {
     return _mbtowc(
       arg0,
       arg1,
-      arg2,
+      __n,
     );
   }
 
@@ -1160,12 +952,12 @@ class NativeCupertinoHttp {
   int wcstombs(
     ffi.Pointer<ffi.Char> arg0,
     ffi.Pointer<ffi.WChar> arg1,
-    int arg2,
+    int __n,
   ) {
     return _wcstombs(
       arg0,
       arg1,
-      arg2,
+      __n,
     );
   }
 
@@ -1341,19 +1133,19 @@ class NativeCupertinoHttp {
   ffi.Pointer<ffi.Char> initstate(
     int arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __size,
   ) {
     return _initstate(
       arg0,
       arg1,
-      arg2,
+      __size,
     );
   }
 
   late final _initstatePtr = _lookup<
       ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
-              ffi.UnsignedInt, ffi.Pointer<ffi.Char>, ffi.Size)>>('initstate');
+              ffi.UnsignedLong, ffi.Pointer<ffi.Char>, ffi.Long)>>('initstate');
   late final _initstate = _initstatePtr.asFunction<
       ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
 
@@ -1590,7 +1382,7 @@ class NativeCupertinoHttp {
   late final _setenv = _setenvPtr.asFunction<
       int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
 
-  void setkey(
+  int setkey(
     ffi.Pointer<ffi.Char> arg0,
   ) {
     return _setkey(
@@ -1599,10 +1391,10 @@ class NativeCupertinoHttp {
   }
 
   late final _setkeyPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
           'setkey');
   late final _setkey =
-      _setkeyPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+      _setkeyPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   ffi.Pointer<ffi.Char> setstate(
     ffi.Pointer<ffi.Char> arg0,
@@ -1639,7 +1431,7 @@ class NativeCupertinoHttp {
   }
 
   late final _srandomPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UnsignedInt)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UnsignedLong)>>(
           'srandom');
   late final _srandom = _srandomPtr.asFunction<void Function(int)>();
 
@@ -1655,7 +1447,7 @@ class NativeCupertinoHttp {
       _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>('unlockpt');
   late final _unlockpt = _unlockptPtr.asFunction<int Function(int)>();
 
-  int unsetenv(
+  void unsetenv(
     ffi.Pointer<ffi.Char> arg0,
   ) {
     return _unsetenv(
@@ -1664,10 +1456,10 @@ class NativeCupertinoHttp {
   }
 
   late final _unsetenvPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
           'unsetenv');
   late final _unsetenv =
-      _unsetenvPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+      _unsetenvPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
   int arc4random() {
     return _arc4random();
@@ -1679,11 +1471,11 @@ class NativeCupertinoHttp {
 
   void arc4random_addrandom(
     ffi.Pointer<ffi.UnsignedChar> arg0,
-    int arg1,
+    int __datlen,
   ) {
     return _arc4random_addrandom(
       arg0,
-      arg1,
+      __datlen,
     );
   }
 
@@ -2026,11 +1818,11 @@ class NativeCupertinoHttp {
 
   int getloadavg(
     ffi.Pointer<ffi.Double> arg0,
-    int arg1,
+    int __nelem,
   ) {
     return _getloadavg(
       arg0,
-      arg1,
+      __nelem,
     );
   }
 
@@ -2501,26 +2293,6 @@ class NativeCupertinoHttp {
   ffi.Pointer<ffi.Char> get suboptarg => _suboptarg.value;
 
   set suboptarg(ffi.Pointer<ffi.Char> value) => _suboptarg.value = value;
-
-  int __darwin_check_fd_set_overflow(
-    int arg0,
-    ffi.Pointer<ffi.Void> arg1,
-    int arg2,
-  ) {
-    return ___darwin_check_fd_set_overflow(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final ___darwin_check_fd_set_overflowPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Void>,
-              ffi.Int)>>('__darwin_check_fd_set_overflow');
-  late final ___darwin_check_fd_set_overflow =
-      ___darwin_check_fd_set_overflowPtr
-          .asFunction<int Function(int, ffi.Pointer<ffi.Void>, int)>();
 
   ffi.Pointer<ffi.Char> sel_getName(
     ffi.Pointer<objc.ObjCSelector> sel,
@@ -3111,6 +2883,25 @@ class NativeCupertinoHttp {
   late final _CFAllocatorCreate = _CFAllocatorCreatePtr.asFunction<
       CFAllocatorRef Function(
           CFAllocatorRef, ffi.Pointer<CFAllocatorContext>)>();
+
+  CFAllocatorRef CFAllocatorCreateWithZone(
+    CFAllocatorRef allocator,
+    ffi.Pointer<_malloc_zone_t> zone,
+  ) {
+    return _CFAllocatorCreateWithZone(
+      allocator,
+      zone,
+    );
+  }
+
+  late final _CFAllocatorCreateWithZonePtr = _lookup<
+      ffi.NativeFunction<
+          CFAllocatorRef Function(CFAllocatorRef,
+              ffi.Pointer<_malloc_zone_t>)>>('CFAllocatorCreateWithZone');
+  late final _CFAllocatorCreateWithZone =
+      _CFAllocatorCreateWithZonePtr.asFunction<
+          CFAllocatorRef Function(
+              CFAllocatorRef, ffi.Pointer<_malloc_zone_t>)>();
 
   ffi.Pointer<ffi.Void> CFAllocatorAllocateTyped(
     CFAllocatorRef allocator,
@@ -4859,14 +4650,62 @@ class NativeCupertinoHttp {
       '__tolower');
   late final ___tolower$1 = ___tolowerPtr.asFunction<int Function(int)>();
 
-  ffi.Pointer<ffi.Int> __error() {
-    return ___error();
+  locale_t duplocale(
+    locale_t arg0,
+  ) {
+    return _duplocale(
+      arg0,
+    );
   }
 
-  late final ___errorPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int> Function()>>('__error');
-  late final ___error =
-      ___errorPtr.asFunction<ffi.Pointer<ffi.Int> Function()>();
+  late final _duplocalePtr =
+      _lookup<ffi.NativeFunction<locale_t Function(locale_t)>>('duplocale');
+  late final _duplocale =
+      _duplocalePtr.asFunction<locale_t Function(locale_t)>();
+
+  int freelocale(
+    locale_t arg0,
+  ) {
+    return _freelocale(
+      arg0,
+    );
+  }
+
+  late final _freelocalePtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(locale_t)>>('freelocale');
+  late final _freelocale = _freelocalePtr.asFunction<int Function(locale_t)>();
+
+  locale_t newlocale(
+    int arg0,
+    ffi.Pointer<ffi.Char> arg1,
+    locale_t arg2,
+  ) {
+    return _newlocale(
+      arg0,
+      arg1,
+      arg2,
+    );
+  }
+
+  late final _newlocalePtr = _lookup<
+      ffi.NativeFunction<
+          locale_t Function(
+              ffi.Int, ffi.Pointer<ffi.Char>, locale_t)>>('newlocale');
+  late final _newlocale = _newlocalePtr
+      .asFunction<locale_t Function(int, ffi.Pointer<ffi.Char>, locale_t)>();
+
+  locale_t uselocale(
+    locale_t arg0,
+  ) {
+    return _uselocale(
+      arg0,
+    );
+  }
+
+  late final _uselocalePtr =
+      _lookup<ffi.NativeFunction<locale_t Function(locale_t)>>('uselocale');
+  late final _uselocale =
+      _uselocalePtr.asFunction<locale_t Function(locale_t)>();
 
   ffi.Pointer<lconv> localeconv() {
     return _localeconv();
@@ -6897,21 +6736,21 @@ class NativeCupertinoHttp {
   late final _sigaddset =
       _sigaddsetPtr.asFunction<int Function(ffi.Pointer<sigset_t>, int)>();
 
-  int sigaltstack(
+  int sigaltstack$1(
     ffi.Pointer<stack_t> arg0,
     ffi.Pointer<stack_t> arg1,
   ) {
-    return _sigaltstack(
+    return _sigaltstack$1(
       arg0,
       arg1,
     );
   }
 
-  late final _sigaltstackPtr = _lookup<
+  late final _sigaltstack$1Ptr = _lookup<
       ffi.NativeFunction<
           ffi.Int Function(
               ffi.Pointer<stack_t>, ffi.Pointer<stack_t>)>>('sigaltstack');
-  late final _sigaltstack = _sigaltstackPtr
+  late final _sigaltstack$1 = _sigaltstack$1Ptr
       .asFunction<int Function(ffi.Pointer<stack_t>, ffi.Pointer<stack_t>)>();
 
   int sigdelset(
@@ -7181,70 +7020,6 @@ class NativeCupertinoHttp {
   late final _sigvec$1 = _sigvec$1Ptr.asFunction<
       int Function(int, ffi.Pointer<sigvec>, ffi.Pointer<sigvec>)>();
 
-  int renameat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-    ffi.Pointer<ffi.Char> arg3,
-  ) {
-    return _renameat(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-    );
-  }
-
-  late final _renameatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int,
-              ffi.Pointer<ffi.Char>)>>('renameat');
-  late final _renameat = _renameatPtr.asFunction<
-      int Function(int, ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>)>();
-
-  int renamex_np(
-    ffi.Pointer<ffi.Char> arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-  ) {
-    return _renamex_np(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _renamex_npPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
-              ffi.UnsignedInt)>>('renamex_np');
-  late final _renamex_np = _renamex_npPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  int renameatx_np(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-    ffi.Pointer<ffi.Char> arg3,
-    int arg4,
-  ) {
-    return _renameatx_np(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-    );
-  }
-
-  late final _renameatx_npPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int,
-              ffi.Pointer<ffi.Char>, ffi.UnsignedInt)>>('renameatx_np');
-  late final _renameatx_np = _renameatx_npPtr.asFunction<
-      int Function(
-          int, ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>, int)>();
-
   int printf(
     ffi.Pointer<ffi.Char> arg0,
   ) {
@@ -7375,12 +7150,12 @@ class NativeCupertinoHttp {
 
   ffi.Pointer<ffi.Char> fgets(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __size,
     ffi.Pointer<FILE> arg2,
   ) {
     return _fgets(
       arg0,
-      arg1,
+      __size,
       arg2,
     );
   }
@@ -7755,13 +7530,13 @@ class NativeCupertinoHttp {
     ffi.Pointer<FILE> arg0,
     ffi.Pointer<ffi.Char> arg1,
     int arg2,
-    int arg3,
+    int __size,
   ) {
     return _setvbuf(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __size,
     );
   }
 
@@ -8449,11 +8224,11 @@ class NativeCupertinoHttp {
 
   ffi.Pointer<ffi.Char> fgetln(
     ffi.Pointer<FILE> arg0,
-    ffi.Pointer<ffi.Size> arg1,
+    ffi.Pointer<ffi.Size> __len,
   ) {
     return _fgetln(
       arg0,
-      arg1,
+      __len,
     );
   }
 
@@ -8499,12 +8274,12 @@ class NativeCupertinoHttp {
   void setbuffer(
     ffi.Pointer<FILE> arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __size,
   ) {
     return _setbuffer(
       arg0,
       arg1,
-      arg2,
+      __size,
     );
   }
 
@@ -8612,6 +8387,56 @@ class NativeCupertinoHttp {
           ffi.Pointer<
               ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Void>)>>)>();
 
+  int __snprintf_chk(
+    ffi.Pointer<ffi.Char> arg0,
+    int __maxlen,
+    int arg2,
+    int arg3,
+    ffi.Pointer<ffi.Char> arg4,
+  ) {
+    return ___snprintf_chk(
+      arg0,
+      __maxlen,
+      arg2,
+      arg3,
+      arg4,
+    );
+  }
+
+  late final ___snprintf_chkPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int, ffi.Size,
+              ffi.Pointer<ffi.Char>)>>('__snprintf_chk');
+  late final ___snprintf_chk = ___snprintf_chkPtr.asFunction<
+      int Function(
+          ffi.Pointer<ffi.Char>, int, int, int, ffi.Pointer<ffi.Char>)>();
+
+  int __vsnprintf_chk(
+    ffi.Pointer<ffi.Char> arg0,
+    int __maxlen,
+    int arg2,
+    int arg3,
+    ffi.Pointer<ffi.Char> arg4,
+    va_list arg5,
+  ) {
+    return ___vsnprintf_chk(
+      arg0,
+      __maxlen,
+      arg2,
+      arg3,
+      arg4,
+      arg5,
+    );
+  }
+
+  late final ___vsnprintf_chkPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int, ffi.Size,
+              ffi.Pointer<ffi.Char>, va_list)>>('__vsnprintf_chk');
+  late final ___vsnprintf_chk = ___vsnprintf_chkPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, int, int, int, ffi.Pointer<ffi.Char>,
+          va_list)>();
+
   int __sprintf_chk(
     ffi.Pointer<ffi.Char> arg0,
     int arg1,
@@ -8632,30 +8457,6 @@ class NativeCupertinoHttp {
               ffi.Pointer<ffi.Char>)>>('__sprintf_chk');
   late final ___sprintf_chk = ___sprintf_chkPtr.asFunction<
       int Function(ffi.Pointer<ffi.Char>, int, int, ffi.Pointer<ffi.Char>)>();
-
-  int __snprintf_chk(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
-    int arg2,
-    int arg3,
-    ffi.Pointer<ffi.Char> arg4,
-  ) {
-    return ___snprintf_chk(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-    );
-  }
-
-  late final ___snprintf_chkPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int, ffi.Size,
-              ffi.Pointer<ffi.Char>)>>('__snprintf_chk');
-  late final ___snprintf_chk = ___snprintf_chkPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>, int, int, int, ffi.Pointer<ffi.Char>)>();
 
   int __vsprintf_chk(
     ffi.Pointer<ffi.Char> arg0,
@@ -8681,60 +8482,34 @@ class NativeCupertinoHttp {
       int Function(
           ffi.Pointer<ffi.Char>, int, int, ffi.Pointer<ffi.Char>, va_list)>();
 
-  int __vsnprintf_chk(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
-    int arg2,
-    int arg3,
-    ffi.Pointer<ffi.Char> arg4,
-    va_list arg5,
+  int bcmp(
+    ffi.Pointer<ffi.Void> s1,
+    ffi.Pointer<ffi.Void> s2,
+    int n,
   ) {
-    return ___vsnprintf_chk(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-      arg5,
+    return _bcmp(
+      s1,
+      s2,
+      n,
     );
   }
 
-  late final ___vsnprintf_chkPtr = _lookup<
+  late final _bcmpPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int, ffi.Size,
-              ffi.Pointer<ffi.Char>, va_list)>>('__vsnprintf_chk');
-  late final ___vsnprintf_chk = ___vsnprintf_chkPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, int, int, int, ffi.Pointer<ffi.Char>,
-          va_list)>();
-
-  ffi.Pointer<ffi.Void> memchr(
-    ffi.Pointer<ffi.Void> __s,
-    int __c,
-    int __n,
-  ) {
-    return _memchr(
-      __s,
-      __c,
-      __n,
-    );
-  }
-
-  late final _memchrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, ffi.Int, ffi.Size)>>('memchr');
-  late final _memchr = _memchrPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)>();
+          ffi.Int Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, ffi.Size)>>('bcmp');
+  late final _bcmp = _bcmpPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
   int memcmp(
-    ffi.Pointer<ffi.Void> __s1,
-    ffi.Pointer<ffi.Void> __s2,
-    int __n,
+    ffi.Pointer<ffi.Void> s1,
+    ffi.Pointer<ffi.Void> s2,
+    int n,
   ) {
     return _memcmp(
-      __s1,
-      __s2,
-      __n,
+      s1,
+      s2,
+      n,
     );
   }
 
@@ -8745,35 +8520,90 @@ class NativeCupertinoHttp {
   late final _memcmp = _memcmpPtr.asFunction<
       int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  ffi.Pointer<ffi.Void> memcpy(
-    ffi.Pointer<ffi.Void> __dst,
-    ffi.Pointer<ffi.Void> __src,
-    int __n,
+  int timingsafe_bcmp(
+    ffi.Pointer<ffi.Void> b1,
+    ffi.Pointer<ffi.Void> b2,
+    int n,
   ) {
-    return _memcpy(
-      __dst,
-      __src,
-      __n,
+    return _timingsafe_bcmp(
+      b1,
+      b2,
+      n,
     );
   }
 
-  late final _memcpyPtr = _lookup<
+  late final _timingsafe_bcmpPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>, ffi.Size)>>('memcpy');
-  late final _memcpy = _memcpyPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
-          ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+          ffi.Int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Size)>>('timingsafe_bcmp');
+  late final _timingsafe_bcmp = _timingsafe_bcmpPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+
+  void bzero(
+    ffi.Pointer<ffi.Void> s,
+    int n,
+  ) {
+    return _bzero(
+      s,
+      n,
+    );
+  }
+
+  late final _bzeroPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Size)>>('bzero');
+  late final _bzero =
+      _bzeroPtr.asFunction<void Function(ffi.Pointer<ffi.Void>, int)>();
+
+  ffi.Pointer<ffi.Void> memset(
+    ffi.Pointer<ffi.Void> s,
+    int c,
+    int n,
+  ) {
+    return _memset(
+      s,
+      c,
+      n,
+    );
+  }
+
+  late final _memsetPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              ffi.Pointer<ffi.Void>, ffi.Int, ffi.Size)>>('memset');
+  late final _memset = _memsetPtr.asFunction<
+      ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  int memset_s(
+    ffi.Pointer<ffi.Void> s,
+    int smax,
+    int c,
+    int n,
+  ) {
+    return _memset_s(
+      s,
+      smax,
+      c,
+      n,
+    );
+  }
+
+  late final _memset_sPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Void>, ffi.Size, ffi.Int, ffi.Size)>>('memset_s');
+  late final _memset_s = _memset_sPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Void>, int, int, int)>();
 
   ffi.Pointer<ffi.Void> memmove(
-    ffi.Pointer<ffi.Void> __dst,
-    ffi.Pointer<ffi.Void> __src,
-    int __len,
+    ffi.Pointer<ffi.Void> dst,
+    ffi.Pointer<ffi.Void> src,
+    int n,
   ) {
     return _memmove(
-      __dst,
-      __src,
-      __len,
+      dst,
+      src,
+      n,
     );
   }
 
@@ -8785,780 +8615,15 @@ class NativeCupertinoHttp {
       ffi.Pointer<ffi.Void> Function(
           ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  ffi.Pointer<ffi.Void> memset(
-    ffi.Pointer<ffi.Void> __b,
-    int __c,
-    int __len,
-  ) {
-    return _memset(
-      __b,
-      __c,
-      __len,
-    );
-  }
-
-  late final _memsetPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>, ffi.Int, ffi.Size)>>('memset');
-  late final _memset = _memsetPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int)>();
-
-  ffi.Pointer<ffi.Char> strcat(
-    ffi.Pointer<ffi.Char> __s1,
-    ffi.Pointer<ffi.Char> __s2,
-  ) {
-    return _strcat(
-      __s1,
-      __s2,
-    );
-  }
-
-  late final _strcatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcat');
-  late final _strcat = _strcatPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strchr(
-    ffi.Pointer<ffi.Char> __s,
-    int __c,
-  ) {
-    return _strchr(
-      __s,
-      __c,
-    );
-  }
-
-  late final _strchrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Int)>>('strchr');
-  late final _strchr = _strchrPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, int)>();
-
-  int strcmp(
-    ffi.Pointer<ffi.Char> __s1,
-    ffi.Pointer<ffi.Char> __s2,
-  ) {
-    return _strcmp(
-      __s1,
-      __s2,
-    );
-  }
-
-  late final _strcmpPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcmp');
-  late final _strcmp = _strcmpPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  int strcoll(
-    ffi.Pointer<ffi.Char> __s1,
-    ffi.Pointer<ffi.Char> __s2,
-  ) {
-    return _strcoll(
-      __s1,
-      __s2,
-    );
-  }
-
-  late final _strcollPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcoll');
-  late final _strcoll = _strcollPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strcpy(
-    ffi.Pointer<ffi.Char> __dst,
-    ffi.Pointer<ffi.Char> __src,
-  ) {
-    return _strcpy(
-      __dst,
-      __src,
-    );
-  }
-
-  late final _strcpyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcpy');
-  late final _strcpy = _strcpyPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  int strcspn(
-    ffi.Pointer<ffi.Char> __s,
-    ffi.Pointer<ffi.Char> __charset,
-  ) {
-    return _strcspn(
-      __s,
-      __charset,
-    );
-  }
-
-  late final _strcspnPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcspn');
-  late final _strcspn = _strcspnPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strerror(
-    int __errnum,
-  ) {
-    return _strerror(
-      __errnum,
-    );
-  }
-
-  late final _strerrorPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Int)>>(
-          'strerror');
-  late final _strerror =
-      _strerrorPtr.asFunction<ffi.Pointer<ffi.Char> Function(int)>();
-
-  int strlen(
-    ffi.Pointer<ffi.Char> __s,
-  ) {
-    return _strlen(
-      __s,
-    );
-  }
-
-  late final _strlenPtr = _lookup<
-          ffi.NativeFunction<ffi.UnsignedLong Function(ffi.Pointer<ffi.Char>)>>(
-      'strlen');
-  late final _strlen =
-      _strlenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strncat(
-    ffi.Pointer<ffi.Char> __s1,
-    ffi.Pointer<ffi.Char> __s2,
-    int __n,
-  ) {
-    return _strncat(
-      __s1,
-      __s2,
-      __n,
-    );
-  }
-
-  late final _strncatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('strncat');
-  late final _strncat = _strncatPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  int strncmp(
-    ffi.Pointer<ffi.Char> __s1,
-    ffi.Pointer<ffi.Char> __s2,
-    int __n,
-  ) {
-    return _strncmp(
-      __s1,
-      __s2,
-      __n,
-    );
-  }
-
-  late final _strncmpPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
-              ffi.Size)>>('strncmp');
-  late final _strncmp = _strncmpPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  ffi.Pointer<ffi.Char> strncpy(
-    ffi.Pointer<ffi.Char> __dst,
-    ffi.Pointer<ffi.Char> __src,
-    int __n,
-  ) {
-    return _strncpy(
-      __dst,
-      __src,
-      __n,
-    );
-  }
-
-  late final _strncpyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('strncpy');
-  late final _strncpy = _strncpyPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  ffi.Pointer<ffi.Char> strpbrk(
-    ffi.Pointer<ffi.Char> __s,
-    ffi.Pointer<ffi.Char> __charset,
-  ) {
-    return _strpbrk(
-      __s,
-      __charset,
-    );
-  }
-
-  late final _strpbrkPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strpbrk');
-  late final _strpbrk = _strpbrkPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strrchr(
-    ffi.Pointer<ffi.Char> __s,
-    int __c,
-  ) {
-    return _strrchr(
-      __s,
-      __c,
-    );
-  }
-
-  late final _strrchrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Int)>>('strrchr');
-  late final _strrchr = _strrchrPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, int)>();
-
-  int strspn(
-    ffi.Pointer<ffi.Char> __s,
-    ffi.Pointer<ffi.Char> __charset,
-  ) {
-    return _strspn(
-      __s,
-      __charset,
-    );
-  }
-
-  late final _strspnPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strspn');
-  late final _strspn = _strspnPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strstr(
-    ffi.Pointer<ffi.Char> __big,
-    ffi.Pointer<ffi.Char> __little,
-  ) {
-    return _strstr(
-      __big,
-      __little,
-    );
-  }
-
-  late final _strstrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strstr');
-  late final _strstr = _strstrPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strtok(
-    ffi.Pointer<ffi.Char> __str,
-    ffi.Pointer<ffi.Char> __sep,
-  ) {
-    return _strtok(
-      __str,
-      __sep,
-    );
-  }
-
-  late final _strtokPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strtok');
-  late final _strtok = _strtokPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  int strxfrm(
-    ffi.Pointer<ffi.Char> __s1,
-    ffi.Pointer<ffi.Char> __s2,
-    int __n,
-  ) {
-    return _strxfrm(
-      __s1,
-      __s2,
-      __n,
-    );
-  }
-
-  late final _strxfrmPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('strxfrm');
-  late final _strxfrm = _strxfrmPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  ffi.Pointer<ffi.Char> strtok_r(
-    ffi.Pointer<ffi.Char> __str,
-    ffi.Pointer<ffi.Char> __sep,
-    ffi.Pointer<ffi.Pointer<ffi.Char>> __lasts,
-  ) {
-    return _strtok_r(
-      __str,
-      __sep,
-      __lasts,
-    );
-  }
-
-  late final _strtok_rPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('strtok_r');
-  late final _strtok_r = _strtok_rPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
-
-  int strerror_r(
-    int __errnum,
-    ffi.Pointer<ffi.Char> __strerrbuf,
-    int __buflen,
-  ) {
-    return _strerror_r(
-      __errnum,
-      __strerrbuf,
-      __buflen,
-    );
-  }
-
-  late final _strerror_rPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Int, ffi.Pointer<ffi.Char>, ffi.Size)>>('strerror_r');
-  late final _strerror_r = _strerror_rPtr
-      .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int)>();
-
-  ffi.Pointer<ffi.Char> strdup(
-    ffi.Pointer<ffi.Char> __s1,
-  ) {
-    return _strdup(
-      __s1,
-    );
-  }
-
-  late final _strdupPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)>>('strdup');
-  late final _strdup = _strdupPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Void> memccpy(
-    ffi.Pointer<ffi.Void> __dst,
-    ffi.Pointer<ffi.Void> __src,
-    int __c,
-    int __n,
-  ) {
-    return _memccpy(
-      __dst,
-      __src,
-      __c,
-      __n,
-    );
-  }
-
-  late final _memccpyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>, ffi.Int, ffi.Size)>>('memccpy');
-  late final _memccpy = _memccpyPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
-          ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
-
-  ffi.Pointer<ffi.Char> stpcpy(
-    ffi.Pointer<ffi.Char> __dst,
-    ffi.Pointer<ffi.Char> __src,
-  ) {
-    return _stpcpy(
-      __dst,
-      __src,
-    );
-  }
-
-  late final _stpcpyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('stpcpy');
-  late final _stpcpy = _stpcpyPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> stpncpy(
-    ffi.Pointer<ffi.Char> __dst,
-    ffi.Pointer<ffi.Char> __src,
-    int __n,
-  ) {
-    return _stpncpy(
-      __dst,
-      __src,
-      __n,
-    );
-  }
-
-  late final _stpncpyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('stpncpy');
-  late final _stpncpy = _stpncpyPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  ffi.Pointer<ffi.Char> strndup(
-    ffi.Pointer<ffi.Char> __s1,
-    int __n,
-  ) {
-    return _strndup(
-      __s1,
-      __n,
-    );
-  }
-
-  late final _strndupPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('strndup');
-  late final _strndup = _strndupPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, int)>();
-
-  int strnlen(
-    ffi.Pointer<ffi.Char> __s1,
-    int __n,
-  ) {
-    return _strnlen(
-      __s1,
-      __n,
-    );
-  }
-
-  late final _strnlenPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Size)>>('strnlen');
-  late final _strnlen =
-      _strnlenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
-
-  ffi.Pointer<ffi.Char> strsignal(
-    int __sig,
-  ) {
-    return _strsignal(
-      __sig,
-    );
-  }
-
-  late final _strsignalPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Int)>>(
-          'strsignal');
-  late final _strsignal =
-      _strsignalPtr.asFunction<ffi.Pointer<ffi.Char> Function(int)>();
-
-  int memset_s(
-    ffi.Pointer<ffi.Void> __s,
-    int __smax,
-    int __c,
-    int __n,
-  ) {
-    return _memset_s(
-      __s,
-      __smax,
-      __c,
-      __n,
-    );
-  }
-
-  late final _memset_sPtr = _lookup<
-      ffi.NativeFunction<
-          errno_t Function(
-              ffi.Pointer<ffi.Void>, rsize_t, ffi.Int, rsize_t)>>('memset_s');
-  late final _memset_s = _memset_sPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Void>, int, int, int)>();
-
-  ffi.Pointer<ffi.Void> memmem(
-    ffi.Pointer<ffi.Void> __big,
-    int __big_len,
-    ffi.Pointer<ffi.Void> __little,
-    int __little_len,
-  ) {
-    return _memmem(
-      __big,
-      __big_len,
-      __little,
-      __little_len,
-    );
-  }
-
-  late final _memmemPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, ffi.Size,
-              ffi.Pointer<ffi.Void>, ffi.Size)>>('memmem');
-  late final _memmem = _memmemPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
-          ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>, int)>();
-
-  void memset_pattern4(
-    ffi.Pointer<ffi.Void> __b,
-    ffi.Pointer<ffi.Void> __pattern4,
-    int __len,
-  ) {
-    return _memset_pattern4(
-      __b,
-      __pattern4,
-      __len,
-    );
-  }
-
-  late final _memset_pattern4Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
-              ffi.Size)>>('memset_pattern4');
-  late final _memset_pattern4 = _memset_pattern4Ptr.asFunction<
-      void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
-
-  void memset_pattern8(
-    ffi.Pointer<ffi.Void> __b,
-    ffi.Pointer<ffi.Void> __pattern8,
-    int __len,
-  ) {
-    return _memset_pattern8(
-      __b,
-      __pattern8,
-      __len,
-    );
-  }
-
-  late final _memset_pattern8Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
-              ffi.Size)>>('memset_pattern8');
-  late final _memset_pattern8 = _memset_pattern8Ptr.asFunction<
-      void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
-
-  void memset_pattern16(
-    ffi.Pointer<ffi.Void> __b,
-    ffi.Pointer<ffi.Void> __pattern16,
-    int __len,
-  ) {
-    return _memset_pattern16(
-      __b,
-      __pattern16,
-      __len,
-    );
-  }
-
-  late final _memset_pattern16Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
-              ffi.Size)>>('memset_pattern16');
-  late final _memset_pattern16 = _memset_pattern16Ptr.asFunction<
-      void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
-
-  ffi.Pointer<ffi.Char> strcasestr(
-    ffi.Pointer<ffi.Char> __big,
-    ffi.Pointer<ffi.Char> __little,
-  ) {
-    return _strcasestr(
-      __big,
-      __little,
-    );
-  }
-
-  late final _strcasestrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcasestr');
-  late final _strcasestr = _strcasestrPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strnstr(
-    ffi.Pointer<ffi.Char> __big,
-    ffi.Pointer<ffi.Char> __little,
-    int __len,
-  ) {
-    return _strnstr(
-      __big,
-      __little,
-      __len,
-    );
-  }
-
-  late final _strnstrPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('strnstr');
-  late final _strnstr = _strnstrPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  int strlcat(
-    ffi.Pointer<ffi.Char> __dst,
-    ffi.Pointer<ffi.Char> __source,
-    int __size,
-  ) {
-    return _strlcat(
-      __dst,
-      __source,
-      __size,
-    );
-  }
-
-  late final _strlcatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('strlcat');
-  late final _strlcat = _strlcatPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  int strlcpy(
-    ffi.Pointer<ffi.Char> __dst,
-    ffi.Pointer<ffi.Char> __source,
-    int __size,
-  ) {
-    return _strlcpy(
-      __dst,
-      __source,
-      __size,
-    );
-  }
-
-  late final _strlcpyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.UnsignedLong Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('strlcpy');
-  late final _strlcpy = _strlcpyPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  void strmode(
-    int __mode,
-    ffi.Pointer<ffi.Char> __bp,
-  ) {
-    return _strmode(
-      __mode,
-      __bp,
-    );
-  }
-
-  late final _strmodePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>)>>('strmode');
-  late final _strmode =
-      _strmodePtr.asFunction<void Function(int, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> strsep(
-    ffi.Pointer<ffi.Pointer<ffi.Char>> __stringp,
-    ffi.Pointer<ffi.Char> __delim,
-  ) {
-    return _strsep(
-      __stringp,
-      __delim,
-    );
-  }
-
-  late final _strsepPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Pointer<ffi.Char>>,
-              ffi.Pointer<ffi.Char>)>>('strsep');
-  late final _strsep = _strsepPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(
-          ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Pointer<ffi.Char>)>();
-
-  void swab(
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<ffi.Void> arg1,
-    int arg2,
-  ) {
-    return _swab(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _swabPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, ssize_t)>>('swab');
-  late final _swab = _swabPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
-
-  int timingsafe_bcmp(
-    ffi.Pointer<ffi.Void> __b1,
-    ffi.Pointer<ffi.Void> __b2,
-    int __len,
-  ) {
-    return _timingsafe_bcmp(
-      __b1,
-      __b2,
-      __len,
-    );
-  }
-
-  late final _timingsafe_bcmpPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
-              ffi.Size)>>('timingsafe_bcmp');
-  late final _timingsafe_bcmp = _timingsafe_bcmpPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
-
-  int strsignal_r(
-    int __sig,
-    ffi.Pointer<ffi.Char> __strsignalbuf,
-    int __buflen,
-  ) {
-    return _strsignal_r(
-      __sig,
-      __strsignalbuf,
-      __buflen,
-    );
-  }
-
-  late final _strsignal_rPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Int, ffi.Pointer<ffi.Char>, ffi.Size)>>('strsignal_r');
-  late final _strsignal_r = _strsignal_rPtr
-      .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int)>();
-
-  int bcmp(
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<ffi.Void> arg1,
-    int arg2,
-  ) {
-    return _bcmp(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _bcmpPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, ffi.Size)>>('bcmp');
-  late final _bcmp = _bcmpPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
-
   void bcopy(
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<ffi.Void> arg1,
-    int arg2,
+    ffi.Pointer<ffi.Void> src,
+    ffi.Pointer<ffi.Void> dst,
+    int n,
   ) {
     return _bcopy(
-      arg0,
-      arg1,
-      arg2,
+      src,
+      dst,
+      n,
     );
   }
 
@@ -9569,75 +8634,156 @@ class NativeCupertinoHttp {
   late final _bcopy = _bcopyPtr.asFunction<
       void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  void bzero(
-    ffi.Pointer<ffi.Void> arg0,
-    int arg1,
+  ffi.Pointer<ffi.Void> memcpy(
+    ffi.Pointer<ffi.Void> dst,
+    ffi.Pointer<ffi.Void> src,
+    int n,
   ) {
-    return _bzero(
-      arg0,
-      arg1,
+    return _memcpy(
+      dst,
+      src,
+      n,
     );
   }
 
-  late final _bzeroPtr = _lookup<
+  late final _memcpyPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Size)>>('bzero');
-  late final _bzero =
-      _bzeroPtr.asFunction<void Function(ffi.Pointer<ffi.Void>, int)>();
+          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>, ffi.Size)>>('memcpy');
+  late final _memcpy = _memcpyPtr.asFunction<
+      ffi.Pointer<ffi.Void> Function(
+          ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  ffi.Pointer<ffi.Char> index(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+  int strlen(
+    ffi.Pointer<ffi.Char> s,
   ) {
-    return _index(
-      arg0,
-      arg1,
+    return _strlen(
+      s,
     );
   }
 
-  late final _indexPtr = _lookup<
+  late final _strlenPtr = _lookup<
+          ffi.NativeFunction<ffi.UnsignedLong Function(ffi.Pointer<ffi.Char>)>>(
+      'strlen');
+  late final _strlen =
+      _strlenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+
+  int strnlen(
+    ffi.Pointer<ffi.Char> s,
+    int n,
+  ) {
+    return _strnlen(
+      s,
+      n,
+    );
+  }
+
+  late final _strnlenPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Int)>>('index');
-  late final _index = _indexPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, int)>();
+          ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Size)>>('strnlen');
+  late final _strnlen =
+      _strnlenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
-  ffi.Pointer<ffi.Char> rindex(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+  int strcmp(
+    ffi.Pointer<ffi.Char> s1,
+    ffi.Pointer<ffi.Char> s2,
   ) {
-    return _rindex(
-      arg0,
-      arg1,
+    return _strcmp(
+      s1,
+      s2,
     );
   }
 
-  late final _rindexPtr = _lookup<
+  late final _strcmpPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(
-              ffi.Pointer<ffi.Char>, ffi.Int)>>('rindex');
-  late final _rindex = _rindexPtr
-      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, int)>();
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcmp');
+  late final _strcmp = _strcmpPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
-  int ffs(
-    int arg0,
+  int strncmp(
+    ffi.Pointer<ffi.Char> s1,
+    ffi.Pointer<ffi.Char> s2,
+    int n,
   ) {
-    return _ffs(
-      arg0,
+    return _strncmp(
+      s1,
+      s2,
+      n,
     );
   }
 
-  late final _ffsPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>('ffs');
-  late final _ffs = _ffsPtr.asFunction<int Function(int)>();
+  late final _strncmpPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
+              ffi.Size)>>('strncmp');
+  late final _strncmp = _strncmpPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+
+  int strlcmp(
+    ffi.Pointer<ffi.Char> s1,
+    ffi.Pointer<ffi.Char> s2,
+    int n,
+  ) {
+    return _strlcmp(
+      s1,
+      s2,
+      n,
+    );
+  }
+
+  late final _strlcmpPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
+              ffi.Size)>>('strlcmp');
+  late final _strlcmp = _strlcmpPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+
+  int strbufcmp(
+    ffi.Pointer<ffi.Char> s1,
+    int s1len,
+    ffi.Pointer<ffi.Char> s2,
+    int s2len,
+  ) {
+    return _strbufcmp(
+      s1,
+      s1len,
+      s2,
+      s2len,
+    );
+  }
+
+  late final _strbufcmpPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strbufcmp');
+  late final _strbufcmp = _strbufcmpPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>, int)>();
+
+  int strprefix(
+    ffi.Pointer<ffi.Char> s1,
+    ffi.Pointer<ffi.Char> s2,
+  ) {
+    return _strprefix(
+      s1,
+      s2,
+    );
+  }
+
+  late final _strprefixPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strprefix');
+  late final _strprefix = _strprefixPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
   int strcasecmp(
-    ffi.Pointer<ffi.Char> arg0,
-    ffi.Pointer<ffi.Char> arg1,
+    ffi.Pointer<ffi.Char> s1,
+    ffi.Pointer<ffi.Char> s2,
   ) {
     return _strcasecmp(
-      arg0,
-      arg1,
+      s1,
+      s2,
     );
   }
 
@@ -9649,14 +8795,14 @@ class NativeCupertinoHttp {
       .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
   int strncasecmp(
-    ffi.Pointer<ffi.Char> arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    ffi.Pointer<ffi.Char> s1,
+    ffi.Pointer<ffi.Char> s2,
+    int n,
   ) {
     return _strncasecmp(
-      arg0,
-      arg1,
-      arg2,
+      s1,
+      s2,
+      n,
     );
   }
 
@@ -9667,65 +8813,240 @@ class NativeCupertinoHttp {
   late final _strncasecmp = _strncasecmpPtr.asFunction<
       int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
 
-  int ffsl(
-    int arg0,
+  int strlcasecmp(
+    ffi.Pointer<ffi.Char> s1,
+    ffi.Pointer<ffi.Char> s2,
+    int n,
   ) {
-    return _ffsl(
-      arg0,
+    return _strlcasecmp(
+      s1,
+      s2,
+      n,
     );
   }
 
-  late final _ffslPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Long)>>('ffsl');
-  late final _ffsl = _ffslPtr.asFunction<int Function(int)>();
+  late final _strlcasecmpPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
+              ffi.Size)>>('strlcasecmp');
+  late final _strlcasecmp = _strlcasecmpPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
 
-  int ffsll(
-    int arg0,
+  int strbufcasecmp(
+    ffi.Pointer<ffi.Char> s1,
+    int s1len,
+    ffi.Pointer<ffi.Char> s2,
+    int s2len,
   ) {
-    return _ffsll(
-      arg0,
+    return _strbufcasecmp(
+      s1,
+      s1len,
+      s2,
+      s2len,
     );
   }
 
-  late final _ffsllPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.LongLong)>>('ffsll');
-  late final _ffsll = _ffsllPtr.asFunction<int Function(int)>();
+  late final _strbufcasecmpPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strbufcasecmp');
+  late final _strbufcasecmp = _strbufcasecmpPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>, int)>();
 
-  int fls(
-    int arg0,
+  ffi.Pointer<ffi.Char> strnstr(
+    ffi.Pointer<ffi.Char> s,
+    ffi.Pointer<ffi.Char> find,
+    int slen,
   ) {
-    return _fls(
-      arg0,
+    return _strnstr(
+      s,
+      find,
+      slen,
     );
   }
 
-  late final _flsPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>('fls');
-  late final _fls = _flsPtr.asFunction<int Function(int)>();
+  late final _strnstrPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strnstr');
+  late final _strnstr = _strnstrPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
 
-  int flsl(
-    int arg0,
+  int strlcpy(
+    ffi.Pointer<ffi.Char> dst,
+    ffi.Pointer<ffi.Char> src,
+    int n,
   ) {
-    return _flsl(
-      arg0,
+    return _strlcpy(
+      dst,
+      src,
+      n,
     );
   }
 
-  late final _flslPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Long)>>('flsl');
-  late final _flsl = _flslPtr.asFunction<int Function(int)>();
+  late final _strlcpyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.UnsignedLong Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strlcpy');
+  late final _strlcpy = _strlcpyPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
 
-  int flsll(
-    int arg0,
+  ffi.Pointer<ffi.Char> strbufcpy(
+    ffi.Pointer<ffi.Char> dst,
+    int dstsz,
+    ffi.Pointer<ffi.Char> src,
+    int srcsz,
   ) {
-    return _flsll(
-      arg0,
+    return _strbufcpy(
+      dst,
+      dstsz,
+      src,
+      srcsz,
     );
   }
 
-  late final _flsllPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.LongLong)>>('flsll');
-  late final _flsll = _flsllPtr.asFunction<int Function(int)>();
+  late final _strbufcpyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, ffi.Size,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strbufcpy');
+  late final _strbufcpy = _strbufcpyPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>, int)>();
+
+  int strlcat(
+    ffi.Pointer<ffi.Char> dst,
+    ffi.Pointer<ffi.Char> src,
+    int n,
+  ) {
+    return _strlcat(
+      dst,
+      src,
+      n,
+    );
+  }
+
+  late final _strlcatPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.UnsignedLong Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strlcat');
+  late final _strlcat = _strlcatPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+
+  ffi.Pointer<ffi.Char> strbufcat(
+    ffi.Pointer<ffi.Char> dst,
+    int dstsz,
+    ffi.Pointer<ffi.Char> src,
+    int srcsz,
+  ) {
+    return _strbufcat(
+      dst,
+      dstsz,
+      src,
+      srcsz,
+    );
+  }
+
+  late final _strbufcatPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, ffi.Size,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strbufcat');
+  late final _strbufcat = _strbufcatPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>, int)>();
+
+  ffi.Pointer<ffi.Char> strncat(
+    ffi.Pointer<ffi.Char> dst,
+    ffi.Pointer<ffi.Char> src,
+    int n,
+  ) {
+    return _strncat(
+      dst,
+      src,
+      n,
+    );
+  }
+
+  late final _strncatPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strncat');
+  late final _strncat = _strncatPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+
+  ffi.Pointer<ffi.Char> strncpy(
+    ffi.Pointer<ffi.Char> dst,
+    ffi.Pointer<ffi.Char> src,
+    int n,
+  ) {
+    return _strncpy(
+      dst,
+      src,
+      n,
+    );
+  }
+
+  late final _strncpyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>, ffi.Size)>>('strncpy');
+  late final _strncpy = _strncpyPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+
+  ffi.Pointer<ffi.Char> strcpy(
+    ffi.Pointer<ffi.Char> arg0,
+    ffi.Pointer<ffi.Char> arg1,
+  ) {
+    return _strcpy(
+      arg0,
+      arg1,
+    );
+  }
+
+  late final _strcpyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcpy');
+  late final _strcpy = _strcpyPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+
+  ffi.Pointer<ffi.Char> strcat(
+    ffi.Pointer<ffi.Char> dst,
+    ffi.Pointer<ffi.Char> src,
+  ) {
+    return _strcat(
+      dst,
+      src,
+    );
+  }
+
+  late final _strcatPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('strcat');
+  late final _strcat = _strcatPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+
+  ffi.Pointer<ffi.Char> STRDUP(
+    ffi.Pointer<ffi.Char> arg0,
+    int arg1,
+  ) {
+    return _STRDUP(
+      arg0,
+      arg1,
+    );
+  }
+
+  late final _STRDUPPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+              ffi.Pointer<ffi.Char>, ffi.Int)>>('STRDUP');
+  late final _STRDUP = _STRDUPPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, int)>();
 
   late final ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> _tzname =
       _lookup<ffi.Pointer<ffi.Pointer<ffi.Char>>>('tzname');
@@ -9740,12 +9061,6 @@ class NativeCupertinoHttp {
   int get getdate_err => _getdate_err.value;
 
   set getdate_err(int value) => _getdate_err.value = value;
-
-  late final ffi.Pointer<ffi.Long> _timezone = _lookup<ffi.Long>('timezone');
-
-  int get timezone => _timezone.value;
-
-  set timezone(int value) => _timezone.value = value;
 
   late final ffi.Pointer<ffi.Int> _daylight = _lookup<ffi.Int>('daylight');
 
@@ -9860,13 +9175,13 @@ class NativeCupertinoHttp {
 
   int strftime(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __maxsize,
     ffi.Pointer<ffi.Char> arg2,
     ffi.Pointer<tm> arg3,
   ) {
     return _strftime(
       arg0,
-      arg1,
+      __maxsize,
       arg2,
       arg3,
     );
@@ -10000,6 +9315,22 @@ class NativeCupertinoHttp {
   late final _posix2timePtr =
       _lookup<ffi.NativeFunction<time_t Function(time_t)>>('posix2time');
   late final _posix2time = _posix2timePtr.asFunction<int Function(int)>();
+
+  ffi.Pointer<ffi.Char> timezone(
+    int arg0,
+    int arg1,
+  ) {
+    return _timezone(
+      arg0,
+      arg1,
+    );
+  }
+
+  late final _timezonePtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Int, ffi.Int)>>(
+      'timezone');
+  late final _timezone =
+      _timezonePtr.asFunction<ffi.Pointer<ffi.Char> Function(int, int)>();
 
   void tzsetwall() {
     return _tzsetwall();
@@ -12180,6 +11511,62 @@ class NativeCupertinoHttp {
 
   CFCalendarIdentifier get kCFIslamicUmmAlQuraCalendar =>
       _kCFIslamicUmmAlQuraCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFBanglaCalendar =
+      _lookup<CFCalendarIdentifier>('kCFBanglaCalendar');
+
+  CFCalendarIdentifier get kCFBanglaCalendar => _kCFBanglaCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFGujaratiCalendar =
+      _lookup<CFCalendarIdentifier>('kCFGujaratiCalendar');
+
+  CFCalendarIdentifier get kCFGujaratiCalendar => _kCFGujaratiCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFKannadaCalendar =
+      _lookup<CFCalendarIdentifier>('kCFKannadaCalendar');
+
+  CFCalendarIdentifier get kCFKannadaCalendar => _kCFKannadaCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFMalayalamCalendar =
+      _lookup<CFCalendarIdentifier>('kCFMalayalamCalendar');
+
+  CFCalendarIdentifier get kCFMalayalamCalendar => _kCFMalayalamCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFMarathiCalendar =
+      _lookup<CFCalendarIdentifier>('kCFMarathiCalendar');
+
+  CFCalendarIdentifier get kCFMarathiCalendar => _kCFMarathiCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFOdiaCalendar =
+      _lookup<CFCalendarIdentifier>('kCFOdiaCalendar');
+
+  CFCalendarIdentifier get kCFOdiaCalendar => _kCFOdiaCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFTamilCalendar =
+      _lookup<CFCalendarIdentifier>('kCFTamilCalendar');
+
+  CFCalendarIdentifier get kCFTamilCalendar => _kCFTamilCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFTeluguCalendar =
+      _lookup<CFCalendarIdentifier>('kCFTeluguCalendar');
+
+  CFCalendarIdentifier get kCFTeluguCalendar => _kCFTeluguCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFVikramCalendar =
+      _lookup<CFCalendarIdentifier>('kCFVikramCalendar');
+
+  CFCalendarIdentifier get kCFVikramCalendar => _kCFVikramCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFDangiCalendar =
+      _lookup<CFCalendarIdentifier>('kCFDangiCalendar');
+
+  CFCalendarIdentifier get kCFDangiCalendar => _kCFDangiCalendar.value;
+
+  late final ffi.Pointer<CFCalendarIdentifier> _kCFVietnameseCalendar =
+      _lookup<CFCalendarIdentifier>('kCFVietnameseCalendar');
+
+  CFCalendarIdentifier get kCFVietnameseCalendar =>
+      _kCFVietnameseCalendar.value;
 
   double CFAbsoluteTimeGetCurrent() {
     return _CFAbsoluteTimeGetCurrent();
@@ -18911,6 +18298,19 @@ class NativeCupertinoHttp {
   CFStringRef get kCFURLUbiquitousItemDownloadingStatusCurrent =>
       _kCFURLUbiquitousItemDownloadingStatusCurrent.value;
 
+  late final ffi.Pointer<CFStringRef>
+      _kCFURLUbiquitousItemSupportedSyncControlsKey =
+      _lookup<CFStringRef>('kCFURLUbiquitousItemSupportedSyncControlsKey');
+
+  CFStringRef get kCFURLUbiquitousItemSupportedSyncControlsKey =>
+      _kCFURLUbiquitousItemSupportedSyncControlsKey.value;
+
+  late final ffi.Pointer<CFStringRef> _kCFURLUbiquitousItemIsSyncPausedKey =
+      _lookup<CFStringRef>('kCFURLUbiquitousItemIsSyncPausedKey');
+
+  CFStringRef get kCFURLUbiquitousItemIsSyncPausedKey =>
+      _kCFURLUbiquitousItemIsSyncPausedKey.value;
+
   CFDataRef CFURLCreateBookmarkData(
     CFAllocatorRef allocator,
     CFURLRef url,
@@ -20508,238 +19908,6 @@ class NativeCupertinoHttp {
 
   CFStringRef get kCFSocketRetrieveCommand => _kCFSocketRetrieveCommand.value;
 
-  int getattrlistbulk(
-    int arg0,
-    ffi.Pointer<ffi.Void> arg1,
-    ffi.Pointer<ffi.Void> arg2,
-    int arg3,
-    int arg4,
-  ) {
-    return _getattrlistbulk(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-    );
-  }
-
-  late final _getattrlistbulkPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>, ffi.Size, ffi.Uint64)>>('getattrlistbulk');
-  late final _getattrlistbulk = _getattrlistbulkPtr.asFunction<
-      int Function(
-          int, ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
-
-  int getattrlistat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    ffi.Pointer<ffi.Void> arg2,
-    ffi.Pointer<ffi.Void> arg3,
-    int arg4,
-    int arg5,
-  ) {
-    return _getattrlistat(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-      arg5,
-    );
-  }
-
-  late final _getattrlistatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Int,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Size,
-              ffi.UnsignedLong)>>('getattrlistat');
-  late final _getattrlistat = _getattrlistatPtr.asFunction<
-      int Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Void>,
-          ffi.Pointer<ffi.Void>, int, int)>();
-
-  int setattrlistat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    ffi.Pointer<ffi.Void> arg2,
-    ffi.Pointer<ffi.Void> arg3,
-    int arg4,
-    int arg5,
-  ) {
-    return _setattrlistat(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-      arg5,
-    );
-  }
-
-  late final _setattrlistatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Int,
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Size,
-              ffi.Uint32)>>('setattrlistat');
-  late final _setattrlistat = _setattrlistatPtr.asFunction<
-      int Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Void>,
-          ffi.Pointer<ffi.Void>, int, int)>();
-
-  int freadlink(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-  ) {
-    return _freadlink(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _freadlinkPtr = _lookup<
-      ffi.NativeFunction<
-          ssize_t Function(
-              ffi.Int, ffi.Pointer<ffi.Char>, ffi.Size)>>('freadlink');
-  late final _freadlink =
-      _freadlinkPtr.asFunction<int Function(int, ffi.Pointer<ffi.Char>, int)>();
-
-  int faccessat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-    int arg3,
-  ) {
-    return _faccessat(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-    );
-  }
-
-  late final _faccessatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int, ffi.Int)>>('faccessat');
-  late final _faccessat = _faccessatPtr
-      .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int)>();
-
-  int fchownat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-    int arg3,
-    int arg4,
-  ) {
-    return _fchownat(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-    );
-  }
-
-  late final _fchownatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>, uid_t, gid_t,
-              ffi.Int)>>('fchownat');
-  late final _fchownat = _fchownatPtr
-      .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int, int)>();
-
-  int linkat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-    ffi.Pointer<ffi.Char> arg3,
-    int arg4,
-  ) {
-    return _linkat(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-    );
-  }
-
-  late final _linkatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int,
-              ffi.Pointer<ffi.Char>, ffi.Int)>>('linkat');
-  late final _linkat = _linkatPtr.asFunction<
-      int Function(
-          int, ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>, int)>();
-
-  int readlinkat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    ffi.Pointer<ffi.Char> arg2,
-    int arg3,
-  ) {
-    return _readlinkat(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-    );
-  }
-
-  late final _readlinkatPtr = _lookup<
-      ffi.NativeFunction<
-          ssize_t Function(ffi.Int, ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Size)>>('readlinkat');
-  late final _readlinkat = _readlinkatPtr.asFunction<
-      int Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
-
-  int symlinkat(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
-    ffi.Pointer<ffi.Char> arg2,
-  ) {
-    return _symlinkat(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _symlinkatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int,
-              ffi.Pointer<ffi.Char>)>>('symlinkat');
-  late final _symlinkat = _symlinkatPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>)>();
-
-  int unlinkat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-  ) {
-    return _unlinkat(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _unlinkatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int)>>('unlinkat');
-  late final _unlinkat =
-      _unlinkatPtr.asFunction<int Function(int, ffi.Pointer<ffi.Char>, int)>();
-
   void _exit(
     int arg0,
   ) {
@@ -20984,11 +20152,11 @@ class NativeCupertinoHttp {
 
   ffi.Pointer<ffi.Char> getcwd(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __size,
   ) {
     return _getcwd(
       arg0,
-      arg1,
+      __size,
     );
   }
 
@@ -21024,11 +20192,11 @@ class NativeCupertinoHttp {
   late final _getgid = _getgidPtr.asFunction<int Function()>();
 
   int getgroups(
-    int arg0,
+    int __gidsetsize,
     ffi.Pointer<gid_t> arg1,
   ) {
     return _getgroups(
-      arg0,
+      __gidsetsize,
       arg1,
     );
   }
@@ -21166,12 +20334,12 @@ class NativeCupertinoHttp {
   int read(
     int arg0,
     ffi.Pointer<ffi.Void> arg1,
-    int arg2,
+    int __nbyte,
   ) {
     return _read(
       arg0,
       arg1,
-      arg2,
+      __nbyte,
     );
   }
 
@@ -21307,24 +20475,24 @@ class NativeCupertinoHttp {
   late final _ttyname =
       _ttynamePtr.asFunction<ffi.Pointer<ffi.Char> Function(int)>();
 
-  int ttyname_r(
+  ffi.Pointer<ffi.Char> ttyname_r(
     int arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __len,
   ) {
     return _ttyname_r(
       arg0,
       arg1,
-      arg2,
+      __len,
     );
   }
 
   late final _ttyname_rPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int Function(
+          ffi.Pointer<ffi.Char> Function(
               ffi.Int, ffi.Pointer<ffi.Char>, ffi.Size)>>('ttyname_r');
-  late final _ttyname_r =
-      _ttyname_rPtr.asFunction<int Function(int, ffi.Pointer<ffi.Char>, int)>();
+  late final _ttyname_r = _ttyname_rPtr.asFunction<
+      ffi.Pointer<ffi.Char> Function(int, ffi.Pointer<ffi.Char>, int)>();
 
   int unlink(
     ffi.Pointer<ffi.Char> arg0,
@@ -21361,12 +20529,12 @@ class NativeCupertinoHttp {
   int confstr(
     int arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __len,
   ) {
     return _confstr(
       arg0,
       arg1,
-      arg2,
+      __len,
     );
   }
 
@@ -21378,12 +20546,12 @@ class NativeCupertinoHttp {
       _confstrPtr.asFunction<int Function(int, ffi.Pointer<ffi.Char>, int)>();
 
   int getopt(
-    int arg0,
+    int __argc,
     ffi.Pointer<ffi.Pointer<ffi.Char>> arg1,
     ffi.Pointer<ffi.Char> arg2,
   ) {
     return _getopt(
-      arg0,
+      __argc,
       arg1,
       arg2,
     );
@@ -21468,7 +20636,7 @@ class NativeCupertinoHttp {
       ffi.Pointer<ffi.Char> Function(
           ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
-  void encrypt(
+  int encrypt(
     ffi.Pointer<ffi.Char> arg0,
     int arg1,
   ) {
@@ -21479,10 +20647,10 @@ class NativeCupertinoHttp {
   }
 
   late final _encryptPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Int)>>('encrypt');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>(
+      'encrypt');
   late final _encrypt =
-      _encryptPtr.asFunction<void Function(ffi.Pointer<ffi.Char>, int)>();
+      _encryptPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
   int fchdir(
     int arg0,
@@ -21674,13 +20842,19 @@ class NativeCupertinoHttp {
           'sbrk');
   late final _sbrk = _sbrkPtr.asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
-  int setpgrp() {
-    return _setpgrp();
+  int setpgrp(
+    int pid,
+    int pgrp,
+  ) {
+    return _setpgrp(
+      pid,
+      pgrp,
+    );
   }
 
   late final _setpgrpPtr =
-      _lookup<ffi.NativeFunction<pid_t Function()>>('setpgrp');
-  late final _setpgrp = _setpgrpPtr.asFunction<int Function()>();
+      _lookup<ffi.NativeFunction<ffi.Int Function(pid_t, pid_t)>>('setpgrp');
+  late final _setpgrp = _setpgrpPtr.asFunction<int Function(int, int)>();
 
   int setregid(
     int arg0,
@@ -21709,6 +20883,25 @@ class NativeCupertinoHttp {
   late final _setreuidPtr =
       _lookup<ffi.NativeFunction<ffi.Int Function(uid_t, uid_t)>>('setreuid');
   late final _setreuid = _setreuidPtr.asFunction<int Function(int, int)>();
+
+  void swab(
+    ffi.Pointer<ffi.Void> arg0,
+    ffi.Pointer<ffi.Void> arg1,
+    int __nbytes,
+  ) {
+    return _swab(
+      arg0,
+      arg1,
+      __nbytes,
+    );
+  }
+
+  late final _swabPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, ssize_t)>>('swab');
+  late final _swab = _swabPtr.asFunction<
+      void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
   void sync$() {
     return _sync$();
@@ -21798,11 +20991,11 @@ class NativeCupertinoHttp {
 
   int getlogin_r(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _getlogin_r(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -21831,11 +21024,11 @@ class NativeCupertinoHttp {
 
   int gethostname(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _gethostname(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -21848,12 +21041,12 @@ class NativeCupertinoHttp {
   int readlink(
     ffi.Pointer<ffi.Char> arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __bufsize,
   ) {
     return _readlink(
       arg0,
       arg1,
-      arg2,
+      __bufsize,
     );
   }
 
@@ -21905,70 +21098,68 @@ class NativeCupertinoHttp {
   late final _symlink = _symlinkPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
-  int pselect(
-    int arg0,
-    ffi.Pointer<fd_set> arg1,
-    ffi.Pointer<fd_set> arg2,
-    ffi.Pointer<fd_set> arg3,
-    ffi.Pointer<timespec> arg4,
-    ffi.Pointer<sigset_t> arg5,
+  late final ffi.Pointer<ffi.Int> _selwait = _lookup<ffi.Int>('selwait');
+
+  int get selwait => _selwait.value;
+
+  set selwait(int value) => _selwait.value = value;
+
+  void selrecord(
+    proc_t selector,
+    ffi.Pointer<selinfo> arg1,
+    ffi.Pointer<ffi.Void> arg2,
   ) {
-    return _pselect(
-      arg0,
+    return _selrecord(
+      selector,
       arg1,
       arg2,
-      arg3,
-      arg4,
-      arg5,
     );
   }
 
-  late final _pselectPtr = _lookup<
+  late final _selrecordPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Int,
-              ffi.Pointer<fd_set>,
-              ffi.Pointer<fd_set>,
-              ffi.Pointer<fd_set>,
-              ffi.Pointer<timespec>,
-              ffi.Pointer<sigset_t>)>>('pselect');
-  late final _pselect = _pselectPtr.asFunction<
-      int Function(int, ffi.Pointer<fd_set>, ffi.Pointer<fd_set>,
-          ffi.Pointer<fd_set>, ffi.Pointer<timespec>, ffi.Pointer<sigset_t>)>();
+          ffi.Void Function(proc_t, ffi.Pointer<selinfo>,
+              ffi.Pointer<ffi.Void>)>>('selrecord');
+  late final _selrecord = _selrecordPtr.asFunction<
+      void Function(proc_t, ffi.Pointer<selinfo>, ffi.Pointer<ffi.Void>)>();
 
-  int select(
-    int arg0,
-    ffi.Pointer<fd_set> arg1,
-    ffi.Pointer<fd_set> arg2,
-    ffi.Pointer<fd_set> arg3,
-    ffi.Pointer<timeval> arg4,
+  void selwakeup(
+    ffi.Pointer<selinfo> arg0,
   ) {
-    return _select(
+    return _selwakeup(
       arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
     );
   }
 
-  late final _selectPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<fd_set>, ffi.Pointer<fd_set>,
-              ffi.Pointer<fd_set>, ffi.Pointer<timeval>)>>('select');
-  late final _select = _selectPtr.asFunction<
-      int Function(int, ffi.Pointer<fd_set>, ffi.Pointer<fd_set>,
-          ffi.Pointer<fd_set>, ffi.Pointer<timeval>)>();
+  late final _selwakeupPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<selinfo>)>>(
+          'selwakeup');
+  late final _selwakeup =
+      _selwakeupPtr.asFunction<void Function(ffi.Pointer<selinfo>)>();
+
+  void selthreadclear(
+    ffi.Pointer<selinfo> arg0,
+  ) {
+    return _selthreadclear(
+      arg0,
+    );
+  }
+
+  late final _selthreadclearPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<selinfo>)>>(
+          'selthreadclear');
+  late final _selthreadclear =
+      _selthreadclearPtr.asFunction<void Function(ffi.Pointer<selinfo>)>();
 
   int accessx_np(
     ffi.Pointer<accessx_descriptor> arg0,
-    int arg1,
+    int __sz,
     ffi.Pointer<ffi.Int> arg2,
     int arg3,
   ) {
     return _accessx_np(
       arg0,
-      arg1,
+      __sz,
       arg2,
       arg3,
     );
@@ -21997,13 +21188,13 @@ class NativeCupertinoHttp {
 
   int add_profil(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __bufsiz,
     int arg2,
     int arg3,
   ) {
     return _add_profil(
       arg0,
-      arg1,
+      __bufsiz,
       arg2,
       arg3,
     );
@@ -22060,11 +21251,11 @@ class NativeCupertinoHttp {
 
   int getdomainname(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _getdomainname(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -22078,13 +21269,13 @@ class NativeCupertinoHttp {
     ffi.Pointer<ffi.Char> arg0,
     int arg1,
     ffi.Pointer<ffi.Int> arg2,
-    ffi.Pointer<ffi.Int> arg3,
+    ffi.Pointer<ffi.Int> __ngroups,
   ) {
     return _getgrouplist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __ngroups,
     );
   }
 
@@ -22428,13 +21619,13 @@ class NativeCupertinoHttp {
 
   int profil(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __bufsiz,
     int arg2,
     int arg3,
   ) {
     return _profil(
       arg0,
-      arg1,
+      __bufsiz,
       arg2,
       arg3,
     );
@@ -22681,11 +21872,11 @@ class NativeCupertinoHttp {
 
   int setdomainname(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _setdomainname(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -22725,11 +21916,11 @@ class NativeCupertinoHttp {
 
   int sethostname(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _sethostname(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -22921,14 +22112,14 @@ class NativeCupertinoHttp {
     int arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     int arg4,
   ) {
     return _fgetattrlist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
     );
   }
@@ -22949,14 +22140,14 @@ class NativeCupertinoHttp {
     int arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     int arg4,
   ) {
     return _fsetattrlist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
     );
   }
@@ -22977,14 +22168,14 @@ class NativeCupertinoHttp {
     ffi.Pointer<ffi.Char> arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     int arg4,
   ) {
     return _getattrlist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
     );
   }
@@ -23005,14 +22196,14 @@ class NativeCupertinoHttp {
     ffi.Pointer<ffi.Char> arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     int arg4,
   ) {
     return _setattrlist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
     );
   }
@@ -23052,7 +22243,7 @@ class NativeCupertinoHttp {
     int arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     ffi.Pointer<ffi.UnsignedInt> arg4,
     ffi.Pointer<ffi.UnsignedInt> arg5,
     ffi.Pointer<ffi.UnsignedInt> arg6,
@@ -23062,7 +22253,7 @@ class NativeCupertinoHttp {
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
       arg5,
       arg6,
@@ -23203,352 +22394,72 @@ class NativeCupertinoHttp {
 
   set optreset(int value) => _optreset.value = value;
 
-  int open(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
-  ) {
-    return _open(
-      arg0,
-      arg1,
-    );
+  int OS_OBJECT_SHOW_CLASS() {
+    return _OS_OBJECT_SHOW_CLASS();
   }
 
-  late final _openPtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>(
-      'open');
-  late final _open =
-      _openPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
-
-  int openat(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-  ) {
-    return _openat(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _openatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int)>>('openat');
-  late final _openat =
-      _openatPtr.asFunction<int Function(int, ffi.Pointer<ffi.Char>, int)>();
-
-  int creat(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
-  ) {
-    return _creat(
-      arg0,
-      arg1,
-    );
-  }
-
-  late final _creatPtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, mode_t)>>(
-      'creat');
-  late final _creat =
-      _creatPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
-
-  int fcntl(
-    int arg0,
-    int arg1,
-  ) {
-    return _fcntl(
-      arg0,
-      arg1,
-    );
-  }
-
-  late final _fcntlPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Int)>>('fcntl');
-  late final _fcntl = _fcntlPtr.asFunction<int Function(int, int)>();
-
-  int openx_np(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
-    filesec_t arg2,
-  ) {
-    return _openx_np(
-      arg0,
-      arg1,
-      arg2,
-    );
-  }
-
-  late final _openx_npPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.Char>, ffi.Int, filesec_t)>>('openx_np');
-  late final _openx_np = _openx_npPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, int, filesec_t)>();
-
-  int open_dprotected_np(
-    ffi.Pointer<ffi.Char> arg0,
-    int arg1,
-    int arg2,
-    int arg3,
-  ) {
-    return _open_dprotected_np(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-    );
-  }
-
-  late final _open_dprotected_npPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int, ffi.Int,
-              ffi.Int)>>('open_dprotected_np');
-  late final _open_dprotected_np = _open_dprotected_npPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, int, int, int)>();
-
-  int openat_dprotected_np(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-    int arg3,
-    int arg4,
-  ) {
-    return _openat_dprotected_np(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-    );
-  }
-
-  late final _openat_dprotected_npPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int, ffi.Int,
-              ffi.Int)>>('openat_dprotected_np');
-  late final _openat_dprotected_np = _openat_dprotected_npPtr
-      .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int, int)>();
-
-  int openat_authenticated_np(
-    int arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int arg2,
-    int arg3,
-  ) {
-    return _openat_authenticated_np(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-    );
-  }
-
-  late final _openat_authenticated_npPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>, ffi.Int,
-              ffi.Int)>>('openat_authenticated_np');
-  late final _openat_authenticated_np = _openat_authenticated_npPtr
-      .asFunction<int Function(int, ffi.Pointer<ffi.Char>, int, int)>();
-
-  int flock$1(
-    int arg0,
-    int arg1,
-  ) {
-    return _flock$1(
-      arg0,
-      arg1,
-    );
-  }
-
-  late final _flock$1Ptr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Int)>>('flock');
-  late final _flock$1 = _flock$1Ptr.asFunction<int Function(int, int)>();
-
-  filesec_t filesec_init() {
-    return _filesec_init();
-  }
-
-  late final _filesec_initPtr =
-      _lookup<ffi.NativeFunction<filesec_t Function()>>('filesec_init');
-  late final _filesec_init =
-      _filesec_initPtr.asFunction<filesec_t Function()>();
-
-  filesec_t filesec_dup(
-    filesec_t arg0,
-  ) {
-    return _filesec_dup(
-      arg0,
-    );
-  }
-
-  late final _filesec_dupPtr =
-      _lookup<ffi.NativeFunction<filesec_t Function(filesec_t)>>('filesec_dup');
-  late final _filesec_dup =
-      _filesec_dupPtr.asFunction<filesec_t Function(filesec_t)>();
-
-  void filesec_free(
-    filesec_t arg0,
-  ) {
-    return _filesec_free(
-      arg0,
-    );
-  }
-
-  late final _filesec_freePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(filesec_t)>>('filesec_free');
-  late final _filesec_free =
-      _filesec_freePtr.asFunction<void Function(filesec_t)>();
-
-  int filesec_get_property(
-    filesec_t arg0,
-    filesec_property_t arg1,
-    ffi.Pointer<ffi.Void> arg2,
-  ) {
-    return _filesec_get_property(
-      arg0,
-      arg1.value,
-      arg2,
-    );
-  }
-
-  late final _filesec_get_propertyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(filesec_t, ffi.UnsignedInt,
-              ffi.Pointer<ffi.Void>)>>('filesec_get_property');
-  late final _filesec_get_property = _filesec_get_propertyPtr
-      .asFunction<int Function(filesec_t, int, ffi.Pointer<ffi.Void>)>();
-
-  int filesec_query_property(
-    filesec_t arg0,
-    filesec_property_t arg1,
-    ffi.Pointer<ffi.Int> arg2,
-  ) {
-    return _filesec_query_property(
-      arg0,
-      arg1.value,
-      arg2,
-    );
-  }
-
-  late final _filesec_query_propertyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(filesec_t, ffi.UnsignedInt,
-              ffi.Pointer<ffi.Int>)>>('filesec_query_property');
-  late final _filesec_query_property = _filesec_query_propertyPtr
-      .asFunction<int Function(filesec_t, int, ffi.Pointer<ffi.Int>)>();
-
-  int filesec_set_property(
-    filesec_t arg0,
-    filesec_property_t arg1,
-    ffi.Pointer<ffi.Void> arg2,
-  ) {
-    return _filesec_set_property(
-      arg0,
-      arg1.value,
-      arg2,
-    );
-  }
-
-  late final _filesec_set_propertyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(filesec_t, ffi.UnsignedInt,
-              ffi.Pointer<ffi.Void>)>>('filesec_set_property');
-  late final _filesec_set_property = _filesec_set_propertyPtr
-      .asFunction<int Function(filesec_t, int, ffi.Pointer<ffi.Void>)>();
-
-  int filesec_unset_property(
-    filesec_t arg0,
-    filesec_property_t arg1,
-  ) {
-    return _filesec_unset_property(
-      arg0,
-      arg1.value,
-    );
-  }
-
-  late final _filesec_unset_propertyPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(filesec_t, ffi.UnsignedInt)>>(
-          'filesec_unset_property');
-  late final _filesec_unset_property =
-      _filesec_unset_propertyPtr.asFunction<int Function(filesec_t, int)>();
+  late final _OS_OBJECT_SHOW_CLASSPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('OS_OBJECT_SHOW_CLASS');
+  late final _OS_OBJECT_SHOW_CLASS =
+      _OS_OBJECT_SHOW_CLASSPtr.asFunction<int Function()>();
 
   int os_workgroup_copy_port(
-    Dartos_workgroup_t wg,
+    int wg,
     ffi.Pointer<mach_port_t> mach_port_out,
   ) {
     return _os_workgroup_copy_port(
-      wg.ref.pointer,
+      wg,
       mach_port_out,
     );
   }
 
   late final _os_workgroup_copy_portPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(os_workgroup_t,
-              ffi.Pointer<mach_port_t>)>>('os_workgroup_copy_port');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<mach_port_t>)>>(
+      'os_workgroup_copy_port');
   late final _os_workgroup_copy_port = _os_workgroup_copy_portPtr
-      .asFunction<int Function(os_workgroup_t, ffi.Pointer<mach_port_t>)>();
+      .asFunction<int Function(int, ffi.Pointer<mach_port_t>)>();
 
-  Dartos_workgroup_t? os_workgroup_create_with_port(
+  int os_workgroup_create_with_port(
     ffi.Pointer<ffi.Char> name,
-    Dart__darwin_natural_t mach_port,
+    mach_port_t mach_port,
   ) {
     return _os_workgroup_create_with_port(
-              name,
-              mach_port,
-            ).address ==
-            0
-        ? null
-        : OS_os_workgroup.castFromPointer(
-            _os_workgroup_create_with_port(
-              name,
-              mach_port,
-            ),
-            retain: false,
-            release: true);
+      name,
+      mach_port,
+    );
   }
 
   late final _os_workgroup_create_with_portPtr = _lookup<
       ffi.NativeFunction<
-          os_workgroup_t Function(ffi.Pointer<ffi.Char>,
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
               mach_port_t)>>('os_workgroup_create_with_port');
   late final _os_workgroup_create_with_port = _os_workgroup_create_with_portPtr
-      .asFunction<os_workgroup_t Function(ffi.Pointer<ffi.Char>, int)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, mach_port_t)>();
 
-  Dartos_workgroup_t? os_workgroup_create_with_workgroup(
+  int os_workgroup_create_with_workgroup(
     ffi.Pointer<ffi.Char> name,
-    Dartos_workgroup_t wg,
+    int wg,
   ) {
     return _os_workgroup_create_with_workgroup(
-              name,
-              wg.ref.pointer,
-            ).address ==
-            0
-        ? null
-        : OS_os_workgroup.castFromPointer(
-            _os_workgroup_create_with_workgroup(
-              name,
-              wg.ref.pointer,
-            ),
-            retain: false,
-            release: true);
+      name,
+      wg,
+    );
   }
 
   late final _os_workgroup_create_with_workgroupPtr = _lookup<
-      ffi.NativeFunction<
-          os_workgroup_t Function(ffi.Pointer<ffi.Char>,
-              os_workgroup_t)>>('os_workgroup_create_with_workgroup');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>(
+      'os_workgroup_create_with_workgroup');
   late final _os_workgroup_create_with_workgroup =
-      _os_workgroup_create_with_workgroupPtr.asFunction<
-          os_workgroup_t Function(ffi.Pointer<ffi.Char>, os_workgroup_t)>();
+      _os_workgroup_create_with_workgroupPtr
+          .asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
   int os_workgroup_join(
-    Dartos_workgroup_t wg,
+    int wg,
     os_workgroup_join_token_t token_out,
   ) {
     return _os_workgroup_join(
-      wg.ref.pointer,
+      wg,
       token_out,
     );
   }
@@ -23556,35 +22467,35 @@ class NativeCupertinoHttp {
   late final _os_workgroup_joinPtr = _lookup<
       ffi.NativeFunction<
           ffi.Int Function(
-              os_workgroup_t, os_workgroup_join_token_t)>>('os_workgroup_join');
+              ffi.Int, os_workgroup_join_token_t)>>('os_workgroup_join');
   late final _os_workgroup_join = _os_workgroup_joinPtr
-      .asFunction<int Function(os_workgroup_t, os_workgroup_join_token_t)>();
+      .asFunction<int Function(int, os_workgroup_join_token_t)>();
 
   void os_workgroup_leave(
-    Dartos_workgroup_t wg,
+    int wg,
     os_workgroup_join_token_t token,
   ) {
     return _os_workgroup_leave(
-      wg.ref.pointer,
+      wg,
       token,
     );
   }
 
   late final _os_workgroup_leavePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(os_workgroup_t,
-              os_workgroup_join_token_t)>>('os_workgroup_leave');
+          ffi.Void Function(
+              ffi.Int, os_workgroup_join_token_t)>>('os_workgroup_leave');
   late final _os_workgroup_leave = _os_workgroup_leavePtr
-      .asFunction<void Function(os_workgroup_t, os_workgroup_join_token_t)>();
+      .asFunction<void Function(int, os_workgroup_join_token_t)>();
 
   int os_workgroup_set_working_arena(
-    Dartos_workgroup_t wg,
+    int wg,
     ffi.Pointer<ffi.Void> arena,
     int max_workers,
     os_workgroup_working_arena_destructor_t destructor,
   ) {
     return _os_workgroup_set_working_arena(
-      wg.ref.pointer,
+      wg,
       arena,
       max_workers,
       destructor,
@@ -23593,20 +22504,20 @@ class NativeCupertinoHttp {
 
   late final _os_workgroup_set_working_arenaPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Int Function(os_workgroup_t, ffi.Pointer<ffi.Void>,
-                  ffi.Uint32, os_workgroup_working_arena_destructor_t)>>(
+              ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Void>, ffi.Uint32,
+                  os_workgroup_working_arena_destructor_t)>>(
       'os_workgroup_set_working_arena');
   late final _os_workgroup_set_working_arena =
       _os_workgroup_set_working_arenaPtr.asFunction<
-          int Function(os_workgroup_t, ffi.Pointer<ffi.Void>, int,
+          int Function(int, ffi.Pointer<ffi.Void>, int,
               os_workgroup_working_arena_destructor_t)>();
 
   ffi.Pointer<ffi.Void> os_workgroup_get_working_arena(
-    Dartos_workgroup_t wg,
+    int wg,
     ffi.Pointer<os_workgroup_index> index_out,
   ) {
     return _os_workgroup_get_working_arena(
-      wg.ref.pointer,
+      wg,
       index_out,
     );
   }
@@ -23614,67 +22525,87 @@ class NativeCupertinoHttp {
   late final _os_workgroup_get_working_arenaPtr = _lookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
-                  os_workgroup_t, ffi.Pointer<os_workgroup_index>)>>(
+                  ffi.Int, ffi.Pointer<os_workgroup_index>)>>(
       'os_workgroup_get_working_arena');
   late final _os_workgroup_get_working_arena =
       _os_workgroup_get_working_arenaPtr.asFunction<
           ffi.Pointer<ffi.Void> Function(
-              os_workgroup_t, ffi.Pointer<os_workgroup_index>)>();
+              int, ffi.Pointer<os_workgroup_index>)>();
 
   void os_workgroup_cancel(
-    Dartos_workgroup_t wg,
+    int wg,
   ) {
     return _os_workgroup_cancel(
-      wg.ref.pointer,
+      wg,
     );
   }
 
   late final _os_workgroup_cancelPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(os_workgroup_t)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
           'os_workgroup_cancel');
   late final _os_workgroup_cancel =
-      _os_workgroup_cancelPtr.asFunction<void Function(os_workgroup_t)>();
+      _os_workgroup_cancelPtr.asFunction<void Function(int)>();
 
   bool os_workgroup_testcancel(
-    Dartos_workgroup_t wg,
+    int wg,
   ) {
     return _os_workgroup_testcancel(
-      wg.ref.pointer,
+      wg,
     );
   }
 
   late final _os_workgroup_testcancelPtr =
-      _lookup<ffi.NativeFunction<ffi.Bool Function(os_workgroup_t)>>(
+      _lookup<ffi.NativeFunction<ffi.Bool Function(ffi.Int)>>(
           'os_workgroup_testcancel');
   late final _os_workgroup_testcancel =
-      _os_workgroup_testcancelPtr.asFunction<bool Function(os_workgroup_t)>();
+      _os_workgroup_testcancelPtr.asFunction<bool Function(int)>();
 
   int os_workgroup_max_parallel_threads(
-    Dartos_workgroup_t wg,
+    int wg,
     os_workgroup_mpt_attr_t attr,
   ) {
     return _os_workgroup_max_parallel_threads(
-      wg.ref.pointer,
+      wg,
       attr,
     );
   }
 
   late final _os_workgroup_max_parallel_threadsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(os_workgroup_t,
-              os_workgroup_mpt_attr_t)>>('os_workgroup_max_parallel_threads');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Int, os_workgroup_mpt_attr_t)>>(
+      'os_workgroup_max_parallel_threads');
   late final _os_workgroup_max_parallel_threads =
       _os_workgroup_max_parallel_threadsPtr
-          .asFunction<int Function(os_workgroup_t, os_workgroup_mpt_attr_t)>();
+          .asFunction<int Function(int, os_workgroup_mpt_attr_t)>();
+
+  int OS_OBJECT_DECL_PROTOCOL() {
+    return _OS_OBJECT_DECL_PROTOCOL();
+  }
+
+  late final _OS_OBJECT_DECL_PROTOCOLPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>(
+          'OS_OBJECT_DECL_PROTOCOL');
+  late final _OS_OBJECT_DECL_PROTOCOL =
+      _OS_OBJECT_DECL_PROTOCOLPtr.asFunction<int Function()>();
+
+  int OS_OBJECT_SHOW_SUBCLASS() {
+    return _OS_OBJECT_SHOW_SUBCLASS();
+  }
+
+  late final _OS_OBJECT_SHOW_SUBCLASSPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>(
+          'OS_OBJECT_SHOW_SUBCLASS');
+  late final _OS_OBJECT_SHOW_SUBCLASS =
+      _OS_OBJECT_SHOW_SUBCLASSPtr.asFunction<int Function()>();
 
   int os_workgroup_interval_start(
-    Dartos_workgroup_interval_t wg,
+    int wg,
     int start,
     int deadline,
     os_workgroup_interval_data_t data,
   ) {
     return _os_workgroup_interval_start(
-      wg.ref.pointer,
+      wg,
       start,
       deadline,
       data,
@@ -23683,20 +22614,18 @@ class NativeCupertinoHttp {
 
   late final _os_workgroup_interval_startPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int Function(os_workgroup_interval_t, ffi.Uint64, ffi.Uint64,
+          ffi.Int Function(ffi.Int, ffi.Uint64, ffi.Uint64,
               os_workgroup_interval_data_t)>>('os_workgroup_interval_start');
-  late final _os_workgroup_interval_start =
-      _os_workgroup_interval_startPtr.asFunction<
-          int Function(os_workgroup_interval_t, int, int,
-              os_workgroup_interval_data_t)>();
+  late final _os_workgroup_interval_start = _os_workgroup_interval_startPtr
+      .asFunction<int Function(int, int, int, os_workgroup_interval_data_t)>();
 
   int os_workgroup_interval_update(
-    Dartos_workgroup_interval_t wg,
+    int wg,
     int deadline,
     os_workgroup_interval_data_t data,
   ) {
     return _os_workgroup_interval_update(
-      wg.ref.pointer,
+      wg,
       deadline,
       data,
     );
@@ -23704,59 +22633,44 @@ class NativeCupertinoHttp {
 
   late final _os_workgroup_interval_updatePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int Function(os_workgroup_interval_t, ffi.Uint64,
+          ffi.Int Function(ffi.Int, ffi.Uint64,
               os_workgroup_interval_data_t)>>('os_workgroup_interval_update');
-  late final _os_workgroup_interval_update =
-      _os_workgroup_interval_updatePtr.asFunction<
-          int Function(
-              os_workgroup_interval_t, int, os_workgroup_interval_data_t)>();
+  late final _os_workgroup_interval_update = _os_workgroup_interval_updatePtr
+      .asFunction<int Function(int, int, os_workgroup_interval_data_t)>();
 
   int os_workgroup_interval_finish(
-    Dartos_workgroup_interval_t wg,
+    int wg,
     os_workgroup_interval_data_t data,
   ) {
     return _os_workgroup_interval_finish(
-      wg.ref.pointer,
+      wg,
       data,
     );
   }
 
   late final _os_workgroup_interval_finishPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int Function(os_workgroup_interval_t,
+          ffi.Int Function(ffi.Int,
               os_workgroup_interval_data_t)>>('os_workgroup_interval_finish');
-  late final _os_workgroup_interval_finish =
-      _os_workgroup_interval_finishPtr.asFunction<
-          int Function(
-              os_workgroup_interval_t, os_workgroup_interval_data_t)>();
+  late final _os_workgroup_interval_finish = _os_workgroup_interval_finishPtr
+      .asFunction<int Function(int, os_workgroup_interval_data_t)>();
 
-  Dartos_workgroup_parallel_t? os_workgroup_parallel_create(
+  int os_workgroup_parallel_create(
     ffi.Pointer<ffi.Char> name,
     os_workgroup_attr_t attr,
   ) {
     return _os_workgroup_parallel_create(
-              name,
-              attr,
-            ).address ==
-            0
-        ? null
-        : OS_os_workgroup.castFromPointer(
-            _os_workgroup_parallel_create(
-              name,
-              attr,
-            ),
-            retain: false,
-            release: true);
+      name,
+      attr,
+    );
   }
 
   late final _os_workgroup_parallel_createPtr = _lookup<
       ffi.NativeFunction<
-          os_workgroup_parallel_t Function(ffi.Pointer<ffi.Char>,
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
               os_workgroup_attr_t)>>('os_workgroup_parallel_create');
-  late final _os_workgroup_parallel_create =
-      _os_workgroup_parallel_createPtr.asFunction<
-          os_workgroup_parallel_t Function(
-              ffi.Pointer<ffi.Char>, os_workgroup_attr_t)>();
+  late final _os_workgroup_parallel_create = _os_workgroup_parallel_createPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, os_workgroup_attr_t)>();
 
   int dispatch_time(
     int when,
@@ -23808,132 +22722,139 @@ class NativeCupertinoHttp {
       _lookup<ffi.NativeFunction<ffi.UnsignedInt Function()>>('qos_class_main');
   late final _qos_class_main = _qos_class_mainPtr.asFunction<int Function()>();
 
+  int OS_OBJECT_DECL_CLASS() {
+    return _OS_OBJECT_DECL_CLASS();
+  }
+
+  late final _OS_OBJECT_DECL_CLASSPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('OS_OBJECT_DECL_CLASS');
+  late final _OS_OBJECT_DECL_CLASS =
+      _OS_OBJECT_DECL_CLASSPtr.asFunction<int Function()>();
+
   void dispatch_retain(
-    Dartdispatch_object_t object,
+    int object,
   ) {
     return _dispatch_retain(
-      object.ref.pointer,
+      object,
     );
   }
 
   late final _dispatch_retainPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(dispatch_object_t)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
           'dispatch_retain');
   late final _dispatch_retain =
-      _dispatch_retainPtr.asFunction<void Function(dispatch_object_t)>();
+      _dispatch_retainPtr.asFunction<void Function(int)>();
 
   void dispatch_release(
-    Dartdispatch_object_t object,
+    int object,
   ) {
     return _dispatch_release(
-      object.ref.pointer,
+      object,
     );
   }
 
   late final _dispatch_releasePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(dispatch_object_t)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
           'dispatch_release');
   late final _dispatch_release =
-      _dispatch_releasePtr.asFunction<void Function(dispatch_object_t)>();
+      _dispatch_releasePtr.asFunction<void Function(int)>();
 
   ffi.Pointer<ffi.Void> dispatch_get_context(
-    Dartdispatch_object_t object,
+    int object,
   ) {
     return _dispatch_get_context(
-      object.ref.pointer,
+      object,
     );
   }
 
-  late final _dispatch_get_contextPtr = _lookup<
-          ffi
-          .NativeFunction<ffi.Pointer<ffi.Void> Function(dispatch_object_t)>>(
-      'dispatch_get_context');
+  late final _dispatch_get_contextPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Int)>>(
+          'dispatch_get_context');
   late final _dispatch_get_context = _dispatch_get_contextPtr
-      .asFunction<ffi.Pointer<ffi.Void> Function(dispatch_object_t)>();
+      .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
   void dispatch_set_context(
-    Dartdispatch_object_t object,
+    int object,
     ffi.Pointer<ffi.Void> context,
   ) {
     return _dispatch_set_context(
-      object.ref.pointer,
+      object,
       context,
     );
   }
 
   late final _dispatch_set_contextPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(dispatch_object_t,
-              ffi.Pointer<ffi.Void>)>>('dispatch_set_context');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Void>)>>(
+      'dispatch_set_context');
   late final _dispatch_set_context = _dispatch_set_contextPtr
-      .asFunction<void Function(dispatch_object_t, ffi.Pointer<ffi.Void>)>();
+      .asFunction<void Function(int, ffi.Pointer<ffi.Void>)>();
 
   void dispatch_set_finalizer_f(
-    Dartdispatch_object_t object,
+    int object,
     dispatch_function_t finalizer,
   ) {
     return _dispatch_set_finalizer_f(
-      object.ref.pointer,
+      object,
       finalizer,
     );
   }
 
   late final _dispatch_set_finalizer_fPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(dispatch_object_t,
-              dispatch_function_t)>>('dispatch_set_finalizer_f');
+          ffi.NativeFunction<ffi.Void Function(ffi.Int, dispatch_function_t)>>(
+      'dispatch_set_finalizer_f');
   late final _dispatch_set_finalizer_f = _dispatch_set_finalizer_fPtr
-      .asFunction<void Function(dispatch_object_t, dispatch_function_t)>();
+      .asFunction<void Function(int, dispatch_function_t)>();
 
   void dispatch_activate(
-    Dartdispatch_object_t object,
+    int object,
   ) {
     return _dispatch_activate(
-      object.ref.pointer,
+      object,
     );
   }
 
   late final _dispatch_activatePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(dispatch_object_t)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
           'dispatch_activate');
   late final _dispatch_activate =
-      _dispatch_activatePtr.asFunction<void Function(dispatch_object_t)>();
+      _dispatch_activatePtr.asFunction<void Function(int)>();
 
   void dispatch_suspend(
-    Dartdispatch_object_t object,
+    int object,
   ) {
     return _dispatch_suspend(
-      object.ref.pointer,
+      object,
     );
   }
 
   late final _dispatch_suspendPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(dispatch_object_t)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
           'dispatch_suspend');
   late final _dispatch_suspend =
-      _dispatch_suspendPtr.asFunction<void Function(dispatch_object_t)>();
+      _dispatch_suspendPtr.asFunction<void Function(int)>();
 
   void dispatch_resume(
-    Dartdispatch_object_t object,
+    int object,
   ) {
     return _dispatch_resume(
-      object.ref.pointer,
+      object,
     );
   }
 
   late final _dispatch_resumePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(dispatch_object_t)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
           'dispatch_resume');
   late final _dispatch_resume =
-      _dispatch_resumePtr.asFunction<void Function(dispatch_object_t)>();
+      _dispatch_resumePtr.asFunction<void Function(int)>();
 
   void dispatch_set_qos_class_floor(
-    Dartdispatch_object_t object,
+    int object,
     qos_class_t qos_class,
     int relative_priority,
   ) {
     return _dispatch_set_qos_class_floor(
-      object.ref.pointer,
+      object,
       qos_class.value,
       relative_priority,
     );
@@ -23941,10 +22862,10 @@ class NativeCupertinoHttp {
 
   late final _dispatch_set_qos_class_floorPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(dispatch_object_t, ffi.UnsignedInt,
+          ffi.Void Function(ffi.Int, ffi.UnsignedInt,
               ffi.Int)>>('dispatch_set_qos_class_floor');
   late final _dispatch_set_qos_class_floor = _dispatch_set_qos_class_floorPtr
-      .asFunction<void Function(dispatch_object_t, int, int)>();
+      .asFunction<void Function(int, int, int)>();
 
   int dispatch_wait(
     ffi.Pointer<ffi.Void> object,
@@ -23965,23 +22886,22 @@ class NativeCupertinoHttp {
 
   void dispatch_notify(
     ffi.Pointer<ffi.Void> object,
-    Dartdispatch_object_t queue,
+    int queue,
     Dartdispatch_block_t notification_block,
   ) {
     return _dispatch_notify(
       object,
-      queue.ref.pointer,
+      queue,
       notification_block.ref.pointer,
     );
   }
 
   late final _dispatch_notifyPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, dispatch_object_t,
+          ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int,
               dispatch_block_t)>>('dispatch_notify');
   late final _dispatch_notify = _dispatch_notifyPtr.asFunction<
-      void Function(
-          ffi.Pointer<ffi.Void>, dispatch_object_t, dispatch_block_t)>();
+      void Function(ffi.Pointer<ffi.Void>, int, dispatch_block_t)>();
 
   void dispatch_cancel(
     ffi.Pointer<ffi.Void> object,
@@ -24012,29 +22932,28 @@ class NativeCupertinoHttp {
       _dispatch_testcancelPtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   void dispatch_debug(
-    Dartdispatch_object_t object,
+    int object,
     ffi.Pointer<ffi.Char> message,
   ) {
     return _dispatch_debug(
-      object.ref.pointer,
+      object,
       message,
     );
   }
 
   late final _dispatch_debugPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(
-              dispatch_object_t, ffi.Pointer<ffi.Char>)>>('dispatch_debug');
+          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>)>>('dispatch_debug');
   late final _dispatch_debug = _dispatch_debugPtr
-      .asFunction<void Function(dispatch_object_t, ffi.Pointer<ffi.Char>)>();
+      .asFunction<void Function(int, ffi.Pointer<ffi.Char>)>();
 
   void dispatch_debugv(
-    Dartdispatch_object_t object,
+    int object,
     ffi.Pointer<ffi.Char> message,
     va_list ap,
   ) {
     return _dispatch_debugv(
-      object.ref.pointer,
+      object,
       message,
       ap,
     );
@@ -24042,10 +22961,10 @@ class NativeCupertinoHttp {
 
   late final _dispatch_debugvPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(dispatch_object_t, ffi.Pointer<ffi.Char>,
-              va_list)>>('dispatch_debugv');
-  late final _dispatch_debugv = _dispatch_debugvPtr.asFunction<
-      void Function(dispatch_object_t, ffi.Pointer<ffi.Char>, va_list)>();
+          ffi.Void Function(
+              ffi.Int, ffi.Pointer<ffi.Char>, va_list)>>('dispatch_debugv');
+  late final _dispatch_debugv = _dispatch_debugvPtr
+      .asFunction<void Function(int, ffi.Pointer<ffi.Char>, va_list)>();
 
   void dispatch_async(
     Dartdispatch_queue_t queue,
@@ -24402,21 +23321,20 @@ class NativeCupertinoHttp {
       .asFunction<int Function(dispatch_queue_t, ffi.Pointer<ffi.Int>)>();
 
   void dispatch_set_target_queue(
-    Dartdispatch_object_t object,
+    int object,
     Dartdispatch_queue_t? queue,
   ) {
     return _dispatch_set_target_queue(
-      object.ref.pointer,
+      object,
       queue?.ref.pointer ?? ffi.nullptr,
     );
   }
 
-  late final _dispatch_set_target_queuePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(dispatch_object_t,
-              dispatch_queue_t)>>('dispatch_set_target_queue');
+  late final _dispatch_set_target_queuePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int, dispatch_queue_t)>>(
+          'dispatch_set_target_queue');
   late final _dispatch_set_target_queue = _dispatch_set_target_queuePtr
-      .asFunction<void Function(dispatch_object_t, dispatch_queue_t)>();
+      .asFunction<void Function(int, dispatch_queue_t)>();
 
   void dispatch_main() {
     return _dispatch_main();
@@ -24872,54 +23790,6 @@ class NativeCupertinoHttp {
   late final _mach_msg_overwrite = _mach_msg_overwritePtr.asFunction<
       int Function(ffi.Pointer<mach_msg_header_t>, int, int, int, int, int, int,
           ffi.Pointer<mach_msg_header_t>, int)>();
-
-  int mach_msg(
-    ffi.Pointer<mach_msg_header_t> msg,
-    int option,
-    int send_size,
-    int rcv_size,
-    int rcv_name,
-    int timeout,
-    int notify,
-  ) {
-    return _mach_msg(
-      msg,
-      option,
-      send_size,
-      rcv_size,
-      rcv_name,
-      timeout,
-      notify,
-    );
-  }
-
-  late final _mach_msgPtr = _lookup<
-      ffi.NativeFunction<
-          mach_msg_return_t Function(
-              ffi.Pointer<mach_msg_header_t>,
-              mach_msg_option_t,
-              mach_msg_size_t,
-              mach_msg_size_t,
-              mach_port_name_t,
-              mach_msg_timeout_t,
-              mach_port_name_t)>>('mach_msg');
-  late final _mach_msg = _mach_msgPtr.asFunction<
-      int Function(
-          ffi.Pointer<mach_msg_header_t>, int, int, int, int, int, int)>();
-
-  int mach_voucher_deallocate(
-    int voucher,
-  ) {
-    return _mach_voucher_deallocate(
-      voucher,
-    );
-  }
-
-  late final _mach_voucher_deallocatePtr =
-      _lookup<ffi.NativeFunction<kern_return_t Function(mach_port_name_t)>>(
-          'mach_voucher_deallocate');
-  late final _mach_voucher_deallocate =
-      _mach_voucher_deallocatePtr.asFunction<int Function(int)>();
 
   late final ffi.Pointer<dispatch_source_type_s>
       __dispatch_source_type_data_add =
@@ -25996,21 +24866,20 @@ class NativeCupertinoHttp {
 
   void dispatch_workloop_set_os_workgroup(
     Dartdispatch_workloop_t workloop,
-    Dartos_workgroup_t workgroup,
+    int workgroup,
   ) {
     return _dispatch_workloop_set_os_workgroup(
       workloop.ref.pointer,
-      workgroup.ref.pointer,
+      workgroup,
     );
   }
 
   late final _dispatch_workloop_set_os_workgroupPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(dispatch_workloop_t,
-              os_workgroup_t)>>('dispatch_workloop_set_os_workgroup');
+          ffi.NativeFunction<ffi.Void Function(dispatch_workloop_t, ffi.Int)>>(
+      'dispatch_workloop_set_os_workgroup');
   late final _dispatch_workloop_set_os_workgroup =
       _dispatch_workloop_set_os_workgroupPtr
-          .asFunction<void Function(dispatch_workloop_t, os_workgroup_t)>();
+          .asFunction<void Function(dispatch_workloop_t, int)>();
 
   int CFReadStreamGetTypeID() {
     return _CFReadStreamGetTypeID();
@@ -28526,6 +27395,35 @@ class NativeCupertinoHttp {
           CFStringRef Function(
               CFBundleRef, CFStringRef, CFStringRef, CFStringRef)>();
 
+  CFStringRef CFBundleCopyLocalizedStringForLocalizations(
+    CFBundleRef bundle,
+    CFStringRef key,
+    CFStringRef value,
+    CFStringRef tableName,
+    CFArrayRef localizations,
+  ) {
+    return _CFBundleCopyLocalizedStringForLocalizations(
+      bundle,
+      key,
+      value,
+      tableName,
+      localizations,
+    );
+  }
+
+  late final _CFBundleCopyLocalizedStringForLocalizationsPtr = _lookup<
+      ffi.NativeFunction<
+          CFStringRef Function(
+              CFBundleRef,
+              CFStringRef,
+              CFStringRef,
+              CFStringRef,
+              CFArrayRef)>>('CFBundleCopyLocalizedStringForLocalizations');
+  late final _CFBundleCopyLocalizedStringForLocalizations =
+      _CFBundleCopyLocalizedStringForLocalizationsPtr.asFunction<
+          CFStringRef Function(CFBundleRef, CFStringRef, CFStringRef,
+              CFStringRef, CFArrayRef)>();
+
   CFURLRef CFBundleCopyResourceURLInDirectory(
     CFURLRef bundleURL,
     CFStringRef resourceName,
@@ -29669,7 +28567,7 @@ class NativeCupertinoHttp {
 
   CFMachPortRef CFMachPortCreateWithPort(
     CFAllocatorRef allocator,
-    int portNum,
+    mach_port_t portNum,
     CFMachPortCallBack callout,
     ffi.Pointer<CFMachPortContext> context,
     ffi.Pointer<Boolean> shouldFreeInfo,
@@ -29693,10 +28591,14 @@ class NativeCupertinoHttp {
               ffi.Pointer<Boolean>)>>('CFMachPortCreateWithPort');
   late final _CFMachPortCreateWithPort =
       _CFMachPortCreateWithPortPtr.asFunction<
-          CFMachPortRef Function(CFAllocatorRef, int, CFMachPortCallBack,
-              ffi.Pointer<CFMachPortContext>, ffi.Pointer<Boolean>)>();
+          CFMachPortRef Function(
+              CFAllocatorRef,
+              mach_port_t,
+              CFMachPortCallBack,
+              ffi.Pointer<CFMachPortContext>,
+              ffi.Pointer<Boolean>)>();
 
-  int CFMachPortGetPort(
+  mach_port_t CFMachPortGetPort(
     CFMachPortRef port,
   ) {
     return _CFMachPortGetPort(
@@ -29708,7 +28610,7 @@ class NativeCupertinoHttp {
       _lookup<ffi.NativeFunction<mach_port_t Function(CFMachPortRef)>>(
           'CFMachPortGetPort');
   late final _CFMachPortGetPort =
-      _CFMachPortGetPortPtr.asFunction<int Function(CFMachPortRef)>();
+      _CFMachPortGetPortPtr.asFunction<mach_port_t Function(CFMachPortRef)>();
 
   void CFMachPortGetContext(
     CFMachPortRef port,
@@ -30223,6 +29125,32 @@ class NativeCupertinoHttp {
           bool Function(CFAttributedStringRef, CFRange, int,
               ffi.Pointer<ffi.Uint8>, ffi.Pointer<ffi.Uint8>)>();
 
+  bool CFAttributedStringGetStatisticalWritingDirections(
+    CFAttributedStringRef attributedString,
+    CFRange range,
+    int baseDirection,
+    ffi.Pointer<ffi.Uint8> bidiLevels,
+    ffi.Pointer<ffi.Uint8> baseDirections,
+  ) {
+    return _CFAttributedStringGetStatisticalWritingDirections(
+      attributedString,
+      range,
+      baseDirection,
+      bidiLevels,
+      baseDirections,
+    );
+  }
+
+  late final _CFAttributedStringGetStatisticalWritingDirectionsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Bool Function(CFAttributedStringRef, CFRange, ffi.Int8,
+                  ffi.Pointer<ffi.Uint8>, ffi.Pointer<ffi.Uint8>)>>(
+      'CFAttributedStringGetStatisticalWritingDirections');
+  late final _CFAttributedStringGetStatisticalWritingDirections =
+      _CFAttributedStringGetStatisticalWritingDirectionsPtr.asFunction<
+          bool Function(CFAttributedStringRef, CFRange, int,
+              ffi.Pointer<ffi.Uint8>, ffi.Pointer<ffi.Uint8>)>();
+
   int CFURLEnumeratorGetTypeID() {
     return _CFURLEnumeratorGetTypeID();
   }
@@ -30341,6 +29269,2330 @@ class NativeCupertinoHttp {
   late final _CFURLEnumeratorGetSourceDidChange =
       _CFURLEnumeratorGetSourceDidChangePtr.asFunction<
           int Function(CFURLEnumeratorRef)>();
+
+  void microtime(
+    ffi.Pointer<timeval> tv,
+  ) {
+    return _microtime(
+      tv,
+    );
+  }
+
+  late final _microtimePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<timeval>)>>(
+          'microtime');
+  late final _microtime =
+      _microtimePtr.asFunction<void Function(ffi.Pointer<timeval>)>();
+
+  void microtime_with_abstime(
+    ffi.Pointer<timeval> tv,
+    ffi.Pointer<ffi.Uint64> abstime,
+  ) {
+    return _microtime_with_abstime(
+      tv,
+      abstime,
+    );
+  }
+
+  late final _microtime_with_abstimePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<timeval>,
+              ffi.Pointer<ffi.Uint64>)>>('microtime_with_abstime');
+  late final _microtime_with_abstime = _microtime_with_abstimePtr.asFunction<
+      void Function(ffi.Pointer<timeval>, ffi.Pointer<ffi.Uint64>)>();
+
+  void microuptime(
+    ffi.Pointer<timeval> tv,
+  ) {
+    return _microuptime(
+      tv,
+    );
+  }
+
+  late final _microuptimePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<timeval>)>>(
+          'microuptime');
+  late final _microuptime =
+      _microuptimePtr.asFunction<void Function(ffi.Pointer<timeval>)>();
+
+  void nanotime(
+    ffi.Pointer<timespec> ts,
+  ) {
+    return _nanotime(
+      ts,
+    );
+  }
+
+  late final _nanotimePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<timespec>)>>(
+          'nanotime');
+  late final _nanotime =
+      _nanotimePtr.asFunction<void Function(ffi.Pointer<timespec>)>();
+
+  void nanouptime(
+    ffi.Pointer<timespec> ts,
+  ) {
+    return _nanouptime(
+      ts,
+    );
+  }
+
+  late final _nanouptimePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<timespec>)>>(
+          'nanouptime');
+  late final _nanouptime =
+      _nanouptimePtr.asFunction<void Function(ffi.Pointer<timespec>)>();
+
+  void timevaladd(
+    ffi.Pointer<timeval> t1,
+    ffi.Pointer<timeval> t2,
+  ) {
+    return _timevaladd(
+      t1,
+      t2,
+    );
+  }
+
+  late final _timevaladdPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<timeval>, ffi.Pointer<timeval>)>>('timevaladd');
+  late final _timevaladd = _timevaladdPtr
+      .asFunction<void Function(ffi.Pointer<timeval>, ffi.Pointer<timeval>)>();
+
+  void timevalsub(
+    ffi.Pointer<timeval> t1,
+    ffi.Pointer<timeval> t2,
+  ) {
+    return _timevalsub(
+      t1,
+      t2,
+    );
+  }
+
+  late final _timevalsubPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<timeval>, ffi.Pointer<timeval>)>>('timevalsub');
+  late final _timevalsub = _timevalsubPtr
+      .asFunction<void Function(ffi.Pointer<timeval>, ffi.Pointer<timeval>)>();
+
+  void timevalfix(
+    ffi.Pointer<timeval> t1,
+  ) {
+    return _timevalfix(
+      t1,
+    );
+  }
+
+  late final _timevalfixPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<timeval>)>>(
+          'timevalfix');
+  late final _timevalfix =
+      _timevalfixPtr.asFunction<void Function(ffi.Pointer<timeval>)>();
+
+  uio_t uio_create(
+    int a_iovcount,
+    int a_offset,
+    int a_spacetype,
+    int a_iodirection,
+  ) {
+    return _uio_create(
+      a_iovcount,
+      a_offset,
+      a_spacetype,
+      a_iodirection,
+    );
+  }
+
+  late final _uio_createPtr = _lookup<
+          ffi.NativeFunction<uio_t Function(ffi.Int, off_t, ffi.Int, ffi.Int)>>(
+      'uio_create');
+  late final _uio_create =
+      _uio_createPtr.asFunction<uio_t Function(int, int, int, int)>();
+
+  void uio_reset(
+    uio_t a_uio,
+    int a_offset,
+    int a_spacetype,
+    int a_iodirection,
+  ) {
+    return _uio_reset(
+      a_uio,
+      a_offset,
+      a_spacetype,
+      a_iodirection,
+    );
+  }
+
+  late final _uio_resetPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(uio_t, off_t, ffi.Int, ffi.Int)>>('uio_reset');
+  late final _uio_reset =
+      _uio_resetPtr.asFunction<void Function(uio_t, int, int, int)>();
+
+  uio_t uio_duplicate(
+    uio_t a_uio,
+  ) {
+    return _uio_duplicate(
+      a_uio,
+    );
+  }
+
+  late final _uio_duplicatePtr =
+      _lookup<ffi.NativeFunction<uio_t Function(uio_t)>>('uio_duplicate');
+  late final _uio_duplicate =
+      _uio_duplicatePtr.asFunction<uio_t Function(uio_t)>();
+
+  int uio_restore(
+    uio_t uio,
+    uio_t snapshot_uio,
+  ) {
+    return _uio_restore(
+      uio,
+      snapshot_uio,
+    );
+  }
+
+  late final _uio_restorePtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(uio_t, uio_t)>>(
+          'uio_restore');
+  late final _uio_restore =
+      _uio_restorePtr.asFunction<int Function(uio_t, uio_t)>();
+
+  void uio_free(
+    uio_t a_uio,
+  ) {
+    return _uio_free(
+      a_uio,
+    );
+  }
+
+  late final _uio_freePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(uio_t)>>('uio_free');
+  late final _uio_free = _uio_freePtr.asFunction<void Function(uio_t)>();
+
+  int uio_addiov(
+    uio_t a_uio,
+    int a_baseaddr,
+    int a_length,
+  ) {
+    return _uio_addiov(
+      a_uio,
+      a_baseaddr,
+      a_length,
+    );
+  }
+
+  late final _uio_addiovPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(uio_t, user_addr_t, user_size_t)>>('uio_addiov');
+  late final _uio_addiov =
+      _uio_addiovPtr.asFunction<int Function(uio_t, int, int)>();
+
+  int uio_getiov(
+    uio_t a_uio,
+    int a_index,
+    ffi.Pointer<user_addr_t> a_baseaddr_p,
+    ffi.Pointer<user_size_t> a_length_p,
+  ) {
+    return _uio_getiov(
+      a_uio,
+      a_index,
+      a_baseaddr_p,
+      a_length_p,
+    );
+  }
+
+  late final _uio_getiovPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(uio_t, ffi.Int, ffi.Pointer<user_addr_t>,
+              ffi.Pointer<user_size_t>)>>('uio_getiov');
+  late final _uio_getiov = _uio_getiovPtr.asFunction<
+      int Function(
+          uio_t, int, ffi.Pointer<user_addr_t>, ffi.Pointer<user_size_t>)>();
+
+  void uio_update(
+    uio_t a_uio,
+    int a_count,
+  ) {
+    return _uio_update(
+      a_uio,
+      a_count,
+    );
+  }
+
+  late final _uio_updatePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(uio_t, user_size_t)>>(
+          'uio_update');
+  late final _uio_update =
+      _uio_updatePtr.asFunction<void Function(uio_t, int)>();
+
+  int uio_resid(
+    uio_t a_uio,
+  ) {
+    return _uio_resid(
+      a_uio,
+    );
+  }
+
+  late final _uio_residPtr =
+      _lookup<ffi.NativeFunction<user_ssize_t Function(uio_t)>>('uio_resid');
+  late final _uio_resid = _uio_residPtr.asFunction<int Function(uio_t)>();
+
+  void uio_setresid(
+    uio_t a_uio,
+    int a_value,
+  ) {
+    return _uio_setresid(
+      a_uio,
+      a_value,
+    );
+  }
+
+  late final _uio_setresidPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(uio_t, user_ssize_t)>>(
+          'uio_setresid');
+  late final _uio_setresid =
+      _uio_setresidPtr.asFunction<void Function(uio_t, int)>();
+
+  int uio_iovcnt(
+    uio_t a_uio,
+  ) {
+    return _uio_iovcnt(
+      a_uio,
+    );
+  }
+
+  late final _uio_iovcntPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(uio_t)>>('uio_iovcnt');
+  late final _uio_iovcnt = _uio_iovcntPtr.asFunction<int Function(uio_t)>();
+
+  int uio_offset(
+    uio_t a_uio,
+  ) {
+    return _uio_offset(
+      a_uio,
+    );
+  }
+
+  late final _uio_offsetPtr =
+      _lookup<ffi.NativeFunction<off_t Function(uio_t)>>('uio_offset');
+  late final _uio_offset = _uio_offsetPtr.asFunction<int Function(uio_t)>();
+
+  void uio_setoffset(
+    uio_t a_uio,
+    int a_offset,
+  ) {
+    return _uio_setoffset(
+      a_uio,
+      a_offset,
+    );
+  }
+
+  late final _uio_setoffsetPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(uio_t, off_t)>>(
+          'uio_setoffset');
+  late final _uio_setoffset =
+      _uio_setoffsetPtr.asFunction<void Function(uio_t, int)>();
+
+  int uio_rw(
+    uio_t a_uio,
+  ) {
+    return _uio_rw(
+      a_uio,
+    );
+  }
+
+  late final _uio_rwPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(uio_t)>>('uio_rw');
+  late final _uio_rw = _uio_rwPtr.asFunction<int Function(uio_t)>();
+
+  void uio_setrw(
+    uio_t a_uio,
+    int a_value,
+  ) {
+    return _uio_setrw(
+      a_uio,
+      a_value,
+    );
+  }
+
+  late final _uio_setrwPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(uio_t, ffi.Int)>>(
+          'uio_setrw');
+  late final _uio_setrw = _uio_setrwPtr.asFunction<void Function(uio_t, int)>();
+
+  int uio_isuserspace(
+    uio_t a_uio,
+  ) {
+    return _uio_isuserspace(
+      a_uio,
+    );
+  }
+
+  late final _uio_isuserspacePtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(uio_t)>>('uio_isuserspace');
+  late final _uio_isuserspace =
+      _uio_isuserspacePtr.asFunction<int Function(uio_t)>();
+
+  int uio_curriovbase(
+    uio_t a_uio,
+  ) {
+    return _uio_curriovbase(
+      a_uio,
+    );
+  }
+
+  late final _uio_curriovbasePtr =
+      _lookup<ffi.NativeFunction<user_addr_t Function(uio_t)>>(
+          'uio_curriovbase');
+  late final _uio_curriovbase =
+      _uio_curriovbasePtr.asFunction<int Function(uio_t)>();
+
+  int uio_curriovlen(
+    uio_t a_uio,
+  ) {
+    return _uio_curriovlen(
+      a_uio,
+    );
+  }
+
+  late final _uio_curriovlenPtr =
+      _lookup<ffi.NativeFunction<user_size_t Function(uio_t)>>(
+          'uio_curriovlen');
+  late final _uio_curriovlen =
+      _uio_curriovlenPtr.asFunction<int Function(uio_t)>();
+
+  int uiomove(
+    ffi.Pointer<ffi.Char> cp,
+    int n,
+    ffi.Pointer<uio> uio,
+  ) {
+    return _uiomove(
+      cp,
+      n,
+      uio,
+    );
+  }
+
+  late final _uiomovePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Int, ffi.Pointer<uio>)>>('uiomove');
+  late final _uiomove = _uiomovePtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<uio>)>();
+
+  int uiomove64(
+    int cp,
+    int n,
+    ffi.Pointer<uio> uio,
+  ) {
+    return _uiomove64(
+      cp,
+      n,
+      uio,
+    );
+  }
+
+  late final _uiomove64Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              __uint64_t, ffi.Int, ffi.Pointer<uio>)>>('uiomove64');
+  late final _uiomove64 =
+      _uiomove64Ptr.asFunction<int Function(int, int, ffi.Pointer<uio>)>();
+
+  int suser(
+    kauth_cred_t cred,
+    ffi.Pointer<u_short> acflag,
+  ) {
+    return _suser(
+      cred,
+      acflag,
+    );
+  }
+
+  late final _suserPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(kauth_cred_t, ffi.Pointer<u_short>)>>('suser');
+  late final _suser =
+      _suserPtr.asFunction<int Function(kauth_cred_t, ffi.Pointer<u_short>)>();
+
+  int set_security_token(
+    ffi.Pointer<proc> p,
+    ffi.Pointer<ucred> cred,
+  ) {
+    return _set_security_token(
+      p,
+      cred,
+    );
+  }
+
+  late final _set_security_tokenPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<proc>, ffi.Pointer<ucred>)>>('set_security_token');
+  late final _set_security_token = _set_security_tokenPtr
+      .asFunction<int Function(ffi.Pointer<proc>, ffi.Pointer<ucred>)>();
+
+  void cru2x(
+    kauth_cred_t cr,
+    ffi.Pointer<xucred> xcr,
+  ) {
+    return _cru2x(
+      cr,
+      xcr,
+    );
+  }
+
+  late final _cru2xPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(kauth_cred_t, ffi.Pointer<xucred>)>>('cru2x');
+  late final _cru2x =
+      _cru2xPtr.asFunction<void Function(kauth_cred_t, ffi.Pointer<xucred>)>();
+
+  int vm_stats(
+    ffi.Pointer<ffi.Void> info,
+    ffi.Pointer<ffi.UnsignedInt> count,
+  ) {
+    return _vm_stats(
+      info,
+      count,
+    );
+  }
+
+  late final _vm_statsPtr = _lookup<
+      ffi.NativeFunction<
+          kern_return_t Function(ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.UnsignedInt>)>>('vm_stats');
+  late final _vm_stats = _vm_statsPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.UnsignedInt>)>();
+
+  int upl_page_present(
+    ffi.Pointer<upl_page_info_t> upl,
+    int index,
+  ) {
+    return _upl_page_present(
+      upl,
+      index,
+    );
+  }
+
+  late final _upl_page_presentPtr = _lookup<
+      ffi.NativeFunction<
+          boolean_t Function(
+              ffi.Pointer<upl_page_info_t>, ffi.Int)>>('upl_page_present');
+  late final _upl_page_present = _upl_page_presentPtr
+      .asFunction<int Function(ffi.Pointer<upl_page_info_t>, int)>();
+
+  int upl_dirty_page(
+    ffi.Pointer<upl_page_info_t> upl,
+    int index,
+  ) {
+    return _upl_dirty_page(
+      upl,
+      index,
+    );
+  }
+
+  late final _upl_dirty_pagePtr = _lookup<
+      ffi.NativeFunction<
+          boolean_t Function(
+              ffi.Pointer<upl_page_info_t>, ffi.Int)>>('upl_dirty_page');
+  late final _upl_dirty_page = _upl_dirty_pagePtr
+      .asFunction<int Function(ffi.Pointer<upl_page_info_t>, int)>();
+
+  int upl_valid_page(
+    ffi.Pointer<upl_page_info_t> upl,
+    int index,
+  ) {
+    return _upl_valid_page(
+      upl,
+      index,
+    );
+  }
+
+  late final _upl_valid_pagePtr = _lookup<
+      ffi.NativeFunction<
+          boolean_t Function(
+              ffi.Pointer<upl_page_info_t>, ffi.Int)>>('upl_valid_page');
+  late final _upl_valid_page = _upl_valid_pagePtr
+      .asFunction<int Function(ffi.Pointer<upl_page_info_t>, int)>();
+
+  void upl_deallocate(
+    upl_t upl,
+  ) {
+    return _upl_deallocate(
+      upl,
+    );
+  }
+
+  late final _upl_deallocatePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(upl_t)>>('upl_deallocate');
+  late final _upl_deallocate =
+      _upl_deallocatePtr.asFunction<void Function(upl_t)>();
+
+  void upl_mark_decmp(
+    upl_t upl,
+  ) {
+    return _upl_mark_decmp(
+      upl,
+    );
+  }
+
+  late final _upl_mark_decmpPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(upl_t)>>('upl_mark_decmp');
+  late final _upl_mark_decmp =
+      _upl_mark_decmpPtr.asFunction<void Function(upl_t)>();
+
+  void upl_unmark_decmp(
+    upl_t upl,
+  ) {
+    return _upl_unmark_decmp(
+      upl,
+    );
+  }
+
+  late final _upl_unmark_decmpPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(upl_t)>>('upl_unmark_decmp');
+  late final _upl_unmark_decmp =
+      _upl_unmark_decmpPtr.asFunction<void Function(upl_t)>();
+
+  int upl_has_wired_pages(
+    upl_t upl,
+  ) {
+    return _upl_has_wired_pages(
+      upl,
+    );
+  }
+
+  late final _upl_has_wired_pagesPtr =
+      _lookup<ffi.NativeFunction<boolean_t Function(upl_t)>>(
+          'upl_has_wired_pages');
+  late final _upl_has_wired_pages =
+      _upl_has_wired_pagesPtr.asFunction<int Function(upl_t)>();
+
+  late final ffi.Pointer<ffi.Int> _PAGE_SHIFT_CONST =
+      _lookup<ffi.Int>('PAGE_SHIFT_CONST');
+
+  int get PAGE_SHIFT_CONST => _PAGE_SHIFT_CONST.value;
+
+  set PAGE_SHIFT_CONST(int value) => _PAGE_SHIFT_CONST.value = value;
+
+  late final ffi.Pointer<vm_size_t> _mem_size = _lookup<vm_size_t>('mem_size');
+
+  Dartvm_size_t get mem_size => _mem_size.value;
+
+  set mem_size(Dartvm_size_t value) => _mem_size.value = value;
+
+  late final ffi.Pointer<ffi.Uint64> _max_mem = _lookup<ffi.Uint64>('max_mem');
+
+  int get max_mem => _max_mem.value;
+
+  set max_mem(int value) => _max_mem.value = value;
+
+  late final ffi.Pointer<vm_size_t> _page_size =
+      _lookup<vm_size_t>('page_size');
+
+  Dartvm_size_t get page_size => _page_size.value;
+
+  set page_size(Dartvm_size_t value) => _page_size.value = value;
+
+  late final ffi.Pointer<vm_size_t> _page_mask =
+      _lookup<vm_size_t>('page_mask');
+
+  Dartvm_size_t get page_mask => _page_mask.value;
+
+  set page_mask(Dartvm_size_t value) => _page_mask.value = value;
+
+  late final ffi.Pointer<ffi.Int> _page_shift = _lookup<ffi.Int>('page_shift');
+
+  int get page_shift => _page_shift.value;
+
+  set page_shift(int value) => _page_shift.value = value;
+
+  void Assert(
+    ffi.Pointer<ffi.Char> file,
+    int line,
+    ffi.Pointer<ffi.Char> expression,
+  ) {
+    return _Assert(
+      file,
+      line,
+      expression,
+    );
+  }
+
+  late final _AssertPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Int,
+              ffi.Pointer<ffi.Char>)>>('Assert');
+  late final _Assert = _AssertPtr.asFunction<
+      void Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>)>();
+
+  late final ffi.Pointer<ffi.Int> _kext_assertions_enable =
+      _lookup<ffi.Int>('kext_assertions_enable');
+
+  int get kext_assertions_enable => _kext_assertions_enable.value;
+
+  set kext_assertions_enable(int value) =>
+      _kext_assertions_enable.value = value;
+
+  ffi.Pointer<lck_attr_t> lck_attr_alloc_init() {
+    return _lck_attr_alloc_init();
+  }
+
+  late final _lck_attr_alloc_initPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<lck_attr_t> Function()>>(
+          'lck_attr_alloc_init');
+  late final _lck_attr_alloc_init =
+      _lck_attr_alloc_initPtr.asFunction<ffi.Pointer<lck_attr_t> Function()>();
+
+  void lck_attr_setdefault(
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_attr_setdefault(
+      attr,
+    );
+  }
+
+  late final _lck_attr_setdefaultPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_attr_t>)>>(
+          'lck_attr_setdefault');
+  late final _lck_attr_setdefault = _lck_attr_setdefaultPtr
+      .asFunction<void Function(ffi.Pointer<lck_attr_t>)>();
+
+  void lck_attr_setdebug(
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_attr_setdebug(
+      attr,
+    );
+  }
+
+  late final _lck_attr_setdebugPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_attr_t>)>>(
+          'lck_attr_setdebug');
+  late final _lck_attr_setdebug = _lck_attr_setdebugPtr
+      .asFunction<void Function(ffi.Pointer<lck_attr_t>)>();
+
+  void lck_attr_cleardebug(
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_attr_cleardebug(
+      attr,
+    );
+  }
+
+  late final _lck_attr_cleardebugPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_attr_t>)>>(
+          'lck_attr_cleardebug');
+  late final _lck_attr_cleardebug = _lck_attr_cleardebugPtr
+      .asFunction<void Function(ffi.Pointer<lck_attr_t>)>();
+
+  void lck_attr_free(
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_attr_free(
+      attr,
+    );
+  }
+
+  late final _lck_attr_freePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_attr_t>)>>(
+          'lck_attr_free');
+  late final _lck_attr_free =
+      _lck_attr_freePtr.asFunction<void Function(ffi.Pointer<lck_attr_t>)>();
+
+  ffi.Pointer<lck_grp_attr_t> lck_grp_attr_alloc_init() {
+    return _lck_grp_attr_alloc_init();
+  }
+
+  late final _lck_grp_attr_alloc_initPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<lck_grp_attr_t> Function()>>(
+          'lck_grp_attr_alloc_init');
+  late final _lck_grp_attr_alloc_init = _lck_grp_attr_alloc_initPtr
+      .asFunction<ffi.Pointer<lck_grp_attr_t> Function()>();
+
+  void lck_grp_attr_setdefault(
+    ffi.Pointer<lck_grp_attr_t> attr,
+  ) {
+    return _lck_grp_attr_setdefault(
+      attr,
+    );
+  }
+
+  late final _lck_grp_attr_setdefaultPtr = _lookup<
+          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_grp_attr_t>)>>(
+      'lck_grp_attr_setdefault');
+  late final _lck_grp_attr_setdefault = _lck_grp_attr_setdefaultPtr
+      .asFunction<void Function(ffi.Pointer<lck_grp_attr_t>)>();
+
+  void lck_grp_attr_setstat(
+    ffi.Pointer<lck_grp_attr_t> attr,
+  ) {
+    return _lck_grp_attr_setstat(
+      attr,
+    );
+  }
+
+  late final _lck_grp_attr_setstatPtr = _lookup<
+          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_grp_attr_t>)>>(
+      'lck_grp_attr_setstat');
+  late final _lck_grp_attr_setstat = _lck_grp_attr_setstatPtr
+      .asFunction<void Function(ffi.Pointer<lck_grp_attr_t>)>();
+
+  void lck_grp_attr_free(
+    ffi.Pointer<lck_grp_attr_t> attr,
+  ) {
+    return _lck_grp_attr_free(
+      attr,
+    );
+  }
+
+  late final _lck_grp_attr_freePtr = _lookup<
+          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_grp_attr_t>)>>(
+      'lck_grp_attr_free');
+  late final _lck_grp_attr_free = _lck_grp_attr_freePtr
+      .asFunction<void Function(ffi.Pointer<lck_grp_attr_t>)>();
+
+  ffi.Pointer<lck_grp_t> lck_grp_alloc_init(
+    ffi.Pointer<ffi.Char> grp_name,
+    ffi.Pointer<lck_grp_attr_t> attr,
+  ) {
+    return _lck_grp_alloc_init(
+      grp_name,
+      attr,
+    );
+  }
+
+  late final _lck_grp_alloc_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<lck_grp_t> Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<lck_grp_attr_t>)>>('lck_grp_alloc_init');
+  late final _lck_grp_alloc_init = _lck_grp_alloc_initPtr.asFunction<
+      ffi.Pointer<lck_grp_t> Function(
+          ffi.Pointer<ffi.Char>, ffi.Pointer<lck_grp_attr_t>)>();
+
+  void lck_grp_free(
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_grp_free(
+      grp,
+    );
+  }
+
+  late final _lck_grp_freePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_grp_t>)>>(
+          'lck_grp_free');
+  late final _lck_grp_free =
+      _lck_grp_freePtr.asFunction<void Function(ffi.Pointer<lck_grp_t>)>();
+
+  ffi.Pointer<lck_mtx_t> lck_mtx_alloc_init(
+    ffi.Pointer<lck_grp_t> grp,
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_mtx_alloc_init(
+      grp,
+      attr,
+    );
+  }
+
+  late final _lck_mtx_alloc_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<lck_mtx_t> Function(ffi.Pointer<lck_grp_t>,
+              ffi.Pointer<lck_attr_t>)>>('lck_mtx_alloc_init');
+  late final _lck_mtx_alloc_init = _lck_mtx_alloc_initPtr.asFunction<
+      ffi.Pointer<lck_mtx_t> Function(
+          ffi.Pointer<lck_grp_t>, ffi.Pointer<lck_attr_t>)>();
+
+  void lck_mtx_init(
+    ffi.Pointer<lck_mtx_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_mtx_init(
+      lck,
+      grp,
+      attr,
+    );
+  }
+
+  late final _lck_mtx_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<lck_mtx_t>, ffi.Pointer<lck_grp_t>,
+              ffi.Pointer<lck_attr_t>)>>('lck_mtx_init');
+  late final _lck_mtx_init = _lck_mtx_initPtr.asFunction<
+      void Function(ffi.Pointer<lck_mtx_t>, ffi.Pointer<lck_grp_t>,
+          ffi.Pointer<lck_attr_t>)>();
+
+  void lck_mtx_lock(
+    ffi.Pointer<lck_mtx_t> lck,
+  ) {
+    return _lck_mtx_lock(
+      lck,
+    );
+  }
+
+  late final _lck_mtx_lockPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_mtx_t>)>>(
+          'lck_mtx_lock');
+  late final _lck_mtx_lock =
+      _lck_mtx_lockPtr.asFunction<void Function(ffi.Pointer<lck_mtx_t>)>();
+
+  void lck_mtx_unlock(
+    ffi.Pointer<lck_mtx_t> lck,
+  ) {
+    return _lck_mtx_unlock(
+      lck,
+    );
+  }
+
+  late final _lck_mtx_unlockPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_mtx_t>)>>(
+          'lck_mtx_unlock');
+  late final _lck_mtx_unlock =
+      _lck_mtx_unlockPtr.asFunction<void Function(ffi.Pointer<lck_mtx_t>)>();
+
+  void lck_mtx_destroy(
+    ffi.Pointer<lck_mtx_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_mtx_destroy(
+      lck,
+      grp,
+    );
+  }
+
+  late final _lck_mtx_destroyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<lck_mtx_t>,
+              ffi.Pointer<lck_grp_t>)>>('lck_mtx_destroy');
+  late final _lck_mtx_destroy = _lck_mtx_destroyPtr.asFunction<
+      void Function(ffi.Pointer<lck_mtx_t>, ffi.Pointer<lck_grp_t>)>();
+
+  void lck_mtx_free(
+    ffi.Pointer<lck_mtx_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_mtx_free(
+      lck,
+      grp,
+    );
+  }
+
+  late final _lck_mtx_freePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<lck_mtx_t>, ffi.Pointer<lck_grp_t>)>>('lck_mtx_free');
+  late final _lck_mtx_free = _lck_mtx_freePtr.asFunction<
+      void Function(ffi.Pointer<lck_mtx_t>, ffi.Pointer<lck_grp_t>)>();
+
+  Dartwait_result_t lck_mtx_sleep(
+    ffi.Pointer<lck_mtx_t> lck,
+    lck_sleep_action_t lck_sleep_action,
+    event_t event,
+    Dartwait_interrupt_t interruptible,
+  ) {
+    return _lck_mtx_sleep(
+      lck,
+      lck_sleep_action.value,
+      event,
+      interruptible,
+    );
+  }
+
+  late final _lck_mtx_sleepPtr = _lookup<
+      ffi.NativeFunction<
+          wait_result_t Function(ffi.Pointer<lck_mtx_t>, ffi.UnsignedInt,
+              event_t, wait_interrupt_t)>>('lck_mtx_sleep');
+  late final _lck_mtx_sleep = _lck_mtx_sleepPtr
+      .asFunction<int Function(ffi.Pointer<lck_mtx_t>, int, event_t, int)>();
+
+  Dartwait_result_t lck_mtx_sleep_deadline(
+    ffi.Pointer<lck_mtx_t> lck,
+    lck_sleep_action_t lck_sleep_action,
+    event_t event,
+    Dartwait_interrupt_t interruptible,
+    int deadline,
+  ) {
+    return _lck_mtx_sleep_deadline(
+      lck,
+      lck_sleep_action.value,
+      event,
+      interruptible,
+      deadline,
+    );
+  }
+
+  late final _lck_mtx_sleep_deadlinePtr = _lookup<
+      ffi.NativeFunction<
+          wait_result_t Function(
+              ffi.Pointer<lck_mtx_t>,
+              ffi.UnsignedInt,
+              event_t,
+              wait_interrupt_t,
+              ffi.Uint64)>>('lck_mtx_sleep_deadline');
+  late final _lck_mtx_sleep_deadline = _lck_mtx_sleep_deadlinePtr.asFunction<
+      int Function(ffi.Pointer<lck_mtx_t>, int, event_t, int, int)>();
+
+  void lck_mtx_assert(
+    ffi.Pointer<lck_mtx_t> lck,
+    int type,
+  ) {
+    return _lck_mtx_assert(
+      lck,
+      type,
+    );
+  }
+
+  late final _lck_mtx_assertPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<lck_mtx_t>, ffi.UnsignedInt)>>('lck_mtx_assert');
+  late final _lck_mtx_assert = _lck_mtx_assertPtr
+      .asFunction<void Function(ffi.Pointer<lck_mtx_t>, int)>();
+
+  ffi.Pointer<lck_rw_t> lck_rw_alloc_init(
+    ffi.Pointer<lck_grp_t> grp,
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_rw_alloc_init(
+      grp,
+      attr,
+    );
+  }
+
+  late final _lck_rw_alloc_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<lck_rw_t> Function(ffi.Pointer<lck_grp_t>,
+              ffi.Pointer<lck_attr_t>)>>('lck_rw_alloc_init');
+  late final _lck_rw_alloc_init = _lck_rw_alloc_initPtr.asFunction<
+      ffi.Pointer<lck_rw_t> Function(
+          ffi.Pointer<lck_grp_t>, ffi.Pointer<lck_attr_t>)>();
+
+  void lck_rw_init(
+    ffi.Pointer<lck_rw_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_rw_init(
+      lck,
+      grp,
+      attr,
+    );
+  }
+
+  late final _lck_rw_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<lck_rw_t>, ffi.Pointer<lck_grp_t>,
+              ffi.Pointer<lck_attr_t>)>>('lck_rw_init');
+  late final _lck_rw_init = _lck_rw_initPtr.asFunction<
+      void Function(ffi.Pointer<lck_rw_t>, ffi.Pointer<lck_grp_t>,
+          ffi.Pointer<lck_attr_t>)>();
+
+  void lck_rw_free(
+    ffi.Pointer<lck_rw_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_rw_free(
+      lck,
+      grp,
+    );
+  }
+
+  late final _lck_rw_freePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<lck_rw_t>, ffi.Pointer<lck_grp_t>)>>('lck_rw_free');
+  late final _lck_rw_free = _lck_rw_freePtr.asFunction<
+      void Function(ffi.Pointer<lck_rw_t>, ffi.Pointer<lck_grp_t>)>();
+
+  void lck_rw_destroy(
+    ffi.Pointer<lck_rw_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_rw_destroy(
+      lck,
+      grp,
+    );
+  }
+
+  late final _lck_rw_destroyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<lck_rw_t>,
+              ffi.Pointer<lck_grp_t>)>>('lck_rw_destroy');
+  late final _lck_rw_destroy = _lck_rw_destroyPtr.asFunction<
+      void Function(ffi.Pointer<lck_rw_t>, ffi.Pointer<lck_grp_t>)>();
+
+  void lck_rw_lock(
+    ffi.Pointer<lck_rw_t> lck,
+    int lck_rw_type,
+  ) {
+    return _lck_rw_lock(
+      lck,
+      lck_rw_type,
+    );
+  }
+
+  late final _lck_rw_lockPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<lck_rw_t>, lck_rw_type_t)>>('lck_rw_lock');
+  late final _lck_rw_lock =
+      _lck_rw_lockPtr.asFunction<void Function(ffi.Pointer<lck_rw_t>, int)>();
+
+  int lck_rw_try_lock(
+    ffi.Pointer<lck_rw_t> lck,
+    int lck_rw_type,
+  ) {
+    return _lck_rw_try_lock(
+      lck,
+      lck_rw_type,
+    );
+  }
+
+  late final _lck_rw_try_lockPtr = _lookup<
+      ffi.NativeFunction<
+          boolean_t Function(
+              ffi.Pointer<lck_rw_t>, lck_rw_type_t)>>('lck_rw_try_lock');
+  late final _lck_rw_try_lock = _lck_rw_try_lockPtr
+      .asFunction<int Function(ffi.Pointer<lck_rw_t>, int)>();
+
+  void lck_rw_unlock(
+    ffi.Pointer<lck_rw_t> lck,
+    int lck_rw_type,
+  ) {
+    return _lck_rw_unlock(
+      lck,
+      lck_rw_type,
+    );
+  }
+
+  late final _lck_rw_unlockPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<lck_rw_t>, lck_rw_type_t)>>('lck_rw_unlock');
+  late final _lck_rw_unlock =
+      _lck_rw_unlockPtr.asFunction<void Function(ffi.Pointer<lck_rw_t>, int)>();
+
+  void lck_rw_lock_shared(
+    ffi.Pointer<lck_rw_t> lck,
+  ) {
+    return _lck_rw_lock_shared(
+      lck,
+    );
+  }
+
+  late final _lck_rw_lock_sharedPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_rw_t>)>>(
+          'lck_rw_lock_shared');
+  late final _lck_rw_lock_shared =
+      _lck_rw_lock_sharedPtr.asFunction<void Function(ffi.Pointer<lck_rw_t>)>();
+
+  int lck_rw_lock_shared_to_exclusive(
+    ffi.Pointer<lck_rw_t> lck,
+  ) {
+    return _lck_rw_lock_shared_to_exclusive(
+      lck,
+    );
+  }
+
+  late final _lck_rw_lock_shared_to_exclusivePtr =
+      _lookup<ffi.NativeFunction<boolean_t Function(ffi.Pointer<lck_rw_t>)>>(
+          'lck_rw_lock_shared_to_exclusive');
+  late final _lck_rw_lock_shared_to_exclusive =
+      _lck_rw_lock_shared_to_exclusivePtr
+          .asFunction<int Function(ffi.Pointer<lck_rw_t>)>();
+
+  void lck_rw_unlock_shared(
+    ffi.Pointer<lck_rw_t> lck,
+  ) {
+    return _lck_rw_unlock_shared(
+      lck,
+    );
+  }
+
+  late final _lck_rw_unlock_sharedPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_rw_t>)>>(
+          'lck_rw_unlock_shared');
+  late final _lck_rw_unlock_shared = _lck_rw_unlock_sharedPtr
+      .asFunction<void Function(ffi.Pointer<lck_rw_t>)>();
+
+  void lck_rw_lock_exclusive(
+    ffi.Pointer<lck_rw_t> lck,
+  ) {
+    return _lck_rw_lock_exclusive(
+      lck,
+    );
+  }
+
+  late final _lck_rw_lock_exclusivePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_rw_t>)>>(
+          'lck_rw_lock_exclusive');
+  late final _lck_rw_lock_exclusive = _lck_rw_lock_exclusivePtr
+      .asFunction<void Function(ffi.Pointer<lck_rw_t>)>();
+
+  void lck_rw_lock_exclusive_to_shared(
+    ffi.Pointer<lck_rw_t> lck,
+  ) {
+    return _lck_rw_lock_exclusive_to_shared(
+      lck,
+    );
+  }
+
+  late final _lck_rw_lock_exclusive_to_sharedPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_rw_t>)>>(
+          'lck_rw_lock_exclusive_to_shared');
+  late final _lck_rw_lock_exclusive_to_shared =
+      _lck_rw_lock_exclusive_to_sharedPtr
+          .asFunction<void Function(ffi.Pointer<lck_rw_t>)>();
+
+  void lck_rw_unlock_exclusive(
+    ffi.Pointer<lck_rw_t> lck,
+  ) {
+    return _lck_rw_unlock_exclusive(
+      lck,
+    );
+  }
+
+  late final _lck_rw_unlock_exclusivePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_rw_t>)>>(
+          'lck_rw_unlock_exclusive');
+  late final _lck_rw_unlock_exclusive = _lck_rw_unlock_exclusivePtr
+      .asFunction<void Function(ffi.Pointer<lck_rw_t>)>();
+
+  Dartwait_result_t lck_rw_sleep(
+    ffi.Pointer<lck_rw_t> lck,
+    lck_sleep_action_t lck_sleep_action,
+    event_t event,
+    Dartwait_interrupt_t interruptible,
+  ) {
+    return _lck_rw_sleep(
+      lck,
+      lck_sleep_action.value,
+      event,
+      interruptible,
+    );
+  }
+
+  late final _lck_rw_sleepPtr = _lookup<
+      ffi.NativeFunction<
+          wait_result_t Function(ffi.Pointer<lck_rw_t>, ffi.UnsignedInt,
+              event_t, wait_interrupt_t)>>('lck_rw_sleep');
+  late final _lck_rw_sleep = _lck_rw_sleepPtr
+      .asFunction<int Function(ffi.Pointer<lck_rw_t>, int, event_t, int)>();
+
+  Dartwait_result_t lck_rw_sleep_deadline(
+    ffi.Pointer<lck_rw_t> lck,
+    lck_sleep_action_t lck_sleep_action,
+    event_t event,
+    Dartwait_interrupt_t interruptible,
+    int deadline,
+  ) {
+    return _lck_rw_sleep_deadline(
+      lck,
+      lck_sleep_action.value,
+      event,
+      interruptible,
+      deadline,
+    );
+  }
+
+  late final _lck_rw_sleep_deadlinePtr = _lookup<
+      ffi.NativeFunction<
+          wait_result_t Function(ffi.Pointer<lck_rw_t>, ffi.UnsignedInt,
+              event_t, wait_interrupt_t, ffi.Uint64)>>('lck_rw_sleep_deadline');
+  late final _lck_rw_sleep_deadline = _lck_rw_sleep_deadlinePtr.asFunction<
+      int Function(ffi.Pointer<lck_rw_t>, int, event_t, int, int)>();
+
+  ffi.Pointer<lck_spin_t> lck_spin_alloc_init(
+    ffi.Pointer<lck_grp_t> grp,
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_spin_alloc_init(
+      grp,
+      attr,
+    );
+  }
+
+  late final _lck_spin_alloc_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<lck_spin_t> Function(ffi.Pointer<lck_grp_t>,
+              ffi.Pointer<lck_attr_t>)>>('lck_spin_alloc_init');
+  late final _lck_spin_alloc_init = _lck_spin_alloc_initPtr.asFunction<
+      ffi.Pointer<lck_spin_t> Function(
+          ffi.Pointer<lck_grp_t>, ffi.Pointer<lck_attr_t>)>();
+
+  void lck_spin_init(
+    ffi.Pointer<lck_spin_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+    ffi.Pointer<lck_attr_t> attr,
+  ) {
+    return _lck_spin_init(
+      lck,
+      grp,
+      attr,
+    );
+  }
+
+  late final _lck_spin_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<lck_spin_t>, ffi.Pointer<lck_grp_t>,
+              ffi.Pointer<lck_attr_t>)>>('lck_spin_init');
+  late final _lck_spin_init = _lck_spin_initPtr.asFunction<
+      void Function(ffi.Pointer<lck_spin_t>, ffi.Pointer<lck_grp_t>,
+          ffi.Pointer<lck_attr_t>)>();
+
+  void lck_spin_lock(
+    ffi.Pointer<lck_spin_t> lck,
+  ) {
+    return _lck_spin_lock(
+      lck,
+    );
+  }
+
+  late final _lck_spin_lockPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_spin_t>)>>(
+          'lck_spin_lock');
+  late final _lck_spin_lock =
+      _lck_spin_lockPtr.asFunction<void Function(ffi.Pointer<lck_spin_t>)>();
+
+  void lck_spin_lock_grp(
+    ffi.Pointer<lck_spin_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_spin_lock_grp(
+      lck,
+      grp,
+    );
+  }
+
+  late final _lck_spin_lock_grpPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<lck_spin_t>,
+              ffi.Pointer<lck_grp_t>)>>('lck_spin_lock_grp');
+  late final _lck_spin_lock_grp = _lck_spin_lock_grpPtr.asFunction<
+      void Function(ffi.Pointer<lck_spin_t>, ffi.Pointer<lck_grp_t>)>();
+
+  void lck_spin_unlock(
+    ffi.Pointer<lck_spin_t> lck,
+  ) {
+    return _lck_spin_unlock(
+      lck,
+    );
+  }
+
+  late final _lck_spin_unlockPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<lck_spin_t>)>>(
+          'lck_spin_unlock');
+  late final _lck_spin_unlock =
+      _lck_spin_unlockPtr.asFunction<void Function(ffi.Pointer<lck_spin_t>)>();
+
+  void lck_spin_destroy(
+    ffi.Pointer<lck_spin_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_spin_destroy(
+      lck,
+      grp,
+    );
+  }
+
+  late final _lck_spin_destroyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<lck_spin_t>,
+              ffi.Pointer<lck_grp_t>)>>('lck_spin_destroy');
+  late final _lck_spin_destroy = _lck_spin_destroyPtr.asFunction<
+      void Function(ffi.Pointer<lck_spin_t>, ffi.Pointer<lck_grp_t>)>();
+
+  void lck_spin_free(
+    ffi.Pointer<lck_spin_t> lck,
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_spin_free(
+      lck,
+      grp,
+    );
+  }
+
+  late final _lck_spin_freePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<lck_spin_t>,
+              ffi.Pointer<lck_grp_t>)>>('lck_spin_free');
+  late final _lck_spin_free = _lck_spin_freePtr.asFunction<
+      void Function(ffi.Pointer<lck_spin_t>, ffi.Pointer<lck_grp_t>)>();
+
+  Dartwait_result_t lck_spin_sleep(
+    ffi.Pointer<lck_spin_t> lck,
+    lck_sleep_action_t lck_sleep_action,
+    event_t event,
+    Dartwait_interrupt_t interruptible,
+  ) {
+    return _lck_spin_sleep(
+      lck,
+      lck_sleep_action.value,
+      event,
+      interruptible,
+    );
+  }
+
+  late final _lck_spin_sleepPtr = _lookup<
+      ffi.NativeFunction<
+          wait_result_t Function(ffi.Pointer<lck_spin_t>, ffi.UnsignedInt,
+              event_t, wait_interrupt_t)>>('lck_spin_sleep');
+  late final _lck_spin_sleep = _lck_spin_sleepPtr
+      .asFunction<int Function(ffi.Pointer<lck_spin_t>, int, event_t, int)>();
+
+  Dartwait_result_t lck_spin_sleep_grp(
+    ffi.Pointer<lck_spin_t> lck,
+    lck_sleep_action_t lck_sleep_action,
+    event_t event,
+    Dartwait_interrupt_t interruptible,
+    ffi.Pointer<lck_grp_t> grp,
+  ) {
+    return _lck_spin_sleep_grp(
+      lck,
+      lck_sleep_action.value,
+      event,
+      interruptible,
+      grp,
+    );
+  }
+
+  late final _lck_spin_sleep_grpPtr = _lookup<
+      ffi.NativeFunction<
+          wait_result_t Function(
+              ffi.Pointer<lck_spin_t>,
+              ffi.UnsignedInt,
+              event_t,
+              wait_interrupt_t,
+              ffi.Pointer<lck_grp_t>)>>('lck_spin_sleep_grp');
+  late final _lck_spin_sleep_grp = _lck_spin_sleep_grpPtr.asFunction<
+      int Function(ffi.Pointer<lck_spin_t>, int, event_t, int,
+          ffi.Pointer<lck_grp_t>)>();
+
+  Dartwait_result_t lck_spin_sleep_deadline(
+    ffi.Pointer<lck_spin_t> lck,
+    lck_sleep_action_t lck_sleep_action,
+    event_t event,
+    Dartwait_interrupt_t interruptible,
+    int deadline,
+  ) {
+    return _lck_spin_sleep_deadline(
+      lck,
+      lck_sleep_action.value,
+      event,
+      interruptible,
+      deadline,
+    );
+  }
+
+  late final _lck_spin_sleep_deadlinePtr = _lookup<
+      ffi.NativeFunction<
+          wait_result_t Function(
+              ffi.Pointer<lck_spin_t>,
+              ffi.UnsignedInt,
+              event_t,
+              wait_interrupt_t,
+              ffi.Uint64)>>('lck_spin_sleep_deadline');
+  late final _lck_spin_sleep_deadline = _lck_spin_sleep_deadlinePtr.asFunction<
+      int Function(ffi.Pointer<lck_spin_t>, int, event_t, int, int)>();
+
+  void kauth_cred_ref(
+    kauth_cred_t cred,
+  ) {
+    return _kauth_cred_ref(
+      cred,
+    );
+  }
+
+  late final _kauth_cred_refPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(kauth_cred_t)>>(
+          'kauth_cred_ref');
+  late final _kauth_cred_ref =
+      _kauth_cred_refPtr.asFunction<void Function(kauth_cred_t)>();
+
+  void kauth_cred_unref(
+    ffi.Pointer<kauth_cred_t> credp,
+  ) {
+    return _kauth_cred_unref(
+      credp,
+    );
+  }
+
+  late final _kauth_cred_unrefPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<kauth_cred_t>)>>(
+          'kauth_cred_unref');
+  late final _kauth_cred_unref = _kauth_cred_unrefPtr
+      .asFunction<void Function(ffi.Pointer<kauth_cred_t>)>();
+
+  kauth_cred_t kauth_cred_get() {
+    return _kauth_cred_get();
+  }
+
+  late final _kauth_cred_getPtr =
+      _lookup<ffi.NativeFunction<kauth_cred_t Function()>>('kauth_cred_get');
+  late final _kauth_cred_get =
+      _kauth_cred_getPtr.asFunction<kauth_cred_t Function()>();
+
+  int current_thread_cred_label_get(
+    int slot,
+  ) {
+    return _current_thread_cred_label_get(
+      slot,
+    );
+  }
+
+  late final _current_thread_cred_label_getPtr =
+      _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Int)>>(
+          'current_thread_cred_label_get');
+  late final _current_thread_cred_label_get =
+      _current_thread_cred_label_getPtr.asFunction<int Function(int)>();
+
+  kauth_cred_t kauth_cred_get_with_ref() {
+    return _kauth_cred_get_with_ref();
+  }
+
+  late final _kauth_cred_get_with_refPtr =
+      _lookup<ffi.NativeFunction<kauth_cred_t Function()>>(
+          'kauth_cred_get_with_ref');
+  late final _kauth_cred_get_with_ref =
+      _kauth_cred_get_with_refPtr.asFunction<kauth_cred_t Function()>();
+
+  kauth_cred_t current_cached_proc_cred(
+    proc_t arg0,
+  ) {
+    return _current_cached_proc_cred(
+      arg0,
+    );
+  }
+
+  late final _current_cached_proc_credPtr =
+      _lookup<ffi.NativeFunction<kauth_cred_t Function(proc_t)>>(
+          'current_cached_proc_cred');
+  late final _current_cached_proc_cred =
+      _current_cached_proc_credPtr.asFunction<kauth_cred_t Function(proc_t)>();
+
+  int current_cached_proc_label_get(
+    int slot,
+  ) {
+    return _current_cached_proc_label_get(
+      slot,
+    );
+  }
+
+  late final _current_cached_proc_label_getPtr =
+      _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Int)>>(
+          'current_cached_proc_label_get');
+  late final _current_cached_proc_label_get =
+      _current_cached_proc_label_getPtr.asFunction<int Function(int)>();
+
+  kauth_cred_t current_cached_proc_cred_ref(
+    proc_t arg0,
+  ) {
+    return _current_cached_proc_cred_ref(
+      arg0,
+    );
+  }
+
+  late final _current_cached_proc_cred_refPtr =
+      _lookup<ffi.NativeFunction<kauth_cred_t Function(proc_t)>>(
+          'current_cached_proc_cred_ref');
+  late final _current_cached_proc_cred_ref = _current_cached_proc_cred_refPtr
+      .asFunction<kauth_cred_t Function(proc_t)>();
+
+  kauth_cred_t kauth_cred_proc_ref(
+    proc_t procp,
+  ) {
+    return _kauth_cred_proc_ref(
+      procp,
+    );
+  }
+
+  late final _kauth_cred_proc_refPtr =
+      _lookup<ffi.NativeFunction<kauth_cred_t Function(proc_t)>>(
+          'kauth_cred_proc_ref');
+  late final _kauth_cred_proc_ref =
+      _kauth_cred_proc_refPtr.asFunction<kauth_cred_t Function(proc_t)>();
+
+  kauth_cred_t kauth_cred_proc_ref_for_pid(
+    int pid,
+  ) {
+    return _kauth_cred_proc_ref_for_pid(
+      pid,
+    );
+  }
+
+  late final _kauth_cred_proc_ref_for_pidPtr =
+      _lookup<ffi.NativeFunction<kauth_cred_t Function(pid_t)>>(
+          'kauth_cred_proc_ref_for_pid');
+  late final _kauth_cred_proc_ref_for_pid =
+      _kauth_cred_proc_ref_for_pidPtr.asFunction<kauth_cred_t Function(int)>();
+
+  kauth_cred_t kauth_cred_proc_ref_for_pidversion(
+    int pid,
+    int version,
+  ) {
+    return _kauth_cred_proc_ref_for_pidversion(
+      pid,
+      version,
+    );
+  }
+
+  late final _kauth_cred_proc_ref_for_pidversionPtr =
+      _lookup<ffi.NativeFunction<kauth_cred_t Function(pid_t, ffi.Uint32)>>(
+          'kauth_cred_proc_ref_for_pidversion');
+  late final _kauth_cred_proc_ref_for_pidversion =
+      _kauth_cred_proc_ref_for_pidversionPtr
+          .asFunction<kauth_cred_t Function(int, int)>();
+
+  kauth_cred_t kauth_cred_create(
+    kauth_cred_t cred,
+  ) {
+    return _kauth_cred_create(
+      cred,
+    );
+  }
+
+  late final _kauth_cred_createPtr =
+      _lookup<ffi.NativeFunction<kauth_cred_t Function(kauth_cred_t)>>(
+          'kauth_cred_create');
+  late final _kauth_cred_create =
+      _kauth_cred_createPtr.asFunction<kauth_cred_t Function(kauth_cred_t)>();
+
+  int kauth_cred_getuid(
+    kauth_cred_t _cred,
+  ) {
+    return _kauth_cred_getuid(
+      _cred,
+    );
+  }
+
+  late final _kauth_cred_getuidPtr =
+      _lookup<ffi.NativeFunction<uid_t Function(kauth_cred_t)>>(
+          'kauth_cred_getuid');
+  late final _kauth_cred_getuid =
+      _kauth_cred_getuidPtr.asFunction<int Function(kauth_cred_t)>();
+
+  int kauth_cred_getruid(
+    kauth_cred_t _cred,
+  ) {
+    return _kauth_cred_getruid(
+      _cred,
+    );
+  }
+
+  late final _kauth_cred_getruidPtr =
+      _lookup<ffi.NativeFunction<uid_t Function(kauth_cred_t)>>(
+          'kauth_cred_getruid');
+  late final _kauth_cred_getruid =
+      _kauth_cred_getruidPtr.asFunction<int Function(kauth_cred_t)>();
+
+  int kauth_cred_getsvuid(
+    kauth_cred_t _cred,
+  ) {
+    return _kauth_cred_getsvuid(
+      _cred,
+    );
+  }
+
+  late final _kauth_cred_getsvuidPtr =
+      _lookup<ffi.NativeFunction<uid_t Function(kauth_cred_t)>>(
+          'kauth_cred_getsvuid');
+  late final _kauth_cred_getsvuid =
+      _kauth_cred_getsvuidPtr.asFunction<int Function(kauth_cred_t)>();
+
+  int kauth_cred_issuser(
+    kauth_cred_t _cred,
+  ) {
+    return _kauth_cred_issuser(
+      _cred,
+    );
+  }
+
+  late final _kauth_cred_issuserPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(kauth_cred_t)>>(
+          'kauth_cred_issuser');
+  late final _kauth_cred_issuser =
+      _kauth_cred_issuserPtr.asFunction<int Function(kauth_cred_t)>();
+
+  int kauth_cred_getgid(
+    kauth_cred_t _cred,
+  ) {
+    return _kauth_cred_getgid(
+      _cred,
+    );
+  }
+
+  late final _kauth_cred_getgidPtr =
+      _lookup<ffi.NativeFunction<gid_t Function(kauth_cred_t)>>(
+          'kauth_cred_getgid');
+  late final _kauth_cred_getgid =
+      _kauth_cred_getgidPtr.asFunction<int Function(kauth_cred_t)>();
+
+  int kauth_cred_getrgid(
+    kauth_cred_t _cred,
+  ) {
+    return _kauth_cred_getrgid(
+      _cred,
+    );
+  }
+
+  late final _kauth_cred_getrgidPtr =
+      _lookup<ffi.NativeFunction<gid_t Function(kauth_cred_t)>>(
+          'kauth_cred_getrgid');
+  late final _kauth_cred_getrgid =
+      _kauth_cred_getrgidPtr.asFunction<int Function(kauth_cred_t)>();
+
+  int kauth_cred_getsvgid(
+    kauth_cred_t _cred,
+  ) {
+    return _kauth_cred_getsvgid(
+      _cred,
+    );
+  }
+
+  late final _kauth_cred_getsvgidPtr =
+      _lookup<ffi.NativeFunction<gid_t Function(kauth_cred_t)>>(
+          'kauth_cred_getsvgid');
+  late final _kauth_cred_getsvgid =
+      _kauth_cred_getsvgidPtr.asFunction<int Function(kauth_cred_t)>();
+
+  int kauth_getuid() {
+    return _kauth_getuid();
+  }
+
+  late final _kauth_getuidPtr =
+      _lookup<ffi.NativeFunction<uid_t Function()>>('kauth_getuid');
+  late final _kauth_getuid = _kauth_getuidPtr.asFunction<int Function()>();
+
+  int kauth_getruid() {
+    return _kauth_getruid();
+  }
+
+  late final _kauth_getruidPtr =
+      _lookup<ffi.NativeFunction<uid_t Function()>>('kauth_getruid');
+  late final _kauth_getruid = _kauth_getruidPtr.asFunction<int Function()>();
+
+  int kauth_getgid() {
+    return _kauth_getgid();
+  }
+
+  late final _kauth_getgidPtr =
+      _lookup<ffi.NativeFunction<gid_t Function()>>('kauth_getgid');
+  late final _kauth_getgid = _kauth_getgidPtr.asFunction<int Function()>();
+
+  int kauth_getrgid() {
+    return _kauth_getrgid();
+  }
+
+  late final _kauth_getrgidPtr =
+      _lookup<ffi.NativeFunction<gid_t Function()>>('kauth_getrgid');
+  late final _kauth_getrgid = _kauth_getrgidPtr.asFunction<int Function()>();
+
+  kauth_cred_t kauth_cred_label_update(
+    kauth_cred_t cred,
+    ffi.Pointer<label> label,
+  ) {
+    return _kauth_cred_label_update(
+      cred,
+      label,
+    );
+  }
+
+  late final _kauth_cred_label_updatePtr = _lookup<
+      ffi.NativeFunction<
+          kauth_cred_t Function(
+              kauth_cred_t, ffi.Pointer<label>)>>('kauth_cred_label_update');
+  late final _kauth_cred_label_update = _kauth_cred_label_updatePtr
+      .asFunction<kauth_cred_t Function(kauth_cred_t, ffi.Pointer<label>)>();
+
+  int kauth_proc_label_update(
+    ffi.Pointer<proc> proc,
+    ffi.Pointer<label> label,
+  ) {
+    return _kauth_proc_label_update(
+      proc,
+      label,
+    );
+  }
+
+  late final _kauth_proc_label_updatePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<proc>,
+              ffi.Pointer<label>)>>('kauth_proc_label_update');
+  late final _kauth_proc_label_update = _kauth_proc_label_updatePtr
+      .asFunction<int Function(ffi.Pointer<proc>, ffi.Pointer<label>)>();
+
+  int kauth_cred_pwnam2guid(
+    ffi.Pointer<ffi.Char> pwnam,
+    ffi.Pointer<guid_t> guidp,
+  ) {
+    return _kauth_cred_pwnam2guid(
+      pwnam,
+      guidp,
+    );
+  }
+
+  late final _kauth_cred_pwnam2guidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<guid_t>)>>('kauth_cred_pwnam2guid');
+  late final _kauth_cred_pwnam2guid = _kauth_cred_pwnam2guidPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<guid_t>)>();
+
+  int kauth_cred_grnam2guid(
+    ffi.Pointer<ffi.Char> grnam,
+    ffi.Pointer<guid_t> guidp,
+  ) {
+    return _kauth_cred_grnam2guid(
+      grnam,
+      guidp,
+    );
+  }
+
+  late final _kauth_cred_grnam2guidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<guid_t>)>>('kauth_cred_grnam2guid');
+  late final _kauth_cred_grnam2guid = _kauth_cred_grnam2guidPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<guid_t>)>();
+
+  int kauth_cred_guid2pwnam(
+    ffi.Pointer<guid_t> guidp,
+    ffi.Pointer<ffi.Char> pwnam,
+  ) {
+    return _kauth_cred_guid2pwnam(
+      guidp,
+      pwnam,
+    );
+  }
+
+  late final _kauth_cred_guid2pwnamPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<guid_t>,
+              ffi.Pointer<ffi.Char>)>>('kauth_cred_guid2pwnam');
+  late final _kauth_cred_guid2pwnam = _kauth_cred_guid2pwnamPtr
+      .asFunction<int Function(ffi.Pointer<guid_t>, ffi.Pointer<ffi.Char>)>();
+
+  int kauth_cred_guid2grnam(
+    ffi.Pointer<guid_t> guidp,
+    ffi.Pointer<ffi.Char> grnam,
+  ) {
+    return _kauth_cred_guid2grnam(
+      guidp,
+      grnam,
+    );
+  }
+
+  late final _kauth_cred_guid2grnamPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<guid_t>,
+              ffi.Pointer<ffi.Char>)>>('kauth_cred_guid2grnam');
+  late final _kauth_cred_guid2grnam = _kauth_cred_guid2grnamPtr
+      .asFunction<int Function(ffi.Pointer<guid_t>, ffi.Pointer<ffi.Char>)>();
+
+  int kauth_cred_guid2uid(
+    ffi.Pointer<guid_t> _guid,
+    ffi.Pointer<uid_t> _uidp,
+  ) {
+    return _kauth_cred_guid2uid(
+      _guid,
+      _uidp,
+    );
+  }
+
+  late final _kauth_cred_guid2uidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<guid_t>, ffi.Pointer<uid_t>)>>('kauth_cred_guid2uid');
+  late final _kauth_cred_guid2uid = _kauth_cred_guid2uidPtr
+      .asFunction<int Function(ffi.Pointer<guid_t>, ffi.Pointer<uid_t>)>();
+
+  int kauth_cred_guid2gid(
+    ffi.Pointer<guid_t> _guid,
+    ffi.Pointer<gid_t> _gidp,
+  ) {
+    return _kauth_cred_guid2gid(
+      _guid,
+      _gidp,
+    );
+  }
+
+  late final _kauth_cred_guid2gidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<guid_t>, ffi.Pointer<gid_t>)>>('kauth_cred_guid2gid');
+  late final _kauth_cred_guid2gid = _kauth_cred_guid2gidPtr
+      .asFunction<int Function(ffi.Pointer<guid_t>, ffi.Pointer<gid_t>)>();
+
+  int kauth_cred_ntsid2uid(
+    ffi.Pointer<ntsid_t> _sid,
+    ffi.Pointer<uid_t> _uidp,
+  ) {
+    return _kauth_cred_ntsid2uid(
+      _sid,
+      _uidp,
+    );
+  }
+
+  late final _kauth_cred_ntsid2uidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ntsid_t>,
+              ffi.Pointer<uid_t>)>>('kauth_cred_ntsid2uid');
+  late final _kauth_cred_ntsid2uid = _kauth_cred_ntsid2uidPtr
+      .asFunction<int Function(ffi.Pointer<ntsid_t>, ffi.Pointer<uid_t>)>();
+
+  int kauth_cred_ntsid2gid(
+    ffi.Pointer<ntsid_t> _sid,
+    ffi.Pointer<gid_t> _gidp,
+  ) {
+    return _kauth_cred_ntsid2gid(
+      _sid,
+      _gidp,
+    );
+  }
+
+  late final _kauth_cred_ntsid2gidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ntsid_t>,
+              ffi.Pointer<gid_t>)>>('kauth_cred_ntsid2gid');
+  late final _kauth_cred_ntsid2gid = _kauth_cred_ntsid2gidPtr
+      .asFunction<int Function(ffi.Pointer<ntsid_t>, ffi.Pointer<gid_t>)>();
+
+  int kauth_cred_ntsid2guid(
+    ffi.Pointer<ntsid_t> _sid,
+    ffi.Pointer<guid_t> _guidp,
+  ) {
+    return _kauth_cred_ntsid2guid(
+      _sid,
+      _guidp,
+    );
+  }
+
+  late final _kauth_cred_ntsid2guidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ntsid_t>,
+              ffi.Pointer<guid_t>)>>('kauth_cred_ntsid2guid');
+  late final _kauth_cred_ntsid2guid = _kauth_cred_ntsid2guidPtr
+      .asFunction<int Function(ffi.Pointer<ntsid_t>, ffi.Pointer<guid_t>)>();
+
+  int kauth_cred_uid2guid(
+    int _uid,
+    ffi.Pointer<guid_t> _guidp,
+  ) {
+    return _kauth_cred_uid2guid(
+      _uid,
+      _guidp,
+    );
+  }
+
+  late final _kauth_cred_uid2guidPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(uid_t, ffi.Pointer<guid_t>)>>(
+          'kauth_cred_uid2guid');
+  late final _kauth_cred_uid2guid = _kauth_cred_uid2guidPtr
+      .asFunction<int Function(int, ffi.Pointer<guid_t>)>();
+
+  int kauth_cred_getguid(
+    kauth_cred_t _cred,
+    ffi.Pointer<guid_t> _guidp,
+  ) {
+    return _kauth_cred_getguid(
+      _cred,
+      _guidp,
+    );
+  }
+
+  late final _kauth_cred_getguidPtr = _lookup<
+          ffi
+          .NativeFunction<ffi.Int Function(kauth_cred_t, ffi.Pointer<guid_t>)>>(
+      'kauth_cred_getguid');
+  late final _kauth_cred_getguid = _kauth_cred_getguidPtr
+      .asFunction<int Function(kauth_cred_t, ffi.Pointer<guid_t>)>();
+
+  int kauth_cred_gid2guid(
+    int _gid,
+    ffi.Pointer<guid_t> _guidp,
+  ) {
+    return _kauth_cred_gid2guid(
+      _gid,
+      _guidp,
+    );
+  }
+
+  late final _kauth_cred_gid2guidPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(gid_t, ffi.Pointer<guid_t>)>>(
+          'kauth_cred_gid2guid');
+  late final _kauth_cred_gid2guid = _kauth_cred_gid2guidPtr
+      .asFunction<int Function(int, ffi.Pointer<guid_t>)>();
+
+  int kauth_cred_uid2ntsid(
+    int _uid,
+    ffi.Pointer<ntsid_t> _sidp,
+  ) {
+    return _kauth_cred_uid2ntsid(
+      _uid,
+      _sidp,
+    );
+  }
+
+  late final _kauth_cred_uid2ntsidPtr = _lookup<
+          ffi.NativeFunction<ffi.Int Function(uid_t, ffi.Pointer<ntsid_t>)>>(
+      'kauth_cred_uid2ntsid');
+  late final _kauth_cred_uid2ntsid = _kauth_cred_uid2ntsidPtr
+      .asFunction<int Function(int, ffi.Pointer<ntsid_t>)>();
+
+  int kauth_cred_getntsid(
+    kauth_cred_t _cred,
+    ffi.Pointer<ntsid_t> _sidp,
+  ) {
+    return _kauth_cred_getntsid(
+      _cred,
+      _sidp,
+    );
+  }
+
+  late final _kauth_cred_getntsidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              kauth_cred_t, ffi.Pointer<ntsid_t>)>>('kauth_cred_getntsid');
+  late final _kauth_cred_getntsid = _kauth_cred_getntsidPtr
+      .asFunction<int Function(kauth_cred_t, ffi.Pointer<ntsid_t>)>();
+
+  int kauth_cred_gid2ntsid(
+    int _gid,
+    ffi.Pointer<ntsid_t> _sidp,
+  ) {
+    return _kauth_cred_gid2ntsid(
+      _gid,
+      _sidp,
+    );
+  }
+
+  late final _kauth_cred_gid2ntsidPtr = _lookup<
+          ffi.NativeFunction<ffi.Int Function(gid_t, ffi.Pointer<ntsid_t>)>>(
+      'kauth_cred_gid2ntsid');
+  late final _kauth_cred_gid2ntsid = _kauth_cred_gid2ntsidPtr
+      .asFunction<int Function(int, ffi.Pointer<ntsid_t>)>();
+
+  int kauth_cred_guid2ntsid(
+    ffi.Pointer<guid_t> _guid,
+    ffi.Pointer<ntsid_t> _sidp,
+  ) {
+    return _kauth_cred_guid2ntsid(
+      _guid,
+      _sidp,
+    );
+  }
+
+  late final _kauth_cred_guid2ntsidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<guid_t>,
+              ffi.Pointer<ntsid_t>)>>('kauth_cred_guid2ntsid');
+  late final _kauth_cred_guid2ntsid = _kauth_cred_guid2ntsidPtr
+      .asFunction<int Function(ffi.Pointer<guid_t>, ffi.Pointer<ntsid_t>)>();
+
+  int kauth_cred_ismember_gid(
+    kauth_cred_t _cred,
+    int _gid,
+    ffi.Pointer<ffi.Int> _resultp,
+  ) {
+    return _kauth_cred_ismember_gid(
+      _cred,
+      _gid,
+      _resultp,
+    );
+  }
+
+  late final _kauth_cred_ismember_gidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(kauth_cred_t, gid_t,
+              ffi.Pointer<ffi.Int>)>>('kauth_cred_ismember_gid');
+  late final _kauth_cred_ismember_gid = _kauth_cred_ismember_gidPtr
+      .asFunction<int Function(kauth_cred_t, int, ffi.Pointer<ffi.Int>)>();
+
+  int kauth_cred_ismember_guid(
+    kauth_cred_t _cred,
+    ffi.Pointer<guid_t> _guidp,
+    ffi.Pointer<ffi.Int> _resultp,
+  ) {
+    return _kauth_cred_ismember_guid(
+      _cred,
+      _guidp,
+      _resultp,
+    );
+  }
+
+  late final _kauth_cred_ismember_guidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(kauth_cred_t, ffi.Pointer<guid_t>,
+              ffi.Pointer<ffi.Int>)>>('kauth_cred_ismember_guid');
+  late final _kauth_cred_ismember_guid =
+      _kauth_cred_ismember_guidPtr.asFunction<
+          int Function(
+              kauth_cred_t, ffi.Pointer<guid_t>, ffi.Pointer<ffi.Int>)>();
+
+  int kauth_cred_nfs4domain2dsnode(
+    ffi.Pointer<ffi.Char> nfs4domain,
+    ffi.Pointer<ffi.Char> dsnode,
+  ) {
+    return _kauth_cred_nfs4domain2dsnode(
+      nfs4domain,
+      dsnode,
+    );
+  }
+
+  late final _kauth_cred_nfs4domain2dsnodePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>)>>('kauth_cred_nfs4domain2dsnode');
+  late final _kauth_cred_nfs4domain2dsnode = _kauth_cred_nfs4domain2dsnodePtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+
+  int kauth_cred_dsnode2nfs4domain(
+    ffi.Pointer<ffi.Char> dsnode,
+    ffi.Pointer<ffi.Char> nfs4domain,
+  ) {
+    return _kauth_cred_dsnode2nfs4domain(
+      dsnode,
+      nfs4domain,
+    );
+  }
+
+  late final _kauth_cred_dsnode2nfs4domainPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>)>>('kauth_cred_dsnode2nfs4domain');
+  late final _kauth_cred_dsnode2nfs4domain = _kauth_cred_dsnode2nfs4domainPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+
+  int groupmember(
+    int gid,
+    kauth_cred_t cred,
+  ) {
+    return _groupmember(
+      gid,
+      cred,
+    );
+  }
+
+  late final _groupmemberPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(gid_t, kauth_cred_t)>>(
+          'groupmember');
+  late final _groupmember =
+      _groupmemberPtr.asFunction<int Function(int, kauth_cred_t)>();
+
+  kauth_acl_t kauth_acl_alloc(
+    int size,
+  ) {
+    return _kauth_acl_alloc(
+      size,
+    );
+  }
+
+  late final _kauth_acl_allocPtr =
+      _lookup<ffi.NativeFunction<kauth_acl_t Function(ffi.Int)>>(
+          'kauth_acl_alloc');
+  late final _kauth_acl_alloc =
+      _kauth_acl_allocPtr.asFunction<kauth_acl_t Function(int)>();
+
+  void kauth_acl_free(
+    kauth_acl_t fsp,
+  ) {
+    return _kauth_acl_free(
+      fsp,
+    );
+  }
+
+  late final _kauth_acl_freePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(kauth_acl_t)>>(
+          'kauth_acl_free');
+  late final _kauth_acl_free =
+      _kauth_acl_freePtr.asFunction<void Function(kauth_acl_t)>();
+
+  kauth_filesec_t kauth_filesec_alloc(
+    int size,
+  ) {
+    return _kauth_filesec_alloc(
+      size,
+    );
+  }
+
+  late final _kauth_filesec_allocPtr =
+      _lookup<ffi.NativeFunction<kauth_filesec_t Function(ffi.Int)>>(
+          'kauth_filesec_alloc');
+  late final _kauth_filesec_alloc =
+      _kauth_filesec_allocPtr.asFunction<kauth_filesec_t Function(int)>();
+
+  void kauth_filesec_free(
+    kauth_filesec_t fsp,
+  ) {
+    return _kauth_filesec_free(
+      fsp,
+    );
+  }
+
+  late final _kauth_filesec_freePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(kauth_filesec_t)>>(
+          'kauth_filesec_free');
+  late final _kauth_filesec_free =
+      _kauth_filesec_freePtr.asFunction<void Function(kauth_filesec_t)>();
+
+  kauth_scope_t kauth_register_scope(
+    ffi.Pointer<ffi.Char> _identifier,
+    kauth_scope_callback_t _callback,
+    ffi.Pointer<ffi.Void> _idata,
+  ) {
+    return _kauth_register_scope(
+      _identifier,
+      _callback,
+      _idata,
+    );
+  }
+
+  late final _kauth_register_scopePtr = _lookup<
+      ffi.NativeFunction<
+          kauth_scope_t Function(ffi.Pointer<ffi.Char>, kauth_scope_callback_t,
+              ffi.Pointer<ffi.Void>)>>('kauth_register_scope');
+  late final _kauth_register_scope = _kauth_register_scopePtr.asFunction<
+      kauth_scope_t Function(ffi.Pointer<ffi.Char>, kauth_scope_callback_t,
+          ffi.Pointer<ffi.Void>)>();
+
+  void kauth_deregister_scope(
+    kauth_scope_t _scope,
+  ) {
+    return _kauth_deregister_scope(
+      _scope,
+    );
+  }
+
+  late final _kauth_deregister_scopePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(kauth_scope_t)>>(
+          'kauth_deregister_scope');
+  late final _kauth_deregister_scope =
+      _kauth_deregister_scopePtr.asFunction<void Function(kauth_scope_t)>();
+
+  kauth_listener_t kauth_listen_scope(
+    ffi.Pointer<ffi.Char> _identifier,
+    kauth_scope_callback_t _callback,
+    ffi.Pointer<ffi.Void> _idata,
+  ) {
+    return _kauth_listen_scope(
+      _identifier,
+      _callback,
+      _idata,
+    );
+  }
+
+  late final _kauth_listen_scopePtr = _lookup<
+      ffi.NativeFunction<
+          kauth_listener_t Function(
+              ffi.Pointer<ffi.Char>,
+              kauth_scope_callback_t,
+              ffi.Pointer<ffi.Void>)>>('kauth_listen_scope');
+  late final _kauth_listen_scope = _kauth_listen_scopePtr.asFunction<
+      kauth_listener_t Function(ffi.Pointer<ffi.Char>, kauth_scope_callback_t,
+          ffi.Pointer<ffi.Void>)>();
+
+  void kauth_unlisten_scope(
+    kauth_listener_t _scope,
+  ) {
+    return _kauth_unlisten_scope(
+      _scope,
+    );
+  }
+
+  late final _kauth_unlisten_scopePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(kauth_listener_t)>>(
+          'kauth_unlisten_scope');
+  late final _kauth_unlisten_scope =
+      _kauth_unlisten_scopePtr.asFunction<void Function(kauth_listener_t)>();
+
+  int kauth_authorize_action(
+    kauth_scope_t _scope,
+    kauth_cred_t _credential,
+    int _action,
+    int _arg0,
+    int _arg1,
+    int _arg2,
+    int _arg3,
+  ) {
+    return _kauth_authorize_action(
+      _scope,
+      _credential,
+      _action,
+      _arg0,
+      _arg1,
+      _arg2,
+      _arg3,
+    );
+  }
+
+  late final _kauth_authorize_actionPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              kauth_scope_t,
+              kauth_cred_t,
+              kauth_action_t,
+              ffi.UintPtr,
+              ffi.UintPtr,
+              ffi.UintPtr,
+              ffi.UintPtr)>>('kauth_authorize_action');
+  late final _kauth_authorize_action = _kauth_authorize_actionPtr.asFunction<
+      int Function(kauth_scope_t, kauth_cred_t, int, int, int, int, int)>();
+
+  int kauth_authorize_process(
+    kauth_cred_t _credential,
+    int _action,
+    ffi.Pointer<proc> _process,
+    int _arg1,
+    int _arg2,
+    int _arg3,
+  ) {
+    return _kauth_authorize_process(
+      _credential,
+      _action,
+      _process,
+      _arg1,
+      _arg2,
+      _arg3,
+    );
+  }
+
+  late final _kauth_authorize_processPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              kauth_cred_t,
+              kauth_action_t,
+              ffi.Pointer<proc>,
+              ffi.UintPtr,
+              ffi.UintPtr,
+              ffi.UintPtr)>>('kauth_authorize_process');
+  late final _kauth_authorize_process = _kauth_authorize_processPtr.asFunction<
+      int Function(kauth_cred_t, int, ffi.Pointer<proc>, int, int, int)>();
+
+  late final ffi.Pointer<guid_t> _kauth_null_guid =
+      _lookup<guid_t>('kauth_null_guid');
+
+  guid_t get kauth_null_guid => _kauth_null_guid.ref;
+
+  int kauth_guid_equal(
+    ffi.Pointer<guid_t> _guid1,
+    ffi.Pointer<guid_t> _guid2,
+  ) {
+    return _kauth_guid_equal(
+      _guid1,
+      _guid2,
+    );
+  }
+
+  late final _kauth_guid_equalPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<guid_t>, ffi.Pointer<guid_t>)>>('kauth_guid_equal');
+  late final _kauth_guid_equal = _kauth_guid_equalPtr
+      .asFunction<int Function(ffi.Pointer<guid_t>, ffi.Pointer<guid_t>)>();
 
   acl_t acl_dup(
     acl_t acl,
@@ -32751,6 +34003,22 @@ class NativeCupertinoHttp {
   set kSecTrustCertificateTransparencyWhiteList(CFStringRef value) =>
       _kSecTrustCertificateTransparencyWhiteList.value = value;
 
+  late final ffi.Pointer<CFStringRef> _kSecTrustQCStatements =
+      _lookup<CFStringRef>('kSecTrustQCStatements');
+
+  CFStringRef get kSecTrustQCStatements => _kSecTrustQCStatements.value;
+
+  set kSecTrustQCStatements(CFStringRef value) =>
+      _kSecTrustQCStatements.value = value;
+
+  late final ffi.Pointer<CFStringRef> _kSecTrustQWACValidation =
+      _lookup<CFStringRef>('kSecTrustQWACValidation');
+
+  CFStringRef get kSecTrustQWACValidation => _kSecTrustQWACValidation.value;
+
+  set kSecTrustQWACValidation(CFStringRef value) =>
+      _kSecTrustQWACValidation.value = value;
+
   int SecTrustGetTypeID() {
     return _SecTrustGetTypeID();
   }
@@ -33994,6 +35262,25 @@ class NativeCupertinoHttp {
   late final _SecIdentityGetTypeID =
       _SecIdentityGetTypeIDPtr.asFunction<int Function()>();
 
+  SecIdentityRef SecIdentityCreate(
+    CFAllocatorRef allocator,
+    SecCertificateRef certificate,
+    SecKeyRef privateKey,
+  ) {
+    return _SecIdentityCreate(
+      allocator,
+      certificate,
+      privateKey,
+    );
+  }
+
+  late final _SecIdentityCreatePtr = _lookup<
+      ffi.NativeFunction<
+          SecIdentityRef Function(CFAllocatorRef, SecCertificateRef,
+              SecKeyRef)>>('SecIdentityCreate');
+  late final _SecIdentityCreate = _SecIdentityCreatePtr.asFunction<
+      SecIdentityRef Function(CFAllocatorRef, SecCertificateRef, SecKeyRef)>();
+
   int SecIdentityCreateWithCertificate(
     CFTypeRef keychainOrArray,
     SecCertificateRef certificateRef,
@@ -34371,6 +35658,22 @@ class NativeCupertinoHttp {
       _sec_protocol_metadata_get_negotiated_protocolPtr.asFunction<
           ffi.Pointer<ffi.Char> Function(sec_protocol_metadata_t)>();
 
+  ffi.Pointer<ffi.Char> sec_protocol_metadata_copy_negotiated_protocol(
+    Dartsec_protocol_metadata_t metadata,
+  ) {
+    return _sec_protocol_metadata_copy_negotiated_protocol(
+      metadata.ref.pointer,
+    );
+  }
+
+  late final _sec_protocol_metadata_copy_negotiated_protocolPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<ffi.Char> Function(sec_protocol_metadata_t)>>(
+      'sec_protocol_metadata_copy_negotiated_protocol');
+  late final _sec_protocol_metadata_copy_negotiated_protocol =
+      _sec_protocol_metadata_copy_negotiated_protocolPtr.asFunction<
+          ffi.Pointer<ffi.Char> Function(sec_protocol_metadata_t)>();
+
   Dartdispatch_data_t? sec_protocol_metadata_copy_peer_public_key(
     Dartsec_protocol_metadata_t metadata,
   ) {
@@ -34592,6 +35895,22 @@ class NativeCupertinoHttp {
       'sec_protocol_metadata_get_server_name');
   late final _sec_protocol_metadata_get_server_name =
       _sec_protocol_metadata_get_server_namePtr.asFunction<
+          ffi.Pointer<ffi.Char> Function(sec_protocol_metadata_t)>();
+
+  ffi.Pointer<ffi.Char> sec_protocol_metadata_copy_server_name(
+    Dartsec_protocol_metadata_t metadata,
+  ) {
+    return _sec_protocol_metadata_copy_server_name(
+      metadata.ref.pointer,
+    );
+  }
+
+  late final _sec_protocol_metadata_copy_server_namePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<ffi.Char> Function(sec_protocol_metadata_t)>>(
+      'sec_protocol_metadata_copy_server_name');
+  late final _sec_protocol_metadata_copy_server_name =
+      _sec_protocol_metadata_copy_server_namePtr.asFunction<
           ffi.Pointer<ffi.Char> Function(sec_protocol_metadata_t)>();
 
   bool sec_protocol_metadata_peers_are_equal(
@@ -40054,6 +41373,45 @@ class NativeCupertinoHttp {
         value.ref.retainAndReturnPointer();
   }
 
+  /// returns the read-only value of the NSFileManagerSupportedSyncControls options as a NSNumber.
+  late final ffi.Pointer<NSURLResourceKey>
+      _NSURLUbiquitousItemSupportedSyncControlsKey =
+      _lookup<NSURLResourceKey>('NSURLUbiquitousItemSupportedSyncControlsKey');
+
+  DartNSURLResourceKey get NSURLUbiquitousItemSupportedSyncControlsKey =>
+      objc.NSString.castFromPointer(
+          _NSURLUbiquitousItemSupportedSyncControlsKey.value,
+          retain: true,
+          release: true);
+
+  set NSURLUbiquitousItemSupportedSyncControlsKey(DartNSURLResourceKey value) {
+    objc.NSString.castFromPointer(
+            _NSURLUbiquitousItemSupportedSyncControlsKey.value,
+            retain: false,
+            release: true)
+        .ref
+        .release();
+    _NSURLUbiquitousItemSupportedSyncControlsKey.value =
+        value.ref.retainAndReturnPointer();
+  }
+
+  /// returns a boolean.
+  late final ffi.Pointer<NSURLResourceKey> _NSURLUbiquitousItemIsSyncPausedKey =
+      _lookup<NSURLResourceKey>('NSURLUbiquitousItemIsSyncPausedKey');
+
+  DartNSURLResourceKey get NSURLUbiquitousItemIsSyncPausedKey =>
+      objc.NSString.castFromPointer(_NSURLUbiquitousItemIsSyncPausedKey.value,
+          retain: true, release: true);
+
+  set NSURLUbiquitousItemIsSyncPausedKey(DartNSURLResourceKey value) {
+    objc.NSString.castFromPointer(_NSURLUbiquitousItemIsSyncPausedKey.value,
+            retain: false, release: true)
+        .ref
+        .release();
+    _NSURLUbiquitousItemIsSyncPausedKey.value =
+        value.ref.retainAndReturnPointer();
+  }
+
   late final ffi.Pointer<NSExceptionName> _NSGenericException =
       _lookup<NSExceptionName>('NSGenericException');
 
@@ -41568,7 +42926,7 @@ typedef Dart__darwin_fsfilcnt_t = int;
 typedef __darwin_gid_t = __uint32_t;
 typedef __darwin_id_t = __uint32_t;
 typedef __darwin_ino64_t = __uint64_t;
-typedef __darwin_ino_t = __darwin_ino64_t;
+typedef __darwin_ino_t = __uint32_t;
 typedef __darwin_mach_port_name_t = __darwin_natural_t;
 typedef __darwin_mach_port_t = __darwin_mach_port_name_t;
 typedef __darwin_mode_t = __uint16_t;
@@ -41578,124 +42936,11 @@ typedef __darwin_sigset_t = __uint32_t;
 typedef __darwin_suseconds_t = __int32_t;
 typedef __darwin_uid_t = __uint32_t;
 typedef __darwin_useconds_t = __uint32_t;
-
-final class __darwin_pthread_handler_rec extends ffi.Struct {
-  external ffi
-      .Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>
-      __routine;
-
-  external ffi.Pointer<ffi.Void> __arg;
-
-  external ffi.Pointer<__darwin_pthread_handler_rec> __next;
-}
-
-final class _opaque_pthread_attr_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  @ffi.Array.multi([56])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-final class _opaque_pthread_cond_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  @ffi.Array.multi([40])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-final class _opaque_pthread_condattr_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  @ffi.Array.multi([8])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-final class _opaque_pthread_mutex_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  @ffi.Array.multi([56])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-final class _opaque_pthread_mutexattr_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  @ffi.Array.multi([8])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-final class _opaque_pthread_once_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  @ffi.Array.multi([8])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-final class _opaque_pthread_rwlock_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  @ffi.Array.multi([192])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-final class _opaque_pthread_rwlockattr_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  @ffi.Array.multi([16])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-final class _opaque_pthread_t extends ffi.Struct {
-  @ffi.Long()
-  external int __sig;
-
-  external ffi.Pointer<__darwin_pthread_handler_rec> __cleanup_stack;
-
-  @ffi.Array.multi([8176])
-  external ffi.Array<ffi.Char> __opaque;
-}
-
-typedef __darwin_pthread_attr_t = _opaque_pthread_attr_t;
-typedef __darwin_pthread_cond_t = _opaque_pthread_cond_t;
-typedef __darwin_pthread_condattr_t = _opaque_pthread_condattr_t;
-typedef __darwin_pthread_key_t = ffi.UnsignedLong;
-typedef Dart__darwin_pthread_key_t = int;
-typedef __darwin_pthread_mutex_t = _opaque_pthread_mutex_t;
-typedef __darwin_pthread_mutexattr_t = _opaque_pthread_mutexattr_t;
-typedef __darwin_pthread_once_t = _opaque_pthread_once_t;
-typedef __darwin_pthread_rwlock_t = _opaque_pthread_rwlock_t;
-typedef __darwin_pthread_rwlockattr_t = _opaque_pthread_rwlockattr_t;
-typedef __darwin_pthread_t = ffi.Pointer<_opaque_pthread_t>;
 typedef __darwin_nl_item = ffi.Int;
 typedef Dart__darwin_nl_item = int;
 typedef __darwin_wctrans_t = ffi.Int;
 typedef Dart__darwin_wctrans_t = int;
 typedef __darwin_wctype_t = __uint32_t;
-
-enum idtype_t {
-  P_ALL(0),
-  P_PID(1),
-  P_PGID(2);
-
-  final int value;
-  const idtype_t(this.value);
-
-  static idtype_t fromValue(int value) => switch (value) {
-        0 => P_ALL,
-        1 => P_PID,
-        2 => P_PGID,
-        _ => throw ArgumentError('Unknown value for idtype_t: $value'),
-      };
-}
-
 typedef pid_t = __darwin_pid_t;
 typedef id_t = __darwin_id_t;
 typedef sig_atomic_t = ffi.Int;
@@ -41721,162 +42966,208 @@ typedef user_time_t = ffi.Int64;
 typedef Dartuser_time_t = int;
 typedef user_off_t = ffi.Int64;
 typedef Dartuser_off_t = int;
+typedef user_addr_ut = user_addr_t;
+typedef user_size_ut = user_size_t;
+typedef user64_addr_t = __uint64_t;
+typedef user64_size_t = __uint64_t;
+typedef user64_ssize_t = __int64_t;
+typedef user64_long_t = __int64_t;
+typedef user64_ulong_t = __uint64_t;
+typedef user64_time_t = __int64_t;
+typedef user64_off_t = __int64_t;
+typedef user32_addr_t = __uint32_t;
+typedef user32_size_t = __uint32_t;
+typedef user32_ssize_t = __int32_t;
+typedef user32_long_t = __int32_t;
+typedef user32_ulong_t = __uint32_t;
+typedef user32_time_t = __int32_t;
+typedef user32_off_t = __int64_t;
 typedef syscall_arg_t = u_int64_t;
 
-final class __darwin_arm_exception_state extends ffi.Struct {
+final class arm_exception_state extends ffi.Struct {
   @__uint32_t()
-  external int __exception;
+  external int exception;
 
   @__uint32_t()
-  external int __fsr;
+  external int fsr;
 
   @__uint32_t()
-  external int __far;
+  external int far;
 }
 
-final class __darwin_arm_exception_state64 extends ffi.Struct {
+final class arm_exception_state64 extends ffi.Struct {
   @__uint64_t()
-  external int __far;
+  external int far;
 
   @__uint32_t()
-  external int __esr;
+  external int esr;
 
   @__uint32_t()
-  external int __exception;
+  external int exception;
 }
 
-final class __darwin_arm_exception_state64_v2 extends ffi.Struct {
+final class arm_exception_state64_v2 extends ffi.Struct {
   @__uint64_t()
-  external int __far;
+  external int far;
 
   @__uint64_t()
-  external int __esr;
+  external int esr;
 }
 
-final class __darwin_arm_thread_state extends ffi.Struct {
+final class arm_thread_state extends ffi.Struct {
   @ffi.Array.multi([13])
-  external ffi.Array<__uint32_t> __r;
+  external ffi.Array<__uint32_t> r;
 
   @__uint32_t()
-  external int __sp;
+  external int sp;
 
   @__uint32_t()
-  external int __lr;
+  external int lr;
 
   @__uint32_t()
-  external int __pc;
+  external int pc;
 
   @__uint32_t()
-  external int __cpsr;
+  external int cpsr;
 }
 
-final class __darwin_arm_thread_state64 extends ffi.Struct {
+final class arm_thread_state64 extends ffi.Struct {
   @ffi.Array.multi([29])
-  external ffi.Array<__uint64_t> __x;
+  external ffi.Array<__uint64_t> x;
 
   @__uint64_t()
-  external int __fp;
+  external int fp;
 
   @__uint64_t()
-  external int __lr;
+  external int lr;
 
   @__uint64_t()
-  external int __sp;
+  external int sp;
 
   @__uint64_t()
-  external int __pc;
+  external int pc;
 
   @__uint32_t()
-  external int __cpsr;
+  external int cpsr;
 
   @__uint32_t()
-  external int __pad;
+  external int flags;
 }
 
-final class __darwin_arm_vfp_state extends ffi.Struct {
+final class arm_vfp_state extends ffi.Struct {
   @ffi.Array.multi([64])
-  external ffi.Array<__uint32_t> __r;
+  external ffi.Array<__uint32_t> r;
 
   @__uint32_t()
-  external int __fpscr;
+  external int fpscr;
 }
 
-final class __darwin_arm_neon_state64 extends ffi.Opaque {}
+final class arm_neon_state64 extends ffi.Opaque {}
 
-final class __darwin_arm_neon_state extends ffi.Opaque {}
+final class arm_neon_state extends ffi.Opaque {}
 
 final class __arm_pagein_state extends ffi.Struct {
   @ffi.Int()
   external int __pagein_error;
 }
 
-final class __arm_legacy_debug_state extends ffi.Struct {
-  @ffi.Array.multi([16])
-  external ffi.Array<__uint32_t> __bvr;
-
-  @ffi.Array.multi([16])
-  external ffi.Array<__uint32_t> __bcr;
-
-  @ffi.Array.multi([16])
-  external ffi.Array<__uint32_t> __wvr;
-
-  @ffi.Array.multi([16])
-  external ffi.Array<__uint32_t> __wcr;
-}
-
-final class __darwin_arm_debug_state32 extends ffi.Struct {
-  @ffi.Array.multi([16])
-  external ffi.Array<__uint32_t> __bvr;
-
-  @ffi.Array.multi([16])
-  external ffi.Array<__uint32_t> __bcr;
-
-  @ffi.Array.multi([16])
-  external ffi.Array<__uint32_t> __wvr;
-
-  @ffi.Array.multi([16])
-  external ffi.Array<__uint32_t> __wcr;
+final class arm_sme_state extends ffi.Struct {
+  @__uint64_t()
+  external int svcr;
 
   @__uint64_t()
-  external int __mdscr_el1;
+  external int tpidr2_el0;
+
+  @__uint16_t()
+  external int svl_b;
 }
 
-final class __darwin_arm_debug_state64 extends ffi.Struct {
+final class arm_sve_z_state extends ffi.Struct {
+  @ffi.Array.multi([16, 256])
+  external ffi.Array<ffi.Array<ffi.Char>> z;
+}
+
+final class arm_sve_p_state extends ffi.Struct {
+  @ffi.Array.multi([16, 32])
+  external ffi.Array<ffi.Array<ffi.Char>> p;
+}
+
+final class arm_sme_za_state extends ffi.Struct {
+  @ffi.Array.multi([4096])
+  external ffi.Array<ffi.Char> za;
+}
+
+final class arm_sme2_state extends ffi.Struct {
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Char> zt0;
+}
+
+final class arm_legacy_debug_state extends ffi.Struct {
   @ffi.Array.multi([16])
-  external ffi.Array<__uint64_t> __bvr;
+  external ffi.Array<__uint32_t> bvr;
 
   @ffi.Array.multi([16])
-  external ffi.Array<__uint64_t> __bcr;
+  external ffi.Array<__uint32_t> bcr;
 
   @ffi.Array.multi([16])
-  external ffi.Array<__uint64_t> __wvr;
+  external ffi.Array<__uint32_t> wvr;
 
   @ffi.Array.multi([16])
-  external ffi.Array<__uint64_t> __wcr;
+  external ffi.Array<__uint32_t> wcr;
+}
+
+final class arm_debug_state32 extends ffi.Struct {
+  @ffi.Array.multi([16])
+  external ffi.Array<__uint32_t> bvr;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<__uint32_t> bcr;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<__uint32_t> wvr;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<__uint32_t> wcr;
 
   @__uint64_t()
-  external int __mdscr_el1;
+  external int mdscr_el1;
 }
 
-final class __darwin_arm_cpmu_state64 extends ffi.Struct {
+final class arm_debug_state64 extends ffi.Struct {
   @ffi.Array.multi([16])
-  external ffi.Array<__uint64_t> __ctrs;
+  external ffi.Array<__uint64_t> bvr;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<__uint64_t> bcr;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<__uint64_t> wvr;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<__uint64_t> wcr;
+
+  @__uint64_t()
+  external int mdscr_el1;
 }
 
-final class __darwin_mcontext32 extends ffi.Struct {
-  external __darwin_arm_exception_state __es;
-
-  external __darwin_arm_thread_state __ss;
-
-  external __darwin_arm_vfp_state __fs;
+final class arm_cpmu_state64 extends ffi.Struct {
+  @ffi.Array.multi([16])
+  external ffi.Array<__uint64_t> ctrs;
 }
 
-final class __darwin_mcontext64 extends ffi.Opaque {}
+final class mcontext32 extends ffi.Struct {
+  external arm_exception_state es;
 
-typedef mcontext_t = ffi.Pointer<__darwin_mcontext64>;
-typedef pthread_attr_t = __darwin_pthread_attr_t;
+  external arm_thread_state ss;
 
-final class __darwin_sigaltstack extends ffi.Struct {
+  external arm_vfp_state fs;
+}
+
+final class mcontext64 extends ffi.Opaque {}
+
+typedef mcontext_t = ffi.Pointer<mcontext64>;
+
+final class sigaltstack extends ffi.Struct {
   external ffi.Pointer<ffi.Void> ss_sp;
 
   @__darwin_size_t()
@@ -41886,26 +43177,26 @@ final class __darwin_sigaltstack extends ffi.Struct {
   external int ss_flags;
 }
 
-typedef stack_t = __darwin_sigaltstack;
+typedef stack_t = sigaltstack;
 
-final class __darwin_ucontext extends ffi.Struct {
+final class ucontext extends ffi.Struct {
   @ffi.Int()
   external int uc_onstack;
 
   @__darwin_sigset_t()
   external int uc_sigmask;
 
-  external __darwin_sigaltstack uc_stack;
+  external sigaltstack uc_stack;
 
-  external ffi.Pointer<__darwin_ucontext> uc_link;
+  external ffi.Pointer<ucontext> uc_link;
 
   @__darwin_size_t()
   external int uc_mcsize;
 
-  external ffi.Pointer<__darwin_mcontext64> uc_mcontext;
+  external ffi.Pointer<mcontext64> uc_mcontext;
 }
 
-typedef ucontext_t = __darwin_ucontext;
+typedef ucontext_t = ucontext;
 typedef sigset_t = __darwin_sigset_t;
 typedef uid_t = __darwin_uid_t;
 
@@ -41914,21 +43205,6 @@ final class sigval extends ffi.Union {
   external int sival_int;
 
   external ffi.Pointer<ffi.Void> sival_ptr;
-}
-
-final class sigevent extends ffi.Struct {
-  @ffi.Int()
-  external int sigev_notify;
-
-  @ffi.Int()
-  external int sigev_signo;
-
-  external sigval sigev_value;
-
-  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(sigval)>>
-      sigev_notify_function;
-
-  external ffi.Pointer<pthread_attr_t> sigev_notify_attributes;
 }
 
 final class __siginfo extends ffi.Struct {
@@ -42063,6 +43339,22 @@ final class timeval extends ffi.Struct {
   external int tv_sec;
 
   @__darwin_suseconds_t()
+  external int tv_usec;
+}
+
+final class user32_timeval extends ffi.Struct {
+  @user32_time_t()
+  external int tv_sec;
+
+  @__int32_t()
+  external int tv_usec;
+}
+
+final class user64_timeval extends ffi.Struct {
+  @user64_time_t()
+  external int tv_sec;
+
+  @__int32_t()
   external int tv_usec;
 }
 
@@ -42725,6 +44017,128 @@ final class rusage_info_v6 extends ffi.Struct {
 
 typedef rusage_info_current = rusage_info_v6;
 
+final class rusage_superset extends ffi.Struct {
+  external rusage ru;
+
+  external rusage_info_current ri;
+}
+
+final class rusage_info_child extends ffi.Struct {
+  @ffi.Uint64()
+  external int ri_child_user_time;
+
+  @ffi.Uint64()
+  external int ri_child_system_time;
+
+  @ffi.Uint64()
+  external int ri_child_pkg_idle_wkups;
+
+  @ffi.Uint64()
+  external int ri_child_interrupt_wkups;
+
+  @ffi.Uint64()
+  external int ri_child_pageins;
+
+  @ffi.Uint64()
+  external int ri_child_elapsed_abstime;
+}
+
+final class user64_rusage extends ffi.Struct {
+  external user64_timeval ru_utime;
+
+  external user64_timeval ru_stime;
+
+  @user64_long_t()
+  external int ru_maxrss;
+
+  @user64_long_t()
+  external int ru_ixrss;
+
+  @user64_long_t()
+  external int ru_idrss;
+
+  @user64_long_t()
+  external int ru_isrss;
+
+  @user64_long_t()
+  external int ru_minflt;
+
+  @user64_long_t()
+  external int ru_majflt;
+
+  @user64_long_t()
+  external int ru_nswap;
+
+  @user64_long_t()
+  external int ru_inblock;
+
+  @user64_long_t()
+  external int ru_oublock;
+
+  @user64_long_t()
+  external int ru_msgsnd;
+
+  @user64_long_t()
+  external int ru_msgrcv;
+
+  @user64_long_t()
+  external int ru_nsignals;
+
+  @user64_long_t()
+  external int ru_nvcsw;
+
+  @user64_long_t()
+  external int ru_nivcsw;
+}
+
+final class user32_rusage extends ffi.Struct {
+  external user32_timeval ru_utime;
+
+  external user32_timeval ru_stime;
+
+  @user32_long_t()
+  external int ru_maxrss;
+
+  @user32_long_t()
+  external int ru_ixrss;
+
+  @user32_long_t()
+  external int ru_idrss;
+
+  @user32_long_t()
+  external int ru_isrss;
+
+  @user32_long_t()
+  external int ru_minflt;
+
+  @user32_long_t()
+  external int ru_majflt;
+
+  @user32_long_t()
+  external int ru_nswap;
+
+  @user32_long_t()
+  external int ru_inblock;
+
+  @user32_long_t()
+  external int ru_oublock;
+
+  @user32_long_t()
+  external int ru_msgsnd;
+
+  @user32_long_t()
+  external int ru_msgrcv;
+
+  @user32_long_t()
+  external int ru_nsignals;
+
+  @user32_long_t()
+  external int ru_nvcsw;
+
+  @user32_long_t()
+  external int ru_nivcsw;
+}
+
 final class rlimit extends ffi.Struct {
   @rlim_t()
   external int rlim_cur;
@@ -43035,10 +44449,6 @@ extension ObjCBlock_ffiInt_ffiVoid_ffiVoid_CallExtension on objc
                   ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0, arg1);
 }
 
-typedef ptrdiff_t = ffi.Long;
-typedef Dartptrdiff_t = int;
-typedef rsize_t = ffi.UnsignedLong;
-typedef Dartrsize_t = int;
 typedef u_char = ffi.UnsignedChar;
 typedef Dartu_char = int;
 typedef u_short = ffi.UnsignedShort;
@@ -43056,6 +44466,7 @@ typedef quad_t = ffi.Int64;
 typedef Dartquad_t = int;
 typedef qaddr_t = ffi.Pointer<quad_t>;
 typedef caddr_t = ffi.Pointer<ffi.Char>;
+typedef caddr_ut = caddr_t;
 typedef daddr_t = ffi.Int32;
 typedef Dartdaddr_t = int;
 typedef fixpt_t = u_int32_t;
@@ -43078,6 +44489,7 @@ typedef ssize_t = __darwin_ssize_t;
 typedef time_t = __darwin_time_t;
 typedef useconds_t = __darwin_useconds_t;
 typedef suseconds_t = __darwin_suseconds_t;
+typedef rsize_t = __darwin_size_t;
 typedef errno_t = ffi.Int;
 typedef Darterrno_t = int;
 
@@ -43087,15 +44499,6 @@ final class fd_set extends ffi.Struct {
 }
 
 typedef fd_mask = __int32_t;
-typedef pthread_cond_t = __darwin_pthread_cond_t;
-typedef pthread_condattr_t = __darwin_pthread_condattr_t;
-typedef pthread_mutex_t = __darwin_pthread_mutex_t;
-typedef pthread_mutexattr_t = __darwin_pthread_mutexattr_t;
-typedef pthread_once_t = __darwin_pthread_once_t;
-typedef pthread_rwlock_t = __darwin_pthread_rwlock_t;
-typedef pthread_rwlockattr_t = __darwin_pthread_rwlockattr_t;
-typedef pthread_t = __darwin_pthread_t;
-typedef pthread_key_t = __darwin_pthread_key_t;
 typedef fsblkcnt_t = __darwin_fsblkcnt_t;
 typedef fsfilcnt_t = __darwin_fsfilcnt_t;
 
@@ -43116,8 +44519,8 @@ typedef NSInteger = ffi.Long;
 typedef DartNSInteger = int;
 typedef NSUInteger = ffi.UnsignedLong;
 typedef DartNSUInteger = int;
-typedef __gnuc_va_list = __builtin_va_list;
 typedef va_list = __builtin_va_list;
+typedef __gnuc_va_list = __builtin_va_list;
 typedef NSExceptionName = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSExceptionName = objc.NSString;
 typedef NSRunLoopMode = ffi.Pointer<objc.ObjCObject>;
@@ -43258,9 +44661,9 @@ enum NSQualityOfService {
       };
 }
 
-typedef ptrauth_extra_data_t = ffi.UnsignedLong;
+typedef ptrauth_extra_data_t = ffi.UintPtr;
 typedef Dartptrauth_extra_data_t = int;
-typedef ptrauth_generic_signature_t = ffi.UnsignedLong;
+typedef ptrauth_generic_signature_t = ffi.UintPtr;
 typedef Dartptrauth_generic_signature_t = int;
 typedef UInt8 = ffi.UnsignedChar;
 typedef DartUInt8 = int;
@@ -44657,6 +46060,8 @@ final _objc_msgSend_i3avs9 = objc.msgSendPointer
 late final _sel_requiresDNSSECValidation =
     objc.registerName("requiresDNSSECValidation");
 late final _sel_allowsPersistentDNS = objc.registerName("allowsPersistentDNS");
+late final _sel_cookiePartitionIdentifier =
+    objc.registerName("cookiePartitionIdentifier");
 late final _sel_init = objc.registerName("init");
 late final _sel_new = objc.registerName("new");
 late final _sel_allocWithZone_ = objc.registerName("allocWithZone:");
@@ -45370,6 +46775,17 @@ class NSURLRequest extends objc.NSObject
     objc.checkOsVersionInternal('NSURLRequest.allowsPersistentDNS',
         iOS: (false, (18, 0, 0)), macOS: (false, (15, 0, 0)));
     return _objc_msgSend_91o635(this.ref.pointer, _sel_allowsPersistentDNS);
+  }
+
+  /// Cookie partition identifier used for cookie storage and retrieval.
+  objc.NSString? get cookiePartitionIdentifier {
+    objc.checkOsVersionInternal('NSURLRequest.cookiePartitionIdentifier',
+        iOS: (false, (18, 2, 0)), macOS: (false, (15, 2, 0)));
+    final _ret =
+        _objc_msgSend_151sglz(this.ref.pointer, _sel_cookiePartitionIdentifier);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// init
@@ -46301,6 +47717,8 @@ late final _sel_setRequiresDNSSECValidation_ =
     objc.registerName("setRequiresDNSSECValidation:");
 late final _sel_setAllowsPersistentDNS_ =
     objc.registerName("setAllowsPersistentDNS:");
+late final _sel_setCookiePartitionIdentifier_ =
+    objc.registerName("setCookiePartitionIdentifier:");
 
 /// !
 /// @class NSMutableURLRequest
@@ -46655,6 +48073,27 @@ class NSMutableURLRequest extends NSURLRequest {
         iOS: (false, (18, 0, 0)), macOS: (false, (15, 0, 0)));
     _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setAllowsPersistentDNS_, value);
+  }
+
+  /// Cookie partition identifier used for cookie storage and retrieval.
+  objc.NSString? get cookiePartitionIdentifier {
+    objc.checkOsVersionInternal('NSMutableURLRequest.cookiePartitionIdentifier',
+        iOS: (false, (18, 2, 0)), macOS: (false, (15, 2, 0)));
+    final _ret =
+        _objc_msgSend_151sglz(this.ref.pointer, _sel_cookiePartitionIdentifier);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// Cookie partition identifier used for cookie storage and retrieval.
+  set cookiePartitionIdentifier(objc.NSString? value) {
+    objc.checkOsVersionInternal(
+        'NSMutableURLRequest.setCookiePartitionIdentifier:',
+        iOS: (false, (18, 2, 0)),
+        macOS: (false, (15, 2, 0)));
+    _objc_msgSend_xtuoz7(this.ref.pointer, _sel_setCookiePartitionIdentifier_,
+        value?.ref.pointer ?? ffi.nullptr);
   }
 
   /// !
@@ -48004,6 +49443,10 @@ extension NSURLSessionTaskAdditions$1 on NSHTTPCookieStorage {
 }
 
 late final _class_NSDictionary = objc.getClass("NSDictionary");
+typedef ObjectType = ffi.Pointer<objc.ObjCObject>;
+typedef DartObjectType = objc.ObjCObjectBase;
+typedef KeyType = ffi.Pointer<objc.ObjCObject>;
+typedef DartKeyType = objc.ObjCObjectBase;
 late final _sel_getObjects_andKeys_ = objc.registerName("getObjects:andKeys:");
 final _objc_msgSend_hefmm1 = objc.msgSendPointer
     .cast<
@@ -48049,8 +49492,8 @@ late final _sel_writeToURL_atomically_ =
 /// NSDeprecated
 extension NSDeprecated on objc.NSDictionary {
   /// getObjects:andKeys:
-  void getObjects_andKeys_(ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> keys) {
+  void getObjects_andKeys_(
+      ffi.Pointer<ObjectType> objects, ffi.Pointer<KeyType> keys) {
     objc.checkOsVersionInternal('NSDictionary.getObjects:andKeys:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_hefmm1(
@@ -48119,6 +49562,8 @@ extension NSDeprecated on objc.NSDictionary {
 }
 
 late final _sel_dictionary = objc.registerName("dictionary");
+typedef ObjectType$1 = ffi.Pointer<objc.ObjCObject>;
+typedef DartObjectType$1 = objc.ObjCObjectBase;
 late final _sel_dictionaryWithObject_forKey_ =
     objc.registerName("dictionaryWithObject:forKey:");
 late final _sel_dictionaryWithObjects_forKeys_count_ =
@@ -48195,7 +49640,7 @@ extension NSDictionaryCreation on objc.NSDictionary {
 
   /// dictionaryWithObject:forKey:
   static objc.NSDictionary dictionaryWithObject_forKey_(
-      objc.ObjCObjectBase object, objc.ObjCObjectBase key) {
+      DartObjectType$1 object, objc.NSCopying key) {
     final _ret = _objc_msgSend_15qeuct(_class_NSDictionary,
         _sel_dictionaryWithObject_forKey_, object.ref.pointer, key.ref.pointer);
     return objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
@@ -48203,7 +49648,7 @@ extension NSDictionaryCreation on objc.NSDictionary {
 
   /// dictionaryWithObjects:forKeys:count:
   static objc.NSDictionary dictionaryWithObjects_forKeys_count_(
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects,
+      ffi.Pointer<ObjectType$1> objects,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> keys,
       DartNSUInteger cnt) {
     final _ret = _objc_msgSend_1dydpdi(_class_NSDictionary,
@@ -48753,26 +50198,6 @@ typedef Dartos_function_tFunction = void Function(ffi.Pointer<ffi.Void>);
 typedef os_function_t = ffi.Pointer<ffi.NativeFunction<os_function_tFunction>>;
 typedef os_block_t = ffi.Pointer<objc.ObjCBlockImpl>;
 typedef Dartos_block_t = objc.ObjCBlock<ffi.Void Function()>;
-
-/// WARNING: OS_object is a stub. To generate bindings for this class, include
-/// OS_object in your config's objc-interfaces list.
-///
-/// OS_object
-class OS_object extends objc.NSObject {
-  OS_object._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [OS_object] that points to the same underlying object as [other].
-  OS_object.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [OS_object] that wraps the given raw object pointer.
-  OS_object.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-}
-
 typedef sec_object_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartsec_object_t = objc.NSObject;
 
@@ -48935,6 +50360,10 @@ final class _RuneLocale extends ffi.Struct {
   external ffi.Pointer<_RuneCharClass> __charclasses;
 }
 
+final class _xlocale extends ffi.Opaque {}
+
+typedef locale_t = ffi.Pointer<_xlocale>;
+
 final class lconv extends ffi.Struct {
   external ffi.Pointer<ffi.Char> decimal_point;
 
@@ -49036,6 +50465,102 @@ final class exception extends ffi.Struct {
   external double retval;
 }
 
+final class __darwin_pthread_handler_rec extends ffi.Struct {
+  external ffi
+      .Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>
+      __routine;
+
+  external ffi.Pointer<ffi.Void> __arg;
+
+  external ffi.Pointer<__darwin_pthread_handler_rec> __next;
+}
+
+final class _opaque_pthread_attr_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  @ffi.Array.multi([56])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+final class _opaque_pthread_cond_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  @ffi.Array.multi([40])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+final class _opaque_pthread_condattr_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  @ffi.Array.multi([8])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+final class _opaque_pthread_mutex_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  @ffi.Array.multi([56])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+final class _opaque_pthread_mutexattr_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  @ffi.Array.multi([8])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+final class _opaque_pthread_once_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  @ffi.Array.multi([8])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+final class _opaque_pthread_rwlock_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  @ffi.Array.multi([192])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+final class _opaque_pthread_rwlockattr_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+final class _opaque_pthread_t extends ffi.Struct {
+  @ffi.Long()
+  external int __sig;
+
+  external ffi.Pointer<__darwin_pthread_handler_rec> __cleanup_stack;
+
+  @ffi.Array.multi([8176])
+  external ffi.Array<ffi.Char> __opaque;
+}
+
+typedef __darwin_pthread_attr_t = _opaque_pthread_attr_t;
+typedef __darwin_pthread_cond_t = _opaque_pthread_cond_t;
+typedef __darwin_pthread_condattr_t = _opaque_pthread_condattr_t;
+typedef __darwin_pthread_key_t = ffi.UnsignedLong;
+typedef Dart__darwin_pthread_key_t = int;
+typedef __darwin_pthread_mutex_t = _opaque_pthread_mutex_t;
+typedef __darwin_pthread_mutexattr_t = _opaque_pthread_mutexattr_t;
+typedef __darwin_pthread_once_t = _opaque_pthread_once_t;
+typedef __darwin_pthread_rwlock_t = _opaque_pthread_rwlock_t;
+typedef __darwin_pthread_rwlockattr_t = _opaque_pthread_rwlockattr_t;
+typedef __darwin_pthread_t = ffi.Pointer<_opaque_pthread_t>;
+typedef pthread_t = __darwin_pthread_t;
 typedef fpos_t = __darwin_off_t;
 
 final class __sbuf extends ffi.Struct {
@@ -50100,7 +51625,11 @@ typedef Dartvm32_size_t = int;
 typedef mach_port_context_t = vm_offset_t;
 typedef mach_port_name_t = natural_t;
 typedef mach_port_name_array_t = ffi.Pointer<mach_port_name_t>;
-typedef mach_port_t = __darwin_mach_port_t;
+
+final class ipc_port extends ffi.Opaque {}
+
+typedef ipc_port_t = ffi.Pointer<ipc_port>;
+typedef mach_port_t = ipc_port_t;
 typedef mach_port_array_t = ffi.Pointer<mach_port_t>;
 typedef mach_port_right_t = natural_t;
 typedef mach_port_type_t = natural_t;
@@ -50199,7 +51728,11 @@ final class UnnamedUnion1 extends ffi.Union {
   @mach_port_name_t()
   external int work_interval_port;
 
-  external mach_service_port_info_t service_port_info;
+  @ffi.Uint32()
+  external int service_port_info32;
+
+  @ffi.Uint64()
+  external int service_port_info64;
 
   @mach_port_name_t()
   external int service_port_name;
@@ -50216,6 +51749,9 @@ final class mach_port_options extends ffi.Struct {
 
 typedef mach_port_options_t = mach_port_options;
 typedef mach_port_options_ptr_t = ffi.Pointer<mach_port_options_t>;
+typedef port_t = mach_port_t;
+typedef port_name_t = mach_port_name_t;
+typedef port_name_array_t = ffi.Pointer<mach_port_name_t>;
 typedef CFRunLoopMode = CFStringRef;
 
 final class __CFRunLoop extends ffi.Opaque {}
@@ -50918,6 +52454,293 @@ final class accessx_descriptor extends ffi.Struct {
   external ffi.Array<ffi.Int> ad_pad;
 }
 
+final class mount extends ffi.Opaque {}
+
+typedef mount_t = ffi.Pointer<mount>;
+
+final class vnode extends ffi.Opaque {}
+
+typedef vnode_t = ffi.Pointer<vnode>;
+typedef daddr64_t = ffi.Int64;
+typedef Dartdaddr64_t = int;
+
+final class buf extends ffi.Opaque {}
+
+typedef buf_t = ffi.Pointer<buf>;
+typedef buf_ref_t = ffi.Pointer<buf>;
+typedef buf_bptr_t = ffi.Pointer<buf>;
+typedef buf_ptr_t = ffi.Pointer<buf>;
+typedef buf_ref_ref_t = ffi.Pointer<ffi.Pointer<buf>>;
+typedef buf_ref_ptr_t = ffi.Pointer<ffi.Pointer<buf>>;
+typedef buf_ptr_ref_t = ffi.Pointer<ffi.Pointer<buf>>;
+
+final class file extends ffi.Opaque {}
+
+typedef file_t = ffi.Pointer<file>;
+typedef file_ref_t = ffi.Pointer<file>;
+typedef file_bptr_t = ffi.Pointer<file>;
+typedef file_ptr_t = ffi.Pointer<file>;
+typedef file_ref_ref_t = ffi.Pointer<ffi.Pointer<file>>;
+typedef file_ref_ptr_t = ffi.Pointer<ffi.Pointer<file>>;
+typedef file_ptr_ref_t = ffi.Pointer<ffi.Pointer<file>>;
+typedef mount_ref_t = ffi.Pointer<mount>;
+typedef mount_bptr_t = ffi.Pointer<mount>;
+typedef mount_ptr_t = ffi.Pointer<mount>;
+typedef mount_ref_ref_t = ffi.Pointer<ffi.Pointer<mount>>;
+typedef mount_ref_ptr_t = ffi.Pointer<ffi.Pointer<mount>>;
+typedef mount_ptr_ref_t = ffi.Pointer<ffi.Pointer<mount>>;
+typedef vnode_ref_t = ffi.Pointer<vnode>;
+typedef vnode_bptr_t = ffi.Pointer<vnode>;
+typedef vnode_ptr_t = ffi.Pointer<vnode>;
+typedef vnode_ref_ref_t = ffi.Pointer<ffi.Pointer<vnode>>;
+typedef vnode_ref_ptr_t = ffi.Pointer<ffi.Pointer<vnode>>;
+typedef vnode_ptr_ref_t = ffi.Pointer<ffi.Pointer<vnode>>;
+
+final class proc extends ffi.Opaque {}
+
+typedef proc_t = ffi.Pointer<proc>;
+typedef proc_ref_t = ffi.Pointer<proc>;
+typedef proc_bptr_t = ffi.Pointer<proc>;
+typedef proc_ptr_t = ffi.Pointer<proc>;
+typedef proc_ref_ref_t = ffi.Pointer<ffi.Pointer<proc>>;
+typedef proc_ref_ptr_t = ffi.Pointer<ffi.Pointer<proc>>;
+typedef proc_ptr_ref_t = ffi.Pointer<ffi.Pointer<proc>>;
+
+final class proc_ident extends ffi.Opaque {}
+
+typedef proc_ident_t = ffi.Pointer<proc_ident>;
+typedef proc_ident_ref_t = ffi.Pointer<proc_ident>;
+typedef proc_ident_bptr_t = ffi.Pointer<proc_ident>;
+typedef proc_ident_ptr_t = ffi.Pointer<proc_ident>;
+typedef proc_ident_ref_ref_t = ffi.Pointer<ffi.Pointer<proc_ident>>;
+typedef proc_ident_ref_ptr_t = ffi.Pointer<ffi.Pointer<proc_ident>>;
+typedef proc_ident_ptr_ref_t = ffi.Pointer<ffi.Pointer<proc_ident>>;
+
+final class uio extends ffi.Opaque {}
+
+typedef uio_t = ffi.Pointer<uio>;
+typedef uio_ref_t = ffi.Pointer<uio>;
+typedef uio_bptr_t = ffi.Pointer<uio>;
+typedef uio_ptr_t = ffi.Pointer<uio>;
+typedef uio_ref_ref_t = ffi.Pointer<ffi.Pointer<uio>>;
+typedef uio_ref_ptr_t = ffi.Pointer<ffi.Pointer<uio>>;
+typedef uio_ptr_ref_t = ffi.Pointer<ffi.Pointer<uio>>;
+
+final class vfs_context extends ffi.Opaque {}
+
+typedef vfs_context_t = ffi.Pointer<vfs_context>;
+typedef vfs_context_ref_t = ffi.Pointer<vfs_context>;
+typedef vfs_context_bptr_t = ffi.Pointer<vfs_context>;
+typedef vfs_context_ptr_t = ffi.Pointer<vfs_context>;
+typedef vfs_context_ref_ref_t = ffi.Pointer<ffi.Pointer<vfs_context>>;
+typedef vfs_context_ref_ptr_t = ffi.Pointer<ffi.Pointer<vfs_context>>;
+typedef vfs_context_ptr_ref_t = ffi.Pointer<ffi.Pointer<vfs_context>>;
+
+final class vfstable extends ffi.Opaque {}
+
+typedef vfstable_t = ffi.Pointer<vfstable>;
+typedef vfstable_ref_t = ffi.Pointer<vfstable>;
+typedef vfstable_bptr_t = ffi.Pointer<vfstable>;
+typedef vfstable_ptr_t = ffi.Pointer<vfstable>;
+typedef vfstable_ref_ref_t = ffi.Pointer<ffi.Pointer<vfstable>>;
+typedef vfstable_ref_ptr_t = ffi.Pointer<ffi.Pointer<vfstable>>;
+typedef vfstable_ptr_ref_t = ffi.Pointer<ffi.Pointer<vfstable>>;
+
+final class __ifnet extends ffi.Opaque {}
+
+final class __mbuf extends ffi.Opaque {}
+
+final class __pkthdr extends ffi.Opaque {}
+
+final class __socket extends ffi.Opaque {}
+
+final class __sockopt extends ffi.Opaque {}
+
+final class __ifaddr extends ffi.Opaque {}
+
+final class __ifmultiaddr extends ffi.Opaque {}
+
+final class __ifnet_filter extends ffi.Opaque {}
+
+final class __rtentry extends ffi.Opaque {}
+
+final class __if_clone extends ffi.Opaque {}
+
+final class __bufattr extends ffi.Opaque {}
+
+typedef ifnet_t = ffi.Pointer<__ifnet>;
+typedef mbuf_t = ffi.Pointer<__mbuf>;
+typedef pkthdr_t = ffi.Pointer<__pkthdr>;
+typedef socket_t = ffi.Pointer<__socket>;
+typedef sockopt_t = ffi.Pointer<__sockopt>;
+typedef ifaddr_t = ffi.Pointer<__ifaddr>;
+typedef ifmultiaddr_t = ffi.Pointer<__ifmultiaddr>;
+typedef interface_filter_t = ffi.Pointer<__ifnet_filter>;
+typedef route_t = ffi.Pointer<__rtentry>;
+typedef if_clone_t = ffi.Pointer<__if_clone>;
+typedef bufattr_t = ffi.Pointer<__bufattr>;
+typedef ifnet_ref_t = ffi.Pointer<__ifnet>;
+typedef ifnet_bptr_t = ffi.Pointer<__ifnet>;
+typedef ifnet_ptr_t = ffi.Pointer<__ifnet>;
+typedef ifnet_ref_ref_t = ffi.Pointer<ffi.Pointer<__ifnet>>;
+typedef ifnet_ref_ptr_t = ffi.Pointer<ffi.Pointer<__ifnet>>;
+typedef ifnet_ptr_ref_t = ffi.Pointer<ffi.Pointer<__ifnet>>;
+typedef mbuf_ref_t = ffi.Pointer<__mbuf>;
+typedef mbuf_bptr_t = ffi.Pointer<__mbuf>;
+typedef mbuf_ptr_t = ffi.Pointer<__mbuf>;
+typedef mbuf_ref_ref_t = ffi.Pointer<ffi.Pointer<__mbuf>>;
+typedef mbuf_ref_ptr_t = ffi.Pointer<ffi.Pointer<__mbuf>>;
+typedef mbuf_ptr_ref_t = ffi.Pointer<ffi.Pointer<__mbuf>>;
+typedef pkthdr_ref_t = ffi.Pointer<__pkthdr>;
+typedef pkthdr_bptr_t = ffi.Pointer<__pkthdr>;
+typedef pkthdr_ptr_t = ffi.Pointer<__pkthdr>;
+typedef pkthdr_ref_ref_t = ffi.Pointer<ffi.Pointer<__pkthdr>>;
+typedef pkthdr_ref_ptr_t = ffi.Pointer<ffi.Pointer<__pkthdr>>;
+typedef pkthdr_ptr_ref_t = ffi.Pointer<ffi.Pointer<__pkthdr>>;
+typedef socket_ref_t = ffi.Pointer<__socket>;
+typedef socket_bptr_t = ffi.Pointer<__socket>;
+typedef socket_ptr_t = ffi.Pointer<__socket>;
+typedef socket_ref_ref_t = ffi.Pointer<ffi.Pointer<__socket>>;
+typedef socket_ref_ptr_t = ffi.Pointer<ffi.Pointer<__socket>>;
+typedef socket_ptr_ref_t = ffi.Pointer<ffi.Pointer<__socket>>;
+typedef sockopt_ref_t = ffi.Pointer<__sockopt>;
+typedef sockopt_bptr_t = ffi.Pointer<__sockopt>;
+typedef sockopt_ptr_t = ffi.Pointer<__sockopt>;
+typedef sockopt_ref_ref_t = ffi.Pointer<ffi.Pointer<__sockopt>>;
+typedef sockopt_ref_ptr_t = ffi.Pointer<ffi.Pointer<__sockopt>>;
+typedef sockopt_ptr_ref_t = ffi.Pointer<ffi.Pointer<__sockopt>>;
+typedef ifaddr_ref_t = ffi.Pointer<__ifaddr>;
+typedef ifaddr_bptr_t = ffi.Pointer<__ifaddr>;
+typedef ifaddr_ptr_t = ffi.Pointer<__ifaddr>;
+typedef ifaddr_ref_ref_t = ffi.Pointer<ffi.Pointer<__ifaddr>>;
+typedef ifaddr_ref_ptr_t = ffi.Pointer<ffi.Pointer<__ifaddr>>;
+typedef ifaddr_ptr_ref_t = ffi.Pointer<ffi.Pointer<__ifaddr>>;
+typedef ifmultiaddr_ref_t = ffi.Pointer<__ifmultiaddr>;
+typedef ifmultiaddr_bptr_t = ffi.Pointer<__ifmultiaddr>;
+typedef ifmultiaddr_ptr_t = ffi.Pointer<__ifmultiaddr>;
+typedef ifmultiaddr_ref_ref_t = ffi.Pointer<ffi.Pointer<__ifmultiaddr>>;
+typedef ifmultiaddr_ref_ptr_t = ffi.Pointer<ffi.Pointer<__ifmultiaddr>>;
+typedef ifmultiaddr_ptr_ref_t = ffi.Pointer<ffi.Pointer<__ifmultiaddr>>;
+typedef ifnet_filter_ref_t = ffi.Pointer<__ifnet_filter>;
+typedef ifnet_filter_bptr_t = ffi.Pointer<__ifnet_filter>;
+typedef ifnet_filter_ptr_t = ffi.Pointer<__ifnet_filter>;
+typedef ifnet_filter_ref_ref_t = ffi.Pointer<ffi.Pointer<__ifnet_filter>>;
+typedef ifnet_filter_ref_ptr_t = ffi.Pointer<ffi.Pointer<__ifnet_filter>>;
+typedef ifnet_filter_ptr_ref_t = ffi.Pointer<ffi.Pointer<__ifnet_filter>>;
+typedef rtentry_ref_t = ffi.Pointer<__rtentry>;
+typedef rtentry_bptr_t = ffi.Pointer<__rtentry>;
+typedef rtentry_ptr_t = ffi.Pointer<__rtentry>;
+typedef rtentry_ref_ref_t = ffi.Pointer<ffi.Pointer<__rtentry>>;
+typedef rtentry_ref_ptr_t = ffi.Pointer<ffi.Pointer<__rtentry>>;
+typedef rtentry_ptr_ref_t = ffi.Pointer<ffi.Pointer<__rtentry>>;
+typedef if_clone_ref_t = ffi.Pointer<__if_clone>;
+typedef if_clone_bptr_t = ffi.Pointer<__if_clone>;
+typedef if_clone_ptr_t = ffi.Pointer<__if_clone>;
+typedef if_clone_ref_ref_t = ffi.Pointer<ffi.Pointer<__if_clone>>;
+typedef if_clone_ref_ptr_t = ffi.Pointer<ffi.Pointer<__if_clone>>;
+typedef if_clone_ptr_ref_t = ffi.Pointer<ffi.Pointer<__if_clone>>;
+typedef bufattr_ref_t = ffi.Pointer<__bufattr>;
+typedef bufattr_bptr_t = ffi.Pointer<__bufattr>;
+typedef bufattr_ptr_t = ffi.Pointer<__bufattr>;
+typedef bufattr_ref_ref_t = ffi.Pointer<ffi.Pointer<__bufattr>>;
+typedef bufattr_ref_ptr_t = ffi.Pointer<ffi.Pointer<__bufattr>>;
+typedef bufattr_ptr_ref_t = ffi.Pointer<ffi.Pointer<__bufattr>>;
+
+final class guid_t extends ffi.Union {
+  @ffi.Array.multi([16])
+  external ffi.Array<ffi.UnsignedChar> g_guid;
+
+  @ffi.Array.multi([4])
+  external ffi.Array<ffi.UnsignedInt> g_guid_asint;
+}
+
+typedef kauth_ace_rights_t = u_int32_t;
+
+final class kauth_ace extends ffi.Struct {
+  external guid_t ace_applicable;
+
+  @u_int32_t()
+  external int ace_flags;
+
+  @kauth_ace_rights_t()
+  external int ace_rights;
+}
+
+typedef kauth_ace_t = ffi.Pointer<kauth_ace>;
+
+final class kauth_acl extends ffi.Struct {
+  @u_int32_t()
+  external int acl_entrycount;
+
+  @u_int32_t()
+  external int acl_flags;
+
+  @ffi.Array.multi([1])
+  external ffi.Array<kauth_ace> acl_ace;
+}
+
+typedef kauth_acl_t = ffi.Pointer<kauth_acl>;
+
+final class kauth_filesec extends ffi.Struct {
+  @u_int32_t()
+  external int fsec_magic;
+
+  external guid_t fsec_owner;
+
+  external guid_t fsec_group;
+
+  external kauth_acl fsec_acl;
+}
+
+typedef kauth_filesec_t = ffi.Pointer<kauth_filesec>;
+typedef kauth_action_t = ffi.Int;
+typedef Dartkauth_action_t = int;
+
+@ffi.Packed(4)
+final class kevent extends ffi.Struct {
+  @ffi.UintPtr()
+  external int ident;
+
+  @ffi.Int16()
+  external int filter;
+
+  @ffi.Uint16()
+  external int flags;
+
+  @ffi.Uint32()
+  external int fflags;
+
+  @ffi.IntPtr()
+  external int data;
+
+  external ffi.Pointer<ffi.Void> udata;
+}
+
+final class kevent64_s extends ffi.Struct {
+  @ffi.Uint64()
+  external int ident;
+
+  @ffi.Int16()
+  external int filter;
+
+  @ffi.Uint16()
+  external int flags;
+
+  @ffi.Uint32()
+  external int fflags;
+
+  @ffi.Int64()
+  external int data;
+
+  @ffi.Uint64()
+  external int udata;
+
+  @ffi.Array.multi([2])
+  external ffi.Array<ffi.Uint64> ext;
+}
+
+final class selinfo extends ffi.Opaque {}
+
 final class fssearchblock extends ffi.Opaque {}
 
 final class searchstate extends ffi.Opaque {}
@@ -50945,6 +52768,7 @@ final class flocktimeout extends ffi.Struct {
   external timespec timeout;
 }
 
+@ffi.Packed(4)
 final class radvisory extends ffi.Struct {
   @off_t()
   external int ra_offset;
@@ -50974,6 +52798,41 @@ final class fsignatures extends ffi.Struct {
 
 typedef fsignatures_t = fsignatures;
 
+final class user32_fsignatures extends ffi.Struct {
+  @off_t()
+  external int fs_file_start;
+
+  @user32_addr_t()
+  external int fs_blob_start;
+
+  @user32_size_t()
+  external int fs_blob_size;
+}
+
+typedef user32_fsignatures_t = user32_fsignatures;
+
+final class user_fsignatures extends ffi.Struct {
+  @off_t()
+  external int fs_file_start;
+
+  @user_addr_t()
+  external int fs_blob_start;
+
+  @user_size_t()
+  external int fs_blob_size;
+
+  @user_size_t()
+  external int fs_fsignatures_size;
+
+  @ffi.Array.multi([20])
+  external ffi.Array<ffi.Char> fs_cdhash;
+
+  @ffi.Int()
+  external int fs_hash_type;
+}
+
+typedef user_fsignatures_t = user_fsignatures;
+
 final class fsupplement extends ffi.Struct {
   @off_t()
   external int fs_file_start;
@@ -50990,6 +52849,22 @@ final class fsupplement extends ffi.Struct {
 
 typedef fsupplement_t = fsupplement;
 
+final class user_fsupplement extends ffi.Struct {
+  @off_t()
+  external int fs_file_start;
+
+  @off_t()
+  external int fs_blob_start;
+
+  @ffi.Size()
+  external int fs_blob_size;
+
+  @ffi.Int()
+  external int fs_orig_fd;
+}
+
+typedef user_fsupplement_t = user_fsupplement;
+
 final class fchecklv extends ffi.Struct {
   @off_t()
   external int lv_file_start;
@@ -51001,6 +52876,32 @@ final class fchecklv extends ffi.Struct {
 }
 
 typedef fchecklv_t = fchecklv;
+
+final class user32_fchecklv extends ffi.Struct {
+  @user32_off_t()
+  external int lv_file_start;
+
+  @user32_size_t()
+  external int lv_error_message_size;
+
+  @user32_addr_t()
+  external int lv_error_message;
+}
+
+typedef user32_fchecklv_t = user32_fchecklv;
+
+final class user_fchecklv extends ffi.Struct {
+  @off_t()
+  external int lv_file_start;
+
+  @user_size_t()
+  external int lv_error_message_size;
+
+  @user_addr_t()
+  external int lv_error_message;
+}
+
+typedef user_fchecklv_t = user_fchecklv;
 
 final class fgetsigsinfo extends ffi.Struct {
   @off_t()
@@ -51101,37 +53002,6 @@ final class log2phys extends ffi.Struct {
   external int l2p_devoffset;
 }
 
-final class _filesec extends ffi.Opaque {}
-
-typedef filesec_t = ffi.Pointer<_filesec>;
-
-enum filesec_property_t {
-  FILESEC_OWNER(1),
-  FILESEC_GROUP(2),
-  FILESEC_UUID(3),
-  FILESEC_MODE(4),
-  FILESEC_ACL(5),
-  FILESEC_GRPUUID(6),
-  FILESEC_ACL_RAW(100),
-  FILESEC_ACL_ALLOCSIZE(101);
-
-  final int value;
-  const filesec_property_t(this.value);
-
-  static filesec_property_t fromValue(int value) => switch (value) {
-        1 => FILESEC_OWNER,
-        2 => FILESEC_GROUP,
-        3 => FILESEC_UUID,
-        4 => FILESEC_MODE,
-        5 => FILESEC_ACL,
-        6 => FILESEC_GRPUUID,
-        100 => FILESEC_ACL_RAW,
-        101 => FILESEC_ACL_ALLOCSIZE,
-        _ =>
-          throw ArgumentError('Unknown value for filesec_property_t: $value'),
-      };
-}
-
 final class os_workgroup_attr_opaque_s extends ffi.Struct {
   @ffi.Uint32()
   external int sig;
@@ -51156,27 +53026,6 @@ final class os_workgroup_join_token_opaque_s extends ffi.Struct {
   external ffi.Array<ffi.Char> opaque;
 }
 
-/// WARNING: OS_os_workgroup is a stub. To generate bindings for this class, include
-/// OS_os_workgroup in your config's objc-interfaces list.
-///
-/// OS_os_workgroup
-class OS_os_workgroup extends OS_object {
-  OS_os_workgroup._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [OS_os_workgroup] that points to the same underlying object as [other].
-  OS_os_workgroup.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [OS_os_workgroup] that wraps the given raw object pointer.
-  OS_os_workgroup.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-}
-
-typedef os_workgroup_t = ffi.Pointer<objc.ObjCObject>;
-typedef Dartos_workgroup_t = OS_os_workgroup;
 typedef os_workgroup_attr_s = os_workgroup_attr_opaque_s;
 typedef os_workgroup_attr_t = ffi.Pointer<os_workgroup_attr_opaque_s>;
 typedef os_workgroup_join_token_s = os_workgroup_join_token_opaque_s;
@@ -51196,13 +53045,9 @@ final class os_workgroup_max_parallel_threads_attr_s extends ffi.Opaque {}
 typedef os_workgroup_mpt_attr_s = os_workgroup_max_parallel_threads_attr_s;
 typedef os_workgroup_mpt_attr_t
     = ffi.Pointer<os_workgroup_max_parallel_threads_attr_s>;
-typedef os_workgroup_interval_t = ffi.Pointer<objc.ObjCObject>;
-typedef Dartos_workgroup_interval_t = OS_os_workgroup;
 typedef os_workgroup_interval_data_s = os_workgroup_interval_data_opaque_s;
 typedef os_workgroup_interval_data_t
     = ffi.Pointer<os_workgroup_interval_data_opaque_s>;
-typedef os_workgroup_parallel_t = ffi.Pointer<objc.ObjCObject>;
-typedef Dartos_workgroup_parallel_t = OS_os_workgroup;
 typedef dispatch_function_tFunction = ffi.Void Function(ffi.Pointer<ffi.Void>);
 typedef Dartdispatch_function_tFunction = void Function(ffi.Pointer<ffi.Void>);
 typedef dispatch_function_t
@@ -51263,8 +53108,6 @@ enum qos_class_t {
       };
 }
 
-typedef dispatch_object_t = ffi.Pointer<objc.ObjCObject>;
-typedef Dartdispatch_object_t = objc.NSObject;
 typedef dispatch_block_t = ffi.Pointer<objc.ObjCBlockImpl>;
 typedef Dartdispatch_block_t = objc.ObjCBlock<ffi.Void Function()>;
 typedef dispatch_queue_t = ffi.Pointer<objc.ObjCObject>;
@@ -51542,6 +53385,7 @@ final class mach_msg_body_t extends ffi.Struct {
   external int msgh_descriptor_count;
 }
 
+@ffi.Packed(4)
 final class mach_msg_header_t extends ffi.Struct {
   @mach_msg_bits_t()
   external int msgh_bits;
@@ -51549,11 +53393,9 @@ final class mach_msg_header_t extends ffi.Struct {
   @mach_msg_size_t()
   external int msgh_size;
 
-  @mach_port_t()
-  external int msgh_remote_port;
+  external mach_port_t msgh_remote_port;
 
-  @mach_port_t()
-  external int msgh_local_port;
+  external mach_port_t msgh_local_port;
 
   @mach_port_name_t()
   external int msgh_voucher_port;
@@ -53143,13 +54985,2841 @@ enum CFURLEnumeratorResult {
       };
 }
 
-final class guid_t extends ffi.Union {
-  @ffi.Array.multi([16])
-  external ffi.Array<ffi.UnsignedChar> g_guid;
+final class timeval64 extends ffi.Struct {
+  @__int64_t()
+  external int tv_sec;
+
+  @__int64_t()
+  external int tv_usec;
+}
+
+final class user_timespec extends ffi.Struct {
+  @user_time_t()
+  external int tv_sec;
+
+  @user_long_t()
+  external int tv_nsec;
+}
+
+final class user32_timespec extends ffi.Struct {
+  @user32_time_t()
+  external int tv_sec;
+
+  @user32_long_t()
+  external int tv_nsec;
+}
+
+final class user64_timespec extends ffi.Struct {
+  @user64_time_t()
+  external int tv_sec;
+
+  @user64_long_t()
+  external int tv_nsec;
+}
+
+final class user_timeval extends ffi.Struct {
+  @user_time_t()
+  external int tv_sec;
+
+  @__int32_t()
+  external int tv_usec;
+}
+
+final class user32_itimerval extends ffi.Struct {
+  external user32_timeval it_interval;
+
+  external user32_timeval it_value;
+}
+
+final class user64_itimerval extends ffi.Struct {
+  external user64_timeval it_interval;
+
+  external user64_timeval it_value;
+}
+
+final class itimerval extends ffi.Struct {
+  external timeval it_interval;
+
+  external timeval it_value;
+}
+
+final class timezone$1 extends ffi.Struct {
+  @ffi.Int()
+  external int tz_minuteswest;
+
+  @ffi.Int()
+  external int tz_dsttime;
+}
+
+final class clockinfo extends ffi.Struct {
+  @ffi.Int()
+  external int hz;
+
+  @ffi.Int()
+  external int tick;
+
+  @ffi.Int()
+  external int tickadj;
+
+  @ffi.Int()
+  external int stathz;
+
+  @ffi.Int()
+  external int profhz;
+}
+
+final class iovec extends ffi.Struct {
+  external ffi.Pointer<ffi.Void> iov_base;
+
+  @ffi.Size()
+  external int iov_len;
+}
+
+typedef au_id_t = uid_t;
+typedef au_asid_t = pid_t;
+typedef au_event_t = u_int16_t;
+typedef au_emod_t = u_int16_t;
+typedef au_class_t = u_int32_t;
+typedef au_asflgs_t = u_int64_t;
+typedef au_ctlmode_t = ffi.UnsignedChar;
+typedef Dartau_ctlmode_t = int;
+
+final class au_tid extends ffi.Struct {
+  @dev_t()
+  external int port;
+
+  @u_int32_t()
+  external int machine;
+}
+
+typedef au_tid_t = au_tid;
+
+final class au_tid_addr extends ffi.Struct {
+  @dev_t()
+  external int at_port;
+
+  @u_int32_t()
+  external int at_type;
 
   @ffi.Array.multi([4])
-  external ffi.Array<ffi.UnsignedInt> g_guid_asint;
+  external ffi.Array<u_int32_t> at_addr;
 }
+
+typedef au_tid_addr_t = au_tid_addr;
+
+final class au_mask extends ffi.Struct {
+  @ffi.UnsignedInt()
+  external int am_success;
+
+  @ffi.UnsignedInt()
+  external int am_failure;
+}
+
+typedef au_mask_t = au_mask;
+
+final class auditinfo extends ffi.Struct {
+  @au_id_t()
+  external int ai_auid;
+
+  external au_mask_t ai_mask;
+
+  external au_tid_t ai_termid;
+
+  @au_asid_t()
+  external int ai_asid;
+}
+
+typedef auditinfo_t = auditinfo;
+
+final class auditinfo_addr extends ffi.Struct {
+  @au_id_t()
+  external int ai_auid;
+
+  external au_mask_t ai_mask;
+
+  external au_tid_addr_t ai_termid;
+
+  @au_asid_t()
+  external int ai_asid;
+
+  @au_asflgs_t()
+  external int ai_flags;
+}
+
+typedef auditinfo_addr_t = auditinfo_addr;
+
+final class auditpinfo extends ffi.Struct {
+  @pid_t()
+  external int ap_pid;
+
+  @au_id_t()
+  external int ap_auid;
+
+  external au_mask_t ap_mask;
+
+  external au_tid_t ap_termid;
+
+  @au_asid_t()
+  external int ap_asid;
+}
+
+typedef auditpinfo_t = auditpinfo;
+
+final class auditpinfo_addr extends ffi.Struct {
+  @pid_t()
+  external int ap_pid;
+
+  @au_id_t()
+  external int ap_auid;
+
+  external au_mask_t ap_mask;
+
+  external au_tid_addr_t ap_termid;
+
+  @au_asid_t()
+  external int ap_asid;
+
+  @au_asflgs_t()
+  external int ap_flags;
+}
+
+typedef auditpinfo_addr_t = auditpinfo_addr;
+
+final class au_session extends ffi.Struct {
+  external ffi.Pointer<auditinfo_addr_t> as_aia_p;
+
+  external au_mask_t as_mask;
+}
+
+typedef au_session_t = au_session;
+
+final class au_expire_after extends ffi.Struct {
+  @time_t()
+  external int age;
+
+  @ffi.Size()
+  external int size;
+
+  @ffi.UnsignedChar()
+  external int op_type;
+}
+
+typedef au_expire_after_t = au_expire_after;
+
+final class au_token extends ffi.Opaque {}
+
+typedef token_t = au_token;
+
+final class au_qctrl extends ffi.Struct {
+  @ffi.Int()
+  external int aq_hiwater;
+
+  @ffi.Int()
+  external int aq_lowater;
+
+  @ffi.Int()
+  external int aq_bufsz;
+
+  @ffi.Int()
+  external int aq_delay;
+
+  @ffi.Int()
+  external int aq_minfree;
+}
+
+typedef au_qctrl_t = au_qctrl;
+
+final class audit_stat extends ffi.Struct {
+  @ffi.UnsignedInt()
+  external int as_version;
+
+  @ffi.UnsignedInt()
+  external int as_numevent;
+
+  @ffi.Int()
+  external int as_generated;
+
+  @ffi.Int()
+  external int as_nonattrib;
+
+  @ffi.Int()
+  external int as_kernel;
+
+  @ffi.Int()
+  external int as_audit;
+
+  @ffi.Int()
+  external int as_auditctl;
+
+  @ffi.Int()
+  external int as_enqueue;
+
+  @ffi.Int()
+  external int as_written;
+
+  @ffi.Int()
+  external int as_wblocked;
+
+  @ffi.Int()
+  external int as_rblocked;
+
+  @ffi.Int()
+  external int as_dropped;
+
+  @ffi.Int()
+  external int as_totalsize;
+
+  @ffi.UnsignedInt()
+  external int as_memused;
+}
+
+typedef au_stat_t = audit_stat;
+
+final class audit_fstat extends ffi.Struct {
+  @u_int64_t()
+  external int af_filesz;
+
+  @u_int64_t()
+  external int af_currsz;
+}
+
+typedef au_fstat_t = audit_fstat;
+
+final class au_evclass_map extends ffi.Struct {
+  @au_event_t()
+  external int ec_number;
+
+  @au_class_t()
+  external int ec_class;
+}
+
+typedef au_evclass_map_t = au_evclass_map;
+
+final class label extends ffi.Opaque {}
+
+final class UnnamedStruct3 extends ffi.Struct {
+  external ffi.Pointer<ucred> le_next;
+
+  external ffi.Pointer<ffi.Pointer<ucred>> le_prev;
+}
+
+final class posix_cred extends ffi.Struct {
+  @uid_t()
+  external int cr_uid;
+
+  @uid_t()
+  external int cr_ruid;
+
+  @uid_t()
+  external int cr_svuid;
+
+  @u_short()
+  external int cr_ngroups;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<gid_t> cr_groups;
+
+  @gid_t()
+  external int cr_rgid;
+
+  @gid_t()
+  external int cr_svgid;
+
+  @uid_t()
+  external int cr_gmuid;
+
+  @ffi.Int()
+  external int cr_flags;
+}
+
+final class ucred extends ffi.Struct {
+  external UnnamedStruct3 cr_link;
+
+  @u_long()
+  external int cr_ref;
+
+  external posix_cred cr_posix;
+
+  external ffi.Pointer<label> cr_label;
+
+  external au_session cr_audit;
+}
+
+typedef kauth_cred_t = ffi.Pointer<ucred>;
+typedef posix_cred_t = ffi.Pointer<posix_cred>;
+
+final class xucred extends ffi.Struct {
+  @u_int()
+  external int cr_version;
+
+  @uid_t()
+  external int cr_uid;
+
+  @ffi.Short()
+  external int cr_ngroups;
+
+  @ffi.Array.multi([16])
+  external ffi.Array<gid_t> cr_groups;
+}
+
+final class vm_statistics extends ffi.Struct {
+  @natural_t()
+  external int free_count;
+
+  @natural_t()
+  external int active_count;
+
+  @natural_t()
+  external int inactive_count;
+
+  @natural_t()
+  external int wire_count;
+
+  @natural_t()
+  external int zero_fill_count;
+
+  @natural_t()
+  external int reactivations;
+
+  @natural_t()
+  external int pageins;
+
+  @natural_t()
+  external int pageouts;
+
+  @natural_t()
+  external int faults;
+
+  @natural_t()
+  external int cow_faults;
+
+  @natural_t()
+  external int lookups;
+
+  @natural_t()
+  external int hits;
+
+  @natural_t()
+  external int purgeable_count;
+
+  @natural_t()
+  external int purges;
+
+  @natural_t()
+  external int speculative_count;
+}
+
+typedef vm_statistics_t = ffi.Pointer<vm_statistics>;
+typedef vm_statistics_data_t = vm_statistics;
+
+final class vm_statistics64 extends ffi.Struct {
+  @natural_t()
+  external int free_count;
+
+  @natural_t()
+  external int active_count;
+
+  @natural_t()
+  external int inactive_count;
+
+  @natural_t()
+  external int wire_count;
+
+  @ffi.Uint64()
+  external int zero_fill_count;
+
+  @ffi.Uint64()
+  external int reactivations;
+
+  @ffi.Uint64()
+  external int pageins;
+
+  @ffi.Uint64()
+  external int pageouts;
+
+  @ffi.Uint64()
+  external int faults;
+
+  @ffi.Uint64()
+  external int cow_faults;
+
+  @ffi.Uint64()
+  external int lookups;
+
+  @ffi.Uint64()
+  external int hits;
+
+  @ffi.Uint64()
+  external int purges;
+
+  @natural_t()
+  external int purgeable_count;
+
+  @natural_t()
+  external int speculative_count;
+
+  @ffi.Uint64()
+  external int decompressions;
+
+  @ffi.Uint64()
+  external int compressions;
+
+  @ffi.Uint64()
+  external int swapins;
+
+  @ffi.Uint64()
+  external int swapouts;
+
+  @natural_t()
+  external int compressor_page_count;
+
+  @natural_t()
+  external int throttled_count;
+
+  @natural_t()
+  external int external_page_count;
+
+  @natural_t()
+  external int internal_page_count;
+
+  @ffi.Uint64()
+  external int total_uncompressed_pages_in_compressor;
+}
+
+typedef vm_statistics64_t = ffi.Pointer<vm_statistics64>;
+typedef vm_statistics64_data_t = vm_statistics64;
+
+final class vm_extmod_statistics extends ffi.Struct {
+  @ffi.Int64()
+  external int task_for_pid_count;
+
+  @ffi.Int64()
+  external int task_for_pid_caller_count;
+
+  @ffi.Int64()
+  external int thread_creation_count;
+
+  @ffi.Int64()
+  external int thread_creation_caller_count;
+
+  @ffi.Int64()
+  external int thread_set_state_count;
+
+  @ffi.Int64()
+  external int thread_set_state_caller_count;
+}
+
+typedef vm_extmod_statistics_t = ffi.Pointer<vm_extmod_statistics>;
+typedef vm_extmod_statistics_data_t = vm_extmod_statistics;
+
+final class vm_purgeable_stat extends ffi.Struct {
+  @ffi.Uint64()
+  external int count;
+
+  @ffi.Uint64()
+  external int size;
+}
+
+typedef vm_purgeable_stat_t = vm_purgeable_stat;
+
+final class vm_purgeable_info extends ffi.Struct {
+  @ffi.Array.multi([8])
+  external ffi.Array<vm_purgeable_stat_t> fifo_data;
+
+  external vm_purgeable_stat_t obsolete_data;
+
+  @ffi.Array.multi([8])
+  external ffi.Array<vm_purgeable_stat_t> lifo_data;
+}
+
+typedef vm_purgeable_info_t = ffi.Pointer<vm_purgeable_info>;
+typedef host_info_t = ffi.Pointer<integer_t>;
+typedef host_info64_t = ffi.Pointer<integer_t>;
+typedef host_flavor_t = integer_t;
+
+final class host_can_has_debugger_info extends ffi.Struct {
+  @boolean_t()
+  external int can_has_debugger;
+}
+
+typedef host_can_has_debugger_info_data_t = host_can_has_debugger_info;
+typedef host_can_has_debugger_info_t = ffi.Pointer<host_can_has_debugger_info>;
+
+@ffi.Packed(4)
+final class host_basic_info extends ffi.Struct {
+  @integer_t()
+  external int max_cpus;
+
+  @integer_t()
+  external int avail_cpus;
+
+  @natural_t()
+  external int memory_size;
+
+  @cpu_type_t()
+  external int cpu_type;
+
+  @cpu_subtype_t()
+  external int cpu_subtype;
+
+  @cpu_threadtype_t()
+  external int cpu_threadtype;
+
+  @integer_t()
+  external int physical_cpu;
+
+  @integer_t()
+  external int physical_cpu_max;
+
+  @integer_t()
+  external int logical_cpu;
+
+  @integer_t()
+  external int logical_cpu_max;
+
+  @ffi.Uint64()
+  external int max_mem;
+}
+
+typedef host_basic_info_data_t = host_basic_info;
+typedef host_basic_info_t = ffi.Pointer<host_basic_info>;
+
+final class host_sched_info extends ffi.Struct {
+  @integer_t()
+  external int min_timeout;
+
+  @integer_t()
+  external int min_quantum;
+}
+
+typedef host_sched_info_data_t = host_sched_info;
+typedef host_sched_info_t = ffi.Pointer<host_sched_info>;
+
+final class kernel_resource_sizes extends ffi.Struct {
+  @natural_t()
+  external int task;
+
+  @natural_t()
+  external int thread;
+
+  @natural_t()
+  external int port;
+
+  @natural_t()
+  external int memory_region;
+
+  @natural_t()
+  external int memory_object;
+}
+
+typedef kernel_resource_sizes_data_t = kernel_resource_sizes;
+typedef kernel_resource_sizes_t = ffi.Pointer<kernel_resource_sizes>;
+
+final class host_priority_info extends ffi.Struct {
+  @integer_t()
+  external int kernel_priority;
+
+  @integer_t()
+  external int system_priority;
+
+  @integer_t()
+  external int server_priority;
+
+  @integer_t()
+  external int user_priority;
+
+  @integer_t()
+  external int depress_priority;
+
+  @integer_t()
+  external int idle_priority;
+
+  @integer_t()
+  external int minimum_priority;
+
+  @integer_t()
+  external int maximum_priority;
+}
+
+typedef host_priority_info_data_t = host_priority_info;
+typedef host_priority_info_t = ffi.Pointer<host_priority_info>;
+
+final class host_load_info extends ffi.Struct {
+  @ffi.Array.multi([3])
+  external ffi.Array<integer_t> avenrun;
+
+  @ffi.Array.multi([3])
+  external ffi.Array<integer_t> mach_factor;
+}
+
+typedef host_load_info_data_t = host_load_info;
+typedef host_load_info_t = ffi.Pointer<host_load_info>;
+typedef host_purgable_info_data_t = vm_purgeable_info;
+typedef host_purgable_info_t = ffi.Pointer<vm_purgeable_info>;
+
+final class host_cpu_load_info extends ffi.Struct {
+  @ffi.Array.multi([4])
+  external ffi.Array<natural_t> cpu_ticks;
+}
+
+typedef host_cpu_load_info_data_t = host_cpu_load_info;
+typedef host_cpu_load_info_t = ffi.Pointer<host_cpu_load_info>;
+
+final class host_preferred_user_arch extends ffi.Struct {
+  @cpu_type_t()
+  external int cpu_type;
+
+  @cpu_subtype_t()
+  external int cpu_subtype;
+}
+
+typedef host_preferred_user_arch_data_t = host_preferred_user_arch;
+typedef host_preferred_user_arch_t = ffi.Pointer<host_preferred_user_arch>;
+typedef vm_prot_t = ffi.Int;
+typedef Dartvm_prot_t = int;
+typedef vm_sync_t = ffi.UnsignedInt;
+typedef Dartvm_sync_t = int;
+typedef pointer_t = vm_offset_t;
+typedef vm_address_t = vm_offset_t;
+typedef addr64_t = ffi.Uint64;
+typedef Dartaddr64_t = int;
+typedef reg64_t = ffi.Uint32;
+typedef Dartreg64_t = int;
+typedef ppnum_t = ffi.Uint32;
+typedef Dartppnum_t = int;
+typedef vm_map_t = mach_port_t;
+typedef vm_map_read_t = mach_port_t;
+typedef vm_map_inspect_t = mach_port_t;
+typedef upl_t = mach_port_t;
+typedef vm_named_entry_t = mach_port_t;
+typedef mach_vm_offset_list_t = ffi.Pointer<mach_vm_offset_t>;
+typedef vm_object_offset_t = ffi.Uint64;
+typedef Dartvm_object_offset_t = int;
+typedef vm_object_size_t = ffi.Uint64;
+typedef Dartvm_object_size_t = int;
+
+final class mach_vm_range extends ffi.Struct {
+  @mach_vm_offset_t()
+  external int min_address;
+
+  @mach_vm_offset_t()
+  external int max_address;
+}
+
+typedef mach_vm_range_t = ffi.Pointer<mach_vm_range>;
+
+final class mach_vm_range_recipe_v1_t extends ffi.Opaque {}
+
+typedef mach_vm_range_recipe_t = mach_vm_range_recipe_v1_t;
+typedef mach_vm_range_recipes_raw_t = ffi.Pointer<ffi.Uint8>;
+typedef memory_object_offset_t = ffi.UnsignedLongLong;
+typedef Dartmemory_object_offset_t = int;
+typedef memory_object_size_t = ffi.UnsignedLongLong;
+typedef Dartmemory_object_size_t = int;
+typedef memory_object_cluster_size_t = natural_t;
+typedef memory_object_fault_info_t = ffi.Pointer<natural_t>;
+typedef vm_object_id_t = ffi.UnsignedLongLong;
+typedef Dartvm_object_id_t = int;
+typedef memory_object_t = mach_port_t;
+typedef memory_object_control_t = mach_port_t;
+typedef memory_object_array_t = ffi.Pointer<memory_object_t>;
+typedef memory_object_name_t = mach_port_t;
+typedef memory_object_default_t = mach_port_t;
+typedef memory_object_copy_strategy_t = ffi.Int;
+typedef Dartmemory_object_copy_strategy_t = int;
+typedef memory_object_return_t = ffi.Int;
+typedef Dartmemory_object_return_t = int;
+typedef memory_object_info_t = ffi.Pointer<ffi.Int>;
+typedef memory_object_flavor_t = ffi.Int;
+typedef Dartmemory_object_flavor_t = int;
+
+final class memory_object_perf_info extends ffi.Struct {
+  @memory_object_cluster_size_t()
+  external int cluster_size;
+
+  @boolean_t()
+  external int may_cache;
+}
+
+final class memory_object_attr_info extends ffi.Struct {
+  @memory_object_copy_strategy_t()
+  external int copy_strategy;
+
+  @memory_object_cluster_size_t()
+  external int cluster_size;
+
+  @boolean_t()
+  external int may_cache_object;
+
+  @boolean_t()
+  external int temporary;
+}
+
+final class memory_object_behave_info extends ffi.Struct {
+  @memory_object_copy_strategy_t()
+  external int copy_strategy;
+
+  @boolean_t()
+  external int temporary;
+
+  @boolean_t()
+  external int invalidate;
+
+  @boolean_t()
+  external int silent_overwrite;
+
+  @boolean_t()
+  external int advisory_pageout;
+}
+
+typedef memory_object_behave_info_t = ffi.Pointer<memory_object_behave_info>;
+typedef memory_object_behave_info_data_t = memory_object_behave_info;
+typedef memory_object_perf_info_t = ffi.Pointer<memory_object_perf_info>;
+typedef memory_object_perf_info_data_t = memory_object_perf_info;
+typedef memory_object_attr_info_t = ffi.Pointer<memory_object_attr_info>;
+typedef memory_object_attr_info_data_t = memory_object_attr_info;
+
+final class upl_page_info extends ffi.Struct {
+  @ffi.Array.multi([2])
+  external ffi.Array<ffi.UnsignedInt> opaque;
+}
+
+typedef upl_page_info_t = upl_page_info;
+typedef upl_page_info_array_t = ffi.Pointer<upl_page_info_t>;
+typedef upl_page_list_ptr_t = upl_page_info_array_t;
+typedef upl_offset_t = ffi.Uint32;
+typedef Dartupl_offset_t = int;
+typedef upl_size_t = ffi.Uint32;
+typedef Dartupl_size_t = int;
+typedef upl_control_flags_t = ffi.Uint64;
+typedef Dartupl_control_flags_t = int;
+
+final class arm_state_hdr extends ffi.Struct {
+  @ffi.Uint32()
+  external int flavor;
+
+  @ffi.Uint32()
+  external int count;
+}
+
+typedef arm_state_hdr_t = arm_state_hdr;
+typedef arm_thread_state_t = arm_thread_state;
+typedef arm_thread_state32_t = arm_thread_state;
+typedef arm_thread_state64_t = arm_thread_state64;
+
+final class UnnamedUnion7 extends ffi.Union {
+  external arm_thread_state32_t ts_32;
+
+  external arm_thread_state64_t ts_64;
+}
+
+final class arm_unified_thread_state extends ffi.Struct {
+  external arm_state_hdr_t ash;
+
+  external UnnamedUnion7 uts;
+}
+
+typedef arm_unified_thread_state_t = arm_unified_thread_state;
+typedef arm_vfp_state_t = arm_vfp_state;
+typedef arm_neon_state_t = arm_neon_state;
+typedef arm_neon_state32_t = arm_neon_state;
+typedef arm_neon_state64_t = arm_neon_state64;
+typedef arm_exception_state_t = arm_exception_state;
+typedef arm_exception_state32_t = arm_exception_state;
+typedef arm_exception_state64_t = arm_exception_state64;
+typedef arm_exception_state64_v2_t = arm_exception_state64_v2;
+typedef arm_debug_state32_t = arm_debug_state32;
+typedef arm_debug_state64_t = arm_debug_state64;
+typedef arm_pagein_state_t = __arm_pagein_state;
+typedef arm_sme_state_t = arm_sme_state;
+typedef arm_sve_z_state_t = arm_sve_z_state;
+typedef arm_sve_p_state_t = arm_sve_p_state;
+typedef arm_sme_za_state_t = arm_sme_za_state;
+typedef arm_sme2_state_t = arm_sme2_state;
+typedef arm_debug_state_t = arm_legacy_debug_state;
+typedef thread_state_t = ffi.Pointer<natural_t>;
+typedef thread_state_flavor_t = ffi.Int;
+typedef Dartthread_state_flavor_t = int;
+typedef thread_state_flavor_array_t = ffi.Pointer<thread_state_flavor_t>;
+
+final class ipc_info_space extends ffi.Struct {
+  @natural_t()
+  external int iis_genno_mask;
+
+  @natural_t()
+  external int iis_table_size;
+
+  @natural_t()
+  external int iis_table_next;
+
+  @natural_t()
+  external int iis_tree_size;
+
+  @natural_t()
+  external int iis_tree_small;
+
+  @natural_t()
+  external int iis_tree_hash;
+}
+
+typedef ipc_info_space_t = ipc_info_space;
+
+final class ipc_info_space_basic extends ffi.Struct {
+  @natural_t()
+  external int iisb_genno_mask;
+
+  @natural_t()
+  external int iisb_table_size;
+
+  @natural_t()
+  external int iisb_table_next;
+
+  @natural_t()
+  external int iisb_table_inuse;
+
+  @ffi.Array.multi([2])
+  external ffi.Array<natural_t> iisb_reserved;
+}
+
+typedef ipc_info_space_basic_t = ipc_info_space_basic;
+
+final class ipc_info_name extends ffi.Struct {
+  @mach_port_name_t()
+  external int iin_name;
+
+  @integer_t()
+  external int iin_collision;
+
+  @mach_port_type_t()
+  external int iin_type;
+
+  @mach_port_urefs_t()
+  external int iin_urefs;
+
+  @natural_t()
+  external int iin_object;
+
+  @natural_t()
+  external int iin_next;
+
+  @natural_t()
+  external int iin_hash;
+}
+
+typedef ipc_info_name_t = ipc_info_name;
+typedef ipc_info_name_array_t = ffi.Pointer<ipc_info_name_t>;
+
+final class ipc_info_tree_name extends ffi.Struct {
+  external ipc_info_name_t iitn_name;
+
+  @mach_port_name_t()
+  external int iitn_lchild;
+
+  @mach_port_name_t()
+  external int iitn_rchild;
+}
+
+typedef ipc_info_tree_name_t = ipc_info_tree_name;
+typedef ipc_info_tree_name_array_t = ffi.Pointer<ipc_info_tree_name_t>;
+
+final class ipc_info_port extends ffi.Struct {
+  @natural_t()
+  external int iip_port_object;
+
+  @natural_t()
+  external int iip_receiver_object;
+}
+
+typedef ipc_info_port_t = ipc_info_port;
+typedef exception_handler_info_array_t = ffi.Pointer<ipc_info_port_t>;
+typedef exception_type_t = ffi.Int;
+typedef Dartexception_type_t = int;
+typedef exception_data_type_t = integer_t;
+typedef mach_exception_data_type_t = ffi.Int64;
+typedef Dartmach_exception_data_type_t = int;
+typedef exception_behavior_t = ffi.Int;
+typedef Dartexception_behavior_t = int;
+typedef exception_data_t = ffi.Pointer<exception_data_type_t>;
+typedef mach_exception_data_t = ffi.Pointer<mach_exception_data_type_t>;
+typedef exception_mask_t = ffi.UnsignedInt;
+typedef Dartexception_mask_t = int;
+typedef exception_mask_array_t = ffi.Pointer<exception_mask_t>;
+typedef exception_behavior_array_t = ffi.Pointer<exception_behavior_t>;
+typedef exception_flavor_array_t = ffi.Pointer<thread_state_flavor_t>;
+typedef exception_port_array_t = ffi.Pointer<mach_port_t>;
+typedef exception_port_info_array_t = ffi.Pointer<ipc_info_port_t>;
+typedef mach_exception_code_t = mach_exception_data_type_t;
+typedef mach_exception_subcode_t = mach_exception_data_type_t;
+typedef mach_voucher_t = mach_port_t;
+typedef mach_voucher_name_t = mach_port_name_t;
+typedef mach_voucher_name_array_t = ffi.Pointer<mach_voucher_name_t>;
+
+final class ipc_voucher extends ffi.Opaque {}
+
+typedef ipc_voucher_t = ffi.Pointer<ipc_voucher>;
+typedef mach_voucher_selector_t = ffi.Uint32;
+typedef Dartmach_voucher_selector_t = int;
+typedef mach_voucher_attr_key_t = ffi.Uint32;
+typedef Dartmach_voucher_attr_key_t = int;
+typedef mach_voucher_attr_key_array_t = ffi.Pointer<mach_voucher_attr_key_t>;
+typedef mach_voucher_attr_content_t = ffi.Pointer<ffi.Uint8>;
+typedef mach_voucher_attr_content_size_t = ffi.Uint32;
+typedef Dartmach_voucher_attr_content_size_t = int;
+typedef mach_voucher_attr_command_t = ffi.Uint32;
+typedef Dartmach_voucher_attr_command_t = int;
+typedef mach_voucher_attr_recipe_command_t = ffi.Uint32;
+typedef Dartmach_voucher_attr_recipe_command_t = int;
+typedef mach_voucher_attr_recipe_command_array_t
+    = ffi.Pointer<mach_voucher_attr_recipe_command_t>;
+
+final class mach_voucher_attr_recipe_data extends ffi.Opaque {}
+
+typedef mach_voucher_attr_recipe_data_t = mach_voucher_attr_recipe_data;
+typedef mach_voucher_attr_recipe_t
+    = ffi.Pointer<mach_voucher_attr_recipe_data_t>;
+typedef mach_voucher_attr_recipe_size_t = mach_msg_type_number_t;
+typedef mach_voucher_attr_raw_recipe_t = ffi.Pointer<ffi.Uint8>;
+typedef mach_voucher_attr_raw_recipe_array_t = mach_voucher_attr_raw_recipe_t;
+typedef mach_voucher_attr_raw_recipe_size_t = mach_msg_type_number_t;
+typedef mach_voucher_attr_raw_recipe_array_size_t = mach_msg_type_number_t;
+typedef mach_voucher_attr_manager_t = mach_port_t;
+typedef mach_voucher_attr_control_t = mach_port_t;
+
+final class ipc_voucher_attr_manager extends ffi.Opaque {}
+
+final class ipc_voucher_attr_control extends ffi.Opaque {}
+
+typedef ipc_voucher_attr_manager_t = ffi.Pointer<ipc_voucher_attr_manager>;
+typedef ipc_voucher_attr_control_t = ffi.Pointer<ipc_voucher_attr_control>;
+typedef mach_voucher_attr_value_handle_t = ffi.Uint64;
+typedef Dartmach_voucher_attr_value_handle_t = int;
+typedef mach_voucher_attr_value_handle_array_t
+    = ffi.Pointer<mach_voucher_attr_value_handle_t>;
+typedef mach_voucher_attr_value_handle_array_size_t = mach_msg_type_number_t;
+typedef mach_voucher_attr_value_reference_t = ffi.Uint32;
+typedef Dartmach_voucher_attr_value_reference_t = int;
+typedef mach_voucher_attr_value_flags_t = ffi.Uint32;
+typedef Dartmach_voucher_attr_value_flags_t = int;
+typedef mach_voucher_attr_control_flags_t = ffi.Uint32;
+typedef Dartmach_voucher_attr_control_flags_t = int;
+typedef mach_voucher_attr_importance_refs = ffi.Uint32;
+typedef Dartmach_voucher_attr_importance_refs = int;
+
+final class processor_cpu_stat extends ffi.Struct {
+  @ffi.Uint32()
+  external int irq_ex_cnt;
+
+  @ffi.Uint32()
+  external int ipi_cnt;
+
+  @ffi.Uint32()
+  external int timer_cnt;
+
+  @ffi.Uint32()
+  external int undef_ex_cnt;
+
+  @ffi.Uint32()
+  external int unaligned_cnt;
+
+  @ffi.Uint32()
+  external int vfp_cnt;
+
+  @ffi.Uint32()
+  external int vfp_shortv_cnt;
+
+  @ffi.Uint32()
+  external int data_ex_cnt;
+
+  @ffi.Uint32()
+  external int instr_ex_cnt;
+}
+
+typedef processor_cpu_stat_data_t = processor_cpu_stat;
+typedef processor_cpu_stat_t = ffi.Pointer<processor_cpu_stat>;
+
+@ffi.Packed(4)
+final class processor_cpu_stat64 extends ffi.Struct {
+  @ffi.Uint64()
+  external int irq_ex_cnt;
+
+  @ffi.Uint64()
+  external int ipi_cnt;
+
+  @ffi.Uint64()
+  external int timer_cnt;
+
+  @ffi.Uint64()
+  external int undef_ex_cnt;
+
+  @ffi.Uint64()
+  external int unaligned_cnt;
+
+  @ffi.Uint64()
+  external int vfp_cnt;
+
+  @ffi.Uint64()
+  external int vfp_shortv_cnt;
+
+  @ffi.Uint64()
+  external int data_ex_cnt;
+
+  @ffi.Uint64()
+  external int instr_ex_cnt;
+
+  @ffi.Uint64()
+  external int pmi_cnt;
+}
+
+typedef processor_cpu_stat64_data_t = processor_cpu_stat64;
+typedef processor_cpu_stat64_t = ffi.Pointer<processor_cpu_stat64>;
+typedef processor_info_t = ffi.Pointer<integer_t>;
+typedef processor_info_array_t = ffi.Pointer<integer_t>;
+typedef processor_set_info_t = ffi.Pointer<integer_t>;
+typedef processor_flavor_t = ffi.Int;
+typedef Dartprocessor_flavor_t = int;
+
+final class UnnamedUnion8 extends ffi.Union {
+  @boolean_t()
+  external int is_master;
+
+  @boolean_t()
+  external int is_main;
+}
+
+final class processor_basic_info extends ffi.Struct {
+  @cpu_type_t()
+  external int cpu_type;
+
+  @cpu_subtype_t()
+  external int cpu_subtype;
+
+  @boolean_t()
+  external int running;
+
+  @ffi.Int()
+  external int slot_num;
+
+  external UnnamedUnion8 unnamed;
+}
+
+typedef processor_basic_info_data_t = processor_basic_info;
+typedef processor_basic_info_t = ffi.Pointer<processor_basic_info>;
+
+final class processor_cpu_load_info extends ffi.Struct {
+  @ffi.Array.multi([4])
+  external ffi.Array<ffi.UnsignedInt> cpu_ticks;
+}
+
+typedef processor_cpu_load_info_data_t = processor_cpu_load_info;
+typedef processor_cpu_load_info_t = ffi.Pointer<processor_cpu_load_info>;
+typedef processor_set_flavor_t = ffi.Int;
+typedef Dartprocessor_set_flavor_t = int;
+
+final class processor_set_basic_info extends ffi.Struct {
+  @ffi.Int()
+  external int processor_count;
+
+  @ffi.Int()
+  external int default_policy;
+}
+
+typedef processor_set_basic_info_data_t = processor_set_basic_info;
+typedef processor_set_basic_info_t = ffi.Pointer<processor_set_basic_info>;
+
+final class processor_set_load_info extends ffi.Struct {
+  @ffi.Int()
+  external int task_count;
+
+  @ffi.Int()
+  external int thread_count;
+
+  @integer_t()
+  external int load_average;
+
+  @integer_t()
+  external int mach_factor;
+}
+
+typedef processor_set_load_info_data_t = processor_set_load_info;
+typedef processor_set_load_info_t = ffi.Pointer<processor_set_load_info>;
+typedef policy_t = ffi.Int;
+typedef Dartpolicy_t = int;
+typedef policy_info_t = ffi.Pointer<integer_t>;
+typedef policy_base_t = ffi.Pointer<integer_t>;
+typedef policy_limit_t = ffi.Pointer<integer_t>;
+
+final class policy_timeshare_base extends ffi.Struct {
+  @integer_t()
+  external int base_priority;
+}
+
+final class policy_timeshare_limit extends ffi.Struct {
+  @integer_t()
+  external int max_priority;
+}
+
+final class policy_timeshare_info extends ffi.Struct {
+  @integer_t()
+  external int max_priority;
+
+  @integer_t()
+  external int base_priority;
+
+  @integer_t()
+  external int cur_priority;
+
+  @boolean_t()
+  external int depressed;
+
+  @integer_t()
+  external int depress_priority;
+}
+
+typedef policy_timeshare_base_t = ffi.Pointer<policy_timeshare_base>;
+typedef policy_timeshare_limit_t = ffi.Pointer<policy_timeshare_limit>;
+typedef policy_timeshare_info_t = ffi.Pointer<policy_timeshare_info>;
+typedef policy_timeshare_base_data_t = policy_timeshare_base;
+typedef policy_timeshare_limit_data_t = policy_timeshare_limit;
+typedef policy_timeshare_info_data_t = policy_timeshare_info;
+
+final class policy_rr_base extends ffi.Struct {
+  @integer_t()
+  external int base_priority;
+
+  @integer_t()
+  external int quantum;
+}
+
+final class policy_rr_limit extends ffi.Struct {
+  @integer_t()
+  external int max_priority;
+}
+
+final class policy_rr_info extends ffi.Struct {
+  @integer_t()
+  external int max_priority;
+
+  @integer_t()
+  external int base_priority;
+
+  @integer_t()
+  external int quantum;
+
+  @boolean_t()
+  external int depressed;
+
+  @integer_t()
+  external int depress_priority;
+}
+
+typedef policy_rr_base_t = ffi.Pointer<policy_rr_base>;
+typedef policy_rr_limit_t = ffi.Pointer<policy_rr_limit>;
+typedef policy_rr_info_t = ffi.Pointer<policy_rr_info>;
+typedef policy_rr_base_data_t = policy_rr_base;
+typedef policy_rr_limit_data_t = policy_rr_limit;
+typedef policy_rr_info_data_t = policy_rr_info;
+
+final class policy_fifo_base extends ffi.Struct {
+  @integer_t()
+  external int base_priority;
+}
+
+final class policy_fifo_limit extends ffi.Struct {
+  @integer_t()
+  external int max_priority;
+}
+
+final class policy_fifo_info extends ffi.Struct {
+  @integer_t()
+  external int max_priority;
+
+  @integer_t()
+  external int base_priority;
+
+  @boolean_t()
+  external int depressed;
+
+  @integer_t()
+  external int depress_priority;
+}
+
+typedef policy_fifo_base_t = ffi.Pointer<policy_fifo_base>;
+typedef policy_fifo_limit_t = ffi.Pointer<policy_fifo_limit>;
+typedef policy_fifo_info_t = ffi.Pointer<policy_fifo_info>;
+typedef policy_fifo_base_data_t = policy_fifo_base;
+typedef policy_fifo_limit_data_t = policy_fifo_limit;
+typedef policy_fifo_info_data_t = policy_fifo_info;
+
+final class policy_bases extends ffi.Struct {
+  external policy_timeshare_base_data_t ts;
+
+  external policy_rr_base_data_t rr;
+
+  external policy_fifo_base_data_t fifo;
+}
+
+final class policy_limits extends ffi.Struct {
+  external policy_timeshare_limit_data_t ts;
+
+  external policy_rr_limit_data_t rr;
+
+  external policy_fifo_limit_data_t fifo;
+}
+
+final class policy_infos extends ffi.Struct {
+  external policy_timeshare_info_data_t ts;
+
+  external policy_rr_info_data_t rr;
+
+  external policy_fifo_info_data_t fifo;
+}
+
+typedef policy_base_data_t = policy_bases;
+typedef policy_limit_data_t = policy_limits;
+typedef policy_info_data_t = policy_infos;
+typedef task_flavor_t = natural_t;
+typedef task_info_t = ffi.Pointer<integer_t>;
+
+final class task_basic_info_32 extends ffi.Struct {
+  @integer_t()
+  external int suspend_count;
+
+  @natural_t()
+  external int virtual_size;
+
+  @natural_t()
+  external int resident_size;
+
+  external time_value_t user_time;
+
+  external time_value_t system_time;
+
+  @policy_t()
+  external int policy;
+}
+
+typedef task_basic_info_32_data_t = task_basic_info_32;
+typedef task_basic_info_32_t = ffi.Pointer<task_basic_info_32>;
+
+final class task_basic_info_64 extends ffi.Struct {
+  @integer_t()
+  external int suspend_count;
+
+  @natural_t()
+  external int virtual_size;
+
+  @natural_t()
+  external int resident_size;
+
+  external time_value_t user_time;
+
+  external time_value_t system_time;
+
+  @policy_t()
+  external int policy;
+}
+
+typedef task_basic_info_64_data_t = task_basic_info_64;
+typedef task_basic_info_64_t = ffi.Pointer<task_basic_info_64>;
+
+@ffi.Packed(4)
+final class task_basic_info extends ffi.Struct {
+  @integer_t()
+  external int suspend_count;
+
+  @vm_size_t()
+  external int virtual_size;
+
+  @vm_size_t()
+  external int resident_size;
+
+  external time_value_t user_time;
+
+  external time_value_t system_time;
+
+  @policy_t()
+  external int policy;
+}
+
+typedef task_basic_info_data_t = task_basic_info;
+typedef task_basic_info_t = ffi.Pointer<task_basic_info>;
+
+final class task_events_info extends ffi.Struct {
+  @integer_t()
+  external int faults;
+
+  @integer_t()
+  external int pageins;
+
+  @integer_t()
+  external int cow_faults;
+
+  @integer_t()
+  external int messages_sent;
+
+  @integer_t()
+  external int messages_received;
+
+  @integer_t()
+  external int syscalls_mach;
+
+  @integer_t()
+  external int syscalls_unix;
+
+  @integer_t()
+  external int csw;
+}
+
+typedef task_events_info_data_t = task_events_info;
+typedef task_events_info_t = ffi.Pointer<task_events_info>;
+
+final class task_thread_times_info extends ffi.Struct {
+  external time_value_t user_time;
+
+  external time_value_t system_time;
+}
+
+typedef task_thread_times_info_data_t = task_thread_times_info;
+typedef task_thread_times_info_t = ffi.Pointer<task_thread_times_info>;
+
+@ffi.Packed(4)
+final class task_absolutetime_info extends ffi.Struct {
+  @ffi.Uint64()
+  external int total_user;
+
+  @ffi.Uint64()
+  external int total_system;
+
+  @ffi.Uint64()
+  external int threads_user;
+
+  @ffi.Uint64()
+  external int threads_system;
+}
+
+typedef task_absolutetime_info_data_t = task_absolutetime_info;
+typedef task_absolutetime_info_t = ffi.Pointer<task_absolutetime_info>;
+
+@ffi.Packed(4)
+final class task_kernelmemory_info extends ffi.Struct {
+  @ffi.Uint64()
+  external int total_palloc;
+
+  @ffi.Uint64()
+  external int total_pfree;
+
+  @ffi.Uint64()
+  external int total_salloc;
+
+  @ffi.Uint64()
+  external int total_sfree;
+}
+
+typedef task_kernelmemory_info_data_t = task_kernelmemory_info;
+typedef task_kernelmemory_info_t = ffi.Pointer<task_kernelmemory_info>;
+
+final class task_affinity_tag_info extends ffi.Struct {
+  @integer_t()
+  external int set_count;
+
+  @integer_t()
+  external int min;
+
+  @integer_t()
+  external int max;
+
+  @integer_t()
+  external int task_count;
+}
+
+typedef task_affinity_tag_info_data_t = task_affinity_tag_info;
+typedef task_affinity_tag_info_t = ffi.Pointer<task_affinity_tag_info>;
+
+@ffi.Packed(4)
+final class task_dyld_info extends ffi.Struct {
+  @mach_vm_address_t()
+  external int all_image_info_addr;
+
+  @mach_vm_size_t()
+  external int all_image_info_size;
+
+  @integer_t()
+  external int all_image_info_format;
+}
+
+typedef task_dyld_info_data_t = task_dyld_info;
+typedef task_dyld_info_t = ffi.Pointer<task_dyld_info>;
+
+@ffi.Packed(4)
+final class task_basic_info_64_2 extends ffi.Struct {
+  @integer_t()
+  external int suspend_count;
+
+  @mach_vm_size_t()
+  external int virtual_size;
+
+  @mach_vm_size_t()
+  external int resident_size;
+
+  external time_value_t user_time;
+
+  external time_value_t system_time;
+
+  @policy_t()
+  external int policy;
+}
+
+typedef task_basic_info_64_2_data_t = task_basic_info_64_2;
+typedef task_basic_info_64_2_t = ffi.Pointer<task_basic_info_64_2>;
+
+@ffi.Packed(4)
+final class task_extmod_info extends ffi.Struct {
+  @ffi.Array.multi([16])
+  external ffi.Array<ffi.UnsignedChar> task_uuid;
+
+  external vm_extmod_statistics_data_t extmod_statistics;
+}
+
+typedef task_extmod_info_data_t = task_extmod_info;
+typedef task_extmod_info_t = ffi.Pointer<task_extmod_info>;
+
+@ffi.Packed(4)
+final class mach_task_basic_info extends ffi.Struct {
+  @mach_vm_size_t()
+  external int virtual_size;
+
+  @mach_vm_size_t()
+  external int resident_size;
+
+  @mach_vm_size_t()
+  external int resident_size_max;
+
+  external time_value_t user_time;
+
+  external time_value_t system_time;
+
+  @policy_t()
+  external int policy;
+
+  @integer_t()
+  external int suspend_count;
+}
+
+typedef mach_task_basic_info_data_t = mach_task_basic_info;
+typedef mach_task_basic_info_t = ffi.Pointer<mach_task_basic_info>;
+
+@ffi.Packed(4)
+final class task_power_info extends ffi.Struct {
+  @ffi.Uint64()
+  external int total_user;
+
+  @ffi.Uint64()
+  external int total_system;
+
+  @ffi.Uint64()
+  external int task_interrupt_wakeups;
+
+  @ffi.Uint64()
+  external int task_platform_idle_wakeups;
+
+  @ffi.Uint64()
+  external int task_timer_wakeups_bin_1;
+
+  @ffi.Uint64()
+  external int task_timer_wakeups_bin_2;
+}
+
+typedef task_power_info_data_t = task_power_info;
+typedef task_power_info_t = ffi.Pointer<task_power_info>;
+
+@ffi.Packed(4)
+final class task_vm_info extends ffi.Struct {
+  @mach_vm_size_t()
+  external int virtual_size;
+
+  @integer_t()
+  external int region_count;
+
+  @integer_t()
+  external int page_size;
+
+  @mach_vm_size_t()
+  external int resident_size;
+
+  @mach_vm_size_t()
+  external int resident_size_peak;
+
+  @mach_vm_size_t()
+  external int device;
+
+  @mach_vm_size_t()
+  external int device_peak;
+
+  @mach_vm_size_t()
+  external int internal;
+
+  @mach_vm_size_t()
+  external int internal_peak;
+
+  @mach_vm_size_t()
+  external int external$;
+
+  @mach_vm_size_t()
+  external int external_peak;
+
+  @mach_vm_size_t()
+  external int reusable;
+
+  @mach_vm_size_t()
+  external int reusable_peak;
+
+  @mach_vm_size_t()
+  external int purgeable_volatile_pmap;
+
+  @mach_vm_size_t()
+  external int purgeable_volatile_resident;
+
+  @mach_vm_size_t()
+  external int purgeable_volatile_virtual;
+
+  @mach_vm_size_t()
+  external int compressed;
+
+  @mach_vm_size_t()
+  external int compressed_peak;
+
+  @mach_vm_size_t()
+  external int compressed_lifetime;
+
+  @mach_vm_size_t()
+  external int phys_footprint;
+
+  @mach_vm_address_t()
+  external int min_address;
+
+  @mach_vm_address_t()
+  external int max_address;
+
+  @ffi.Int64()
+  external int ledger_phys_footprint_peak;
+
+  @ffi.Int64()
+  external int ledger_purgeable_nonvolatile;
+
+  @ffi.Int64()
+  external int ledger_purgeable_novolatile_compressed;
+
+  @ffi.Int64()
+  external int ledger_purgeable_volatile;
+
+  @ffi.Int64()
+  external int ledger_purgeable_volatile_compressed;
+
+  @ffi.Int64()
+  external int ledger_tag_network_nonvolatile;
+
+  @ffi.Int64()
+  external int ledger_tag_network_nonvolatile_compressed;
+
+  @ffi.Int64()
+  external int ledger_tag_network_volatile;
+
+  @ffi.Int64()
+  external int ledger_tag_network_volatile_compressed;
+
+  @ffi.Int64()
+  external int ledger_tag_media_footprint;
+
+  @ffi.Int64()
+  external int ledger_tag_media_footprint_compressed;
+
+  @ffi.Int64()
+  external int ledger_tag_media_nofootprint;
+
+  @ffi.Int64()
+  external int ledger_tag_media_nofootprint_compressed;
+
+  @ffi.Int64()
+  external int ledger_tag_graphics_footprint;
+
+  @ffi.Int64()
+  external int ledger_tag_graphics_footprint_compressed;
+
+  @ffi.Int64()
+  external int ledger_tag_graphics_nofootprint;
+
+  @ffi.Int64()
+  external int ledger_tag_graphics_nofootprint_compressed;
+
+  @ffi.Int64()
+  external int ledger_tag_neural_footprint;
+
+  @ffi.Int64()
+  external int ledger_tag_neural_footprint_compressed;
+
+  @ffi.Int64()
+  external int ledger_tag_neural_nofootprint;
+
+  @ffi.Int64()
+  external int ledger_tag_neural_nofootprint_compressed;
+
+  @ffi.Uint64()
+  external int limit_bytes_remaining;
+
+  @integer_t()
+  external int decompressions;
+
+  @ffi.Int64()
+  external int ledger_swapins;
+
+  @ffi.Int64()
+  external int ledger_tag_neural_nofootprint_total;
+
+  @ffi.Int64()
+  external int ledger_tag_neural_nofootprint_peak;
+}
+
+typedef task_vm_info_data_t = task_vm_info;
+typedef task_vm_info_t = ffi.Pointer<task_vm_info>;
+typedef task_purgable_info_t = vm_purgeable_info;
+
+@ffi.Packed(4)
+final class task_trace_memory_info extends ffi.Struct {
+  @ffi.Uint64()
+  external int user_memory_address;
+
+  @ffi.Uint64()
+  external int buffer_size;
+
+  @ffi.Uint64()
+  external int mailbox_array_size;
+}
+
+typedef task_trace_memory_info_data_t = task_trace_memory_info;
+typedef task_trace_memory_info_t = ffi.Pointer<task_trace_memory_info>;
+
+@ffi.Packed(4)
+final class task_wait_state_info extends ffi.Struct {
+  @ffi.Uint64()
+  external int total_wait_state_time;
+
+  @ffi.Uint64()
+  external int total_wait_sfi_state_time;
+
+  @ffi.Array.multi([4])
+  external ffi.Array<ffi.Uint32> _reserved;
+}
+
+typedef task_wait_state_info_data_t = task_wait_state_info;
+typedef task_wait_state_info_t = ffi.Pointer<task_wait_state_info>;
+
+@ffi.Packed(4)
+final class gpu_energy_data extends ffi.Struct {
+  @ffi.Uint64()
+  external int task_gpu_utilisation;
+
+  @ffi.Uint64()
+  external int task_gpu_stat_reserved0;
+
+  @ffi.Uint64()
+  external int task_gpu_stat_reserved1;
+
+  @ffi.Uint64()
+  external int task_gpu_stat_reserved2;
+}
+
+typedef gpu_energy_data_t = ffi.Pointer<gpu_energy_data>;
+
+@ffi.Packed(4)
+final class task_power_info_v2 extends ffi.Struct {
+  external task_power_info_data_t cpu_energy;
+
+  external gpu_energy_data gpu_energy;
+
+  @ffi.Uint64()
+  external int task_energy;
+
+  @ffi.Uint64()
+  external int task_ptime;
+
+  @ffi.Uint64()
+  external int task_pset_switches;
+}
+
+typedef task_power_info_v2_data_t = task_power_info_v2;
+typedef task_power_info_v2_t = ffi.Pointer<task_power_info_v2>;
+
+final class task_flags_info extends ffi.Struct {
+  @ffi.Uint32()
+  external int flags;
+}
+
+typedef task_flags_info_data_t = task_flags_info;
+typedef task_flags_info_t = ffi.Pointer<task_flags_info>;
+
+final class task_security_config_info extends ffi.Struct {
+  @ffi.Uint32()
+  external int config;
+}
+
+typedef task_security_config_info_t = ffi.Pointer<task_security_config_info>;
+typedef task_exc_guard_behavior_t = ffi.Uint32;
+typedef Darttask_exc_guard_behavior_t = int;
+typedef task_corpse_forking_behavior_t = ffi.Uint32;
+typedef Darttask_corpse_forking_behavior_t = int;
+typedef task_inspect_flavor_t = natural_t;
+
+final class task_inspect_basic_counts extends ffi.Struct {
+  @ffi.Uint64()
+  external int instructions;
+
+  @ffi.Uint64()
+  external int cycles;
+}
+
+typedef task_inspect_basic_counts_data_t = task_inspect_basic_counts;
+typedef task_inspect_basic_counts_t = ffi.Pointer<task_inspect_basic_counts>;
+typedef task_inspect_info_t = ffi.Pointer<integer_t>;
+typedef task_policy_flavor_t = natural_t;
+typedef task_policy_t = ffi.Pointer<integer_t>;
+
+enum task_role {
+  TASK_RENICED(-1),
+  TASK_UNSPECIFIED(0),
+  TASK_FOREGROUND_APPLICATION(1),
+  TASK_BACKGROUND_APPLICATION(2),
+  TASK_CONTROL_APPLICATION(3),
+  TASK_GRAPHICS_SERVER(4),
+  TASK_THROTTLE_APPLICATION(5),
+  TASK_NONUI_APPLICATION(6),
+  TASK_DEFAULT_APPLICATION(7),
+  TASK_DARWINBG_APPLICATION(8);
+
+  final int value;
+  const task_role(this.value);
+
+  static task_role fromValue(int value) => switch (value) {
+        -1 => TASK_RENICED,
+        0 => TASK_UNSPECIFIED,
+        1 => TASK_FOREGROUND_APPLICATION,
+        2 => TASK_BACKGROUND_APPLICATION,
+        3 => TASK_CONTROL_APPLICATION,
+        4 => TASK_GRAPHICS_SERVER,
+        5 => TASK_THROTTLE_APPLICATION,
+        6 => TASK_NONUI_APPLICATION,
+        7 => TASK_DEFAULT_APPLICATION,
+        8 => TASK_DARWINBG_APPLICATION,
+        _ => throw ArgumentError('Unknown value for task_role: $value'),
+      };
+}
+
+final class task_category_policy extends ffi.Struct {
+  @ffi.Int()
+  external int roleAsInt;
+
+  task_role get role => task_role.fromValue(roleAsInt);
+}
+
+typedef task_category_policy_data_t = task_category_policy;
+typedef task_category_policy_t = ffi.Pointer<task_category_policy>;
+typedef task_latency_qos_t = integer_t;
+typedef task_throughput_qos_t = integer_t;
+
+final class task_qos_policy extends ffi.Struct {
+  @task_latency_qos_t()
+  external int task_latency_qos_tier;
+
+  @task_throughput_qos_t()
+  external int task_throughput_qos_tier;
+}
+
+typedef task_qos_policy_t = ffi.Pointer<task_qos_policy>;
+typedef task_special_port_t = ffi.Int;
+typedef Darttask_special_port_t = int;
+typedef thread_flavor_t = natural_t;
+typedef thread_info_t = ffi.Pointer<integer_t>;
+
+final class thread_basic_info extends ffi.Struct {
+  external time_value_t user_time;
+
+  external time_value_t system_time;
+
+  @integer_t()
+  external int cpu_usage;
+
+  @policy_t()
+  external int policy;
+
+  @integer_t()
+  external int run_state;
+
+  @integer_t()
+  external int flags;
+
+  @integer_t()
+  external int suspend_count;
+
+  @integer_t()
+  external int sleep_time;
+}
+
+typedef thread_basic_info_data_t = thread_basic_info;
+typedef thread_basic_info_t = ffi.Pointer<thread_basic_info>;
+
+final class thread_identifier_info extends ffi.Struct {
+  @ffi.Uint64()
+  external int thread_id;
+
+  @ffi.Uint64()
+  external int thread_handle;
+
+  @ffi.Uint64()
+  external int dispatch_qaddr;
+}
+
+typedef thread_identifier_info_data_t = thread_identifier_info;
+typedef thread_identifier_info_t = ffi.Pointer<thread_identifier_info>;
+
+final class thread_extended_info extends ffi.Struct {
+  @ffi.Uint64()
+  external int pth_user_time;
+
+  @ffi.Uint64()
+  external int pth_system_time;
+
+  @ffi.Int32()
+  external int pth_cpu_usage;
+
+  @ffi.Int32()
+  external int pth_policy;
+
+  @ffi.Int32()
+  external int pth_run_state;
+
+  @ffi.Int32()
+  external int pth_flags;
+
+  @ffi.Int32()
+  external int pth_sleep_time;
+
+  @ffi.Int32()
+  external int pth_curpri;
+
+  @ffi.Int32()
+  external int pth_priority;
+
+  @ffi.Int32()
+  external int pth_maxpriority;
+
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Char> pth_name;
+}
+
+typedef thread_extended_info_data_t = thread_extended_info;
+typedef thread_extended_info_t = ffi.Pointer<thread_extended_info>;
+
+final class io_stat_entry extends ffi.Struct {
+  @ffi.Uint64()
+  external int count;
+
+  @ffi.Uint64()
+  external int size;
+}
+
+final class io_stat_info extends ffi.Struct {
+  external io_stat_entry disk_reads;
+
+  @ffi.Array.multi([4])
+  external ffi.Array<io_stat_entry> io_priority;
+
+  external io_stat_entry paging;
+
+  external io_stat_entry metadata;
+
+  external io_stat_entry total_io;
+}
+
+typedef io_stat_info_t = ffi.Pointer<io_stat_info>;
+typedef thread_policy_flavor_t = natural_t;
+typedef thread_policy_t = ffi.Pointer<integer_t>;
+
+final class thread_standard_policy extends ffi.Struct {
+  @natural_t()
+  external int no_data;
+}
+
+typedef thread_standard_policy_data_t = thread_standard_policy;
+typedef thread_standard_policy_t = ffi.Pointer<thread_standard_policy>;
+
+final class thread_extended_policy extends ffi.Struct {
+  @boolean_t()
+  external int timeshare;
+}
+
+typedef thread_extended_policy_data_t = thread_extended_policy;
+typedef thread_extended_policy_t = ffi.Pointer<thread_extended_policy>;
+
+final class thread_time_constraint_policy extends ffi.Struct {
+  @ffi.Uint32()
+  external int period;
+
+  @ffi.Uint32()
+  external int computation;
+
+  @ffi.Uint32()
+  external int constraint;
+
+  @boolean_t()
+  external int preemptible;
+}
+
+typedef thread_time_constraint_policy_data_t = thread_time_constraint_policy;
+typedef thread_time_constraint_policy_t
+    = ffi.Pointer<thread_time_constraint_policy>;
+
+final class thread_precedence_policy extends ffi.Struct {
+  @integer_t()
+  external int importance;
+}
+
+typedef thread_precedence_policy_data_t = thread_precedence_policy;
+typedef thread_precedence_policy_t = ffi.Pointer<thread_precedence_policy>;
+
+final class thread_affinity_policy extends ffi.Struct {
+  @integer_t()
+  external int affinity_tag;
+}
+
+typedef thread_affinity_policy_data_t = thread_affinity_policy;
+typedef thread_affinity_policy_t = ffi.Pointer<thread_affinity_policy>;
+
+final class thread_background_policy extends ffi.Struct {
+  @integer_t()
+  external int priority;
+}
+
+typedef thread_background_policy_data_t = thread_background_policy;
+typedef thread_background_policy_t = ffi.Pointer<thread_background_policy>;
+typedef thread_latency_qos_t = integer_t;
+
+final class thread_latency_qos_policy extends ffi.Struct {
+  @thread_latency_qos_t()
+  external int thread_latency_qos_tier;
+}
+
+typedef thread_latency_qos_policy_data_t = thread_latency_qos_policy;
+typedef thread_latency_qos_policy_t = ffi.Pointer<thread_latency_qos_policy>;
+typedef thread_throughput_qos_t = integer_t;
+
+final class thread_throughput_qos_policy extends ffi.Struct {
+  @thread_throughput_qos_t()
+  external int thread_throughput_qos_tier;
+}
+
+typedef thread_throughput_qos_policy_data_t = thread_throughput_qos_policy;
+typedef thread_throughput_qos_policy_t
+    = ffi.Pointer<thread_throughput_qos_policy>;
+typedef vm_machine_attribute_t = ffi.UnsignedInt;
+typedef Dartvm_machine_attribute_t = int;
+typedef vm_machine_attribute_val_t = ffi.Int;
+typedef Dartvm_machine_attribute_val_t = int;
+typedef vm_inherit_t = ffi.UnsignedInt;
+typedef Dartvm_inherit_t = int;
+typedef vm_purgable_t = ffi.Int;
+typedef Dartvm_purgable_t = int;
+typedef vm_behavior_t = ffi.Int;
+typedef Dartvm_behavior_t = int;
+typedef vm32_object_id_t = ffi.Uint32;
+typedef Dartvm32_object_id_t = int;
+typedef vm_region_info_t = ffi.Pointer<ffi.Int>;
+typedef vm_region_info_64_t = ffi.Pointer<ffi.Int>;
+typedef vm_region_recurse_info_t = ffi.Pointer<ffi.Int>;
+typedef vm_region_recurse_info_64_t = ffi.Pointer<ffi.Int>;
+typedef vm_region_flavor_t = ffi.Int;
+typedef Dartvm_region_flavor_t = int;
+
+@ffi.Packed(4)
+final class vm_region_basic_info_64 extends ffi.Struct {
+  @vm_prot_t()
+  external int protection;
+
+  @vm_prot_t()
+  external int max_protection;
+
+  @vm_inherit_t()
+  external int inheritance;
+
+  @boolean_t()
+  external int shared;
+
+  @boolean_t()
+  external int reserved;
+
+  @memory_object_offset_t()
+  external int offset;
+
+  @vm_behavior_t()
+  external int behavior;
+
+  @ffi.UnsignedShort()
+  external int user_wired_count;
+}
+
+typedef vm_region_basic_info_64_t = ffi.Pointer<vm_region_basic_info_64>;
+typedef vm_region_basic_info_data_64_t = vm_region_basic_info_64;
+
+final class vm_region_basic_info extends ffi.Struct {
+  @vm_prot_t()
+  external int protection;
+
+  @vm_prot_t()
+  external int max_protection;
+
+  @vm_inherit_t()
+  external int inheritance;
+
+  @boolean_t()
+  external int shared;
+
+  @boolean_t()
+  external int reserved;
+
+  @ffi.Uint32()
+  external int offset;
+
+  @vm_behavior_t()
+  external int behavior;
+
+  @ffi.UnsignedShort()
+  external int user_wired_count;
+}
+
+typedef vm_region_basic_info_t = ffi.Pointer<vm_region_basic_info>;
+typedef vm_region_basic_info_data_t = vm_region_basic_info;
+
+final class vm_region_extended_info extends ffi.Struct {
+  @vm_prot_t()
+  external int protection;
+
+  @ffi.UnsignedInt()
+  external int user_tag;
+
+  @ffi.UnsignedInt()
+  external int pages_resident;
+
+  @ffi.UnsignedInt()
+  external int pages_shared_now_private;
+
+  @ffi.UnsignedInt()
+  external int pages_swapped_out;
+
+  @ffi.UnsignedInt()
+  external int pages_dirtied;
+
+  @ffi.UnsignedInt()
+  external int ref_count;
+
+  @ffi.UnsignedShort()
+  external int shadow_depth;
+
+  @ffi.UnsignedChar()
+  external int external_pager;
+
+  @ffi.UnsignedChar()
+  external int share_mode;
+
+  @ffi.UnsignedInt()
+  external int pages_reusable;
+}
+
+typedef vm_region_extended_info_t = ffi.Pointer<vm_region_extended_info>;
+typedef vm_region_extended_info_data_t = vm_region_extended_info;
+
+final class vm_region_top_info extends ffi.Struct {
+  @ffi.UnsignedInt()
+  external int obj_id;
+
+  @ffi.UnsignedInt()
+  external int ref_count;
+
+  @ffi.UnsignedInt()
+  external int private_pages_resident;
+
+  @ffi.UnsignedInt()
+  external int shared_pages_resident;
+
+  @ffi.UnsignedChar()
+  external int share_mode;
+}
+
+typedef vm_region_top_info_t = ffi.Pointer<vm_region_top_info>;
+typedef vm_region_top_info_data_t = vm_region_top_info;
+
+final class vm_region_submap_info extends ffi.Struct {
+  @vm_prot_t()
+  external int protection;
+
+  @vm_prot_t()
+  external int max_protection;
+
+  @vm_inherit_t()
+  external int inheritance;
+
+  @ffi.Uint32()
+  external int offset;
+
+  @ffi.UnsignedInt()
+  external int user_tag;
+
+  @ffi.UnsignedInt()
+  external int pages_resident;
+
+  @ffi.UnsignedInt()
+  external int pages_shared_now_private;
+
+  @ffi.UnsignedInt()
+  external int pages_swapped_out;
+
+  @ffi.UnsignedInt()
+  external int pages_dirtied;
+
+  @ffi.UnsignedInt()
+  external int ref_count;
+
+  @ffi.UnsignedShort()
+  external int shadow_depth;
+
+  @ffi.UnsignedChar()
+  external int external_pager;
+
+  @ffi.UnsignedChar()
+  external int share_mode;
+
+  @boolean_t()
+  external int is_submap;
+
+  @vm_behavior_t()
+  external int behavior;
+
+  @vm32_object_id_t()
+  external int object_id;
+
+  @ffi.UnsignedShort()
+  external int user_wired_count;
+}
+
+typedef vm_region_submap_info_t = ffi.Pointer<vm_region_submap_info>;
+typedef vm_region_submap_info_data_t = vm_region_submap_info;
+
+@ffi.Packed(4)
+final class vm_region_submap_info_64 extends ffi.Struct {
+  @vm_prot_t()
+  external int protection;
+
+  @vm_prot_t()
+  external int max_protection;
+
+  @vm_inherit_t()
+  external int inheritance;
+
+  @memory_object_offset_t()
+  external int offset;
+
+  @ffi.UnsignedInt()
+  external int user_tag;
+
+  @ffi.UnsignedInt()
+  external int pages_resident;
+
+  @ffi.UnsignedInt()
+  external int pages_shared_now_private;
+
+  @ffi.UnsignedInt()
+  external int pages_swapped_out;
+
+  @ffi.UnsignedInt()
+  external int pages_dirtied;
+
+  @ffi.UnsignedInt()
+  external int ref_count;
+
+  @ffi.UnsignedShort()
+  external int shadow_depth;
+
+  @ffi.UnsignedChar()
+  external int external_pager;
+
+  @ffi.UnsignedChar()
+  external int share_mode;
+
+  @boolean_t()
+  external int is_submap;
+
+  @vm_behavior_t()
+  external int behavior;
+
+  @vm32_object_id_t()
+  external int object_id;
+
+  @ffi.UnsignedShort()
+  external int user_wired_count;
+
+  @ffi.UnsignedInt()
+  external int pages_reusable;
+
+  @vm_object_id_t()
+  external int object_id_full;
+}
+
+typedef vm_region_submap_info_64_t = ffi.Pointer<vm_region_submap_info_64>;
+typedef vm_region_submap_info_data_64_t = vm_region_submap_info_64;
+
+@ffi.Packed(4)
+final class vm_region_submap_short_info_64 extends ffi.Struct {
+  @vm_prot_t()
+  external int protection;
+
+  @vm_prot_t()
+  external int max_protection;
+
+  @vm_inherit_t()
+  external int inheritance;
+
+  @memory_object_offset_t()
+  external int offset;
+
+  @ffi.UnsignedInt()
+  external int user_tag;
+
+  @ffi.UnsignedInt()
+  external int ref_count;
+
+  @ffi.UnsignedShort()
+  external int shadow_depth;
+
+  @ffi.UnsignedChar()
+  external int external_pager;
+
+  @ffi.UnsignedChar()
+  external int share_mode;
+
+  @boolean_t()
+  external int is_submap;
+
+  @vm_behavior_t()
+  external int behavior;
+
+  @vm32_object_id_t()
+  external int object_id;
+
+  @ffi.UnsignedShort()
+  external int user_wired_count;
+}
+
+typedef vm_region_submap_short_info_64_t
+    = ffi.Pointer<vm_region_submap_short_info_64>;
+typedef vm_region_submap_short_info_data_64_t = vm_region_submap_short_info_64;
+
+@ffi.Packed(4)
+final class mach_vm_read_entry extends ffi.Struct {
+  @mach_vm_address_t()
+  external int address;
+
+  @mach_vm_size_t()
+  external int size;
+}
+
+@ffi.Packed(4)
+final class vm_read_entry extends ffi.Struct {
+  @vm_address_t()
+  external int address;
+
+  @vm_size_t()
+  external int size;
+}
+
+typedef vm_page_info_t = ffi.Pointer<ffi.Int>;
+typedef vm_page_info_flavor_t = ffi.Int;
+typedef Dartvm_page_info_flavor_t = int;
+
+final class vm_page_info_basic extends ffi.Struct {
+  @ffi.Int()
+  external int disposition;
+
+  @ffi.Int()
+  external int ref_count;
+
+  @vm_object_id_t()
+  external int object_id;
+
+  @memory_object_offset_t()
+  external int offset;
+
+  @ffi.Int()
+  external int depth;
+
+  @ffi.Int()
+  external int __pad;
+}
+
+typedef vm_page_info_basic_t = ffi.Pointer<vm_page_info_basic>;
+typedef vm_page_info_basic_data_t = vm_page_info_basic;
+typedef kmod_t = ffi.Int;
+typedef Dartkmod_t = int;
+
+@ffi.Packed(4)
+final class kmod_reference extends ffi.Struct {
+  external ffi.Pointer<kmod_reference> next;
+
+  external ffi.Pointer<kmod_info> info;
+}
+
+typedef kmod_reference_t = kmod_reference;
+typedef kmod_start_func_t = ffi.NativeFunction<
+    kern_return_t Function(
+        ffi.Pointer<kmod_info> ki, ffi.Pointer<ffi.Void> data)>;
+typedef kmod_stop_func_t = ffi.NativeFunction<
+    kern_return_t Function(
+        ffi.Pointer<kmod_info> ki, ffi.Pointer<ffi.Void> data)>;
+
+@ffi.Packed(4)
+final class kmod_info extends ffi.Struct {
+  external ffi.Pointer<kmod_info> next;
+
+  @ffi.Int32()
+  external int info_version;
+
+  @ffi.Uint32()
+  external int id;
+
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Char> name;
+
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Char> version;
+
+  @ffi.Int32()
+  external int reference_count;
+
+  external ffi.Pointer<kmod_reference_t> reference_list;
+
+  @vm_address_t()
+  external int address;
+
+  @vm_size_t()
+  external int size;
+
+  @vm_size_t()
+  external int hdr_size;
+
+  external ffi.Pointer<kmod_start_func_t> start;
+
+  external ffi.Pointer<kmod_stop_func_t> stop;
+}
+
+typedef kmod_info_t = kmod_info;
+
+final class kmod_info_32_v1 extends ffi.Struct {
+  @ffi.Uint32()
+  external int next_addr;
+
+  @ffi.Int32()
+  external int info_version;
+
+  @ffi.Uint32()
+  external int id;
+
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Uint8> name;
+
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Uint8> version;
+
+  @ffi.Int32()
+  external int reference_count;
+
+  @ffi.Uint32()
+  external int reference_list_addr;
+
+  @ffi.Uint32()
+  external int address;
+
+  @ffi.Uint32()
+  external int size;
+
+  @ffi.Uint32()
+  external int hdr_size;
+
+  @ffi.Uint32()
+  external int start_addr;
+
+  @ffi.Uint32()
+  external int stop_addr;
+}
+
+typedef kmod_info_32_v1_t = kmod_info_32_v1;
+
+@ffi.Packed(4)
+final class kmod_info_64_v1 extends ffi.Struct {
+  @ffi.Uint64()
+  external int next_addr;
+
+  @ffi.Int32()
+  external int info_version;
+
+  @ffi.Uint32()
+  external int id;
+
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Uint8> name;
+
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Uint8> version;
+
+  @ffi.Int32()
+  external int reference_count;
+
+  @ffi.Uint64()
+  external int reference_list_addr;
+
+  @ffi.Uint64()
+  external int address;
+
+  @ffi.Uint64()
+  external int size;
+
+  @ffi.Uint64()
+  external int hdr_size;
+
+  @ffi.Uint64()
+  external int start_addr;
+
+  @ffi.Uint64()
+  external int stop_addr;
+}
+
+typedef kmod_info_64_v1_t = kmod_info_64_v1;
+typedef kmod_args_t = ffi.Pointer<ffi.Void>;
+typedef kmod_control_flavor_t = ffi.Int;
+typedef Dartkmod_control_flavor_t = int;
+typedef kmod_info_array_t = ffi.Pointer<kmod_info_t>;
+
+final class fsid extends ffi.Struct {
+  @ffi.Array.multi([2])
+  external ffi.Array<ffi.Int32> val;
+}
+
+typedef fsid_t = fsid;
+
+final class fsobj_id extends ffi.Struct {
+  @u_int32_t()
+  external int fid_objno;
+
+  @u_int32_t()
+  external int fid_generation;
+}
+
+typedef fsobj_id_t = fsobj_id;
+
+final class dyld_kernel_image_info extends ffi.Struct {
+  @ffi.Array.multi([16])
+  external ffi.Array<ffi.UnsignedChar> uuid;
+
+  external fsobj_id_t fsobjid;
+
+  external fsid_t fsid;
+
+  @ffi.Uint64()
+  external int load_addr;
+}
+
+final class dyld_kernel_process_info extends ffi.Struct {
+  external dyld_kernel_image_info cache_image_info;
+
+  @ffi.Uint64()
+  external int timestamp;
+
+  @ffi.Uint32()
+  external int imageCount;
+
+  @ffi.Uint32()
+  external int initialImageCount;
+
+  @ffi.Uint8()
+  external int dyldState;
+
+  @boolean_t()
+  external int no_cache;
+
+  @boolean_t()
+  external int private_cache;
+}
+
+typedef dyld_kernel_image_info_t = dyld_kernel_image_info;
+typedef dyld_kernel_process_info_t = dyld_kernel_process_info;
+typedef dyld_kernel_image_info_array_t = ffi.Pointer<dyld_kernel_image_info_t>;
+
+final class vm_addr_struct_t extends ffi.Union {
+  @ffi.Uint64()
+  external int UNSAFE;
+}
+
+final class vm_size_struct_t extends ffi.Union {
+  @ffi.Uint64()
+  external int UNSAFE;
+}
+
+final class vm32_addr_struct_t extends ffi.Union {
+  @ffi.Uint32()
+  external int UNSAFE;
+}
+
+final class vm32_size_struct_t extends ffi.Union {
+  @ffi.Uint32()
+  external int UNSAFE;
+}
+
+typedef mach_vm_address_ut = mach_vm_address_t;
+typedef mach_vm_offset_ut = mach_vm_offset_t;
+typedef mach_vm_size_ut = mach_vm_size_t;
+typedef vm_address_ut = vm_address_t;
+typedef vm_offset_ut = vm_offset_t;
+typedef vm_size_ut = vm_size_t;
+typedef vm_map_address_ut = vm_map_address_t;
+typedef vm_map_offset_ut = vm_map_offset_t;
+typedef vm_map_size_ut = vm_map_size_t;
+typedef memory_object_offset_ut = memory_object_offset_t;
+typedef memory_object_size_ut = memory_object_size_t;
+typedef vm_object_offset_ut = vm_object_offset_t;
+typedef vm_object_size_ut = vm_object_size_t;
+typedef pointer_ut = pointer_t;
+typedef vm_prot_ut = vm_prot_t;
+typedef vm_inherit_ut = vm_inherit_t;
+typedef vm_behavior_ut = vm_behavior_t;
+typedef mach_vm_range_ut = mach_vm_range;
+typedef mach_vm_range_recipe_v1_ut = mach_vm_range_recipe_v1_t;
+
+final class task extends ffi.Opaque {}
+
+typedef task_t = ffi.Pointer<task>;
+typedef task_name_t = ffi.Pointer<task>;
+typedef task_inspect_t = ffi.Pointer<task>;
+typedef task_read_t = ffi.Pointer<task>;
+typedef task_suspension_token_t = ffi.Pointer<task>;
+typedef task_policy_set_t = ffi.Pointer<task>;
+typedef task_policy_get_t = ffi.Pointer<task>;
+
+final class thread extends ffi.Opaque {}
+
+typedef thread_t = ffi.Pointer<thread>;
+typedef thread_act_t = ffi.Pointer<thread>;
+typedef thread_inspect_t = ffi.Pointer<thread>;
+typedef thread_read_t = ffi.Pointer<thread>;
+
+final class ipc_space extends ffi.Opaque {}
+
+typedef ipc_space_t = ffi.Pointer<ipc_space>;
+typedef ipc_space_read_t = ffi.Pointer<ipc_space>;
+typedef ipc_space_inspect_t = ffi.Pointer<ipc_space>;
+
+final class coalition extends ffi.Opaque {}
+
+typedef coalition_t = ffi.Pointer<coalition>;
+
+final class host extends ffi.Opaque {}
+
+typedef host_t = ffi.Pointer<host>;
+typedef host_priv_t = ffi.Pointer<host>;
+typedef host_security_t = ffi.Pointer<host>;
+
+final class processor extends ffi.Opaque {}
+
+typedef processor_t = ffi.Pointer<processor>;
+
+final class processor_set extends ffi.Opaque {}
+
+typedef processor_set_t = ffi.Pointer<processor_set>;
+typedef processor_set_control_t = ffi.Pointer<processor_set>;
+
+final class semaphore extends ffi.Opaque {}
+
+typedef semaphore_t = ffi.Pointer<semaphore>;
+
+final class ledger extends ffi.Opaque {}
+
+typedef ledger_t = ffi.Pointer<ledger>;
+
+final class alarm$1 extends ffi.Opaque {}
+
+typedef alarm_t = ffi.Pointer<alarm$1>;
+
+final class clock$1 extends ffi.Opaque {}
+
+typedef clock_serv_t = ffi.Pointer<clock$1>;
+typedef clock_ctrl_t = ffi.Pointer<clock$1>;
+
+final class arcade_register extends ffi.Opaque {}
+
+typedef arcade_register_t = ffi.Pointer<arcade_register>;
+
+final class ipc_eventlink extends ffi.Opaque {}
+
+typedef ipc_eventlink_t = ffi.Pointer<ipc_eventlink>;
+
+final class task_id_token extends ffi.Opaque {}
+
+typedef task_id_token_t = ffi.Pointer<task_id_token>;
+
+final class kcdata_object extends ffi.Opaque {}
+
+typedef kcdata_object_t = ffi.Pointer<kcdata_object>;
+
+final class lock_set extends ffi.Opaque {}
+
+typedef lock_set_t = ffi.Pointer<lock_set>;
+typedef processor_set_name_t = processor_set_t;
+typedef clock_reply_t = mach_port_t;
+typedef bootstrap_t = mach_port_t;
+typedef mem_entry_name_port_t = mach_port_t;
+typedef exception_handler_t = mach_port_t;
+typedef exception_handler_array_t = ffi.Pointer<exception_handler_t>;
+typedef vm_task_entry_t = mach_port_t;
+typedef io_main_t = mach_port_t;
+typedef UNDServerRef = mach_port_t;
+typedef mach_eventlink_t = mach_port_t;
+typedef exception_handler_info_t = ipc_info_port_t;
+typedef task_array_t = ffi.Pointer<task_t>;
+typedef thread_array_t = ffi.Pointer<thread_t>;
+typedef processor_set_array_t = ffi.Pointer<processor_set_t>;
+typedef processor_set_name_array_t = ffi.Pointer<processor_set_t>;
+typedef processor_array_t = ffi.Pointer<processor_t>;
+typedef thread_act_array_t = ffi.Pointer<thread_act_t>;
+typedef ledger_array_t = ffi.Pointer<ledger_t>;
+typedef task_port_t = task_t;
+typedef task_port_array_t = task_array_t;
+typedef thread_port_t = thread_t;
+typedef thread_port_array_t = thread_array_t;
+typedef ipc_space_port_t = ipc_space_t;
+typedef host_name_t = host_t;
+typedef host_name_port_t = host_t;
+typedef processor_set_port_t = processor_set_t;
+typedef processor_set_name_port_t = processor_set_t;
+typedef processor_set_name_port_array_t = processor_set_array_t;
+typedef processor_set_control_port_t = processor_set_t;
+typedef processor_port_t = processor_t;
+typedef processor_port_array_t = processor_array_t;
+typedef thread_act_port_t = thread_act_t;
+typedef thread_act_port_array_t = thread_act_array_t;
+typedef semaphore_port_t = semaphore_t;
+typedef lock_set_port_t = lock_set_t;
+typedef ledger_port_t = ledger_t;
+typedef ledger_port_array_t = ledger_array_t;
+typedef alarm_port_t = alarm_t;
+typedef clock_serv_port_t = clock_serv_t;
+typedef clock_ctrl_port_t = clock_ctrl_t;
+typedef exception_port_t = exception_handler_t;
+typedef exception_port_arrary_t = exception_handler_array_t;
+typedef mach_task_flavor_t = ffi.UnsignedInt;
+typedef Dartmach_task_flavor_t = int;
+typedef mach_thread_flavor_t = ffi.UnsignedInt;
+typedef Dartmach_thread_flavor_t = int;
+typedef ledger_item_t = natural_t;
+typedef ledger_amount_t = ffi.Int64;
+typedef Dartledger_amount_t = int;
+typedef emulation_vector_t = ffi.Pointer<mach_vm_offset_t>;
+typedef user_subsystem_t = ffi.Pointer<ffi.Char>;
+typedef labelstr_t = ffi.Pointer<ffi.Char>;
+typedef event_t = ffi.Pointer<ffi.Void>;
+typedef event64_t = ffi.Uint64;
+typedef Dartevent64_t = int;
+typedef wait_result_t = ffi.Int;
+typedef Dartwait_result_t = int;
+typedef thread_continue_tFunction = ffi.Void Function(
+    ffi.Pointer<ffi.Void>, wait_result_t);
+typedef Dartthread_continue_tFunction = void Function(
+    ffi.Pointer<ffi.Void>, Dartwait_result_t);
+typedef thread_continue_t
+    = ffi.Pointer<ffi.NativeFunction<thread_continue_tFunction>>;
+typedef wait_interrupt_t = ffi.Int;
+typedef Dartwait_interrupt_t = int;
+typedef wait_timeout_urgency_t = ffi.Int;
+typedef Dartwait_timeout_urgency_t = int;
+
+enum lck_sleep_action_t {
+  LCK_SLEEP_DEFAULT(0),
+  LCK_SLEEP_UNLOCK(1),
+  LCK_SLEEP_SHARED(2),
+  LCK_SLEEP_EXCLUSIVE(4),
+  LCK_SLEEP_SPIN(8),
+  LCK_SLEEP_PROMOTED_PRI(16),
+  LCK_SLEEP_SPIN_ALWAYS(32);
+
+  final int value;
+  const lck_sleep_action_t(this.value);
+
+  static lck_sleep_action_t fromValue(int value) => switch (value) {
+        0 => LCK_SLEEP_DEFAULT,
+        1 => LCK_SLEEP_UNLOCK,
+        2 => LCK_SLEEP_SHARED,
+        4 => LCK_SLEEP_EXCLUSIVE,
+        8 => LCK_SLEEP_SPIN,
+        16 => LCK_SLEEP_PROMOTED_PRI,
+        32 => LCK_SLEEP_SPIN_ALWAYS,
+        _ =>
+          throw ArgumentError('Unknown value for lck_sleep_action_t: $value'),
+      };
+}
+
+final class hw_spin_policy extends ffi.Opaque {}
+
+typedef hw_spin_policy_t = ffi.Pointer<hw_spin_policy>;
+
+final class __lck_spin_t__ extends ffi.Opaque {}
+
+typedef lck_spin_t = __lck_spin_t__;
+
+final class __lck_mtx_t__ extends ffi.Opaque {}
+
+typedef lck_mtx_t = __lck_mtx_t__;
+
+final class __lck_mtx_ext_t__ extends ffi.Opaque {}
+
+typedef lck_mtx_ext_t = __lck_mtx_ext_t__;
+
+final class mach_assert_hdr extends ffi.Opaque {}
+
+final class mach_assert_default extends ffi.Opaque {}
+
+final class mach_assert_3x extends ffi.Opaque {}
+
+final class __lck_attr__ extends ffi.Opaque {}
+
+typedef lck_attr_t = __lck_attr__;
+
+final class queue_entry extends ffi.Struct {
+  external ffi.Pointer<queue_entry> next;
+
+  external ffi.Pointer<queue_entry> prev;
+}
+
+typedef queue_t = ffi.Pointer<queue_entry>;
+typedef queue_head_t = queue_entry;
+typedef queue_chain_t = queue_entry;
+typedef queue_entry_t = ffi.Pointer<queue_entry>;
+
+final class _lck_grp_ extends ffi.Opaque {}
+
+typedef lck_grp_t = _lck_grp_;
+
+final class _lck_grp_attr_ extends ffi.Opaque {}
+
+typedef lck_grp_attr_t = _lck_grp_attr_;
+
+final class __lck_rw_t__ extends ffi.Opaque {}
+
+typedef lck_rw_t = __lck_rw_t__;
+typedef lck_rw_type_t = ffi.UnsignedInt;
+typedef Dartlck_rw_type_t = int;
 
 @ffi.Packed(1)
 final class ntsid_t extends ffi.Struct {
@@ -53229,45 +57899,67 @@ final class kauth_cache_sizes extends ffi.Struct {
   external int kcs_id_size;
 }
 
-typedef kauth_ace_rights_t = u_int32_t;
+final class kauth_scope extends ffi.Opaque {}
 
-final class kauth_ace extends ffi.Struct {
-  external guid_t ace_applicable;
+typedef kauth_scope_t = ffi.Pointer<kauth_scope>;
 
-  @u_int32_t()
-  external int ace_flags;
+final class kauth_listener extends ffi.Opaque {}
+
+typedef kauth_listener_t = ffi.Pointer<kauth_listener>;
+typedef kauth_scope_callback_tFunction = ffi.Int Function(
+    kauth_cred_t _credential,
+    ffi.Pointer<ffi.Void> _idata,
+    kauth_action_t _action,
+    ffi.UintPtr _arg0,
+    ffi.UintPtr _arg1,
+    ffi.UintPtr _arg2,
+    ffi.UintPtr _arg3);
+typedef Dartkauth_scope_callback_tFunction = int Function(
+    kauth_cred_t _credential,
+    ffi.Pointer<ffi.Void> _idata,
+    Dartkauth_action_t _action,
+    int _arg0,
+    int _arg1,
+    int _arg2,
+    int _arg3);
+typedef kauth_scope_callback_t
+    = ffi.Pointer<ffi.NativeFunction<kauth_scope_callback_tFunction>>;
+
+final class kauth_acl_eval extends ffi.Struct {
+  external kauth_ace_t ae_acl;
+
+  @ffi.Int()
+  external int ae_count;
 
   @kauth_ace_rights_t()
-  external int ace_rights;
+  external int ae_requested;
+
+  @kauth_ace_rights_t()
+  external int ae_residual;
+
+  @ffi.Int()
+  external int ae_result;
+
+  @boolean_t()
+  external int ae_found_deny;
+
+  @ffi.Int()
+  external int ae_options;
+
+  @kauth_ace_rights_t()
+  external int ae_exp_gall;
+
+  @kauth_ace_rights_t()
+  external int ae_exp_gread;
+
+  @kauth_ace_rights_t()
+  external int ae_exp_gwrite;
+
+  @kauth_ace_rights_t()
+  external int ae_exp_gexec;
 }
 
-typedef kauth_ace_t = ffi.Pointer<kauth_ace>;
-
-final class kauth_acl extends ffi.Struct {
-  @u_int32_t()
-  external int acl_entrycount;
-
-  @u_int32_t()
-  external int acl_flags;
-
-  @ffi.Array.multi([1])
-  external ffi.Array<kauth_ace> acl_ace;
-}
-
-typedef kauth_acl_t = ffi.Pointer<kauth_acl>;
-
-final class kauth_filesec extends ffi.Struct {
-  @u_int32_t()
-  external int fsec_magic;
-
-  external guid_t fsec_owner;
-
-  external guid_t fsec_group;
-
-  external kauth_acl fsec_acl;
-}
-
-typedef kauth_filesec_t = ffi.Pointer<kauth_filesec>;
+typedef kauth_acl_eval_t = ffi.Pointer<kauth_acl_eval>;
 
 enum acl_perm_t {
   ACL_READ_DATA(2),
@@ -53980,7 +58672,7 @@ final class cssm_list extends ffi.Struct {
 
 typedef CSSM_LIST = cssm_list;
 
-final class UnnamedUnion2 extends ffi.Union {
+final class UnnamedUnion9 extends ffi.Union {
   external CSSM_LIST Sublist;
 
   external SecAsn1Item Word;
@@ -53995,7 +58687,7 @@ final class cssm_list_element extends ffi.Struct {
   @CSSM_LIST_ELEMENT_TYPE()
   external int ElementType;
 
-  external UnnamedUnion2 Element;
+  external UnnamedUnion9 Element;
 }
 
 typedef CSSM_LIST_PTR = ffi.Pointer<cssm_list>;
@@ -54142,7 +58834,7 @@ typedef CSSM_CERT_PAIR_PTR = ffi.Pointer<cssm_cert_pair>;
 typedef CSSM_CERTGROUP_TYPE = uint32;
 typedef CSSM_CERTGROUP_TYPE_PTR = ffi.Pointer<uint32>;
 
-final class UnnamedUnion3 extends ffi.Union {
+final class UnnamedUnion10 extends ffi.Union {
   external CSSM_DATA_PTR CertList;
 
   external CSSM_ENCODED_CERT_PTR EncodedCertList;
@@ -54162,7 +58854,7 @@ final class cssm_certgroup extends ffi.Struct {
   @uint32()
   external int NumCerts;
 
-  external UnnamedUnion3 GroupList;
+  external UnnamedUnion10 GroupList;
 
   @CSSM_CERTGROUP_TYPE()
   external int CertGroupType;
@@ -54737,7 +59429,7 @@ typedef CSSM_CRL_PAIR_PTR = ffi.Pointer<cssm_crl_pair>;
 typedef CSSM_CRLGROUP_TYPE = uint32;
 typedef CSSM_CRLGROUP_TYPE_PTR = ffi.Pointer<uint32>;
 
-final class UnnamedUnion4 extends ffi.Union {
+final class UnnamedUnion11 extends ffi.Union {
   external CSSM_DATA_PTR CrlList;
 
   external CSSM_ENCODED_CRL_PTR EncodedCrlList;
@@ -54757,7 +59449,7 @@ final class cssm_crlgroup extends ffi.Struct {
   @uint32()
   external int NumberOfCrls;
 
-  external UnnamedUnion4 GroupCrlList;
+  external UnnamedUnion11 GroupCrlList;
 
   @CSSM_CRLGROUP_TYPE()
   external int CrlGroupType;
@@ -55740,7 +60432,7 @@ enum __CE_CrlDistributionPointNameType {
       };
 }
 
-final class UnnamedUnion5 extends ffi.Union {
+final class UnnamedUnion12 extends ffi.Union {
   external ffi.Pointer<CE_GeneralNames> fullName;
 
   external CSSM_X509_RDN_PTR rdn;
@@ -55753,7 +60445,7 @@ final class __CE_DistributionPointName extends ffi.Struct {
   __CE_CrlDistributionPointNameType get nameType =>
       __CE_CrlDistributionPointNameType.fromValue(nameTypeAsInt);
 
-  external UnnamedUnion5 dpn;
+  external UnnamedUnion12 dpn;
 }
 
 typedef CE_DistributionPointName = __CE_DistributionPointName;
@@ -60525,6 +65217,13 @@ final _objc_msgSend_1hx005a = objc.msgSendPointer
     .asFunction<
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, int)>();
+late final _sel_usesClassicLoadingMode =
+    objc.registerName("usesClassicLoadingMode");
+late final _sel_setUsesClassicLoadingMode_ =
+    objc.registerName("setUsesClassicLoadingMode:");
+late final _sel_enablesEarlyData = objc.registerName("enablesEarlyData");
+late final _sel_setEnablesEarlyData_ =
+    objc.registerName("setEnablesEarlyData:");
 
 /// Configuration options for an NSURLSession.  When a session is
 /// created, a copy of the configuration object is made - you cannot
@@ -61159,8 +65858,7 @@ class NSURLSessionConfiguration extends objc.NSObject
         this.ref.pointer, _sel_setURLCache_, value?.ref.pointer ?? ffi.nullptr);
   }
 
-  /// Enable extended background idle mode for any tcp sockets created.    Enabling this mode asks the system to keep the socket open
-  /// and delay reclaiming it when the process moves to the background (see https://developer.apple.com/library/ios/technotes/tn2277/_index.html)
+  /// shouldUseExtendedBackgroundIdleMode
   bool get shouldUseExtendedBackgroundIdleMode {
     objc.checkOsVersionInternal(
         'NSURLSessionConfiguration.shouldUseExtendedBackgroundIdleMode',
@@ -61170,8 +65868,7 @@ class NSURLSessionConfiguration extends objc.NSObject
         this.ref.pointer, _sel_shouldUseExtendedBackgroundIdleMode);
   }
 
-  /// Enable extended background idle mode for any tcp sockets created.    Enabling this mode asks the system to keep the socket open
-  /// and delay reclaiming it when the process moves to the background (see https://developer.apple.com/library/ios/technotes/tn2277/_index.html)
+  /// setShouldUseExtendedBackgroundIdleMode:
   set shouldUseExtendedBackgroundIdleMode(bool value) {
     objc.checkOsVersionInternal(
         'NSURLSessionConfiguration.setShouldUseExtendedBackgroundIdleMode:',
@@ -61232,6 +65929,101 @@ class NSURLSessionConfiguration extends objc.NSObject
         macOS: (true, null));
     _objc_msgSend_1hx005a(
         this.ref.pointer, _sel_setMultipathServiceType_, value.value);
+  }
+
+  /// Uses the classic network loader.
+  ///
+  /// NOTE: FTP and HTTP/1 pipelining are only supported in the classic loading mode.
+  ///
+  /// Defaults to YES. The default may be NO in a future OS update.
+  bool get usesClassicLoadingMode {
+    objc.checkOsVersionInternal(
+        'NSURLSessionConfiguration.usesClassicLoadingMode',
+        iOS: (false, (18, 4, 0)),
+        macOS: (false, (15, 4, 0)));
+    return _objc_msgSend_91o635(this.ref.pointer, _sel_usesClassicLoadingMode);
+  }
+
+  /// Uses the classic network loader.
+  ///
+  /// NOTE: FTP and HTTP/1 pipelining are only supported in the classic loading mode.
+  ///
+  /// Defaults to YES. The default may be NO in a future OS update.
+  set usesClassicLoadingMode(bool value) {
+    objc.checkOsVersionInternal(
+        'NSURLSessionConfiguration.setUsesClassicLoadingMode:',
+        iOS: (false, (18, 4, 0)),
+        macOS: (false, (15, 4, 0)));
+    _objc_msgSend_1s56lr9(
+        this.ref.pointer, _sel_setUsesClassicLoadingMode_, value);
+  }
+
+  /// Enables HTTP/3 0-RTT early data transmission of safe requests (GET or HEAD
+  /// requests).
+  ///
+  /// WARNING: Inclusion in TLS early data changes the security guarantees offered
+  /// by TLS.
+  ///
+  /// Requests sent in early data are not covered by anti-replay security
+  /// protections. Early data must be idempotent and the impact of adversarial
+  /// replays must be carefully evaluated, as the data may be replayed. Early data
+  /// also does not provide full forward secrecy; data transmitted is more
+  /// susceptible to data breach and security compromise of the server, even if
+  /// the breach happens after the data was transmitted.
+  ///
+  /// See Section 8 of RFC8446 for more details.
+  ///
+  /// https://datatracker.ietf.org/doc/html/rfc8446#section-8
+  ///
+  /// See RFC8470 for additional discussion and security considerations.
+  ///
+  /// https://datatracker.ietf.org/doc/html/rfc8470
+  ///
+  /// If these risks are acceptable for your use case, set this property to YES.
+  /// If unsure, NO is the safest option.
+  ///
+  /// NOTE: Not supported in the classic loading mode.
+  ///
+  /// Defaults to NO.
+  bool get enablesEarlyData {
+    objc.checkOsVersionInternal('NSURLSessionConfiguration.enablesEarlyData',
+        iOS: (false, (26, 0, 0)), macOS: (false, (26, 0, 0)));
+    return _objc_msgSend_91o635(this.ref.pointer, _sel_enablesEarlyData);
+  }
+
+  /// Enables HTTP/3 0-RTT early data transmission of safe requests (GET or HEAD
+  /// requests).
+  ///
+  /// WARNING: Inclusion in TLS early data changes the security guarantees offered
+  /// by TLS.
+  ///
+  /// Requests sent in early data are not covered by anti-replay security
+  /// protections. Early data must be idempotent and the impact of adversarial
+  /// replays must be carefully evaluated, as the data may be replayed. Early data
+  /// also does not provide full forward secrecy; data transmitted is more
+  /// susceptible to data breach and security compromise of the server, even if
+  /// the breach happens after the data was transmitted.
+  ///
+  /// See Section 8 of RFC8446 for more details.
+  ///
+  /// https://datatracker.ietf.org/doc/html/rfc8446#section-8
+  ///
+  /// See RFC8470 for additional discussion and security considerations.
+  ///
+  /// https://datatracker.ietf.org/doc/html/rfc8470
+  ///
+  /// If these risks are acceptable for your use case, set this property to YES.
+  /// If unsure, NO is the safest option.
+  ///
+  /// NOTE: Not supported in the classic loading mode.
+  ///
+  /// Defaults to NO.
+  set enablesEarlyData(bool value) {
+    objc.checkOsVersionInternal(
+        'NSURLSessionConfiguration.setEnablesEarlyData:',
+        iOS: (false, (26, 0, 0)),
+        macOS: (false, (26, 0, 0)));
+    _objc_msgSend_1s56lr9(this.ref.pointer, _sel_setEnablesEarlyData_, value);
   }
 
   /// init
@@ -77869,6 +82661,8 @@ extension NSValueRangeExtensions on objc.NSValue {
 
 late final _class_NSArray = objc.getClass("NSArray");
 late final _sel_array = objc.registerName("array");
+typedef ObjectType$2 = ffi.Pointer<objc.ObjCObject>;
+typedef DartObjectType$2 = objc.ObjCObjectBase;
 late final _sel_arrayWithObject_ = objc.registerName("arrayWithObject:");
 late final _sel_arrayWithObjects_count_ =
     objc.registerName("arrayWithObjects:count:");
@@ -77904,7 +82698,7 @@ extension NSArrayCreation on objc.NSArray {
   }
 
   /// arrayWithObject:
-  static objc.NSArray arrayWithObject_(objc.ObjCObjectBase anObject) {
+  static objc.NSArray arrayWithObject_(DartObjectType$2 anObject) {
     final _ret = _objc_msgSend_1sotr3r(
         _class_NSArray, _sel_arrayWithObject_, anObject.ref.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
@@ -77912,14 +82706,14 @@ extension NSArrayCreation on objc.NSArray {
 
   /// arrayWithObjects:count:
   static objc.NSArray arrayWithObjects_count_(
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects, DartNSUInteger cnt) {
+      ffi.Pointer<ObjectType$2> objects, DartNSUInteger cnt) {
     final _ret = _objc_msgSend_zmbtbd(
         _class_NSArray, _sel_arrayWithObjects_count_, objects, cnt);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// arrayWithObjects:
-  static objc.NSArray arrayWithObjects_(objc.ObjCObjectBase firstObj) {
+  static objc.NSArray arrayWithObjects_(DartObjectType$2 firstObj) {
     final _ret = _objc_msgSend_1sotr3r(
         _class_NSArray, _sel_arrayWithObjects_, firstObj.ref.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
@@ -77933,7 +82727,7 @@ extension NSArrayCreation on objc.NSArray {
   }
 
   /// initWithObjects:
-  objc.NSArray initWithObjects_(objc.ObjCObjectBase firstObj) {
+  objc.NSArray initWithObjects_(DartObjectType$2 firstObj) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithObjects_, firstObj.ref.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: false, release: true);
@@ -77978,47 +82772,38 @@ extension NSArrayCreation on objc.NSArray {
   }
 }
 
-bool _ObjCBlock_bool_objcObjCObject_objcObjCObject_fnPtrTrampoline(
+typedef ObjectType$3 = ffi.Pointer<objc.ObjCObject>;
+typedef DartObjectType$3 = objc.ObjCObjectBase;
+bool _ObjCBlock_bool_ObjectType_ObjectType_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<objc.ObjCObject> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
+        ObjectType$3 arg0,
+        ObjectType$3 arg1) =>
     block.ref.target
         .cast<
             ffi.NativeFunction<
-                ffi.Bool Function(ffi.Pointer<objc.ObjCObject> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            bool Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_bool_objcObjCObject_objcObjCObject_fnPtrCallable =
+                ffi.Bool Function(ObjectType$3 arg0, ObjectType$3 arg1)>>()
+        .asFunction<bool Function(ObjectType$3, ObjectType$3)>()(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_bool_ObjectType_ObjectType_fnPtrCallable =
     ffi.Pointer.fromFunction<
-                ffi.Bool Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_bool_objcObjCObject_objcObjCObject_fnPtrTrampoline,
-            false)
+                ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl>, ObjectType$3,
+                    ObjectType$3)>(
+            _ObjCBlock_bool_ObjectType_ObjectType_fnPtrTrampoline, false)
         .cast();
-bool _ObjCBlock_bool_objcObjCObject_objcObjCObject_closureTrampoline(
+bool _ObjCBlock_bool_ObjectType_ObjectType_closureTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<objc.ObjCObject> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as bool Function(ffi.Pointer<objc.ObjCObject>,
-        ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_bool_objcObjCObject_objcObjCObject_closureCallable =
+        ObjectType$3 arg0,
+        ObjectType$3 arg1) =>
+    (objc.getBlockClosure(block) as bool Function(ObjectType$3, ObjectType$3))(
+        arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_bool_ObjectType_ObjectType_closureCallable =
     ffi.Pointer.fromFunction<
-                ffi.Bool Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_bool_objcObjCObject_objcObjCObject_closureTrampoline,
-            false)
+                ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl>, ObjectType$3,
+                    ObjectType$3)>(
+            _ObjCBlock_bool_ObjectType_ObjectType_closureTrampoline, false)
         .cast();
 
 /// Construction methods for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
-abstract final class ObjCBlock_bool_objcObjCObject_objcObjCObject {
+abstract final class ObjCBlock_bool_ObjectType_ObjectType {
   /// Returns a block that wraps the given raw block pointer.
   static objc.ObjCBlock<
           ffi.Bool Function(
@@ -78035,17 +82820,17 @@ abstract final class ObjCBlock_bool_objcObjCObject_objcObjCObject {
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Bool Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>(
-              objc.newPointerBlock(
-                  _ObjCBlock_bool_objcObjCObject_objcObjCObject_fnPtrCallable,
-                  ptr.cast()),
-              retain: false,
-              release: true);
+  static objc.ObjCBlock<
+      ffi.Bool Function(
+          ffi.Pointer<objc.ObjCObject>,
+          ffi
+              .Pointer<objc.ObjCObject>)> fromFunctionPointer(
+          ffi.Pointer<ffi.NativeFunction<ffi.Bool Function(ObjectType$3 arg0, ObjectType$3 arg1)>>
+              ptr) =>
+      objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>(
+          objc.newPointerBlock(_ObjCBlock_bool_ObjectType_ObjectType_fnPtrCallable, ptr.cast()),
+          retain: false,
+          release: true);
 
   /// Creates a block from a Dart function.
   ///
@@ -78056,12 +82841,12 @@ abstract final class ObjCBlock_bool_objcObjCObject_objcObjCObject {
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
   static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
-      fromFunction(bool Function(objc.ObjCObjectBase, objc.ObjCObjectBase) fn,
+      fromFunction(bool Function(DartObjectType$3, DartObjectType$3) fn,
               {bool keepIsolateAlive = true}) =>
           objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>(
               objc.newClosureBlock(
-                  _ObjCBlock_bool_objcObjCObject_objcObjCObject_closureCallable,
-                  (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+                  _ObjCBlock_bool_ObjectType_ObjectType_closureCallable,
+                  (ObjectType$3 arg0, ObjectType$3 arg1) => fn(
                       objc.ObjCObjectBase(arg0, retain: true, release: true),
                       objc.ObjCObjectBase(arg1, retain: true, release: true)),
                   keepIsolateAlive),
@@ -78070,24 +82855,18 @@ abstract final class ObjCBlock_bool_objcObjCObject_objcObjCObject {
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
-extension ObjCBlock_bool_objcObjCObject_objcObjCObject_CallExtension
-    on objc.ObjCBlock<
-        ffi.Bool Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)> {
-  bool call(objc.ObjCObjectBase arg0, objc.ObjCObjectBase arg1) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Bool Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<objc.ObjCObject> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>()
-              .asFunction<
-                  bool Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer, arg0.ref.pointer, arg1.ref.pointer);
+extension ObjCBlock_bool_ObjectType_ObjectType_CallExtension on objc.ObjCBlock<
+    ffi.Bool Function(
+        ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)> {
+  bool call(DartObjectType$3 arg0, DartObjectType$3 arg1) => ref
+      .pointer.ref.invoke
+      .cast<
+          ffi.NativeFunction<
+              ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl> block,
+                  ObjectType$3 arg0, ObjectType$3 arg1)>>()
+      .asFunction<
+          bool Function(ffi.Pointer<objc.ObjCBlockImpl>, ObjectType$3,
+              ObjectType$3)>()(ref.pointer, arg0.ref.pointer, arg1.ref.pointer);
 }
 
 late final _sel_differenceFromArray_withOptions_usingEquivalenceTest_ =
@@ -78192,6 +82971,8 @@ extension NSArrayDiffing on objc.NSArray {
   }
 }
 
+typedef ObjectType$4 = ffi.Pointer<objc.ObjCObject>;
+typedef DartObjectType$4 = objc.ObjCObjectBase;
 late final _sel_getObjects_ = objc.registerName("getObjects:");
 final _objc_msgSend_1dau4w = objc.msgSendPointer
     .cast<
@@ -78213,7 +82994,7 @@ late final _sel_arrayWithContentsOfURL_ =
 /// NSDeprecated
 extension NSDeprecated$3 on objc.NSArray {
   /// getObjects:
-  void getObjects_(ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects) {
+  void getObjects_(ffi.Pointer<ObjectType$4> objects) {
     objc.checkOsVersionInternal('NSArray.getObjects:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_1dau4w(this.ref.pointer, _sel_getObjects_, objects);
@@ -82444,6 +87225,8 @@ const int errSecCertificateIsCA = -67902;
 
 const int errSecCertificateDuplicateExtension = -67903;
 
+const int errSecMissingQualifiedCertStatement = -67904;
+
 const int errSSLProtocol = -9800;
 
 const int errSSLNegotiation = -9801;
@@ -82616,6 +87399,10 @@ const int kCFSocketLeaveErrors = 64;
 
 const int kCFSocketCloseOnInvalidate = 128;
 
+const int eNoteReapDeprecated = 268435456;
+
+const int eNoteExitReparentedDeprecated = 524288;
+
 const int DISPATCH_WALLTIME_NOW = -2;
 
 const int kCFPropertyListReadCorruptError = 3840;
@@ -82647,6 +87434,16 @@ const int kCFMessagePortIsInvalid = -3;
 const int kCFMessagePortTransportError = -4;
 
 const int kCFMessagePortBecameInvalidError = -5;
+
+const int UIOF_USERSPACE = 1;
+
+const int UIOF_SYSSPACE = 4;
+
+const int UIOF_USERSPACE32 = 32;
+
+const int UIOF_USERSPACE64 = 256;
+
+const int UIOF_SYSSPACE32 = 2048;
 
 const int kCFStringTokenizerUnitWord = 0;
 
@@ -86612,6 +91409,10 @@ const int NSUTF32LittleEndianStringEncoding$1 = 2617245952;
 
 const int NSProprietaryStringEncoding$1 = 65536;
 
+const int eNoteReapDeprecated$1 = 268435456;
+
+const int eNoteExitReparentedDeprecated$1 = 524288;
+
 const int DISPATCH_WALLTIME_NOW$1 = -2;
 
 const int noErr$9 = 0;
@@ -86686,3138 +91487,8 @@ const int NSScannedOption$10 = 1;
 
 const int NSCollectorDisabledOption$10 = 2;
 
-const int __API_TO_BE_DEPRECATED = 100000;
-
-const int __API_TO_BE_DEPRECATED_MACOS = 100000;
-
-const int __API_TO_BE_DEPRECATED_IOS = 100000;
-
-const int __API_TO_BE_DEPRECATED_MACCATALYST = 100000;
-
-const int __API_TO_BE_DEPRECATED_WATCHOS = 100000;
-
-const int __API_TO_BE_DEPRECATED_TVOS = 100000;
-
-const int __API_TO_BE_DEPRECATED_DRIVERKIT = 100000;
-
-const int __API_TO_BE_DEPRECATED_VISIONOS = 100000;
-
-const int __MAC_10_0 = 1000;
-
-const int __MAC_10_1 = 1010;
-
-const int __MAC_10_2 = 1020;
-
-const int __MAC_10_3 = 1030;
-
-const int __MAC_10_4 = 1040;
-
-const int __MAC_10_5 = 1050;
-
-const int __MAC_10_6 = 1060;
-
-const int __MAC_10_7 = 1070;
-
-const int __MAC_10_8 = 1080;
-
-const int __MAC_10_9 = 1090;
-
-const int __MAC_10_10 = 101000;
-
-const int __MAC_10_10_2 = 101002;
-
-const int __MAC_10_10_3 = 101003;
-
-const int __MAC_10_11 = 101100;
-
-const int __MAC_10_11_2 = 101102;
-
-const int __MAC_10_11_3 = 101103;
-
-const int __MAC_10_11_4 = 101104;
-
-const int __MAC_10_12 = 101200;
-
-const int __MAC_10_12_1 = 101201;
-
-const int __MAC_10_12_2 = 101202;
-
-const int __MAC_10_12_4 = 101204;
-
-const int __MAC_10_13 = 101300;
-
-const int __MAC_10_13_1 = 101301;
-
-const int __MAC_10_13_2 = 101302;
-
-const int __MAC_10_13_4 = 101304;
-
-const int __MAC_10_14 = 101400;
-
-const int __MAC_10_14_1 = 101401;
-
-const int __MAC_10_14_4 = 101404;
-
-const int __MAC_10_14_5 = 101405;
-
-const int __MAC_10_14_6 = 101406;
-
-const int __MAC_10_15 = 101500;
-
-const int __MAC_10_15_1 = 101501;
-
-const int __MAC_10_15_4 = 101504;
-
-const int __MAC_10_16 = 101600;
-
-const int __MAC_11_0 = 110000;
-
-const int __MAC_11_1 = 110100;
-
-const int __MAC_11_3 = 110300;
-
-const int __MAC_11_4 = 110400;
-
-const int __MAC_11_5 = 110500;
-
-const int __MAC_11_6 = 110600;
-
-const int __MAC_12_0 = 120000;
-
-const int __MAC_12_1 = 120100;
-
-const int __MAC_12_2 = 120200;
-
-const int __MAC_12_3 = 120300;
-
-const int __MAC_12_4 = 120400;
-
-const int __MAC_12_5 = 120500;
-
-const int __MAC_12_6 = 120600;
-
-const int __MAC_12_7 = 120700;
-
-const int __MAC_13_0 = 130000;
-
-const int __MAC_13_1 = 130100;
-
-const int __MAC_13_2 = 130200;
-
-const int __MAC_13_3 = 130300;
-
-const int __MAC_13_4 = 130400;
-
-const int __MAC_13_5 = 130500;
-
-const int __MAC_13_6 = 130600;
-
-const int __MAC_14_0 = 140000;
-
-const int __MAC_14_1 = 140100;
-
-const int __MAC_14_2 = 140200;
-
-const int __MAC_14_3 = 140300;
-
-const int __MAC_14_4 = 140400;
-
-const int __MAC_14_5 = 140500;
-
-const int __MAC_15_0 = 150000;
-
-const int __MAC_15_1 = 150100;
-
-const int __IPHONE_2_0 = 20000;
-
-const int __IPHONE_2_1 = 20100;
-
-const int __IPHONE_2_2 = 20200;
-
-const int __IPHONE_3_0 = 30000;
-
-const int __IPHONE_3_1 = 30100;
-
-const int __IPHONE_3_2 = 30200;
-
-const int __IPHONE_4_0 = 40000;
-
-const int __IPHONE_4_1 = 40100;
-
-const int __IPHONE_4_2 = 40200;
-
-const int __IPHONE_4_3 = 40300;
-
-const int __IPHONE_5_0 = 50000;
-
-const int __IPHONE_5_1 = 50100;
-
-const int __IPHONE_6_0 = 60000;
-
-const int __IPHONE_6_1 = 60100;
-
-const int __IPHONE_7_0 = 70000;
-
-const int __IPHONE_7_1 = 70100;
-
-const int __IPHONE_8_0 = 80000;
-
-const int __IPHONE_8_1 = 80100;
-
-const int __IPHONE_8_2 = 80200;
-
-const int __IPHONE_8_3 = 80300;
-
-const int __IPHONE_8_4 = 80400;
-
-const int __IPHONE_9_0 = 90000;
-
-const int __IPHONE_9_1 = 90100;
-
-const int __IPHONE_9_2 = 90200;
-
-const int __IPHONE_9_3 = 90300;
-
-const int __IPHONE_10_0 = 100000;
-
-const int __IPHONE_10_1 = 100100;
-
-const int __IPHONE_10_2 = 100200;
-
-const int __IPHONE_10_3 = 100300;
-
-const int __IPHONE_11_0 = 110000;
-
-const int __IPHONE_11_1 = 110100;
-
-const int __IPHONE_11_2 = 110200;
-
-const int __IPHONE_11_3 = 110300;
-
-const int __IPHONE_11_4 = 110400;
-
-const int __IPHONE_12_0 = 120000;
-
-const int __IPHONE_12_1 = 120100;
-
-const int __IPHONE_12_2 = 120200;
-
-const int __IPHONE_12_3 = 120300;
-
-const int __IPHONE_12_4 = 120400;
-
-const int __IPHONE_13_0 = 130000;
-
-const int __IPHONE_13_1 = 130100;
-
-const int __IPHONE_13_2 = 130200;
-
-const int __IPHONE_13_3 = 130300;
-
-const int __IPHONE_13_4 = 130400;
-
-const int __IPHONE_13_5 = 130500;
-
-const int __IPHONE_13_6 = 130600;
-
-const int __IPHONE_13_7 = 130700;
-
-const int __IPHONE_14_0 = 140000;
-
-const int __IPHONE_14_1 = 140100;
-
-const int __IPHONE_14_2 = 140200;
-
-const int __IPHONE_14_3 = 140300;
-
-const int __IPHONE_14_5 = 140500;
-
-const int __IPHONE_14_4 = 140400;
-
-const int __IPHONE_14_6 = 140600;
-
-const int __IPHONE_14_7 = 140700;
-
-const int __IPHONE_14_8 = 140800;
-
-const int __IPHONE_15_0 = 150000;
-
-const int __IPHONE_15_1 = 150100;
-
-const int __IPHONE_15_2 = 150200;
-
-const int __IPHONE_15_3 = 150300;
-
-const int __IPHONE_15_4 = 150400;
-
-const int __IPHONE_15_5 = 150500;
-
-const int __IPHONE_15_6 = 150600;
-
-const int __IPHONE_15_7 = 150700;
-
-const int __IPHONE_15_8 = 150800;
-
-const int __IPHONE_16_0 = 160000;
-
-const int __IPHONE_16_1 = 160100;
-
-const int __IPHONE_16_2 = 160200;
-
-const int __IPHONE_16_3 = 160300;
-
-const int __IPHONE_16_4 = 160400;
-
-const int __IPHONE_16_5 = 160500;
-
-const int __IPHONE_16_6 = 160600;
-
-const int __IPHONE_16_7 = 160700;
-
-const int __IPHONE_17_0 = 170000;
-
-const int __IPHONE_17_1 = 170100;
-
-const int __IPHONE_17_2 = 170200;
-
-const int __IPHONE_17_3 = 170300;
-
-const int __IPHONE_17_4 = 170400;
-
-const int __IPHONE_17_5 = 170500;
-
-const int __IPHONE_18_0 = 180000;
-
-const int __IPHONE_18_1 = 180100;
-
-const int __WATCHOS_1_0 = 10000;
-
-const int __WATCHOS_2_0 = 20000;
-
-const int __WATCHOS_2_1 = 20100;
-
-const int __WATCHOS_2_2 = 20200;
-
-const int __WATCHOS_3_0 = 30000;
-
-const int __WATCHOS_3_1 = 30100;
-
-const int __WATCHOS_3_1_1 = 30101;
-
-const int __WATCHOS_3_2 = 30200;
-
-const int __WATCHOS_4_0 = 40000;
-
-const int __WATCHOS_4_1 = 40100;
-
-const int __WATCHOS_4_2 = 40200;
-
-const int __WATCHOS_4_3 = 40300;
-
-const int __WATCHOS_5_0 = 50000;
-
-const int __WATCHOS_5_1 = 50100;
-
-const int __WATCHOS_5_2 = 50200;
-
-const int __WATCHOS_5_3 = 50300;
-
-const int __WATCHOS_6_0 = 60000;
-
-const int __WATCHOS_6_1 = 60100;
-
-const int __WATCHOS_6_2 = 60200;
-
-const int __WATCHOS_7_0 = 70000;
-
-const int __WATCHOS_7_1 = 70100;
-
-const int __WATCHOS_7_2 = 70200;
-
-const int __WATCHOS_7_3 = 70300;
-
-const int __WATCHOS_7_4 = 70400;
-
-const int __WATCHOS_7_5 = 70500;
-
-const int __WATCHOS_7_6 = 70600;
-
-const int __WATCHOS_8_0 = 80000;
-
-const int __WATCHOS_8_1 = 80100;
-
-const int __WATCHOS_8_3 = 80300;
-
-const int __WATCHOS_8_4 = 80400;
-
-const int __WATCHOS_8_5 = 80500;
-
-const int __WATCHOS_8_6 = 80600;
-
-const int __WATCHOS_8_7 = 80700;
-
-const int __WATCHOS_8_8 = 80800;
-
-const int __WATCHOS_9_0 = 90000;
-
-const int __WATCHOS_9_1 = 90100;
-
-const int __WATCHOS_9_2 = 90200;
-
-const int __WATCHOS_9_3 = 90300;
-
-const int __WATCHOS_9_4 = 90400;
-
-const int __WATCHOS_9_5 = 90500;
-
-const int __WATCHOS_9_6 = 90600;
-
-const int __WATCHOS_10_0 = 100000;
-
-const int __WATCHOS_10_1 = 100100;
-
-const int __WATCHOS_10_2 = 100200;
-
-const int __WATCHOS_10_3 = 100300;
-
-const int __WATCHOS_10_4 = 100400;
-
-const int __WATCHOS_10_5 = 100500;
-
-const int __WATCHOS_11_0 = 110000;
-
-const int __WATCHOS_11_1 = 110100;
-
-const int __TVOS_9_0 = 90000;
-
-const int __TVOS_9_1 = 90100;
-
-const int __TVOS_9_2 = 90200;
-
-const int __TVOS_10_0 = 100000;
-
-const int __TVOS_10_0_1 = 100001;
-
-const int __TVOS_10_1 = 100100;
-
-const int __TVOS_10_2 = 100200;
-
-const int __TVOS_11_0 = 110000;
-
-const int __TVOS_11_1 = 110100;
-
-const int __TVOS_11_2 = 110200;
-
-const int __TVOS_11_3 = 110300;
-
-const int __TVOS_11_4 = 110400;
-
-const int __TVOS_12_0 = 120000;
-
-const int __TVOS_12_1 = 120100;
-
-const int __TVOS_12_2 = 120200;
-
-const int __TVOS_12_3 = 120300;
-
-const int __TVOS_12_4 = 120400;
-
-const int __TVOS_13_0 = 130000;
-
-const int __TVOS_13_2 = 130200;
-
-const int __TVOS_13_3 = 130300;
-
-const int __TVOS_13_4 = 130400;
-
-const int __TVOS_14_0 = 140000;
-
-const int __TVOS_14_1 = 140100;
-
-const int __TVOS_14_2 = 140200;
-
-const int __TVOS_14_3 = 140300;
-
-const int __TVOS_14_5 = 140500;
-
-const int __TVOS_14_6 = 140600;
-
-const int __TVOS_14_7 = 140700;
-
-const int __TVOS_15_0 = 150000;
-
-const int __TVOS_15_1 = 150100;
-
-const int __TVOS_15_2 = 150200;
-
-const int __TVOS_15_3 = 150300;
-
-const int __TVOS_15_4 = 150400;
-
-const int __TVOS_15_5 = 150500;
-
-const int __TVOS_15_6 = 150600;
-
-const int __TVOS_16_0 = 160000;
-
-const int __TVOS_16_1 = 160100;
-
-const int __TVOS_16_2 = 160200;
-
-const int __TVOS_16_3 = 160300;
-
-const int __TVOS_16_4 = 160400;
-
-const int __TVOS_16_5 = 160500;
-
-const int __TVOS_16_6 = 160600;
-
-const int __TVOS_17_0 = 170000;
-
-const int __TVOS_17_1 = 170100;
-
-const int __TVOS_17_2 = 170200;
-
-const int __TVOS_17_3 = 170300;
-
-const int __TVOS_17_4 = 170400;
-
-const int __TVOS_17_5 = 170500;
-
-const int __TVOS_18_0 = 180000;
-
-const int __TVOS_18_1 = 180100;
-
-const int __BRIDGEOS_2_0 = 20000;
-
-const int __BRIDGEOS_3_0 = 30000;
-
-const int __BRIDGEOS_3_1 = 30100;
-
-const int __BRIDGEOS_3_4 = 30400;
-
-const int __BRIDGEOS_4_0 = 40000;
-
-const int __BRIDGEOS_4_1 = 40100;
-
-const int __BRIDGEOS_5_0 = 50000;
-
-const int __BRIDGEOS_5_1 = 50100;
-
-const int __BRIDGEOS_5_3 = 50300;
-
-const int __BRIDGEOS_6_0 = 60000;
-
-const int __BRIDGEOS_6_2 = 60200;
-
-const int __BRIDGEOS_6_4 = 60400;
-
-const int __BRIDGEOS_6_5 = 60500;
-
-const int __BRIDGEOS_6_6 = 60600;
-
-const int __BRIDGEOS_7_0 = 70000;
-
-const int __BRIDGEOS_7_1 = 70100;
-
-const int __BRIDGEOS_7_2 = 70200;
-
-const int __BRIDGEOS_7_3 = 70300;
-
-const int __BRIDGEOS_7_4 = 70400;
-
-const int __BRIDGEOS_7_6 = 70600;
-
-const int __BRIDGEOS_8_0 = 80000;
-
-const int __BRIDGEOS_8_1 = 80100;
-
-const int __BRIDGEOS_8_2 = 80200;
-
-const int __BRIDGEOS_8_3 = 80300;
-
-const int __BRIDGEOS_8_4 = 80400;
-
-const int __BRIDGEOS_8_5 = 80500;
-
-const int __BRIDGEOS_9_0 = 90000;
-
-const int __BRIDGEOS_9_1 = 90100;
-
-const int __DRIVERKIT_19_0 = 190000;
-
-const int __DRIVERKIT_20_0 = 200000;
-
-const int __DRIVERKIT_21_0 = 210000;
-
-const int __DRIVERKIT_22_0 = 220000;
-
-const int __DRIVERKIT_22_4 = 220400;
-
-const int __DRIVERKIT_22_5 = 220500;
-
-const int __DRIVERKIT_22_6 = 220600;
-
-const int __DRIVERKIT_23_0 = 230000;
-
-const int __DRIVERKIT_23_1 = 230100;
-
-const int __DRIVERKIT_23_2 = 230200;
-
-const int __DRIVERKIT_23_3 = 230300;
-
-const int __DRIVERKIT_23_4 = 230400;
-
-const int __DRIVERKIT_23_5 = 230500;
-
-const int __DRIVERKIT_24_0 = 240000;
-
-const int __DRIVERKIT_24_1 = 240100;
-
-const int __VISIONOS_1_0 = 10000;
-
-const int __VISIONOS_1_1 = 10100;
-
-const int __VISIONOS_1_2 = 10200;
-
-const int __VISIONOS_2_0 = 20000;
-
-const int __VISIONOS_2_1 = 20100;
-
-const int MAC_OS_X_VERSION_10_0 = 1000;
-
-const int MAC_OS_X_VERSION_10_1 = 1010;
-
-const int MAC_OS_X_VERSION_10_2 = 1020;
-
-const int MAC_OS_X_VERSION_10_3 = 1030;
-
-const int MAC_OS_X_VERSION_10_4 = 1040;
-
-const int MAC_OS_X_VERSION_10_5 = 1050;
-
-const int MAC_OS_X_VERSION_10_6 = 1060;
-
-const int MAC_OS_X_VERSION_10_7 = 1070;
-
-const int MAC_OS_X_VERSION_10_8 = 1080;
-
-const int MAC_OS_X_VERSION_10_9 = 1090;
-
-const int MAC_OS_X_VERSION_10_10 = 101000;
-
-const int MAC_OS_X_VERSION_10_10_2 = 101002;
-
-const int MAC_OS_X_VERSION_10_10_3 = 101003;
-
-const int MAC_OS_X_VERSION_10_11 = 101100;
-
-const int MAC_OS_X_VERSION_10_11_2 = 101102;
-
-const int MAC_OS_X_VERSION_10_11_3 = 101103;
-
-const int MAC_OS_X_VERSION_10_11_4 = 101104;
-
-const int MAC_OS_X_VERSION_10_12 = 101200;
-
-const int MAC_OS_X_VERSION_10_12_1 = 101201;
-
-const int MAC_OS_X_VERSION_10_12_2 = 101202;
-
-const int MAC_OS_X_VERSION_10_12_4 = 101204;
-
-const int MAC_OS_X_VERSION_10_13 = 101300;
-
-const int MAC_OS_X_VERSION_10_13_1 = 101301;
-
-const int MAC_OS_X_VERSION_10_13_2 = 101302;
-
-const int MAC_OS_X_VERSION_10_13_4 = 101304;
-
-const int MAC_OS_X_VERSION_10_14 = 101400;
-
-const int MAC_OS_X_VERSION_10_14_1 = 101401;
-
-const int MAC_OS_X_VERSION_10_14_4 = 101404;
-
-const int MAC_OS_X_VERSION_10_14_5 = 101405;
-
-const int MAC_OS_X_VERSION_10_14_6 = 101406;
-
-const int MAC_OS_X_VERSION_10_15 = 101500;
-
-const int MAC_OS_X_VERSION_10_15_1 = 101501;
-
-const int MAC_OS_X_VERSION_10_15_4 = 101504;
-
-const int MAC_OS_X_VERSION_10_16 = 101600;
-
-const int MAC_OS_VERSION_11_0 = 110000;
-
-const int MAC_OS_VERSION_11_1 = 110100;
-
-const int MAC_OS_VERSION_11_3 = 110300;
-
-const int MAC_OS_VERSION_11_4 = 110400;
-
-const int MAC_OS_VERSION_11_5 = 110500;
-
-const int MAC_OS_VERSION_11_6 = 110600;
-
-const int MAC_OS_VERSION_12_0 = 120000;
-
-const int MAC_OS_VERSION_12_1 = 120100;
-
-const int MAC_OS_VERSION_12_2 = 120200;
-
-const int MAC_OS_VERSION_12_3 = 120300;
-
-const int MAC_OS_VERSION_12_4 = 120400;
-
-const int MAC_OS_VERSION_12_5 = 120500;
-
-const int MAC_OS_VERSION_12_6 = 120600;
-
-const int MAC_OS_VERSION_12_7 = 120700;
-
-const int MAC_OS_VERSION_13_0 = 130000;
-
-const int MAC_OS_VERSION_13_1 = 130100;
-
-const int MAC_OS_VERSION_13_2 = 130200;
-
-const int MAC_OS_VERSION_13_3 = 130300;
-
-const int MAC_OS_VERSION_13_4 = 130400;
-
-const int MAC_OS_VERSION_13_5 = 130500;
-
-const int MAC_OS_VERSION_13_6 = 130600;
-
-const int MAC_OS_VERSION_14_0 = 140000;
-
-const int MAC_OS_VERSION_14_1 = 140100;
-
-const int MAC_OS_VERSION_14_2 = 140200;
-
-const int MAC_OS_VERSION_14_3 = 140300;
-
-const int MAC_OS_VERSION_14_4 = 140400;
-
-const int MAC_OS_VERSION_14_5 = 140500;
-
-const int MAC_OS_VERSION_15_0 = 150000;
-
-const int MAC_OS_VERSION_15_1 = 150100;
-
-const int __MAC_OS_X_VERSION_MIN_REQUIRED = 150000;
-
-const int __MAC_OS_X_VERSION_MAX_ALLOWED = 150100;
-
-const int __ENABLE_LEGACY_MAC_AVAILABILITY = 1;
-
-const int __has_safe_buffers = 1;
-
-const int __DARWIN_ONLY_64_BIT_INO_T = 1;
-
-const int __DARWIN_ONLY_UNIX_CONFORMANCE = 1;
-
-const int __DARWIN_ONLY_VERS_1050 = 1;
-
-const int __DARWIN_UNIX03 = 1;
-
-const int __DARWIN_64_BIT_INO_T = 1;
-
-const int __DARWIN_VERS_1050 = 1;
-
-const int __DARWIN_NON_CANCELABLE = 0;
-
-const String __DARWIN_SUF_EXTSN = '\$DARWIN_EXTSN';
-
-const int __DARWIN_C_ANSI = 4096;
-
-const int __DARWIN_C_FULL = 900000;
-
-const int __DARWIN_C_LEVEL = 900000;
-
-const int __STDC_WANT_LIB_EXT1__ = 1;
-
-const int __DARWIN_NO_LONG_LONG = 0;
-
-const int _DARWIN_FEATURE_64_BIT_INODE = 1;
-
-const int _DARWIN_FEATURE_ONLY_64_BIT_INODE = 1;
-
-const int _DARWIN_FEATURE_ONLY_VERS_1050 = 1;
-
-const int _DARWIN_FEATURE_ONLY_UNIX_CONFORMANCE = 1;
-
-const int _DARWIN_FEATURE_UNIX_CONFORMANCE = 3;
-
-const int __has_ptrcheck = 0;
-
-const int __DARWIN_NULL = 0;
-
-const int __PTHREAD_SIZE__ = 8176;
-
-const int __PTHREAD_ATTR_SIZE__ = 56;
-
-const int __PTHREAD_MUTEXATTR_SIZE__ = 8;
-
-const int __PTHREAD_MUTEX_SIZE__ = 56;
-
-const int __PTHREAD_CONDATTR_SIZE__ = 8;
-
-const int __PTHREAD_COND_SIZE__ = 40;
-
-const int __PTHREAD_ONCE_SIZE__ = 8;
-
-const int __PTHREAD_RWLOCK_SIZE__ = 192;
-
-const int __PTHREAD_RWLOCKATTR_SIZE__ = 16;
-
-const int __DARWIN_WCHAR_MAX = 2147483647;
-
-const int __DARWIN_WCHAR_MIN = -2147483648;
-
-const int __DARWIN_WEOF = -1;
-
-const int _FORTIFY_SOURCE = 2;
-
-const int __DARWIN_NSIG = 32;
-
-const int NSIG = 32;
-
-const int _ARM_SIGNAL_ = 1;
-
-const int SIGHUP = 1;
-
-const int SIGINT = 2;
-
-const int SIGQUIT = 3;
-
-const int SIGILL = 4;
-
-const int SIGTRAP = 5;
-
-const int SIGABRT = 6;
-
-const int SIGIOT = 6;
-
-const int SIGEMT = 7;
-
-const int SIGFPE = 8;
-
-const int SIGKILL = 9;
-
-const int SIGBUS = 10;
-
-const int SIGSEGV = 11;
-
-const int SIGSYS = 12;
-
-const int SIGPIPE = 13;
-
-const int SIGALRM = 14;
-
-const int SIGTERM = 15;
-
-const int SIGURG = 16;
-
-const int SIGSTOP = 17;
-
-const int SIGTSTP = 18;
-
-const int SIGCONT = 19;
-
-const int SIGCHLD = 20;
-
-const int SIGTTIN = 21;
-
-const int SIGTTOU = 22;
-
-const int SIGIO = 23;
-
-const int SIGXCPU = 24;
-
-const int SIGXFSZ = 25;
-
-const int SIGVTALRM = 26;
-
-const int SIGPROF = 27;
-
-const int SIGWINCH = 28;
-
-const int SIGINFO = 29;
-
-const int SIGUSR1 = 30;
-
-const int SIGUSR2 = 31;
-
-const int USER_ADDR_NULL = 0;
-
-const int __DARWIN_OPAQUE_ARM_THREAD_STATE64 = 0;
-
-const int SIGEV_NONE = 0;
-
-const int SIGEV_SIGNAL = 1;
-
-const int SIGEV_THREAD = 3;
-
-const int ILL_NOOP = 0;
-
-const int ILL_ILLOPC = 1;
-
-const int ILL_ILLTRP = 2;
-
-const int ILL_PRVOPC = 3;
-
-const int ILL_ILLOPN = 4;
-
-const int ILL_ILLADR = 5;
-
-const int ILL_PRVREG = 6;
-
-const int ILL_COPROC = 7;
-
-const int ILL_BADSTK = 8;
-
-const int FPE_NOOP = 0;
-
-const int FPE_FLTDIV = 1;
-
-const int FPE_FLTOVF = 2;
-
-const int FPE_FLTUND = 3;
-
-const int FPE_FLTRES = 4;
-
-const int FPE_FLTINV = 5;
-
-const int FPE_FLTSUB = 6;
-
-const int FPE_INTDIV = 7;
-
-const int FPE_INTOVF = 8;
-
-const int SEGV_NOOP = 0;
-
-const int SEGV_MAPERR = 1;
-
-const int SEGV_ACCERR = 2;
-
-const int BUS_NOOP = 0;
-
-const int BUS_ADRALN = 1;
-
-const int BUS_ADRERR = 2;
-
-const int BUS_OBJERR = 3;
-
-const int TRAP_BRKPT = 1;
-
-const int TRAP_TRACE = 2;
-
-const int CLD_NOOP = 0;
-
-const int CLD_EXITED = 1;
-
-const int CLD_KILLED = 2;
-
-const int CLD_DUMPED = 3;
-
-const int CLD_TRAPPED = 4;
-
-const int CLD_STOPPED = 5;
-
-const int CLD_CONTINUED = 6;
-
-const int POLL_IN = 1;
-
-const int POLL_OUT = 2;
-
-const int POLL_MSG = 3;
-
-const int POLL_ERR = 4;
-
-const int POLL_PRI = 5;
-
-const int POLL_HUP = 6;
-
-const int SA_ONSTACK = 1;
-
-const int SA_RESTART = 2;
-
-const int SA_RESETHAND = 4;
-
-const int SA_NOCLDSTOP = 8;
-
-const int SA_NODEFER = 16;
-
-const int SA_NOCLDWAIT = 32;
-
-const int SA_SIGINFO = 64;
-
-const int SA_USERTRAMP = 256;
-
-const int SA_64REGSET = 512;
-
-const int SA_USERSPACE_MASK = 127;
-
-const int SIG_BLOCK = 1;
-
-const int SIG_UNBLOCK = 2;
-
-const int SIG_SETMASK = 3;
-
-const int SI_USER = 65537;
-
-const int SI_QUEUE = 65538;
-
-const int SI_TIMER = 65539;
-
-const int SI_ASYNCIO = 65540;
-
-const int SI_MESGQ = 65541;
-
-const int SS_ONSTACK = 1;
-
-const int SS_DISABLE = 4;
-
-const int MINSIGSTKSZ = 32768;
-
-const int SIGSTKSZ = 131072;
-
-const int SV_ONSTACK = 1;
-
-const int SV_INTERRUPT = 2;
-
-const int SV_RESETHAND = 4;
-
-const int SV_NODEFER = 16;
-
-const int SV_NOCLDSTOP = 8;
-
-const int SV_SIGINFO = 64;
-
-const int __WORDSIZE = 64;
-
-const int INT8_MAX = 127;
-
-const int INT16_MAX = 32767;
-
-const int INT32_MAX = 2147483647;
-
-const int INT64_MAX = 9223372036854775807;
-
-const int INT8_MIN = -128;
-
-const int INT16_MIN = -32768;
-
-const int INT32_MIN = -2147483648;
-
-const int INT64_MIN = -9223372036854775808;
-
-const int UINT8_MAX = 255;
-
-const int UINT16_MAX = 65535;
-
-const int UINT32_MAX = 4294967295;
-
-const int UINT64_MAX = -1;
-
-const int INT_LEAST8_MIN = -128;
-
-const int INT_LEAST16_MIN = -32768;
-
-const int INT_LEAST32_MIN = -2147483648;
-
-const int INT_LEAST64_MIN = -9223372036854775808;
-
-const int INT_LEAST8_MAX = 127;
-
-const int INT_LEAST16_MAX = 32767;
-
-const int INT_LEAST32_MAX = 2147483647;
-
-const int INT_LEAST64_MAX = 9223372036854775807;
-
-const int UINT_LEAST8_MAX = 255;
-
-const int UINT_LEAST16_MAX = 65535;
-
-const int UINT_LEAST32_MAX = 4294967295;
-
-const int UINT_LEAST64_MAX = -1;
-
-const int INT_FAST8_MIN = -128;
-
-const int INT_FAST16_MIN = -32768;
-
-const int INT_FAST32_MIN = -2147483648;
-
-const int INT_FAST64_MIN = -9223372036854775808;
-
-const int INT_FAST8_MAX = 127;
-
-const int INT_FAST16_MAX = 32767;
-
-const int INT_FAST32_MAX = 2147483647;
-
-const int INT_FAST64_MAX = 9223372036854775807;
-
-const int UINT_FAST8_MAX = 255;
-
-const int UINT_FAST16_MAX = 65535;
-
-const int UINT_FAST32_MAX = 4294967295;
-
-const int UINT_FAST64_MAX = -1;
-
-const int INTPTR_MAX = 9223372036854775807;
-
-const int INTPTR_MIN = -9223372036854775808;
-
-const int UINTPTR_MAX = -1;
-
-const int INTMAX_MAX = 9223372036854775807;
-
-const int UINTMAX_MAX = -1;
-
-const int INTMAX_MIN = -9223372036854775808;
-
-const int PTRDIFF_MIN = -9223372036854775808;
-
-const int PTRDIFF_MAX = 9223372036854775807;
-
-const int SIZE_MAX = -1;
-
-const int RSIZE_MAX = 9223372036854775807;
-
-const int WCHAR_MAX = 2147483647;
-
-const int WCHAR_MIN = -2147483648;
-
-const int WINT_MIN = -2147483648;
-
-const int WINT_MAX = 2147483647;
-
-const int SIG_ATOMIC_MIN = -2147483648;
-
-const int SIG_ATOMIC_MAX = 2147483647;
-
-const int PRIO_PROCESS = 0;
-
-const int PRIO_PGRP = 1;
-
-const int PRIO_USER = 2;
-
-const int PRIO_DARWIN_THREAD = 3;
-
-const int PRIO_DARWIN_PROCESS = 4;
-
-const int PRIO_MIN = -20;
-
-const int PRIO_MAX = 20;
-
-const int PRIO_DARWIN_BG = 4096;
-
-const int PRIO_DARWIN_NONUI = 4097;
-
-const int RUSAGE_SELF = 0;
-
-const int RUSAGE_CHILDREN = -1;
-
-const int RUSAGE_INFO_V0 = 0;
-
-const int RUSAGE_INFO_V1 = 1;
-
-const int RUSAGE_INFO_V2 = 2;
-
-const int RUSAGE_INFO_V3 = 3;
-
-const int RUSAGE_INFO_V4 = 4;
-
-const int RUSAGE_INFO_V5 = 5;
-
-const int RUSAGE_INFO_V6 = 6;
-
-const int RUSAGE_INFO_CURRENT = 6;
-
-const int RU_PROC_RUNS_RESLIDE = 1;
-
-const int RLIM_INFINITY = 9223372036854775807;
-
-const int RLIM_SAVED_MAX = 9223372036854775807;
-
-const int RLIM_SAVED_CUR = 9223372036854775807;
-
-const int RLIMIT_CPU = 0;
-
-const int RLIMIT_FSIZE = 1;
-
-const int RLIMIT_DATA = 2;
-
-const int RLIMIT_STACK = 3;
-
-const int RLIMIT_CORE = 4;
-
-const int RLIMIT_AS = 5;
-
-const int RLIMIT_RSS = 5;
-
-const int RLIMIT_MEMLOCK = 6;
-
-const int RLIMIT_NPROC = 7;
-
-const int RLIMIT_NOFILE = 8;
-
-const int RLIM_NLIMITS = 9;
-
-const int _RLIMIT_POSIX_FLAG = 4096;
-
-const int RLIMIT_WAKEUPS_MONITOR = 1;
-
-const int RLIMIT_CPU_USAGE_MONITOR = 2;
-
-const int RLIMIT_THREAD_CPULIMITS = 3;
-
-const int RLIMIT_FOOTPRINT_INTERVAL = 4;
-
-const int WAKEMON_ENABLE = 1;
-
-const int WAKEMON_DISABLE = 2;
-
-const int WAKEMON_GET_PARAMS = 4;
-
-const int WAKEMON_SET_DEFAULTS = 8;
-
-const int WAKEMON_MAKE_FATAL = 16;
-
-const int CPUMON_MAKE_FATAL = 4096;
-
-const int FOOTPRINT_INTERVAL_RESET = 1;
-
-const int IOPOL_TYPE_DISK = 0;
-
-const int IOPOL_TYPE_VFS_ATIME_UPDATES = 2;
-
-const int IOPOL_TYPE_VFS_MATERIALIZE_DATALESS_FILES = 3;
-
-const int IOPOL_TYPE_VFS_STATFS_NO_DATA_VOLUME = 4;
-
-const int IOPOL_TYPE_VFS_TRIGGER_RESOLVE = 5;
-
-const int IOPOL_TYPE_VFS_IGNORE_CONTENT_PROTECTION = 6;
-
-const int IOPOL_TYPE_VFS_IGNORE_PERMISSIONS = 7;
-
-const int IOPOL_TYPE_VFS_SKIP_MTIME_UPDATE = 8;
-
-const int IOPOL_TYPE_VFS_ALLOW_LOW_SPACE_WRITES = 9;
-
-const int IOPOL_TYPE_VFS_DISALLOW_RW_FOR_O_EVTONLY = 10;
-
-const int IOPOL_SCOPE_PROCESS = 0;
-
-const int IOPOL_SCOPE_THREAD = 1;
-
-const int IOPOL_SCOPE_DARWIN_BG = 2;
-
-const int IOPOL_DEFAULT = 0;
-
-const int IOPOL_IMPORTANT = 1;
-
-const int IOPOL_PASSIVE = 2;
-
-const int IOPOL_THROTTLE = 3;
-
-const int IOPOL_UTILITY = 4;
-
-const int IOPOL_STANDARD = 5;
-
-const int IOPOL_APPLICATION = 5;
-
-const int IOPOL_NORMAL = 1;
-
-const int IOPOL_ATIME_UPDATES_DEFAULT = 0;
-
-const int IOPOL_ATIME_UPDATES_OFF = 1;
-
-const int IOPOL_MATERIALIZE_DATALESS_FILES_DEFAULT = 0;
-
-const int IOPOL_MATERIALIZE_DATALESS_FILES_OFF = 1;
-
-const int IOPOL_MATERIALIZE_DATALESS_FILES_ON = 2;
-
-const int IOPOL_VFS_STATFS_NO_DATA_VOLUME_DEFAULT = 0;
-
-const int IOPOL_VFS_STATFS_FORCE_NO_DATA_VOLUME = 1;
-
-const int IOPOL_VFS_TRIGGER_RESOLVE_DEFAULT = 0;
-
-const int IOPOL_VFS_TRIGGER_RESOLVE_OFF = 1;
-
-const int IOPOL_VFS_CONTENT_PROTECTION_DEFAULT = 0;
-
-const int IOPOL_VFS_CONTENT_PROTECTION_IGNORE = 1;
-
-const int IOPOL_VFS_IGNORE_PERMISSIONS_OFF = 0;
-
-const int IOPOL_VFS_IGNORE_PERMISSIONS_ON = 1;
-
-const int IOPOL_VFS_SKIP_MTIME_UPDATE_OFF = 0;
-
-const int IOPOL_VFS_SKIP_MTIME_UPDATE_ON = 1;
-
-const int IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_OFF = 0;
-
-const int IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_ON = 1;
-
-const int IOPOL_VFS_DISALLOW_RW_FOR_O_EVTONLY_DEFAULT = 0;
-
-const int IOPOL_VFS_DISALLOW_RW_FOR_O_EVTONLY_ON = 1;
-
-const int IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_DEFAULT = 0;
-
-const int IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_ON = 1;
-
-const int WNOHANG = 1;
-
-const int WUNTRACED = 2;
-
-const int WCOREFLAG = 128;
-
-const int _WSTOPPED = 127;
-
-const int WEXITED = 4;
-
-const int WSTOPPED = 8;
-
-const int WCONTINUED = 16;
-
-const int WNOWAIT = 32;
-
-const int WAIT_ANY = -1;
-
-const int WAIT_MYPGRP = 0;
-
-const int _QUAD_HIGHWORD = 1;
-
-const int _QUAD_LOWWORD = 0;
-
-const int __DARWIN_LITTLE_ENDIAN = 1234;
-
-const int __DARWIN_BIG_ENDIAN = 4321;
-
-const int __DARWIN_PDP_ENDIAN = 3412;
-
-const int LITTLE_ENDIAN = 1234;
-
-const int BIG_ENDIAN = 4321;
-
-const int PDP_ENDIAN = 3412;
-
-const int __DARWIN_BYTE_ORDER = 1234;
-
-const int BYTE_ORDER = 1234;
-
-const int NULL = 0;
-
-const int EXIT_FAILURE = 1;
-
-const int EXIT_SUCCESS = 0;
-
-const int RAND_MAX = 2147483647;
-
-const int TARGET_OS_RTKIT = 0;
-
-const int TARGET_RT_LITTLE_ENDIAN = 1;
-
-const int TARGET_RT_BIG_ENDIAN = 0;
-
-const int TARGET_RT_64_BIT = 1;
-
-const int TARGET_RT_MAC_CFM = 0;
-
-const int TARGET_RT_MAC_MACHO = 1;
-
-const int TARGET_CPU_ARM64 = 1;
-
-const int TARGET_CPU_PPC = 0;
-
-const int TARGET_CPU_PPC64 = 0;
-
-const int TARGET_CPU_68K = 0;
-
-const int TARGET_CPU_X86 = 0;
-
-const int TARGET_CPU_X86_64 = 0;
-
-const int TARGET_CPU_ARM = 0;
-
-const int TARGET_CPU_MIPS = 0;
-
-const int TARGET_CPU_SPARC = 0;
-
-const int TARGET_CPU_ALPHA = 0;
-
-const int TARGET_ABI_USES_IOS_VALUES = 1;
-
-const int __DARWIN_FD_SETSIZE = 1024;
-
-const int __DARWIN_NBBY = 8;
-
-const int __DARWIN_NFDBITS = 32;
-
-const int NBBY = 8;
-
-const int NFDBITS = 32;
-
-const int FD_SETSIZE = 1024;
-
-const int __bool_true_false_are_defined = 1;
-
-const int true$ = 1;
-
 const int false$ = 0;
 
-const int __DARWIN_CLK_TCK = 100;
-
-const int MB_LEN_MAX = 6;
-
-const int CLK_TCK = 100;
-
-const int CHAR_BIT = 8;
-
-const int SCHAR_MAX = 127;
-
-const int SCHAR_MIN = -128;
-
-const int UCHAR_MAX = 255;
-
-const int CHAR_MAX = 127;
-
-const int CHAR_MIN = -128;
-
-const int USHRT_MAX = 65535;
-
-const int SHRT_MAX = 32767;
-
-const int SHRT_MIN = -32768;
-
-const int UINT_MAX = 4294967295;
-
-const int INT_MAX = 2147483647;
-
-const int INT_MIN = -2147483648;
-
-const int ULONG_MAX = -1;
-
-const int LONG_MAX = 9223372036854775807;
-
-const int LONG_MIN = -9223372036854775808;
-
-const int ULLONG_MAX = -1;
-
-const int LLONG_MAX = 9223372036854775807;
-
-const int LLONG_MIN = -9223372036854775808;
-
-const int LONG_BIT = 64;
-
-const int SSIZE_MAX = 9223372036854775807;
-
-const int WORD_BIT = 32;
-
-const int SIZE_T_MAX = -1;
-
-const int UQUAD_MAX = -1;
-
-const int QUAD_MAX = 9223372036854775807;
-
-const int QUAD_MIN = -9223372036854775808;
-
-const int _POSIX_THREAD_KEYS_MAX = 128;
-
-const int API_TO_BE_DEPRECATED = 100000;
-
-const int API_TO_BE_DEPRECATED_MACOS = 100000;
-
-const int API_TO_BE_DEPRECATED_IOS = 100000;
-
-const int API_TO_BE_DEPRECATED_TVOS = 100000;
-
-const int API_TO_BE_DEPRECATED_WATCHOS = 100000;
-
-const int API_TO_BE_DEPRECATED_DRIVERKIT = 100000;
-
-const int API_TO_BE_DEPRECATED_VISIONOS = 100000;
-
-const int TRUE = 1;
-
-const int FALSE = 0;
-
-const int OS_OBJECT_HAVE_OBJC_SUPPORT = 0;
-
-const int OS_OBJECT_USE_OBJC = 0;
-
-const int OS_OBJECT_SWIFT3 = 0;
-
-const int OS_OBJECT_USE_OBJC_RETAIN_RELEASE = 0;
-
-const int SEEK_SET = 0;
-
-const int SEEK_CUR = 1;
-
-const int SEEK_END = 2;
-
-const int SEEK_HOLE = 3;
-
-const int SEEK_DATA = 4;
-
-const int MACH_PORT_NULL = 0;
-
-const int MACH_PORT_DEAD = 4294967295;
-
-const int MACH_PORT_RIGHT_SEND = 0;
-
-const int MACH_PORT_RIGHT_RECEIVE = 1;
-
-const int MACH_PORT_RIGHT_SEND_ONCE = 2;
-
-const int MACH_PORT_RIGHT_PORT_SET = 3;
-
-const int MACH_PORT_RIGHT_DEAD_NAME = 4;
-
-const int MACH_PORT_RIGHT_LABELH = 5;
-
-const int MACH_PORT_RIGHT_NUMBER = 6;
-
-const int MACH_PORT_TYPE_NONE = 0;
-
-const int MACH_PORT_TYPE_SEND = 65536;
-
-const int MACH_PORT_TYPE_RECEIVE = 131072;
-
-const int MACH_PORT_TYPE_SEND_ONCE = 262144;
-
-const int MACH_PORT_TYPE_PORT_SET = 524288;
-
-const int MACH_PORT_TYPE_DEAD_NAME = 1048576;
-
-const int MACH_PORT_TYPE_LABELH = 2097152;
-
-const int MACH_PORT_TYPE_DNREQUEST = 2147483648;
-
-const int MACH_PORT_TYPE_SPREQUEST = 1073741824;
-
-const int MACH_PORT_TYPE_SPREQUEST_DELAYED = 536870912;
-
-const int MACH_PORT_TYPE_SEND_RECEIVE = 196608;
-
-const int MACH_PORT_TYPE_SEND_RIGHTS = 327680;
-
-const int MACH_PORT_TYPE_PORT_RIGHTS = 458752;
-
-const int MACH_PORT_TYPE_PORT_OR_DEAD = 1507328;
-
-const int MACH_PORT_TYPE_ALL_RIGHTS = 2031616;
-
-const int MACH_PORT_SRIGHTS_NONE = 0;
-
-const int MACH_PORT_SRIGHTS_PRESENT = 1;
-
-const int MACH_PORT_QLIMIT_ZERO = 0;
-
-const int MACH_PORT_QLIMIT_BASIC = 5;
-
-const int MACH_PORT_QLIMIT_SMALL = 16;
-
-const int MACH_PORT_QLIMIT_LARGE = 1024;
-
-const int MACH_PORT_QLIMIT_KERNEL = 65534;
-
-const int MACH_PORT_QLIMIT_MIN = 0;
-
-const int MACH_PORT_QLIMIT_DEFAULT = 5;
-
-const int MACH_PORT_QLIMIT_MAX = 1024;
-
-const int MACH_PORT_STATUS_FLAG_TEMPOWNER = 1;
-
-const int MACH_PORT_STATUS_FLAG_GUARDED = 2;
-
-const int MACH_PORT_STATUS_FLAG_STRICT_GUARD = 4;
-
-const int MACH_PORT_STATUS_FLAG_IMP_DONATION = 8;
-
-const int MACH_PORT_STATUS_FLAG_REVIVE = 16;
-
-const int MACH_PORT_STATUS_FLAG_TASKPTR = 32;
-
-const int MACH_PORT_STATUS_FLAG_GUARD_IMMOVABLE_RECEIVE = 64;
-
-const int MACH_PORT_STATUS_FLAG_NO_GRANT = 128;
-
-const int MACH_PORT_LIMITS_INFO = 1;
-
-const int MACH_PORT_RECEIVE_STATUS = 2;
-
-const int MACH_PORT_DNREQUESTS_SIZE = 3;
-
-const int MACH_PORT_TEMPOWNER = 4;
-
-const int MACH_PORT_IMPORTANCE_RECEIVER = 5;
-
-const int MACH_PORT_DENAP_RECEIVER = 6;
-
-const int MACH_PORT_INFO_EXT = 7;
-
-const int MACH_PORT_GUARD_INFO = 8;
-
-const int MACH_PORT_SERVICE_THROTTLED = 9;
-
-const int MACH_PORT_LIMITS_INFO_COUNT = 1;
-
-const int MACH_PORT_RECEIVE_STATUS_COUNT = 10;
-
-const int MACH_PORT_DNREQUESTS_SIZE_COUNT = 1;
-
-const int MACH_PORT_INFO_EXT_COUNT = 17;
-
-const int MACH_PORT_GUARD_INFO_COUNT = 2;
-
-const int MACH_PORT_SERVICE_THROTTLED_COUNT = 1;
-
-const int MACH_SERVICE_PORT_INFO_STRING_NAME_MAX_BUF_LEN = 255;
-
-const int MACH_SERVICE_PORT_INFO_COUNT = 0;
-
-const int MPO_CONTEXT_AS_GUARD = 1;
-
-const int MPO_QLIMIT = 2;
-
-const int MPO_TEMPOWNER = 4;
-
-const int MPO_IMPORTANCE_RECEIVER = 8;
-
-const int MPO_INSERT_SEND_RIGHT = 16;
-
-const int MPO_STRICT = 32;
-
-const int MPO_DENAP_RECEIVER = 64;
-
-const int MPO_IMMOVABLE_RECEIVE = 128;
-
-const int MPO_FILTER_MSG = 256;
-
-const int MPO_TG_BLOCK_TRACKING = 512;
-
-const int MPO_SERVICE_PORT = 1024;
-
-const int MPO_CONNECTION_PORT = 2048;
-
-const int MPO_REPLY_PORT = 4096;
-
-const int MPO_ENFORCE_REPLY_PORT_SEMANTICS = 8192;
-
-const int MPO_PROVISIONAL_REPLY_PORT = 16384;
-
-const int MPO_EXCEPTION_PORT = 32768;
-
-const int GUARD_TYPE_MACH_PORT = 1;
-
-const int MAX_FATAL_kGUARD_EXC_CODE = 128;
-
-const int MPG_FLAGS_NONE = 0;
-
-const int MAX_OPTIONAL_kGUARD_EXC_CODE = 524288;
-
-const int MPG_FLAGS_STRICT_REPLY_INVALID_REPLY_DISP = 72057594037927936;
-
-const int MPG_FLAGS_STRICT_REPLY_INVALID_REPLY_PORT = 144115188075855872;
-
-const int MPG_FLAGS_STRICT_REPLY_INVALID_VOUCHER = 288230376151711744;
-
-const int MPG_FLAGS_STRICT_REPLY_NO_BANK_ATTR = 576460752303423488;
-
-const int MPG_FLAGS_STRICT_REPLY_MISMATCHED_PERSONA = 1152921504606846976;
-
-const int MPG_FLAGS_STRICT_REPLY_MASK = -72057594037927936;
-
-const int MPG_FLAGS_MOD_REFS_PINNED_DEALLOC = 72057594037927936;
-
-const int MPG_FLAGS_MOD_REFS_PINNED_DESTROY = 144115188075855872;
-
-const int MPG_FLAGS_MOD_REFS_PINNED_COPYIN = 288230376151711744;
-
-const int MPG_FLAGS_IMMOVABLE_PINNED = 72057594037927936;
-
-const int MPG_STRICT = 1;
-
-const int MPG_IMMOVABLE_RECEIVE = 2;
-
-const int _POSIX_VERSION = 200112;
-
-const int _POSIX2_VERSION = 200112;
-
-const int _POSIX_VDISABLE = 255;
-
-const int F_OK = 0;
-
-const int X_OK = 1;
-
-const int W_OK = 2;
-
-const int R_OK = 4;
-
-const int _READ_OK = 512;
-
-const int _WRITE_OK = 1024;
-
-const int _EXECUTE_OK = 2048;
-
-const int _DELETE_OK = 4096;
-
-const int _APPEND_OK = 8192;
-
-const int _RMFILE_OK = 16384;
-
-const int _RATTR_OK = 32768;
-
-const int _WATTR_OK = 65536;
-
-const int _REXT_OK = 131072;
-
-const int _WEXT_OK = 262144;
-
-const int _RPERM_OK = 524288;
-
-const int _WPERM_OK = 1048576;
-
-const int _CHOWN_OK = 2097152;
-
-const int _ACCESS_EXTENDED_MASK = 4193792;
-
-const int L_SET = 0;
-
-const int L_INCR = 1;
-
-const int L_XTND = 2;
-
-const int ACCESSX_MAX_DESCRIPTORS = 100;
-
-const int ACCESSX_MAX_TABLESIZE = 16384;
-
-const int _PC_LINK_MAX = 1;
-
-const int _PC_MAX_CANON = 2;
-
-const int _PC_MAX_INPUT = 3;
-
-const int _PC_NAME_MAX = 4;
-
-const int _PC_PATH_MAX = 5;
-
-const int _PC_PIPE_BUF = 6;
-
-const int _PC_CHOWN_RESTRICTED = 7;
-
-const int _PC_NO_TRUNC = 8;
-
-const int _PC_VDISABLE = 9;
-
-const int _PC_NAME_CHARS_MAX = 10;
-
-const int _PC_CASE_SENSITIVE = 11;
-
-const int _PC_CASE_PRESERVING = 12;
-
-const int _PC_EXTENDED_SECURITY_NP = 13;
-
-const int _PC_AUTH_OPAQUE_NP = 14;
-
-const int _PC_2_SYMLINKS = 15;
-
-const int _PC_ALLOC_SIZE_MIN = 16;
-
-const int _PC_ASYNC_IO = 17;
-
-const int _PC_FILESIZEBITS = 18;
-
-const int _PC_PRIO_IO = 19;
-
-const int _PC_REC_INCR_XFER_SIZE = 20;
-
-const int _PC_REC_MAX_XFER_SIZE = 21;
-
-const int _PC_REC_MIN_XFER_SIZE = 22;
-
-const int _PC_REC_XFER_ALIGN = 23;
-
-const int _PC_SYMLINK_MAX = 24;
-
-const int _PC_SYNC_IO = 25;
-
-const int _PC_XATTR_SIZE_BITS = 26;
-
-const int _PC_MIN_HOLE_SIZE = 27;
-
-const int _CS_PATH = 1;
-
-const int STDIN_FILENO = 0;
-
-const int STDOUT_FILENO = 1;
-
-const int STDERR_FILENO = 2;
-
-const int _XOPEN_VERSION = 600;
-
-const int _XOPEN_XCU_VERSION = 4;
-
-const int _POSIX_ADVISORY_INFO = -1;
-
-const int _POSIX_ASYNCHRONOUS_IO = -1;
-
-const int _POSIX_BARRIERS = -1;
-
-const int _POSIX_CHOWN_RESTRICTED = 200112;
-
-const int _POSIX_CLOCK_SELECTION = -1;
-
-const int _POSIX_CPUTIME = -1;
-
-const int _POSIX_FSYNC = 200112;
-
-const int _POSIX_IPV6 = 200112;
-
-const int _POSIX_JOB_CONTROL = 200112;
-
-const int _POSIX_MAPPED_FILES = 200112;
-
-const int _POSIX_MEMLOCK = -1;
-
-const int _POSIX_MEMLOCK_RANGE = -1;
-
-const int _POSIX_MEMORY_PROTECTION = 200112;
-
-const int _POSIX_MESSAGE_PASSING = -1;
-
-const int _POSIX_MONOTONIC_CLOCK = -1;
-
-const int _POSIX_NO_TRUNC = 200112;
-
-const int _POSIX_PRIORITIZED_IO = -1;
-
-const int _POSIX_PRIORITY_SCHEDULING = -1;
-
-const int _POSIX_RAW_SOCKETS = -1;
-
-const int _POSIX_READER_WRITER_LOCKS = 200112;
-
-const int _POSIX_REALTIME_SIGNALS = -1;
-
-const int _POSIX_REGEXP = 200112;
-
-const int _POSIX_SAVED_IDS = 200112;
-
-const int _POSIX_SEMAPHORES = -1;
-
-const int _POSIX_SHARED_MEMORY_OBJECTS = -1;
-
-const int _POSIX_SHELL = 200112;
-
-const int _POSIX_SPAWN = 200112;
-
-const int _POSIX_SPIN_LOCKS = -1;
-
-const int _POSIX_SPORADIC_SERVER = -1;
-
-const int _POSIX_SYNCHRONIZED_IO = -1;
-
-const int _POSIX_THREAD_ATTR_STACKADDR = 200112;
-
-const int _POSIX_THREAD_ATTR_STACKSIZE = 200112;
-
-const int _POSIX_THREAD_CPUTIME = -1;
-
-const int _POSIX_THREAD_PRIO_INHERIT = -1;
-
-const int _POSIX_THREAD_PRIO_PROTECT = -1;
-
-const int _POSIX_THREAD_PRIORITY_SCHEDULING = -1;
-
-const int _POSIX_THREAD_PROCESS_SHARED = 200112;
-
-const int _POSIX_THREAD_SAFE_FUNCTIONS = 200112;
-
-const int _POSIX_THREAD_SPORADIC_SERVER = -1;
-
-const int _POSIX_THREADS = 200112;
-
-const int _POSIX_TIMEOUTS = -1;
-
-const int _POSIX_TIMERS = -1;
-
-const int _POSIX_TRACE = -1;
-
-const int _POSIX_TRACE_EVENT_FILTER = -1;
-
-const int _POSIX_TRACE_INHERIT = -1;
-
-const int _POSIX_TRACE_LOG = -1;
-
-const int _POSIX_TYPED_MEMORY_OBJECTS = -1;
-
-const int _POSIX2_C_BIND = 200112;
-
-const int _POSIX2_C_DEV = 200112;
-
-const int _POSIX2_CHAR_TERM = 200112;
-
-const int _POSIX2_FORT_DEV = -1;
-
-const int _POSIX2_FORT_RUN = 200112;
-
-const int _POSIX2_LOCALEDEF = 200112;
-
-const int _POSIX2_PBS = -1;
-
-const int _POSIX2_PBS_ACCOUNTING = -1;
-
-const int _POSIX2_PBS_CHECKPOINT = -1;
-
-const int _POSIX2_PBS_LOCATE = -1;
-
-const int _POSIX2_PBS_MESSAGE = -1;
-
-const int _POSIX2_PBS_TRACK = -1;
-
-const int _POSIX2_SW_DEV = 200112;
-
-const int _POSIX2_UPE = 200112;
-
-const int __ILP32_OFF32 = -1;
-
-const int __ILP32_OFFBIG = -1;
-
-const int __LP64_OFF64 = 1;
-
-const int __LPBIG_OFFBIG = 1;
-
-const int _POSIX_V6_ILP32_OFF32 = -1;
-
-const int _POSIX_V6_ILP32_OFFBIG = -1;
-
-const int _POSIX_V6_LP64_OFF64 = 1;
-
-const int _POSIX_V6_LPBIG_OFFBIG = 1;
-
-const int _POSIX_V7_ILP32_OFF32 = -1;
-
-const int _POSIX_V7_ILP32_OFFBIG = -1;
-
-const int _POSIX_V7_LP64_OFF64 = 1;
-
-const int _POSIX_V7_LPBIG_OFFBIG = 1;
-
-const int _V6_ILP32_OFF32 = -1;
-
-const int _V6_ILP32_OFFBIG = -1;
-
-const int _V6_LP64_OFF64 = 1;
-
-const int _V6_LPBIG_OFFBIG = 1;
-
-const int _XBS5_ILP32_OFF32 = -1;
-
-const int _XBS5_ILP32_OFFBIG = -1;
-
-const int _XBS5_LP64_OFF64 = 1;
-
-const int _XBS5_LPBIG_OFFBIG = 1;
-
-const int _XOPEN_CRYPT = 1;
-
-const int _XOPEN_ENH_I18N = 1;
-
-const int _XOPEN_LEGACY = -1;
-
-const int _XOPEN_REALTIME = -1;
-
-const int _XOPEN_REALTIME_THREADS = -1;
-
-const int _XOPEN_SHM = 1;
-
-const int _XOPEN_STREAMS = -1;
-
-const int _XOPEN_UNIX = 1;
-
-const int _SC_ARG_MAX = 1;
-
-const int _SC_CHILD_MAX = 2;
-
-const int _SC_CLK_TCK = 3;
-
-const int _SC_NGROUPS_MAX = 4;
-
-const int _SC_OPEN_MAX = 5;
-
-const int _SC_JOB_CONTROL = 6;
-
-const int _SC_SAVED_IDS = 7;
-
-const int _SC_VERSION = 8;
-
-const int _SC_BC_BASE_MAX = 9;
-
-const int _SC_BC_DIM_MAX = 10;
-
-const int _SC_BC_SCALE_MAX = 11;
-
-const int _SC_BC_STRING_MAX = 12;
-
-const int _SC_COLL_WEIGHTS_MAX = 13;
-
-const int _SC_EXPR_NEST_MAX = 14;
-
-const int _SC_LINE_MAX = 15;
-
-const int _SC_RE_DUP_MAX = 16;
-
-const int _SC_2_VERSION = 17;
-
-const int _SC_2_C_BIND = 18;
-
-const int _SC_2_C_DEV = 19;
-
-const int _SC_2_CHAR_TERM = 20;
-
-const int _SC_2_FORT_DEV = 21;
-
-const int _SC_2_FORT_RUN = 22;
-
-const int _SC_2_LOCALEDEF = 23;
-
-const int _SC_2_SW_DEV = 24;
-
-const int _SC_2_UPE = 25;
-
-const int _SC_STREAM_MAX = 26;
-
-const int _SC_TZNAME_MAX = 27;
-
-const int _SC_ASYNCHRONOUS_IO = 28;
-
-const int _SC_PAGESIZE = 29;
-
-const int _SC_MEMLOCK = 30;
-
-const int _SC_MEMLOCK_RANGE = 31;
-
-const int _SC_MEMORY_PROTECTION = 32;
-
-const int _SC_MESSAGE_PASSING = 33;
-
-const int _SC_PRIORITIZED_IO = 34;
-
-const int _SC_PRIORITY_SCHEDULING = 35;
-
-const int _SC_REALTIME_SIGNALS = 36;
-
-const int _SC_SEMAPHORES = 37;
-
-const int _SC_FSYNC = 38;
-
-const int _SC_SHARED_MEMORY_OBJECTS = 39;
-
-const int _SC_SYNCHRONIZED_IO = 40;
-
-const int _SC_TIMERS = 41;
-
-const int _SC_AIO_LISTIO_MAX = 42;
-
-const int _SC_AIO_MAX = 43;
-
-const int _SC_AIO_PRIO_DELTA_MAX = 44;
-
-const int _SC_DELAYTIMER_MAX = 45;
-
-const int _SC_MQ_OPEN_MAX = 46;
-
-const int _SC_MAPPED_FILES = 47;
-
-const int _SC_RTSIG_MAX = 48;
-
-const int _SC_SEM_NSEMS_MAX = 49;
-
-const int _SC_SEM_VALUE_MAX = 50;
-
-const int _SC_SIGQUEUE_MAX = 51;
-
-const int _SC_TIMER_MAX = 52;
-
-const int _SC_NPROCESSORS_CONF = 57;
-
-const int _SC_NPROCESSORS_ONLN = 58;
-
-const int _SC_2_PBS = 59;
-
-const int _SC_2_PBS_ACCOUNTING = 60;
-
-const int _SC_2_PBS_CHECKPOINT = 61;
-
-const int _SC_2_PBS_LOCATE = 62;
-
-const int _SC_2_PBS_MESSAGE = 63;
-
-const int _SC_2_PBS_TRACK = 64;
-
-const int _SC_ADVISORY_INFO = 65;
-
-const int _SC_BARRIERS = 66;
-
-const int _SC_CLOCK_SELECTION = 67;
-
-const int _SC_CPUTIME = 68;
-
-const int _SC_FILE_LOCKING = 69;
-
-const int _SC_GETGR_R_SIZE_MAX = 70;
-
-const int _SC_GETPW_R_SIZE_MAX = 71;
-
-const int _SC_HOST_NAME_MAX = 72;
-
-const int _SC_LOGIN_NAME_MAX = 73;
-
-const int _SC_MONOTONIC_CLOCK = 74;
-
-const int _SC_MQ_PRIO_MAX = 75;
-
-const int _SC_READER_WRITER_LOCKS = 76;
-
-const int _SC_REGEXP = 77;
-
-const int _SC_SHELL = 78;
-
-const int _SC_SPAWN = 79;
-
-const int _SC_SPIN_LOCKS = 80;
-
-const int _SC_SPORADIC_SERVER = 81;
-
-const int _SC_THREAD_ATTR_STACKADDR = 82;
-
-const int _SC_THREAD_ATTR_STACKSIZE = 83;
-
-const int _SC_THREAD_CPUTIME = 84;
-
-const int _SC_THREAD_DESTRUCTOR_ITERATIONS = 85;
-
-const int _SC_THREAD_KEYS_MAX = 86;
-
-const int _SC_THREAD_PRIO_INHERIT = 87;
-
-const int _SC_THREAD_PRIO_PROTECT = 88;
-
-const int _SC_THREAD_PRIORITY_SCHEDULING = 89;
-
-const int _SC_THREAD_PROCESS_SHARED = 90;
-
-const int _SC_THREAD_SAFE_FUNCTIONS = 91;
-
-const int _SC_THREAD_SPORADIC_SERVER = 92;
-
-const int _SC_THREAD_STACK_MIN = 93;
-
-const int _SC_THREAD_THREADS_MAX = 94;
-
-const int _SC_TIMEOUTS = 95;
-
-const int _SC_THREADS = 96;
-
-const int _SC_TRACE = 97;
-
-const int _SC_TRACE_EVENT_FILTER = 98;
-
-const int _SC_TRACE_INHERIT = 99;
-
-const int _SC_TRACE_LOG = 100;
-
-const int _SC_TTY_NAME_MAX = 101;
-
-const int _SC_TYPED_MEMORY_OBJECTS = 102;
-
-const int _SC_V6_ILP32_OFF32 = 103;
-
-const int _SC_V6_ILP32_OFFBIG = 104;
-
-const int _SC_V6_LP64_OFF64 = 105;
-
-const int _SC_V6_LPBIG_OFFBIG = 106;
-
-const int _SC_IPV6 = 118;
-
-const int _SC_RAW_SOCKETS = 119;
-
-const int _SC_SYMLOOP_MAX = 120;
-
-const int _SC_ATEXIT_MAX = 107;
-
-const int _SC_IOV_MAX = 56;
-
-const int _SC_PAGE_SIZE = 29;
-
-const int _SC_XOPEN_CRYPT = 108;
-
-const int _SC_XOPEN_ENH_I18N = 109;
-
-const int _SC_XOPEN_LEGACY = 110;
-
-const int _SC_XOPEN_REALTIME = 111;
-
-const int _SC_XOPEN_REALTIME_THREADS = 112;
-
-const int _SC_XOPEN_SHM = 113;
-
-const int _SC_XOPEN_STREAMS = 114;
-
-const int _SC_XOPEN_UNIX = 115;
-
-const int _SC_XOPEN_VERSION = 116;
-
-const int _SC_XOPEN_XCU_VERSION = 121;
-
-const int _SC_XBS5_ILP32_OFF32 = 122;
-
-const int _SC_XBS5_ILP32_OFFBIG = 123;
-
-const int _SC_XBS5_LP64_OFF64 = 124;
-
-const int _SC_XBS5_LPBIG_OFFBIG = 125;
-
-const int _SC_SS_REPL_MAX = 126;
-
-const int _SC_TRACE_EVENT_NAME_MAX = 127;
-
-const int _SC_TRACE_NAME_MAX = 128;
-
-const int _SC_TRACE_SYS_MAX = 129;
-
-const int _SC_TRACE_USER_EVENT_MAX = 130;
-
-const int _SC_PASS_MAX = 131;
-
-const int _SC_PHYS_PAGES = 200;
-
-const int _CS_POSIX_V6_ILP32_OFF32_CFLAGS = 2;
-
-const int _CS_POSIX_V6_ILP32_OFF32_LDFLAGS = 3;
-
-const int _CS_POSIX_V6_ILP32_OFF32_LIBS = 4;
-
-const int _CS_POSIX_V6_ILP32_OFFBIG_CFLAGS = 5;
-
-const int _CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS = 6;
-
-const int _CS_POSIX_V6_ILP32_OFFBIG_LIBS = 7;
-
-const int _CS_POSIX_V6_LP64_OFF64_CFLAGS = 8;
-
-const int _CS_POSIX_V6_LP64_OFF64_LDFLAGS = 9;
-
-const int _CS_POSIX_V6_LP64_OFF64_LIBS = 10;
-
-const int _CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS = 11;
-
-const int _CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS = 12;
-
-const int _CS_POSIX_V6_LPBIG_OFFBIG_LIBS = 13;
-
-const int _CS_POSIX_V6_WIDTH_RESTRICTED_ENVS = 14;
-
-const int _CS_XBS5_ILP32_OFF32_CFLAGS = 20;
-
-const int _CS_XBS5_ILP32_OFF32_LDFLAGS = 21;
-
-const int _CS_XBS5_ILP32_OFF32_LIBS = 22;
-
-const int _CS_XBS5_ILP32_OFF32_LINTFLAGS = 23;
-
-const int _CS_XBS5_ILP32_OFFBIG_CFLAGS = 24;
-
-const int _CS_XBS5_ILP32_OFFBIG_LDFLAGS = 25;
-
-const int _CS_XBS5_ILP32_OFFBIG_LIBS = 26;
-
-const int _CS_XBS5_ILP32_OFFBIG_LINTFLAGS = 27;
-
-const int _CS_XBS5_LP64_OFF64_CFLAGS = 28;
-
-const int _CS_XBS5_LP64_OFF64_LDFLAGS = 29;
-
-const int _CS_XBS5_LP64_OFF64_LIBS = 30;
-
-const int _CS_XBS5_LP64_OFF64_LINTFLAGS = 31;
-
-const int _CS_XBS5_LPBIG_OFFBIG_CFLAGS = 32;
-
-const int _CS_XBS5_LPBIG_OFFBIG_LDFLAGS = 33;
-
-const int _CS_XBS5_LPBIG_OFFBIG_LIBS = 34;
-
-const int _CS_XBS5_LPBIG_OFFBIG_LINTFLAGS = 35;
-
-const int _CS_DARWIN_USER_DIR = 65536;
-
-const int _CS_DARWIN_USER_TEMP_DIR = 65537;
-
-const int _CS_DARWIN_USER_CACHE_DIR = 65538;
-
-const int F_ULOCK = 0;
-
-const int F_LOCK = 1;
-
-const int F_TLOCK = 2;
-
-const int F_TEST = 3;
-
-const int SYNC_VOLUME_FULLSYNC = 1;
-
-const int SYNC_VOLUME_WAIT = 2;
-
-const int O_RDONLY = 0;
-
-const int O_WRONLY = 1;
-
-const int O_RDWR = 2;
-
-const int O_ACCMODE = 3;
-
-const int FREAD = 1;
-
-const int FWRITE = 2;
-
-const int O_NONBLOCK = 4;
-
-const int O_APPEND = 8;
-
-const int O_SYNC = 128;
-
-const int O_SHLOCK = 16;
-
-const int O_EXLOCK = 32;
-
-const int O_ASYNC = 64;
-
-const int O_FSYNC = 128;
-
-const int O_NOFOLLOW = 256;
-
-const int O_CREAT = 512;
-
-const int O_TRUNC = 1024;
-
-const int O_EXCL = 2048;
-
-const int O_EVTONLY = 32768;
-
-const int O_NOCTTY = 131072;
-
-const int O_DIRECTORY = 1048576;
-
-const int O_SYMLINK = 2097152;
-
-const int O_DSYNC = 4194304;
-
-const int O_CLOEXEC = 16777216;
-
-const int O_NOFOLLOW_ANY = 536870912;
-
-const int O_EXEC = 1073741824;
-
-const int O_SEARCH = 1074790400;
-
-const int AT_FDCWD = -2;
-
-const int AT_EACCESS = 16;
-
-const int AT_SYMLINK_NOFOLLOW = 32;
-
-const int AT_SYMLINK_FOLLOW = 64;
-
-const int AT_REMOVEDIR = 128;
-
-const int AT_REALDEV = 512;
-
-const int AT_FDONLY = 1024;
-
-const int AT_SYMLINK_NOFOLLOW_ANY = 2048;
-
-const int O_DP_GETRAWENCRYPTED = 1;
-
-const int O_DP_GETRAWUNENCRYPTED = 2;
-
-const int O_DP_AUTHENTICATE = 4;
-
-const int AUTH_OPEN_NOAUTHFD = -1;
-
-const int FAPPEND = 8;
-
-const int FASYNC = 64;
-
-const int FFSYNC = 128;
-
-const int FFDSYNC = 4194304;
-
-const int FNONBLOCK = 4;
-
-const int FNDELAY = 4;
-
-const int O_NDELAY = 4;
-
-const int CPF_OVERWRITE = 1;
-
-const int CPF_IGNORE_MODE = 2;
-
-const int CPF_MASK = 3;
-
-const int F_DUPFD = 0;
-
-const int F_GETFD = 1;
-
-const int F_SETFD = 2;
-
-const int F_GETFL = 3;
-
-const int F_SETFL = 4;
-
-const int F_GETOWN = 5;
-
-const int F_SETOWN = 6;
-
-const int F_GETLK = 7;
-
-const int F_SETLK = 8;
-
-const int F_SETLKW = 9;
-
-const int F_SETLKWTIMEOUT = 10;
-
-const int F_FLUSH_DATA = 40;
-
-const int F_CHKCLEAN = 41;
-
-const int F_PREALLOCATE = 42;
-
-const int F_SETSIZE = 43;
-
-const int F_RDADVISE = 44;
-
-const int F_RDAHEAD = 45;
-
-const int F_NOCACHE = 48;
-
-const int F_LOG2PHYS = 49;
-
-const int F_GETPATH = 50;
-
-const int F_FULLFSYNC = 51;
-
-const int F_PATHPKG_CHECK = 52;
-
-const int F_FREEZE_FS = 53;
-
-const int F_THAW_FS = 54;
-
-const int F_GLOBAL_NOCACHE = 55;
-
-const int F_ADDSIGS = 59;
-
-const int F_ADDFILESIGS = 61;
-
-const int F_NODIRECT = 62;
-
-const int F_GETPROTECTIONCLASS = 63;
-
-const int F_SETPROTECTIONCLASS = 64;
-
-const int F_LOG2PHYS_EXT = 65;
-
-const int F_GETLKPID = 66;
-
-const int F_SETBACKINGSTORE = 70;
-
-const int F_GETPATH_MTMINFO = 71;
-
-const int F_GETCODEDIR = 72;
-
-const int F_SETNOSIGPIPE = 73;
-
-const int F_GETNOSIGPIPE = 74;
-
-const int F_TRANSCODEKEY = 75;
-
-const int F_SINGLE_WRITER = 76;
-
-const int F_GETPROTECTIONLEVEL = 77;
-
-const int F_FINDSIGS = 78;
-
-const int F_ADDFILESIGS_FOR_DYLD_SIM = 83;
-
-const int F_BARRIERFSYNC = 85;
-
-const int F_OFD_SETLK = 90;
-
-const int F_OFD_SETLKW = 91;
-
-const int F_OFD_GETLK = 92;
-
-const int F_OFD_SETLKWTIMEOUT = 93;
-
-const int F_ADDFILESIGS_RETURN = 97;
-
-const int F_CHECK_LV = 98;
-
-const int F_PUNCHHOLE = 99;
-
-const int F_TRIM_ACTIVE_FILE = 100;
-
-const int F_SPECULATIVE_READ = 101;
-
-const int F_GETPATH_NOFIRMLINK = 102;
-
-const int F_ADDFILESIGS_INFO = 103;
-
-const int F_ADDFILESUPPL = 104;
-
-const int F_GETSIGSINFO = 105;
-
-const int F_SETLEASE = 106;
-
-const int F_GETLEASE = 107;
-
-const int F_TRANSFEREXTENTS = 110;
-
-const int F_ATTRIBUTION_TAG = 111;
-
-const int F_ADDSIGS_MAIN_BINARY = 113;
-
-const int FCNTL_FS_SPECIFIC_BASE = 65536;
-
-const int F_DUPFD_CLOEXEC = 67;
-
-const int FD_CLOEXEC = 1;
-
-const int F_RDLCK = 1;
-
-const int F_UNLCK = 2;
-
-const int F_WRLCK = 3;
-
-const int S_IFMT = 61440;
-
-const int S_IFIFO = 4096;
-
-const int S_IFCHR = 8192;
-
-const int S_IFDIR = 16384;
-
-const int S_IFBLK = 24576;
-
-const int S_IFREG = 32768;
-
-const int S_IFLNK = 40960;
-
-const int S_IFSOCK = 49152;
-
-const int S_IFWHT = 57344;
-
-const int S_IRWXU = 448;
-
-const int S_IRUSR = 256;
-
-const int S_IWUSR = 128;
-
-const int S_IXUSR = 64;
-
-const int S_IRWXG = 56;
-
-const int S_IRGRP = 32;
-
-const int S_IWGRP = 16;
-
-const int S_IXGRP = 8;
-
-const int S_IRWXO = 7;
-
-const int S_IROTH = 4;
-
-const int S_IWOTH = 2;
-
-const int S_IXOTH = 1;
-
-const int S_ISUID = 2048;
-
-const int S_ISGID = 1024;
-
-const int S_ISVTX = 512;
-
-const int S_ISTXT = 512;
-
-const int S_IREAD = 256;
-
-const int S_IWRITE = 128;
-
-const int S_IEXEC = 64;
-
-const int F_ALLOCATECONTIG = 2;
-
-const int F_ALLOCATEALL = 4;
-
-const int F_ALLOCATEPERSIST = 8;
-
-const int F_PEOFPOSMODE = 3;
-
-const int F_VOLPOSMODE = 4;
-
-const int USER_FSIGNATURES_CDHASH_LEN = 20;
-
-const int GETSIGSINFO_PLATFORM_BINARY = 1;
-
-const int LOCK_SH = 1;
-
-const int LOCK_EX = 2;
-
-const int LOCK_NB = 4;
-
-const int LOCK_UN = 8;
-
-const int ATTRIBUTION_NAME_MAX = 255;
-
-const int F_CREATE_TAG = 1;
-
-const int F_DELETE_TAG = 2;
-
-const int F_QUERY_TAG = 4;
-
-const int O_POPUP = 2147483648;
-
-const int O_ALERT = 536870912;
-
-const int FILESEC_GUID = 3;
-
-const int DISPATCH_API_VERSION = 20181008;
-
-const int __OS_WORKGROUP_ATTR_SIZE__ = 60;
-
-const int __OS_WORKGROUP_INTERVAL_DATA_SIZE__ = 56;
-
-const int __OS_WORKGROUP_JOIN_TOKEN_SIZE__ = 36;
-
-const int _OS_WORKGROUP_ATTR_SIG_DEFAULT_INIT = 799564724;
-
-const int _OS_WORKGROUP_ATTR_SIG_EMPTY_INIT = 799564740;
-
-const int _OS_WORKGROUP_INTERVAL_DATA_SIG_INIT = 1386695757;
-
-const int DISPATCH_SWIFT3_OVERLAY = 0;
-
-const int TIME_MICROS_MAX = 1000000;
-
-const int SYSTEM_CLOCK = 0;
-
-const int CALENDAR_CLOCK = 1;
-
-const int REALTIME_CLOCK = 0;
-
-const int CLOCK_GET_TIME_RES = 1;
-
-const int CLOCK_ALARM_CURRES = 3;
-
-const int CLOCK_ALARM_MINRES = 4;
-
-const int CLOCK_ALARM_MAXRES = 5;
-
-const int NSEC_PER_USEC = 1000;
-
-const int USEC_PER_SEC = 1000000;
-
-const int NSEC_PER_SEC = 1000000000;
-
-const int NSEC_PER_MSEC = 1000000;
-
-const int ALRMTYPE = 255;
-
-const int TIME_ABSOLUTE = 0;
-
-const int TIME_RELATIVE = 1;
-
-const int MSEC_PER_SEC = 1000;
-
-const int DISPATCH_TIME_NOW = 0;
-
-const int DISPATCH_TIME_FOREVER = -1;
-
-const int QOS_MIN_RELATIVE_PRIORITY = -15;
-
-const int DISPATCH_APPLY_AUTO_AVAILABLE = 1;
-
-const int DISPATCH_QUEUE_PRIORITY_HIGH = 2;
-
-const int DISPATCH_QUEUE_PRIORITY_DEFAULT = 0;
-
-const int DISPATCH_QUEUE_PRIORITY_LOW = -2;
-
-const int DISPATCH_QUEUE_PRIORITY_BACKGROUND = -32768;
-
-const int DISPATCH_QUEUE_SERIAL = 0;
-
-const int DISPATCH_TARGET_QUEUE_DEFAULT = 0;
-
-const int DISPATCH_CURRENT_QUEUE_LABEL = 0;
-
-const int KERN_SUCCESS = 0;
-
-const int KERN_INVALID_ADDRESS = 1;
-
-const int KERN_PROTECTION_FAILURE = 2;
-
-const int KERN_NO_SPACE = 3;
-
-const int KERN_INVALID_ARGUMENT = 4;
-
-const int KERN_FAILURE = 5;
-
-const int KERN_RESOURCE_SHORTAGE = 6;
-
-const int KERN_NOT_RECEIVER = 7;
-
-const int KERN_NO_ACCESS = 8;
-
-const int KERN_MEMORY_FAILURE = 9;
-
-const int KERN_MEMORY_ERROR = 10;
-
-const int KERN_ALREADY_IN_SET = 11;
-
-const int KERN_NOT_IN_SET = 12;
-
-const int KERN_NAME_EXISTS = 13;
-
-const int KERN_ABORTED = 14;
-
-const int KERN_INVALID_NAME = 15;
-
-const int KERN_INVALID_TASK = 16;
-
-const int KERN_INVALID_RIGHT = 17;
-
-const int KERN_INVALID_VALUE = 18;
-
-const int KERN_UREFS_OVERFLOW = 19;
-
-const int KERN_INVALID_CAPABILITY = 20;
-
-const int KERN_RIGHT_EXISTS = 21;
-
-const int KERN_INVALID_HOST = 22;
-
-const int KERN_MEMORY_PRESENT = 23;
-
-const int KERN_MEMORY_DATA_MOVED = 24;
-
-const int KERN_MEMORY_RESTART_COPY = 25;
-
-const int KERN_INVALID_PROCESSOR_SET = 26;
-
-const int KERN_POLICY_LIMIT = 27;
-
-const int KERN_INVALID_POLICY = 28;
-
-const int KERN_INVALID_OBJECT = 29;
-
-const int KERN_ALREADY_WAITING = 30;
-
-const int KERN_DEFAULT_SET = 31;
-
-const int KERN_EXCEPTION_PROTECTED = 32;
-
-const int KERN_INVALID_LEDGER = 33;
-
-const int KERN_INVALID_MEMORY_CONTROL = 34;
-
-const int KERN_INVALID_SECURITY = 35;
-
-const int KERN_NOT_DEPRESSED = 36;
-
-const int KERN_TERMINATED = 37;
-
-const int KERN_LOCK_SET_DESTROYED = 38;
-
-const int KERN_LOCK_UNSTABLE = 39;
-
-const int KERN_LOCK_OWNED = 40;
-
-const int KERN_LOCK_OWNED_SELF = 41;
-
-const int KERN_SEMAPHORE_DESTROYED = 42;
-
-const int KERN_RPC_SERVER_TERMINATED = 43;
-
-const int KERN_RPC_TERMINATE_ORPHAN = 44;
-
-const int KERN_RPC_CONTINUE_ORPHAN = 45;
-
-const int KERN_NOT_SUPPORTED = 46;
-
-const int KERN_NODE_DOWN = 47;
-
-const int KERN_NOT_WAITING = 48;
-
-const int KERN_OPERATION_TIMED_OUT = 49;
-
-const int KERN_CODESIGN_ERROR = 50;
-
-const int KERN_POLICY_STATIC = 51;
-
-const int KERN_INSUFFICIENT_BUFFER_SIZE = 52;
-
-const int KERN_DENIED = 53;
-
-const int KERN_MISSING_KC = 54;
-
-const int KERN_INVALID_KC = 55;
-
-const int KERN_NOT_FOUND = 56;
-
-const int KERN_RETURN_MAX = 256;
-
-const int MACH_MSG_TIMEOUT_NONE = 0;
-
-const int MACH_MSGH_BITS_ZERO = 0;
-
-const int MACH_MSGH_BITS_REMOTE_MASK = 31;
-
-const int MACH_MSGH_BITS_LOCAL_MASK = 7936;
-
-const int MACH_MSGH_BITS_VOUCHER_MASK = 2031616;
-
-const int MACH_MSGH_BITS_PORTS_MASK = 2039583;
-
-const int MACH_MSGH_BITS_COMPLEX = 2147483648;
-
-const int MACH_MSGH_BITS_USER = 2149523231;
-
-const int MACH_MSGH_BITS_RAISEIMP = 536870912;
-
-const int MACH_MSGH_BITS_DENAP = 536870912;
-
-const int MACH_MSGH_BITS_IMPHOLDASRT = 268435456;
-
-const int MACH_MSGH_BITS_DENAPHOLDASRT = 268435456;
-
-const int MACH_MSGH_BITS_CIRCULAR = 268435456;
-
-const int MACH_MSGH_BITS_USED = 2954829599;
-
-const int MACH_MSG_PRIORITY_UNSPECIFIED = 0;
-
-const int MACH_MSG_TYPE_MOVE_RECEIVE = 16;
-
-const int MACH_MSG_TYPE_MOVE_SEND = 17;
-
-const int MACH_MSG_TYPE_MOVE_SEND_ONCE = 18;
-
-const int MACH_MSG_TYPE_COPY_SEND = 19;
-
-const int MACH_MSG_TYPE_MAKE_SEND = 20;
-
-const int MACH_MSG_TYPE_MAKE_SEND_ONCE = 21;
-
-const int MACH_MSG_TYPE_COPY_RECEIVE = 22;
-
-const int MACH_MSG_TYPE_DISPOSE_RECEIVE = 24;
-
-const int MACH_MSG_TYPE_DISPOSE_SEND = 25;
-
-const int MACH_MSG_TYPE_DISPOSE_SEND_ONCE = 26;
-
-const int MACH_MSG_PHYSICAL_COPY = 0;
-
-const int MACH_MSG_VIRTUAL_COPY = 1;
-
-const int MACH_MSG_ALLOCATE = 2;
-
-const int MACH_MSG_OVERWRITE = 3;
-
-const int MACH_MSG_GUARD_FLAGS_NONE = 0;
-
-const int MACH_MSG_GUARD_FLAGS_IMMOVABLE_RECEIVE = 1;
-
-const int MACH_MSG_GUARD_FLAGS_UNGUARDED_ON_SEND = 2;
-
-const int MACH_MSG_GUARD_FLAGS_MASK = 3;
-
-const int MACH_MSG_PORT_DESCRIPTOR = 0;
-
-const int MACH_MSG_OOL_DESCRIPTOR = 1;
-
-const int MACH_MSG_OOL_PORTS_DESCRIPTOR = 2;
-
-const int MACH_MSG_OOL_VOLATILE_DESCRIPTOR = 3;
-
-const int MACH_MSG_GUARDED_PORT_DESCRIPTOR = 4;
-
-const int MACH_MSG_DESCRIPTOR_MAX = 4;
-
-const int MACH_MSG_TRAILER_FORMAT_0 = 0;
-
-const int MACH_MSG_FILTER_POLICY_ALLOW = 0;
-
-const int MACH_MSG_TRAILER_MINIMUM_SIZE = 8;
-
-const int MAX_TRAILER_SIZE = 68;
-
-const int MACH_MSG_TRAILER_FORMAT_0_SIZE = 20;
-
-const int MACH_MSG_SIZE_MAX = 4294967295;
-
-const int MACH_MSG_SIZE_RELIABLE = 262144;
-
-const int MACH_MSGH_KIND_NORMAL = 0;
-
-const int MACH_MSGH_KIND_NOTIFICATION = 1;
-
-const int MACH_MSG_TYPE_PORT_NONE = 0;
-
-const int MACH_MSG_TYPE_PORT_NAME = 15;
-
-const int MACH_MSG_TYPE_PORT_RECEIVE = 16;
-
-const int MACH_MSG_TYPE_PORT_SEND = 17;
-
-const int MACH_MSG_TYPE_PORT_SEND_ONCE = 18;
-
-const int MACH_MSG_TYPE_LAST = 22;
-
-const int MACH_MSG_TYPE_POLYMORPHIC = 4294967295;
-
-const int MACH_MSG_OPTION_NONE = 0;
-
-const int MACH_SEND_MSG = 1;
-
-const int MACH_RCV_MSG = 2;
-
-const int MACH_RCV_LARGE = 4;
-
-const int MACH_RCV_LARGE_IDENTITY = 8;
-
-const int MACH_SEND_TIMEOUT = 16;
-
-const int MACH_SEND_OVERRIDE = 32;
-
-const int MACH_SEND_INTERRUPT = 64;
-
-const int MACH_SEND_NOTIFY = 128;
-
-const int MACH_SEND_ALWAYS = 65536;
-
-const int MACH_SEND_FILTER_NONFATAL = 65536;
-
-const int MACH_SEND_TRAILER = 131072;
-
-const int MACH_SEND_NOIMPORTANCE = 262144;
-
-const int MACH_SEND_NODENAP = 262144;
-
-const int MACH_SEND_IMPORTANCE = 524288;
-
-const int MACH_SEND_SYNC_OVERRIDE = 1048576;
-
-const int MACH_SEND_PROPAGATE_QOS = 2097152;
-
-const int MACH_SEND_SYNC_USE_THRPRI = 2097152;
-
-const int MACH_SEND_KERNEL = 4194304;
-
-const int MACH_SEND_SYNC_BOOTSTRAP_CHECKIN = 8388608;
-
-const int MACH_RCV_TIMEOUT = 256;
-
-const int MACH_RCV_NOTIFY = 0;
-
-const int MACH_RCV_INTERRUPT = 1024;
-
-const int MACH_RCV_VOUCHER = 2048;
-
-const int MACH_RCV_OVERWRITE = 0;
-
-const int MACH_RCV_GUARDED_DESC = 4096;
-
-const int MACH_RCV_SYNC_WAIT = 16384;
-
-const int MACH_RCV_SYNC_PEEK = 32768;
-
-const int MACH_MSG_STRICT_REPLY = 512;
-
-const int MACH_RCV_TRAILER_NULL = 0;
-
-const int MACH_RCV_TRAILER_SEQNO = 1;
-
-const int MACH_RCV_TRAILER_SENDER = 2;
-
-const int MACH_RCV_TRAILER_AUDIT = 3;
-
-const int MACH_RCV_TRAILER_CTX = 4;
-
-const int MACH_RCV_TRAILER_AV = 7;
-
-const int MACH_RCV_TRAILER_LABELS = 8;
-
-const int MACH_RCV_TRAILER_MASK = 251658240;
-
-const int MACH_MSG_SUCCESS = 0;
-
-const int MACH_MSG_MASK = 15872;
-
-const int MACH_MSG_IPC_SPACE = 8192;
-
-const int MACH_MSG_VM_SPACE = 4096;
-
-const int MACH_MSG_IPC_KERNEL = 2048;
-
-const int MACH_MSG_VM_KERNEL = 1024;
-
-const int MACH_SEND_IN_PROGRESS = 268435457;
-
-const int MACH_SEND_INVALID_DATA = 268435458;
-
-const int MACH_SEND_INVALID_DEST = 268435459;
-
-const int MACH_SEND_TIMED_OUT = 268435460;
-
-const int MACH_SEND_INVALID_VOUCHER = 268435461;
-
-const int MACH_SEND_INTERRUPTED = 268435463;
-
-const int MACH_SEND_MSG_TOO_SMALL = 268435464;
-
-const int MACH_SEND_INVALID_REPLY = 268435465;
-
-const int MACH_SEND_INVALID_RIGHT = 268435466;
-
-const int MACH_SEND_INVALID_NOTIFY = 268435467;
-
-const int MACH_SEND_INVALID_MEMORY = 268435468;
-
-const int MACH_SEND_NO_BUFFER = 268435469;
-
-const int MACH_SEND_TOO_LARGE = 268435470;
-
-const int MACH_SEND_INVALID_TYPE = 268435471;
-
-const int MACH_SEND_INVALID_HEADER = 268435472;
-
-const int MACH_SEND_INVALID_TRAILER = 268435473;
-
-const int MACH_SEND_INVALID_CONTEXT = 268435474;
-
-const int MACH_SEND_INVALID_OPTIONS = 268435475;
-
-const int MACH_SEND_INVALID_RT_OOL_SIZE = 268435477;
-
-const int MACH_SEND_NO_GRANT_DEST = 268435478;
-
-const int MACH_SEND_MSG_FILTERED = 268435479;
-
-const int MACH_SEND_AUX_TOO_SMALL = 268435480;
-
-const int MACH_SEND_AUX_TOO_LARGE = 268435481;
-
-const int MACH_RCV_IN_PROGRESS = 268451841;
-
-const int MACH_RCV_INVALID_NAME = 268451842;
-
-const int MACH_RCV_TIMED_OUT = 268451843;
-
-const int MACH_RCV_TOO_LARGE = 268451844;
-
-const int MACH_RCV_INTERRUPTED = 268451845;
-
-const int MACH_RCV_PORT_CHANGED = 268451846;
-
-const int MACH_RCV_INVALID_NOTIFY = 268451847;
-
-const int MACH_RCV_INVALID_DATA = 268451848;
-
-const int MACH_RCV_PORT_DIED = 268451849;
-
-const int MACH_RCV_IN_SET = 268451850;
-
-const int MACH_RCV_HEADER_ERROR = 268451851;
-
-const int MACH_RCV_BODY_ERROR = 268451852;
-
-const int MACH_RCV_INVALID_TYPE = 268451853;
-
-const int MACH_RCV_SCATTER_SMALL = 268451854;
-
-const int MACH_RCV_INVALID_TRAILER = 268451855;
-
-const int MACH_RCV_IN_PROGRESS_TIMED = 268451857;
-
-const int MACH_RCV_INVALID_REPLY = 268451858;
-
-const int MACH_RCV_INVALID_ARGUMENTS = 268451859;
-
-const int DISPATCH_MACH_SEND_DEAD = 1;
-
-const int DISPATCH_MEMORYPRESSURE_NORMAL = 1;
-
-const int DISPATCH_MEMORYPRESSURE_WARN = 2;
-
-const int DISPATCH_MEMORYPRESSURE_CRITICAL = 4;
-
-const int DISPATCH_PROC_EXIT = 2147483648;
-
-const int DISPATCH_PROC_FORK = 1073741824;
-
-const int DISPATCH_PROC_EXEC = 536870912;
-
-const int DISPATCH_PROC_SIGNAL = 134217728;
-
-const int DISPATCH_VNODE_DELETE = 1;
-
-const int DISPATCH_VNODE_WRITE = 2;
-
-const int DISPATCH_VNODE_EXTEND = 4;
-
-const int DISPATCH_VNODE_ATTRIB = 8;
-
-const int DISPATCH_VNODE_LINK = 16;
-
-const int DISPATCH_VNODE_RENAME = 32;
-
-const int DISPATCH_VNODE_REVOKE = 64;
-
-const int DISPATCH_VNODE_FUNLOCK = 256;
-
-const int DISPATCH_TIMER_STRICT = 1;
-
-const int DISPATCH_ONCE_INLINE_FASTPATH = 1;
-
-const int DISPATCH_DATA_DESTRUCTOR_DEFAULT = 0;
-
-const int DISPATCH_IO_STREAM = 0;
-
-const int DISPATCH_IO_RANDOM = 1;
-
-const int DISPATCH_IO_STOP = 1;
-
-const int DISPATCH_IO_STRICT_INTERVAL = 1;
+const int true$ = 1;
 
 const int NSURLResponseUnknownLength = -1;
