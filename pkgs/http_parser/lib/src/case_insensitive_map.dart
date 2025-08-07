@@ -7,19 +7,20 @@ import 'package:collection/collection.dart';
 /// A map from case-insensitive strings to values.
 ///
 /// Much of HTTP is case-insensitive, so this is useful to have pre-defined.
-class CaseInsensitiveMap<V> extends CanonicalizedMap<String, String, V> {
+extension type CaseInsensitiveMap<V>._(Map<String, V> _)
+    implements Map<String, V> {
   /// Creates an empty case-insensitive map.
-  CaseInsensitiveMap() : super(_canonicalizer);
+  CaseInsensitiveMap()
+      : this._(CanonicalizedMap<String, String, V>(_canonicalize));
 
-  /// Creates a case-insensitive map that is initialized with the key/value
-  /// pairs of [other].
+  /// Creates a case-insensitive map initialized with the entries of [other].
   CaseInsensitiveMap.from(Map<String, V> other)
-      : super.from(other, _canonicalizer);
+      : this._(CanonicalizedMap<String, String, V>.from(other, _canonicalize));
 
-  /// Creates a case-insensitive map that is initialized with the key/value
-  /// pairs of [entries].
+  /// Creates a case-insensitive map initialized with the [entries].
   CaseInsensitiveMap.fromEntries(Iterable<MapEntry<String, V>> entries)
-      : super.fromEntries(entries, _canonicalizer);
+      : this._(CanonicalizedMap<String, String, V>.fromEntries(
+            entries, _canonicalize));
 
-  static String _canonicalizer(String key) => key.toLowerCase();
+  static String _canonicalize(String key) => key.toLowerCase();
 }
