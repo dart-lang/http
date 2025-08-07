@@ -1,4 +1,4 @@
-## 2.3.0-wip
+## 2.3.0
 
 * Add the ability to abort requests.
 * Make `ConnectionException.toString` more helpful.
