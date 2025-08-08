@@ -29,9 +29,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-# TODO(brianquinlan): Remove this when a release version of `package:http`
-# supports abortable requests.
-dependency_overrides:
-  http:
-    path: ../../http/
