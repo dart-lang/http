@@ -6,7 +6,8 @@ repository: https://github.com/dart-lang/http/tree/master/pkgs/http_client_confo
 publish_to: none
 
 environment:
-  sdk: ^3.4.0
+  sdk: ^3.6.0
+resolution: workspace
 
 dependencies:
   async: ^2.8.2

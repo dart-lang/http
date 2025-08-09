@@ -1,11 +1,12 @@
 name: web_socket_channel
-version: 3.0.3
+version: 3.1.0-wip
 description: >-
   A WebSocket API that enables cross-platform communication via StreamChannel.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/web_socket_channel
 
 environment:
-  sdk: ^3.3.0
+  sdk: ^3.6.0
+resolution: workspace
 
 dependencies:
   async: ^2.5.0

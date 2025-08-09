@@ -3,10 +3,11 @@ description: >-
   A library used by HTTP client authors to integrate with the DevTools Network
   View.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http_profile
-version: 0.1.1-wip
+version: 0.1.2-wip
 
 environment:
-  sdk: ^3.4.0
+  sdk: ^3.6.0
+resolution: workspace
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0

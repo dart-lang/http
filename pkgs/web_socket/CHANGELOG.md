@@ -1,3 +1,7 @@
+## 1.1.0-wip
+
+- Require Dart 3.6.
+
 ## 1.0.1
 
 - Fix a bug where `WebSocketException`/`WebSocketConnectionClosed` did not

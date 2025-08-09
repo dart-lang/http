@@ -5,10 +5,7 @@ environment:
 workspace:
   - pkgs/http
   - pkgs/http_client_conformance_tests
-  - pkgs/http_multi_server
-  - pkgs/http_parser
   - pkgs/http_profile
-  - pkgs/http2
   - pkgs/ok_http
   - pkgs/web_socket
   - pkgs/web_socket_channel
