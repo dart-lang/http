@@ -36,8 +36,3 @@ flutter:
   assets:
     - test_certs/  # Used in integration tests.
 
-# TODO(brianquinlan): Remove this when a release version of `package:http`
-# supports abortable requests.
-dependency_overrides:
-  http:
-    path: ../../http/
