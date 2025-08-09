@@ -1,3 +1,7 @@
+## 1.6.0-wip
+
+* Require Dart 3.6.
+
 ## 1.5.0
 
 * Fixed a bug in `IOClient` where the `HttpClient`'s response stream was

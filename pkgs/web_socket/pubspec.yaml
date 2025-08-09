@@ -3,10 +3,11 @@ description: >-
   Any easy-to-use library for communicating with WebSockets
   that has multiple implementations.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/web_socket
-version: 1.0.1
+version: 1.1.0-wip
 
 environment:
-  sdk: ^3.4.0
+  sdk: ^3.6.0
+resolution: workspace
 
 dependencies:
   web: '>=0.5.0 <2.0.0'

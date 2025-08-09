@@ -1,3 +1,7 @@
+## 2.4.0-wip
+
+* Require Dart 3.6.
+
 ## 2.3.0
 
 * Add the ability to abort requests.

@@ -1,3 +1,7 @@
+## 3.1.0-wip
+
+- Require Dart 3.6.
+
 ## 3.0.3
 
 - Support `package:web_socket` 1.0.0.

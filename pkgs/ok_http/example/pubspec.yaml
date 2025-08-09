@@ -5,7 +5,8 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.4.1 <4.0.0"
+  sdk: ^3.6.0
+resolution: workspace
 
 dependencies:
   cupertino_icons: ^1.0.6
@@ -36,8 +37,3 @@ flutter:
   assets:
     - test_certs/  # Used in integration tests.
 
-# TODO(brianquinlan): Remove this when a release version of `package:http`
-# supports abortable requests.
-dependency_overrides:
-  http:
-    path: ../../http/
