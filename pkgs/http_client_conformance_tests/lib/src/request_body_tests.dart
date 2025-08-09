@@ -78,8 +78,7 @@ void testRequestBody(Client client) {
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next;
 
-      expect(serverReceivedContentType,
-          ['application/x-www-form-urlencoded; charset=utf-8']);
+      expect(serverReceivedContentType, ['application/x-www-form-urlencoded']);
       expect(serverReceivedBody, 'key=value');
     });
 
@@ -90,8 +89,7 @@ void testRequestBody(Client client) {
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next;
 
-      expect(serverReceivedContentType,
-          ['application/x-www-form-urlencoded; charset=plus2']);
+      expect(serverReceivedContentType, ['application/x-www-form-urlencoded']);
       expect(serverReceivedBody, 'gau;r]hqa'); // key=value
     });
 
@@ -149,7 +147,7 @@ void testRequestBody(Client client) {
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next as String;
 
-      expect(serverReceivedContentType, ['image/png; charset=plus2']);
+      expect(serverReceivedContentType, ['image/png']);
       expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
     });
 
