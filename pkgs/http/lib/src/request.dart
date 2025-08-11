@@ -24,7 +24,7 @@ class Request extends BaseRequest {
       (contentType.type == 'text' ||
           // XML media types defined by RFC 7303.
           // Note that some media types (e.g. cda+xml) specify that the
-          // charset, when present, must be utf-8.
+          // charset, when present, must be utf-8. We do not enforce this.
           contentType.mimeType == 'application/xml' ||
           contentType.mimeType == 'application/xml-external-parsed-entity' ||
           contentType.mimeType == 'application/xml-dtd' ||
