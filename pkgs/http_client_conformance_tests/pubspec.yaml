@@ -11,11 +11,12 @@ environment:
 dependencies:
   async: ^2.8.2
   dart_style: ">=2.3.7 <4.0.0"
-  http: ^1.2.0
+  # TODO(brianquinlan): Tighten this version constraint when package:http 2.0
+  # is released.
+  http: ">=1.2.0 <3.0.0"
   stream_channel: ^2.1.1
   test: ^1.21.2
 
-# TODO(brianquinlan): Remove dependency_overrides when package:http 1.5.0 is released.
 dependency_overrides:
   http:
     path: ../http

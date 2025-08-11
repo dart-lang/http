@@ -158,9 +158,7 @@ void main() {
             'method': 'POST',
             'path': '/',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
+              'content-type': ['application/x-www-form-urlencoded'],
               'content-length': ['40'],
               'accept-encoding': ['gzip'],
               'user-agent': ['Dart'],
@@ -273,9 +271,7 @@ void main() {
             'method': 'PUT',
             'path': '/',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
+              'content-type': ['application/x-www-form-urlencoded'],
               'content-length': ['40'],
               'accept-encoding': ['gzip'],
               'user-agent': ['Dart'],
@@ -388,9 +384,7 @@ void main() {
             'method': 'PATCH',
             'path': '/',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
+              'content-type': ['application/x-www-form-urlencoded'],
               'content-length': ['40'],
               'accept-encoding': ['gzip'],
               'user-agent': ['Dart'],
