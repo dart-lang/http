@@ -22,6 +22,7 @@ Future<void> testConformance() async {
           canStreamRequestBody: false,
           canReceiveSetCookieHeaders: true,
           canSendCookieHeaders: true,
+          supportsAbort: true,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
@@ -36,6 +37,7 @@ Future<void> testConformance() async {
           canStreamRequestBody: false,
           canReceiveSetCookieHeaders: true,
           canSendCookieHeaders: true,
+          supportsAbort: true,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
@@ -51,6 +53,9 @@ Future<void> testConformance() async {
         return CronetClient.fromCronetEngine(engine);
       },
       canStreamRequestBody: false,
+      canReceiveSetCookieHeaders: true,
+      canSendCookieHeaders: true,
+      supportsAbort: true,
     );
   });
 }

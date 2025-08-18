@@ -1,10 +1,7 @@
-## 1.5.0-beta.2
+## 1.5.0
 
 * Fixed a bug in `IOClient` where the `HttpClient`'s response stream was
   cancelled after the response stream was completed.
-
-## 1.5.0-beta
-
 * Added support for aborting requests before they complete.
 * Clarify that some header names may not be sent/received.
 

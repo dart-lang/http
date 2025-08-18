@@ -1,5 +1,6 @@
-## 2.2.1-wip
+## 2.3.0
 
+* Add the ability to abort requests.
 * Make `ConnectionException.toString` more helpful.
 
 ## 2.2.0
