@@ -261,10 +261,10 @@ class NativeCupertinoHttp {
       int Function(int, ffi.Pointer<ffi.Int>, int, ffi.Pointer<rusage>)>();
 
   ffi.Pointer<ffi.Void> alloca(
-    int arg0,
+    int __size,
   ) {
     return _alloca(
-      arg0,
+      __size,
     );
   }
 
@@ -924,12 +924,12 @@ class NativeCupertinoHttp {
   int mbstowcs(
     ffi.Pointer<ffi.WChar> arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __n,
   ) {
     return _mbstowcs(
       arg0,
       arg1,
-      arg2,
+      __n,
     );
   }
 
@@ -943,12 +943,12 @@ class NativeCupertinoHttp {
   int mbtowc(
     ffi.Pointer<ffi.WChar> arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __n,
   ) {
     return _mbtowc(
       arg0,
       arg1,
-      arg2,
+      __n,
     );
   }
 
@@ -1160,12 +1160,12 @@ class NativeCupertinoHttp {
   int wcstombs(
     ffi.Pointer<ffi.Char> arg0,
     ffi.Pointer<ffi.WChar> arg1,
-    int arg2,
+    int __n,
   ) {
     return _wcstombs(
       arg0,
       arg1,
-      arg2,
+      __n,
     );
   }
 
@@ -1341,12 +1341,12 @@ class NativeCupertinoHttp {
   ffi.Pointer<ffi.Char> initstate(
     int arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __size,
   ) {
     return _initstate(
       arg0,
       arg1,
-      arg2,
+      __size,
     );
   }
 
@@ -1679,11 +1679,11 @@ class NativeCupertinoHttp {
 
   void arc4random_addrandom(
     ffi.Pointer<ffi.UnsignedChar> arg0,
-    int arg1,
+    int __datlen,
   ) {
     return _arc4random_addrandom(
       arg0,
-      arg1,
+      __datlen,
     );
   }
 
@@ -2026,11 +2026,11 @@ class NativeCupertinoHttp {
 
   int getloadavg(
     ffi.Pointer<ffi.Double> arg0,
-    int arg1,
+    int __nelem,
   ) {
     return _getloadavg(
       arg0,
-      arg1,
+      __nelem,
     );
   }
 
@@ -4868,6 +4868,31 @@ class NativeCupertinoHttp {
   late final ___error =
       ___errorPtr.asFunction<ffi.Pointer<ffi.Int> Function()>();
 
+  locale_t duplocale(
+    locale_t arg0,
+  ) {
+    return _duplocale(
+      arg0,
+    );
+  }
+
+  late final _duplocalePtr =
+      _lookup<ffi.NativeFunction<locale_t Function(locale_t)>>('duplocale');
+  late final _duplocale =
+      _duplocalePtr.asFunction<locale_t Function(locale_t)>();
+
+  int freelocale(
+    locale_t arg0,
+  ) {
+    return _freelocale(
+      arg0,
+    );
+  }
+
+  late final _freelocalePtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(locale_t)>>('freelocale');
+  late final _freelocale = _freelocalePtr.asFunction<int Function(locale_t)>();
+
   ffi.Pointer<lconv> localeconv() {
     return _localeconv();
   }
@@ -4876,6 +4901,38 @@ class NativeCupertinoHttp {
       _lookup<ffi.NativeFunction<ffi.Pointer<lconv> Function()>>('localeconv');
   late final _localeconv =
       _localeconvPtr.asFunction<ffi.Pointer<lconv> Function()>();
+
+  locale_t newlocale(
+    int arg0,
+    ffi.Pointer<ffi.Char> arg1,
+    locale_t arg2,
+  ) {
+    return _newlocale(
+      arg0,
+      arg1,
+      arg2,
+    );
+  }
+
+  late final _newlocalePtr = _lookup<
+      ffi.NativeFunction<
+          locale_t Function(
+              ffi.Int, ffi.Pointer<ffi.Char>, locale_t)>>('newlocale');
+  late final _newlocale = _newlocalePtr
+      .asFunction<locale_t Function(int, ffi.Pointer<ffi.Char>, locale_t)>();
+
+  locale_t uselocale(
+    locale_t arg0,
+  ) {
+    return _uselocale(
+      arg0,
+    );
+  }
+
+  late final _uselocalePtr =
+      _lookup<ffi.NativeFunction<locale_t Function(locale_t)>>('uselocale');
+  late final _uselocale =
+      _uselocalePtr.asFunction<locale_t Function(locale_t)>();
 
   ffi.Pointer<ffi.Char> setlocale(
     int arg0,
@@ -7375,12 +7432,12 @@ class NativeCupertinoHttp {
 
   ffi.Pointer<ffi.Char> fgets(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __size,
     ffi.Pointer<FILE> arg2,
   ) {
     return _fgets(
       arg0,
-      arg1,
+      __size,
       arg2,
     );
   }
@@ -7755,13 +7812,13 @@ class NativeCupertinoHttp {
     ffi.Pointer<FILE> arg0,
     ffi.Pointer<ffi.Char> arg1,
     int arg2,
-    int arg3,
+    int __size,
   ) {
     return _setvbuf(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __size,
     );
   }
 
@@ -8449,11 +8506,11 @@ class NativeCupertinoHttp {
 
   ffi.Pointer<ffi.Char> fgetln(
     ffi.Pointer<FILE> arg0,
-    ffi.Pointer<ffi.Size> arg1,
+    ffi.Pointer<ffi.Size> __len,
   ) {
     return _fgetln(
       arg0,
-      arg1,
+      __len,
     );
   }
 
@@ -8499,12 +8556,12 @@ class NativeCupertinoHttp {
   void setbuffer(
     ffi.Pointer<FILE> arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __size,
   ) {
     return _setbuffer(
       arg0,
       arg1,
-      arg2,
+      __size,
     );
   }
 
@@ -8635,14 +8692,14 @@ class NativeCupertinoHttp {
 
   int __snprintf_chk(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __maxlen,
     int arg2,
     int arg3,
     ffi.Pointer<ffi.Char> arg4,
   ) {
     return ___snprintf_chk(
       arg0,
-      arg1,
+      __maxlen,
       arg2,
       arg3,
       arg4,
@@ -8683,7 +8740,7 @@ class NativeCupertinoHttp {
 
   int __vsnprintf_chk(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __maxlen,
     int arg2,
     int arg3,
     ffi.Pointer<ffi.Char> arg4,
@@ -8691,7 +8748,7 @@ class NativeCupertinoHttp {
   ) {
     return ___vsnprintf_chk(
       arg0,
-      arg1,
+      __maxlen,
       arg2,
       arg3,
       arg4,
@@ -9382,6 +9439,23 @@ class NativeCupertinoHttp {
       ffi.Pointer<ffi.Char> Function(
           ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
+  ffi.Pointer<ffi.Char> strchrnul(
+    ffi.Pointer<ffi.Char> __s,
+    int __c,
+  ) {
+    return _strchrnul(
+      __s,
+      __c,
+    );
+  }
+
+  late final _strchrnulPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Char> Function(
+              ffi.Pointer<ffi.Char>, ffi.Int)>>('strchrnul');
+  late final _strchrnul = _strchrnulPtr
+      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<ffi.Char>, int)>();
+
   ffi.Pointer<ffi.Char> strnstr(
     ffi.Pointer<ffi.Char> __big,
     ffi.Pointer<ffi.Char> __little,
@@ -9477,12 +9551,12 @@ class NativeCupertinoHttp {
   void swab(
     ffi.Pointer<ffi.Void> arg0,
     ffi.Pointer<ffi.Void> arg1,
-    int arg2,
+    int __len,
   ) {
     return _swab(
       arg0,
       arg1,
-      arg2,
+      __len,
     );
   }
 
@@ -9534,12 +9608,12 @@ class NativeCupertinoHttp {
   int bcmp(
     ffi.Pointer<ffi.Void> arg0,
     ffi.Pointer<ffi.Void> arg1,
-    int arg2,
+    int __n,
   ) {
     return _bcmp(
       arg0,
       arg1,
-      arg2,
+      __n,
     );
   }
 
@@ -9553,12 +9627,12 @@ class NativeCupertinoHttp {
   void bcopy(
     ffi.Pointer<ffi.Void> arg0,
     ffi.Pointer<ffi.Void> arg1,
-    int arg2,
+    int __n,
   ) {
     return _bcopy(
       arg0,
       arg1,
-      arg2,
+      __n,
     );
   }
 
@@ -9571,11 +9645,11 @@ class NativeCupertinoHttp {
 
   void bzero(
     ffi.Pointer<ffi.Void> arg0,
-    int arg1,
+    int __n,
   ) {
     return _bzero(
       arg0,
-      arg1,
+      __n,
     );
   }
 
@@ -9860,13 +9934,13 @@ class NativeCupertinoHttp {
 
   int strftime(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __maxsize,
     ffi.Pointer<ffi.Char> arg2,
     ffi.Pointer<tm> arg3,
   ) {
     return _strftime(
       arg0,
-      arg1,
+      __maxsize,
       arg2,
       arg3,
     );
@@ -20984,11 +21058,11 @@ class NativeCupertinoHttp {
 
   ffi.Pointer<ffi.Char> getcwd(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __size,
   ) {
     return _getcwd(
       arg0,
-      arg1,
+      __size,
     );
   }
 
@@ -21024,11 +21098,11 @@ class NativeCupertinoHttp {
   late final _getgid = _getgidPtr.asFunction<int Function()>();
 
   int getgroups(
-    int arg0,
+    int __gidsetsize,
     ffi.Pointer<gid_t> arg1,
   ) {
     return _getgroups(
-      arg0,
+      __gidsetsize,
       arg1,
     );
   }
@@ -21166,12 +21240,12 @@ class NativeCupertinoHttp {
   int read(
     int arg0,
     ffi.Pointer<ffi.Void> arg1,
-    int arg2,
+    int __nbyte,
   ) {
     return _read(
       arg0,
       arg1,
-      arg2,
+      __nbyte,
     );
   }
 
@@ -21310,12 +21384,12 @@ class NativeCupertinoHttp {
   int ttyname_r(
     int arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __len,
   ) {
     return _ttyname_r(
       arg0,
       arg1,
-      arg2,
+      __len,
     );
   }
 
@@ -21361,12 +21435,12 @@ class NativeCupertinoHttp {
   int confstr(
     int arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __len,
   ) {
     return _confstr(
       arg0,
       arg1,
-      arg2,
+      __len,
     );
   }
 
@@ -21378,12 +21452,12 @@ class NativeCupertinoHttp {
       _confstrPtr.asFunction<int Function(int, ffi.Pointer<ffi.Char>, int)>();
 
   int getopt(
-    int arg0,
+    int __argc,
     ffi.Pointer<ffi.Pointer<ffi.Char>> arg1,
     ffi.Pointer<ffi.Char> arg2,
   ) {
     return _getopt(
-      arg0,
+      __argc,
       arg1,
       arg2,
     );
@@ -21798,11 +21872,11 @@ class NativeCupertinoHttp {
 
   int getlogin_r(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _getlogin_r(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -21831,11 +21905,11 @@ class NativeCupertinoHttp {
 
   int gethostname(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _gethostname(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -21848,12 +21922,12 @@ class NativeCupertinoHttp {
   int readlink(
     ffi.Pointer<ffi.Char> arg0,
     ffi.Pointer<ffi.Char> arg1,
-    int arg2,
+    int __bufsize,
   ) {
     return _readlink(
       arg0,
       arg1,
-      arg2,
+      __bufsize,
     );
   }
 
@@ -21962,13 +22036,13 @@ class NativeCupertinoHttp {
 
   int accessx_np(
     ffi.Pointer<accessx_descriptor> arg0,
-    int arg1,
+    int __sz,
     ffi.Pointer<ffi.Int> arg2,
     int arg3,
   ) {
     return _accessx_np(
       arg0,
-      arg1,
+      __sz,
       arg2,
       arg3,
     );
@@ -21997,13 +22071,13 @@ class NativeCupertinoHttp {
 
   int add_profil(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __bufsiz,
     int arg2,
     int arg3,
   ) {
     return _add_profil(
       arg0,
-      arg1,
+      __bufsiz,
       arg2,
       arg3,
     );
@@ -22060,11 +22134,11 @@ class NativeCupertinoHttp {
 
   int getdomainname(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _getdomainname(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -22078,13 +22152,13 @@ class NativeCupertinoHttp {
     ffi.Pointer<ffi.Char> arg0,
     int arg1,
     ffi.Pointer<ffi.Int> arg2,
-    ffi.Pointer<ffi.Int> arg3,
+    ffi.Pointer<ffi.Int> __ngroups,
   ) {
     return _getgrouplist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __ngroups,
     );
   }
 
@@ -22428,13 +22502,13 @@ class NativeCupertinoHttp {
 
   int profil(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __bufsiz,
     int arg2,
     int arg3,
   ) {
     return _profil(
       arg0,
-      arg1,
+      __bufsiz,
       arg2,
       arg3,
     );
@@ -22681,11 +22755,11 @@ class NativeCupertinoHttp {
 
   int setdomainname(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _setdomainname(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -22725,11 +22799,11 @@ class NativeCupertinoHttp {
 
   int sethostname(
     ffi.Pointer<ffi.Char> arg0,
-    int arg1,
+    int __namelen,
   ) {
     return _sethostname(
       arg0,
-      arg1,
+      __namelen,
     );
   }
 
@@ -22921,14 +22995,14 @@ class NativeCupertinoHttp {
     int arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     int arg4,
   ) {
     return _fgetattrlist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
     );
   }
@@ -22949,14 +23023,14 @@ class NativeCupertinoHttp {
     int arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     int arg4,
   ) {
     return _fsetattrlist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
     );
   }
@@ -22977,14 +23051,14 @@ class NativeCupertinoHttp {
     ffi.Pointer<ffi.Char> arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     int arg4,
   ) {
     return _getattrlist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
     );
   }
@@ -23005,14 +23079,14 @@ class NativeCupertinoHttp {
     ffi.Pointer<ffi.Char> arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     int arg4,
   ) {
     return _setattrlist(
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
     );
   }
@@ -23052,7 +23126,7 @@ class NativeCupertinoHttp {
     int arg0,
     ffi.Pointer<ffi.Void> arg1,
     ffi.Pointer<ffi.Void> arg2,
-    int arg3,
+    int __attrBufSize,
     ffi.Pointer<ffi.UnsignedInt> arg4,
     ffi.Pointer<ffi.UnsignedInt> arg5,
     ffi.Pointer<ffi.UnsignedInt> arg6,
@@ -23062,7 +23136,7 @@ class NativeCupertinoHttp {
       arg0,
       arg1,
       arg2,
-      arg3,
+      __attrBufSize,
       arg4,
       arg5,
       arg6,
@@ -28526,6 +28600,35 @@ class NativeCupertinoHttp {
           CFStringRef Function(
               CFBundleRef, CFStringRef, CFStringRef, CFStringRef)>();
 
+  CFStringRef CFBundleCopyLocalizedStringForLocalizations(
+    CFBundleRef bundle,
+    CFStringRef key,
+    CFStringRef value,
+    CFStringRef tableName,
+    CFArrayRef localizations,
+  ) {
+    return _CFBundleCopyLocalizedStringForLocalizations(
+      bundle,
+      key,
+      value,
+      tableName,
+      localizations,
+    );
+  }
+
+  late final _CFBundleCopyLocalizedStringForLocalizationsPtr = _lookup<
+      ffi.NativeFunction<
+          CFStringRef Function(
+              CFBundleRef,
+              CFStringRef,
+              CFStringRef,
+              CFStringRef,
+              CFArrayRef)>>('CFBundleCopyLocalizedStringForLocalizations');
+  late final _CFBundleCopyLocalizedStringForLocalizations =
+      _CFBundleCopyLocalizedStringForLocalizationsPtr.asFunction<
+          CFStringRef Function(CFBundleRef, CFStringRef, CFStringRef,
+              CFStringRef, CFArrayRef)>();
+
   CFURLRef CFBundleCopyResourceURLInDirectory(
     CFURLRef bundleURL,
     CFStringRef resourceName,
@@ -32750,6 +32853,22 @@ class NativeCupertinoHttp {
 
   set kSecTrustCertificateTransparencyWhiteList(CFStringRef value) =>
       _kSecTrustCertificateTransparencyWhiteList.value = value;
+
+  late final ffi.Pointer<CFStringRef> _kSecTrustQCStatements =
+      _lookup<CFStringRef>('kSecTrustQCStatements');
+
+  CFStringRef get kSecTrustQCStatements => _kSecTrustQCStatements.value;
+
+  set kSecTrustQCStatements(CFStringRef value) =>
+      _kSecTrustQCStatements.value = value;
+
+  late final ffi.Pointer<CFStringRef> _kSecTrustQWACValidation =
+      _lookup<CFStringRef>('kSecTrustQWACValidation');
+
+  CFStringRef get kSecTrustQWACValidation => _kSecTrustQWACValidation.value;
+
+  set kSecTrustQWACValidation(CFStringRef value) =>
+      _kSecTrustQWACValidation.value = value;
 
   int SecTrustGetTypeID() {
     return _SecTrustGetTypeID();
@@ -41810,6 +41929,37 @@ final class __arm_pagein_state extends ffi.Struct {
   external int __pagein_error;
 }
 
+final class __darwin_arm_sme_state extends ffi.Struct {
+  @__uint64_t()
+  external int __svcr;
+
+  @__uint64_t()
+  external int __tpidr2_el0;
+
+  @__uint16_t()
+  external int __svl_b;
+}
+
+final class __darwin_arm_sve_z_state extends ffi.Struct {
+  @ffi.Array.multi([16, 256])
+  external ffi.Array<ffi.Array<ffi.Char>> __z;
+}
+
+final class __darwin_arm_sve_p_state extends ffi.Struct {
+  @ffi.Array.multi([16, 32])
+  external ffi.Array<ffi.Array<ffi.Char>> __p;
+}
+
+final class __darwin_arm_sme_za_state extends ffi.Struct {
+  @ffi.Array.multi([4096])
+  external ffi.Array<ffi.Char> __za;
+}
+
+final class __darwin_arm_sme2_state extends ffi.Struct {
+  @ffi.Array.multi([64])
+  external ffi.Array<ffi.Char> __zt0;
+}
+
 final class __arm_legacy_debug_state extends ffi.Struct {
   @ffi.Array.multi([16])
   external ffi.Array<__uint32_t> __bvr;
@@ -43236,28 +43386,6 @@ typedef NSComparator = ffi.Pointer<objc.ObjCBlockImpl>;
 typedef DartNSComparator = objc.ObjCBlock<
     NSInteger Function(
         ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>;
-
-enum NSQualityOfService {
-  NSQualityOfServiceUserInteractive(33),
-  NSQualityOfServiceUserInitiated(25),
-  NSQualityOfServiceUtility(17),
-  NSQualityOfServiceBackground(9),
-  NSQualityOfServiceDefault(-1);
-
-  final int value;
-  const NSQualityOfService(this.value);
-
-  static NSQualityOfService fromValue(int value) => switch (value) {
-        33 => NSQualityOfServiceUserInteractive,
-        25 => NSQualityOfServiceUserInitiated,
-        17 => NSQualityOfServiceUtility,
-        9 => NSQualityOfServiceBackground,
-        -1 => NSQualityOfServiceDefault,
-        _ =>
-          throw ArgumentError('Unknown value for NSQualityOfService: $value'),
-      };
-}
-
 typedef ptrauth_extra_data_t = ffi.UnsignedLong;
 typedef Dartptrauth_extra_data_t = int;
 typedef ptrauth_generic_signature_t = ffi.UnsignedLong;
@@ -43543,11 +43671,8 @@ typedef DartCFHashCode = int;
 typedef CFIndex = ffi.Long;
 typedef DartCFIndex = int;
 typedef CFTypeRef = ffi.Pointer<ffi.Void>;
-
-final class __CFString extends ffi.Opaque {}
-
-typedef CFStringRef = ffi.Pointer<__CFString>;
-typedef CFMutableStringRef = ffi.Pointer<__CFString>;
+typedef CFStringRef = ffi.Pointer<objc.CFString>;
+typedef CFMutableStringRef = ffi.Pointer<objc.CFString>;
 typedef CFPropertyListRef = CFTypeRef;
 
 enum CFComparisonResult {
@@ -43715,7 +43840,7 @@ extension NSCoderMethods on objc.NSObject {
   }
 
   /// setVersion:
-  static void setVersion_(DartNSInteger aVersion) {
+  static void setVersion(DartNSInteger aVersion) {
     objc.checkOsVersionInternal('NSObject.setVersion:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_4sp4xj(_class_NSObject, _sel_setVersion_, aVersion);
@@ -43730,7 +43855,7 @@ extension NSCoderMethods on objc.NSObject {
   }
 
   /// replacementObjectForCoder:
-  objc.ObjCObjectBase? replacementObjectForCoder_(objc.NSCoder coder) {
+  objc.ObjCObjectBase? replacementObjectForCoder(objc.NSCoder coder) {
     objc.checkOsVersionInternal('NSObject.replacementObjectForCoder:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -43741,7 +43866,7 @@ extension NSCoderMethods on objc.NSObject {
   }
 
   /// awakeAfterUsingCoder:
-  objc.ObjCObjectBase? awakeAfterUsingCoder_(objc.NSCoder coder) {
+  objc.ObjCObjectBase? awakeAfterUsingCoder(objc.NSCoder coder) {
     objc.checkOsVersionInternal('NSObject.awakeAfterUsingCoder:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -43767,7 +43892,7 @@ final _objc_msgSend_xtuoz7 = objc.msgSendPointer
 /// NSDeprecatedMethods
 extension NSDeprecatedMethods on objc.NSObject {
   /// poseAsClass:
-  static void poseAsClass_(objc.ObjCObjectBase aClass) {
+  static void poseAsClass(objc.ObjCObjectBase aClass) {
     objc.checkOsVersionInternal('NSObject.poseAsClass:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_xtuoz7(
@@ -44126,22 +44251,21 @@ late final _sel_removeCachedResponseForDataTask_ =
 /// NSURLSessionTaskAdditions
 extension NSURLSessionTaskAdditions on NSURLCache {
   /// storeCachedResponse:forDataTask:
-  void storeCachedResponse_forDataTask_(
-      NSCachedURLResponse cachedResponse, NSURLSessionDataTask dataTask) {
+  void storeCachedResponse(NSCachedURLResponse cachedResponse,
+      {required NSURLSessionDataTask forDataTask}) {
     objc.checkOsVersionInternal('NSURLCache.storeCachedResponse:forDataTask:',
         iOS: (false, (8, 0, 0)), macOS: (false, (10, 10, 0)));
     _objc_msgSend_pfv6jd(
         this.ref.pointer,
         _sel_storeCachedResponse_forDataTask_,
         cachedResponse.ref.pointer,
-        dataTask.ref.pointer);
+        forDataTask.ref.pointer);
   }
 
   /// getCachedResponseForDataTask:completionHandler:
-  void getCachedResponseForDataTask_completionHandler_(
-      NSURLSessionDataTask dataTask,
-      objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>
-          completionHandler) {
+  void getCachedResponseForDataTask(NSURLSessionDataTask dataTask,
+      {required objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLCache.getCachedResponseForDataTask:completionHandler:',
         iOS: (false, (8, 0, 0)),
@@ -44154,7 +44278,7 @@ extension NSURLSessionTaskAdditions on NSURLCache {
   }
 
   /// removeCachedResponseForDataTask:
-  void removeCachedResponseForDataTask_(NSURLSessionDataTask dataTask) {
+  void removeCachedResponseForDataTask(NSURLSessionDataTask dataTask) {
     objc.checkOsVersionInternal('NSURLCache.removeCachedResponseForDataTask:',
         iOS: (false, (8, 0, 0)), macOS: (false, (10, 10, 0)));
     _objc_msgSend_xtuoz7(this.ref.pointer,
@@ -44247,7 +44371,7 @@ extension NSHTTPURLRequest on NSURLRequest {
   /// (case-insensitive).
   /// @result the value associated with the given header field, or nil if
   /// there is no value associated with the given header field.
-  objc.NSString? valueForHTTPHeaderField_(objc.NSString field) {
+  objc.NSString? valueForHTTPHeaderField(objc.NSString field) {
     objc.checkOsVersionInternal('NSURLRequest.valueForHTTPHeaderField:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 2, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -44657,6 +44781,8 @@ final _objc_msgSend_i3avs9 = objc.msgSendPointer
 late final _sel_requiresDNSSECValidation =
     objc.registerName("requiresDNSSECValidation");
 late final _sel_allowsPersistentDNS = objc.registerName("allowsPersistentDNS");
+late final _sel_cookiePartitionIdentifier =
+    objc.registerName("cookiePartitionIdentifier");
 late final _sel_init = objc.registerName("init");
 late final _sel_new = objc.registerName("new");
 late final _sel_allocWithZone_ = objc.registerName("allocWithZone:");
@@ -45136,7 +45262,7 @@ class NSURLRequest extends objc.NSObject
   /// seconds).
   /// @param URL The URL for the request.
   /// @result A newly-created and autoreleased NSURLRequest instance.
-  static NSURLRequest requestWithURL_(objc.NSURL URL) {
+  static NSURLRequest requestWithURL(objc.NSURL URL) {
     objc.checkOsVersionInternal('NSURLRequest.requestWithURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 2, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -45159,10 +45285,9 @@ class NSURLRequest extends objc.NSObject
   /// commentary for the <tt>timeoutInterval</tt> for more information on
   /// timeout intervals.
   /// @result A newly-created and autoreleased NSURLRequest instance.
-  static NSURLRequest requestWithURL_cachePolicy_timeoutInterval_(
-      objc.NSURL URL,
-      NSURLRequestCachePolicy cachePolicy,
-      DartNSTimeInterval timeoutInterval) {
+  static NSURLRequest requestWithURL$1(objc.NSURL URL,
+      {required NSURLRequestCachePolicy cachePolicy,
+      required DartNSTimeInterval timeoutInterval}) {
     objc.checkOsVersionInternal(
         'NSURLRequest.requestWithURL:cachePolicy:timeoutInterval:',
         iOS: (false, (2, 0, 0)),
@@ -45184,7 +45309,7 @@ class NSURLRequest extends objc.NSObject
   /// seconds).
   /// @param URL The URL for the request.
   /// @result An initialized NSURLRequest.
-  NSURLRequest initWithURL_(objc.NSURL URL) {
+  NSURLRequest initWithURL(objc.NSURL URL) {
     objc.checkOsVersionInternal('NSURLRequest.initWithURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 2, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -45204,8 +45329,9 @@ class NSURLRequest extends objc.NSObject
   /// commentary for the <tt>timeoutInterval</tt> for more information on
   /// timeout intervals.
   /// @result An initialized NSURLRequest.
-  NSURLRequest initWithURL_cachePolicy_timeoutInterval_(objc.NSURL URL,
-      NSURLRequestCachePolicy cachePolicy, DartNSTimeInterval timeoutInterval) {
+  NSURLRequest initWithURL$1(objc.NSURL URL,
+      {required NSURLRequestCachePolicy cachePolicy,
+      required DartNSTimeInterval timeoutInterval}) {
     objc.checkOsVersionInternal(
         'NSURLRequest.initWithURL:cachePolicy:timeoutInterval:',
         iOS: (false, (2, 0, 0)),
@@ -45372,6 +45498,17 @@ class NSURLRequest extends objc.NSObject
     return _objc_msgSend_91o635(this.ref.pointer, _sel_allowsPersistentDNS);
   }
 
+  /// Cookie partition identifier used for cookie storage and retrieval.
+  objc.NSString? get cookiePartitionIdentifier {
+    objc.checkOsVersionInternal('NSURLRequest.cookiePartitionIdentifier',
+        iOS: (false, (18, 2, 0)), macOS: (false, (15, 2, 0)));
+    final _ret =
+        _objc_msgSend_151sglz(this.ref.pointer, _sel_cookiePartitionIdentifier);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
   /// init
   NSURLRequest init() {
     objc.checkOsVersionInternal('NSURLRequest.init',
@@ -45388,7 +45525,7 @@ class NSURLRequest extends objc.NSObject
   }
 
   /// allocWithZone:
-  static NSURLRequest allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSURLRequest allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret =
         _objc_msgSend_1cwp428(_class_NSURLRequest, _sel_allocWithZone_, zone);
     return NSURLRequest.castFromPointer(_ret, retain: false, release: true);
@@ -45419,13 +45556,13 @@ class NSURLRequest extends objc.NSObject
   }
 
   /// encodeWithCoder:
-  void encodeWithCoder_(objc.NSCoder coder) {
+  void encodeWithCoder(objc.NSCoder coder) {
     _objc_msgSend_xtuoz7(
         this.ref.pointer, _sel_encodeWithCoder_, coder.ref.pointer);
   }
 
   /// initWithCoder:
-  NSURLRequest? initWithCoder_(objc.NSCoder coder) {
+  NSURLRequest? initWithCoder(objc.NSCoder coder) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithCoder_, coder.ref.pointer);
     return _ret.address == 0
@@ -45577,10 +45714,8 @@ class NSURLCache extends objc.NSObject {
   /// @param path the path on disk where the cache data is stored.
   /// @result an initialized NSURLCache, with the given capacity, backed
   /// by disk.
-  NSURLCache initWithMemoryCapacity_diskCapacity_diskPath_(
-      DartNSUInteger memoryCapacity,
-      DartNSUInteger diskCapacity,
-      objc.NSString? path) {
+  NSURLCache initWithMemoryCapacity(DartNSUInteger memoryCapacity,
+      {required DartNSUInteger diskCapacity, objc.NSString? diskPath}) {
     objc.checkOsVersionInternal(
         'NSURLCache.initWithMemoryCapacity:diskCapacity:diskPath:',
         iOS: (false, (2, 0, 0)),
@@ -45590,7 +45725,7 @@ class NSURLCache extends objc.NSObject {
         _sel_initWithMemoryCapacity_diskCapacity_diskPath_,
         memoryCapacity,
         diskCapacity,
-        path?.ref.pointer ?? ffi.nullptr);
+        diskPath?.ref.pointer ?? ffi.nullptr);
     return NSURLCache.castFromPointer(_ret, retain: false, release: true);
   }
 
@@ -45601,10 +45736,8 @@ class NSURLCache extends objc.NSObject {
   /// @param diskCapacity the capacity, measured in bytes, for the cache on disk. Or 0 to disable disk cache.
   /// @param directoryURL the path to a directory on disk where the cache data is stored. Or nil for default directory.
   /// @result an initialized NSURLCache, with the given capacity, optionally backed by disk.
-  NSURLCache initWithMemoryCapacity_diskCapacity_directoryURL_(
-      DartNSUInteger memoryCapacity,
-      DartNSUInteger diskCapacity,
-      objc.NSURL? directoryURL) {
+  NSURLCache initWithMemoryCapacity$1(DartNSUInteger memoryCapacity,
+      {required DartNSUInteger diskCapacity, objc.NSURL? directoryURL}) {
     objc.checkOsVersionInternal(
         'NSURLCache.initWithMemoryCapacity:diskCapacity:directoryURL:',
         iOS: (false, (13, 0, 0)),
@@ -45628,7 +45761,7 @@ class NSURLCache extends objc.NSObject {
   /// @result The NSCachedURLResponse stored in the cache with the given
   /// request, or nil if there is no NSCachedURLResponse stored with the
   /// given request.
-  NSCachedURLResponse? cachedResponseForRequest_(NSURLRequest request) {
+  NSCachedURLResponse? cachedResponseForRequest(NSURLRequest request) {
     objc.checkOsVersionInternal('NSURLCache.cachedResponseForRequest:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 2, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -45645,12 +45778,12 @@ class NSURLCache extends objc.NSObject {
   /// the given request.
   /// @param cachedResponse The cached response to store.
   /// @param request the NSURLRequest to use as a key for the storage.
-  void storeCachedResponse_forRequest_(
-      NSCachedURLResponse cachedResponse, NSURLRequest request) {
+  void storeCachedResponse(NSCachedURLResponse cachedResponse,
+      {required NSURLRequest forRequest}) {
     objc.checkOsVersionInternal('NSURLCache.storeCachedResponse:forRequest:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 2, 0)));
     _objc_msgSend_pfv6jd(this.ref.pointer, _sel_storeCachedResponse_forRequest_,
-        cachedResponse.ref.pointer, request.ref.pointer);
+        cachedResponse.ref.pointer, forRequest.ref.pointer);
   }
 
   /// !
@@ -45660,7 +45793,7 @@ class NSURLCache extends objc.NSObject {
   /// @discussion No action is taken if there is no NSCachedURLResponse
   /// stored with the given request.
   /// @param request the NSURLRequest to use as a key for the lookup.
-  void removeCachedResponseForRequest_(NSURLRequest request) {
+  void removeCachedResponseForRequest(NSURLRequest request) {
     objc.checkOsVersionInternal('NSURLCache.removeCachedResponseForRequest:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 2, 0)));
     _objc_msgSend_xtuoz7(this.ref.pointer, _sel_removeCachedResponseForRequest_,
@@ -45680,7 +45813,7 @@ class NSURLCache extends objc.NSObject {
   /// !
   /// @method removeCachedResponsesSince:
   /// @abstract Clears the given cache of any cached responses since the provided date.
-  void removeCachedResponsesSinceDate_(objc.NSDate date) {
+  void removeCachedResponsesSinceDate(objc.NSDate date) {
     objc.checkOsVersionInternal('NSURLCache.removeCachedResponsesSinceDate:',
         iOS: (false, (8, 0, 0)), macOS: (false, (10, 10, 0)));
     _objc_msgSend_xtuoz7(this.ref.pointer, _sel_removeCachedResponsesSinceDate_,
@@ -45765,7 +45898,7 @@ class NSURLCache extends objc.NSObject {
   }
 
   /// allocWithZone:
-  static NSURLCache allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSURLCache allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret =
         _objc_msgSend_1cwp428(_class_NSURLCache, _sel_allocWithZone_, zone);
     return NSURLCache.castFromPointer(_ret, retain: false, release: true);
@@ -45840,28 +45973,28 @@ final _objc_msgSend_11spmsz = objc.msgSendPointer
 /// NSNotificationCreation
 extension NSNotificationCreation on objc.NSNotification {
   /// notificationWithName:object:
-  static objc.NSNotification notificationWithName_object_(
-      DartNSNotificationName aName, objc.ObjCObjectBase? anObject) {
+  static objc.NSNotification notificationWithName(DartNSNotificationName aName,
+      {objc.ObjCObjectBase? object}) {
     final _ret = _objc_msgSend_15qeuct(
         _class_NSNotification,
         _sel_notificationWithName_object_,
         aName.ref.pointer,
-        anObject?.ref.pointer ?? ffi.nullptr);
+        object?.ref.pointer ?? ffi.nullptr);
     return objc.NSNotification.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   /// notificationWithName:object:userInfo:
-  static objc.NSNotification notificationWithName_object_userInfo_(
+  static objc.NSNotification notificationWithName$1(
       DartNSNotificationName aName,
-      objc.ObjCObjectBase? anObject,
-      objc.NSDictionary? aUserInfo) {
+      {objc.ObjCObjectBase? object,
+      objc.NSDictionary? userInfo}) {
     final _ret = _objc_msgSend_11spmsz(
         _class_NSNotification,
         _sel_notificationWithName_object_userInfo_,
         aName.ref.pointer,
-        anObject?.ref.pointer ?? ffi.nullptr,
-        aUserInfo?.ref.pointer ?? ffi.nullptr);
+        object?.ref.pointer ?? ffi.nullptr,
+        userInfo?.ref.pointer ?? ffi.nullptr);
     return objc.NSNotification.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -45926,14 +46059,14 @@ extension NSDateCreation on objc.NSDate {
   }
 
   /// dateWithTimeIntervalSinceNow:
-  static objc.NSDate dateWithTimeIntervalSinceNow_(DartNSTimeInterval secs) {
+  static objc.NSDate dateWithTimeIntervalSinceNow(DartNSTimeInterval secs) {
     final _ret = _objc_msgSend_oa8mke(
         _class_NSDate, _sel_dateWithTimeIntervalSinceNow_, secs);
     return objc.NSDate.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// dateWithTimeIntervalSinceReferenceDate:
-  static objc.NSDate dateWithTimeIntervalSinceReferenceDate_(
+  static objc.NSDate dateWithTimeIntervalSinceReferenceDate(
       DartNSTimeInterval ti) {
     final _ret = _objc_msgSend_oa8mke(
         _class_NSDate, _sel_dateWithTimeIntervalSinceReferenceDate_, ti);
@@ -45941,17 +46074,20 @@ extension NSDateCreation on objc.NSDate {
   }
 
   /// dateWithTimeIntervalSince1970:
-  static objc.NSDate dateWithTimeIntervalSince1970_(DartNSTimeInterval secs) {
+  static objc.NSDate dateWithTimeIntervalSince1970(DartNSTimeInterval secs) {
     final _ret = _objc_msgSend_oa8mke(
         _class_NSDate, _sel_dateWithTimeIntervalSince1970_, secs);
     return objc.NSDate.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// dateWithTimeInterval:sinceDate:
-  static objc.NSDate dateWithTimeInterval_sinceDate_(
-      DartNSTimeInterval secsToBeAdded, objc.NSDate date) {
-    final _ret = _objc_msgSend_1ozwf6k(_class_NSDate,
-        _sel_dateWithTimeInterval_sinceDate_, secsToBeAdded, date.ref.pointer);
+  static objc.NSDate dateWithTimeInterval(DartNSTimeInterval secsToBeAdded,
+      {required objc.NSDate sinceDate}) {
+    final _ret = _objc_msgSend_1ozwf6k(
+        _class_NSDate,
+        _sel_dateWithTimeInterval_sinceDate_,
+        secsToBeAdded,
+        sinceDate.ref.pointer);
     return objc.NSDate.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -45976,24 +46112,27 @@ extension NSDateCreation on objc.NSDate {
   }
 
   /// initWithTimeIntervalSinceNow:
-  objc.NSDate initWithTimeIntervalSinceNow_(DartNSTimeInterval secs) {
+  objc.NSDate initWithTimeIntervalSinceNow(DartNSTimeInterval secs) {
     final _ret = _objc_msgSend_oa8mke(this.ref.retainAndReturnPointer(),
         _sel_initWithTimeIntervalSinceNow_, secs);
     return objc.NSDate.castFromPointer(_ret, retain: false, release: true);
   }
 
   /// initWithTimeIntervalSince1970:
-  objc.NSDate initWithTimeIntervalSince1970_(DartNSTimeInterval secs) {
+  objc.NSDate initWithTimeIntervalSince1970(DartNSTimeInterval secs) {
     final _ret = _objc_msgSend_oa8mke(this.ref.retainAndReturnPointer(),
         _sel_initWithTimeIntervalSince1970_, secs);
     return objc.NSDate.castFromPointer(_ret, retain: false, release: true);
   }
 
   /// initWithTimeInterval:sinceDate:
-  objc.NSDate initWithTimeInterval_sinceDate_(
-      DartNSTimeInterval secsToBeAdded, objc.NSDate date) {
-    final _ret = _objc_msgSend_1ozwf6k(this.ref.retainAndReturnPointer(),
-        _sel_initWithTimeInterval_sinceDate_, secsToBeAdded, date.ref.pointer);
+  objc.NSDate initWithTimeInterval(DartNSTimeInterval secsToBeAdded,
+      {required objc.NSDate sinceDate}) {
+    final _ret = _objc_msgSend_1ozwf6k(
+        this.ref.retainAndReturnPointer(),
+        _sel_initWithTimeInterval_sinceDate_,
+        secsToBeAdded,
+        sinceDate.ref.pointer);
     return objc.NSDate.castFromPointer(_ret, retain: false, release: true);
   }
 }
@@ -46090,13 +46229,14 @@ extension NSMutableHTTPURLRequest on NSMutableURLRequest {
   /// case-insensitive.
   /// @param value the header field value.
   /// @param field the header field name (case-insensitive).
-  void setValue_forHTTPHeaderField_(objc.NSString? value, objc.NSString field) {
+  void setValue(objc.NSString? value,
+      {required objc.NSString forHTTPHeaderField}) {
     objc.checkOsVersionInternal(
         'NSMutableURLRequest.setValue:forHTTPHeaderField:',
         iOS: (false, (2, 0, 0)),
         macOS: (false, (10, 2, 0)));
     _objc_msgSend_pfv6jd(this.ref.pointer, _sel_setValue_forHTTPHeaderField_,
-        value?.ref.pointer ?? ffi.nullptr, field.ref.pointer);
+        value?.ref.pointer ?? ffi.nullptr, forHTTPHeaderField.ref.pointer);
   }
 
   /// !
@@ -46112,13 +46252,14 @@ extension NSMutableHTTPURLRequest on NSMutableURLRequest {
   /// header field names are case-insensitive.
   /// @param value the header field value.
   /// @param field the header field name (case-insensitive).
-  void addValue_forHTTPHeaderField_(objc.NSString value, objc.NSString field) {
+  void addValue(objc.NSString value,
+      {required objc.NSString forHTTPHeaderField}) {
     objc.checkOsVersionInternal(
         'NSMutableURLRequest.addValue:forHTTPHeaderField:',
         iOS: (false, (2, 0, 0)),
         macOS: (false, (10, 2, 0)));
     _objc_msgSend_pfv6jd(this.ref.pointer, _sel_addValue_forHTTPHeaderField_,
-        value.ref.pointer, field.ref.pointer);
+        value.ref.pointer, forHTTPHeaderField.ref.pointer);
   }
 
   /// !
@@ -46301,6 +46442,8 @@ late final _sel_setRequiresDNSSECValidation_ =
     objc.registerName("setRequiresDNSSECValidation:");
 late final _sel_setAllowsPersistentDNS_ =
     objc.registerName("setAllowsPersistentDNS:");
+late final _sel_setCookiePartitionIdentifier_ =
+    objc.registerName("setCookiePartitionIdentifier:");
 
 /// !
 /// @class NSMutableURLRequest
@@ -46657,6 +46800,27 @@ class NSMutableURLRequest extends NSURLRequest {
         this.ref.pointer, _sel_setAllowsPersistentDNS_, value);
   }
 
+  /// Cookie partition identifier used for cookie storage and retrieval.
+  objc.NSString? get cookiePartitionIdentifier {
+    objc.checkOsVersionInternal('NSMutableURLRequest.cookiePartitionIdentifier',
+        iOS: (false, (18, 2, 0)), macOS: (false, (15, 2, 0)));
+    final _ret =
+        _objc_msgSend_151sglz(this.ref.pointer, _sel_cookiePartitionIdentifier);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// Cookie partition identifier used for cookie storage and retrieval.
+  set cookiePartitionIdentifier(objc.NSString? value) {
+    objc.checkOsVersionInternal(
+        'NSMutableURLRequest.setCookiePartitionIdentifier:',
+        iOS: (false, (18, 2, 0)),
+        macOS: (false, (15, 2, 0)));
+    _objc_msgSend_xtuoz7(this.ref.pointer, _sel_setCookiePartitionIdentifier_,
+        value?.ref.pointer ?? ffi.nullptr);
+  }
+
   /// !
   /// @method requestWithURL:
   /// @abstract Allocates and initializes an NSURLRequest with the given
@@ -46666,7 +46830,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// seconds).
   /// @param URL The URL for the request.
   /// @result A newly-created and autoreleased NSURLRequest instance.
-  static NSMutableURLRequest requestWithURL_(objc.NSURL URL) {
+  static NSMutableURLRequest requestWithURL(objc.NSURL URL) {
     objc.checkOsVersionInternal('NSMutableURLRequest.requestWithURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 2, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -46691,10 +46855,9 @@ class NSMutableURLRequest extends NSURLRequest {
   /// commentary for the <tt>timeoutInterval</tt> for more information on
   /// timeout intervals.
   /// @result A newly-created and autoreleased NSURLRequest instance.
-  static NSMutableURLRequest requestWithURL_cachePolicy_timeoutInterval_(
-      objc.NSURL URL,
-      NSURLRequestCachePolicy cachePolicy,
-      DartNSTimeInterval timeoutInterval) {
+  static NSMutableURLRequest requestWithURL$1(objc.NSURL URL,
+      {required NSURLRequestCachePolicy cachePolicy,
+      required DartNSTimeInterval timeoutInterval}) {
     objc.checkOsVersionInternal(
         'NSMutableURLRequest.requestWithURL:cachePolicy:timeoutInterval:',
         iOS: (false, (2, 0, 0)),
@@ -46717,7 +46880,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// seconds).
   /// @param URL The URL for the request.
   /// @result An initialized NSURLRequest.
-  NSMutableURLRequest initWithURL_(objc.NSURL URL) {
+  NSMutableURLRequest initWithURL(objc.NSURL URL) {
     objc.checkOsVersionInternal('NSMutableURLRequest.initWithURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 2, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -46738,8 +46901,9 @@ class NSMutableURLRequest extends NSURLRequest {
   /// commentary for the <tt>timeoutInterval</tt> for more information on
   /// timeout intervals.
   /// @result An initialized NSURLRequest.
-  NSMutableURLRequest initWithURL_cachePolicy_timeoutInterval_(objc.NSURL URL,
-      NSURLRequestCachePolicy cachePolicy, DartNSTimeInterval timeoutInterval) {
+  NSMutableURLRequest initWithURL$1(objc.NSURL URL,
+      {required NSURLRequestCachePolicy cachePolicy,
+      required DartNSTimeInterval timeoutInterval}) {
     objc.checkOsVersionInternal(
         'NSMutableURLRequest.initWithURL:cachePolicy:timeoutInterval:',
         iOS: (false, (2, 0, 0)),
@@ -46772,7 +46936,7 @@ class NSMutableURLRequest extends NSURLRequest {
   }
 
   /// allocWithZone:
-  static NSMutableURLRequest allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSMutableURLRequest allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret = _objc_msgSend_1cwp428(
         _class_NSMutableURLRequest, _sel_allocWithZone_, zone);
     return NSMutableURLRequest.castFromPointer(_ret,
@@ -46808,7 +46972,7 @@ class NSMutableURLRequest extends NSURLRequest {
   }
 
   /// initWithCoder:
-  NSMutableURLRequest? initWithCoder_(objc.NSCoder coder) {
+  NSMutableURLRequest? initWithCoder(objc.NSCoder coder) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithCoder_, coder.ref.pointer);
     return _ret.address == 0
@@ -46953,11 +47117,10 @@ class NSURLResponse extends objc.NSObject
   /// @param name the name of the text encoding for the associated data, if applicable, else nil
   /// @result The initialized NSURLResponse.
   /// @discussion This is the designated initializer for NSURLResponse.
-  NSURLResponse initWithURL_MIMEType_expectedContentLength_textEncodingName_(
-      objc.NSURL URL,
-      objc.NSString? MIMEType,
-      DartNSInteger length,
-      objc.NSString? name) {
+  NSURLResponse initWithUrlAndMIMEType(objc.NSURL URL,
+      {objc.NSString? MIMEType,
+      required DartNSInteger length,
+      objc.NSString? name}) {
     objc.checkOsVersionInternal(
         'NSURLResponse.initWithURL:MIMEType:expectedContentLength:textEncodingName:',
         iOS: (false, (2, 0, 0)),
@@ -47073,7 +47236,7 @@ class NSURLResponse extends objc.NSObject
   }
 
   /// allocWithZone:
-  static NSURLResponse allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSURLResponse allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret =
         _objc_msgSend_1cwp428(_class_NSURLResponse, _sel_allocWithZone_, zone);
     return NSURLResponse.castFromPointer(_ret, retain: false, release: true);
@@ -47110,13 +47273,13 @@ class NSURLResponse extends objc.NSObject
   }
 
   /// encodeWithCoder:
-  void encodeWithCoder_(objc.NSCoder coder) {
+  void encodeWithCoder(objc.NSCoder coder) {
     _objc_msgSend_xtuoz7(
         this.ref.pointer, _sel_encodeWithCoder_, coder.ref.pointer);
   }
 
   /// initWithCoder:
-  NSURLResponse? initWithCoder_(objc.NSCoder coder) {
+  NSURLResponse? initWithCoder(objc.NSCoder coder) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithCoder_, coder.ref.pointer);
     return _ret.address == 0
@@ -47152,29 +47315,6 @@ interface class NSURLSessionTaskDelegate extends objc.ObjCProtocolBase
 
 late final _sel_delegate = objc.registerName("delegate");
 late final _sel_setDelegate_ = objc.registerName("setDelegate:");
-
-/// WARNING: NSProgress is a stub. To generate bindings for this class, include
-/// NSProgress in your config's objc-interfaces list.
-///
-/// NSProgress
-class NSProgress extends objc.NSObject {
-  NSProgress._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release) {
-    objc.checkOsVersionInternal('NSProgress',
-        iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
-  }
-
-  /// Constructs a [NSProgress] that points to the same underlying object as [other].
-  NSProgress.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSProgress] that wraps the given raw object pointer.
-  NSProgress.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-}
-
 late final _sel_progress = objc.registerName("progress");
 ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSProgress_ffiVoid_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
@@ -47203,31 +47343,33 @@ ffi.Pointer<ffi.Void> _ObjCBlock_NSProgress_ffiVoid_closureCallable =
             _ObjCBlock_NSProgress_ffiVoid_closureTrampoline)
         .cast();
 
-/// Construction methods for `objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>`.
+/// Construction methods for `objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)>`.
 abstract final class ObjCBlock_NSProgress_ffiVoid {
   /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>
+  static objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)>
       castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
               {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(pointer,
-              retain: retain, release: release);
+          objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)>(
+              pointer,
+              retain: retain,
+              release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<ffi.Void> arg0)>>
-              ptr) =>
-      objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(
-          objc.newPointerBlock(
-              _ObjCBlock_NSProgress_ffiVoid_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
+  static objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)>
+      fromFunctionPointer(
+              ffi.Pointer<
+                      ffi.NativeFunction<
+                          ffi.Pointer<objc.ObjCObject> Function(
+                              ffi.Pointer<ffi.Void> arg0)>>
+                  ptr) =>
+          objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)>(
+              objc.newPointerBlock(_ObjCBlock_NSProgress_ffiVoid_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
 
   /// Creates a block from a Dart function.
   ///
@@ -47237,10 +47379,10 @@ abstract final class ObjCBlock_NSProgress_ffiVoid {
   ///
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>
-      fromFunction(NSProgress Function(ffi.Pointer<ffi.Void>) fn,
+  static objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)>
+      fromFunction(objc.NSProgress Function(ffi.Pointer<ffi.Void>) fn,
               {bool keepIsolateAlive = true}) =>
-          objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(
+          objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)>(
               objc.newClosureBlock(
                   _ObjCBlock_NSProgress_ffiVoid_closureCallable,
                   (ffi.Pointer<ffi.Void> arg0) =>
@@ -47250,22 +47392,23 @@ abstract final class ObjCBlock_NSProgress_ffiVoid {
               release: true);
 }
 
-/// Call operator for `objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>`.
+/// Call operator for `objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)>`.
 extension ObjCBlock_NSProgress_ffiVoid_CallExtension
-    on objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)> {
-  NSProgress call(ffi.Pointer<ffi.Void> arg0) => NSProgress.castFromPointer(
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
+    on objc.ObjCBlock<objc.NSProgress Function(ffi.Pointer<ffi.Void>)> {
+  objc.NSProgress call(ffi.Pointer<ffi.Void> arg0) =>
+      objc.NSProgress.castFromPointer(
+          ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Pointer<objc.ObjCObject> Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0)>>()
+              .asFunction<
                   ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0)>>()
-          .asFunction<
-              ffi.Pointer<objc.ObjCObject> Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
-      retain: true,
-      release: true);
+                      ffi.Pointer<objc.ObjCBlockImpl>,
+                      ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
+          retain: true,
+          release: true);
 }
 
 late final _sel_earliestBeginDate = objc.registerName("earliestBeginDate");
@@ -47468,9 +47611,9 @@ class NSURLSessionTask extends objc.NSObject
   }
 
   /// progress
-  NSProgress get progress {
+  objc.NSProgress get progress {
     final _ret = _objc_msgSend_151sglz(this.ref.pointer, _sel_progress);
-    return NSProgress.castFromPointer(_ret, retain: true, release: true);
+    return objc.NSProgress.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// Start the network load for this task no earlier than the specified date. If
@@ -47734,7 +47877,7 @@ class NSURLSessionTask extends objc.NSObject
   }
 
   /// allocWithZone:
-  static NSURLSessionTask allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSURLSessionTask allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret = _objc_msgSend_1cwp428(
         _class_NSURLSessionTask, _sel_allocWithZone_, zone);
     return NSURLSessionTask.castFromPointer(_ret, retain: false, release: true);
@@ -47770,7 +47913,7 @@ class NSURLSessionTask extends objc.NSObject
 
 late final _sel_storeCookies_forTask_ =
     objc.registerName("storeCookies:forTask:");
-void _ObjCBlock_ffiVoid_objcObjCObject_fnPtrTrampoline(
+void _ObjCBlock_ffiVoid_NSArray_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<objc.ObjCObject> arg0) =>
     block.ref.target
@@ -47778,24 +47921,24 @@ void _ObjCBlock_ffiVoid_objcObjCObject_fnPtrTrampoline(
             ffi.NativeFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0)>>()
         .asFunction<void Function(ffi.Pointer<objc.ObjCObject>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_objcObjCObject_fnPtrCallable =
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSArray_fnPtrCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_objcObjCObject_fnPtrTrampoline)
+            _ObjCBlock_ffiVoid_NSArray_fnPtrTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_objcObjCObject_closureTrampoline(
+void _ObjCBlock_ffiVoid_NSArray_closureTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<objc.ObjCObject> arg0) =>
     (objc.getBlockClosure(block) as void Function(
         ffi.Pointer<objc.ObjCObject>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_objcObjCObject_closureCallable =
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSArray_closureCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_objcObjCObject_closureTrampoline)
+            _ObjCBlock_ffiVoid_NSArray_closureTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_objcObjCObject_listenerTrampoline(
+void _ObjCBlock_ffiVoid_NSArray_listenerTrampoline(
     ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<objc.ObjCObject> arg0) {
   (objc.getBlockClosure(block) as void Function(
       ffi.Pointer<objc.ObjCObject>))(arg0);
@@ -47805,12 +47948,12 @@ void _ObjCBlock_ffiVoid_objcObjCObject_listenerTrampoline(
 ffi.NativeCallable<
         ffi.Void Function(
             ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject_listenerCallable = ffi.NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray_listenerCallable = ffi.NativeCallable<
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_objcObjCObject_listenerTrampoline)
+        _ObjCBlock_ffiVoid_NSArray_listenerTrampoline)
       ..keepIsolateAlive = false;
-void _ObjCBlock_ffiVoid_objcObjCObject_blockingTrampoline(
+void _ObjCBlock_ffiVoid_NSArray_blockingTrampoline(
     ffi.Pointer<objc.ObjCBlockImpl> block,
     ffi.Pointer<ffi.Void> waiter,
     ffi.Pointer<objc.ObjCObject> arg0) {
@@ -47827,47 +47970,45 @@ void _ObjCBlock_ffiVoid_objcObjCObject_blockingTrampoline(
 ffi.NativeCallable<
         ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
             ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject_blockingCallable = ffi.NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray_blockingCallable = ffi.NativeCallable<
             ffi.Void Function(
                 ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<ffi.Void>,
                 ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
-        _ObjCBlock_ffiVoid_objcObjCObject_blockingTrampoline)
+        _ObjCBlock_ffiVoid_NSArray_blockingTrampoline)
       ..keepIsolateAlive = false;
 ffi.NativeCallable<
         ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
             ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject_blockingListenerCallable = ffi
-        .NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray_blockingListenerCallable = ffi.NativeCallable<
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_objcObjCObject_blockingTrampoline)
+        _ObjCBlock_ffiVoid_NSArray_blockingTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>`.
-abstract final class ObjCBlock_ffiVoid_objcObjCObject {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSArray?)>`.
+abstract final class ObjCBlock_ffiVoid_NSArray {
   /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>(
-              pointer,
-              retain: retain,
-              release: release);
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray?)> castFromPointer(
+          ffi.Pointer<objc.ObjCBlockImpl> pointer,
+          {bool retain = false,
+          bool release = false}) =>
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray?)>(pointer,
+          retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)> fromFunctionPointer(
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray?)> fromFunctionPointer(
           ffi.Pointer<
                   ffi.NativeFunction<
                       ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0)>>
               ptr) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>(
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray?)>(
           objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_objcObjCObject_fnPtrCallable, ptr.cast()),
+              _ObjCBlock_ffiVoid_NSArray_fnPtrCallable, ptr.cast()),
           retain: false,
           release: true);
 
@@ -47879,18 +48020,19 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject {
   ///
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>
-      fromFunction(void Function(objc.ObjCObjectBase?) fn,
-              {bool keepIsolateAlive = true}) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_objcObjCObject_closureCallable,
-                  (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
-                      ? null
-                      : objc.ObjCObjectBase(arg0, retain: true, release: true)),
-                  keepIsolateAlive),
-              retain: false,
-              release: true);
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray?)> fromFunction(
+          void Function(objc.NSArray?) fn,
+          {bool keepIsolateAlive = true}) =>
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray?)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_NSArray_closureCallable,
+              (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+                  ? null
+                  : objc.NSArray.castFromPointer(arg0,
+                      retain: true, release: true)),
+              keepIsolateAlive),
+          retain: false,
+          release: true);
 
   /// Creates a listener block from a Dart function.
   ///
@@ -47901,22 +48043,19 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject {
   ///
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>
-      listener(void Function(objc.ObjCObjectBase?) fn,
-          {bool keepIsolateAlive = true}) {
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray?)> listener(
+      void Function(objc.NSArray?) fn,
+      {bool keepIsolateAlive = true}) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject_listenerCallable.nativeFunction
-            .cast(),
+        _ObjCBlock_ffiVoid_NSArray_listenerCallable.nativeFunction.cast(),
         (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
             ? null
-            : objc.ObjCObjectBase(arg0, retain: false, release: true)),
+            : objc.NSArray.castFromPointer(arg0, retain: false, release: true)),
         keepIsolateAlive);
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_xtuoz7(raw);
     objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>(
-        wrapper,
-        retain: false,
-        release: true);
+    return objc.ObjCBlock<ffi.Void Function(objc.NSArray?)>(wrapper,
+        retain: false, release: true);
   }
 
   /// Creates a blocking block from a Dart function.
@@ -47929,39 +48068,35 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject {
   /// until it is garbage collected by both Dart and ObjC. If the owner isolate
   /// has shut down, and the block is invoked by native code, it may block
   /// indefinitely, or have other undefined behavior.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>
-      blocking(void Function(objc.ObjCObjectBase?) fn,
-          {bool keepIsolateAlive = true}) {
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray?)> blocking(
+      void Function(objc.NSArray?) fn,
+      {bool keepIsolateAlive = true}) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject_blockingCallable.nativeFunction
-            .cast(),
+        _ObjCBlock_ffiVoid_NSArray_blockingCallable.nativeFunction.cast(),
         (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
             ? null
-            : objc.ObjCObjectBase(arg0, retain: false, release: true)),
+            : objc.NSArray.castFromPointer(arg0, retain: false, release: true)),
         keepIsolateAlive);
     final rawListener = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject_blockingListenerCallable
-            .nativeFunction
+        _ObjCBlock_ffiVoid_NSArray_blockingListenerCallable.nativeFunction
             .cast(),
         (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
             ? null
-            : objc.ObjCObjectBase(arg0, retain: false, release: true)),
+            : objc.NSArray.castFromPointer(arg0, retain: false, release: true)),
         keepIsolateAlive);
     final wrapper = _NativeCupertinoHttp_wrapBlockingBlock_xtuoz7(
         raw, rawListener, objc.objCContext);
     objc.objectRelease(raw.cast());
     objc.objectRelease(rawListener.cast());
-    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>(
-        wrapper,
-        retain: false,
-        release: true);
+    return objc.ObjCBlock<ffi.Void Function(objc.NSArray?)>(wrapper,
+        retain: false, release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>`.
-extension ObjCBlock_ffiVoid_objcObjCObject_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)> {
-  void call(objc.ObjCObjectBase? arg0) => ref.pointer.ref.invoke
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSArray?)>`.
+extension ObjCBlock_ffiVoid_NSArray_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(objc.NSArray?)> {
+  void call(objc.NSArray? arg0) => ref.pointer.ref.invoke
           .cast<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
@@ -47978,19 +48113,17 @@ late final _sel_getCookiesForTask_completionHandler_ =
 /// NSURLSessionTaskAdditions
 extension NSURLSessionTaskAdditions$1 on NSHTTPCookieStorage {
   /// storeCookies:forTask:
-  void storeCookies_forTask_(
-      objc.ObjCObjectBase cookies, NSURLSessionTask task) {
+  void storeCookies(objc.NSArray cookies, {required NSURLSessionTask forTask}) {
     objc.checkOsVersionInternal('NSHTTPCookieStorage.storeCookies:forTask:',
         iOS: (false, (8, 0, 0)), macOS: (false, (10, 10, 0)));
     _objc_msgSend_pfv6jd(this.ref.pointer, _sel_storeCookies_forTask_,
-        cookies.ref.pointer, task.ref.pointer);
+        cookies.ref.pointer, forTask.ref.pointer);
   }
 
   /// getCookiesForTask:completionHandler:
-  void getCookiesForTask_completionHandler_(
-      NSURLSessionTask task,
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>
-          completionHandler) {
+  void getCookiesForTask(NSURLSessionTask task,
+      {required objc.ObjCBlock<ffi.Void Function(objc.NSArray?)>
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSHTTPCookieStorage.getCookiesForTask:completionHandler:',
         iOS: (false, (8, 0, 0)),
@@ -48049,16 +48182,16 @@ late final _sel_writeToURL_atomically_ =
 /// NSDeprecated
 extension NSDeprecated on objc.NSDictionary {
   /// getObjects:andKeys:
-  void getObjects_andKeys_(ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> keys) {
+  void getObjects(ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects,
+      {required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> andKeys}) {
     objc.checkOsVersionInternal('NSDictionary.getObjects:andKeys:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_hefmm1(
-        this.ref.pointer, _sel_getObjects_andKeys_, objects, keys);
+        this.ref.pointer, _sel_getObjects_andKeys_, objects, andKeys);
   }
 
   /// dictionaryWithContentsOfFile:
-  static objc.NSDictionary? dictionaryWithContentsOfFile_(objc.NSString path) {
+  static objc.NSDictionary? dictionaryWithContentsOfFile(objc.NSString path) {
     objc.checkOsVersionInternal('NSDictionary.dictionaryWithContentsOfFile:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(_class_NSDictionary,
@@ -48069,7 +48202,7 @@ extension NSDeprecated on objc.NSDictionary {
   }
 
   /// dictionaryWithContentsOfURL:
-  static objc.NSDictionary? dictionaryWithContentsOfURL_(objc.NSURL url) {
+  static objc.NSDictionary? dictionaryWithContentsOfURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSDictionary.dictionaryWithContentsOfURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(_class_NSDictionary,
@@ -48080,7 +48213,7 @@ extension NSDeprecated on objc.NSDictionary {
   }
 
   /// initWithContentsOfFile:
-  objc.NSDictionary? initWithContentsOfFile_(objc.NSString path) {
+  objc.NSDictionary? initWithContentsOfFile(objc.NSString path) {
     objc.checkOsVersionInternal('NSDictionary.initWithContentsOfFile:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -48091,7 +48224,7 @@ extension NSDeprecated on objc.NSDictionary {
   }
 
   /// initWithContentsOfURL:
-  objc.NSDictionary? initWithContentsOfURL_(objc.NSURL url) {
+  objc.NSDictionary? initWithContentsOfURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSDictionary.initWithContentsOfURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -48102,15 +48235,15 @@ extension NSDeprecated on objc.NSDictionary {
   }
 
   /// writeToFile:atomically:
-  bool writeToFile_atomically_(objc.NSString path, bool useAuxiliaryFile) {
+  bool writeToFile(objc.NSString path, {required bool atomically}) {
     objc.checkOsVersionInternal('NSDictionary.writeToFile:atomically:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     return _objc_msgSend_1iyq28l(this.ref.pointer, _sel_writeToFile_atomically_,
-        path.ref.pointer, useAuxiliaryFile);
+        path.ref.pointer, atomically);
   }
 
   /// writeToURL:atomically:
-  bool writeToURL_atomically_(objc.NSURL url, bool atomically) {
+  bool writeToURL(objc.NSURL url, {required bool atomically}) {
     objc.checkOsVersionInternal('NSDictionary.writeToURL:atomically:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     return _objc_msgSend_1iyq28l(this.ref.pointer, _sel_writeToURL_atomically_,
@@ -48194,25 +48327,28 @@ extension NSDictionaryCreation on objc.NSDictionary {
   }
 
   /// dictionaryWithObject:forKey:
-  static objc.NSDictionary dictionaryWithObject_forKey_(
-      objc.ObjCObjectBase object, objc.ObjCObjectBase key) {
-    final _ret = _objc_msgSend_15qeuct(_class_NSDictionary,
-        _sel_dictionaryWithObject_forKey_, object.ref.pointer, key.ref.pointer);
+  static objc.NSDictionary dictionaryWithObject(objc.ObjCObjectBase object,
+      {required objc.ObjCObjectBase forKey}) {
+    final _ret = _objc_msgSend_15qeuct(
+        _class_NSDictionary,
+        _sel_dictionaryWithObject_forKey_,
+        object.ref.pointer,
+        forKey.ref.pointer);
     return objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// dictionaryWithObjects:forKeys:count:
-  static objc.NSDictionary dictionaryWithObjects_forKeys_count_(
+  static objc.NSDictionary dictionaryWithObjects(
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> keys,
-      DartNSUInteger cnt) {
+      {required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> forKeys,
+      required DartNSUInteger count}) {
     final _ret = _objc_msgSend_1dydpdi(_class_NSDictionary,
-        _sel_dictionaryWithObjects_forKeys_count_, objects, keys, cnt);
+        _sel_dictionaryWithObjects_forKeys_count_, objects, forKeys, count);
     return objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// dictionaryWithObjectsAndKeys:
-  static objc.NSDictionary dictionaryWithObjectsAndKeys_(
+  static objc.NSDictionary dictionaryWithObjectsAndKeys(
       objc.ObjCObjectBase firstObject) {
     final _ret = _objc_msgSend_1sotr3r(_class_NSDictionary,
         _sel_dictionaryWithObjectsAndKeys_, firstObject.ref.pointer);
@@ -48220,25 +48356,25 @@ extension NSDictionaryCreation on objc.NSDictionary {
   }
 
   /// dictionaryWithDictionary:
-  static objc.NSDictionary dictionaryWithDictionary_(objc.NSDictionary dict) {
+  static objc.NSDictionary dictionaryWithDictionary(objc.NSDictionary dict) {
     final _ret = _objc_msgSend_1sotr3r(
         _class_NSDictionary, _sel_dictionaryWithDictionary_, dict.ref.pointer);
     return objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// dictionaryWithObjects:forKeys:
-  static objc.NSDictionary dictionaryWithObjects_forKeys_(
-      objc.ObjCObjectBase objects, objc.ObjCObjectBase keys) {
+  static objc.NSDictionary dictionaryWithObjects$1(objc.NSArray objects,
+      {required objc.NSArray forKeys}) {
     final _ret = _objc_msgSend_15qeuct(
         _class_NSDictionary,
         _sel_dictionaryWithObjects_forKeys_,
         objects.ref.pointer,
-        keys.ref.pointer);
+        forKeys.ref.pointer);
     return objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// initWithObjectsAndKeys:
-  objc.NSDictionary initWithObjectsAndKeys_(objc.ObjCObjectBase firstObject) {
+  objc.NSDictionary initWithObjectsAndKeys(objc.ObjCObjectBase firstObject) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithObjectsAndKeys_, firstObject.ref.pointer);
     return objc.NSDictionary.castFromPointer(_ret,
@@ -48246,7 +48382,7 @@ extension NSDictionaryCreation on objc.NSDictionary {
   }
 
   /// initWithDictionary:
-  objc.NSDictionary initWithDictionary_(objc.NSDictionary otherDictionary) {
+  objc.NSDictionary initWithDictionary(objc.NSDictionary otherDictionary) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithDictionary_, otherDictionary.ref.pointer);
     return objc.NSDictionary.castFromPointer(_ret,
@@ -48254,26 +48390,32 @@ extension NSDictionaryCreation on objc.NSDictionary {
   }
 
   /// initWithDictionary:copyItems:
-  objc.NSDictionary initWithDictionary_copyItems_(
-      objc.NSDictionary otherDictionary, bool flag) {
-    final _ret = _objc_msgSend_17amj0z(this.ref.retainAndReturnPointer(),
-        _sel_initWithDictionary_copyItems_, otherDictionary.ref.pointer, flag);
+  objc.NSDictionary initWithDictionary$1(objc.NSDictionary otherDictionary,
+      {required bool copyItems}) {
+    final _ret = _objc_msgSend_17amj0z(
+        this.ref.retainAndReturnPointer(),
+        _sel_initWithDictionary_copyItems_,
+        otherDictionary.ref.pointer,
+        copyItems);
     return objc.NSDictionary.castFromPointer(_ret,
         retain: false, release: true);
   }
 
   /// initWithObjects:forKeys:
-  objc.NSDictionary initWithObjects_forKeys_(
-      objc.ObjCObjectBase objects, objc.ObjCObjectBase keys) {
-    final _ret = _objc_msgSend_15qeuct(this.ref.retainAndReturnPointer(),
-        _sel_initWithObjects_forKeys_, objects.ref.pointer, keys.ref.pointer);
+  objc.NSDictionary initWithObjects(objc.NSArray objects,
+      {required objc.NSArray forKeys}) {
+    final _ret = _objc_msgSend_15qeuct(
+        this.ref.retainAndReturnPointer(),
+        _sel_initWithObjects_forKeys_,
+        objects.ref.pointer,
+        forKeys.ref.pointer);
     return objc.NSDictionary.castFromPointer(_ret,
         retain: false, release: true);
   }
 
   /// initWithContentsOfURL:error:
-  objc.NSDictionary? initWithContentsOfURL_error_(
-      objc.NSURL url, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
+  objc.NSDictionary? initWithContentsOfURL(objc.NSURL url,
+      {required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error}) {
     objc.checkOsVersionInternal('NSDictionary.initWithContentsOfURL:error:',
         iOS: (false, (11, 0, 0)), macOS: (false, (10, 13, 0)));
     final _ret = _objc_msgSend_1lhpu4m(this.ref.retainAndReturnPointer(),
@@ -48284,8 +48426,8 @@ extension NSDictionaryCreation on objc.NSDictionary {
   }
 
   /// dictionaryWithContentsOfURL:error:
-  static objc.NSDictionary? dictionaryWithContentsOfURL_error_(
-      objc.NSURL url, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
+  static objc.NSDictionary? dictionaryWithContentsOfURL(objc.NSURL url,
+      {required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error}) {
     objc.checkOsVersionInternal(
         'NSDictionary.dictionaryWithContentsOfURL:error:',
         iOS: (false, (11, 0, 0)),
@@ -48313,7 +48455,7 @@ final _objc_msgSend_14hpxwa = objc.msgSendPointer
 /// NSMutableDictionaryCreation
 extension NSMutableDictionaryCreation on objc.NSMutableDictionary {
   /// dictionaryWithCapacity:
-  static objc.NSMutableDictionary dictionaryWithCapacity_(
+  static objc.NSMutableDictionary dictionaryWithCapacity(
       DartNSUInteger numItems) {
     final _ret = _objc_msgSend_14hpxwa(
         _class_NSMutableDictionary, _sel_dictionaryWithCapacity_, numItems);
@@ -48322,7 +48464,7 @@ extension NSMutableDictionaryCreation on objc.NSMutableDictionary {
   }
 
   /// dictionaryWithContentsOfFile:
-  static objc.NSMutableDictionary? dictionaryWithContentsOfFile_(
+  static objc.NSMutableDictionary? dictionaryWithContentsOfFile(
       objc.NSString path) {
     final _ret = _objc_msgSend_1sotr3r(_class_NSMutableDictionary,
         _sel_dictionaryWithContentsOfFile_, path.ref.pointer);
@@ -48333,8 +48475,7 @@ extension NSMutableDictionaryCreation on objc.NSMutableDictionary {
   }
 
   /// dictionaryWithContentsOfURL:
-  static objc.NSMutableDictionary? dictionaryWithContentsOfURL_(
-      objc.NSURL url) {
+  static objc.NSMutableDictionary? dictionaryWithContentsOfURL(objc.NSURL url) {
     final _ret = _objc_msgSend_1sotr3r(_class_NSMutableDictionary,
         _sel_dictionaryWithContentsOfURL_, url.ref.pointer);
     return _ret.address == 0
@@ -48344,7 +48485,7 @@ extension NSMutableDictionaryCreation on objc.NSMutableDictionary {
   }
 
   /// initWithContentsOfFile:
-  objc.NSMutableDictionary? initWithContentsOfFile_(objc.NSString path) {
+  objc.NSMutableDictionary? initWithContentsOfFile(objc.NSString path) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithContentsOfFile_, path.ref.pointer);
     return _ret.address == 0
@@ -48354,7 +48495,7 @@ extension NSMutableDictionaryCreation on objc.NSMutableDictionary {
   }
 
   /// initWithContentsOfURL:
-  objc.NSMutableDictionary? initWithContentsOfURL_(objc.NSURL url) {
+  objc.NSMutableDictionary? initWithContentsOfURL(objc.NSURL url) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithContentsOfURL_, url.ref.pointer);
     return _ret.address == 0
@@ -48370,7 +48511,7 @@ late final _sel_sharedKeySetForKeys_ =
 /// NSSharedKeySetDictionary
 extension NSSharedKeySetDictionary on objc.NSDictionary {
   /// sharedKeySetForKeys:
-  static objc.ObjCObjectBase sharedKeySetForKeys_(objc.ObjCObjectBase keys) {
+  static objc.ObjCObjectBase sharedKeySetForKeys(objc.NSArray keys) {
     objc.checkOsVersionInternal('NSDictionary.sharedKeySetForKeys:',
         iOS: (false, (6, 0, 0)), macOS: (false, (10, 8, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -48385,7 +48526,7 @@ late final _sel_dictionaryWithSharedKeySet_ =
 /// NSSharedKeySetDictionary
 extension NSSharedKeySetDictionary$1 on objc.NSMutableDictionary {
   /// dictionaryWithSharedKeySet:
-  static objc.NSMutableDictionary dictionaryWithSharedKeySet_(
+  static objc.NSMutableDictionary dictionaryWithSharedKeySet(
       objc.ObjCObjectBase keyset) {
     objc.checkOsVersionInternal(
         'NSMutableDictionary.dictionaryWithSharedKeySet:',
@@ -48571,12 +48712,12 @@ extension ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSU
 /// NSGenericFastEnumeration
 extension NSGenericFastEnumeration on objc.NSDictionary {
   /// countByEnumeratingWithState:objects:count:
-  DartNSUInteger countByEnumeratingWithState_objects_count_(
+  DartNSUInteger countByEnumeratingWithState(
       ffi.Pointer<objc.NSFastEnumerationState> state,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> buffer,
-      DartNSUInteger len) {
+      {required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects,
+      required DartNSUInteger count}) {
     return _objc_msgSend_1b5ysjl(this.ref.pointer,
-        _sel_countByEnumeratingWithState_objects_count_, state, buffer, len);
+        _sel_countByEnumeratingWithState_objects_count_, state, objects, count);
   }
 }
 
@@ -48623,33 +48764,33 @@ ffi.Pointer<ffi.Void>
             _ObjCBlock_NSProgressUnpublishingHandler_NSProgress_closureTrampoline)
         .cast();
 
-/// Construction methods for `objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)>`.
+/// Construction methods for `objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>`.
 abstract final class ObjCBlock_NSProgressUnpublishingHandler_NSProgress {
   /// Returns a block that wraps the given raw block pointer.
   static objc
-      .ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)>
+      .ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>
       castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
               {bool retain = false, bool release = false}) =>
           objc.ObjCBlock<
               objc.ObjCBlock<ffi.Void Function()>? Function(
-                  NSProgress)>(pointer, retain: retain, release: release);
+                  objc.NSProgress)>(pointer, retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      NSProgressUnpublishingHandler Function(
-                          ffi.Pointer<objc.ObjCObject> arg0)>>
-              ptr) =>
-      objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)>(
-          objc.newPointerBlock(
-              _ObjCBlock_NSProgressUnpublishingHandler_NSProgress_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
+  static objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>
+      fromFunctionPointer(
+              ffi.Pointer<
+                      ffi.NativeFunction<
+                          NSProgressUnpublishingHandler Function(
+                              ffi.Pointer<objc.ObjCObject> arg0)>>
+                  ptr) =>
+          objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>(
+              objc.newPointerBlock(_ObjCBlock_NSProgressUnpublishingHandler_NSProgress_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
 
   /// Creates a block from a Dart function.
   ///
@@ -48660,14 +48801,14 @@ abstract final class ObjCBlock_NSProgressUnpublishingHandler_NSProgress {
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
   static objc
-      .ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)>
-      fromFunction(DartNSProgressUnpublishingHandler? Function(NSProgress) fn,
+      .ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>
+      fromFunction(DartNSProgressUnpublishingHandler? Function(objc.NSProgress) fn,
               {bool keepIsolateAlive = true}) =>
-          objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)>(
+          objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>(
               objc.newClosureBlock(
                   _ObjCBlock_NSProgressUnpublishingHandler_NSProgress_closureCallable,
                   (ffi.Pointer<objc.ObjCObject> arg0) =>
-                      fn(NSProgress.castFromPointer(arg0, retain: true, release: true))
+                      fn(objc.NSProgress.castFromPointer(arg0, retain: true, release: true))
                           ?.ref
                           .retainAndAutorelease() ??
                       ffi.nullptr,
@@ -48676,11 +48817,11 @@ abstract final class ObjCBlock_NSProgressUnpublishingHandler_NSProgress {
               release: true);
 }
 
-/// Call operator for `objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)>`.
+/// Call operator for `objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>`.
 extension ObjCBlock_NSProgressUnpublishingHandler_NSProgress_CallExtension
     on objc
-    .ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)> {
-  DartNSProgressUnpublishingHandler? call(NSProgress arg0) => ref.pointer.ref.invoke
+    .ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)> {
+  DartNSProgressUnpublishingHandler? call(objc.NSProgress arg0) => ref.pointer.ref.invoke
               .cast<
                   ffi.NativeFunction<
                       NSProgressUnpublishingHandler Function(
@@ -48694,15 +48835,14 @@ extension ObjCBlock_NSProgressUnpublishingHandler_NSProgress_CallExtension
       : ObjCBlock_ffiVoid.castFromPointer(
           ref.pointer.ref.invoke.cast<ffi.NativeFunction<NSProgressUnpublishingHandler Function(ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<objc.ObjCObject> arg0)>>().asFunction<
               NSProgressUnpublishingHandler Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0.ref.pointer),
+                  ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0.ref.pointer),
           retain: true,
           release: true);
 }
 
 typedef NSProgressPublishingHandler = ffi.Pointer<objc.ObjCBlockImpl>;
-typedef DartNSProgressPublishingHandler
-    = objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)>;
+typedef DartNSProgressPublishingHandler = objc
+    .ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>;
 typedef CFArrayRetainCallBackFunction = ffi.Pointer<ffi.Void> Function(
     CFAllocatorRef allocator, ffi.Pointer<ffi.Void> value);
 typedef CFArrayRetainCallBack
@@ -48999,6 +49139,9 @@ final class lconv extends ffi.Struct {
   external int int_n_sign_posn;
 }
 
+final class _xlocale extends ffi.Opaque {}
+
+typedef locale_t = ffi.Pointer<_xlocale>;
 typedef float_t = ffi.Float;
 typedef Dartfloat_t = double;
 typedef double_t = ffi.Double;
@@ -49733,34 +49876,12 @@ enum CFCalendarUnit {
 typedef CGFloat = ffi.Double;
 typedef DartCGFloat = double;
 
-final class CGPoint extends ffi.Struct {
-  @CGFloat()
-  external double x;
-
-  @CGFloat()
-  external double y;
-}
-
-final class CGSize extends ffi.Struct {
-  @CGFloat()
-  external double width;
-
-  @CGFloat()
-  external double height;
-}
-
 final class CGVector extends ffi.Struct {
   @CGFloat()
   external double dx;
 
   @CGFloat()
   external double dy;
-}
-
-final class CGRect extends ffi.Struct {
-  external CGPoint origin;
-
-  external CGSize size;
 }
 
 final class CGAffineTransform extends ffi.Struct {
@@ -49784,7 +49905,7 @@ final class CGAffineTransform extends ffi.Struct {
 }
 
 final class CGAffineTransformComponents extends ffi.Struct {
-  external CGSize scale;
+  external objc.CGSize scale;
 
   @CGFloat()
   external double horizontalShear;
@@ -50217,10 +50338,7 @@ final class mach_port_options extends ffi.Struct {
 typedef mach_port_options_t = mach_port_options;
 typedef mach_port_options_ptr_t = ffi.Pointer<mach_port_options_t>;
 typedef CFRunLoopMode = CFStringRef;
-
-final class __CFRunLoop extends ffi.Opaque {}
-
-typedef CFRunLoopRef = ffi.Pointer<__CFRunLoop>;
+typedef CFRunLoopRef = ffi.Pointer<objc.CFRunLoop>;
 
 final class __CFRunLoopSource extends ffi.Opaque {}
 
@@ -59758,7 +59876,7 @@ class NSURLSessionDownloadTask extends NSURLSessionTask {
   /// with -downloadTaskWithResumeData: to attempt to resume the download.
   /// If resume data cannot be created, the completion handler will be
   /// called with nil resumeData.
-  void cancelByProducingResumeData_(
+  void cancelByProducingResumeData(
       objc.ObjCBlock<ffi.Void Function(objc.NSData?)> completionHandler) {
     objc.checkOsVersionInternal(
         'NSURLSessionDownloadTask.cancelByProducingResumeData:',
@@ -60118,11 +60236,10 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
   /// data.  Errors will be returned in the NSURLErrorDomain,
   /// see <Foundation/NSURLError.h>.  The delegate, if any, will still be
   /// called for authentication challenges.
-  NSURLSessionDataTask dataTaskWithRequest_completionHandler_(
-      NSURLRequest request,
-      objc.ObjCBlock<
+  NSURLSessionDataTask dataTaskWithRequest(NSURLRequest request,
+      {required objc.ObjCBlock<
               ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)>
-          completionHandler) {
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSession.dataTaskWithRequest:completionHandler:',
         iOS: (false, (7, 0, 0)),
@@ -60137,11 +60254,10 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
   }
 
   /// dataTaskWithURL:completionHandler:
-  NSURLSessionDataTask dataTaskWithURL_completionHandler_(
-      objc.NSURL url,
-      objc.ObjCBlock<
+  NSURLSessionDataTask dataTaskWithURL(objc.NSURL url,
+      {required objc.ObjCBlock<
               ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)>
-          completionHandler) {
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSession.dataTaskWithURL:completionHandler:',
         iOS: (false, (7, 0, 0)),
@@ -60156,12 +60272,11 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
   }
 
   /// upload convenience method.
-  NSURLSessionUploadTask uploadTaskWithRequest_fromFile_completionHandler_(
-      NSURLRequest request,
-      objc.NSURL fileURL,
-      objc.ObjCBlock<
+  NSURLSessionUploadTask uploadTaskWithRequest(NSURLRequest request,
+      {required objc.NSURL fromFile,
+      required objc.ObjCBlock<
               ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)>
-          completionHandler) {
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSession.uploadTaskWithRequest:fromFile:completionHandler:',
         iOS: (false, (7, 0, 0)),
@@ -60170,19 +60285,18 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
         this.ref.pointer,
         _sel_uploadTaskWithRequest_fromFile_completionHandler_,
         request.ref.pointer,
-        fileURL.ref.pointer,
+        fromFile.ref.pointer,
         completionHandler.ref.pointer);
     return NSURLSessionUploadTask.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   /// uploadTaskWithRequest:fromData:completionHandler:
-  NSURLSessionUploadTask uploadTaskWithRequest_fromData_completionHandler_(
-      NSURLRequest request,
-      objc.NSData? bodyData,
-      objc.ObjCBlock<
+  NSURLSessionUploadTask uploadTaskWithRequest$1(NSURLRequest request,
+      {objc.NSData? fromData,
+      required objc.ObjCBlock<
               ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)>
-          completionHandler) {
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSession.uploadTaskWithRequest:fromData:completionHandler:',
         iOS: (false, (7, 0, 0)),
@@ -60191,7 +60305,7 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
         this.ref.pointer,
         _sel_uploadTaskWithRequest_fromData_completionHandler_,
         request.ref.pointer,
-        bodyData?.ref.pointer ?? ffi.nullptr,
+        fromData?.ref.pointer ?? ffi.nullptr,
         completionHandler.ref.pointer);
     return NSURLSessionUploadTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -60203,11 +60317,10 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
   /// - Parameter resumeData: Resume data blob from an incomplete upload, such as data returned by the cancelByProducingResumeData: method.
   /// - Parameter completionHandler: The completion handler to call when the load request is complete.
   /// - Returns: A new session upload task, or nil if the resumeData is invalid.
-  NSURLSessionUploadTask uploadTaskWithResumeData_completionHandler_(
-      objc.NSData resumeData,
-      objc.ObjCBlock<
+  NSURLSessionUploadTask uploadTaskWithResumeData(objc.NSData resumeData,
+      {required objc.ObjCBlock<
               ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)>
-          completionHandler) {
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSession.uploadTaskWithResumeData:completionHandler:',
         iOS: (false, (17, 0, 0)),
@@ -60225,11 +60338,10 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
   /// completes, the NSURL will point to a file that must be read or
   /// copied during the invocation of the completion routine.  The file
   /// will be removed automatically.
-  NSURLSessionDownloadTask downloadTaskWithRequest_completionHandler_(
-      NSURLRequest request,
-      objc.ObjCBlock<
+  NSURLSessionDownloadTask downloadTaskWithRequest(NSURLRequest request,
+      {required objc.ObjCBlock<
               ffi.Void Function(objc.NSURL?, NSURLResponse?, objc.NSError?)>
-          completionHandler) {
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSession.downloadTaskWithRequest:completionHandler:',
         iOS: (false, (7, 0, 0)),
@@ -60244,11 +60356,10 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
   }
 
   /// downloadTaskWithURL:completionHandler:
-  NSURLSessionDownloadTask downloadTaskWithURL_completionHandler_(
-      objc.NSURL url,
-      objc.ObjCBlock<
+  NSURLSessionDownloadTask downloadTaskWithURL(objc.NSURL url,
+      {required objc.ObjCBlock<
               ffi.Void Function(objc.NSURL?, NSURLResponse?, objc.NSError?)>
-          completionHandler) {
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSession.downloadTaskWithURL:completionHandler:',
         iOS: (false, (7, 0, 0)),
@@ -60263,11 +60374,10 @@ extension NSURLSessionAsynchronousConvenience on NSURLSession {
   }
 
   /// downloadTaskWithResumeData:completionHandler:
-  NSURLSessionDownloadTask downloadTaskWithResumeData_completionHandler_(
-      objc.NSData resumeData,
-      objc.ObjCBlock<
+  NSURLSessionDownloadTask downloadTaskWithResumeData(objc.NSData resumeData,
+      {required objc.ObjCBlock<
               ffi.Void Function(objc.NSURL?, NSURLResponse?, objc.NSError?)>
-          completionHandler) {
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSession.downloadTaskWithResumeData:completionHandler:',
         iOS: (false, (7, 0, 0)),
@@ -60291,7 +60401,7 @@ late final _sel_backgroundSessionConfiguration_ =
 /// NSURLSessionDeprecated
 extension NSURLSessionDeprecated on NSURLSessionConfiguration {
   /// backgroundSessionConfiguration:
-  static NSURLSessionConfiguration backgroundSessionConfiguration_(
+  static NSURLSessionConfiguration backgroundSessionConfiguration(
       objc.NSString identifier) {
     objc.checkOsVersionInternal(
         'NSURLSessionConfiguration.backgroundSessionConfiguration:',
@@ -60525,6 +60635,10 @@ final _objc_msgSend_1hx005a = objc.msgSendPointer
     .asFunction<
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, int)>();
+late final _sel_usesClassicLoadingMode =
+    objc.registerName("usesClassicLoadingMode");
+late final _sel_setUsesClassicLoadingMode_ =
+    objc.registerName("setUsesClassicLoadingMode:");
 
 /// Configuration options for an NSURLSession.  When a session is
 /// created, a copy of the configuration object is made - you cannot
@@ -60587,8 +60701,8 @@ class NSURLSessionConfiguration extends objc.NSObject
   }
 
   /// backgroundSessionConfigurationWithIdentifier:
-  static NSURLSessionConfiguration
-      backgroundSessionConfigurationWithIdentifier_(objc.NSString identifier) {
+  static NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier(
+      objc.NSString identifier) {
     objc.checkOsVersionInternal(
         'NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier:',
         iOS: (false, (8, 0, 0)),
@@ -61159,8 +61273,7 @@ class NSURLSessionConfiguration extends objc.NSObject
         this.ref.pointer, _sel_setURLCache_, value?.ref.pointer ?? ffi.nullptr);
   }
 
-  /// Enable extended background idle mode for any tcp sockets created.    Enabling this mode asks the system to keep the socket open
-  /// and delay reclaiming it when the process moves to the background (see https://developer.apple.com/library/ios/technotes/tn2277/_index.html)
+  /// shouldUseExtendedBackgroundIdleMode
   bool get shouldUseExtendedBackgroundIdleMode {
     objc.checkOsVersionInternal(
         'NSURLSessionConfiguration.shouldUseExtendedBackgroundIdleMode',
@@ -61170,8 +61283,7 @@ class NSURLSessionConfiguration extends objc.NSObject
         this.ref.pointer, _sel_shouldUseExtendedBackgroundIdleMode);
   }
 
-  /// Enable extended background idle mode for any tcp sockets created.    Enabling this mode asks the system to keep the socket open
-  /// and delay reclaiming it when the process moves to the background (see https://developer.apple.com/library/ios/technotes/tn2277/_index.html)
+  /// setShouldUseExtendedBackgroundIdleMode:
   set shouldUseExtendedBackgroundIdleMode(bool value) {
     objc.checkOsVersionInternal(
         'NSURLSessionConfiguration.setShouldUseExtendedBackgroundIdleMode:',
@@ -61189,13 +61301,13 @@ class NSURLSessionConfiguration extends objc.NSObject
   /// than with an instance of NSURLSession.
   /// Custom NSURLProtocol subclasses are not available to background
   /// sessions.
-  objc.ObjCObjectBase? get protocolClasses {
+  objc.NSArray? get protocolClasses {
     objc.checkOsVersionInternal('NSURLSessionConfiguration.protocolClasses',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_151sglz(this.ref.pointer, _sel_protocolClasses);
     return _ret.address == 0
         ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
+        : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// An optional array of Class objects which subclass NSURLProtocol.
@@ -61206,7 +61318,7 @@ class NSURLSessionConfiguration extends objc.NSObject
   /// than with an instance of NSURLSession.
   /// Custom NSURLProtocol subclasses are not available to background
   /// sessions.
-  set protocolClasses(objc.ObjCObjectBase? value) {
+  set protocolClasses(objc.NSArray? value) {
     objc.checkOsVersionInternal('NSURLSessionConfiguration.setProtocolClasses:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     _objc_msgSend_xtuoz7(this.ref.pointer, _sel_setProtocolClasses_,
@@ -61234,6 +61346,33 @@ class NSURLSessionConfiguration extends objc.NSObject
         this.ref.pointer, _sel_setMultipathServiceType_, value.value);
   }
 
+  /// Uses the classic network loader.
+  ///
+  /// NOTE: FTP and HTTP/1 pipelining are only supported in the classic loading mode.
+  ///
+  /// Defaults to YES. The default may be NO in a future OS update.
+  bool get usesClassicLoadingMode {
+    objc.checkOsVersionInternal(
+        'NSURLSessionConfiguration.usesClassicLoadingMode',
+        iOS: (false, (18, 4, 0)),
+        macOS: (false, (15, 4, 0)));
+    return _objc_msgSend_91o635(this.ref.pointer, _sel_usesClassicLoadingMode);
+  }
+
+  /// Uses the classic network loader.
+  ///
+  /// NOTE: FTP and HTTP/1 pipelining are only supported in the classic loading mode.
+  ///
+  /// Defaults to YES. The default may be NO in a future OS update.
+  set usesClassicLoadingMode(bool value) {
+    objc.checkOsVersionInternal(
+        'NSURLSessionConfiguration.setUsesClassicLoadingMode:',
+        iOS: (false, (18, 4, 0)),
+        macOS: (false, (15, 4, 0)));
+    _objc_msgSend_1s56lr9(
+        this.ref.pointer, _sel_setUsesClassicLoadingMode_, value);
+  }
+
   /// init
   NSURLSessionConfiguration init() {
     objc.checkOsVersionInternal('NSURLSessionConfiguration.init',
@@ -61253,7 +61392,7 @@ class NSURLSessionConfiguration extends objc.NSObject
   }
 
   /// allocWithZone:
-  static NSURLSessionConfiguration allocWithZone_(
+  static NSURLSessionConfiguration allocWithZone(
       ffi.Pointer<objc.NSZone> zone) {
     final _ret = _objc_msgSend_1cwp428(
         _class_NSURLSessionConfiguration, _sel_allocWithZone_, zone);
@@ -61438,30 +61577,33 @@ class NSOperationQueue extends objc.NSObject implements NSProgressReporting {
   }
 
   /// progress
-  NSProgress get progress {
+  objc.NSProgress get progress {
     final _ret = _objc_msgSend_151sglz(this.ref.pointer, _sel_progress);
-    return NSProgress.castFromPointer(_ret, retain: true, release: true);
+    return objc.NSProgress.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// addOperation:
-  void addOperation_(NSOperation op) {
+  void addOperation(NSOperation op) {
     objc.checkOsVersionInternal('NSOperationQueue.addOperation:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 5, 0)));
     _objc_msgSend_xtuoz7(this.ref.pointer, _sel_addOperation_, op.ref.pointer);
   }
 
   /// addOperations:waitUntilFinished:
-  void addOperations_waitUntilFinished_(objc.NSArray ops, bool wait) {
+  void addOperations(objc.NSArray ops, {required bool waitUntilFinished}) {
     objc.checkOsVersionInternal(
         'NSOperationQueue.addOperations:waitUntilFinished:',
         iOS: (false, (4, 0, 0)),
         macOS: (false, (10, 6, 0)));
-    _objc_msgSend_6p7ndb(this.ref.pointer,
-        _sel_addOperations_waitUntilFinished_, ops.ref.pointer, wait);
+    _objc_msgSend_6p7ndb(
+        this.ref.pointer,
+        _sel_addOperations_waitUntilFinished_,
+        ops.ref.pointer,
+        waitUntilFinished);
   }
 
   /// addOperationWithBlock:
-  void addOperationWithBlock_(objc.ObjCBlock<ffi.Void Function()> block) {
+  void addOperationWithBlock(objc.ObjCBlock<ffi.Void Function()> block) {
     objc.checkOsVersionInternal('NSOperationQueue.addOperationWithBlock:',
         iOS: (false, (4, 0, 0)), macOS: (false, (10, 6, 0)));
     _objc_msgSend_f167m6(
@@ -61473,7 +61615,7 @@ class NSOperationQueue extends objc.NSObject implements NSProgressReporting {
   /// @discussion         The `addBarrierBlock:` method executes the block when the NSOperationQueue has finished all enqueued operations and
   /// prevents any subsequent operations to be executed until the barrier has been completed. This acts similarly to the
   /// `dispatch_barrier_async` function.
-  void addBarrierBlock_(objc.ObjCBlock<ffi.Void Function()> barrier) {
+  void addBarrierBlock(objc.ObjCBlock<ffi.Void Function()> barrier) {
     objc.checkOsVersionInternal('NSOperationQueue.addBarrierBlock:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     _objc_msgSend_f167m6(
@@ -61531,15 +61673,15 @@ class NSOperationQueue extends objc.NSObject implements NSProgressReporting {
   }
 
   /// qualityOfService
-  NSQualityOfService get qualityOfService {
+  objc.NSQualityOfService get qualityOfService {
     objc.checkOsVersionInternal('NSOperationQueue.qualityOfService',
         iOS: (false, (8, 0, 0)), macOS: (false, (10, 10, 0)));
     final _ret = _objc_msgSend_oi8iq9(this.ref.pointer, _sel_qualityOfService);
-    return NSQualityOfService.fromValue(_ret);
+    return objc.NSQualityOfService.fromValue(_ret);
   }
 
   /// setQualityOfService:
-  set qualityOfService(NSQualityOfService value) {
+  set qualityOfService(objc.NSQualityOfService value) {
     objc.checkOsVersionInternal('NSOperationQueue.setQualityOfService:',
         iOS: (false, (8, 0, 0)), macOS: (false, (10, 10, 0)));
     _objc_msgSend_n2da1l(
@@ -61616,7 +61758,7 @@ class NSOperationQueue extends objc.NSObject implements NSProgressReporting {
   }
 
   /// allocWithZone:
-  static NSOperationQueue allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSOperationQueue allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret = _objc_msgSend_1cwp428(
         _class_NSOperationQueue, _sel_allocWithZone_, zone);
     return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
@@ -61664,60 +61806,56 @@ late final _sel_resetWithCompletionHandler_ =
     objc.registerName("resetWithCompletionHandler:");
 late final _sel_flushWithCompletionHandler_ =
     objc.registerName("flushWithCompletionHandler:");
-void
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<objc.ObjCObject> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Void Function(
-                        ffi.Pointer<objc.ObjCObject> arg0,
-                        ffi.Pointer<objc.ObjCObject> arg1,
-                        ffi.Pointer<objc.ObjCObject> arg2)>>()
-            .asFunction<
-                void Function(
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<objc.ObjCObject> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2) =>
-        (objc.getBlockClosure(block) as void Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerTrampoline(
+void _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<objc.ObjCObject> arg0,
         ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) {
+        ffi.Pointer<objc.ObjCObject> arg2) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCObject> arg0,
+                    ffi.Pointer<objc.ObjCObject> arg1,
+                    ffi.Pointer<objc.ObjCObject> arg2)>>()
+        .asFunction<
+            void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_fnPtrTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<objc.ObjCObject> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2) =>
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_closureTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_listenerTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1,
+    ffi.Pointer<objc.ObjCObject> arg2) {
   (objc.getBlockClosure(block) as void Function(
       ffi.Pointer<objc.ObjCObject>,
       ffi.Pointer<objc.ObjCObject>,
@@ -61731,22 +61869,21 @@ ffi.NativeCallable<
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerCallable =
-    ffi.NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_listenerCallable = ffi
+        .NativeCallable<
             ffi.Void Function(
                 ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerTrampoline)
+        _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_listenerTrampoline)
       ..keepIsolateAlive = false;
-void
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> waiter,
-        ffi.Pointer<objc.ObjCObject> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) {
+void _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1,
+    ffi.Pointer<objc.ObjCObject> arg2) {
   try {
     (objc.getBlockClosure(block) as void Function(
         ffi.Pointer<objc.ObjCObject>,
@@ -61766,15 +61903,15 @@ ffi.NativeCallable<
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingCallable =
-    ffi.NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_blockingCallable = ffi
+        .NativeCallable<
             ffi.Void Function(
                 ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<ffi.Void>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
-        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingTrampoline)
+        _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_blockingTrampoline)
       ..keepIsolateAlive = false;
 ffi.NativeCallable<
         ffi.Void Function(
@@ -61783,49 +61920,45 @@ ffi.NativeCallable<
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingListenerCallable =
-    ffi.NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_blockingListenerCallable = ffi
+        .NativeCallable<
             ffi.Void Function(
                 ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<ffi.Void>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingTrampoline)
+        _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_blockingTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
-abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>`.
+abstract final class ObjCBlock_ffiVoid_NSArray_NSArray_NSArray {
   /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-              ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
+  static objc
+      .ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>
       castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
               {bool retain = false, bool release = false}) =>
           objc.ObjCBlock<
-                  ffi.Void Function(
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>(pointer,
-              retain: retain, release: release);
+              ffi.Void Function(objc.NSArray, objc.NSArray,
+                  objc.NSArray)>(pointer, retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-              ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>(
-              objc.newPointerBlock(_ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)> fromFunctionPointer(
+          ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<objc.ObjCObject> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCObject> arg2)>>
+              ptr) =>
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>(
+          objc.newPointerBlock(_ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_fnPtrCallable, ptr.cast()),
+          retain: false,
+          release: true);
 
   /// Creates a block from a Dart function.
   ///
@@ -61835,19 +61968,19 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObj
   ///
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
-      fromFunction(void Function(objc.ObjCObjectBase, objc.ObjCObjectBase, objc.ObjCObjectBase) fn,
-              {bool keepIsolateAlive = true}) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_closureCallable,
-                  (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2) => fn(
-                      objc.ObjCObjectBase(arg0, retain: true, release: true),
-                      objc.ObjCObjectBase(arg1, retain: true, release: true),
-                      objc.ObjCObjectBase(arg2, retain: true, release: true)),
-                  keepIsolateAlive),
-              retain: false,
-              release: true);
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)> fromFunction(
+          void Function(objc.NSArray, objc.NSArray, objc.NSArray) fn,
+          {bool keepIsolateAlive = true}) =>
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_closureCallable,
+              (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2) => fn(
+                  objc.NSArray.castFromPointer(arg0, retain: true, release: true),
+                  objc.NSArray.castFromPointer(arg1, retain: true, release: true),
+                  objc.NSArray.castFromPointer(arg2, retain: true, release: true)),
+              keepIsolateAlive),
+          retain: false,
+          release: true);
 
   /// Creates a listener block from a Dart function.
   ///
@@ -61858,32 +61991,29 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObj
   ///
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-          ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)> listener(
-      void Function(
-              objc.ObjCObjectBase, objc.ObjCObjectBase, objc.ObjCObjectBase)
-          fn,
-      {bool keepIsolateAlive = true}) {
+  static objc
+      .ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>
+      listener(void Function(objc.NSArray, objc.NSArray, objc.NSArray) fn,
+          {bool keepIsolateAlive = true}) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerCallable
+        _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_listenerCallable
             .nativeFunction
             .cast(),
         (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
                 ffi.Pointer<objc.ObjCObject> arg2) =>
             fn(
-                objc.ObjCObjectBase(arg0, retain: false, release: true),
-                objc.ObjCObjectBase(arg1, retain: false, release: true),
-                objc.ObjCObjectBase(arg2, retain: false, release: true)),
+                objc.NSArray.castFromPointer(arg0,
+                    retain: false, release: true),
+                objc.NSArray.castFromPointer(arg1,
+                    retain: false, release: true),
+                objc.NSArray.castFromPointer(arg2,
+                    retain: false, release: true)),
         keepIsolateAlive);
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_r8gdi7(raw);
     objc.objectRelease(raw.cast());
     return objc.ObjCBlock<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>(wrapper,
-        retain: false, release: true);
+        ffi.Void Function(objc.NSArray, objc.NSArray,
+            objc.NSArray)>(wrapper, retain: false, release: true);
   }
 
   /// Creates a blocking block from a Dart function.
@@ -61896,55 +62026,52 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObj
   /// until it is garbage collected by both Dart and ObjC. If the owner isolate
   /// has shut down, and the block is invoked by native code, it may block
   /// indefinitely, or have other undefined behavior.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-          ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)> blocking(
-      void Function(
-              objc.ObjCObjectBase, objc.ObjCObjectBase, objc.ObjCObjectBase)
-          fn,
-      {bool keepIsolateAlive = true}) {
+  static objc
+      .ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>
+      blocking(void Function(objc.NSArray, objc.NSArray, objc.NSArray) fn,
+          {bool keepIsolateAlive = true}) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingCallable
+        _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_blockingCallable
             .nativeFunction
             .cast(),
         (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
                 ffi.Pointer<objc.ObjCObject> arg2) =>
             fn(
-                objc.ObjCObjectBase(arg0, retain: false, release: true),
-                objc.ObjCObjectBase(arg1, retain: false, release: true),
-                objc.ObjCObjectBase(arg2, retain: false, release: true)),
+                objc.NSArray.castFromPointer(arg0,
+                    retain: false, release: true),
+                objc.NSArray.castFromPointer(arg1,
+                    retain: false, release: true),
+                objc.NSArray.castFromPointer(arg2,
+                    retain: false, release: true)),
         keepIsolateAlive);
     final rawListener = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingListenerCallable
+        _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_blockingListenerCallable
             .nativeFunction
             .cast(),
         (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
                 ffi.Pointer<objc.ObjCObject> arg2) =>
             fn(
-                objc.ObjCObjectBase(arg0, retain: false, release: true),
-                objc.ObjCObjectBase(arg1, retain: false, release: true),
-                objc.ObjCObjectBase(arg2, retain: false, release: true)),
+                objc.NSArray.castFromPointer(arg0,
+                    retain: false, release: true),
+                objc.NSArray.castFromPointer(arg1,
+                    retain: false, release: true),
+                objc.NSArray.castFromPointer(arg2,
+                    retain: false, release: true)),
         keepIsolateAlive);
     final wrapper = _NativeCupertinoHttp_wrapBlockingBlock_r8gdi7(
         raw, rawListener, objc.objCContext);
     objc.objectRelease(raw.cast());
     objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>(wrapper,
-        retain: false, release: true);
+        ffi.Void Function(objc.NSArray, objc.NSArray,
+            objc.NSArray)>(wrapper, retain: false, release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
-extension ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)> {
-  void call(objc.ObjCObjectBase arg0, objc.ObjCObjectBase arg1,
-          objc.ObjCObjectBase arg2) =>
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>`.
+extension ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_CallExtension on objc
+    .ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)> {
+  void call(objc.NSArray arg0, objc.NSArray arg1, objc.NSArray arg2) =>
       ref.pointer.ref.invoke
               .cast<
                   ffi.NativeFunction<
@@ -61964,7 +62091,7 @@ extension ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_CallExt
 
 late final _sel_getTasksWithCompletionHandler_ =
     objc.registerName("getTasksWithCompletionHandler:");
-void _ObjCBlock_ffiVoid_objcObjCObject$1_fnPtrTrampoline(
+void _ObjCBlock_ffiVoid_NSArray$1_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<objc.ObjCObject> arg0) =>
     block.ref.target
@@ -61972,24 +62099,24 @@ void _ObjCBlock_ffiVoid_objcObjCObject$1_fnPtrTrampoline(
             ffi.NativeFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0)>>()
         .asFunction<void Function(ffi.Pointer<objc.ObjCObject>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_objcObjCObject$1_fnPtrCallable =
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSArray$1_fnPtrCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_objcObjCObject$1_fnPtrTrampoline)
+            _ObjCBlock_ffiVoid_NSArray$1_fnPtrTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_objcObjCObject$1_closureTrampoline(
+void _ObjCBlock_ffiVoid_NSArray$1_closureTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<objc.ObjCObject> arg0) =>
     (objc.getBlockClosure(block) as void Function(
         ffi.Pointer<objc.ObjCObject>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_objcObjCObject$1_closureCallable =
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSArray$1_closureCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_objcObjCObject$1_closureTrampoline)
+            _ObjCBlock_ffiVoid_NSArray$1_closureTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_objcObjCObject$1_listenerTrampoline(
+void _ObjCBlock_ffiVoid_NSArray$1_listenerTrampoline(
     ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<objc.ObjCObject> arg0) {
   (objc.getBlockClosure(block) as void Function(
       ffi.Pointer<objc.ObjCObject>))(arg0);
@@ -61999,12 +62126,12 @@ void _ObjCBlock_ffiVoid_objcObjCObject$1_listenerTrampoline(
 ffi.NativeCallable<
         ffi.Void Function(
             ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject$1_listenerCallable = ffi.NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray$1_listenerCallable = ffi.NativeCallable<
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_objcObjCObject$1_listenerTrampoline)
+        _ObjCBlock_ffiVoid_NSArray$1_listenerTrampoline)
       ..keepIsolateAlive = false;
-void _ObjCBlock_ffiVoid_objcObjCObject$1_blockingTrampoline(
+void _ObjCBlock_ffiVoid_NSArray$1_blockingTrampoline(
     ffi.Pointer<objc.ObjCBlockImpl> block,
     ffi.Pointer<ffi.Void> waiter,
     ffi.Pointer<objc.ObjCObject> arg0) {
@@ -62021,47 +62148,45 @@ void _ObjCBlock_ffiVoid_objcObjCObject$1_blockingTrampoline(
 ffi.NativeCallable<
         ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
             ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject$1_blockingCallable = ffi.NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray$1_blockingCallable = ffi.NativeCallable<
             ffi.Void Function(
                 ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<ffi.Void>,
                 ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
-        _ObjCBlock_ffiVoid_objcObjCObject$1_blockingTrampoline)
+        _ObjCBlock_ffiVoid_NSArray$1_blockingTrampoline)
       ..keepIsolateAlive = false;
 ffi.NativeCallable<
         ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
             ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_objcObjCObject$1_blockingListenerCallable = ffi
-        .NativeCallable<
+    _ObjCBlock_ffiVoid_NSArray$1_blockingListenerCallable = ffi.NativeCallable<
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_objcObjCObject$1_blockingTrampoline)
+        _ObjCBlock_ffiVoid_NSArray$1_blockingTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>`.
-abstract final class ObjCBlock_ffiVoid_objcObjCObject$1 {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSArray)>`.
+abstract final class ObjCBlock_ffiVoid_NSArray$1 {
   /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
-              pointer,
-              retain: retain,
-              release: release);
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> castFromPointer(
+          ffi.Pointer<objc.ObjCBlockImpl> pointer,
+          {bool retain = false,
+          bool release = false}) =>
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(pointer,
+          retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)> fromFunctionPointer(
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> fromFunctionPointer(
           ffi.Pointer<
                   ffi.NativeFunction<
                       ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0)>>
               ptr) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(
           objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_objcObjCObject$1_fnPtrCallable, ptr.cast()),
+              _ObjCBlock_ffiVoid_NSArray$1_fnPtrCallable, ptr.cast()),
           retain: false,
           release: true);
 
@@ -62073,17 +62198,18 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject$1 {
   ///
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
-      fromFunction(void Function(objc.ObjCObjectBase) fn,
-              {bool keepIsolateAlive = true}) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_objcObjCObject$1_closureCallable,
-                  (ffi.Pointer<objc.ObjCObject> arg0) => fn(
-                      objc.ObjCObjectBase(arg0, retain: true, release: true)),
-                  keepIsolateAlive),
-              retain: false,
-              release: true);
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> fromFunction(
+          void Function(objc.NSArray) fn,
+          {bool keepIsolateAlive = true}) =>
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_NSArray$1_closureCallable,
+              (ffi.Pointer<objc.ObjCObject> arg0) => fn(
+                  objc.NSArray.castFromPointer(arg0,
+                      retain: true, release: true)),
+              keepIsolateAlive),
+          retain: false,
+          release: true);
 
   /// Creates a listener block from a Dart function.
   ///
@@ -62094,21 +62220,18 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject$1 {
   ///
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
-      listener(void Function(objc.ObjCObjectBase) fn,
-          {bool keepIsolateAlive = true}) {
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> listener(
+      void Function(objc.NSArray) fn,
+      {bool keepIsolateAlive = true}) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject$1_listenerCallable.nativeFunction
-            .cast(),
-        (ffi.Pointer<objc.ObjCObject> arg0) =>
-            fn(objc.ObjCObjectBase(arg0, retain: false, release: true)),
+        _ObjCBlock_ffiVoid_NSArray$1_listenerCallable.nativeFunction.cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(
+            objc.NSArray.castFromPointer(arg0, retain: false, release: true)),
         keepIsolateAlive);
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_xtuoz7(raw);
     objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
-        wrapper,
-        retain: false,
-        release: true);
+    return objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(wrapper,
+        retain: false, release: true);
   }
 
   /// Creates a blocking block from a Dart function.
@@ -62121,37 +62244,33 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject$1 {
   /// until it is garbage collected by both Dart and ObjC. If the owner isolate
   /// has shut down, and the block is invoked by native code, it may block
   /// indefinitely, or have other undefined behavior.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
-      blocking(void Function(objc.ObjCObjectBase) fn,
-          {bool keepIsolateAlive = true}) {
+  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> blocking(
+      void Function(objc.NSArray) fn,
+      {bool keepIsolateAlive = true}) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject$1_blockingCallable.nativeFunction
-            .cast(),
-        (ffi.Pointer<objc.ObjCObject> arg0) =>
-            fn(objc.ObjCObjectBase(arg0, retain: false, release: true)),
+        _ObjCBlock_ffiVoid_NSArray$1_blockingCallable.nativeFunction.cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(
+            objc.NSArray.castFromPointer(arg0, retain: false, release: true)),
         keepIsolateAlive);
     final rawListener = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_objcObjCObject$1_blockingListenerCallable
-            .nativeFunction
+        _ObjCBlock_ffiVoid_NSArray$1_blockingListenerCallable.nativeFunction
             .cast(),
-        (ffi.Pointer<objc.ObjCObject> arg0) =>
-            fn(objc.ObjCObjectBase(arg0, retain: false, release: true)),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(
+            objc.NSArray.castFromPointer(arg0, retain: false, release: true)),
         keepIsolateAlive);
     final wrapper = _NativeCupertinoHttp_wrapBlockingBlock_xtuoz7(
         raw, rawListener, objc.objCContext);
     objc.objectRelease(raw.cast());
     objc.objectRelease(rawListener.cast());
-    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
-        wrapper,
-        retain: false,
-        release: true);
+    return objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(wrapper,
+        retain: false, release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>`.
-extension ObjCBlock_ffiVoid_objcObjCObject$1_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)> {
-  void call(objc.ObjCObjectBase arg0) => ref.pointer.ref.invoke
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSArray)>`.
+extension ObjCBlock_ffiVoid_NSArray$1_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(objc.NSArray)> {
+  void call(objc.NSArray arg0) => ref.pointer.ref.invoke
       .cast<
           ffi.NativeFunction<
               ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
@@ -62324,7 +62443,7 @@ class NSURLSessionWebSocketMessage extends objc.NSObject {
   }
 
   /// Create a message with data type
-  NSURLSessionWebSocketMessage initWithData_(objc.NSData data) {
+  NSURLSessionWebSocketMessage initWithData(objc.NSData data) {
     objc.checkOsVersionInternal('NSURLSessionWebSocketMessage.initWithData:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -62334,7 +62453,7 @@ class NSURLSessionWebSocketMessage extends objc.NSObject {
   }
 
   /// Create a message with string type
-  NSURLSessionWebSocketMessage initWithString_(objc.NSString string) {
+  NSURLSessionWebSocketMessage initWithString(objc.NSString string) {
     objc.checkOsVersionInternal('NSURLSessionWebSocketMessage.initWithString:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -62390,7 +62509,7 @@ class NSURLSessionWebSocketMessage extends objc.NSObject {
   }
 
   /// allocWithZone:
-  static NSURLSessionWebSocketMessage allocWithZone_(
+  static NSURLSessionWebSocketMessage allocWithZone(
       ffi.Pointer<objc.NSZone> zone) {
     final _ret = _objc_msgSend_1cwp428(
         _class_NSURLSessionWebSocketMessage, _sel_allocWithZone_, zone);
@@ -62978,8 +63097,9 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
   /// Note that invocation of the completion handler does not
   /// guarantee that the remote side has received all the bytes, only
   /// that they have been written to the kernel.
-  void sendMessage_completionHandler_(NSURLSessionWebSocketMessage message,
-      objc.ObjCBlock<ffi.Void Function(objc.NSError?)> completionHandler) {
+  void sendMessage(NSURLSessionWebSocketMessage message,
+      {required objc.ObjCBlock<ffi.Void Function(objc.NSError?)>
+          completionHandler}) {
     objc.checkOsVersionInternal(
         'NSURLSessionWebSocketTask.sendMessage:completionHandler:',
         iOS: (false, (13, 0, 0)),
@@ -62991,7 +63111,7 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
   /// Reads a WebSocket message once all the frames of the message are available.
   /// If the maximumMessage size is hit while buffering the frames, the receiveMessage call will error out
   /// and all outstanding work will also fail resulting in the end of the task.
-  void receiveMessageWithCompletionHandler_(
+  void receiveMessageWithCompletionHandler(
       objc.ObjCBlock<
               ffi.Void Function(NSURLSessionWebSocketMessage?, objc.NSError?)>
           completionHandler) {
@@ -63009,7 +63129,7 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
   /// receives a pong from the server endpoint. If a connection is lost or an error occurs before receiving
   /// the pong from the endpoint, the pongReceiveHandler block will be invoked with an error.
   /// Note - the pongReceiveHandler will always be called in the order in which the pings were sent.
-  void sendPingWithPongReceiveHandler_(
+  void sendPingWithPongReceiveHandler(
       objc.ObjCBlock<ffi.Void Function(objc.NSError?)> pongReceiveHandler) {
     objc.checkOsVersionInternal(
         'NSURLSessionWebSocketTask.sendPingWithPongReceiveHandler:',
@@ -63021,8 +63141,7 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
 
   /// Sends a close frame with the given closeCode. An optional reason can be provided while sending the close frame.
   /// Simply calling cancel on the task will result in a cancellation frame being sent without any reason.
-  void cancelWithCloseCode_reason_(
-      DartNSInteger closeCode, objc.NSData? reason) {
+  void cancelWithCloseCode(DartNSInteger closeCode, {objc.NSData? reason}) {
     objc.checkOsVersionInternal(
         'NSURLSessionWebSocketTask.cancelWithCloseCode:reason:',
         iOS: (false, (13, 0, 0)),
@@ -63191,7 +63310,7 @@ class NSURLSession extends objc.NSObject {
   /// configuration options it is not necessary to specify a delegate.
   /// If you do specify a delegate, the delegate will be retained until after
   /// the delegate has been sent the URLSession:didBecomeInvalidWithError: message.
-  static NSURLSession sessionWithConfiguration_(
+  static NSURLSession sessionWithConfiguration(
       NSURLSessionConfiguration configuration) {
     objc.checkOsVersionInternal('NSURLSession.sessionWithConfiguration:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
@@ -63201,10 +63320,10 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// sessionWithConfiguration:delegate:delegateQueue:
-  static NSURLSession sessionWithConfiguration_delegate_delegateQueue_(
+  static NSURLSession sessionWithConfiguration$1(
       NSURLSessionConfiguration configuration,
-      NSURLSessionDelegate? delegate,
-      NSOperationQueue? queue) {
+      {NSURLSessionDelegate? delegate,
+      NSOperationQueue? delegateQueue}) {
     objc.checkOsVersionInternal(
         'NSURLSession.sessionWithConfiguration:delegate:delegateQueue:',
         iOS: (false, (7, 0, 0)),
@@ -63214,7 +63333,7 @@ class NSURLSession extends objc.NSObject {
         _sel_sessionWithConfiguration_delegate_delegateQueue_,
         configuration.ref.pointer,
         delegate?.ref.pointer ?? ffi.nullptr,
-        queue?.ref.pointer ?? ffi.nullptr);
+        delegateQueue?.ref.pointer ?? ffi.nullptr);
     return NSURLSession.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -63295,7 +63414,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// empty all cookies, cache and credential stores, removes disk files, issues -flushWithCompletionHandler:. Invokes completionHandler() on the delegate queue.
-  void resetWithCompletionHandler_(
+  void resetWithCompletionHandler(
       objc.ObjCBlock<ffi.Void Function()> completionHandler) {
     objc.checkOsVersionInternal('NSURLSession.resetWithCompletionHandler:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
@@ -63304,7 +63423,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// flush storage to disk and clear transient network caches.  Invokes completionHandler() on the delegate queue.
-  void flushWithCompletionHandler_(
+  void flushWithCompletionHandler(
       objc.ObjCBlock<ffi.Void Function()> completionHandler) {
     objc.checkOsVersionInternal('NSURLSession.flushWithCompletionHandler:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
@@ -63313,10 +63432,9 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// invokes completionHandler with outstanding data, upload and download tasks.
-  void getTasksWithCompletionHandler_(
+  void getTasksWithCompletionHandler(
       objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                  ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
+              ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>
           completionHandler) {
     objc.checkOsVersionInternal('NSURLSession.getTasksWithCompletionHandler:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
@@ -63325,9 +63443,8 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// invokes completionHandler with all outstanding tasks.
-  void getAllTasksWithCompletionHandler_(
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
-          completionHandler) {
+  void getAllTasksWithCompletionHandler(
+      objc.ObjCBlock<ffi.Void Function(objc.NSArray)> completionHandler) {
     objc.checkOsVersionInternal(
         'NSURLSession.getAllTasksWithCompletionHandler:',
         iOS: (false, (9, 0, 0)),
@@ -63337,7 +63454,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates a data task with the given request.  The request may have a body stream.
-  NSURLSessionDataTask dataTaskWithRequest_(NSURLRequest request) {
+  NSURLSessionDataTask dataTaskWithRequest(NSURLRequest request) {
     objc.checkOsVersionInternal('NSURLSession.dataTaskWithRequest:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -63347,7 +63464,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates a data task to retrieve the contents of the given URL.
-  NSURLSessionDataTask dataTaskWithURL_(objc.NSURL url) {
+  NSURLSessionDataTask dataTaskWithURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSURLSession.dataTaskWithURL:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -63357,29 +63474,29 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates an upload task with the given request.  The body of the request will be created from the file referenced by fileURL
-  NSURLSessionUploadTask uploadTaskWithRequest_fromFile_(
-      NSURLRequest request, objc.NSURL fileURL) {
+  NSURLSessionUploadTask uploadTaskWithRequest(NSURLRequest request,
+      {required objc.NSURL fromFile}) {
     objc.checkOsVersionInternal('NSURLSession.uploadTaskWithRequest:fromFile:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_15qeuct(
         this.ref.pointer,
         _sel_uploadTaskWithRequest_fromFile_,
         request.ref.pointer,
-        fileURL.ref.pointer);
+        fromFile.ref.pointer);
     return NSURLSessionUploadTask.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   /// Creates an upload task with the given request.  The body of the request is provided from the bodyData.
-  NSURLSessionUploadTask uploadTaskWithRequest_fromData_(
-      NSURLRequest request, objc.NSData bodyData) {
+  NSURLSessionUploadTask uploadTaskWithRequest$1(NSURLRequest request,
+      {required objc.NSData fromData}) {
     objc.checkOsVersionInternal('NSURLSession.uploadTaskWithRequest:fromData:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_15qeuct(
         this.ref.pointer,
         _sel_uploadTaskWithRequest_fromData_,
         request.ref.pointer,
-        bodyData.ref.pointer);
+        fromData.ref.pointer);
     return NSURLSessionUploadTask.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -63392,7 +63509,7 @@ class NSURLSession extends objc.NSObject {
   ///
   /// - Parameter resumeData: Resume data blob from an incomplete upload, such as data returned by the cancelByProducingResumeData: method.
   /// - Returns: A new session upload task, or nil if the resumeData is invalid.
-  NSURLSessionUploadTask uploadTaskWithResumeData_(objc.NSData resumeData) {
+  NSURLSessionUploadTask uploadTaskWithResumeData(objc.NSData resumeData) {
     objc.checkOsVersionInternal('NSURLSession.uploadTaskWithResumeData:',
         iOS: (false, (17, 0, 0)), macOS: (false, (14, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.pointer,
@@ -63402,7 +63519,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates an upload task with the given request.  The previously set body stream of the request (if any) is ignored and the URLSession:task:needNewBodyStream: delegate will be called when the body payload is required.
-  NSURLSessionUploadTask uploadTaskWithStreamedRequest_(NSURLRequest request) {
+  NSURLSessionUploadTask uploadTaskWithStreamedRequest(NSURLRequest request) {
     objc.checkOsVersionInternal('NSURLSession.uploadTaskWithStreamedRequest:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.pointer,
@@ -63412,7 +63529,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates a download task with the given request.
-  NSURLSessionDownloadTask downloadTaskWithRequest_(NSURLRequest request) {
+  NSURLSessionDownloadTask downloadTaskWithRequest(NSURLRequest request) {
     objc.checkOsVersionInternal('NSURLSession.downloadTaskWithRequest:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -63422,7 +63539,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates a download task to download the contents of the given URL.
-  NSURLSessionDownloadTask downloadTaskWithURL_(objc.NSURL url) {
+  NSURLSessionDownloadTask downloadTaskWithURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSURLSession.downloadTaskWithURL:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -63432,7 +63549,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates a download task with the resume data.  If the download cannot be successfully resumed, URLSession:task:didCompleteWithError: will be called.
-  NSURLSessionDownloadTask downloadTaskWithResumeData_(objc.NSData resumeData) {
+  NSURLSessionDownloadTask downloadTaskWithResumeData(objc.NSData resumeData) {
     objc.checkOsVersionInternal('NSURLSession.downloadTaskWithResumeData:',
         iOS: (false, (7, 0, 0)), macOS: (false, (10, 9, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.pointer,
@@ -63442,8 +63559,8 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates a bidirectional stream task to a given host and port.
-  NSURLSessionStreamTask streamTaskWithHostName_port_(
-      objc.NSString hostname, DartNSInteger port) {
+  NSURLSessionStreamTask streamTaskWithHostName(objc.NSString hostname,
+      {required DartNSInteger port}) {
     objc.checkOsVersionInternal('NSURLSession.streamTaskWithHostName:port:',
         iOS: (false, (9, 0, 0)), macOS: (false, (10, 11, 0)));
     final _ret = _objc_msgSend_9slupp(this.ref.pointer,
@@ -63454,7 +63571,7 @@ class NSURLSession extends objc.NSObject {
 
   /// Creates a bidirectional stream task with an NSNetService to identify the endpoint.
   /// The NSNetService will be resolved before any IO completes.
-  NSURLSessionStreamTask streamTaskWithNetService_(NSNetService service) {
+  NSURLSessionStreamTask streamTaskWithNetService(NSNetService service) {
     objc.checkOsVersionInternal('NSURLSession.streamTaskWithNetService:',
         iOS: (false, (9, 0, 0)), macOS: (false, (10, 11, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -63464,7 +63581,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// Creates a WebSocket task given the url. The given url must have a ws or wss scheme.
-  NSURLSessionWebSocketTask webSocketTaskWithURL_(objc.NSURL url) {
+  NSURLSessionWebSocketTask webSocketTaskWithURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSURLSession.webSocketTaskWithURL:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -63476,8 +63593,8 @@ class NSURLSession extends objc.NSObject {
   /// Creates a WebSocket task given the url and an array of protocols. The protocols will be used in the WebSocket handshake to
   /// negotiate a preferred protocol with the server
   /// Note - The protocol will not affect the WebSocket framing. More details on the protocol can be found by reading the WebSocket RFC
-  NSURLSessionWebSocketTask webSocketTaskWithURL_protocols_(
-      objc.NSURL url, objc.ObjCObjectBase protocols) {
+  NSURLSessionWebSocketTask webSocketTaskWithURL$1(objc.NSURL url,
+      {required objc.NSArray protocols}) {
     objc.checkOsVersionInternal('NSURLSession.webSocketTaskWithURL:protocols:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     final _ret = _objc_msgSend_15qeuct(
@@ -63492,7 +63609,7 @@ class NSURLSession extends objc.NSObject {
   /// Creates a WebSocket task given the request. The request properties can be modified and will be used by the task during the HTTP handshake phase.
   /// Clients who want to add custom protocols can do so by directly adding headers with the key Sec-WebSocket-Protocol
   /// and a comma separated list of protocols they wish to negotiate with the server. The custom HTTP headers provided by the client will remain unchanged for the handshake with the server.
-  NSURLSessionWebSocketTask webSocketTaskWithRequest_(NSURLRequest request) {
+  NSURLSessionWebSocketTask webSocketTaskWithRequest(NSURLRequest request) {
     objc.checkOsVersionInternal('NSURLSession.webSocketTaskWithRequest:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -63517,7 +63634,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   /// allocWithZone:
-  static NSURLSession allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSURLSession allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret =
         _objc_msgSend_1cwp428(_class_NSURLSession, _sel_allocWithZone_, zone);
     return NSURLSession.castFromPointer(_ret, retain: false, release: true);
@@ -64519,11 +64636,10 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// @param 	headerFields A dictionary representing the header keys and values of the server response.
   /// @result 	the instance of the object, or NULL if an error occurred during initialization.
   /// @discussion This API was introduced in Mac OS X 10.7.2 and iOS 5.0 and is not available prior to those releases.
-  NSHTTPURLResponse? initWithURL_statusCode_HTTPVersion_headerFields_(
-      objc.NSURL url,
-      DartNSInteger statusCode,
+  NSHTTPURLResponse? initWithURLAndStatusCode(objc.NSURL url,
+      {required DartNSInteger statusCode,
       objc.NSString? HTTPVersion,
-      objc.NSDictionary? headerFields) {
+      objc.NSDictionary? headerFields}) {
     objc.checkOsVersionInternal(
         'NSHTTPURLResponse.initWithURL:statusCode:HTTPVersion:headerFields:',
         iOS: (false, (5, 0, 0)),
@@ -64574,7 +64690,7 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// (case-insensitive).
   /// @result the value associated with the given header field, or nil if
   /// there is no value associated with the given header field.
-  objc.NSString? valueForHTTPHeaderField_(objc.NSString field) {
+  objc.NSString? valueForHTTPHeaderField(objc.NSString field) {
     objc.checkOsVersionInternal('NSHTTPURLResponse.valueForHTTPHeaderField:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -64590,13 +64706,14 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// corresponding to the status code for this response.
   /// @param statusCode the status code to use to produce a localized string.
   /// @result A localized string corresponding to the given status code.
-  static objc.NSString localizedStringForStatusCode_(DartNSInteger statusCode) {
+  static objc.NSString localizedStringForStatusCode(
+      DartNSInteger statusCode$1) {
     objc.checkOsVersionInternal(
         'NSHTTPURLResponse.localizedStringForStatusCode:',
         iOS: (false, (2, 0, 0)),
         macOS: (false, (10, 2, 0)));
     final _ret = _objc_msgSend_qugqlf(_class_NSHTTPURLResponse,
-        _sel_localizedStringForStatusCode_, statusCode);
+        _sel_localizedStringForStatusCode_, statusCode$1);
     return objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -64609,12 +64726,10 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// @param name the name of the text encoding for the associated data, if applicable, else nil
   /// @result The initialized NSURLResponse.
   /// @discussion This is the designated initializer for NSURLResponse.
-  NSHTTPURLResponse
-      initWithURL_MIMEType_expectedContentLength_textEncodingName_(
-          objc.NSURL URL,
-          objc.NSString? MIMEType,
-          DartNSInteger length,
-          objc.NSString? name) {
+  NSHTTPURLResponse initWithUrlAndMIMEType(objc.NSURL URL,
+      {objc.NSString? MIMEType,
+      required DartNSInteger length,
+      objc.NSString? name}) {
     objc.checkOsVersionInternal(
         'NSHTTPURLResponse.initWithURL:MIMEType:expectedContentLength:textEncodingName:',
         iOS: (false, (2, 0, 0)),
@@ -64648,7 +64763,7 @@ class NSHTTPURLResponse extends NSURLResponse {
   }
 
   /// allocWithZone:
-  static NSHTTPURLResponse allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSHTTPURLResponse allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret = _objc_msgSend_1cwp428(
         _class_NSHTTPURLResponse, _sel_allocWithZone_, zone);
     return NSHTTPURLResponse.castFromPointer(_ret,
@@ -64687,7 +64802,7 @@ class NSHTTPURLResponse extends NSURLResponse {
   }
 
   /// initWithCoder:
-  NSHTTPURLResponse? initWithCoder_(objc.NSCoder coder) {
+  NSHTTPURLResponse? initWithCoder(objc.NSCoder coder) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithCoder_, coder.ref.pointer);
     return _ret.address == 0
@@ -77716,18 +77831,18 @@ late final _sel_value_withObjCType_ = objc.registerName("value:withObjCType:");
 /// NSValueCreation
 extension NSValueCreation on objc.NSValue {
   /// valueWithBytes:objCType:
-  static objc.NSValue valueWithBytes_objCType_(
-      ffi.Pointer<ffi.Void> value, ffi.Pointer<ffi.Char> type) {
+  static objc.NSValue valueWithBytes(ffi.Pointer<ffi.Void> value,
+      {required ffi.Pointer<ffi.Char> objCType}) {
     final _ret = _objc_msgSend_e9mncn(
-        _class_NSValue, _sel_valueWithBytes_objCType_, value, type);
+        _class_NSValue, _sel_valueWithBytes_objCType_, value, objCType);
     return objc.NSValue.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// value:withObjCType:
-  static objc.NSValue value_withObjCType_(
-      ffi.Pointer<ffi.Void> value, ffi.Pointer<ffi.Char> type) {
+  static objc.NSValue value(ffi.Pointer<ffi.Void> value$1,
+      {required ffi.Pointer<ffi.Char> withObjCType}) {
     final _ret = _objc_msgSend_e9mncn(
-        _class_NSValue, _sel_value_withObjCType_, value, type);
+        _class_NSValue, _sel_value_withObjCType_, value$1, withObjCType);
     return objc.NSValue.castFromPointer(_ret, retain: true, release: true);
   }
 }
@@ -77759,7 +77874,7 @@ late final _sel_isEqualToValue_ = objc.registerName("isEqualToValue:");
 /// NSValueExtensionMethods
 extension NSValueExtensionMethods on objc.NSValue {
   /// valueWithNonretainedObject:
-  static objc.NSValue valueWithNonretainedObject_(
+  static objc.NSValue valueWithNonretainedObject(
       objc.ObjCObjectBase? anObject) {
     final _ret = _objc_msgSend_1sotr3r(_class_NSValue,
         _sel_valueWithNonretainedObject_, anObject?.ref.pointer ?? ffi.nullptr);
@@ -77776,9 +77891,9 @@ extension NSValueExtensionMethods on objc.NSValue {
   }
 
   /// valueWithPointer:
-  static objc.NSValue valueWithPointer_(ffi.Pointer<ffi.Void> pointer) {
-    final _ret =
-        _objc_msgSend_1mbt9g9(_class_NSValue, _sel_valueWithPointer_, pointer);
+  static objc.NSValue valueWithPointer(ffi.Pointer<ffi.Void> pointer$1) {
+    final _ret = _objc_msgSend_1mbt9g9(
+        _class_NSValue, _sel_valueWithPointer_, pointer$1);
     return objc.NSValue.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -77788,7 +77903,7 @@ extension NSValueExtensionMethods on objc.NSValue {
   }
 
   /// isEqualToValue:
-  bool isEqualToValue_(objc.NSValue value) {
+  bool isEqualToValue(objc.NSValue value) {
     return _objc_msgSend_19nvye5(
         this.ref.pointer, _sel_isEqualToValue_, value.ref.pointer);
   }
@@ -77807,7 +77922,7 @@ final _objc_msgSend_ovsamd = objc.msgSendPointer
 /// NSDeprecated
 extension NSDeprecated$2 on objc.NSValue {
   /// getValue:
-  void getValue_(ffi.Pointer<ffi.Void> value) {
+  void getValue(ffi.Pointer<ffi.Void> value) {
     objc.checkOsVersionInternal('NSValue.getValue:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_ovsamd(this.ref.pointer, _sel_getValue_, value);
@@ -77848,7 +77963,7 @@ final _objc_msgSend_1u11dbbStret = objc.msgSendStretPointer
 /// NSValueRangeExtensions
 extension NSValueRangeExtensions on objc.NSValue {
   /// valueWithRange:
-  static objc.NSValue valueWithRange_(NSRange range) {
+  static objc.NSValue valueWithRange(NSRange range) {
     final _ret =
         _objc_msgSend_1k1o1s7(_class_NSValue, _sel_valueWithRange_, range);
     return objc.NSValue.castFromPointer(_ret, retain: true, release: true);
@@ -77904,58 +78019,60 @@ extension NSArrayCreation on objc.NSArray {
   }
 
   /// arrayWithObject:
-  static objc.NSArray arrayWithObject_(objc.ObjCObjectBase anObject) {
+  static objc.NSArray arrayWithObject(objc.ObjCObjectBase anObject) {
     final _ret = _objc_msgSend_1sotr3r(
         _class_NSArray, _sel_arrayWithObject_, anObject.ref.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// arrayWithObjects:count:
-  static objc.NSArray arrayWithObjects_count_(
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects, DartNSUInteger cnt) {
+  static objc.NSArray arrayWithObjects(
+      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects,
+      {required DartNSUInteger count}) {
     final _ret = _objc_msgSend_zmbtbd(
-        _class_NSArray, _sel_arrayWithObjects_count_, objects, cnt);
+        _class_NSArray, _sel_arrayWithObjects_count_, objects, count);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// arrayWithObjects:
-  static objc.NSArray arrayWithObjects_(objc.ObjCObjectBase firstObj) {
+  static objc.NSArray arrayWithObjects$1(objc.ObjCObjectBase firstObj) {
     final _ret = _objc_msgSend_1sotr3r(
         _class_NSArray, _sel_arrayWithObjects_, firstObj.ref.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// arrayWithArray:
-  static objc.NSArray arrayWithArray_(objc.NSArray array) {
+  static objc.NSArray arrayWithArray(objc.NSArray array$1) {
     final _ret = _objc_msgSend_1sotr3r(
-        _class_NSArray, _sel_arrayWithArray_, array.ref.pointer);
+        _class_NSArray, _sel_arrayWithArray_, array$1.ref.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// initWithObjects:
-  objc.NSArray initWithObjects_(objc.ObjCObjectBase firstObj) {
+  objc.NSArray initWithObjects(objc.ObjCObjectBase firstObj) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithObjects_, firstObj.ref.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: false, release: true);
   }
 
   /// initWithArray:
-  objc.NSArray initWithArray_(objc.NSArray array) {
+  objc.NSArray initWithArray(objc.NSArray array$1) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
-        _sel_initWithArray_, array.ref.pointer);
+        _sel_initWithArray_, array$1.ref.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: false, release: true);
   }
 
   /// initWithArray:copyItems:
-  objc.NSArray initWithArray_copyItems_(objc.NSArray array, bool flag) {
+  objc.NSArray initWithArray$1(objc.NSArray array$1,
+      {required bool copyItems}) {
     final _ret = _objc_msgSend_17amj0z(this.ref.retainAndReturnPointer(),
-        _sel_initWithArray_copyItems_, array.ref.pointer, flag);
+        _sel_initWithArray_copyItems_, array$1.ref.pointer, copyItems);
     return objc.NSArray.castFromPointer(_ret, retain: false, release: true);
   }
 
   /// initWithContentsOfURL:error:
-  objc.NSArray? initWithContentsOfURL_error_(
-      objc.NSURL url, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
+  objc.NSArray? initWithContentsOfURL(objc.NSURL url,
+      {required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error}) {
     objc.checkOsVersionInternal('NSArray.initWithContentsOfURL:error:',
         iOS: (false, (11, 0, 0)), macOS: (false, (10, 13, 0)));
     final _ret = _objc_msgSend_1lhpu4m(this.ref.retainAndReturnPointer(),
@@ -77966,8 +78083,8 @@ extension NSArrayCreation on objc.NSArray {
   }
 
   /// arrayWithContentsOfURL:error:
-  static objc.NSArray? arrayWithContentsOfURL_error_(
-      objc.NSURL url, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
+  static objc.NSArray? arrayWithContentsOfURL(objc.NSURL url,
+      {required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error}) {
     objc.checkOsVersionInternal('NSArray.arrayWithContentsOfURL:error:',
         iOS: (false, (11, 0, 0)), macOS: (false, (10, 13, 0)));
     final _ret = _objc_msgSend_1lhpu4m(_class_NSArray,
@@ -78132,14 +78249,13 @@ late final _sel_arrayByApplyingDifference_ =
 /// NSArrayDiffing
 extension NSArrayDiffing on objc.NSArray {
   /// differenceFromArray:withOptions:usingEquivalenceTest:
-  objc.NSOrderedCollectionDifference
-      differenceFromArray_withOptions_usingEquivalenceTest_(
-          objc.NSArray other,
-          objc.NSOrderedCollectionDifferenceCalculationOptions options,
-          objc.ObjCBlock<
-                  ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>
-              block) {
+  objc.NSOrderedCollectionDifference differenceFromArray(objc.NSArray other,
+      {required objc.NSOrderedCollectionDifferenceCalculationOptions
+          withOptions,
+      required objc.ObjCBlock<
+              ffi.Bool Function(
+                  ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
+          usingEquivalenceTest}) {
     objc.checkOsVersionInternal(
         'NSArray.differenceFromArray:withOptions:usingEquivalenceTest:',
         iOS: (false, (13, 0, 0)),
@@ -78148,29 +78264,29 @@ extension NSArrayDiffing on objc.NSArray {
         this.ref.pointer,
         _sel_differenceFromArray_withOptions_usingEquivalenceTest_,
         other.ref.pointer,
-        options.value,
-        block.ref.pointer);
+        withOptions.value,
+        usingEquivalenceTest.ref.pointer);
     return objc.NSOrderedCollectionDifference.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   /// differenceFromArray:withOptions:
-  objc.NSOrderedCollectionDifference differenceFromArray_withOptions_(
-      objc.NSArray other,
-      objc.NSOrderedCollectionDifferenceCalculationOptions options) {
+  objc.NSOrderedCollectionDifference differenceFromArray$1(objc.NSArray other,
+      {required objc.NSOrderedCollectionDifferenceCalculationOptions
+          withOptions}) {
     objc.checkOsVersionInternal('NSArray.differenceFromArray:withOptions:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     final _ret = _objc_msgSend_1wtpmu7(
         this.ref.pointer,
         _sel_differenceFromArray_withOptions_,
         other.ref.pointer,
-        options.value);
+        withOptions.value);
     return objc.NSOrderedCollectionDifference.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   /// differenceFromArray:
-  objc.NSOrderedCollectionDifference differenceFromArray_(objc.NSArray other) {
+  objc.NSOrderedCollectionDifference differenceFromArray$2(objc.NSArray other) {
     objc.checkOsVersionInternal('NSArray.differenceFromArray:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -78180,7 +78296,7 @@ extension NSArrayDiffing on objc.NSArray {
   }
 
   /// arrayByApplyingDifference:
-  objc.NSArray? arrayByApplyingDifference_(
+  objc.NSArray? arrayByApplyingDifference(
       objc.NSOrderedCollectionDifference difference) {
     objc.checkOsVersionInternal('NSArray.arrayByApplyingDifference:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
@@ -78213,14 +78329,14 @@ late final _sel_arrayWithContentsOfURL_ =
 /// NSDeprecated
 extension NSDeprecated$3 on objc.NSArray {
   /// getObjects:
-  void getObjects_(ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects) {
+  void getObjects(ffi.Pointer<ffi.Pointer<objc.ObjCObject>> objects) {
     objc.checkOsVersionInternal('NSArray.getObjects:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_1dau4w(this.ref.pointer, _sel_getObjects_, objects);
   }
 
   /// arrayWithContentsOfFile:
-  static objc.NSArray? arrayWithContentsOfFile_(objc.NSString path) {
+  static objc.NSArray? arrayWithContentsOfFile(objc.NSString path) {
     objc.checkOsVersionInternal('NSArray.arrayWithContentsOfFile:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -78231,7 +78347,7 @@ extension NSDeprecated$3 on objc.NSArray {
   }
 
   /// arrayWithContentsOfURL:
-  static objc.NSArray? arrayWithContentsOfURL_(objc.NSURL url) {
+  static objc.NSArray? arrayWithContentsOfURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSArray.arrayWithContentsOfURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -78242,7 +78358,7 @@ extension NSDeprecated$3 on objc.NSArray {
   }
 
   /// initWithContentsOfFile:
-  objc.NSArray? initWithContentsOfFile_(objc.NSString path) {
+  objc.NSArray? initWithContentsOfFile(objc.NSString path) {
     objc.checkOsVersionInternal('NSArray.initWithContentsOfFile:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -78253,7 +78369,7 @@ extension NSDeprecated$3 on objc.NSArray {
   }
 
   /// initWithContentsOfURL:
-  objc.NSArray? initWithContentsOfURL_(objc.NSURL url) {
+  objc.NSArray? initWithContentsOfURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSArray.initWithContentsOfURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -78264,15 +78380,15 @@ extension NSDeprecated$3 on objc.NSArray {
   }
 
   /// writeToFile:atomically:
-  bool writeToFile_atomically_(objc.NSString path, bool useAuxiliaryFile) {
+  bool writeToFile(objc.NSString path, {required bool atomically}) {
     objc.checkOsVersionInternal('NSArray.writeToFile:atomically:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     return _objc_msgSend_1iyq28l(this.ref.pointer, _sel_writeToFile_atomically_,
-        path.ref.pointer, useAuxiliaryFile);
+        path.ref.pointer, atomically);
   }
 
   /// writeToURL:atomically:
-  bool writeToURL_atomically_(objc.NSURL url, bool atomically) {
+  bool writeToURL(objc.NSURL url, {required bool atomically}) {
     objc.checkOsVersionInternal('NSArray.writeToURL:atomically:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     return _objc_msgSend_1iyq28l(this.ref.pointer, _sel_writeToURL_atomically_,
@@ -78286,7 +78402,7 @@ late final _sel_arrayWithCapacity_ = objc.registerName("arrayWithCapacity:");
 /// NSMutableArrayCreation
 extension NSMutableArrayCreation on objc.NSMutableArray {
   /// arrayWithCapacity:
-  static objc.NSMutableArray arrayWithCapacity_(DartNSUInteger numItems) {
+  static objc.NSMutableArray arrayWithCapacity(DartNSUInteger numItems) {
     final _ret = _objc_msgSend_14hpxwa(
         _class_NSMutableArray, _sel_arrayWithCapacity_, numItems);
     return objc.NSMutableArray.castFromPointer(_ret,
@@ -78294,7 +78410,7 @@ extension NSMutableArrayCreation on objc.NSMutableArray {
   }
 
   /// arrayWithContentsOfFile:
-  static objc.NSMutableArray? arrayWithContentsOfFile_(objc.NSString path) {
+  static objc.NSMutableArray? arrayWithContentsOfFile(objc.NSString path) {
     final _ret = _objc_msgSend_1sotr3r(
         _class_NSMutableArray, _sel_arrayWithContentsOfFile_, path.ref.pointer);
     return _ret.address == 0
@@ -78304,7 +78420,7 @@ extension NSMutableArrayCreation on objc.NSMutableArray {
   }
 
   /// arrayWithContentsOfURL:
-  static objc.NSMutableArray? arrayWithContentsOfURL_(objc.NSURL url) {
+  static objc.NSMutableArray? arrayWithContentsOfURL(objc.NSURL url) {
     final _ret = _objc_msgSend_1sotr3r(
         _class_NSMutableArray, _sel_arrayWithContentsOfURL_, url.ref.pointer);
     return _ret.address == 0
@@ -78314,7 +78430,7 @@ extension NSMutableArrayCreation on objc.NSMutableArray {
   }
 
   /// initWithContentsOfFile:
-  objc.NSMutableArray? initWithContentsOfFile_(objc.NSString path) {
+  objc.NSMutableArray? initWithContentsOfFile(objc.NSString path) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithContentsOfFile_, path.ref.pointer);
     return _ret.address == 0
@@ -78324,7 +78440,7 @@ extension NSMutableArrayCreation on objc.NSMutableArray {
   }
 
   /// initWithContentsOfURL:
-  objc.NSMutableArray? initWithContentsOfURL_(objc.NSURL url) {
+  objc.NSMutableArray? initWithContentsOfURL(objc.NSURL url) {
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
         _sel_initWithContentsOfURL_, url.ref.pointer);
     return _ret.address == 0
@@ -78339,7 +78455,7 @@ late final _sel_applyDifference_ = objc.registerName("applyDifference:");
 /// NSMutableArrayDiffing
 extension NSMutableArrayDiffing on objc.NSMutableArray {
   /// applyDifference:
-  void applyDifference_(objc.NSOrderedCollectionDifference difference) {
+  void applyDifference(objc.NSOrderedCollectionDifference difference) {
     objc.checkOsVersionInternal('NSMutableArray.applyDifference:',
         iOS: (false, (13, 0, 0)), macOS: (false, (10, 15, 0)));
     _objc_msgSend_xtuoz7(
@@ -78970,8 +79086,8 @@ extension NSPreviewSupport on objc.NSItemProvider {
   }
 
   /// loadPreviewImageWithOptions:completionHandler:
-  void loadPreviewImageWithOptions_completionHandler_(objc.NSDictionary options,
-      DartNSItemProviderCompletionHandler completionHandler) {
+  void loadPreviewImageWithOptions(objc.NSDictionary options,
+      {required DartNSItemProviderCompletionHandler completionHandler}) {
     objc.checkOsVersionInternal(
         'NSItemProvider.loadPreviewImageWithOptions:completionHandler:',
         iOS: (false, (8, 0, 0)),
@@ -79015,12 +79131,10 @@ final _objc_msgSend_1q2ox4r = objc.msgSendPointer
 /// NSStringEncodingDetection
 extension NSStringEncodingDetection on objc.NSString {
   /// stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:
-  static DartNSUInteger
-      stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_(
-          objc.NSData data,
-          objc.NSDictionary? opts,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> string,
-          ffi.Pointer<ffi.Bool> usedLossyConversion) {
+  static DartNSUInteger stringEncodingForData(objc.NSData data,
+      {objc.NSDictionary? encodingOptions,
+      required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> convertedString,
+      required ffi.Pointer<ffi.Bool> usedLossyConversion}) {
     objc.checkOsVersionInternal(
         'NSString.stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:',
         iOS: (false, (8, 0, 0)),
@@ -79029,8 +79143,8 @@ extension NSStringEncodingDetection on objc.NSString {
         _class_NSString,
         _sel_stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_,
         data.ref.pointer,
-        opts?.ref.pointer ?? ffi.nullptr,
-        string,
+        encodingOptions?.ref.pointer ?? ffi.nullptr,
+        convertedString,
         usedLossyConversion);
   }
 }
@@ -79730,16 +79844,17 @@ ffi.Pointer<ffi.Void>
             _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureTrampoline)
         .cast();
 
-/// Construction methods for `objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>`.
+/// Construction methods for `objc.ObjCBlock<objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>`.
 abstract final class ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError {
   /// Returns a block that wraps the given raw block pointer.
   static objc.ObjCBlock<
-          NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+          objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
               objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer, {bool retain = false, bool release = false}) =>
           objc.ObjCBlock<
-                  NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+                  objc.NSProgress? Function(
+                      ffi.Pointer<ffi.Void>,
+                      objc.NSString,
                       objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(pointer,
               retain: retain, release: release);
 
@@ -79749,11 +79864,13 @@ abstract final class ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError 
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
   static objc.ObjCBlock<
-          NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+          objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
               objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
       fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlockImpl> arg2)>> ptr) =>
           objc.ObjCBlock<
-                  NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+                  objc.NSProgress? Function(
+                      ffi.Pointer<ffi.Void>,
+                      objc.NSString,
                       objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(
               objc.newPointerBlock(_ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrCallable, ptr.cast()),
               retain: false,
@@ -79767,28 +79884,28 @@ abstract final class ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError 
   ///
   /// If `keepIsolateAlive` is true, this block will keep this isolate alive
   /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
-      fromFunction(NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>) fn,
+  static objc
+      .ObjCBlock<objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
+      fromFunction(objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>) fn,
               {bool keepIsolateAlive = true}) =>
-          objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(
+          objc.ObjCBlock<objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(
               objc.newClosureBlock(
                   _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureCallable,
                   (ffi.Pointer<ffi.Void> arg0,
                           ffi.Pointer<objc.ObjCObject> arg1,
                           ffi.Pointer<objc.ObjCBlockImpl> arg2) =>
-                      fn(arg0, objc.NSString.castFromPointer(arg1, retain: true, release: true), ObjCBlock_ffiVoid_NSData_NSError.castFromPointer(arg2, retain: true, release: true))?.ref.retainAndAutorelease() ??
-                      ffi.nullptr,
+                      fn(arg0, objc.NSString.castFromPointer(arg1, retain: true, release: true), ObjCBlock_ffiVoid_NSData_NSError.castFromPointer(arg2, retain: true, release: true))?.ref.retainAndAutorelease() ?? ffi.nullptr,
                   keepIsolateAlive),
               retain: false,
               release: true);
 }
 
-/// Call operator for `objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>`.
+/// Call operator for `objc.ObjCBlock<objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>`.
 extension ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_CallExtension
     on objc.ObjCBlock<
-        NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+        objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
             objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)> {
-  NSProgress? call(ffi.Pointer<ffi.Void> arg0, objc.NSString arg1, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> arg2) =>
+  objc.NSProgress? call(ffi.Pointer<ffi.Void> arg0, objc.NSString arg1, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> arg2) =>
       ref.pointer.ref.invoke
                   .cast<
                       ffi.NativeFunction<
@@ -79807,10 +79924,7 @@ extension ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_CallExtensi
                   .address ==
               0
           ? null
-          : NSProgress.castFromPointer(
-              ref.pointer.ref.invoke.cast<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlockImpl> arg2)>>().asFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCBlockImpl>)>()(ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer),
-              retain: true,
-              release: true);
+          : objc.NSProgress.castFromPointer(ref.pointer.ref.invoke.cast<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlockImpl> arg2)>>().asFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCBlockImpl>)>()(ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer), retain: true, release: true);
 }
 
 /// NSItemProvider
@@ -79827,10 +79941,9 @@ extension NSItemProvider on objc.NSString {
   }
 
   /// objectWithItemProviderData:typeIdentifier:error:
-  static objc.NSString? objectWithItemProviderData_typeIdentifier_error_(
-      objc.NSData data,
-      objc.NSString typeIdentifier,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outError) {
+  static objc.NSString? objectWithItemProviderData(objc.NSData data,
+      {required objc.NSString typeIdentifier,
+      required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error}) {
     objc.checkOsVersionInternal(
         'NSString.objectWithItemProviderData:typeIdentifier:error:',
         iOS: (false, (11, 0, 0)),
@@ -79840,7 +79953,7 @@ extension NSItemProvider on objc.NSString {
         _sel_objectWithItemProviderData_typeIdentifier_error_,
         data.ref.pointer,
         typeIdentifier.ref.pointer,
-        outError);
+        error);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -79875,7 +79988,7 @@ extension NSItemProvider on objc.NSString {
 
   /// itemProviderVisibilityForRepresentationWithTypeIdentifier:
   static objc.NSItemProviderRepresentationVisibility
-      itemProviderVisibilityForRepresentationWithTypeIdentifier_(
+      itemProviderVisibilityForRepresentationWithTypeIdentifier(
           objc.NSString typeIdentifier) {
     objc.checkOsVersionInternal(
         'NSString.itemProviderVisibilityForRepresentationWithTypeIdentifier:',
@@ -79895,7 +80008,7 @@ extension NSItemProvider on objc.NSString {
 
   /// itemProviderVisibilityForRepresentationWithTypeIdentifier:
   objc.NSItemProviderRepresentationVisibility
-      itemProviderVisibilityForRepresentationWithTypeIdentifier_$1(
+      itemProviderVisibilityForRepresentationWithTypeIdentifier$1(
           objc.NSString typeIdentifier) {
     objc.checkOsVersionInternal(
         'NSString.itemProviderVisibilityForRepresentationWithTypeIdentifier:',
@@ -79914,10 +80027,9 @@ extension NSItemProvider on objc.NSString {
   }
 
   /// loadDataWithTypeIdentifier:forItemProviderCompletionHandler:
-  NSProgress? loadDataWithTypeIdentifier_forItemProviderCompletionHandler_(
-      objc.NSString typeIdentifier,
-      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
-          completionHandler) {
+  objc.NSProgress? loadDataWithTypeIdentifier(objc.NSString typeIdentifier,
+      {required objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
+          forItemProviderCompletionHandler}) {
     objc.checkOsVersionInternal(
         'NSString.loadDataWithTypeIdentifier:forItemProviderCompletionHandler:',
         iOS: (false, (11, 0, 0)),
@@ -79926,10 +80038,10 @@ extension NSItemProvider on objc.NSString {
         this.ref.pointer,
         _sel_loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
         typeIdentifier.ref.pointer,
-        completionHandler.ref.pointer);
+        forItemProviderCompletionHandler.ref.pointer);
     return _ret.address == 0
         ? null
-        : NSProgress.castFromPointer(_ret, retain: true, release: true);
+        : objc.NSProgress.castFromPointer(_ret, retain: true, release: true);
   }
 }
 
@@ -80009,56 +80121,54 @@ late final _sel_stringWithCapacity_ = objc.registerName("stringWithCapacity:");
 /// NSMutableStringExtensionMethods
 extension NSMutableStringExtensionMethods on objc.NSMutableString {
   /// insertString:atIndex:
-  void insertString_atIndex_(objc.NSString aString, DartNSUInteger loc) {
-    _objc_msgSend_djsa9o(
-        this.ref.pointer, _sel_insertString_atIndex_, aString.ref.pointer, loc);
+  void insertString(objc.NSString aString, {required DartNSUInteger atIndex}) {
+    _objc_msgSend_djsa9o(this.ref.pointer, _sel_insertString_atIndex_,
+        aString.ref.pointer, atIndex);
   }
 
   /// deleteCharactersInRange:
-  void deleteCharactersInRange_(NSRange range) {
+  void deleteCharactersInRange(NSRange range) {
     _objc_msgSend_1e3pm0z(
         this.ref.pointer, _sel_deleteCharactersInRange_, range);
   }
 
   /// appendString:
-  void appendString_(objc.NSString aString) {
+  void appendString(objc.NSString aString) {
     _objc_msgSend_xtuoz7(
         this.ref.pointer, _sel_appendString_, aString.ref.pointer);
   }
 
   /// appendFormat:
-  void appendFormat_(objc.NSString format) {
+  void appendFormat(objc.NSString format) {
     _objc_msgSend_xtuoz7(
         this.ref.pointer, _sel_appendFormat_, format.ref.pointer);
   }
 
   /// setString:
-  void setString_(objc.NSString aString) {
+  void setString(objc.NSString aString) {
     _objc_msgSend_xtuoz7(
         this.ref.pointer, _sel_setString_, aString.ref.pointer);
   }
 
   /// replaceOccurrencesOfString:withString:options:range:
-  DartNSUInteger replaceOccurrencesOfString_withString_options_range_(
-      objc.NSString target,
-      objc.NSString replacement,
-      objc.NSStringCompareOptions options,
-      NSRange searchRange) {
+  DartNSUInteger replaceOccurrencesOfString(objc.NSString target,
+      {required objc.NSString withString,
+      required objc.NSStringCompareOptions options,
+      required NSRange range}) {
     return _objc_msgSend_1upeo1d(
         this.ref.pointer,
         _sel_replaceOccurrencesOfString_withString_options_range_,
         target.ref.pointer,
-        replacement.ref.pointer,
+        withString.ref.pointer,
         options.value,
-        searchRange);
+        range);
   }
 
   /// applyTransform:reverse:range:updatedRange:
-  bool applyTransform_reverse_range_updatedRange_(
-      DartNSStringTransform transform,
-      bool reverse,
-      NSRange range,
-      NSRangePointer resultingRange) {
+  bool applyTransform(DartNSStringTransform transform,
+      {required bool reverse,
+      required NSRange range,
+      required NSRangePointer updatedRange}) {
     objc.checkOsVersionInternal(
         'NSMutableString.applyTransform:reverse:range:updatedRange:',
         iOS: (false, (9, 0, 0)),
@@ -80069,11 +80179,11 @@ extension NSMutableStringExtensionMethods on objc.NSMutableString {
         transform.ref.pointer,
         reverse,
         range,
-        resultingRange);
+        updatedRange);
   }
 
   /// initWithCapacity:
-  objc.NSMutableString initWithCapacity_(DartNSUInteger capacity) {
+  objc.NSMutableString initWithCapacity(DartNSUInteger capacity) {
     final _ret = _objc_msgSend_14hpxwa(
         this.ref.retainAndReturnPointer(), _sel_initWithCapacity_, capacity);
     return objc.NSMutableString.castFromPointer(_ret,
@@ -80081,7 +80191,7 @@ extension NSMutableStringExtensionMethods on objc.NSMutableString {
   }
 
   /// stringWithCapacity:
-  static objc.NSMutableString stringWithCapacity_(DartNSUInteger capacity) {
+  static objc.NSMutableString stringWithCapacity(DartNSUInteger capacity) {
     final _ret = _objc_msgSend_14hpxwa(
         _class_NSMutableString, _sel_stringWithCapacity_, capacity);
     return objc.NSMutableString.castFromPointer(_ret,
@@ -80247,15 +80357,15 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// getCString:
-  void getCString_(ffi.Pointer<ffi.Char> bytes) {
+  void getCString(ffi.Pointer<ffi.Char> bytes) {
     objc.checkOsVersionInternal('NSString.getCString:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_1r7ue5f(this.ref.pointer, _sel_getCString_, bytes);
   }
 
   /// getCString:maxLength:
-  void getCString_maxLength_(
-      ffi.Pointer<ffi.Char> bytes, DartNSUInteger maxLength) {
+  void getCString$1(ffi.Pointer<ffi.Char> bytes,
+      {required DartNSUInteger maxLength}) {
     objc.checkOsVersionInternal('NSString.getCString:maxLength:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_1h3mito(
@@ -80263,8 +80373,10 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// getCString:maxLength:range:remainingRange:
-  void getCString_maxLength_range_remainingRange_(ffi.Pointer<ffi.Char> bytes,
-      DartNSUInteger maxLength, NSRange aRange, NSRangePointer leftoverRange) {
+  void getCString$2(ffi.Pointer<ffi.Char> bytes,
+      {required DartNSUInteger maxLength,
+      required NSRange range,
+      required NSRangePointer remainingRange}) {
     objc.checkOsVersionInternal(
         'NSString.getCString:maxLength:range:remainingRange:',
         iOS: (false, (2, 0, 0)),
@@ -80274,20 +80386,20 @@ extension NSStringDeprecated on objc.NSString {
         _sel_getCString_maxLength_range_remainingRange_,
         bytes,
         maxLength,
-        aRange,
-        leftoverRange);
+        range,
+        remainingRange);
   }
 
   /// writeToFile:atomically:
-  bool writeToFile_atomically_(objc.NSString path, bool useAuxiliaryFile) {
+  bool writeToFile(objc.NSString path, {required bool atomically}) {
     objc.checkOsVersionInternal('NSString.writeToFile:atomically:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     return _objc_msgSend_1iyq28l(this.ref.pointer, _sel_writeToFile_atomically_,
-        path.ref.pointer, useAuxiliaryFile);
+        path.ref.pointer, atomically);
   }
 
   /// writeToURL:atomically:
-  bool writeToURL_atomically_(objc.NSURL url, bool atomically) {
+  bool writeToURL(objc.NSURL url, {required bool atomically}) {
     objc.checkOsVersionInternal('NSString.writeToURL:atomically:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     return _objc_msgSend_1iyq28l(this.ref.pointer, _sel_writeToURL_atomically_,
@@ -80295,7 +80407,7 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// initWithContentsOfFile:
-  objc.ObjCObjectBase? initWithContentsOfFile_(objc.NSString path) {
+  objc.ObjCObjectBase? initWithContentsOfFile(objc.NSString path) {
     objc.checkOsVersionInternal('NSString.initWithContentsOfFile:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -80306,7 +80418,7 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// initWithContentsOfURL:
-  objc.ObjCObjectBase? initWithContentsOfURL_(objc.NSURL url) {
+  objc.ObjCObjectBase? initWithContentsOfURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSString.initWithContentsOfURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.retainAndReturnPointer(),
@@ -80317,7 +80429,7 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// stringWithContentsOfFile:
-  static objc.ObjCObjectBase? stringWithContentsOfFile_(objc.NSString path) {
+  static objc.ObjCObjectBase? stringWithContentsOfFile(objc.NSString path) {
     objc.checkOsVersionInternal('NSString.stringWithContentsOfFile:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -80328,7 +80440,7 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// stringWithContentsOfURL:
-  static objc.ObjCObjectBase? stringWithContentsOfURL_(objc.NSURL url) {
+  static objc.ObjCObjectBase? stringWithContentsOfURL(objc.NSURL url) {
     objc.checkOsVersionInternal('NSString.stringWithContentsOfURL:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -80339,8 +80451,8 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// initWithCStringNoCopy:length:freeWhenDone:
-  objc.ObjCObjectBase? initWithCStringNoCopy_length_freeWhenDone_(
-      ffi.Pointer<ffi.Char> bytes, DartNSUInteger length, bool freeBuffer) {
+  objc.ObjCObjectBase? initWithCStringNoCopy(ffi.Pointer<ffi.Char> bytes,
+      {required DartNSUInteger length, required bool freeWhenDone}) {
     objc.checkOsVersionInternal(
         'NSString.initWithCStringNoCopy:length:freeWhenDone:',
         iOS: (false, (2, 0, 0)),
@@ -80350,15 +80462,15 @@ extension NSStringDeprecated on objc.NSString {
         _sel_initWithCStringNoCopy_length_freeWhenDone_,
         bytes,
         length,
-        freeBuffer);
+        freeWhenDone);
     return _ret.address == 0
         ? null
         : objc.ObjCObjectBase(_ret, retain: false, release: true);
   }
 
   /// initWithCString:length:
-  objc.ObjCObjectBase? initWithCString_length_(
-      ffi.Pointer<ffi.Char> bytes, DartNSUInteger length) {
+  objc.ObjCObjectBase? initWithCString(ffi.Pointer<ffi.Char> bytes,
+      {required DartNSUInteger length}) {
     objc.checkOsVersionInternal('NSString.initWithCString:length:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_erqryg(this.ref.retainAndReturnPointer(),
@@ -80369,7 +80481,7 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// initWithCString:
-  objc.ObjCObjectBase? initWithCString_(ffi.Pointer<ffi.Char> bytes) {
+  objc.ObjCObjectBase? initWithCString$1(ffi.Pointer<ffi.Char> bytes) {
     objc.checkOsVersionInternal('NSString.initWithCString:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_56zxyn(
@@ -80380,8 +80492,8 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// stringWithCString:length:
-  static objc.ObjCObjectBase? stringWithCString_length_(
-      ffi.Pointer<ffi.Char> bytes, DartNSUInteger length) {
+  static objc.ObjCObjectBase? stringWithCString(ffi.Pointer<ffi.Char> bytes,
+      {required DartNSUInteger length}) {
     objc.checkOsVersionInternal('NSString.stringWithCString:length:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_erqryg(
@@ -80392,7 +80504,7 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// stringWithCString:
-  static objc.ObjCObjectBase? stringWithCString_(ffi.Pointer<ffi.Char> bytes) {
+  static objc.ObjCObjectBase? stringWithCString$1(ffi.Pointer<ffi.Char> bytes) {
     objc.checkOsVersionInternal('NSString.stringWithCString:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret =
@@ -80403,7 +80515,7 @@ extension NSStringDeprecated on objc.NSString {
   }
 
   /// getCharacters:
-  void getCharacters_(ffi.Pointer<unichar> buffer) {
+  void getCharacters(ffi.Pointer<unichar> buffer) {
     _objc_msgSend_g3kdhc(this.ref.pointer, _sel_getCharacters_, buffer);
   }
 }
@@ -80471,10 +80583,10 @@ extension NSPromisedItems on objc.NSURL {
   /// - You are inside the accessor block of a coordinated read or write that used NSFileCoordinatorReadingImmediatelyAvailableMetadataOnly, NSFileCoordinatorWritingForDeleting, NSFileCoordinatorWritingForMoving, or NSFileCoordinatorWritingContentIndependentMetadataOnly
   ///
   /// Most of the NSURL resource value keys will work with these APIs. However, there are some that are tied to the item's contents that will not work, such as NSURLContentAccessDateKey or NSURLGenerationIdentifierKey. If one of these keys is used, the method will return YES, but the value for the key will be nil.
-  bool getPromisedItemResourceValue_forKey_error_(
+  bool getPromisedItemResourceValue(
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> value,
-      DartNSURLResourceKey key,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
+      {required DartNSURLResourceKey forKey,
+      required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error}) {
     objc.checkOsVersionInternal(
         'NSURL.getPromisedItemResourceValue:forKey:error:',
         iOS: (false, (8, 0, 0)),
@@ -80483,13 +80595,13 @@ extension NSPromisedItems on objc.NSURL {
         this.ref.pointer,
         _sel_getPromisedItemResourceValue_forKey_error_,
         value,
-        key.ref.pointer,
+        forKey.ref.pointer,
         error);
   }
 
   /// promisedItemResourceValuesForKeys:error:
-  objc.NSDictionary? promisedItemResourceValuesForKeys_error_(
-      objc.NSArray keys, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
+  objc.NSDictionary? promisedItemResourceValuesForKeys(objc.NSArray keys,
+      {required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error}) {
     objc.checkOsVersionInternal(
         'NSURL.promisedItemResourceValuesForKeys:error:',
         iOS: (false, (8, 0, 0)),
@@ -80502,7 +80614,7 @@ extension NSPromisedItems on objc.NSURL {
   }
 
   /// checkPromisedItemIsReachableAndReturnError:
-  bool checkPromisedItemIsReachableAndReturnError_(
+  bool checkPromisedItemIsReachableAndReturnError(
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
     objc.checkOsVersionInternal(
         'NSURL.checkPromisedItemIsReachableAndReturnError:',
@@ -80525,10 +80637,9 @@ extension NSItemProvider$1 on objc.NSURL {
   }
 
   /// objectWithItemProviderData:typeIdentifier:error:
-  static objc.NSURL? objectWithItemProviderData_typeIdentifier_error_(
-      objc.NSData data,
-      objc.NSString typeIdentifier,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outError) {
+  static objc.NSURL? objectWithItemProviderData(objc.NSData data,
+      {required objc.NSString typeIdentifier,
+      required ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error}) {
     objc.checkOsVersionInternal(
         'NSURL.objectWithItemProviderData:typeIdentifier:error:',
         iOS: (false, (11, 0, 0)),
@@ -80538,7 +80649,7 @@ extension NSItemProvider$1 on objc.NSURL {
         _sel_objectWithItemProviderData_typeIdentifier_error_,
         data.ref.pointer,
         typeIdentifier.ref.pointer,
-        outError);
+        error);
     return _ret.address == 0
         ? null
         : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
@@ -80569,7 +80680,7 @@ extension NSItemProvider$1 on objc.NSURL {
 
   /// itemProviderVisibilityForRepresentationWithTypeIdentifier:
   static objc.NSItemProviderRepresentationVisibility
-      itemProviderVisibilityForRepresentationWithTypeIdentifier_(
+      itemProviderVisibilityForRepresentationWithTypeIdentifier(
           objc.NSString typeIdentifier) {
     objc.checkOsVersionInternal(
         'NSURL.itemProviderVisibilityForRepresentationWithTypeIdentifier:',
@@ -80589,7 +80700,7 @@ extension NSItemProvider$1 on objc.NSURL {
 
   /// itemProviderVisibilityForRepresentationWithTypeIdentifier:
   objc.NSItemProviderRepresentationVisibility
-      itemProviderVisibilityForRepresentationWithTypeIdentifier_$1(
+      itemProviderVisibilityForRepresentationWithTypeIdentifier$1(
           objc.NSString typeIdentifier) {
     objc.checkOsVersionInternal(
         'NSURL.itemProviderVisibilityForRepresentationWithTypeIdentifier:',
@@ -80608,10 +80719,9 @@ extension NSItemProvider$1 on objc.NSURL {
   }
 
   /// loadDataWithTypeIdentifier:forItemProviderCompletionHandler:
-  NSProgress? loadDataWithTypeIdentifier_forItemProviderCompletionHandler_(
-      objc.NSString typeIdentifier,
-      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
-          completionHandler) {
+  objc.NSProgress? loadDataWithTypeIdentifier(objc.NSString typeIdentifier,
+      {required objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
+          forItemProviderCompletionHandler}) {
     objc.checkOsVersionInternal(
         'NSURL.loadDataWithTypeIdentifier:forItemProviderCompletionHandler:',
         iOS: (false, (11, 0, 0)),
@@ -80620,10 +80730,10 @@ extension NSItemProvider$1 on objc.NSURL {
         this.ref.pointer,
         _sel_loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
         typeIdentifier.ref.pointer,
-        completionHandler.ref.pointer);
+        forItemProviderCompletionHandler.ref.pointer);
     return _ret.address == 0
         ? null
-        : NSProgress.castFromPointer(_ret, retain: true, release: true);
+        : objc.NSProgress.castFromPointer(_ret, retain: true, release: true);
   }
 }
 
@@ -80716,7 +80826,7 @@ late final _sel_stringByReplacingPercentEscapesUsingEncoding_ =
 /// NSURLUtilities
 extension NSURLUtilities$1 on objc.NSString {
   /// Returns a new string made from the receiver by replacing all characters not in the allowedCharacters set with percent encoded characters. UTF-8 encoding is used to determine the correct percent encoded characters. Entire URL strings cannot be percent-encoded. This method is intended to percent-encode a URL component or subcomponent string, NOT the entire URL string. Any characters in allowedCharacters outside of the 7-bit ASCII range are ignored.
-  objc.NSString? stringByAddingPercentEncodingWithAllowedCharacters_(
+  objc.NSString? stringByAddingPercentEncodingWithAllowedCharacters(
       objc.NSCharacterSet allowedCharacters) {
     objc.checkOsVersionInternal(
         'NSString.stringByAddingPercentEncodingWithAllowedCharacters:',
@@ -80743,8 +80853,7 @@ extension NSURLUtilities$1 on objc.NSString {
   }
 
   /// stringByAddingPercentEscapesUsingEncoding:
-  objc.NSString? stringByAddingPercentEscapesUsingEncoding_(
-      DartNSUInteger enc) {
+  objc.NSString? stringByAddingPercentEscapesUsingEncoding(DartNSUInteger enc) {
     objc.checkOsVersionInternal(
         'NSString.stringByAddingPercentEscapesUsingEncoding:',
         iOS: (false, (2, 0, 0)),
@@ -80757,7 +80866,7 @@ extension NSURLUtilities$1 on objc.NSString {
   }
 
   /// stringByReplacingPercentEscapesUsingEncoding:
-  objc.NSString? stringByReplacingPercentEscapesUsingEncoding_(
+  objc.NSString? stringByReplacingPercentEscapesUsingEncoding(
       DartNSUInteger enc) {
     objc.checkOsVersionInternal(
         'NSString.stringByReplacingPercentEscapesUsingEncoding:',
@@ -80796,7 +80905,7 @@ late final _sel_URLByResolvingSymlinksInPath =
 /// NSURLPathUtilities
 extension NSURLPathUtilities on objc.NSURL {
   /// The following methods work on the path portion of a URL in the same manner that the NSPathUtilities methods on NSString do.
-  static objc.NSURL? fileURLWithPathComponents_(objc.NSArray components) {
+  static objc.NSURL? fileURLWithPathComponents(objc.NSArray components) {
     objc.checkOsVersionInternal('NSURL.fileURLWithPathComponents:',
         iOS: (false, (4, 0, 0)), macOS: (false, (10, 6, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -80838,7 +80947,7 @@ extension NSURLPathUtilities on objc.NSURL {
   }
 
   /// URLByAppendingPathComponent:
-  objc.NSURL? URLByAppendingPathComponent_(objc.NSString pathComponent) {
+  objc.NSURL? URLByAppendingPathComponent(objc.NSString pathComponent) {
     objc.checkOsVersionInternal('NSURL.URLByAppendingPathComponent:',
         iOS: (false, (4, 0, 0)), macOS: (false, (10, 6, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.pointer,
@@ -80849,8 +80958,8 @@ extension NSURLPathUtilities on objc.NSURL {
   }
 
   /// URLByAppendingPathComponent:isDirectory:
-  objc.NSURL? URLByAppendingPathComponent_isDirectory_(
-      objc.NSString pathComponent, bool isDirectory) {
+  objc.NSURL? URLByAppendingPathComponent$1(objc.NSString pathComponent,
+      {required bool isDirectory}) {
     objc.checkOsVersionInternal(
         'NSURL.URLByAppendingPathComponent:isDirectory:',
         iOS: (false, (5, 0, 0)),
@@ -80877,11 +80986,11 @@ extension NSURLPathUtilities on objc.NSURL {
   }
 
   /// URLByAppendingPathExtension:
-  objc.NSURL? URLByAppendingPathExtension_(objc.NSString pathExtension) {
+  objc.NSURL? URLByAppendingPathExtension(objc.NSString pathExtension$1) {
     objc.checkOsVersionInternal('NSURL.URLByAppendingPathExtension:',
         iOS: (false, (4, 0, 0)), macOS: (false, (10, 6, 0)));
     final _ret = _objc_msgSend_1sotr3r(this.ref.pointer,
-        _sel_URLByAppendingPathExtension_, pathExtension.ref.pointer);
+        _sel_URLByAppendingPathExtension_, pathExtension$1.ref.pointer);
     return _ret.address == 0
         ? null
         : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
@@ -80899,7 +81008,7 @@ extension NSURLPathUtilities on objc.NSURL {
   }
 
   /// Returns whether the URL's resource exists and is reachable. This method synchronously checks if the resource's backing store is reachable. Checking reachability is appropriate when making decisions that do not require other immediate operations on the resource, e.g. periodic maintenance of UI state that depends on the existence of a specific document. When performing operations such as opening a file or copying resource properties, it is more efficient to simply try the operation and handle failures. If this method returns NO, the optional error is populated. This method is currently applicable only to URLs for file system resources. For other URL types, NO is returned. Symbol is present in iOS 4, but performs no operation.
-  bool checkResourceIsReachableAndReturnError_(
+  bool checkResourceIsReachableAndReturnError(
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
     objc.checkOsVersionInternal('NSURL.checkResourceIsReachableAndReturnError:',
         iOS: (false, (4, 0, 0)), macOS: (false, (10, 6, 0)));
@@ -80942,19 +81051,19 @@ late final _sel_URL_resourceDidFailLoadingWithReason_ =
 /// NSURLClient
 extension NSURLClient on objc.NSObject {
   /// URL:resourceDataDidBecomeAvailable:
-  void URL_resourceDataDidBecomeAvailable_(
-      objc.NSURL sender, objc.NSData newBytes) {
+  void URL(objc.NSURL sender,
+      {required objc.NSData resourceDataDidBecomeAvailable}) {
     objc.checkOsVersionInternal('NSObject.URL:resourceDataDidBecomeAvailable:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_pfv6jd(
         this.ref.pointer,
         _sel_URL_resourceDataDidBecomeAvailable_,
         sender.ref.pointer,
-        newBytes.ref.pointer);
+        resourceDataDidBecomeAvailable.ref.pointer);
   }
 
   /// URLResourceDidFinishLoading:
-  void URLResourceDidFinishLoading_(objc.NSURL sender) {
+  void URLResourceDidFinishLoading(objc.NSURL sender) {
     objc.checkOsVersionInternal('NSObject.URLResourceDidFinishLoading:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_xtuoz7(this.ref.pointer, _sel_URLResourceDidFinishLoading_,
@@ -80962,7 +81071,7 @@ extension NSURLClient on objc.NSObject {
   }
 
   /// URLResourceDidCancelLoading:
-  void URLResourceDidCancelLoading_(objc.NSURL sender) {
+  void URLResourceDidCancelLoading(objc.NSURL sender) {
     objc.checkOsVersionInternal('NSObject.URLResourceDidCancelLoading:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     _objc_msgSend_xtuoz7(this.ref.pointer, _sel_URLResourceDidCancelLoading_,
@@ -80970,8 +81079,8 @@ extension NSURLClient on objc.NSObject {
   }
 
   /// URL:resourceDidFailLoadingWithReason:
-  void URL_resourceDidFailLoadingWithReason_(
-      objc.NSURL sender, objc.NSString reason) {
+  void URL$1(objc.NSURL sender,
+      {required objc.NSString resourceDidFailLoadingWithReason}) {
     objc.checkOsVersionInternal(
         'NSObject.URL:resourceDidFailLoadingWithReason:',
         iOS: (false, (2, 0, 0)),
@@ -80980,7 +81089,7 @@ extension NSURLClient on objc.NSObject {
         this.ref.pointer,
         _sel_URL_resourceDidFailLoadingWithReason_,
         sender.ref.pointer,
-        reason.ref.pointer);
+        resourceDidFailLoadingWithReason.ref.pointer);
   }
 }
 
@@ -81019,7 +81128,7 @@ late final _sel_URLHandleUsingCache_ =
 /// NSURLLoading
 extension NSURLLoading on objc.NSURL {
   /// Blocks to load the data if necessary.  If shouldUseCache is YES, then if an equivalent URL has already been loaded and cached, its resource data will be returned immediately.  If shouldUseCache is NO, a new load will be started
-  objc.NSData? resourceDataUsingCache_(bool shouldUseCache) {
+  objc.NSData? resourceDataUsingCache(bool shouldUseCache) {
     objc.checkOsVersionInternal('NSURL.resourceDataUsingCache:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1t6aok9(
@@ -81030,8 +81139,8 @@ extension NSURLLoading on objc.NSURL {
   }
 
   /// Starts an asynchronous load of the data, registering delegate to receive notification.  Only one such background load can proceed at a time.
-  void loadResourceDataNotifyingClient_usingCache_(
-      objc.ObjCObjectBase client, bool shouldUseCache) {
+  void loadResourceDataNotifyingClient(objc.ObjCObjectBase client,
+      {required bool usingCache}) {
     objc.checkOsVersionInternal(
         'NSURL.loadResourceDataNotifyingClient:usingCache:',
         iOS: (false, (2, 0, 0)),
@@ -81040,11 +81149,11 @@ extension NSURLLoading on objc.NSURL {
         this.ref.pointer,
         _sel_loadResourceDataNotifyingClient_usingCache_,
         client.ref.pointer,
-        shouldUseCache);
+        usingCache);
   }
 
   /// propertyForKey:
-  objc.ObjCObjectBase? propertyForKey_(objc.NSString propertyKey) {
+  objc.ObjCObjectBase? propertyForKey(objc.NSString propertyKey) {
     objc.checkOsVersionInternal('NSURL.propertyForKey:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1sotr3r(
@@ -81055,7 +81164,7 @@ extension NSURLLoading on objc.NSURL {
   }
 
   /// These attempt to write the given arguments for the resource specified by the URL; they return success or failure
-  bool setResourceData_(objc.NSData data) {
+  bool setResourceData(objc.NSData data) {
     objc.checkOsVersionInternal('NSURL.setResourceData:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     return _objc_msgSend_19nvye5(
@@ -81063,16 +81172,16 @@ extension NSURLLoading on objc.NSURL {
   }
 
   /// setProperty:forKey:
-  bool setProperty_forKey_(
-      objc.ObjCObjectBase property, objc.NSString propertyKey) {
+  bool setProperty(objc.ObjCObjectBase property,
+      {required objc.NSString forKey}) {
     objc.checkOsVersionInternal('NSURL.setProperty:forKey:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     return _objc_msgSend_1lsax7n(this.ref.pointer, _sel_setProperty_forKey_,
-        property.ref.pointer, propertyKey.ref.pointer);
+        property.ref.pointer, forKey.ref.pointer);
   }
 
   /// Sophisticated clients will want to ask for this, then message the handle directly.  If shouldUseCache is NO, a newly instantiated handle is returned, even if an equivalent URL has been loaded
-  objc.NSURLHandle? URLHandleUsingCache_(bool shouldUseCache) {
+  objc.NSURLHandle? URLHandleUsingCache(bool shouldUseCache) {
     objc.checkOsVersionInternal('NSURL.URLHandleUsingCache:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 0, 0)));
     final _ret = _objc_msgSend_1t6aok9(
@@ -81315,7 +81424,7 @@ class NSCondition extends objc.NSObject implements NSLocking {
   }
 
   /// waitUntilDate:
-  bool waitUntilDate_(objc.NSDate limit) {
+  bool waitUntilDate(objc.NSDate limit) {
     objc.checkOsVersionInternal('NSCondition.waitUntilDate:',
         iOS: (false, (2, 0, 0)), macOS: (false, (10, 5, 0)));
     return _objc_msgSend_19nvye5(
@@ -81370,7 +81479,7 @@ class NSCondition extends objc.NSObject implements NSLocking {
   }
 
   /// allocWithZone:
-  static NSCondition allocWithZone_(ffi.Pointer<objc.NSZone> zone) {
+  static NSCondition allocWithZone(ffi.Pointer<objc.NSZone> zone) {
     final _ret =
         _objc_msgSend_1cwp428(_class_NSCondition, _sel_allocWithZone_, zone);
     return NSCondition.castFromPointer(_ret, retain: false, release: true);
@@ -81424,8 +81533,8 @@ typedef NSProgressUnpublishingHandler$1 = ffi.Pointer<objc.ObjCBlockImpl>;
 typedef DartNSProgressUnpublishingHandler$1
     = objc.ObjCBlock<ffi.Void Function()>;
 typedef NSProgressPublishingHandler$1 = ffi.Pointer<objc.ObjCBlockImpl>;
-typedef DartNSProgressPublishingHandler$1
-    = objc.ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(NSProgress)>;
+typedef DartNSProgressPublishingHandler$1 = objc
+    .ObjCBlock<objc.ObjCBlock<ffi.Void Function()>? Function(objc.NSProgress)>;
 
 /// WARNING: NSException is a stub. To generate bindings for this class, include
 /// NSException in your config's objc-interfaces list.
@@ -81453,7 +81562,7 @@ late final _sel_raise_format_ = objc.registerName("raise:format:");
 /// NSExceptionRaisingConveniences
 extension NSExceptionRaisingConveniences on NSException {
   /// raise:format:
-  static void raise_format_(DartNSExceptionName name, objc.NSString format) {
+  static void raise(DartNSExceptionName name, {required objc.NSString format}) {
     _objc_msgSend_pfv6jd(_class_NSException, _sel_raise_format_,
         name.ref.pointer, format.ref.pointer);
   }
@@ -81534,13 +81643,11 @@ extension NSErrorRecoveryAttempting on objc.NSObject {
   /// - (void)didPresentErrorWithRecovery:(BOOL)didRecover contextInfo:(void *)contextInfo;
   ///
   /// The value passed for didRecover must be YES if error recovery was completely successful, NO otherwise.
-  void
-      attemptRecoveryFromError_optionIndex_delegate_didRecoverSelector_contextInfo_(
-          objc.NSError error,
-          DartNSUInteger recoveryOptionIndex,
-          objc.ObjCObjectBase? delegate,
-          ffi.Pointer<objc.ObjCSelector> didRecoverSelector,
-          ffi.Pointer<ffi.Void> contextInfo) {
+  void attemptRecoveryFromError(objc.NSError error,
+      {required DartNSUInteger optionIndex,
+      objc.ObjCObjectBase? delegate,
+      required ffi.Pointer<objc.ObjCSelector> didRecoverSelector,
+      required ffi.Pointer<ffi.Void> contextInfo}) {
     objc.checkOsVersionInternal(
         'NSObject.attemptRecoveryFromError:optionIndex:delegate:didRecoverSelector:contextInfo:',
         iOS: (false, (2, 0, 0)),
@@ -81549,15 +81656,15 @@ extension NSErrorRecoveryAttempting on objc.NSObject {
         this.ref.pointer,
         _sel_attemptRecoveryFromError_optionIndex_delegate_didRecoverSelector_contextInfo_,
         error.ref.pointer,
-        recoveryOptionIndex,
+        optionIndex,
         delegate?.ref.pointer ?? ffi.nullptr,
         didRecoverSelector,
         contextInfo);
   }
 
   /// Given that an error alert has been presented applicaton-modally to the user, and the user has chosen one of the error's recovery options, attempt recovery from the error, and return YES if error recovery was completely successful, NO otherwise. The recovery option index is an index into the error's array of localized recovery options.
-  bool attemptRecoveryFromError_optionIndex_(
-      objc.NSError error, DartNSUInteger recoveryOptionIndex) {
+  bool attemptRecoveryFromError$1(objc.NSError error,
+      {required DartNSUInteger optionIndex}) {
     objc.checkOsVersionInternal(
         'NSObject.attemptRecoveryFromError:optionIndex:',
         iOS: (false, (2, 0, 0)),
@@ -81566,7 +81673,7 @@ extension NSErrorRecoveryAttempting on objc.NSObject {
         this.ref.pointer,
         _sel_attemptRecoveryFromError_optionIndex_,
         error.ref.pointer,
-        recoveryOptionIndex);
+        optionIndex);
   }
 }
 
@@ -82443,6 +82550,8 @@ const int errSecCertificateValidityPeriodTooLong = -67901;
 const int errSecCertificateIsCA = -67902;
 
 const int errSecCertificateDuplicateExtension = -67903;
+
+const int errSecMissingQualifiedCertStatement = -67904;
 
 const int errSSLProtocol = -9800;
 
@@ -86690,17 +86799,31 @@ const int __API_TO_BE_DEPRECATED = 100000;
 
 const int __API_TO_BE_DEPRECATED_MACOS = 100000;
 
+const int __API_TO_BE_DEPRECATED_MACOSAPPLICATIONEXTENSION = 100000;
+
 const int __API_TO_BE_DEPRECATED_IOS = 100000;
+
+const int __API_TO_BE_DEPRECATED_IOSAPPLICATIONEXTENSION = 100000;
 
 const int __API_TO_BE_DEPRECATED_MACCATALYST = 100000;
 
+const int __API_TO_BE_DEPRECATED_MACCATALYSTAPPLICATIONEXTENSION = 100000;
+
 const int __API_TO_BE_DEPRECATED_WATCHOS = 100000;
 
+const int __API_TO_BE_DEPRECATED_WATCHOSAPPLICATIONEXTENSION = 100000;
+
 const int __API_TO_BE_DEPRECATED_TVOS = 100000;
+
+const int __API_TO_BE_DEPRECATED_TVOSAPPLICATIONEXTENSION = 100000;
 
 const int __API_TO_BE_DEPRECATED_DRIVERKIT = 100000;
 
 const int __API_TO_BE_DEPRECATED_VISIONOS = 100000;
+
+const int __API_TO_BE_DEPRECATED_VISIONOSAPPLICATIONEXTENSION = 100000;
+
+const int __API_TO_BE_DEPRECATED_KERNELKIT = 100000;
 
 const int __MAC_10_0 = 1000;
 
@@ -86812,6 +86935,8 @@ const int __MAC_13_5 = 130500;
 
 const int __MAC_13_6 = 130600;
 
+const int __MAC_13_7 = 130700;
+
 const int __MAC_14_0 = 140000;
 
 const int __MAC_14_1 = 140100;
@@ -86824,9 +86949,19 @@ const int __MAC_14_4 = 140400;
 
 const int __MAC_14_5 = 140500;
 
+const int __MAC_14_6 = 140600;
+
+const int __MAC_14_7 = 140700;
+
 const int __MAC_15_0 = 150000;
 
 const int __MAC_15_1 = 150100;
+
+const int __MAC_15_2 = 150200;
+
+const int __MAC_15_3 = 150300;
+
+const int __MAC_15_4 = 150400;
 
 const int __IPHONE_2_0 = 20000;
 
@@ -86986,9 +87121,19 @@ const int __IPHONE_17_4 = 170400;
 
 const int __IPHONE_17_5 = 170500;
 
+const int __IPHONE_17_6 = 170600;
+
+const int __IPHONE_17_7 = 170700;
+
 const int __IPHONE_18_0 = 180000;
 
 const int __IPHONE_18_1 = 180100;
+
+const int __IPHONE_18_2 = 180200;
+
+const int __IPHONE_18_3 = 180300;
+
+const int __IPHONE_18_4 = 180400;
 
 const int __WATCHOS_1_0 = 10000;
 
@@ -87084,9 +87229,19 @@ const int __WATCHOS_10_4 = 100400;
 
 const int __WATCHOS_10_5 = 100500;
 
+const int __WATCHOS_10_6 = 100600;
+
+const int __WATCHOS_10_7 = 100700;
+
 const int __WATCHOS_11_0 = 110000;
 
 const int __WATCHOS_11_1 = 110100;
+
+const int __WATCHOS_11_2 = 110200;
+
+const int __WATCHOS_11_3 = 110300;
+
+const int __WATCHOS_11_4 = 110400;
 
 const int __TVOS_9_0 = 90000;
 
@@ -87184,9 +87339,17 @@ const int __TVOS_17_4 = 170400;
 
 const int __TVOS_17_5 = 170500;
 
+const int __TVOS_17_6 = 170600;
+
 const int __TVOS_18_0 = 180000;
 
 const int __TVOS_18_1 = 180100;
+
+const int __TVOS_18_2 = 180200;
+
+const int __TVOS_18_3 = 180300;
+
+const int __TVOS_18_4 = 180400;
 
 const int __BRIDGEOS_2_0 = 20000;
 
@@ -87240,9 +87403,17 @@ const int __BRIDGEOS_8_4 = 80400;
 
 const int __BRIDGEOS_8_5 = 80500;
 
+const int __BRIDGEOS_8_6 = 80600;
+
 const int __BRIDGEOS_9_0 = 90000;
 
 const int __BRIDGEOS_9_1 = 90100;
+
+const int __BRIDGEOS_9_2 = 90200;
+
+const int __BRIDGEOS_9_3 = 90300;
+
+const int __BRIDGEOS_9_4 = 90400;
 
 const int __DRIVERKIT_19_0 = 190000;
 
@@ -87270,9 +87441,17 @@ const int __DRIVERKIT_23_4 = 230400;
 
 const int __DRIVERKIT_23_5 = 230500;
 
+const int __DRIVERKIT_23_6 = 230600;
+
 const int __DRIVERKIT_24_0 = 240000;
 
 const int __DRIVERKIT_24_1 = 240100;
+
+const int __DRIVERKIT_24_2 = 240200;
+
+const int __DRIVERKIT_24_3 = 240300;
+
+const int __DRIVERKIT_24_4 = 240400;
 
 const int __VISIONOS_1_0 = 10000;
 
@@ -87280,9 +87459,17 @@ const int __VISIONOS_1_1 = 10100;
 
 const int __VISIONOS_1_2 = 10200;
 
+const int __VISIONOS_1_3 = 10300;
+
 const int __VISIONOS_2_0 = 20000;
 
 const int __VISIONOS_2_1 = 20100;
+
+const int __VISIONOS_2_2 = 20200;
+
+const int __VISIONOS_2_3 = 20300;
+
+const int __VISIONOS_2_4 = 20400;
 
 const int MAC_OS_X_VERSION_10_0 = 1000;
 
@@ -87394,6 +87581,8 @@ const int MAC_OS_VERSION_13_5 = 130500;
 
 const int MAC_OS_VERSION_13_6 = 130600;
 
+const int MAC_OS_VERSION_13_7 = 130700;
+
 const int MAC_OS_VERSION_14_0 = 140000;
 
 const int MAC_OS_VERSION_14_1 = 140100;
@@ -87406,13 +87595,29 @@ const int MAC_OS_VERSION_14_4 = 140400;
 
 const int MAC_OS_VERSION_14_5 = 140500;
 
+const int MAC_OS_VERSION_14_6 = 140600;
+
+const int MAC_OS_VERSION_14_7 = 140700;
+
 const int MAC_OS_VERSION_15_0 = 150000;
 
 const int MAC_OS_VERSION_15_1 = 150100;
 
+const int MAC_OS_VERSION_15_2 = 150200;
+
+const int MAC_OS_VERSION_15_3 = 150300;
+
+const int MAC_OS_VERSION_15_4 = 150400;
+
+const int __AVAILABILITY_VERSIONS_VERSION_HASH = 93585900;
+
+const String __AVAILABILITY_VERSIONS_VERSION_STRING = 'Local';
+
+const String __AVAILABILITY_FILE = 'AvailabilityVersions.h';
+
 const int __MAC_OS_X_VERSION_MIN_REQUIRED = 150000;
 
-const int __MAC_OS_X_VERSION_MAX_ALLOWED = 150100;
+const int __MAC_OS_X_VERSION_MAX_ALLOWED = 150400;
 
 const int __ENABLE_LEGACY_MAC_AVAILABILITY = 1;
 
@@ -87455,6 +87660,8 @@ const int _DARWIN_FEATURE_ONLY_UNIX_CONFORMANCE = 1;
 const int _DARWIN_FEATURE_UNIX_CONFORMANCE = 3;
 
 const int __has_ptrcheck = 0;
+
+const int __has_bounds_safety_attributes = 0;
 
 const int __DARWIN_NULL = 0;
 
@@ -87970,6 +88177,8 @@ const int IOPOL_VFS_SKIP_MTIME_UPDATE_OFF = 0;
 
 const int IOPOL_VFS_SKIP_MTIME_UPDATE_ON = 1;
 
+const int IOPOL_VFS_SKIP_MTIME_UPDATE_IGNORE = 2;
+
 const int IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_OFF = 0;
 
 const int IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_ON = 1;
@@ -88138,6 +88347,52 @@ const int QUAD_MAX = 9223372036854775807;
 
 const int QUAD_MIN = -9223372036854775808;
 
+const int ARG_MAX = 1048576;
+
+const int CHILD_MAX = 266;
+
+const int GID_MAX = 2147483647;
+
+const int LINK_MAX = 32767;
+
+const int MAX_CANON = 1024;
+
+const int MAX_INPUT = 1024;
+
+const int NAME_MAX = 255;
+
+const int NGROUPS_MAX = 16;
+
+const int UID_MAX = 2147483647;
+
+const int OPEN_MAX = 10240;
+
+const int PATH_MAX = 1024;
+
+const int PIPE_BUF = 512;
+
+const int BC_BASE_MAX = 99;
+
+const int BC_DIM_MAX = 2048;
+
+const int BC_SCALE_MAX = 99;
+
+const int BC_STRING_MAX = 1000;
+
+const int CHARCLASS_NAME_MAX = 14;
+
+const int COLL_WEIGHTS_MAX = 2;
+
+const int EQUIV_CLASS_MAX = 2;
+
+const int EXPR_NEST_MAX = 32;
+
+const int LINE_MAX = 2048;
+
+const int RE_DUP_MAX = 255;
+
+const int NZERO = 20;
+
 const int _POSIX_THREAD_KEYS_MAX = 128;
 
 const int API_TO_BE_DEPRECATED = 100000;
@@ -88175,6 +88430,8 @@ const int SEEK_END = 2;
 const int SEEK_HOLE = 3;
 
 const int SEEK_DATA = 4;
+
+const int L_ctermid = 1024;
 
 const int MACH_PORT_NULL = 0;
 
@@ -88330,9 +88587,9 @@ const int GUARD_TYPE_MACH_PORT = 1;
 
 const int MAX_FATAL_kGUARD_EXC_CODE = 128;
 
-const int MPG_FLAGS_NONE = 0;
-
 const int MAX_OPTIONAL_kGUARD_EXC_CODE = 524288;
+
+const int MPG_FLAGS_NONE = 0;
 
 const int MPG_FLAGS_STRICT_REPLY_INVALID_REPLY_DISP = 72057594037927936;
 
@@ -89021,6 +89278,8 @@ const int O_CREAT = 512;
 const int O_TRUNC = 1024;
 
 const int O_EXCL = 2048;
+
+const int O_RESOLVE_BENEATH = 4096;
 
 const int O_EVTONLY = 32768;
 
