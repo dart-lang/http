@@ -15,12 +15,11 @@ class Book {
     if (json['items'] case final List<dynamic> items) {
       for (final item in items) {
         if (item case {'volumeInfo': final Map<dynamic, dynamic> volumeInfo}) {
-          if (volumeInfo
-              case {
-                'title': final String title,
-                'description': final String description,
-                'imageLinks': {'smallThumbnail': final String thumbnail}
-              }) {
+          if (volumeInfo case {
+            'title': final String title,
+            'description': final String description,
+            'imageLinks': {'smallThumbnail': final String thumbnail},
+          }) {
             books.add(Book(title, description, Uri.parse(thumbnail)));
           }
         }

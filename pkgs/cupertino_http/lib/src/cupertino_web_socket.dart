@@ -108,8 +108,8 @@ class CupertinoWebSocket implements WebSocket {
       onComplete: (session, task, error) {
         if (!readyCompleter.isCompleted) {
           // `onWebSocketTaskOpened should have been called and completed
-          // `readyCompleter`. So either there was a error creating the connection
-          // or a logic error.
+          // `readyCompleter`. So either there was a error creating the
+          // connection or a logic error.
           if (error == null) {
             throw AssertionError(
               'expected an error or "onWebSocketTaskOpened" to be called '
@@ -123,8 +123,8 @@ class CupertinoWebSocket implements WebSocket {
           // There are three possibilities here:
           // 1. the peer sent a close Frame, `onWebSocketTaskClosed` was already
           //    called and `_connectionClosed` is a no-op.
-          // 2. we sent a close Frame (through `close()`) and `_connectionClosed`
-          //    is a no-op.
+          // 2. we sent a close Frame (through `close()`) and
+          //    `_connectionClosed` is a no-op.
           // 3. an error occurred (e.g. network failure) and `_connectionClosed`
           //    will signal that and close `event`.
           webSocket._connectionClosed(
