@@ -1075,9 +1075,10 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       );
     });
 
-    final task = _nsObject.dataTaskWithRequestAndCompletionHandler(
+    final task =
+        ncb.NSURLSessionAsynchronousConvenience(_nsObject).dataTaskWithRequest(
       request._nsObject,
-      completer,
+      completionHandler: completer,
     );
 
     return URLSessionTask._(task);

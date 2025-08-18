@@ -50,8 +50,6 @@ objc-interfaces:
       'initWithURL:MIMEType:expectedContentLength:textEncodingName:': 'initWithUrlAndMIMEType'
     'NSHTTPURLResponse':
       'initWithURL:statusCode:HTTPVersion:headerFields:': 'initWithURLAndStatusCode'
-    'NSURLSession':
-      'dataTaskWithRequest:completionHandler:': 'dataTaskWithRequestAndCompletionHandler'
 objc-protocols:
   include:
     - 'NSURLSessionDataDelegate'
