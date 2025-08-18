@@ -18,7 +18,8 @@ class ConnectionException extends WebSocketException {
   ConnectionException(super.message, this.error);
 
   @override
-  String toString() => 'CupertinoErrorWebSocketException: $message '
+  String toString() =>
+      'CupertinoErrorWebSocketException: $message '
       '[${error.localizedDescription.toDartString()}]';
 }
 
@@ -67,59 +68,72 @@ class CupertinoWebSocket implements WebSocket {
   ///
   /// NOTE: the [WebSocket] interface is currently experimental and may change
   /// in the future.
-  static Future<CupertinoWebSocket> connect(Uri url,
-      {Iterable<String>? protocols, URLSessionConfiguration? config}) async {
+  static Future<CupertinoWebSocket> connect(
+    Uri url, {
+    Iterable<String>? protocols,
+    URLSessionConfiguration? config,
+  }) async {
     if (!url.isScheme('ws') && !url.isScheme('wss')) {
       throw ArgumentError.value(
-          url, 'url', 'only ws: and wss: schemes are supported');
+        url,
+        'url',
+        'only ws: and wss: schemes are supported',
+      );
     }
 
     final readyCompleter = Completer<CupertinoWebSocket>();
     late CupertinoWebSocket webSocket;
 
     final session = URLSession.sessionWithConfiguration(
-        config ?? URLSessionConfiguration.defaultSessionConfiguration(),
-        // In a successful flow, the callbacks will be made in this order:
-        // onWebSocketTaskOpened(...)        // Good connect.
-        // <receive/send messages to the peer>
-        // onWebSocketTaskClosed(...)        // Optional: peer sent Close frame.
-        // onComplete(..., error=null)       // Disconnected.
-        //
-        // In a failure to connect to the peer, the flow will be:
-        // onComplete(session, task, error=error):
-        //
-        // `onComplete` can also be called at any point if the peer is
-        // disconnected without Close frames being exchanged.
-        onWebSocketTaskOpened: (session, task, protocol) {
-      webSocket = CupertinoWebSocket._(task, protocol ?? '');
-      readyCompleter.complete(webSocket);
-    }, onWebSocketTaskClosed: (session, task, closeCode, reason) {
-      assert(readyCompleter.isCompleted);
-      webSocket._connectionClosed(closeCode, reason);
-    }, onComplete: (session, task, error) {
-      if (!readyCompleter.isCompleted) {
-        // `onWebSocketTaskOpened should have been called and completed
-        // `readyCompleter`. So either there was a error creating the connection
-        // or a logic error.
-        if (error == null) {
-          throw AssertionError(
+      config ?? URLSessionConfiguration.defaultSessionConfiguration(),
+      // In a successful flow, the callbacks will be made in this order:
+      // onWebSocketTaskOpened(...)        // Good connect.
+      // <receive/send messages to the peer>
+      // onWebSocketTaskClosed(...)        // Optional: peer sent Close frame.
+      // onComplete(..., error=null)       // Disconnected.
+      //
+      // In a failure to connect to the peer, the flow will be:
+      // onComplete(session, task, error=error):
+      //
+      // `onComplete` can also be called at any point if the peer is
+      // disconnected without Close frames being exchanged.
+      onWebSocketTaskOpened: (session, task, protocol) {
+        webSocket = CupertinoWebSocket._(task, protocol ?? '');
+        readyCompleter.complete(webSocket);
+      },
+      onWebSocketTaskClosed: (session, task, closeCode, reason) {
+        assert(readyCompleter.isCompleted);
+        webSocket._connectionClosed(closeCode, reason);
+      },
+      onComplete: (session, task, error) {
+        if (!readyCompleter.isCompleted) {
+          // `onWebSocketTaskOpened should have been called and completed
+          // `readyCompleter`. So either there was a error creating the connection
+          // or a logic error.
+          if (error == null) {
+            throw AssertionError(
               'expected an error or "onWebSocketTaskOpened" to be called '
-              'first');
+              'first',
+            );
+          }
+          readyCompleter.completeError(
+            ConnectionException('connection ended unexpectedly', error),
+          );
+        } else {
+          // There are three possibilities here:
+          // 1. the peer sent a close Frame, `onWebSocketTaskClosed` was already
+          //    called and `_connectionClosed` is a no-op.
+          // 2. we sent a close Frame (through `close()`) and `_connectionClosed`
+          //    is a no-op.
+          // 3. an error occurred (e.g. network failure) and `_connectionClosed`
+          //    will signal that and close `event`.
+          webSocket._connectionClosed(
+            1006,
+            'abnormal close'.codeUnits.toNSData(),
+          );
         }
-        readyCompleter.completeError(
-            ConnectionException('connection ended unexpectedly', error));
-      } else {
-        // There are three possibilities here:
-        // 1. the peer sent a close Frame, `onWebSocketTaskClosed` was already
-        //    called and `_connectionClosed` is a no-op.
-        // 2. we sent a close Frame (through `close()`) and `_connectionClosed`
-        //    is a no-op.
-        // 3. an error occurred (e.g. network failure) and `_connectionClosed`
-        //    will signal that and close `event`.
-        webSocket._connectionClosed(
-            1006, 'abnormal close'.codeUnits.toNSData());
-      }
-    });
+      },
+    );
 
     session.webSocketTaskWithURL(url, protocols: protocols).resume();
     return readyCompleter.future;
@@ -141,11 +155,11 @@ class CupertinoWebSocket implements WebSocket {
     late WebSocketEvent event;
     switch (value.type) {
       case NSURLSessionWebSocketMessageType
-            .NSURLSessionWebSocketMessageTypeString:
+          .NSURLSessionWebSocketMessageTypeString:
         event = TextDataReceived(value.string!);
         break;
       case NSURLSessionWebSocketMessageType
-            .NSURLSessionWebSocketMessageTypeData:
+          .NSURLSessionWebSocketMessageTypeData:
         event = BinaryDataReceived(value.data!.toList());
         break;
     }
@@ -154,9 +168,12 @@ class CupertinoWebSocket implements WebSocket {
   }
 
   void _scheduleReceive() {
-    unawaited(_task
-        .receiveMessage()
-        .then(_handleMessage, onError: _closeConnectionWithError));
+    unawaited(
+      _task.receiveMessage().then(
+        _handleMessage,
+        onError: _closeConnectionWithError,
+      ),
+    );
   }
 
   /// Close the WebSocket connection due to an error and send the
@@ -172,10 +189,10 @@ class CupertinoWebSocket implements WebSocket {
       }
       var (int code, String? reason) = switch ([domain, e.code]) {
         ['NSPOSIXErrorDomain', 100] => (
-            1002,
-            e.localizedDescription.toDartString()
-          ),
-        _ => (1006, e.localizedDescription.toDartString())
+          1002,
+          e.localizedDescription.toDartString(),
+        ),
+        _ => (1006, e.localizedDescription.toDartString()),
       };
       _task.cancel();
       _connectionClosed(code, reason.codeUnits.toNSData());
@@ -221,12 +238,17 @@ class CupertinoWebSocket implements WebSocket {
     }
 
     if (code != null && code != 1000 && !(code >= 3000 && code <= 4999)) {
-      throw ArgumentError('Invalid argument: $code, close code must be 1000 or '
-          'in the range 3000-4999');
+      throw ArgumentError(
+        'Invalid argument: $code, close code must be 1000 or '
+        'in the range 3000-4999',
+      );
     }
     if (reason != null && utf8.encode(reason).length > 123) {
-      throw ArgumentError.value(reason, 'reason',
-          'reason must be <= 123 bytes long when encoded as UTF-8');
+      throw ArgumentError.value(
+        reason,
+        'reason',
+        'reason must be <= 123 bytes long when encoded as UTF-8',
+      );
     }
 
     if (!_events.isClosed) {

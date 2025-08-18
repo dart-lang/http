@@ -38,8 +38,9 @@ void main() {
     });
 
     Future<void> doRequest(URLSession session) {
-      final request =
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}'));
+      final request = URLRequest.fromUrl(
+        Uri.parse('http://localhost:${server.port}'),
+      );
       final c = Completer<void>();
       session.dataTaskWithCompletionHandler(request, (d, r, e) {
         c.complete();
