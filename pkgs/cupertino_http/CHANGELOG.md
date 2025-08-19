@@ -1,3 +1,7 @@
+## 2.4.0-wip
+
+* Switch to `package:objective_c` `8.1.0` and `package:ffigen` `19.1.0`.
+
 ## 2.3.0
 
 * Add the ability to abort requests.
