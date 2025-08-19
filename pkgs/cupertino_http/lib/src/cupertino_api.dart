@@ -199,7 +199,7 @@ class URLSessionConfiguration
     }
     final d = objc.NSMutableDictionary.alloc().init();
     headers.forEach((key, value) {
-      d.setObject_forKey_(value.toNSString(), key.toNSString());
+      d.setObject(value.toNSString(), forKey: key.toNSString());
     });
     _nsObject.HTTPAdditionalHeaders = d;
   }
@@ -746,7 +746,7 @@ class MutableURLRequest extends URLRequest {
   ///
   /// See [NSMutableURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1414617-allhttpheaderfields)
   factory MutableURLRequest.fromUrl(Uri uri) {
-    final url = objc.NSURL.URLWithString_(uri.toString().toNSString())!;
+    final url = objc.NSURL.URLWithString(uri.toString().toNSString())!;
     return MutableURLRequest._(ncb.NSMutableURLRequest.requestWithURL_(url));
   }
 

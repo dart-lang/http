@@ -177,7 +177,7 @@ void testOnData(URLSessionConfiguration Function() config) {
           onData: (s, t, d) {
             actualSession = s;
             actualTask = t;
-            actualData.appendData_(d);
+            actualData.appendData(d);
           });
 
       final task = session.dataTaskWithRequest(
