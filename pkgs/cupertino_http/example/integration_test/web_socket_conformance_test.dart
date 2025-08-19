@@ -10,13 +10,13 @@ void main() {
   testAll(CupertinoWebSocket.connect);
 
   group('defaultSessionConfiguration', () {
-    testAll(
-      CupertinoWebSocket.connect,
-    );
+    testAll(CupertinoWebSocket.connect);
   });
   group('fromSessionConfiguration', () {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration();
-    testAll((uri, {protocols}) =>
-        CupertinoWebSocket.connect(uri, protocols: protocols, config: config));
+    testAll(
+      (uri, {protocols}) =>
+          CupertinoWebSocket.connect(uri, protocols: protocols, config: config),
+    );
   });
 }

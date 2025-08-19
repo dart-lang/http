@@ -10,14 +10,13 @@ void main() {
   group('ConnectionException', () {
     test('toString', () {
       expect(
-          ConnectionException(
-                  'failed to connect',
-                  NSError.errorWithDomain_code_userInfo_(
-                      'NSURLErrorDomain'.toNSString(), -999, null))
-              .toString(),
-          'CupertinoErrorWebSocketException: failed to connect '
-          '[The operation couldn’t be completed. '
-          '(NSURLErrorDomain error -999.)]');
+        ConnectionException(
+          'failed to connect',
+          NSError.errorWithDomain('NSURLErrorDomain'.toNSString(), code: -999),
+        ).toString(),
+        'CupertinoErrorWebSocketException: failed to connect '
+        '[The operation couldn’t be completed. (NSURLErrorDomain error -999.)]',
+      );
     });
   });
 }

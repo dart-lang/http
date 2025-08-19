@@ -43,6 +43,13 @@ objc-interfaces:
     - 'NSURLSessionTask'
     - 'NSURLSessionWebSocketMessage'
     - 'NSURLSessionWebSocketTask'
+  member-rename:
+    # TODO(brianquinlan): Remove this when
+    # https://github.com/dart-lang/native/issues/2419 is fixed.
+    'NSURLResponse':
+      'initWithURL:MIMEType:expectedContentLength:textEncodingName:': 'initWithUrlAndMIMEType'
+    'NSHTTPURLResponse':
+      'initWithURL:statusCode:HTTPVersion:headerFields:': 'initWithURLAndStatusCode'
 objc-protocols:
   include:
     - 'NSURLSessionDataDelegate'

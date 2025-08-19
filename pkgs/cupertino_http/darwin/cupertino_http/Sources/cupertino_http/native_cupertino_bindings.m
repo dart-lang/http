@@ -17,6 +17,9 @@
 #error "This file must be compiled with ARC enabled"
 #endif
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+
 typedef struct {
   int64_t version;
   void* (*newWaiter)(void);
@@ -891,3 +894,5 @@ void  _NativeCupertinoHttp_protocolTrampoline_ovsamd(id target, void * sel) {
   return ((ProtocolTrampoline_17)((id (*)(id, SEL, SEL))objc_msgSend)(target, @selector(getDOBJCDartProtocolMethodForSelector:), sel))(sel);
 }
 #undef BLOCKING_BLOCK_IMPL
+
+#pragma clang diagnostic pop

@@ -26,10 +26,10 @@ void main() {
         });
       final session = URLSession.sharedSession();
       final task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
-        ..resume();
-      while (
-          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
+        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+      )..resume();
+      while (task.state !=
+          NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }

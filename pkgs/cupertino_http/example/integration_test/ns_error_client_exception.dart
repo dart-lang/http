@@ -18,18 +18,25 @@ void main() {
 
     test('thrown', () async {
       expect(
-          () => client.get(Uri.http('doesnotexist', '/')),
-          throwsA(isA<NSErrorClientException>()
-              .having((e) => e.error.domain.toDartString(), 'error.domain',
-                  'NSURLErrorDomain')
+        () => client.get(Uri.http('doesnotexist', '/')),
+        throwsA(
+          isA<NSErrorClientException>()
+              .having(
+                (e) => e.error.domain.toDartString(),
+                'error.domain',
+                'NSURLErrorDomain',
+              )
               .having((e) => e.error.code, 'error.code', -1003)
               .having(
-                  (e) => e.toString(),
-                  'toString()',
-                  'NSErrorClientException: A server with the specified '
-                      'hostname could not be found. '
-                      '[domain=NSURLErrorDomain, code=-1003], '
-                      'uri=http://doesnotexist/')));
+                (e) => e.toString(),
+                'toString()',
+                'NSErrorClientException: A server with the specified '
+                    'hostname could not be found. '
+                    '[domain=NSURLErrorDomain, code=-1003], '
+                    'uri=http://doesnotexist/',
+              ),
+        ),
+      );
     });
   });
 }
