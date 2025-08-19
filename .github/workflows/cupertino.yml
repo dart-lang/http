@@ -30,6 +30,7 @@ jobs:
       run:
         working-directory: pkgs/cupertino_http
     strategy:
+      fail-fast: false
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
