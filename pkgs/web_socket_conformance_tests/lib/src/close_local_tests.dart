@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
@@ -92,6 +93,8 @@ void testCloseLocal(
     });
 
     test('close with 1000', () async {
+      var r = await Process.start('sudo', ['tcpdump', '-w', 'network']);
+
       final channel = await channelFactory(uri);
 
       channel.sendText('Hello World');
@@ -102,6 +105,7 @@ void testCloseLocal(
       expect(closeCode, 1000);
       expect(closeReason, '');
       expect(await channel.events.isEmpty, true);
+      r.kill();
     });
 
     test('with code 3000', () async {

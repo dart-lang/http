@@ -58,6 +58,11 @@ jobs:
           cd example
           flutter pub get
           flutter test -d macos integration_test/main.dart --test-randomize-ordering-seed=random  
+      - name: Upload tcpdump capture
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcpdump
+          path: network
   ios:
     name: "iOS: Test"
     runs-on: macos-latest
