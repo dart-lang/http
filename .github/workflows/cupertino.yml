@@ -56,23 +56,15 @@ jobs:
       - name: Start tcpdump
         run: |
           sudo tcpdump -i any -s 65535 -w ${{ github.workspace }}/capture.pcap &
-          echo $! > tcpdump.pid
       - name: Run tests
         run: |
           cd example
           flutter pub get
           flutter test -d macos integration_test/main.dart --name "defaultSessionConfiguration local close close with 1000"  
-      - name: Run find
-        if: failure()
-        run: |
-          find .
       - name: Stop tcpdump
         if: failure()
         run: |
-          PID=$(cat tcpdump.pid)
-          if [ -n "$PID" ]; then
-            sudo kill -2 "$PID" || true
-          fi
+          sudo pkill tcpdump
           sleep 1
       - name: Upload tcpdump capture
         if: failure()
