@@ -94,6 +94,7 @@ void testCloseLocal(
     test('close with 1000', () async {
       final channel = await channelFactory(uri);
 
+      channel.sendText('Hello World');
       await channel.close(1000);
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;
