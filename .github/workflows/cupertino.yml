@@ -55,7 +55,7 @@ jobs:
 #        if: always() && steps.install.outcome == 'success'
       - name: Start tcpdump
         run: |
-          sudo tcpdump capture.pcap &
+          sudo tcpdump -i any -s 65535 -w capture.pcap &
           echo $! > tcpdump.pid
       - name: Run tests
         run: |
