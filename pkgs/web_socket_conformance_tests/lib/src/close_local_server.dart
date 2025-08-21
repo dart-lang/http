@@ -20,6 +20,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       webSocket.listen((event) {
         channel.sink.add(event);
       }, onDone: () {
+        print('Server got ${webSocket.closeCode} ${webSocket.closeReason}');
         webSocket.close(4123, 'server closed the connection');
         channel.sink.add(webSocket.closeCode);
         channel.sink.add(webSocket.closeReason);

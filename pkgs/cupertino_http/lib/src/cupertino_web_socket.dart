@@ -18,8 +18,7 @@ class ConnectionException extends WebSocketException {
   ConnectionException(super.message, this.error);
 
   @override
-  String toString() =>
-      'CupertinoErrorWebSocketException: $message '
+  String toString() => 'CupertinoErrorWebSocketException: $message '
       '[${error.localizedDescription.toDartString()}]';
 }
 
@@ -155,11 +154,11 @@ class CupertinoWebSocket implements WebSocket {
     late WebSocketEvent event;
     switch (value.type) {
       case NSURLSessionWebSocketMessageType
-          .NSURLSessionWebSocketMessageTypeString:
+            .NSURLSessionWebSocketMessageTypeString:
         event = TextDataReceived(value.string!);
         break;
       case NSURLSessionWebSocketMessageType
-          .NSURLSessionWebSocketMessageTypeData:
+            .NSURLSessionWebSocketMessageTypeData:
         event = BinaryDataReceived(value.data!.toList());
         break;
     }
@@ -170,9 +169,9 @@ class CupertinoWebSocket implements WebSocket {
   void _scheduleReceive() {
     unawaited(
       _task.receiveMessage().then(
-        _handleMessage,
-        onError: _closeConnectionWithError,
-      ),
+            _handleMessage,
+            onError: _closeConnectionWithError,
+          ),
     );
   }
 
@@ -189,9 +188,9 @@ class CupertinoWebSocket implements WebSocket {
       }
       var (int code, String? reason) = switch ([domain, e.code]) {
         ['NSPOSIXErrorDomain', 100] => (
-          1002,
-          e.localizedDescription.toDartString(),
-        ),
+            1002,
+            e.localizedDescription.toDartString(),
+          ),
         _ => (1006, e.localizedDescription.toDartString()),
       };
       _task.cancel();
@@ -233,6 +232,7 @@ class CupertinoWebSocket implements WebSocket {
 
   @override
   Future<void> close([int? code, String? reason]) async {
+    print('close($code, $reason)');
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
