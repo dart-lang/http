@@ -55,7 +55,7 @@ jobs:
 #        if: always() && steps.install.outcome == 'success'
       - name: Start tcpdump
         run: |
-          sudo tcpdump -i any -s 65535 -w capture.pcap &
+          sudo tcpdump -i any -s 65535 -w ${{ github.workspace }}/capture.pcap &
           echo $! > tcpdump.pid
       - name: Run tests
         run: |
@@ -79,7 +79,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tcpdump
-          path: capture.pcap
+          path: ${{ github.workspace }}/capture.pcap
   ios:
     name: "iOS: Test"
     runs-on: macos-latest
