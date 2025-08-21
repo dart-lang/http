@@ -93,8 +93,6 @@ void testCloseLocal(
     });
 
     test('close with 1000', () async {
-      var r = await Process.start('sudo', ['tcpdump', '-w', 'network']);
-
       final channel = await channelFactory(uri);
 
       channel.sendText('Hello World');
@@ -105,7 +103,6 @@ void testCloseLocal(
       expect(closeCode, 1000);
       expect(closeReason, '');
       expect(await channel.events.isEmpty, true);
-      r.kill();
     });
 
     test('with code 3000', () async {
