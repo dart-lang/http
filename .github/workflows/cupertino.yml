@@ -60,7 +60,7 @@ jobs:
         run: |
           cd example
           flutter pub get
-          flutter test -d macos integration_test/main.dart --name "defaultSessionConfiguration local close with code 3000"  
+          flutter test -d macos integration_test/main.dart --name "defaultSessionConfiguration local close with code and reason"  
       - name: Stop tcpdump
         if: failure()
         run: |
