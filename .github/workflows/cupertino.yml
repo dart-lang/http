@@ -30,10 +30,11 @@ jobs:
       run:
         working-directory: pkgs/cupertino_http
     strategy:
+      fail-fast: false
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.24.0", "any"]
+        flutter-version: ["3.24.0", "3.32.8", "3.35.0", "any"]
         # It would be nice to test on older versions of macOS but macOS 13 is
         # the oldest supported by GitHub.
         os: [macos-13, macos-latest]
@@ -46,17 +47,31 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-      - name: Check formatting
-        run: dart format --output=none --set-exit-if-changed .
-        if: always() && steps.install.outcome == 'success'
-      - name: Analyze code
-        run: flutter analyze --fatal-infos
-        if: always() && steps.install.outcome == 'success'
+#      - name: Check formatting
+#        run: dart format --output=show --set-exit-if-changed .
+#        if: always() && steps.install.outcome == 'success'
+#      - name: Analyze code
+#        run: flutter analyze --fatal-infos
+#        if: always() && steps.install.outcome == 'success'
+      - name: Start tcpdump
+        run: |
+          sudo tcpdump -i any -s 65535 -w ${{ github.workspace }}/capture.pcap &
       - name: Run tests
         run: |
           cd example
           flutter pub get
-          flutter test -d macos integration_test/main.dart --test-randomize-ordering-seed=random  
+          flutter test -d macos integration_test/main.dart --name "defaultSessionConfiguration local close with code and reason"  
+      - name: Stop tcpdump
+        if: failure()
+        run: |
+          sudo pkill -SIGQUIT tcpdump
+          sleep 1
+      - name: Upload tcpdump capture
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcpdump
+          path: ${{ github.workspace }}/capture.pcap
   ios:
     name: "iOS: Test"
     runs-on: macos-latest

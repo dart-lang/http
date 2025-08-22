@@ -91,9 +91,10 @@ void testCloseLocal(
       expect(await channel.events.isEmpty, true);
     });
 
-    test('close with 1000', () async {
+    test('with close 1000', () async {
       final channel = await channelFactory(uri);
 
+      channel.sendText('Hello World');
       await channel.close(1000);
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;
@@ -129,6 +130,11 @@ void testCloseLocal(
 
     test('with code and reason', () async {
       final channel = await channelFactory(uri);
+
+      channel
+        ..sendText('Hello World')
+        ..sendText('Hello World 2')
+        ..sendText('Hello World 3');
 
       await channel.close(3000, 'Client initiated closure');
       final closeCode = await httpServerQueue.next as int?;
