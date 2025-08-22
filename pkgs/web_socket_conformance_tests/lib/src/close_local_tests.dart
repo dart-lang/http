@@ -91,7 +91,7 @@ void testCloseLocal(
       expect(await channel.events.isEmpty, true);
     });
 
-    test('close with 1000', () async {
+    test('with close 1000', () async {
       final channel = await channelFactory(uri);
 
       channel.sendText('Hello World');
