@@ -200,8 +200,7 @@ class CupertinoWebSocket implements WebSocket {
           ),
         _ => (1006, e.localizedDescription.toDartString()),
       };
-      // Not cancelling for now.
-      // _task.cancel();
+      _task.cancel();
       _connectionClosed(code, reason.codeUnits.toNSData());
     } else {
       throw StateError('unexpected error: $e');
