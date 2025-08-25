@@ -75,7 +75,7 @@ jobs:
           path: ${{ github.workspace }}/capture.pcap
   ios:
     name: "iOS: Test"
-    runs-on: macos-latest
+    runs-on: macos-13-large
     defaults:
       run:
         working-directory: pkgs/cupertino_http
@@ -97,7 +97,7 @@ jobs:
       - uses: futureware-tech/simulator-action@dab10d813144ef59b48d401cd95da151222ef8cd
         with:
           os: iOS
-          model: iPhone 16 Pro Max
+          os_version: '>=13.0'
       - name: Run tests
         run: |
           cd example
