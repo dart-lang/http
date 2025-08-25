@@ -200,7 +200,8 @@ class CupertinoWebSocket implements WebSocket {
           ),
         _ => (1006, e.localizedDescription.toDartString()),
       };
-      _task.cancel();
+      // Not cancelling for now.
+      // _task.cancel();
       _connectionClosed(code, reason.codeUnits.toNSData());
     } else {
       throw StateError('unexpected error: $e');
@@ -267,8 +268,7 @@ class CupertinoWebSocket implements WebSocket {
       if (code != null) {
         reason = reason ?? '';
         print('cancelWithCloseCode($code, $reason)');
-        _task.cancel();
-//        _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
+        _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
       } else {
         _task.cancel();
       }
