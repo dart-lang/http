@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
@@ -137,6 +138,7 @@ void testCloseLocal(
         ..sendText('Hello World 3');
 
       await channel.close(3000, 'Client initiated closure');
+      sleep(const Duration(seconds: 5));
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;
 
