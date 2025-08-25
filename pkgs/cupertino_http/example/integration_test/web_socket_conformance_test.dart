@@ -5,18 +5,17 @@
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:test/test.dart';
 import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
+import 'package:web_socket/web_socket.dart';
 
 void main() {
   testAll(CupertinoWebSocket.connect);
 
   group('defaultSessionConfiguration', () {
     testAll(
-      CupertinoWebSocket.connect,
+      WebSocket.connect,
     );
   });
   group('fromSessionConfiguration', () {
-    final config = URLSessionConfiguration.ephemeralSessionConfiguration();
-    testAll((uri, {protocols}) =>
-        CupertinoWebSocket.connect(uri, protocols: protocols, config: config));
+    testAll(WebSocket.connect);
   });
 }
