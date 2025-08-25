@@ -64,8 +64,9 @@ jobs:
       - name: Stop tcpdump
         if: failure()
         run: |
+          sleep 2
           sudo pkill -SIGQUIT tcpdump
-          sleep 1
+          sleep 2
       - name: Upload tcpdump capture
         if: failure()
         uses: actions/upload-artifact@v4
