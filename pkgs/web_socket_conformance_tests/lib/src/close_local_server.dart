@@ -20,7 +20,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       webSocket.listen((event) {
         print('Got event: $event');
 //        channel.sink.add(event);
-      }, onError: (e) {
+      }, onError: (Object e) {
         print('onError($e)');
       }, onDone: () {
         print('Server got ${webSocket.closeCode} ${webSocket.closeReason}');
