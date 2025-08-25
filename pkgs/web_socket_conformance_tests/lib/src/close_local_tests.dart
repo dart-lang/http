@@ -138,7 +138,6 @@ void testCloseLocal(
         ..sendText('Hello World 3');
 
       await channel.close(3000, 'Client initiated closure');
-      sleep(const Duration(seconds: 5));
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;
 

@@ -57,6 +57,8 @@ class ConnectionException extends WebSocketException {
 /// > can be used to adapt a [CupertinoWebSocket] into a
 /// > [`WebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html).
 class CupertinoWebSocket implements WebSocket {
+  final closeCompleter = Completer<void>();
+
   /// Create a new WebSocket connection using the
   /// [NSURLSessionWebSocketTask API](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask).
   ///
@@ -82,6 +84,7 @@ class CupertinoWebSocket implements WebSocket {
     }
 
     final readyCompleter = Completer<CupertinoWebSocket>();
+
     late CupertinoWebSocket webSocket;
 
     final session = URLSession.sessionWithConfiguration(
@@ -105,6 +108,7 @@ class CupertinoWebSocket implements WebSocket {
         print('onWebSocketTaskClosed');
         assert(readyCompleter.isCompleted);
         webSocket._connectionClosed(closeCode, reason);
+        webSocket.closeCompleter.complete();
       },
       onComplete: (session, task, error) {
         print(
@@ -271,6 +275,7 @@ class CupertinoWebSocket implements WebSocket {
       } else {
         _task.cancel();
       }
+      await closeCompleter.future;
     }
   }
 
