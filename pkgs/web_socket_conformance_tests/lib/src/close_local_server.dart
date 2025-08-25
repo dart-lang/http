@@ -20,6 +20,8 @@ void hybridMain(StreamChannel<Object?> channel) async {
       webSocket.listen((event) {
         print('Got event: $event');
 //        channel.sink.add(event);
+      }, onError: (e) {
+        print('onError($e)');
       }, onDone: () {
         print('Server got ${webSocket.closeCode} ${webSocket.closeReason}');
         webSocket.close(4123, 'server closed the connection');
@@ -31,5 +33,6 @@ void hybridMain(StreamChannel<Object?> channel) async {
   channel.sink.add(server.port);
   await channel
       .stream.first; // Any writes indicates that the server should exit.
+  print('>>>> exiting server');
   unawaited(server.close());
 }
