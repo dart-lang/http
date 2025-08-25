@@ -206,7 +206,8 @@ class CupertinoWebSocket implements WebSocket {
   }
 
   void _connectionClosed(int? closeCode, objc.NSData? reason) {
-    print('_connectionClosed');
+    print(
+        '_connectionClosed: $closeCode ${reason == null ? '' : utf8.decode(reason.toList())}');
     if (!_events.isClosed) {
       final closeReason = reason == null ? '' : utf8.decode(reason.toList());
 
