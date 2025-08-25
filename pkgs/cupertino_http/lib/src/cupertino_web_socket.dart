@@ -181,8 +181,9 @@ class CupertinoWebSocket implements WebSocket {
   /// Close the WebSocket connection due to an error and send the
   /// [CloseReceived] event.
   void _closeConnectionWithError(Object e) {
-    print('_closeConnectionWithError');
+    print('_closeConnectionWithError: $e');
     if (e is objc.NSError) {
+      print('--> ${e.debugDescription$1.toDartString()}');
       final domain = e.domain.toDartString();
       if (domain == 'NSPOSIXErrorDomain' && e.code == 57) {
         // Socket is not connected.
@@ -263,7 +264,6 @@ class CupertinoWebSocket implements WebSocket {
         reason = reason ?? '';
         print('cancelWithCloseCode($code, $reason)');
         _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
-        sleep(const Duration(seconds: 1));
       } else {
         _task.cancel();
       }
