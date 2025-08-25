@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:objective_c/objective_c.dart' as objc;
@@ -101,6 +102,7 @@ class CupertinoWebSocket implements WebSocket {
         readyCompleter.complete(webSocket);
       },
       onWebSocketTaskClosed: (session, task, closeCode, reason) {
+        print('onWebSocketTaskClosed');
         assert(readyCompleter.isCompleted);
         webSocket._connectionClosed(closeCode, reason);
       },
@@ -207,6 +209,7 @@ class CupertinoWebSocket implements WebSocket {
     if (!_events.isClosed) {
       final closeReason = reason == null ? '' : utf8.decode(reason.toList());
 
+      print('Adding CloseReceived and closing _events');
       _events
         ..add(CloseReceived(closeCode, closeReason))
         ..close();
@@ -260,6 +263,7 @@ class CupertinoWebSocket implements WebSocket {
         reason = reason ?? '';
         print('cancelWithCloseCode($code, $reason)');
         _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
+        sleep(const Duration(seconds: 1));
       } else {
         _task.cancel();
       }
