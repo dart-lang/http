@@ -62,13 +62,13 @@ jobs:
           flutter pub get
           flutter test -d macos integration_test/main.dart --name "defaultSessionConfiguration local close with code and reason"  
       - name: Stop tcpdump
-        if: failure()
+        if: ${{ always() }}
         run: |
           sleep 2
           sudo pkill -SIGQUIT tcpdump
           sleep 2
       - name: Upload tcpdump capture
-        if: failure()
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: tcpdump
