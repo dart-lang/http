@@ -149,6 +149,7 @@ class CupertinoWebSocket implements WebSocket {
   /// Handle an incoming message from the peer and schedule receiving the next
   /// message.
   void _handleMessage(URLSessionWebSocketMessage value) {
+    print('_handleMessage');
     if (_events.isClosed) return;
 
     late WebSocketEvent event;
@@ -178,6 +179,7 @@ class CupertinoWebSocket implements WebSocket {
   /// Close the WebSocket connection due to an error and send the
   /// [CloseReceived] event.
   void _closeConnectionWithError(Object e) {
+    print('_closeConnectionWithError');
     if (e is objc.NSError) {
       final domain = e.domain.toDartString();
       if (domain == 'NSPOSIXErrorDomain' && e.code == 57) {
@@ -201,6 +203,7 @@ class CupertinoWebSocket implements WebSocket {
   }
 
   void _connectionClosed(int? closeCode, objc.NSData? reason) {
+    print('_connectionClosed');
     if (!_events.isClosed) {
       final closeReason = reason == null ? '' : utf8.decode(reason.toList());
 
