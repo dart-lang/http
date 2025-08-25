@@ -107,6 +107,7 @@ class CupertinoWebSocket implements WebSocket {
         webSocket._connectionClosed(closeCode, reason);
       },
       onComplete: (session, task, error) {
+        print('onComplete');
         if (!readyCompleter.isCompleted) {
           // `onWebSocketTaskOpened should have been called and completed
           // `readyCompleter`. So either there was a error creating the
