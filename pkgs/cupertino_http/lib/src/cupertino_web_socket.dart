@@ -267,7 +267,8 @@ class CupertinoWebSocket implements WebSocket {
       if (code != null) {
         reason = reason ?? '';
         print('cancelWithCloseCode($code, $reason)');
-        _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
+        _task.cancel();
+//        _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
       } else {
         _task.cancel();
       }
