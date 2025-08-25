@@ -231,6 +231,7 @@ class CupertinoWebSocket implements WebSocket {
 
   @override
   void sendText(String s) {
+    print('Sending $s');
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
