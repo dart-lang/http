@@ -33,7 +33,7 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.24.0", "any"]
+        flutter-version: ["3.32.0", "any"]
         # It would be nice to test on older versions of macOS but macOS 13 is
         # the oldest supported by GitHub.
         os: [macos-13, macos-latest]
