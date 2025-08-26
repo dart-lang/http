@@ -237,9 +237,9 @@ class CupertinoWebSocket implements WebSocket {
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
-    _task
-        .sendMessage(URLSessionWebSocketMessage.fromString(s))
-        .then((value) => value, onError: _closeConnectionWithError);
+    _task.sendMessage(URLSessionWebSocketMessage.fromString(s)).then(
+        (value) => print('send completed'),
+        onError: _closeConnectionWithError);
   }
 
   @override
