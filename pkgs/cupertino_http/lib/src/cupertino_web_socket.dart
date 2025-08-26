@@ -148,7 +148,7 @@ class CupertinoWebSocket implements WebSocket {
   final _events = StreamController<WebSocketEvent>();
 
   CupertinoWebSocket._(this._task, this._protocol) {
-    // _scheduleReceive();
+    _scheduleReceive();
   }
 
   /// Handle an incoming message from the peer and schedule receiving the next
