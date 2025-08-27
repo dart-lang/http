@@ -36,7 +36,8 @@ jobs:
 #          flutter-version: ${{ matrix.flutter-version }}
           channel: 'master'
 #          flutter-version: 5994e6174f18dbd7b4c8b5c4bfc1469a0d17f261 # Fails Jun 13: https://github.com/flutter/flutter/commit/5994e6174f18dbd7b4c8b5c4bfc1469a0d17f261
-          flutter-version: 299e1572272e32e56e577c3ddd9ce98ef40ddeab # Jan 21 : https://github.com/flutter/flutter/commit/299e1572272e32e56e577c3ddd9ce98ef40ddeab
+#          flutter-version: 299e1572272e32e56e577c3ddd9ce98ef40ddeab # Suceeded Jan 21 : https://github.com/flutter/flutter/commit/299e1572272e32e56e577c3ddd9ce98ef40ddeab
+          flutter-version: b8a4ddffe59409301dd9c492dce64403ad418a52 # Apr 14 : https://github.com/flutter/flutter/commit/b8a4ddffe59409301dd9c492dce64403ad418a52
       - id: install
         name: Install dependencies
         run: flutter pub get
