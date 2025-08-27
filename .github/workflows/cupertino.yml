@@ -39,7 +39,8 @@ jobs:
 #          flutter-version: 299e1572272e32e56e577c3ddd9ce98ef40ddeab # Suceeded Jan 21 : https://github.com/flutter/flutter/commit/299e1572272e32e56e577c3ddd9ce98ef40ddeab
 #          flutter-version: b8a4ddffe59409301dd9c492dce64403ad418a52 # Suceeded Apr 14 : https://github.com/flutter/flutter/commit/b8a4ddffe59409301dd9c492dce64403ad418a52
 #          flutter-version: b747aeeb1f8d01e69d1a79c0444043c306446efc #  Suceeded April 16
-          flutter-version:  fbed8a71944ba7b62212bd2050e3d169f4ca5e11 #  April 17
+#          flutter-version:  fbed8a71944ba7b62212bd2050e3d169f4ca5e11 #  Suceeded April 17
+          flutter-version:  3c247110f754d6b2154d80f124608a6b4e2a8e9c #  April 17
 #          flutter-version: 9d3d0dc0ed7bad45bb15e529f994a06760ca86e0 #  Fail April 17
 #          flutter-version: 99c3d037587a827ec2f6de35b5dfe147fbb4f104 #  Fails April 17
 #          flutter-version: 66ecc88655b7652c2a76cbab7e067c456c5e06d1 # Fails April 18
