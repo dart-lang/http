@@ -274,8 +274,9 @@ class CupertinoWebSocket implements WebSocket {
       if (code != null) {
         reason = reason ?? '';
         await Future<void>.delayed(const Duration(seconds: 5));
-        print(
-            '${DateTime.now().millisecondsSinceEpoch / 1000.0} cancelWithCloseCode($code, $reason)');
+        print('${DateTime.now().millisecondsSinceEpoch / 1000.0} '
+            'cancelWithCloseCode($code, $reason) '
+            '${_task.state} ${_task.error}');
         _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
         await Future<void>.delayed(const Duration(seconds: 5));
         // Delay is 10 seconds!
