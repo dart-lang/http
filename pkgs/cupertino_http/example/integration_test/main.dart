@@ -16,7 +16,6 @@ import 'url_session_configuration_test.dart' as url_session_configuration_test;
 import 'url_session_delegate_test.dart' as url_session_delegate_test;
 import 'url_session_task_test.dart' as url_session_task_test;
 import 'url_session_test.dart' as url_session_test;
-import 'utils_test.dart' as utils_test;
 import 'web_socket_conformance_test.dart' as web_socket_conformance_test;
 
 /// Execute all the tests in this directory.
@@ -39,6 +38,5 @@ void main() {
   url_session_delegate_test.main();
   url_session_task_test.main();
   url_session_test.main();
-  utils_test.main();
   web_socket_conformance_test.main();
 }
