@@ -40,7 +40,6 @@ import 'native_cupertino_bindings.dart'
         NSURLSessionResponseDisposition,
         NSURLSessionTaskState,
         NSURLSessionWebSocketMessageType;
-import 'utils.dart';
 
 export 'native_cupertino_bindings.dart'
     show
@@ -52,6 +51,11 @@ export 'native_cupertino_bindings.dart'
         NSURLSessionTaskState,
         NSURLSessionWebSocketCloseCode,
         NSURLSessionWebSocketMessageType;
+
+objc.NSURL _uriToNSURL(Uri uri) =>
+    objc.NSURL.URLWithString(uri.toString().toNSString())!;
+Uri _nsurlToUri(objc.NSURL url) =>
+    Uri.parse(url.absoluteString!.toDartString());
 
 abstract class _ObjectHolder<T extends objc.NSObject> {
   final T _nsObject;
@@ -100,7 +104,7 @@ class URLCache extends _ObjectHolder<ncb.NSURLCache> {
     ncb.NSURLCache.alloc().initWithMemoryCapacity$1(
       memoryCapacity,
       diskCapacity: diskCapacity,
-      directoryURL: directory == null ? null : uriToNSURL(directory),
+      directoryURL: directory == null ? null : _uriToNSURL(directory),
     ),
   );
 }
@@ -199,7 +203,7 @@ class URLSessionConfiguration
   Map<String, String>? get httpAdditionalHeaders {
     if (_nsObject.HTTPAdditionalHeaders case var additionalHeaders?) {
       final headers = objc.NSDictionary.castFrom(additionalHeaders);
-      return stringNSDictionaryToMap(headers);
+      return (objc.toDartObject(headers) as Map).cast<String, String>();
     }
     return null;
   }
@@ -209,11 +213,8 @@ class URLSessionConfiguration
       _nsObject.HTTPAdditionalHeaders = null;
       return;
     }
-    final d = objc.NSMutableDictionary.alloc().init();
-    headers.forEach((key, value) {
-      d.setObject(value.toNSString(), forKey: key.toNSString());
-    });
-    _nsObject.HTTPAdditionalHeaders = d;
+    _nsObject.HTTPAdditionalHeaders =
+        objc.toObjCObject(headers) as objc.NSMutableDictionary;
   }
 
   /// What policy to use when deciding whether to accept cookies.
@@ -378,12 +379,9 @@ class HTTPURLResponse extends URLResponse {
   /// The HTTP headers of the response.
   ///
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
-  Map<String, String> get allHeaderFields {
-    final headers = objc.NSDictionary.castFrom(
-      _httpUrlResponse.allHeaderFields,
-    );
-    return stringNSDictionaryToMap(headers);
-  }
+  Map<String, String> get allHeaderFields =>
+      (objc.toDartObject(_httpUrlResponse.allHeaderFields) as Map)
+          .cast<String, String>();
 
   @override
   String toString() =>
@@ -697,7 +695,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   ///
   /// See [NSURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsurlrequest/1528603-requestwithurl)
   factory URLRequest.fromUrl(Uri uri) =>
-      URLRequest._(ncb.NSURLRequest.requestWithURL(uriToNSURL(uri)));
+      URLRequest._(ncb.NSURLRequest.requestWithURL(_uriToNSURL(uri)));
 
   /// Returns all of the HTTP headers for the request.
   ///
@@ -706,7 +704,8 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     if (_nsObject.allHTTPHeaderFields == null) {
       return null;
     } else {
-      return stringNSDictionaryToMap(_nsObject.allHTTPHeaderFields!);
+      return (objc.toDartObject(_nsObject.allHTTPHeaderFields!) as Map)
+          .cast<String, String>();
     }
   }
 
@@ -745,7 +744,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     if (nsUrl == null) {
       return null;
     }
-    return nsurlToUri(nsUrl);
+    return _nsurlToUri(nsUrl);
   }
 
   @override
@@ -953,7 +952,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             onFinishedDownloading(
               URLSession._(nsSession, isBackground: isBackground),
               URLSessionDownloadTask._(nsTask),
-              nsurlToUri(nsUrl),
+              _nsurlToUri(nsUrl),
             );
           });
     }
@@ -1224,13 +1223,13 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     final URLSessionWebSocketTask task;
     if (protocols == null) {
       task = URLSessionWebSocketTask._(
-        _nsObject.webSocketTaskWithURL(uriToNSURL(uri)),
+        _nsObject.webSocketTaskWithURL(_uriToNSURL(uri)),
       );
     } else {
       task = URLSessionWebSocketTask._(
         _nsObject.webSocketTaskWithURL$1(
-          uriToNSURL(uri),
-          protocols: stringIterableToNSArray(protocols),
+          _uriToNSURL(uri),
+          protocols: objc.toObjCObject(protocols) as objc.NSArray,
         ),
       );
     }
