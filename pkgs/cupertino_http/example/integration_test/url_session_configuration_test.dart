@@ -11,7 +11,8 @@ import 'package:test/test.dart';
 /// Make a HTTP request using the given configuration and return the headers
 /// received by the server.
 Future<Map<String, List<String>>> sentHeaders(
-    URLSessionConfiguration config) async {
+  URLSessionConfiguration config,
+) async {
   final session = URLSession.sessionWithConfiguration(config);
   final headers = <String, List<String>>{};
   final server = (await HttpServer.bind('localhost', 0))
@@ -23,9 +24,11 @@ Future<Map<String, List<String>>> sentHeaders(
       await request.response.close();
     });
 
-  final task = session.dataTaskWithRequest(URLRequest.fromUrl(
-      Uri(scheme: 'http', host: 'localhost', port: server.port)))
-    ..resume();
+  final task = session.dataTaskWithRequest(
+    URLRequest.fromUrl(
+      Uri(scheme: 'http', host: 'localhost', port: server.port),
+    ),
+  )..resume();
   while (task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
     await pumpEventQueue();
   }
@@ -65,10 +68,12 @@ void testProperties(URLSessionConfiguration config) {
 
       config.httpAdditionalHeaders = {
         'User-Agent': 'My Client',
-        'MyHeader': 'myvalue'
+        'MyHeader': 'myvalue',
       };
-      expect(config.httpAdditionalHeaders,
-          {'User-Agent': 'My Client', 'MyHeader': 'myvalue'});
+      expect(config.httpAdditionalHeaders, {
+        'User-Agent': 'My Client',
+        'MyHeader': 'myvalue',
+      });
       final headers = await sentHeaders(config);
       expect(headers, containsPair('user-agent', ['My Client']));
       expect(headers, containsPair('myheader', ['myvalue']));
@@ -79,12 +84,16 @@ void testProperties(URLSessionConfiguration config) {
     test('httpCookieAcceptPolicy', () {
       config.httpCookieAcceptPolicy =
           NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyAlways;
-      expect(config.httpCookieAcceptPolicy,
-          NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyAlways);
+      expect(
+        config.httpCookieAcceptPolicy,
+        NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyAlways,
+      );
       config.httpCookieAcceptPolicy =
           NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyNever;
-      expect(config.httpCookieAcceptPolicy,
-          NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyNever);
+      expect(
+        config.httpCookieAcceptPolicy,
+        NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyNever,
+      );
     });
     test('httpMaximumConnectionsPerHost', () {
       config.httpMaximumConnectionsPerHost = 6;
@@ -104,49 +113,63 @@ void testProperties(URLSessionConfiguration config) {
       config.httpShouldUsePipelining = false;
       expect(config.httpShouldUsePipelining, false);
     });
-    test('multipathServiceType', () {
-      expect(
+    test(
+      'multipathServiceType',
+      () {
+        expect(
+          config.multipathServiceType,
+          NSURLSessionMultipathServiceType.NSURLSessionMultipathServiceTypeNone,
+        );
+        config.multipathServiceType = NSURLSessionMultipathServiceType
+            .NSURLSessionMultipathServiceTypeAggregate;
+        expect(
           config.multipathServiceType,
           NSURLSessionMultipathServiceType
-              .NSURLSessionMultipathServiceTypeNone);
-      config.multipathServiceType = NSURLSessionMultipathServiceType
-          .NSURLSessionMultipathServiceTypeAggregate;
-      expect(
+              .NSURLSessionMultipathServiceTypeAggregate,
+        );
+        config.multipathServiceType = NSURLSessionMultipathServiceType
+            .NSURLSessionMultipathServiceTypeNone;
+        expect(
           config.multipathServiceType,
-          NSURLSessionMultipathServiceType
-              .NSURLSessionMultipathServiceTypeAggregate);
-      config.multipathServiceType =
-          NSURLSessionMultipathServiceType.NSURLSessionMultipathServiceTypeNone;
-      expect(
-          config.multipathServiceType,
-          NSURLSessionMultipathServiceType
-              .NSURLSessionMultipathServiceTypeNone);
-    },
-        skip: Platform.isMacOS
-            ? 'NSURLSessionConfiguration.multipathServiceType is not '
+          NSURLSessionMultipathServiceType.NSURLSessionMultipathServiceTypeNone,
+        );
+      },
+      skip: Platform.isMacOS
+          ? 'NSURLSessionConfiguration.multipathServiceType is not '
                 'supported on macOS'
-            : false);
+          : false,
+    );
     test('networkServiceType', () {
-      expect(config.networkServiceType,
-          NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault);
+      expect(
+        config.networkServiceType,
+        NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault,
+      );
       config.networkServiceType =
           NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeResponsiveAV;
-      expect(config.networkServiceType,
-          NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeResponsiveAV);
+      expect(
+        config.networkServiceType,
+        NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeResponsiveAV,
+      );
       config.networkServiceType =
           NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault;
-      expect(config.networkServiceType,
-          NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault);
+      expect(
+        config.networkServiceType,
+        NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault,
+      );
     });
     test('requestCachePolicy', () {
       config.requestCachePolicy =
           NSURLRequestCachePolicy.NSURLRequestReturnCacheDataDontLoad;
-      expect(config.requestCachePolicy,
-          NSURLRequestCachePolicy.NSURLRequestReturnCacheDataDontLoad);
+      expect(
+        config.requestCachePolicy,
+        NSURLRequestCachePolicy.NSURLRequestReturnCacheDataDontLoad,
+      );
       config.requestCachePolicy =
           NSURLRequestCachePolicy.NSURLRequestReloadIgnoringLocalCacheData;
-      expect(config.requestCachePolicy,
-          NSURLRequestCachePolicy.NSURLRequestReloadIgnoringLocalCacheData);
+      expect(
+        config.requestCachePolicy,
+        NSURLRequestCachePolicy.NSURLRequestReloadIgnoringLocalCacheData,
+      );
     });
     test('sessionSendsLaunchEvents', () {
       config.sessionSendsLaunchEvents = true;
@@ -161,10 +184,14 @@ void testProperties(URLSessionConfiguration config) {
       expect(config.shouldUseExtendedBackgroundIdleMode, false);
     });
     test('timeoutIntervalForRequest', () {
-      config.timeoutIntervalForRequest =
-          const Duration(seconds: 15, microseconds: 23);
-      expect(config.timeoutIntervalForRequest,
-          const Duration(seconds: 15, microseconds: 23));
+      config.timeoutIntervalForRequest = const Duration(
+        seconds: 15,
+        microseconds: 23,
+      );
+      expect(
+        config.timeoutIntervalForRequest,
+        const Duration(seconds: 15, microseconds: 23),
+      );
     });
     test('waitsForConnectivity', () {
       config.waitsForConnectivity = true;

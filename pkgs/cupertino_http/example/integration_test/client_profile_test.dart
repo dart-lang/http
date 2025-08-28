@@ -41,8 +41,11 @@ void main() {
           });
         successServerUri = Uri.http('localhost:${successServer.port}');
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
-        await client.post(successServerUri,
-            headers: {'Content-Type': 'text/plain'}, body: 'Hi');
+        await client.post(
+          successServerUri,
+          headers: {'Content-Type': 'text/plain'},
+          body: 'Hi',
+        );
         profile = client.profile!;
       });
       tearDownAll(() {
@@ -53,8 +56,10 @@ void main() {
         expect(profile.events, isEmpty);
         expect(profile.requestMethod, 'POST');
         expect(profile.requestUri, successServerUri.toString());
-        expect(profile.connectionInfo,
-            containsPair('package', 'package:cupertino_http'));
+        expect(
+          profile.connectionInfo,
+          containsPair('package', 'package:cupertino_http'),
+        );
       });
 
       test('request attributes', () {
@@ -63,9 +68,13 @@ void main() {
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, isNull);
         expect(
-            profile.requestData.headers, containsPair('Content-Length', ['2']));
-        expect(profile.requestData.headers,
-            containsPair('Content-Type', ['text/plain; charset=utf-8']));
+          profile.requestData.headers,
+          containsPair('Content-Length', ['2']),
+        );
+        expect(
+          profile.requestData.headers,
+          containsPair('Content-Type', ['text/plain; charset=utf-8']),
+        );
         expect(profile.requestData.persistentConnection, isNull);
         expect(profile.requestData.proxyDetails, isNull);
         expect(profile.requestData.startTime, isNotNull);
@@ -77,10 +86,14 @@ void main() {
         expect(profile.responseData.contentLength, 11);
         expect(profile.responseData.endTime, isNotNull);
         expect(profile.responseData.error, isNull);
-        expect(profile.responseData.headers,
-            containsPair('content-type', ['text/plain']));
-        expect(profile.responseData.headers,
-            containsPair('content-length', ['11']));
+        expect(
+          profile.responseData.headers,
+          containsPair('content-type', ['text/plain']),
+        );
+        expect(
+          profile.responseData.headers,
+          containsPair('content-length', ['11']),
+        );
         expect(profile.responseData.isRedirect, false);
         expect(profile.responseData.persistentConnection, isNull);
         expect(profile.responseData.reasonPhrase, 'OK');
@@ -119,7 +132,8 @@ void main() {
           }
         }();
         unawaited(
-            request.sink.addStream(stream).then((_) => request.sink.close()));
+          request.sink.addStream(stream).then((_) => request.sink.close()),
+        );
 
         await client.send(request);
         profile = client.profile!;
@@ -143,8 +157,11 @@ void main() {
       setUpAll(() async {
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
         try {
-          await client.post(Uri.http('thisisnotahost'),
-              headers: {'Content-Type': 'text/plain'}, body: 'Hi');
+          await client.post(
+            Uri.http('thisisnotahost'),
+            headers: {'Content-Type': 'text/plain'},
+            body: 'Hi',
+          );
           fail('expected exception');
         } on ClientException {
           // Expected exception.
@@ -156,8 +173,10 @@ void main() {
         expect(profile.events, isEmpty);
         expect(profile.requestMethod, 'POST');
         expect(profile.requestUri, 'http://thisisnotahost');
-        expect(profile.connectionInfo,
-            containsPair('package', 'package:cupertino_http'));
+        expect(
+          profile.connectionInfo,
+          containsPair('package', 'package:cupertino_http'),
+        );
       });
 
       test('request attributes', () {
@@ -165,11 +184,17 @@ void main() {
         expect(profile.requestData.contentLength, 2);
         expect(profile.requestData.endTime, isNotNull);
         expect(
-            profile.requestData.error, startsWith('NSErrorClientException:'));
+          profile.requestData.error,
+          startsWith('NSErrorClientException:'),
+        );
         expect(
-            profile.requestData.headers, containsPair('Content-Length', ['2']));
-        expect(profile.requestData.headers,
-            containsPair('Content-Type', ['text/plain; charset=utf-8']));
+          profile.requestData.headers,
+          containsPair('Content-Length', ['2']),
+        );
+        expect(
+          profile.requestData.headers,
+          containsPair('Content-Type', ['text/plain; charset=utf-8']),
+        );
         expect(profile.requestData.persistentConnection, isNull);
         expect(profile.requestData.proxyDetails, isNull);
         expect(profile.requestData.startTime, isNotNull);
@@ -209,8 +234,11 @@ void main() {
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
 
         try {
-          await client.post(successServerUri,
-              headers: {'Content-Type': 'text/plain'}, body: 'Hi');
+          await client.post(
+            successServerUri,
+            headers: {'Content-Type': 'text/plain'},
+            body: 'Hi',
+          );
           fail('expected exception');
         } on ClientException {
           // Expected exception.
@@ -225,8 +253,10 @@ void main() {
         expect(profile.events, isEmpty);
         expect(profile.requestMethod, 'POST');
         expect(profile.requestUri, successServerUri.toString());
-        expect(profile.connectionInfo,
-            containsPair('package', 'package:cupertino_http'));
+        expect(
+          profile.connectionInfo,
+          containsPair('package', 'package:cupertino_http'),
+        );
       });
 
       test('request attributes', () {
@@ -235,9 +265,13 @@ void main() {
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, isNull);
         expect(
-            profile.requestData.headers, containsPair('Content-Length', ['2']));
-        expect(profile.requestData.headers,
-            containsPair('Content-Type', ['text/plain; charset=utf-8']));
+          profile.requestData.headers,
+          containsPair('Content-Length', ['2']),
+        );
+        expect(
+          profile.requestData.headers,
+          containsPair('Content-Type', ['text/plain; charset=utf-8']),
+        );
         expect(profile.requestData.persistentConnection, isNull);
         expect(profile.requestData.proxyDetails, isNull);
         expect(profile.requestData.startTime, isNotNull);
@@ -249,11 +283,17 @@ void main() {
         expect(profile.responseData.contentLength, 11);
         expect(profile.responseData.endTime, isNotNull);
         expect(
-            profile.responseData.error, startsWith('NSErrorClientException:'));
-        expect(profile.responseData.headers,
-            containsPair('content-type', ['text/plain']));
-        expect(profile.responseData.headers,
-            containsPair('content-length', ['11']));
+          profile.responseData.error,
+          startsWith('NSErrorClientException:'),
+        );
+        expect(
+          profile.responseData.headers,
+          containsPair('content-type', ['text/plain']),
+        );
+        expect(
+          profile.responseData.headers,
+          containsPair('content-length', ['11']),
+        );
         expect(profile.responseData.isRedirect, false);
         expect(profile.responseData.persistentConnection, isNull);
         expect(profile.responseData.reasonPhrase, 'OK');
@@ -325,8 +365,11 @@ void main() {
             } else {
               final n = int.parse(request.requestedUri.pathSegments.last);
               final nextPath = n - 1 == 0 ? '' : '${n - 1}';
-              unawaited(request.response
-                  .redirect(successServerUri.replace(path: '/$nextPath')));
+              unawaited(
+                request.response.redirect(
+                  successServerUri.replace(path: '/$nextPath'),
+                ),
+              );
             }
           });
         successServerUri = Uri.http('localhost:${successServer.port}');
@@ -345,9 +388,11 @@ void main() {
 
       test('follow redirects', () async {
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
-        await client.send(Request('GET', successServerUri.replace(path: '/3'))
-          ..followRedirects = true
-          ..maxRedirects = 4);
+        await client.send(
+          Request('GET', successServerUri.replace(path: '/3'))
+            ..followRedirects = true
+            ..maxRedirects = 4,
+        );
         profile = client.profile!;
 
         expect(profile.requestData.followRedirects, true);
@@ -356,25 +401,29 @@ void main() {
 
         expect(profile.responseData.redirects, [
           HttpProfileRedirectData(
-              statusCode: 302,
-              method: 'GET',
-              location: successServerUri.replace(path: '/2').toString()),
+            statusCode: 302,
+            method: 'GET',
+            location: successServerUri.replace(path: '/2').toString(),
+          ),
           HttpProfileRedirectData(
-              statusCode: 302,
-              method: 'GET',
-              location: successServerUri.replace(path: '/1').toString()),
+            statusCode: 302,
+            method: 'GET',
+            location: successServerUri.replace(path: '/1').toString(),
+          ),
           HttpProfileRedirectData(
             statusCode: 302,
             method: 'GET',
             location: successServerUri.replace(path: '/').toString(),
-          )
+          ),
         ]);
       });
 
       test('no follow redirects', () async {
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
-        await client.send(Request('GET', successServerUri.replace(path: '/3'))
-          ..followRedirects = false);
+        await client.send(
+          Request('GET', successServerUri.replace(path: '/3'))
+            ..followRedirects = false,
+        );
         profile = client.profile!;
 
         expect(profile.requestData.followRedirects, false);

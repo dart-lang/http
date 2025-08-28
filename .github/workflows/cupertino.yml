@@ -33,7 +33,7 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.24.0", "any"]
+        flutter-version: ["3.32.0", "any"]
         # It would be nice to test on older versions of macOS but macOS 13 is
         # the oldest supported by GitHub.
         os: [macos-13, macos-latest]
@@ -68,7 +68,7 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.24.0", "any"]
+        flutter-version: ["3.32.0", "any"]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e
