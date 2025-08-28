@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:objective_c/objective_c.dart' as objc;
@@ -103,13 +102,15 @@ class CupertinoWebSocket implements WebSocket {
         readyCompleter.complete(webSocket);
       },
       onWebSocketTaskClosed: (session, task, closeCode, reason) {
-        print('onWebSocketTaskClosed');
+        print('${DateTime.now().millisecondsSinceEpoch / 1000.0}: '
+            'onWebSocketTaskClosed');
         assert(readyCompleter.isCompleted);
         webSocket._connectionClosed(closeCode, reason);
       },
       onComplete: (session, task, error) {
         print(
-          'onComplete: $session $task $error ${error?.debugDescription$1.toDartString()}',
+          '${DateTime.now().millisecondsSinceEpoch / 1000.0} onComplete: '
+          '$session $task $error ${error?.debugDescription$1.toDartString()}',
         );
         if (!readyCompleter.isCompleted) {
           // `onWebSocketTaskOpened should have been called and completed
@@ -247,7 +248,8 @@ class CupertinoWebSocket implements WebSocket {
 
   @override
   Future<void> close([int? code, String? reason]) async {
-    print('close($code, $reason)');
+    print('${DateTime.now().millisecondsSinceEpoch / 1000.0} '
+        'close($code, $reason)');
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
@@ -271,10 +273,12 @@ class CupertinoWebSocket implements WebSocket {
       if (code != null) {
         reason = reason ?? '';
         await Future<void>.delayed(const Duration(seconds: 5));
-        print('cancelWithCloseCode($code, $reason)');
+        print(
+            '${DateTime.now().millisecondsSinceEpoch / 1000.0} cancelWithCloseCode($code, $reason)');
         _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
         await Future<void>.delayed(const Duration(seconds: 5));
-        print('Task: $_task close done');
+        // Delay is 10 seconds!
+        print('${DateTime.now().millisecondsSinceEpoch / 1000.0} Task: $_task');
       } else {
         _task.cancel();
       }
