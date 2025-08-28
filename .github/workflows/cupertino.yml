@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e
         with:
-          flutter-version: 3.35.0
+          flutter-version: 3.35.1
           channel: 'stable'
 #          flutter-version: 5994e6174f18dbd7b4c8b5c4bfc1469a0d17f261 # Fails Jun 13: https://github.com/flutter/flutter/commit/5994e6174f18dbd7b4c8b5c4bfc1469a0d17f261
 #          flutter-version: 299e1572272e32e56e577c3ddd9ce98ef40ddeab # Suceeded Jan 21 : https://github.com/flutter/flutter/commit/299e1572272e32e56e577c3ddd9ce98ef40ddeab
