@@ -109,7 +109,8 @@ class CupertinoWebSocket implements WebSocket {
       },
       onComplete: (session, task, error) {
         print(
-            'onComplete: $session $task $error ${error?.debugDescription$1.toDartString()}');
+          'onComplete: $session $task $error ${error?.debugDescription$1.toDartString()}',
+        );
         if (!readyCompleter.isCompleted) {
           // `onWebSocketTaskOpened should have been called and completed
           // `readyCompleter`. So either there was a error creating the
@@ -210,7 +211,8 @@ class CupertinoWebSocket implements WebSocket {
 
   void _connectionClosed(int? closeCode, objc.NSData? reason) {
     print(
-        '_connectionClosed: $closeCode ${reason == null ? '' : utf8.decode(reason.toList())}');
+      '_connectionClosed: $closeCode ${reason == null ? '' : utf8.decode(reason.toList())}',
+    );
     if (!_events.isClosed) {
       final closeReason = reason == null ? '' : utf8.decode(reason.toList());
 
@@ -238,8 +240,9 @@ class CupertinoWebSocket implements WebSocket {
       throw WebSocketConnectionClosed();
     }
     _task.sendMessage(URLSessionWebSocketMessage.fromString(s)).then(
-        (value) => print('send completed'),
-        onError: _closeConnectionWithError);
+          (value) => print('send completed'),
+          onError: _closeConnectionWithError,
+        );
   }
 
   @override
@@ -267,8 +270,11 @@ class CupertinoWebSocket implements WebSocket {
       unawaited(_events.close());
       if (code != null) {
         reason = reason ?? '';
+        await Future<void>.delayed(const Duration(seconds: 5));
         print('cancelWithCloseCode($code, $reason)');
         _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
+        await Future<void>.delayed(const Duration(seconds: 5));
+        print('Task: $_task close done');
       } else {
         _task.cancel();
       }
