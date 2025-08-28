@@ -135,7 +135,6 @@ void testCloseLocal(
         ..sendText('Hello World')
         ..sendText('Hello World 2')
         ..sendText('Hello World 3');
-      await Future<void>.delayed(const Duration(seconds: 5));
       await channel.close(3000, 'Client initiated closure');
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;

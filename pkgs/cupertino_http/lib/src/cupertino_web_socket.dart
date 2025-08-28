@@ -236,12 +236,13 @@ class CupertinoWebSocket implements WebSocket {
 
   @override
   void sendText(String s) {
-    print('Sending $s');
+    print('${DateTime.now().millisecondsSinceEpoch / 1000.0} Sending $s');
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
     _task.sendMessage(URLSessionWebSocketMessage.fromString(s)).then(
-          (value) => print('send completed'),
+          (value) => print('${DateTime.now().millisecondsSinceEpoch / 1000.0}: '
+              'send completed'),
           onError: _closeConnectionWithError,
         );
   }

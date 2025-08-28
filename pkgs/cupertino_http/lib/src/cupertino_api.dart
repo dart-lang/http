@@ -951,7 +951,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     if (onWebSocketTaskOpened != null) {
       ncb.NSURLSessionWebSocketDelegate
           .URLSession_webSocketTask_didOpenWithProtocol_
-          .implementAsBlocking(protoBuilder, (nsSession, nsTask, nsProtocol) {
+          .implementAsListener(protoBuilder, (nsSession, nsTask, nsProtocol) {
         onWebSocketTaskOpened(
           URLSession._(nsSession, isBackground: isBackground),
           URLSessionWebSocketTask._(nsTask),
@@ -963,7 +963,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     if (onWebSocketTaskClosed != null) {
       ncb.NSURLSessionWebSocketDelegate
           .URLSession_webSocketTask_didCloseWithCode_reason_
-          .implementAsBlocking(protoBuilder, (
+          .implementAsListener(protoBuilder, (
         nsSession,
         nsTask,
         closeCode,
