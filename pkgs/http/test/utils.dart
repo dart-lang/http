@@ -5,7 +5,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 import 'package:test/test.dart';
 
 /// A dummy URL for constructing requests that won't be sent.
@@ -91,7 +90,7 @@ class _BodyMatches extends Matcher {
   Future<void> _checks(http.MultipartRequest item) async {
     var bodyBytes = await item.finalize().toBytes();
     var body = utf8.decode(bodyBytes);
-    var contentType = MediaType.parse(item.headers['content-type']!);
+    var contentType = http.MediaType.parse(item.headers['content-type']!);
     var boundary = contentType.parameters['boundary']!;
     var expected = cleanUpLiteral(_pattern)
         .replaceAll('\n', '\r\n')
