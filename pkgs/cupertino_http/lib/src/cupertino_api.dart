@@ -891,24 +891,16 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             // ignore: lines_longer_than_80_chars
             (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
               final request = URLRequest._(nsRequest);
-              URLRequest? redirectRequest;
-
-              try {
-                final response =
-                    URLResponse._exactURLResponseType(nsResponse)
-                        as HTTPURLResponse;
-                redirectRequest = onRedirect(
-                  URLSession._(nsSession, isBackground: isBackground),
-                  URLSessionTask._(nsTask),
-                  response,
-                  request,
-                );
-                nsRequestCompleter.call(redirectRequest?._nsObject);
-              } catch (e) {
-                // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-                // this exception as an `Error` and call the completion function
-                // with it.
-              }
+              final response =
+                  URLResponse._exactURLResponseType(nsResponse)
+                      as HTTPURLResponse;
+              final redirectRequest = onRedirect(
+                URLSession._(nsSession, isBackground: isBackground),
+                URLSessionTask._(nsTask),
+                response,
+                request,
+              );
+              nsRequestCompleter.call(redirectRequest?._nsObject);
             },
           );
     }
