@@ -283,7 +283,7 @@ class CupertinoWebSocket implements WebSocket {
         // Delay is 10 seconds!
         print('${DateTime.now().millisecondsSinceEpoch / 1000.0} Task: $_task');
       } else {
-        _task.cancel();
+        await Isolate.run(_task.cancel);
       }
     }
   }
