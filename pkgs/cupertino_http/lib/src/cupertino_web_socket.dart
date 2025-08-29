@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:isolate';
 import 'dart:typed_data';
 
 import 'package:objective_c/objective_c.dart' as objc;
@@ -277,7 +278,7 @@ class CupertinoWebSocket implements WebSocket {
         print('${DateTime.now().millisecondsSinceEpoch / 1000.0} '
             'cancelWithCloseCode($code, $reason) '
             '${_task.state} ${_task.error}');
-        _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
+        await _cancel(_task, code, utf8.encode(reason!).toNSData());
         await Future<void>.delayed(const Duration(seconds: 5));
         // Delay is 10 seconds!
         print('${DateTime.now().millisecondsSinceEpoch / 1000.0} Task: $_task');
@@ -293,3 +294,7 @@ class CupertinoWebSocket implements WebSocket {
   @override
   String get protocol => _protocol;
 }
+
+Future<void> _cancel(
+        URLSessionWebSocketTask task, int code, objc.NSData reason) =>
+    Isolate.run(() => task.cancelWithCloseCode(code, reason));
