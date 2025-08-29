@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:isolate';
 import 'dart:typed_data';
 
 import 'package:objective_c/objective_c.dart' as objc;
@@ -19,7 +18,8 @@ class ConnectionException extends WebSocketException {
   ConnectionException(super.message, this.error);
 
   @override
-  String toString() => 'CupertinoErrorWebSocketException: $message '
+  String toString() =>
+      'CupertinoErrorWebSocketException: $message '
       '[${error.localizedDescription.toDartString()}]';
 }
 
@@ -82,7 +82,6 @@ class CupertinoWebSocket implements WebSocket {
     }
 
     final readyCompleter = Completer<CupertinoWebSocket>();
-
     late CupertinoWebSocket webSocket;
 
     final session = URLSession.sessionWithConfiguration(
@@ -103,16 +102,10 @@ class CupertinoWebSocket implements WebSocket {
         readyCompleter.complete(webSocket);
       },
       onWebSocketTaskClosed: (session, task, closeCode, reason) {
-        print('${DateTime.now().millisecondsSinceEpoch / 1000.0}: '
-            'onWebSocketTaskClosed');
         assert(readyCompleter.isCompleted);
         webSocket._connectionClosed(closeCode, reason);
       },
       onComplete: (session, task, error) {
-        print(
-          '${DateTime.now().millisecondsSinceEpoch / 1000.0} onComplete: '
-          '$session $task $error ${error?.debugDescription$1.toDartString()}',
-        );
         if (!readyCompleter.isCompleted) {
           // `onWebSocketTaskOpened should have been called and completed
           // `readyCompleter`. So either there was a error creating the
@@ -157,17 +150,16 @@ class CupertinoWebSocket implements WebSocket {
   /// Handle an incoming message from the peer and schedule receiving the next
   /// message.
   void _handleMessage(URLSessionWebSocketMessage value) {
-    print('_handleMessage');
     if (_events.isClosed) return;
 
     late WebSocketEvent event;
     switch (value.type) {
       case NSURLSessionWebSocketMessageType
-            .NSURLSessionWebSocketMessageTypeString:
+          .NSURLSessionWebSocketMessageTypeString:
         event = TextDataReceived(value.string!);
         break;
       case NSURLSessionWebSocketMessageType
-            .NSURLSessionWebSocketMessageTypeData:
+          .NSURLSessionWebSocketMessageTypeData:
         event = BinaryDataReceived(value.data!.toList());
         break;
     }
@@ -178,18 +170,16 @@ class CupertinoWebSocket implements WebSocket {
   void _scheduleReceive() {
     unawaited(
       _task.receiveMessage().then(
-            _handleMessage,
-            onError: _closeConnectionWithError,
-          ),
+        _handleMessage,
+        onError: _closeConnectionWithError,
+      ),
     );
   }
 
   /// Close the WebSocket connection due to an error and send the
   /// [CloseReceived] event.
   void _closeConnectionWithError(Object e) {
-    print('_closeConnectionWithError: $e');
     if (e is objc.NSError) {
-      print('--> ${e.debugDescription$1.toDartString()}');
       final domain = e.domain.toDartString();
       if (domain == 'NSPOSIXErrorDomain' && e.code == 57) {
         // Socket is not connected.
@@ -199,9 +189,9 @@ class CupertinoWebSocket implements WebSocket {
       }
       var (int code, String? reason) = switch ([domain, e.code]) {
         ['NSPOSIXErrorDomain', 100] => (
-            1002,
-            e.localizedDescription.toDartString(),
-          ),
+          1002,
+          e.localizedDescription.toDartString(),
+        ),
         _ => (1006, e.localizedDescription.toDartString()),
       };
       _task.cancel();
@@ -212,13 +202,9 @@ class CupertinoWebSocket implements WebSocket {
   }
 
   void _connectionClosed(int? closeCode, objc.NSData? reason) {
-    print(
-      '_connectionClosed: $closeCode ${reason == null ? '' : utf8.decode(reason.toList())}',
-    );
     if (!_events.isClosed) {
       final closeReason = reason == null ? '' : utf8.decode(reason.toList());
 
-      print('Adding CloseReceived and closing _events');
       _events
         ..add(CloseReceived(closeCode, closeReason))
         ..close();
@@ -237,21 +223,16 @@ class CupertinoWebSocket implements WebSocket {
 
   @override
   void sendText(String s) {
-    print('${DateTime.now().millisecondsSinceEpoch / 1000.0} Sending $s');
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
-    _task.sendMessage(URLSessionWebSocketMessage.fromString(s)).then(
-          (value) => print('${DateTime.now().millisecondsSinceEpoch / 1000.0}: '
-              'send completed'),
-          onError: _closeConnectionWithError,
-        );
+    _task
+        .sendMessage(URLSessionWebSocketMessage.fromString(s))
+        .then((value) => value, onError: _closeConnectionWithError);
   }
 
   @override
   Future<void> close([int? code, String? reason]) async {
-    print('${DateTime.now().millisecondsSinceEpoch / 1000.0} '
-        'close($code, $reason)');
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
@@ -274,16 +255,9 @@ class CupertinoWebSocket implements WebSocket {
       unawaited(_events.close());
       if (code != null) {
         reason = reason ?? '';
-        await Future<void>.delayed(const Duration(seconds: 5));
-        print('${DateTime.now().millisecondsSinceEpoch / 1000.0} '
-            'cancelWithCloseCode($code, $reason) '
-            '${_task.state} ${_task.error}');
-        await _cancel(_task, code, utf8.encode(reason!).toNSData());
-        await Future<void>.delayed(const Duration(seconds: 5));
-        // Delay is 10 seconds!
-        print('${DateTime.now().millisecondsSinceEpoch / 1000.0} Task: $_task');
+        _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
       } else {
-        await Isolate.run(_task.cancel);
+        _task.cancel();
       }
     }
   }
@@ -294,7 +268,3 @@ class CupertinoWebSocket implements WebSocket {
   @override
   String get protocol => _protocol;
 }
-
-Future<void> _cancel(
-        URLSessionWebSocketTask task, int code, objc.NSData reason) =>
-    Isolate.run(() => task.cancelWithCloseCode(code, reason));
