@@ -27,6 +27,7 @@
 library;
 
 import 'dart:async';
+import 'dart:isolate';
 
 import 'package:objective_c/objective_c.dart' as objc;
 
@@ -449,7 +450,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   ///
   /// See [NSURLSessionTask cancel](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411591-cancel)
   void cancel() {
-    _nsObject.cancel();
+    unawaited(Isolate.run(_nsObject.cancel));
   }
 
   /// Resumes a suspended task (new tasks start as suspended).
@@ -678,7 +679,14 @@ class URLSessionWebSocketTask extends URLSessionTask {
   ///
   /// See [NSURLSessionWebSocketTask.cancelWithCloseCode:reason:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181200-cancelwithclosecode)
   void cancelWithCloseCode(int closeCode, objc.NSData? reason) {
-    _urlSessionWebSocketTask.cancelWithCloseCode(closeCode, reason: reason);
+    unawaited(
+      Isolate.run(
+        () => _urlSessionWebSocketTask.cancelWithCloseCode(
+          closeCode,
+          reason: reason,
+        ),
+      ),
+    );
   }
 
   @override
