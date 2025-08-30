@@ -14,7 +14,7 @@ void main(List<String> arguments) async {
     var jsonResponse =
         convert.jsonDecode(response.body) as Map<String, dynamic>;
     var itemCount = jsonResponse['totalItems'];
-    print('Number of books about http: $itemCount.');
+    print('Number of books about http: $itemCount');
   } else {
     print('Request failed with status: ${response.statusCode}.');
   }
