@@ -12,6 +12,7 @@ stages:
   - test: --test-randomize-ordering-seed=random -p vm
     os:
     - linux
+    - macos
   - test: --test-randomize-ordering-seed=random -p chrome -c dart2js
     os:
     - linux
