@@ -1,7 +1,8 @@
-## 2.0.0-wip
+## 1.6.0-wip
 
 * **Breaking** Change the behavior of `Request.body` so that a charset
-  parameter is only added for text and XML media types.
+  parameter is only added for text and XML media types. This brings the
+  behavior of `package:http` in line with RFC-8259.
 
 ## 1.5.0
 
