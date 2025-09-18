@@ -29,3 +29,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+# Use the path version of `package:http` so that the behavior matches the
+# expectations in http_client_conformance_tests.
+dependency_overrides:
+  http:
+    path: ../../http/
