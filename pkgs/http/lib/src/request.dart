@@ -15,7 +15,7 @@ import 'utils.dart';
 /// An HTTP request where the entire request body is known in advance.
 class Request extends BaseRequest {
   /// Whether the given MIME type should have a 'charset' parameter.
-  bool _shouldHaveCharset(MediaType? contentType) =>
+  static bool _shouldHaveCharset(MediaType? contentType) =>
       contentType != null &&
       // RFC 8259, section 9 says that "charset" is not defined for JSON.
       // Some uncommon non-text, non-xml types do specify charset
