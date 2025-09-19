@@ -227,7 +227,7 @@ Stream<List<int>> _readBody(BaseRequest request, Response response,
 
 extension<T> on Stream<T> {
   /// Returns this stream in a form that calls [onCancel] when the downstream
-  /// subscription is called _before_ awaiting [StreamSubscription.cancel] on
+  /// subscription is cancelled _before_ awaiting [StreamSubscription.cancel] on
   /// the upstream subscription.
   ///
   /// We need this because [_readBody] calls and waits for
@@ -236,20 +236,28 @@ extension<T> on Stream<T> {
   /// resolves and the asnyc* method resumes. By properly aborting the response,
   /// we can interrupt the read and complete the cancellation before the next
   /// chunk of the response.
-  Stream<T> doOnCancel(void Function() onCancel) => Stream.multi((listener) {
+  Stream<T> doOnCancel(void Function() onCancel) {
+    // sync because we'll only forward events (which are asynchronous already).
+    final controller = StreamController<T>(sync: true);
+    StreamSubscription<T>? subscription;
+
+    controller
+      ..onListen = () {
         // Note: We can't use listener.addStream because cancelling the listener
         // in that state would first await cancelling the upstream subscription,
         // but we want to invoke onCancel first.
-        var subscription = listen(listener.addSync,
-            onError: listener.addErrorSync, onDone: listener.closeSync);
-        listener
-          ..onPause = subscription.pause
-          ..onResume = subscription.resume
-          ..onCancel = () {
-            onCancel();
-            return subscription.cancel();
-          };
-      });
+        subscription = listen(controller.add,
+            onError: controller.addError, onDone: controller.close);
+      }
+      ..onPause = (() => subscription!.pause())
+      ..onResume = (() => subscription!.resume())
+      ..onCancel = () {
+        onCancel();
+        return subscription!.cancel();
+      };
+
+    return controller.stream;
+  }
 }
 
 /// Workaround for `Headers` not providing a way to iterate the headers.
