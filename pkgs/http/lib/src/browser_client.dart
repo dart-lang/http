@@ -239,8 +239,7 @@ extension<T> on Stream<T> {
   Stream<T> doOnCancel(void Function() onCancel) => Stream.multi((listener) {
         // Note: We can't use listener.addStream because cancelling the listener
         // in that state would first await cancelling the upstream subscription,
-        // which is what we're trying to avoid here because we need to cancel
-        // the controller as soon as we receive the cancellation request.
+        // but we want to invoke onCancel first.
         var subscription = listen(listener.addSync,
             onError: listener.addErrorSync, onDone: listener.closeSync);
         listener
