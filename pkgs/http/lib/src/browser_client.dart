@@ -115,8 +115,15 @@ class BrowserClient extends BaseClient {
         headers[header.toLowerCase()] = value;
       }.toJS);
 
+      var subscriptionWasCancelled = false;
+      void cancelSubscription() {
+        subscriptionWasCancelled = true;
+        abortController.abort();
+      }
+
       return StreamedResponseV2(
-        _readBody(request, response),
+        _readBody(request, response, () => subscriptionWasCancelled)
+            .doOnCancel(cancelSubscription),
         response.status,
         headers: headers,
         request: request,
@@ -144,9 +151,9 @@ class BrowserClient extends BaseClient {
   }
 }
 
-Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
+Object _toClientException(Object e, BaseRequest request) {
   if (e case DOMException(:final name) when name == 'AbortError') {
-    Error.throwWithStackTrace(RequestAbortedException(request.url), st);
+    return RequestAbortedException(request.url);
   }
   if (e is! ClientException) {
     var message = e.toString();
@@ -155,10 +162,27 @@ Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
     }
     e = ClientException(message, request.url);
   }
-  Error.throwWithStackTrace(e, st);
+  return e;
 }
 
-Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
+Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
+  Error.throwWithStackTrace(_toClientException(e, request), st);
+}
+
+Stream<List<int>> _readBody(BaseRequest request, Response response,
+    bool Function() subscriptionWasCancelled) async* {
+  void rethrowAsClientException(Object e, StackTrace st) {
+    final clientException = _toClientException(e, request);
+    if (clientException is RequestAbortedException &&
+        subscriptionWasCancelled()) {
+      // The .read() call was aborted in response to the stream subscription
+      // being cancelled (as opposed to an abortTrigger completing). The abort
+      // error is expected in this case and not an error.
+    } else {
+      Error.throwWithStackTrace(clientException, st);
+    }
+  }
+
   final bodyStreamReader =
       response.body?.getReader() as ReadableStreamDefaultReader?;
 
@@ -178,7 +202,7 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
     }
   } catch (e, st) {
     isError = true;
-    _rethrowAsClientException(e, st, request);
+    rethrowAsClientException(e, st);
   } finally {
     if (!isDone) {
       try {
@@ -194,11 +218,39 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
         // error from cancel and simply let the original error to be
         // rethrown.
         if (!isError) {
-          _rethrowAsClientException(e, st, request);
+          rethrowAsClientException(e, st);
         }
       }
     }
   }
+}
+
+extension<T> on Stream<T> {
+  /// Returns this stream in a form that calls [onCancel] when the downstream
+  /// subscription is called _before_ awaiting [StreamSubscription.cancel] on
+  /// the upstream subscription.
+  ///
+  /// We need this because [_readBody] calls and waits for
+  /// [ReadableStreamDefaultReader.read], which means that a Dart stream
+  /// cancellation in that state would be ignored until the `read()` promise
+  /// resolves and the asnyc* method resumes. By properly aborting the response,
+  /// we can interrupt the read and complete the cancellation before the next
+  /// chunk of the response.
+  Stream<T> doOnCancel(void Function() onCancel) => Stream.multi((listener) {
+        // Note: We can't use listener.addStream because cancelling the listener
+        // in that state would first await cancelling the upstream subscription,
+        // which is what we're trying to avoid here because we need to cancel
+        // the controller as soon as we receive the cancellation request.
+        var subscription = listen(listener.addSync,
+            onError: listener.addErrorSync, onDone: listener.closeSync);
+        listener
+          ..onPause = subscription.pause
+          ..onResume = subscription.resume
+          ..onCancel = () {
+            onCancel();
+            return subscription.cancel();
+          };
+      });
 }
 
 /// Workaround for `Headers` not providing a way to iterate the headers.

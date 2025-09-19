@@ -77,5 +77,55 @@ void testResponseBodyStreamed(Client client,
       });
       await cancelled.future;
     });
+
+    test('cancelling stream subscription after chunk', () async {
+      // Request a 10s delay between subsequent lines.
+      const delayMillis = 10000;
+      final request = Request('GET', Uri.http(host, '$delayMillis'));
+      final response = await client.send(request);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+
+      var stopwatch = Stopwatch()..start();
+      var line = await const LineSplitter()
+          .bind(const Utf8Decoder().bind(response.stream))
+          // Cancel the stream after the first line
+          .first;
+
+      // Receiving the first line and cancelling the stream should not wait for
+      // the second line, which is sent much later.
+      stopwatch.stop();
+      expect(line, '0');
+      expect(stopwatch.elapsed.inMilliseconds, lessThan(delayMillis));
+    });
+
+    test('cancelling stream subscription after chunk with delay', () async {
+      // Request a 10s delay between subsequent lines.
+      const delayMillis = 10000;
+      final request = Request('GET', Uri.http(host, '$delayMillis'));
+      final response = await client.send(request);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+
+      var stopwatch = Stopwatch()..start();
+      final done = Completer<void>();
+      late StreamSubscription<String> sub;
+      sub = response.stream
+          .transform(utf8.decoder)
+          .transform(const LineSplitter())
+          .listen((line) async {
+        // Don't cancel in direct response to event, we want to test cancelling
+        // while the client is actively waiting for data.
+        await pumpEventQueue();
+        await sub.cancel();
+        stopwatch.stop();
+        done.complete();
+      });
+
+      await done.future;
+      // Receiving the first line and cancelling the stream should not wait for
+      // the second line, which is sent much later.
+      expect(stopwatch.elapsed.inMilliseconds, lessThan(delayMillis));
+    });
   }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
 }
