@@ -115,15 +115,8 @@ class BrowserClient extends BaseClient {
         headers[header.toLowerCase()] = value;
       }.toJS);
 
-      var subscriptionWasCancelled = false;
-      void cancelSubscription() {
-        subscriptionWasCancelled = true;
-        abortController.abort();
-      }
-
       return StreamedResponseV2(
-        _readBody(request, response, () => subscriptionWasCancelled)
-            .doOnCancel(cancelSubscription),
+        _readBody(request, response),
         response.status,
         headers: headers,
         request: request,
@@ -169,95 +162,98 @@ Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
   Error.throwWithStackTrace(_toClientException(e, request), st);
 }
 
-Stream<List<int>> _readBody(BaseRequest request, Response response,
-    bool Function() subscriptionWasCancelled) async* {
-  void rethrowAsClientException(Object e, StackTrace st) {
-    final clientException = _toClientException(e, request);
-    if (clientException is RequestAbortedException &&
-        subscriptionWasCancelled()) {
-      // The .read() call was aborted in response to the stream subscription
-      // being cancelled (as opposed to an abortTrigger completing). The abort
-      // error is expected in this case and not an error.
-    } else {
-      Error.throwWithStackTrace(clientException, st);
-    }
-  }
-
+Stream<List<int>> _readBody(BaseRequest request, Response response) {
   final bodyStreamReader =
       response.body?.getReader() as ReadableStreamDefaultReader?;
-
   if (bodyStreamReader == null) {
-    return;
+    return const Stream.empty();
   }
 
-  var isDone = false, isError = false;
-  try {
-    while (true) {
-      final chunk = await bodyStreamReader.read().toDart;
+  final controller = StreamController<List<int>>(sync: true);
+  final cancelCompleter = Completer<Null>.sync();
+  Completer<void>? waitingForResume = null;
+  var readerEmittedDone = false;
+
+  Future<void> readUntilDoneOrCancelled() async {
+    while (!cancelCompleter.isCompleted) {
+      assert(waitingForResume == null);
+
+      final chunk = await Future.any(
+          [bodyStreamReader.read().toDart, cancelCompleter.future]);
+      if (chunk == null) {
+        // Stream subscription was cancelled. We'll cancel the reader later.
+        assert(cancelCompleter.isCompleted);
+        return;
+      }
+
       if (chunk.done) {
-        isDone = true;
-        break;
+        readerEmittedDone = true;
+        return;
       }
-      yield (chunk.value! as JSUint8Array).toDart;
+
+      controller.add((chunk.value! as JSUint8Array).toDart);
+      if (controller.isPaused) {
+        final resume = waitingForResume = Completer.sync();
+        await resume.future;
+      }
     }
-  } catch (e, st) {
-    isError = true;
-    rethrowAsClientException(e, st);
-  } finally {
-    if (!isDone) {
-      try {
-        // catchError here is a temporary workaround for
-        // http://dartbug.com/57046: an exception from cancel() will
-        // clobber an exception which is currently in flight.
-        await bodyStreamReader
-            .cancel()
-            .toDart
-            .catchError((_) => null, test: (_) => isError);
-      } catch (e, st) {
-        // If we have already encountered an error swallow the
-        // error from cancel and simply let the original error to be
-        // rethrown.
-        if (!isError) {
-          rethrowAsClientException(e, st);
+  }
+
+  void markResumed() {
+    if (waitingForResume case final waiter?) {
+      waitingForResume = null;
+      waiter.complete();
+    }
+  }
+
+  // Depending on whether the stream has been cancelled, reports an error on the
+  // stream or on the subscription's `cancel()` future.
+  void reportError(Object e, StackTrace st) {
+    if (cancelCompleter.isCompleted) {
+      _rethrowAsClientException(e, st, request);
+    } else {
+      controller.addError(_toClientException(e, request), st);
+    }
+  }
+
+  late Future<void> pipeIntoController;
+
+  controller
+    ..onListen = () {
+      pipeIntoController = Future.sync(() async {
+        var hadError = false;
+
+        try {
+          await readUntilDoneOrCancelled();
+        } catch (e, st) {
+          hadError = true;
+          reportError(e, st);
+        } finally {
+          if (!readerEmittedDone) {
+            try {
+              await bodyStreamReader.cancel().toDart;
+            } catch (e, st) {
+              // If we have already encountered an error swallow the error from
+              // cancel and simply let the original error to be rethrown.
+              if (!hadError) {
+                reportError(e, st);
+              }
+            }
+          }
+
+          controller.close();
         }
-      }
+      });
     }
-  }
-}
+    ..onResume = markResumed
+    ..onCancel = () async {
+      // Ensure the read loop isn't blocked due to a paused listener.
+      markResumed();
+      cancelCompleter.complete(null);
+      await pipeIntoController;
+    };
 
-extension<T> on Stream<T> {
-  /// Returns this stream in a form that calls [onCancel] when the downstream
-  /// subscription is cancelled _before_ awaiting [StreamSubscription.cancel] on
-  /// the upstream subscription.
-  ///
-  /// We need this because [_readBody] calls and waits for
-  /// [ReadableStreamDefaultReader.read], which means that a Dart stream
-  /// cancellation in that state would be ignored until the `read()` promise
-  /// resolves and the asnyc* method resumes. By properly aborting the response,
-  /// we can interrupt the read and complete the cancellation before the next
-  /// chunk of the response.
-  Stream<T> doOnCancel(void Function() onCancel) {
-    // sync because we'll only forward events (which are asynchronous already).
-    final controller = StreamController<T>(sync: true);
-    StreamSubscription<T>? subscription;
-
-    controller
-      ..onListen = () {
-        // Note: We can't use listener.addStream because cancelling the listener
-        // in that state would first await cancelling the upstream subscription,
-        // but we want to invoke onCancel first.
-        subscription = listen(controller.add,
-            onError: controller.addError, onDone: controller.close);
-      }
-      ..onPause = (() => subscription!.pause())
-      ..onResume = (() => subscription!.resume())
-      ..onCancel = () {
-        onCancel();
-        return subscription!.cancel();
-      };
-
-    return controller.stream;
-  }
+  return controller.stream;
 }
 
 /// Workaround for `Headers` not providing a way to iterate the headers.
