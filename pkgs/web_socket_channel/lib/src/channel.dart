@@ -17,8 +17,6 @@ const String _webSocketGUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 /// A [StreamChannel] that communicates over a WebSocket.
 ///
 /// This is implemented by classes that use `dart:io` and `dart:html`.
-/// The [WebSocketChannel.new] constructor can also be used on any platform to
-/// connect to use the WebSocket protocol over a pre-existing channel.
 ///
 /// All implementations emit [WebSocketChannelException]s. These exceptions wrap
 /// the native exception types where possible.
