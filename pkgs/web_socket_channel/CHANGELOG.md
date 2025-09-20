@@ -1,3 +1,7 @@
+## 3.0.4
+
+- Remove obsolete documentation for `WebSocketChannel.new`.
+
 ## 3.0.3
 
 - Support `package:web_socket` 1.0.0.
