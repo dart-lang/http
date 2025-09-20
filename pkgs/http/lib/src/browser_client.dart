@@ -144,9 +144,9 @@ class BrowserClient extends BaseClient {
   }
 }
 
-Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
+Object _toClientException(Object e, BaseRequest request) {
   if (e case DOMException(:final name) when name == 'AbortError') {
-    Error.throwWithStackTrace(RequestAbortedException(request.url), st);
+    return RequestAbortedException(request.url);
   }
   if (e is! ClientException) {
     var message = e.toString();
@@ -155,50 +155,105 @@ Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
     }
     e = ClientException(message, request.url);
   }
-  Error.throwWithStackTrace(e, st);
+  return e;
 }
 
-Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
+Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
+  Error.throwWithStackTrace(_toClientException(e, request), st);
+}
+
+Stream<List<int>> _readBody(BaseRequest request, Response response) {
   final bodyStreamReader =
       response.body?.getReader() as ReadableStreamDefaultReader?;
-
   if (bodyStreamReader == null) {
-    return;
+    return const Stream.empty();
   }
 
-  var isDone = false, isError = false;
-  try {
-    while (true) {
-      final chunk = await bodyStreamReader.read().toDart;
-      if (chunk.done) {
-        isDone = true;
-        break;
+  final controller = StreamController<List<int>>(sync: true);
+  final cancelCompleter = Completer<Null>.sync();
+  Completer<void>? waitingForResume;
+  var readerEmittedDone = false;
+
+  Future<void> readUntilDoneOrCancelled() async {
+    while (!cancelCompleter.isCompleted) {
+      assert(waitingForResume == null);
+
+      final chunk = await Future.any(
+          [bodyStreamReader.read().toDart, cancelCompleter.future]);
+      if (chunk == null) {
+        // Stream subscription was cancelled. We'll cancel the reader later.
+        assert(cancelCompleter.isCompleted);
+        return;
       }
-      yield (chunk.value! as JSUint8Array).toDart;
-    }
-  } catch (e, st) {
-    isError = true;
-    _rethrowAsClientException(e, st, request);
-  } finally {
-    if (!isDone) {
-      try {
-        // catchError here is a temporary workaround for
-        // http://dartbug.com/57046: an exception from cancel() will
-        // clobber an exception which is currently in flight.
-        await bodyStreamReader
-            .cancel()
-            .toDart
-            .catchError((_) => null, test: (_) => isError);
-      } catch (e, st) {
-        // If we have already encountered an error swallow the
-        // error from cancel and simply let the original error to be
-        // rethrown.
-        if (!isError) {
-          _rethrowAsClientException(e, st, request);
-        }
+
+      if (chunk.done) {
+        readerEmittedDone = true;
+        return;
+      }
+
+      controller.add((chunk.value! as JSUint8Array).toDart);
+      if (controller.isPaused) {
+        final resume = waitingForResume = Completer.sync();
+        await resume.future;
       }
     }
   }
+
+  void markResumed() {
+    if (waitingForResume case final waiter?) {
+      waitingForResume = null;
+      waiter.complete();
+    }
+  }
+
+  // Depending on whether the stream has been cancelled, reports an error on the
+  // stream or on the subscription's `cancel()` future.
+  void reportError(Object e, StackTrace st) {
+    if (cancelCompleter.isCompleted) {
+      _rethrowAsClientException(e, st, request);
+    } else {
+      controller.addError(_toClientException(e, request), st);
+    }
+  }
+
+  late Future<void> pipeIntoController;
+
+  controller
+    ..onListen = () {
+      pipeIntoController = Future.sync(() async {
+        var hadError = false;
+
+        try {
+          await readUntilDoneOrCancelled();
+        } catch (e, st) {
+          hadError = true;
+          reportError(e, st);
+        } finally {
+          if (!readerEmittedDone) {
+            try {
+              await bodyStreamReader.cancel().toDart;
+            } catch (e, st) {
+              // If we have already encountered an error swallow the error from
+              // cancel and simply let the original error to be rethrown.
+              if (!hadError) {
+                reportError(e, st);
+              }
+            }
+          }
+
+          unawaited(controller.close());
+        }
+      });
+    }
+    ..onResume = markResumed
+    ..onCancel = () async {
+      // Ensure the read loop isn't blocked due to a paused listener.
+      markResumed();
+      cancelCompleter.complete(null);
+      await pipeIntoController;
+    };
+
+  return controller.stream;
 }
 
 /// Workaround for `Headers` not providing a way to iterate the headers.
