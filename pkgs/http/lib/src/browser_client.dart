@@ -171,7 +171,7 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) {
 
   final controller = StreamController<List<int>>(sync: true);
   final cancelCompleter = Completer<Null>.sync();
-  Completer<void>? waitingForResume = null;
+  Completer<void>? waitingForResume;
   var readerEmittedDone = false;
 
   Future<void> readUntilDoneOrCancelled() async {
@@ -241,7 +241,7 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) {
             }
           }
 
-          controller.close();
+          unawaited(controller.close());
         }
       });
     }
