@@ -426,6 +426,139 @@ void main() {
         await Future.wait([serverFun(), clientFun()]);
       });
 
+      clientTest('header-frame-received-after-stream-cancel', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        var handshakeCompleter = Completer<void>();
+        var serverReceivedHeaders = Completer<void>();
+        var cancelDone = Completer<void>();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          handshakeCompleter.complete();
+
+          var headers1 = await nextFrame() as HeadersFrame;
+          var streamId1 = headers1.header.streamId;
+          expect(
+            await nextFrame(),
+            isA<DataFrame>().having(
+              (p0) => p0.hasEndStreamFlag,
+              'Last data frame',
+              true,
+            ),
+          );
+
+          var headers2 = await nextFrame() as HeadersFrame;
+          var streamId2 = headers2.header.streamId;
+          expect(
+            await nextFrame(),
+            isA<DataFrame>().having(
+              (p0) => p0.hasEndStreamFlag,
+              'Last data frame',
+              true,
+            ),
+          );
+
+          serverReceivedHeaders.complete();
+          await cancelDone.future;
+          expect(
+            await nextFrame(),
+            isA<RstStreamFrame>().having(
+              (f) => f.header.streamId,
+              'header.streamId',
+              streamId1,
+            ),
+          );
+
+          // Client has canceled, but we already had a response going out over
+          // the wire...
+          serverWriter.writeHeadersFrame(streamId1, [Header.ascii('e', 'f')]);
+          // Client will send an extra [RstStreamFrame] in response to this
+          // unexpected header. That's not required, but it is current
+          // behavior, so advance past it.
+          expect(
+            await nextFrame(),
+            isA<RstStreamFrame>().having(
+              (f) => f.header.streamId,
+              'header.streamId',
+              streamId1,
+            ),
+          );
+
+          // Respond on the second stream.
+          var data2 = [43];
+          serverWriter.writeDataFrame(streamId2, data2, endStream: true);
+          serverWriter.writeRstStreamFrame(streamId2, ErrorCode.STREAM_CLOSED);
+
+          // The two WindowUpdateFrames for the data2 DataFrame.
+          expect(
+            await nextFrame(),
+            isA<WindowUpdateFrame>().having(
+              (p0) => p0.header.streamId,
+              'Stream update',
+              streamId2,
+            ),
+          );
+          expect(
+            await nextFrame(),
+            isA<WindowUpdateFrame>().having(
+              (p0) => p0.header.streamId,
+              'Connection update',
+              0,
+            ),
+          );
+
+          expect(await nextFrame(), isA<GoawayFrame>());
+          expect(await serverReader.moveNext(), false);
+
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          // First stream: we'll send data and then cancel quickly, but the
+          // server will already have a response in flight.
+          var stream1 = client.makeRequest([Header.ascii('a', 'b')]);
+          await stream1.outgoingMessages.close();
+
+          // Second stream: server will respond only after we've canceled the
+          // first stream.
+          var stream2 = client.makeRequest([Header.ascii('c', 'd')]);
+          await stream2.outgoingMessages.close();
+
+          await serverReceivedHeaders.future;
+          stream1.terminate();
+          cancelDone.complete();
+
+          var messages2 = await stream2.incomingMessages.toList();
+          expect(messages2, hasLength(1));
+          var message2 = messages2[0];
+          expect(
+            message2,
+            isA<DataStreamMessage>().having(
+              (p0) => p0.bytes,
+              'Same as `data2` above',
+              [43],
+            ),
+          );
+
+          expect(client.isOpen, true);
+          var future = client.finish();
+          expect(client.isOpen, false);
+          await future;
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
       clientTest('data-frame-received-after-stream-cancel', (
         ClientTransportConnection client,
         FrameWriter serverWriter,
