@@ -169,8 +169,8 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) {
     return const Stream.empty();
   }
 
-  final controller = StreamController<List<int>>(sync: true);
-  final cancelCompleter = Completer<Null>.sync();
+  final controller = StreamController<List<int>>();
+  final cancelCompleter = Completer<Null>();
   Completer<void>? waitingForResume;
   var readerEmittedDone = false;
 
@@ -193,7 +193,7 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) {
 
       controller.add((chunk.value! as JSUint8Array).toDart);
       if (controller.isPaused) {
-        final resume = waitingForResume = Completer.sync();
+        final resume = waitingForResume = Completer();
         await resume.future;
       }
     }
@@ -220,7 +220,7 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) {
 
   controller
     ..onListen = () {
-      pipeIntoController = Future.sync(() async {
+      pipeIntoController = Future(() async {
         var hadError = false;
 
         try {
