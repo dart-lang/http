@@ -77,5 +77,63 @@ void testResponseBodyStreamed(Client client,
       });
       await cancelled.future;
     });
+
+    test('cancelling stream subscription after chunk', () async {
+      // Request a 10s delay between subsequent lines.
+      const delayMillis = 10000;
+      final request = Request('GET', Uri.http(host, '$delayMillis'));
+      final response = await client.send(request);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+
+      final cancelled = Completer<void>();
+      var stopwatch = Stopwatch();
+      final subscription = response.stream
+          .transform(const Utf8Decoder())
+          .transform(const LineSplitter())
+          .listen(null);
+      subscription.onData((line) {
+        stopwatch.start();
+        cancelled.complete(subscription.cancel());
+        expect(line, '0');
+      });
+
+      await cancelled.future;
+      stopwatch.stop();
+
+      // Receiving the first line and cancelling the stream should not wait for
+      // the second line, which is sent much later.
+      expect(stopwatch.elapsed.inMilliseconds, lessThan(delayMillis));
+    });
+
+    test('cancelling stream subscription after chunk with delay', () async {
+      // Request a 10s delay between subsequent lines.
+      const delayMillis = 10000;
+      final request = Request('GET', Uri.http(host, '$delayMillis'));
+      final response = await client.send(request);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+
+      var stopwatch = Stopwatch()..start();
+      final done = Completer<void>();
+      late StreamSubscription<String> sub;
+      sub = response.stream
+          .transform(utf8.decoder)
+          .transform(const LineSplitter())
+          .listen((line) {
+        // Don't cancel in direct response to event, we want to test cancelling
+        // while the client is actively waiting for data.
+        Timer.run(() {
+          stopwatch.start();
+          done.complete(sub.cancel());
+        });
+      });
+
+      await done.future;
+      stopwatch.stop();
+      // Receiving the first line and cancelling the stream should not wait for
+      // the second line, which is sent much later.
+      expect(stopwatch.elapsed.inMilliseconds, lessThan(delayMillis));
+    });
   }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
 }
