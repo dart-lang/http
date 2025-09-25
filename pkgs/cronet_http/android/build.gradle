@@ -64,7 +64,7 @@ android {
 
 dependencies {
     if (dartDefines.cronetHttpNoPlay == 'true') {
-        implementation 'org.chromium.net:cronet-embedded:119.6045.31'
+        implementation 'org.chromium.net:cronet-embedded:141.7340.3'
     } else {
         implementation "com.google.android.gms:play-services-cronet:18.1.0"
     }
