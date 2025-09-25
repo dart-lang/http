@@ -191,6 +191,9 @@ Future<void> _readStreamBody(BaseRequest request, Response response,
     ..onCancel = () async {
       try {
         cancelled = true;
+        // We only cancel the reader when the subscription is cancelled - we
+        // don't need to do that for normal done events because the stream is in
+        // a completed state at that point.
         await reader.cancel().toDart;
       } catch (e, s) {
         if (!hadError) {
