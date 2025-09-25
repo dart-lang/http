@@ -145,7 +145,7 @@ class BrowserClient extends BaseClient {
 }
 
 Object _toClientException(Object e, BaseRequest request) {
-  if (e case DOMException(:final name) when name == 'AbortError') {
+  if (e case DOMException(name: 'AbortError')) {
     return RequestAbortedException(request.url);
   }
   if (e is! ClientException) {
@@ -163,18 +163,20 @@ Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
 }
 
 Stream<List<int>> _readBody(BaseRequest request, Response response) {
-  final bodyStreamReader =
-      response.body?.getReader() as ReadableStreamDefaultReader?;
-  if (bodyStreamReader == null) {
-    return const Stream.empty();
-  }
-
+  ReadableStreamDefaultReader? reader;
   final controller = StreamController<List<int>>();
   final cancelCompleter = Completer<Null>();
   Completer<void>? waitingForResume;
   var readerEmittedDone = false;
 
   Future<void> readUntilDoneOrCancelled() async {
+    final bodyStreamReader =
+        reader = response.body?.getReader() as ReadableStreamDefaultReader?;
+    if (bodyStreamReader == null) {
+      readerEmittedDone = true;
+      return;
+    }
+
     while (!cancelCompleter.isCompleted) {
       assert(waitingForResume == null);
 
@@ -231,7 +233,7 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) {
         } finally {
           if (!readerEmittedDone) {
             try {
-              await bodyStreamReader.cancel().toDart;
+              await reader?.cancel().toDart;
             } catch (e, st) {
               // If we have already encountered an error swallow the error from
               // cancel and simply let the original error to be rethrown.

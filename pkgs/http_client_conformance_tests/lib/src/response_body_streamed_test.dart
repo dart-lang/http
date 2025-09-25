@@ -86,16 +86,23 @@ void testResponseBodyStreamed(Client client,
       expect(response.reasonPhrase, 'OK');
       expect(response.statusCode, 200);
 
-      var stopwatch = Stopwatch()..start();
-      var line = await const LineSplitter()
-          .bind(const Utf8Decoder().bind(response.stream))
-          // Cancel the stream after the first line
-          .first;
+      final cancelled = Completer<void>();
+      var stopwatch = Stopwatch();
+      final subscription = response.stream
+          .transform(const Utf8Decoder())
+          .transform(const LineSplitter())
+          .listen(null);
+      subscription.onData((line) {
+        stopwatch.start();
+        cancelled.complete(subscription.cancel());
+        expect(line, '0');
+      });
+
+      await cancelled.future;
+      stopwatch.stop();
 
       // Receiving the first line and cancelling the stream should not wait for
       // the second line, which is sent much later.
-      stopwatch.stop();
-      expect(line, '0');
       expect(stopwatch.elapsed.inMilliseconds, lessThan(delayMillis));
     });
 
@@ -113,16 +120,17 @@ void testResponseBodyStreamed(Client client,
       sub = response.stream
           .transform(utf8.decoder)
           .transform(const LineSplitter())
-          .listen((line) async {
+          .listen((line) {
         // Don't cancel in direct response to event, we want to test cancelling
         // while the client is actively waiting for data.
-        await pumpEventQueue();
-        await sub.cancel();
-        stopwatch.stop();
-        done.complete();
+        Timer.run(() {
+          stopwatch.start();
+          done.complete(sub.cancel());
+        });
       });
 
       await done.future;
+      stopwatch.stop();
       // Receiving the first line and cancelling the stream should not wait for
       // the second line, which is sent much later.
       expect(stopwatch.elapsed.inMilliseconds, lessThan(delayMillis));
