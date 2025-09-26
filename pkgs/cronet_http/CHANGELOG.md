@@ -1,3 +1,7 @@
+## 1.6.0-wip
+
+* Upgrade `cronet-embedded` dependency version to support 16 KB page sizes.
+
 ## 1.5.0
 
 * Add the ability to abort requests.
