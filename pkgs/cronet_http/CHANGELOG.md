@@ -1,4 +1,4 @@
-## 1.6.0-wip
+## 1.5.1-wip
 
 * Upgrade `cronet-embedded` dependency version to support 16 KB page sizes.
 
