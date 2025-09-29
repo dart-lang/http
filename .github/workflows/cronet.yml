@@ -22,7 +22,7 @@ env:
 
 jobs:
   verify:
-    name: Format & Analyze & Test
+    name: Format & Analyze & Test (${{ matrix.cronetHttpNoPlay == 'true' && 'without Google Play' || 'with Google Play'}})
     runs-on: ubuntu-cpu16-ram64
     timeout-minutes: 30
     strategy:
