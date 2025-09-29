@@ -70,7 +70,7 @@ jobs:
           # the tests that rely on Google Play services with the newest API
           # level (34 as of March 2025). The tests that don't rely on Google
           # Play serviecs can test the oldest supported API level.
-          api-level: ${{ matrix.cronetHttpNoPlay == 'true' && '21' || '29' }} 
+          api-level: ${{ matrix.cronetHttpNoPlay == 'true' && '23' || '29' }} 
           disable-animations: true
           arch: x86_64
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}

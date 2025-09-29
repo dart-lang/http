@@ -1,6 +1,7 @@
 ## 1.6.0-wip
 
 * Upgrade `cronet-embedded` dependency version to support 16 KB page sizes.
+  This forces the minimum Android SDK version to 23.
 
 ## 1.5.0
 
