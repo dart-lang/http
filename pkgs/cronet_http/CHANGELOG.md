@@ -1,3 +1,9 @@
+## 1.6.0-wip
+
+* Upgrade the `cronet-embedded` dependency to `141.7340` version to
+  support 16 KB page sizes. `cronet-embedded` has target SDK version of 24.
+* Change the minimum SDK version to 24.
+
 ## 1.5.0
 
 * Add the ability to abort requests.
