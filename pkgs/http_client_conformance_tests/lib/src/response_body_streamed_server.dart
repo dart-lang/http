@@ -34,9 +34,8 @@ void hybridMain(StreamChannel<Object?> channel) async {
       await request.drain<void>();
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
-      if (delayBetweenLines > Duration.zero) {
-        request.response.bufferOutput = false;
-      }
+      request.response.bufferOutput = false;
+
       serverWriting = true;
       for (var i = 0; serverWriting; ++i) {
         request.response.write('$i\n');

@@ -59,6 +59,105 @@ void testResponseBodyStreamed(Client client,
       expect(response.statusCode, 200);
     });
 
+    test('pausing response stream after events', () async {
+      final response = await client.send(Request('GET', Uri.http(host, '')));
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+
+      // The server responds with a streamed response of lines containing
+      // incrementing integers. Verify that pausing the stream after each one
+      // does not cause any missed lines.
+      final stream = response.stream
+          .transform(const Utf8Decoder())
+          .transform(const LineSplitter())
+          .map(int.parse);
+      var expectedLine = 0;
+      await for (final line in stream) {
+        expect(line, expectedLine);
+        expectedLine++;
+        if (expectedLine == 10) {
+          break;
+        }
+
+        // Pause the stream for a short while.
+        await pumpEventQueue();
+      }
+    });
+
+    test('pausing response stream asynchronously', () async {
+      final response = await client.send(Request('GET', Uri.http(host, '')));
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+
+      final originalSubscription = response.stream
+          .transform(const Utf8Decoder())
+          .transform(const LineSplitter())
+          .map(int.parse)
+          .listen(null);
+      var expectedLine = 0;
+      await for (final line in SubscriptionStream(originalSubscription)) {
+        expect(line, expectedLine);
+        expectedLine++;
+        if (expectedLine == 100) {
+          break;
+        }
+
+        // Instead of pausing the subscription in response to an event, pause it
+        // after the event has already been delivered.
+        Timer.run(() {
+          originalSubscription.pause(Future(pumpEventQueue));
+        });
+      }
+    });
+
+    test('cancel paused stream', () async {
+      final response = await client.send(Request('GET', Uri.http(host, '')));
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+
+      final completer = Completer<void>();
+      late StreamSubscription<String> subscription;
+      subscription = response.stream
+          .transform(const Utf8Decoder())
+          .transform(const LineSplitter())
+          .listen((line) async {
+        subscription.pause();
+
+        completer.complete(Future(() async {
+          await pumpEventQueue();
+          await subscription.cancel();
+        }));
+      });
+
+      await completer.future;
+    });
+
+    test('cancel paused stream via abortable request', () async {
+      final abortTrigger = Completer<void>();
+      final response = await client.send(AbortableRequest(
+          'GET', Uri.http(host, ''),
+          abortTrigger: abortTrigger.future));
+      expect(response.reasonPhrase, 'OK');
+      expect(response.statusCode, 200);
+
+      late StreamSubscription<String> subscription;
+      subscription = response.stream
+          .transform(const Utf8Decoder())
+          .transform(const LineSplitter())
+          .listen((line) {
+        subscription.pause();
+        abortTrigger.complete();
+      });
+
+      expectLater(subscription.asFuture<void>(),
+          throwsA(isA<RequestAbortedException>()));
+      await abortTrigger.future;
+
+      // We need to resume the subscription after the response has been
+      // cancelled to record that error event.
+      subscription.resume();
+    });
+
     test('cancel streamed response', () async {
       final request = Request('GET', Uri.http(host, ''));
       final response = await client.send(request);
