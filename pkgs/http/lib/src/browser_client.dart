@@ -196,10 +196,15 @@ Future<void> _readStreamBody(BaseRequest request, Response response,
         // a completed state at that point.
         await reader.cancel().toDart;
       } catch (e, s) {
+        // It is possible for reader.cancel() to throw. This happens either
+        // because the stream has already been in an error state (in which case
+        // we would have called addErrorSync() before and don't need to re-
+        // report the error here), or because of an issue here (MDN says the
+        // method can throw if "The source object is not a
+        // ReadableStreamDefaultReader, or the stream has no owner."). Both of
+        // these don't look applicable here, but we want to ensure a new error
+        // in cancel() is surfaced to the caller.
         if (!hadError) {
-          // If the stream enters an error state, .cancel() will rethrow that
-          // error. We want to ignore that since we would have added it to the
-          // stream already.
           _rethrowAsClientException(e, s, request);
         }
       }
