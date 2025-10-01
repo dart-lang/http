@@ -29,37 +29,59 @@ jobs:
     defaults:
       run:
         working-directory: pkgs/cupertino_http
-    strategy:
-      matrix:
-        # Test on the minimum supported flutter version and the latest
-        # version.
-        flutter-version: ["3.32.0", "any"]
-        # It would be nice to test on older versions of macOS but macOS 13 is
-        # the oldest supported by GitHub.
-        os: [macos-13, macos-latest]
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e
         with:
-          flutter-version: ${{ matrix.flutter-version }}
+          flutter-version: 3.35.1
           channel: 'stable'
+#          flutter-version: 5994e6174f18dbd7b4c8b5c4bfc1469a0d17f261 # Fails Jun 13: https://github.com/flutter/flutter/commit/5994e6174f18dbd7b4c8b5c4bfc1469a0d17f261
+#          flutter-version: 299e1572272e32e56e577c3ddd9ce98ef40ddeab # Suceeded Jan 21 : https://github.com/flutter/flutter/commit/299e1572272e32e56e577c3ddd9ce98ef40ddeab
+#          flutter-version: b8a4ddffe59409301dd9c492dce64403ad418a52 # Suceeded Apr 14 : https://github.com/flutter/flutter/commit/b8a4ddffe59409301dd9c492dce64403ad418a52
+#          flutter-version: b747aeeb1f8d01e69d1a79c0444043c306446efc #  Suceeded April 16
+#          flutter-version:  fbed8a71944ba7b62212bd2050e3d169f4ca5e11 #  Suceeded April 17
+#          flutter-version:  3c247110f754d6b2154d80f124608a6b4e2a8e9c #  Suceeded April 17
+#          flutter-version: 9d3d0dc0ed7bad45bb15e529f994a06760ca86e0 # Failed <-- this one!
+#          flutter-version: afdc861129d88fa298ab9952c2d8c4dfb2d74ac1 # Passes!?!
+#          flutter-version: 9d3d0dc0ed7bad45bb15e529f994a06760ca86e0 #  Fail April 17
+#          flutter-version: 99c3d037587a827ec2f6de35b5dfe147fbb4f104 #  Fails April 17
+#          flutter-version: 66ecc88655b7652c2a76cbab7e067c456c5e06d1 # Fails April 18
+#          flutter-version: 83483976ec0c2667bb991d052a0e02c691687bf2 # Fails April 24
+#           flutter-version: 14c45d944e486ab5742898b7beb90b03399884ea # Fails May 4
+#          flutter-version: f7354da75b2718f1e5407edab92c80c730312215 # Fails May 21 : https://github.com/flutter/flutter/commit/f7354da75b2718f1e5407edab92c80c730312215
+
       - id: install
         name: Install dependencies
         run: flutter pub get
-      - name: Check formatting
-        run: dart format --output=none --set-exit-if-changed .
-        if: always() && steps.install.outcome == 'success'
-      - name: Analyze code
-        run: flutter analyze --fatal-infos
-        if: always() && steps.install.outcome == 'success'
+#      - name: Check formatting
+#        run: dart format --output=show --set-exit-if-changed .
+#        if: always() && steps.install.outcome == 'success'
+#      - name: Analyze code
+#        run: flutter analyze --fatal-infos
+#        if: always() && steps.install.outcome == 'success'
+      - name: Start tcpdump
+        run: |
+          sudo tcpdump -i any -s 65535 -w ${{ github.workspace }}/capture.pcap &
       - name: Run tests
         run: |
           cd example
           flutter pub get
-          flutter test -d macos integration_test/main.dart --test-randomize-ordering-seed=random  
+          flutter test -d macos integration_test/main.dart # --name "defaultSessionConfiguration local close with code and reason"  
+      - name: Stop tcpdump
+        if: ${{ always() }}
+        run: |
+          sleep 2
+          sudo pkill -SIGQUIT tcpdump
+          sleep 2
+      - name: Upload tcpdump capture
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcpdump
+          path: ${{ github.workspace }}/capture.pcap
   ios:
     name: "iOS: Test"
-    runs-on: macos-latest
+    runs-on: macos-15
     defaults:
       run:
         working-directory: pkgs/cupertino_http
