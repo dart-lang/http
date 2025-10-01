@@ -11,6 +11,7 @@ import 'package:web/web.dart'
         DOMException,
         HeadersInit,
         ReadableStreamDefaultReader,
+        ReadableStreamReadResult,
         RequestInfo,
         RequestInit,
         Response;
@@ -116,7 +117,7 @@ class BrowserClient extends BaseClient {
       }.toJS);
 
       return StreamedResponseV2(
-        _readBody(request, response),
+        _bodyToStream(request, response),
         response.status,
         headers: headers,
         request: request,
@@ -144,9 +145,9 @@ class BrowserClient extends BaseClient {
   }
 }
 
-Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
-  if (e case DOMException(:final name) when name == 'AbortError') {
-    Error.throwWithStackTrace(RequestAbortedException(request.url), st);
+Object _toClientException(Object e, BaseRequest request) {
+  if (e case DOMException(name: 'AbortError')) {
+    return RequestAbortedException(request.url);
   }
   if (e is! ClientException) {
     var message = e.toString();
@@ -155,49 +156,103 @@ Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
     }
     e = ClientException(message, request.url);
   }
-  Error.throwWithStackTrace(e, st);
+  return e;
 }
 
-Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
-  final bodyStreamReader =
-      response.body?.getReader() as ReadableStreamDefaultReader?;
+Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
+  Error.throwWithStackTrace(_toClientException(e, request), st);
+}
 
-  if (bodyStreamReader == null) {
+Stream<List<int>> _bodyToStream(BaseRequest request, Response response) =>
+    Stream.multi(
+      isBroadcast: false,
+      (listener) => _readStreamBody(request, response, listener),
+    );
+
+Future<void> _readStreamBody(BaseRequest request, Response response,
+    MultiStreamController<List<int>> controller) async {
+  final reader = response.body?.getReader() as ReadableStreamDefaultReader?;
+  if (reader == null) {
+    // No response? Treat that as an empty stream.
+    await controller.close();
     return;
   }
 
-  var isDone = false, isError = false;
-  try {
-    while (true) {
-      final chunk = await bodyStreamReader.read().toDart;
-      if (chunk.done) {
-        isDone = true;
-        break;
+  Completer<void>? resumeSignal;
+  var cancelled = false;
+  var hadError = false;
+  controller
+    ..onResume = () {
+      if (resumeSignal case final resume?) {
+        resumeSignal = null;
+        resume.complete();
       }
-      yield (chunk.value! as JSUint8Array).toDart;
     }
-  } catch (e, st) {
-    isError = true;
-    _rethrowAsClientException(e, st, request);
-  } finally {
-    if (!isDone) {
+    ..onCancel = () async {
       try {
-        // catchError here is a temporary workaround for
-        // http://dartbug.com/57046: an exception from cancel() will
-        // clobber an exception which is currently in flight.
-        await bodyStreamReader
-            .cancel()
-            .toDart
-            .catchError((_) => null, test: (_) => isError);
-      } catch (e, st) {
-        // If we have already encountered an error swallow the
-        // error from cancel and simply let the original error to be
-        // rethrown.
-        if (!isError) {
-          _rethrowAsClientException(e, st, request);
+        cancelled = true;
+        // We only cancel the reader when the subscription is cancelled - we
+        // don't need to do that for normal done events because the stream is in
+        // a completed state at that point.
+        await reader.cancel().toDart;
+      } catch (e, s) {
+        // It is possible for reader.cancel() to throw. This happens either
+        // because the stream has already been in an error state (in which case
+        // we would have called addErrorSync() before and don't need to re-
+        // report the error here), or because of an issue here (MDN says the
+        // method can throw if "The source object is not a
+        // ReadableStreamDefaultReader, or the stream has no owner."). Both of
+        // these don't look applicable here, but we want to ensure a new error
+        // in cancel() is surfaced to the caller.
+        if (!hadError) {
+          _rethrowAsClientException(e, s, request);
         }
       }
+    };
+
+  // Async loop reading chunks from `bodyStreamReader` and sending them to
+  // `controller`.
+  // Checks for pause/cancel after delivering each event.
+  // Exits if stream closes or becomes an error, or if cancelled.
+  while (true) {
+    final ReadableStreamReadResult chunk;
+    try {
+      chunk = await reader.read().toDart;
+    } catch (e, s) {
+      // After a stream was cancelled, adding error events would result in
+      // unhandled async errors. This is most likely an AbortError anyway, so
+      // not really an exceptional state. We report errors of .cancel() in
+      // onCancel, that should cover this case.
+      if (!cancelled) {
+        hadError = true;
+        controller.addErrorSync(_toClientException(e, request), s);
+        await controller.close();
+      }
+
+      break;
     }
+
+    if (chunk.done) {
+      // Sync because we're forwarding an async event.
+      controller.closeSync();
+      break;
+    } else {
+      // Handle chunk whether paused, cancelled or not.
+      // If subscription is cancelled, it's a no-op to add events.
+      // If subscription is paused, events will be buffered until resumed,
+      // which is what we need.
+      // We can use addSync here because we're only forwarding this async
+      // event.
+      controller.addSync((chunk.value! as JSUint8Array).toDart);
+    }
+
+    // Check pause/cancel state immediately *after* delivering event,
+    // listener might have paused or cancelled.
+    if (controller.isPaused) {
+      // Will never complete if cancelled before resumed.
+      await (resumeSignal ??= Completer<void>()).future;
+    }
+    if (!controller.hasListener) break; // Is cancelled.
   }
 }
 
