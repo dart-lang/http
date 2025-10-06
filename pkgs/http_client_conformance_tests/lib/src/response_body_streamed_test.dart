@@ -149,7 +149,7 @@ void testResponseBodyStreamed(Client client,
         abortTrigger.complete();
       });
 
-      expectLater(subscription.asFuture<void>(),
+      await expectLater(subscription.asFuture<void>(),
           throwsA(isA<RequestAbortedException>()));
       await abortTrigger.future;
 
