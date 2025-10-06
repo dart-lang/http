@@ -149,13 +149,14 @@ void testResponseBodyStreamed(Client client,
         abortTrigger.complete();
       });
 
-      await expectLater(subscription.asFuture<void>(),
+      final aborted = expectLater(subscription.asFuture<void>(),
           throwsA(isA<RequestAbortedException>()));
       await abortTrigger.future;
 
       // We need to resume the subscription after the response has been
       // cancelled to record that error event.
       subscription.resume();
+      await aborted;
     });
 
     test('cancel streamed response', () async {
