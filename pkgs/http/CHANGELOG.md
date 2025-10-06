@@ -3,6 +3,7 @@
 * **Breaking** Change the behavior of `Request.body` so that a charset
   parameter is only added for text and XML media types. This brings the
   behavior of `package:http` in line with RFC-8259.
+* Export `MediaType` from `package:http_parser`.
 
 ## 1.5.0
 
