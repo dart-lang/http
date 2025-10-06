@@ -72,16 +72,27 @@ void testResponseBodyStreamed(Client client,
           .transform(const LineSplitter())
           .map(int.parse);
       var expectedLine = 0;
-      await for (final line in stream) {
+      final cancelCompleter = Completer<void>();
+      late StreamSubscription<int> subscription;
+
+      subscription = stream.listen((line) async {
         expect(line, expectedLine);
         expectedLine++;
+
         if (expectedLine == 10) {
-          break;
+          subscription.pause();
+          Future.delayed(
+              const Duration(seconds: 1), () => subscription.resume());
         }
 
-        // Pause the stream for a short while.
+        if (expectedLine == 100) {
+          cancelCompleter.complete(subscription.cancel());
+        }
         await pumpEventQueue();
-      }
+      });
+
+      await cancelCompleter.future;
+      expect(expectedLine, 100);
     });
 
     test('pausing response stream asynchronously', () async {
