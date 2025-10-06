@@ -46,7 +46,7 @@ android {
         // - .github/workflows/cronet.yml
         // - pkgs/cronet_http/android/build.gradle
         // - pkgs/cronet_http/example/android/app/build.gradle
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

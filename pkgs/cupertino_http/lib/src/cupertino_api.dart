@@ -40,7 +40,6 @@ import 'native_cupertino_bindings.dart'
         NSURLSessionResponseDisposition,
         NSURLSessionTaskState,
         NSURLSessionWebSocketMessageType;
-import 'utils.dart';
 
 export 'native_cupertino_bindings.dart'
     show
@@ -52,6 +51,11 @@ export 'native_cupertino_bindings.dart'
         NSURLSessionTaskState,
         NSURLSessionWebSocketCloseCode,
         NSURLSessionWebSocketMessageType;
+
+objc.NSURL _uriToNSURL(Uri uri) =>
+    objc.NSURL.URLWithString(uri.toString().toNSString())!;
+Uri _nsurlToUri(objc.NSURL url) =>
+    Uri.parse(url.absoluteString!.toDartString());
 
 abstract class _ObjectHolder<T extends objc.NSObject> {
   final T _nsObject;
@@ -92,11 +96,17 @@ class URLCache extends _ObjectHolder<ncb.NSURLCache> {
   /// stored. If `null` then the default directory will be used.
   ///
   /// See [NSURLCache initWithMemoryCapacity:diskCapacity:directoryURL:](https://developer.apple.com/documentation/foundation/nsurlcache/3240612-initwithmemorycapacity)
-  factory URLCache.withCapacity(
-          {int memoryCapacity = 0, int diskCapacity = 0, Uri? directory}) =>
-      URLCache._(ncb.NSURLCache.alloc()
-          .initWithMemoryCapacity_diskCapacity_directoryURL_(memoryCapacity,
-              diskCapacity, directory == null ? null : uriToNSURL(directory)));
+  factory URLCache.withCapacity({
+    int memoryCapacity = 0,
+    int diskCapacity = 0,
+    Uri? directory,
+  }) => URLCache._(
+    ncb.NSURLCache.alloc().initWithMemoryCapacity$1(
+      memoryCapacity,
+      diskCapacity: diskCapacity,
+      directoryURL: directory == null ? null : _uriToNSURL(directory),
+    ),
+  );
 }
 
 /// Controls the behavior of a URLSession.
@@ -109,27 +119,31 @@ class URLSessionConfiguration
   final bool _isBackground;
 
   URLSessionConfiguration._(super.c, {required bool isBackground})
-      : _isBackground = isBackground;
+    : _isBackground = isBackground;
 
   /// A configuration suitable for performing HTTP uploads and downloads in
   /// the background.
   ///
   /// See [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1407496-backgroundsessionconfigurationwi)
-  factory URLSessionConfiguration.backgroundSession(String identifier) =>
-      URLSessionConfiguration._(
-          ncb.NSURLSessionConfiguration
-              .backgroundSessionConfigurationWithIdentifier_(
-                  identifier.toNSString()),
-          isBackground: true);
+  factory URLSessionConfiguration.backgroundSession(
+    String identifier,
+  ) => URLSessionConfiguration._(
+    ncb.NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(
+      identifier.toNSString(),
+    ),
+    isBackground: true,
+  );
 
   /// A configuration that uses caching and saves cookies and credentials.
   ///
   /// See [NSURLSessionConfiguration defaultSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411560-defaultsessionconfiguration)
   factory URLSessionConfiguration.defaultSessionConfiguration() =>
       URLSessionConfiguration._(
-          ncb.NSURLSessionConfiguration.castFrom(
-              ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration()),
-          isBackground: false);
+        ncb.NSURLSessionConfiguration.castFrom(
+          ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(),
+        ),
+        isBackground: false,
+      );
 
   /// A session configuration that uses no persistent storage for caches,
   /// cookies, or credentials.
@@ -137,9 +151,11 @@ class URLSessionConfiguration
   /// See [NSURLSessionConfiguration ephemeralSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1410529-ephemeralsessionconfiguration)
   factory URLSessionConfiguration.ephemeralSessionConfiguration() =>
       URLSessionConfiguration._(
-          ncb.NSURLSessionConfiguration.castFrom(
-              ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration()),
-          isBackground: false);
+        ncb.NSURLSessionConfiguration.castFrom(
+          ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration(),
+        ),
+        isBackground: false,
+      );
 
   /// Whether connections over a cellular network are allowed.
   ///
@@ -187,7 +203,7 @@ class URLSessionConfiguration
   Map<String, String>? get httpAdditionalHeaders {
     if (_nsObject.HTTPAdditionalHeaders case var additionalHeaders?) {
       final headers = objc.NSDictionary.castFrom(additionalHeaders);
-      return stringNSDictionaryToMap(headers);
+      return (objc.toDartObject(headers) as Map).cast<String, String>();
     }
     return null;
   }
@@ -197,11 +213,8 @@ class URLSessionConfiguration
       _nsObject.HTTPAdditionalHeaders = null;
       return;
     }
-    final d = objc.NSMutableDictionary.alloc().init();
-    headers.forEach((key, value) {
-      d.setObject_forKey_(value.toNSString(), key.toNSString());
-    });
-    _nsObject.HTTPAdditionalHeaders = d;
+    _nsObject.HTTPAdditionalHeaders =
+        objc.toObjCObject(headers) as objc.NSMutableDictionary;
   }
 
   /// What policy to use when deciding whether to accept cookies.
@@ -279,9 +292,10 @@ class URLSessionConfiguration
   ///
   /// See [NSURLSessionConfiguration.timeoutIntervalForRequest](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408259-timeoutintervalforrequest)
   Duration get timeoutIntervalForRequest => Duration(
-      microseconds:
-          (_nsObject.timeoutIntervalForRequest * Duration.microsecondsPerSecond)
-              .round());
+    microseconds:
+        (_nsObject.timeoutIntervalForRequest * Duration.microsecondsPerSecond)
+            .round(),
+  );
 
   set timeoutIntervalForRequest(Duration interval) {
     _nsObject.timeoutIntervalForRequest =
@@ -296,7 +310,8 @@ class URLSessionConfiguration
       _nsObject.waitsForConnectivity = value;
 
   @override
-  String toString() => '[URLSessionConfiguration '
+  String toString() =>
+      '[URLSessionConfiguration '
       'allowsCellularAccess=$allowsCellularAccess '
       'allowsConstrainedNetworkAccess=$allowsConstrainedNetworkAccess '
       'allowsExpensiveNetworkAccess=$allowsExpensiveNetworkAccess '
@@ -339,7 +354,8 @@ class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
   String? get mimeType => _nsObject.MIMEType?.toDartString();
 
   @override
-  String toString() => '[URLResponse '
+  String toString() =>
+      '[URLResponse '
       'mimeType=$mimeType '
       'expectedContentLength=$expectedContentLength'
       ']';
@@ -352,8 +368,8 @@ class HTTPURLResponse extends URLResponse {
   final ncb.NSHTTPURLResponse _httpUrlResponse;
 
   HTTPURLResponse._(ncb.NSHTTPURLResponse super.c)
-      : _httpUrlResponse = c,
-        super._();
+    : _httpUrlResponse = c,
+      super._();
 
   /// The HTTP status code of the response (e.g. 200).
   ///
@@ -363,14 +379,13 @@ class HTTPURLResponse extends URLResponse {
   /// The HTTP headers of the response.
   ///
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
-  Map<String, String> get allHeaderFields {
-    final headers =
-        objc.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields);
-    return stringNSDictionaryToMap(headers);
-  }
+  Map<String, String> get allHeaderFields =>
+      (objc.toDartObject(_httpUrlResponse.allHeaderFields) as Map)
+          .cast<String, String>();
 
   @override
-  String toString() => '[HTTPURLResponse '
+  String toString() =>
+      '[HTTPURLResponse '
       'statusCode=$statusCode '
       'mimeType=$mimeType '
       'expectedContentLength=$expectedContentLength'
@@ -389,14 +404,16 @@ class URLSessionWebSocketMessage
   /// See [NSURLSessionWebSocketMessage initWithData:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181192-initwithdata)
   factory URLSessionWebSocketMessage.fromData(objc.NSData d) =>
       URLSessionWebSocketMessage._(
-          ncb.NSURLSessionWebSocketMessage.alloc().initWithData_(d));
+        ncb.NSURLSessionWebSocketMessage.alloc().initWithData(d),
+      );
 
   /// Create a WebSocket string message.
   ///
   /// See [NSURLSessionWebSocketMessage initWitString:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181193-initwithstring)
   factory URLSessionWebSocketMessage.fromString(String s) =>
-      URLSessionWebSocketMessage._(ncb.NSURLSessionWebSocketMessage.alloc()
-          .initWithString_(s.toNSString()));
+      URLSessionWebSocketMessage._(
+        ncb.NSURLSessionWebSocketMessage.alloc().initWithString(s.toNSString()),
+      );
 
   /// The data associated with the WebSocket message.
   ///
@@ -561,7 +578,8 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   set prefersIncrementalDelivery(bool value) =>
       _nsObject.prefersIncrementalDelivery = value;
 
-  String _toStringHelper(String className) => '[$className '
+  String _toStringHelper(String className) =>
+      '[$className '
       'taskDescription=$taskDescription '
       'taskIdentifier=$taskIdentifier '
       'countOfBytesExpectedToReceive=$countOfBytesExpectedToReceive '
@@ -594,8 +612,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
   final ncb.NSURLSessionWebSocketTask _urlSessionWebSocketTask;
 
   URLSessionWebSocketTask._(ncb.NSURLSessionWebSocketTask super.c)
-      : _urlSessionWebSocketTask = c,
-        super._();
+    : _urlSessionWebSocketTask = c,
+      super._();
 
   /// The close code set when the WebSocket connection is closed.
   ///
@@ -616,14 +634,16 @@ class URLSessionWebSocketTask extends URLSessionTask {
   /// See [NSURLSessionWebSocketTask.sendMessage:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181205-sendmessage)
   Future<void> sendMessage(URLSessionWebSocketMessage message) async {
     final completer = Completer<void>();
-    _urlSessionWebSocketTask.sendMessage_completionHandler_(message._nsObject,
-        ncb.ObjCBlock_ffiVoid_NSError.listener((error) {
-      if (error == null) {
-        completer.complete();
-      } else {
-        completer.completeError(error);
-      }
-    }));
+    _urlSessionWebSocketTask.sendMessage(
+      message._nsObject,
+      completionHandler: ncb.ObjCBlock_ffiVoid_NSError.listener((error) {
+        if (error == null) {
+          completer.complete();
+        } else {
+          completer.completeError(error);
+        }
+      }),
+    );
 
     await completer.future;
   }
@@ -635,18 +655,22 @@ class URLSessionWebSocketTask extends URLSessionTask {
   /// See [NSURLSessionWebSocketTask.receiveMessageWithCompletionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181204-receivemessagewithcompletionhand)
   Future<URLSessionWebSocketMessage> receiveMessage() async {
     final completer = Completer<URLSessionWebSocketMessage>();
-    _urlSessionWebSocketTask.receiveMessageWithCompletionHandler_(
-        ncb.ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError.listener(
-            (message, error) {
-      if (error != null) {
-        completer.completeError(error);
-      } else if (message != null) {
-        completer.complete(URLSessionWebSocketMessage._(message));
-      } else {
-        completer.completeError(
-            StateError('one of message or error must be non-null'));
-      }
-    }));
+    _urlSessionWebSocketTask.receiveMessageWithCompletionHandler(
+      ncb.ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError.listener((
+        message,
+        error,
+      ) {
+        if (error != null) {
+          completer.completeError(error);
+        } else if (message != null) {
+          completer.complete(URLSessionWebSocketMessage._(message));
+        } else {
+          completer.completeError(
+            StateError('one of message or error must be non-null'),
+          );
+        }
+      }),
+    );
     return completer.future;
   }
 
@@ -654,7 +678,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
   ///
   /// See [NSURLSessionWebSocketTask.cancelWithCloseCode:reason:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181200-cancelwithclosecode)
   void cancelWithCloseCode(int closeCode, objc.NSData? reason) {
-    _urlSessionWebSocketTask.cancelWithCloseCode_reason_(closeCode, reason);
+    _urlSessionWebSocketTask.cancelWithCloseCode(closeCode, reason: reason);
   }
 
   @override
@@ -671,7 +695,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   ///
   /// See [NSURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsurlrequest/1528603-requestwithurl)
   factory URLRequest.fromUrl(Uri uri) =>
-      URLRequest._(ncb.NSURLRequest.requestWithURL_(uriToNSURL(uri)));
+      URLRequest._(ncb.NSURLRequest.requestWithURL(_uriToNSURL(uri)));
 
   /// Returns all of the HTTP headers for the request.
   ///
@@ -680,7 +704,8 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     if (_nsObject.allHTTPHeaderFields == null) {
       return null;
     } else {
-      return stringNSDictionaryToMap(_nsObject.allHTTPHeaderFields!);
+      return (objc.toDartObject(_nsObject.allHTTPHeaderFields!) as Map)
+          .cast<String, String>();
     }
   }
 
@@ -707,8 +732,9 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   ///
   /// See [NSURLSession.timeoutInterval](https://developer.apple.com/documentation/foundation/nsurlrequest/1418229-timeoutinterval)
   Duration get timeoutInterval => Duration(
-      microseconds:
-          (_nsObject.timeoutInterval * Duration.microsecondsPerSecond).round());
+    microseconds: (_nsObject.timeoutInterval * Duration.microsecondsPerSecond)
+        .round(),
+  );
 
   /// The requested URL.
   ///
@@ -718,11 +744,12 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     if (nsUrl == null) {
       return null;
     }
-    return nsurlToUri(nsUrl);
+    return _nsurlToUri(nsUrl);
   }
 
   @override
-  String toString() => '[URLRequest '
+  String toString() =>
+      '[URLRequest '
       'allHttpHeaderFields=$allHttpHeaderFields '
       'cachePolicy=$cachePolicy '
       'httpBody=$httpBody '
@@ -739,15 +766,15 @@ class MutableURLRequest extends URLRequest {
   final ncb.NSMutableURLRequest _mutableUrlRequest;
 
   MutableURLRequest._(ncb.NSMutableURLRequest super.c)
-      : _mutableUrlRequest = c,
-        super._();
+    : _mutableUrlRequest = c,
+      super._();
 
   /// Creates a request for a URL.
   ///
   /// See [NSMutableURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1414617-allhttpheaderfields)
   factory MutableURLRequest.fromUrl(Uri uri) {
-    final url = objc.NSURL.URLWithString_(uri.toString().toNSString())!;
-    return MutableURLRequest._(ncb.NSMutableURLRequest.requestWithURL_(url));
+    final url = objc.NSURL.URLWithString(uri.toString().toNSString())!;
+    return MutableURLRequest._(ncb.NSMutableURLRequest.requestWithURL(url));
   }
 
   set cachePolicy(NSURLRequestCachePolicy value) =>
@@ -777,12 +804,15 @@ class MutableURLRequest extends URLRequest {
   ///
   /// See [NSMutableURLRequest setValue:forHTTPHeaderField:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1408793-setvalue)
   void setValueForHttpHeaderField(String value, String field) {
-    _mutableUrlRequest.setValue_forHTTPHeaderField_(
-        field.toNSString(), value.toNSString());
+    _mutableUrlRequest.setValue(
+      field.toNSString(),
+      forHTTPHeaderField: value.toNSString(),
+    );
   }
 
   @override
-  String toString() => '[MutableURLRequest '
+  String toString() =>
+      '[MutableURLRequest '
       'allHttpHeaderFields=$allHttpHeaderFields '
       'cachePolicy=$cachePolicy '
       'httpBody=$httpBody '
@@ -804,33 +834,50 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
   static ncb.NSURLSessionDelegate delegate(
     bool isBackground, {
-    URLRequest? Function(URLSession session, URLSessionTask task,
-            HTTPURLResponse response, URLRequest newRequest)?
-        onRedirect,
+    URLRequest? Function(
+      URLSession session,
+      URLSessionTask task,
+      HTTPURLResponse response,
+      URLRequest newRequest,
+    )?
+    onRedirect,
     NSURLSessionResponseDisposition Function(
-            URLSession session, URLSessionTask task, URLResponse response)?
-        onResponse,
+      URLSession session,
+      URLSessionTask task,
+      URLResponse response,
+    )?
+    onResponse,
     void Function(URLSession session, URLSessionTask task, objc.NSData error)?
-        onData,
+    onData,
     void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
-        onFinishedDownloading,
+    onFinishedDownloading,
     void Function(URLSession session, URLSessionTask task, objc.NSError? error)?
-        onComplete,
+    onComplete,
     void Function(
-            URLSession session, URLSessionWebSocketTask task, String? protocol)?
-        onWebSocketTaskOpened,
-    void Function(URLSession session, URLSessionWebSocketTask task,
-            int closeCode, objc.NSData? reason)?
-        onWebSocketTaskClosed,
+      URLSession session,
+      URLSessionWebSocketTask task,
+      String? protocol,
+    )?
+    onWebSocketTaskOpened,
+    void Function(
+      URLSession session,
+      URLSessionWebSocketTask task,
+      int closeCode,
+      objc.NSData? reason,
+    )?
+    onWebSocketTaskClosed,
   }) {
     final protoBuilder = objc.ObjCProtocolBuilder();
 
     if (onComplete != null) {
       ncb.NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
           .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
-        onComplete(URLSession._(nsSession, isBackground: isBackground),
-            URLSessionTask._(nsTask), nsError);
-      });
+            onComplete(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionTask._(nsTask),
+              nsError,
+            );
+          });
     }
 
     if (onRedirect != null) {
@@ -838,94 +885,107 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           .NSURLSessionDataDelegate
           // ignore: lines_longer_than_80_chars
           .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-          .implementAsListener(protoBuilder,
-              // ignore: lines_longer_than_80_chars
+          .implementAsListener(
+            protoBuilder,
 
-              (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
-        final request = URLRequest._(nsRequest);
-        URLRequest? redirectRequest;
-
-        try {
-          final response =
-              URLResponse._exactURLResponseType(nsResponse) as HTTPURLResponse;
-          redirectRequest = onRedirect(
-              URLSession._(nsSession, isBackground: isBackground),
-              URLSessionTask._(nsTask),
-              response,
-              request);
-          nsRequestCompleter.call(redirectRequest?._nsObject);
-        } catch (e) {
-          // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-          // this exception as an `Error` and call the completion function
-          // with it.
-        }
-      });
+            // ignore: lines_longer_than_80_chars
+            (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
+              final request = URLRequest._(nsRequest);
+              final response =
+                  URLResponse._exactURLResponseType(nsResponse)
+                      as HTTPURLResponse;
+              final redirectRequest = onRedirect(
+                URLSession._(nsSession, isBackground: isBackground),
+                URLSessionTask._(nsTask),
+                response,
+                request,
+              );
+              nsRequestCompleter.call(redirectRequest?._nsObject);
+            },
+          );
     }
 
     if (onResponse != null) {
-      ncb.NSURLSessionDataDelegate
+      ncb
+          .NSURLSessionDataDelegate
           .URLSession_dataTask_didReceiveResponse_completionHandler_
-          .implementAsListener(protoBuilder,
-              (nsSession, nsDataTask, nsResponse, nsCompletionHandler) {
-        final exactResponse = URLResponse._exactURLResponseType(nsResponse);
-        final disposition = onResponse(
-            URLSession._(nsSession, isBackground: isBackground),
-            URLSessionTask._(nsDataTask),
-            exactResponse);
-        nsCompletionHandler.call(disposition);
-      });
+          .implementAsListener(protoBuilder, (
+            nsSession,
+            nsDataTask,
+            nsResponse,
+            nsCompletionHandler,
+          ) {
+            final exactResponse = URLResponse._exactURLResponseType(nsResponse);
+            final disposition = onResponse(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionTask._(nsDataTask),
+              exactResponse,
+            );
+            nsCompletionHandler.call(disposition);
+          });
     }
 
     if (onData != null) {
       ncb.NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_
           .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
-        onData(URLSession._(nsSession, isBackground: isBackground),
-            URLSessionTask._(nsDataTask), nsData);
-      });
+            onData(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionTask._(nsDataTask),
+              nsData,
+            );
+          });
     }
 
     if (onFinishedDownloading != null) {
-      ncb.NSURLSessionDownloadDelegate
+      ncb
+          .NSURLSessionDownloadDelegate
           .URLSession_downloadTask_didFinishDownloadingToURL_
           .implementAsBlocking(protoBuilder, (nsSession, nsTask, nsUrl) {
-        onFinishedDownloading(
-            URLSession._(nsSession, isBackground: isBackground),
-            URLSessionDownloadTask._(nsTask),
-            nsurlToUri(nsUrl));
-      });
+            onFinishedDownloading(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionDownloadTask._(nsTask),
+              _nsurlToUri(nsUrl),
+            );
+          });
     }
 
     if (onWebSocketTaskOpened != null) {
-      ncb.NSURLSessionWebSocketDelegate
+      ncb
+          .NSURLSessionWebSocketDelegate
           .URLSession_webSocketTask_didOpenWithProtocol_
           .implementAsListener(protoBuilder, (nsSession, nsTask, nsProtocol) {
-        onWebSocketTaskOpened(
-            URLSession._(nsSession, isBackground: isBackground),
-            URLSessionWebSocketTask._(nsTask),
-            nsProtocol?.toDartString());
-      });
+            onWebSocketTaskOpened(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionWebSocketTask._(nsTask),
+              nsProtocol?.toDartString(),
+            );
+          });
     }
 
     if (onWebSocketTaskClosed != null) {
-      ncb.NSURLSessionWebSocketDelegate
+      ncb
+          .NSURLSessionWebSocketDelegate
           .URLSession_webSocketTask_didCloseWithCode_reason_
-          .implementAsListener(protoBuilder,
-              (nsSession, nsTask, closeCode, reason) {
-        onWebSocketTaskClosed(
-            URLSession._(nsSession, isBackground: isBackground),
-            URLSessionWebSocketTask._(nsTask),
+          .implementAsListener(protoBuilder, (
+            nsSession,
+            nsTask,
             closeCode,
-            reason);
-      });
+            reason,
+          ) {
+            onWebSocketTaskClosed(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionWebSocketTask._(nsTask),
+              closeCode,
+              reason,
+            );
+          });
     }
 
     return ncb.NSURLSessionDelegate.castFrom(protoBuilder.build());
   }
 
-  URLSession._(
-    super.c, {
-    required bool isBackground,
-  }) : _isBackground = isBackground;
+  URLSession._(super.c, {required bool isBackground})
+    : _isBackground = isBackground;
 
   /// A client with reasonable default behavior.
   ///
@@ -941,14 +1001,15 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// a follow-up request that would honor the server's redirect. If the return
   /// value of this function is `null` then the redirect will not occur.
   /// Otherwise, the returned [URLRequest] (usually `newRequest`) will be
-  /// executed. [onRedirect] will not be called for background sessions, which
-  /// automatically follow redirects. See
+  /// executed. [onRedirect] should not throw. [onRedirect] will not be called
+  /// for background sessions, which automatically follow redirects. See
   /// [URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411626-urlsession)
   ///
   /// If [onResponse] is set then it will be called whenever a valid response
   /// is received. The returned [NSURLSessionResponseDisposition] will decide
-  /// how the content of the response is processed. See
-  /// [URLSession:dataTask:didReceiveResponse:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiondatadelegate/1410027-urlsession)
+  /// how the content of the response is processed. [onResponse] should not
+  /// throw. See
+  /// [URLSession:dataTask:didReceiveResponse:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiondatadelegate/1410027-urlsession).
   ///
   /// If [onData] is set then it will be called whenever response data is
   /// received. If the amount of received data is large, then it may be
@@ -974,24 +1035,38 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// [onWebSocketTaskClosed] to be called.
   factory URLSession.sessionWithConfiguration(
     URLSessionConfiguration config, {
-    URLRequest? Function(URLSession session, URLSessionTask task,
-            HTTPURLResponse response, URLRequest newRequest)?
-        onRedirect,
+    URLRequest? Function(
+      URLSession session,
+      URLSessionTask task,
+      HTTPURLResponse response,
+      URLRequest newRequest,
+    )?
+    onRedirect,
     NSURLSessionResponseDisposition Function(
-            URLSession session, URLSessionTask task, URLResponse response)?
-        onResponse,
+      URLSession session,
+      URLSessionTask task,
+      URLResponse response,
+    )?
+    onResponse,
     void Function(URLSession session, URLSessionTask task, objc.NSData data)?
-        onData,
+    onData,
     void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
-        onFinishedDownloading,
+    onFinishedDownloading,
     void Function(URLSession session, URLSessionTask task, objc.NSError? error)?
-        onComplete,
+    onComplete,
     void Function(
-            URLSession session, URLSessionWebSocketTask task, String? protocol)?
-        onWebSocketTaskOpened,
-    void Function(URLSession session, URLSessionWebSocketTask task,
-            int? closeCode, objc.NSData? reason)?
-        onWebSocketTaskClosed,
+      URLSession session,
+      URLSessionWebSocketTask task,
+      String? protocol,
+    )?
+    onWebSocketTaskOpened,
+    void Function(
+      URLSession session,
+      URLSessionWebSocketTask task,
+      int? closeCode,
+      objc.NSData? reason,
+    )?
+    onWebSocketTaskClosed,
   }) {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
     // by only allowing callbacks to execute sequentially.
@@ -1000,7 +1075,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       ..maxConcurrentOperationCount = 1
       ..name = 'cupertino_http.NSURLSessionDelegateQueue'.toNSString();
 
-    final hasDelegate = (onRedirect ??
+    final hasDelegate =
+        (onRedirect ??
             onResponse ??
             onData ??
             onFinishedDownloading ??
@@ -1011,23 +1087,27 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     if (hasDelegate) {
       return URLSession._(
-        ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
-            config._nsObject,
-            delegate(config._isBackground,
-                onRedirect: onRedirect,
-                onResponse: onResponse,
-                onData: onData,
-                onFinishedDownloading: onFinishedDownloading,
-                onComplete: onComplete,
-                onWebSocketTaskOpened: onWebSocketTaskOpened,
-                onWebSocketTaskClosed: onWebSocketTaskClosed),
-            queue),
+        ncb.NSURLSession.sessionWithConfiguration$1(
+          config._nsObject,
+          delegate: delegate(
+            config._isBackground,
+            onRedirect: onRedirect,
+            onResponse: onResponse,
+            onData: onData,
+            onFinishedDownloading: onFinishedDownloading,
+            onComplete: onComplete,
+            onWebSocketTaskOpened: onWebSocketTaskOpened,
+            onWebSocketTaskClosed: onWebSocketTaskClosed,
+          ),
+          delegateQueue: queue,
+        ),
         isBackground: config._isBackground,
       );
     } else {
       return URLSession._(
-          ncb.NSURLSession.sessionWithConfiguration_(config._nsObject),
-          isBackground: config._isBackground);
+        ncb.NSURLSession.sessionWithConfiguration(config._nsObject),
+        isBackground: config._isBackground,
+      );
     }
   }
 
@@ -1035,8 +1115,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   ///
   /// See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
   URLSessionConfiguration get configuration => URLSessionConfiguration._(
-      ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration),
-      isBackground: _isBackground);
+    ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration),
+    isBackground: _isBackground,
+  );
 
   /// A description of the session that may be useful for debugging.
   ///
@@ -1050,36 +1131,41 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   ///
   /// See [NSURLSession dataTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1410592-datataskwithrequest)
   URLSessionTask dataTaskWithRequest(URLRequest request) =>
-      URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
+      URLSessionTask._(_nsObject.dataTaskWithRequest(request._nsObject));
 
   /// Creates a [URLSessionTask] that accesses a server URL and calls
   /// [completion] when done.
   ///
   /// See [NSURLSession dataTaskWithRequest:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsession/1407613-datataskwithrequest)
   URLSessionTask dataTaskWithCompletionHandler(
-      URLRequest request,
-      void Function(
-              objc.NSData? data, URLResponse? response, objc.NSError? error)
-          completion) {
+    URLRequest request,
+    void Function(objc.NSData? data, URLResponse? response, objc.NSError? error)
+    completion,
+  ) {
     if (_isBackground) {
       throw UnsupportedError(
-          'dataTaskWithCompletionHandler is not supported in background '
-          'sessions');
+        'dataTaskWithCompletionHandler is not supported in background '
+        'sessions',
+      );
     }
     final completer =
-        ncb.ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError.listener(
-            (data, response, error) {
-      completion(
-        data,
-        response == null ? null : URLResponse._exactURLResponseType(response),
-        error,
-      );
-    });
+        ncb.ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError.listener((
+          data,
+          response,
+          error,
+        ) {
+          completion(
+            data,
+            response == null
+                ? null
+                : URLResponse._exactURLResponseType(response),
+            error,
+          );
+        });
 
-    final task = _nsObject.dataTaskWithRequest_completionHandler_(
-      request._nsObject,
-      completer,
-    );
+    final task = ncb.NSURLSessionAsynchronousConvenience(
+      _nsObject,
+    ).dataTaskWithRequest(request._nsObject, completionHandler: completer);
 
     return URLSessionTask._(task);
   }
@@ -1093,7 +1179,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// See [NSURLSession downloadTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1411481-downloadtaskwithrequest)
   URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) =>
       URLSessionDownloadTask._(
-          _nsObject.downloadTaskWithRequest_(request._nsObject));
+        _nsObject.downloadTaskWithRequest(request._nsObject),
+      );
 
   /// Creates a [URLSessionWebSocketTask] that represents a connection to a
   /// WebSocket endpoint.
@@ -1105,30 +1192,39 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionWebSocketTask webSocketTaskWithRequest(URLRequest request) {
     if (_isBackground) {
       throw UnsupportedError(
-          'WebSocket tasks are not supported in background sessions');
+        'WebSocket tasks are not supported in background sessions',
+      );
     }
     return URLSessionWebSocketTask._(
-        _nsObject.webSocketTaskWithRequest_(request._nsObject));
+      _nsObject.webSocketTaskWithRequest(request._nsObject),
+    );
   }
 
   /// Creates a [URLSessionWebSocketTask] that represents a connection to a
   /// WebSocket endpoint.
   ///
   /// See [NSURLSession webSocketTaskWithURL:protocols:](https://developer.apple.com/documentation/foundation/nsurlsession/3181172-websockettaskwithurl)
-  URLSessionWebSocketTask webSocketTaskWithURL(Uri uri,
-      {Iterable<String>? protocols}) {
+  URLSessionWebSocketTask webSocketTaskWithURL(
+    Uri uri, {
+    Iterable<String>? protocols,
+  }) {
     if (_isBackground) {
       throw UnsupportedError(
-          'WebSocket tasks are not supported in background sessions');
+        'WebSocket tasks are not supported in background sessions',
+      );
     }
     final URLSessionWebSocketTask task;
     if (protocols == null) {
       task = URLSessionWebSocketTask._(
-          _nsObject.webSocketTaskWithURL_(uriToNSURL(uri)));
+        _nsObject.webSocketTaskWithURL(_uriToNSURL(uri)),
+      );
     } else {
       task = URLSessionWebSocketTask._(
-          _nsObject.webSocketTaskWithURL_protocols_(
-              uriToNSURL(uri), stringIterableToNSArray(protocols)));
+        _nsObject.webSocketTaskWithURL$1(
+          _uriToNSURL(uri),
+          protocols: objc.toObjCObject(protocols) as objc.NSArray,
+        ),
+      );
     }
     return task;
   }
