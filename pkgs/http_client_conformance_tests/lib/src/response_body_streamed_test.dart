@@ -157,7 +157,9 @@ void testResponseBodyStreamed(Client client,
           .transform(const LineSplitter())
           .listen((line) {
         subscription.pause();
-        abortTrigger.complete();
+        if (!abortTrigger.isCompleted) {
+          abortTrigger.complete();
+        }
       });
 
       final aborted = expectLater(subscription.asFuture<void>(),
