@@ -3,7 +3,7 @@
 * Upgrade the `cronet-embedded` dependency to `141.7340` version to
   support 16 KB page sizes. `cronet-embedded` has target SDK version of 24.
 * Change the minimum SDK version to 24.
-* Change the compilie SDK version to 34 for compatibility with AGP 8.13.
+* Change the compile SDK version to 34 for compatibility with AGP 8.13.
 
 ## 1.5.0
 
