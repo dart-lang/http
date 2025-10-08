@@ -260,9 +260,10 @@ class OkHttpClient extends BaseClient {
       if (!configuration.validateServerCertificates) {
         trustManagers[0] = _allAllTrustManager;
       } else {
-        final tms = bindings.TrustManagerFactory.getInstance(
-                bindings.TrustManagerFactory.getDefaultAlgorithm())!
-            .getTrustManagers()!;
+        final tmf = bindings.TrustManagerFactory.getInstance(
+            bindings.TrustManagerFactory.getDefaultAlgorithm())!
+          ..init(null);
+        final tms = tmf.getTrustManagers()!;
         if (tms.length != 1) {
           throw StateError('unexpected XXX');
         }
