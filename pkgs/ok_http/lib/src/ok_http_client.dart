@@ -91,6 +91,8 @@ class OkHttpClientConfiguration {
   /// This should only be used in a testing environment.
   final bool validateServerCertificates;
 
+  final String? userAgent;
+
   const OkHttpClientConfiguration({
     this.callTimeout = Duration.zero,
     this.connectTimeout = const Duration(milliseconds: 10000),
@@ -99,6 +101,7 @@ class OkHttpClientConfiguration {
     this.clientPrivateKey,
     this.clientCertificateChain,
     this.validateServerCertificates = true,
+    this.userAgent,
   });
 }
 
@@ -357,6 +360,13 @@ class OkHttpClient extends BaseClient {
     requestHeaders.forEach((headerName, headerValue) {
       reqBuilder.addHeader(headerName.toJString(), headerValue.toJString());
     });
+
+    if (configuration.userAgent != null) {
+      reqBuilder.addHeader(
+        JString.fromString('User-Agent'),
+        JString.fromString(configuration.userAgent!),
+      );
+    }
 
     // OkHttp doesn't allow a non-null RequestBody for GET and HEAD requests.
     // So, we need to handle this case separately.
