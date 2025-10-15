@@ -1,4 +1,4 @@
-## 1.6.0-wip
+## 1.6.0
 
 * Upgrade the `cronet-embedded` dependency to `141.7340` version to
   support 16 KB page sizes. `cronet-embedded` has target SDK version of 24.
