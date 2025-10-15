@@ -14,6 +14,8 @@ import 'src/request.dart';
 import 'src/response.dart';
 import 'src/streamed_request.dart';
 
+export 'package:http_parser/http_parser.dart' show MediaType;
+
 export 'src/abortable.dart';
 export 'src/base_client.dart';
 export 'src/base_request.dart';

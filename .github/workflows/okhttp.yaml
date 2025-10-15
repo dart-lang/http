@@ -58,6 +58,7 @@ jobs:
           # - .github/workflows/okhttp.yml
           # - pkgs/ok_http/android/build.gradle
           # - pkgs/ok_http/example/android/app/build.gradle
-          api-level: 21
+          api-level: 24
+          disable-animations: true
           arch: x86_64
           script: cd pkgs/ok_http/example && flutter test --timeout=1200s integration_test/
