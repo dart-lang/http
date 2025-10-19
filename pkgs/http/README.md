@@ -255,9 +255,9 @@ for a few lines of [configuration](#2-configure-the-http-client).
 Some well-supported implementations are:
 
 | Implementation                                                                   | Supported Platforms                 | SDK           | Caching | HTTP3/QUIC | Platform Native |
-| -------------------------------------------------------------------------------- | ----------------------------------- | ------------- | ------- | ---------- | --------------- | ------------- |
+| -------------------------------------------------------------------------------- | ----------------------------------- | ------------- | ------- | ---------- | --------------- |
 | `package:http` — [`IOClient`][ioclient]                                          | Android, iOS, Linux, macOS, Windows | Dart, Flutter | ❌      | ❌         | ❌              |
-| `package:http` — [`BrowserClient`][browserclient]                                | Web                                 | Dart, Flutter | ―       | ✅︎        | ✅︎             | Dart, Flutter |
+| `package:http` — [`BrowserClient`][browserclient]                                | Web                                 | Dart, Flutter | ―       | ✅︎        | ✅︎             |
 | [`package:cupertino_http`][cupertinohttp] — [`CupertinoClient`][cupertinoclient] | iOS, macOS                          | Flutter       | ✅︎     | ✅︎        | ✅︎             |
 | [`package:cronet_http`][cronethttp] — [`CronetClient`][cronetclient]             | Android                             | Flutter       | ✅︎     | ✅︎        | ―               |
 | [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient]                   | Web                                 | Dart, Flutter | ✅︎     | ✅︎        | ✅︎             |
