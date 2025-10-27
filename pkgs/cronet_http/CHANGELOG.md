@@ -1,3 +1,7 @@
+## 1.6.1
+
+* Fix a bug where cronet would throw `ClassNotFoundException` in debug mode.
+
 ## 1.6.0
 
 * Upgrade the `cronet-embedded` dependency to `141.7340` version to
