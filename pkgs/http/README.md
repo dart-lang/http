@@ -48,7 +48,6 @@ try {
 
 > [!TIP]
 > For detailed background information and practical usage examples, see:
->
 > - [Dart Development: Fetch data from the internet](https://dart.dev/tutorials/server/fetch-data)
 > - [Flutter Cookbook: Fetch data from the internet](https://docs.flutter.dev/cookbook/networking/fetch-data)
 > - [The Flutter HTTP example application][flutterhttpexample]
@@ -83,10 +82,12 @@ class UserAgentClient extends http.BaseClient {
   }
 }
 ```
-
 ## Testing
 
-For better testability, especially in Flutter applications, it's recommended to use a [Client][] instance rather than the top-level functions like `http.get()` or `http.post()`. This approach makes it easier to mock HTTP requests in your tests.
+For better testability, especially in Flutter applications, it's recommended
+to use a [Client][] instance rather than the top-level functions like
+`http.get()` or `http.post()`. This approach makes it easier to mock HTTP
+requests in your tests.
 
 ```dart
 // Instead of using static methods (harder to test):
@@ -126,9 +127,11 @@ void main() {
 ```
 
 > [!TIP]
-> For more detailed testing guidance, see the
+> You can also use package:mockito to mock `http.Client`.
+> For more detailed guidance, see the
 > [Flutter testing cookbook](https://docs.flutter.dev/cookbook/testing/unit/mocking)
 > which demonstrates best practices for mocking HTTP requests.
+
 
 ## Retrying requests
 
@@ -245,6 +248,7 @@ Future<void> main() async {
 [aborttrigger]: https://pub.dev/documentation/http/latest/http/Abortable/abortTrigger.html
 [requestabortedexception]: https://pub.dev/documentation/http/latest/http/RequestAbortedException-class.html
 
+
 ## Choosing an implementation
 
 There are multiple implementations of the `package:http` [`Client`][client] interface. By default, `package:http` uses [`BrowserClient`][browserclient] on the web and [`IOClient`][ioclient] on all other platforms. You can choose a different [`Client`][client] implementation based on the needs of your application.
@@ -254,13 +258,13 @@ for a few lines of [configuration](#2-configure-the-http-client).
 
 Some well-supported implementations are:
 
-| Implementation                                                                   | Supported Platforms                 | SDK           | Caching | HTTP3/QUIC | Platform Native |
-| -------------------------------------------------------------------------------- | ----------------------------------- | ------------- | ------- | ---------- | --------------- |
-| `package:http` — [`IOClient`][ioclient]                                          | Android, iOS, Linux, macOS, Windows | Dart, Flutter | ❌      | ❌         | ❌              |
-| `package:http` — [`BrowserClient`][browserclient]                                | Web                                 | Dart, Flutter | ―       | ✅︎        | ✅︎             |
-| [`package:cupertino_http`][cupertinohttp] — [`CupertinoClient`][cupertinoclient] | iOS, macOS                          | Flutter       | ✅︎     | ✅︎        | ✅︎             |
-| [`package:cronet_http`][cronethttp] — [`CronetClient`][cronetclient]             | Android                             | Flutter       | ✅︎     | ✅︎        | ―               |
-| [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient]                   | Web                                 | Dart, Flutter | ✅︎     | ✅︎        | ✅︎             |
+| Implementation | Supported Platforms | SDK | Caching | HTTP3/QUIC | Platform Native | 
+| -------------- | ------------------- | ----| ------- | ---------- | --------------- |
+| `package:http` — [`IOClient`][ioclient] | Android, iOS, Linux, macOS, Windows | Dart, Flutter | ❌ | ❌ | ❌ |
+| `package:http` — [`BrowserClient`][browserclient] | Web | Dart, Flutter | ― | ✅︎ | ✅︎ | Dart, Flutter |
+| [`package:cupertino_http`][cupertinohttp] — [`CupertinoClient`][cupertinoclient] | iOS, macOS | Flutter | ✅︎ | ✅︎ | ✅︎ |
+| [`package:cronet_http`][cronethttp] — [`CronetClient`][cronetclient] | Android | Flutter | ✅︎ | ✅︎ | ― |
+| [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient] | Web | Dart, Flutter | ✅︎ | ✅︎ | ✅︎ |
 
 > [!TIP]
 > If you are writing a Dart package or Flutter plugin that uses
@@ -279,7 +283,6 @@ Some well-supported implementations are:
 ## Configuration
 
 To use an HTTP client implementation other than the default, you must:
-
 1. Add the HTTP client as a dependency.
 2. Configure the HTTP client.
 3. Connect the HTTP client to the code that uses it.
@@ -331,7 +334,8 @@ Client httpClient() {
 }
 ```
 
-> [!TIP] > [The Flutter HTTP example application][flutterhttpexample] demonstrates
+> [!TIP]
+> [The Flutter HTTP example application][flutterhttpexample] demonstrates
 > configuration best practices.
 
 #### Supporting browser and native
@@ -385,7 +389,8 @@ void main() {
 When using the Flutter SDK, you can use a one of many
 [state management approaches][flutterstatemanagement].
 
-> [!TIP] > [The Flutter HTTP example application][flutterhttpexample] demonstrates
+> [!TIP]
+> [The Flutter HTTP example application][flutterhttpexample] demonstrates
 > how to make the configured [`Client`][client] available using
 > [`package:provider`][provider] and
 > [`package:http_image_provider`][http_image_provider].
