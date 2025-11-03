@@ -127,9 +127,9 @@ void main() {
 ```
 
 > [!TIP]
-> You can also use package:mockito to mock `http.Client`.
+> You can also use `package:mockito` to mock `http.Client`.
 > For more detailed guidance, see the
-> [Flutter testing cookbook](https://docs.flutter.dev/cookbook/testing/unit/mocking)
+> [Flutter testing cookbook](https://docs.flutter.dev/cookbook/testing/unit/mocking),
 > which demonstrates best practices for mocking HTTP requests.
 
 
