@@ -4,7 +4,7 @@
   parameter is only added for text and XML media types. This brings the
   behavior of `package:http` in line with RFC-8259.
 * Export `MediaType` from `package:http_parser`.
-* Added a mocked `http.Client` for testing HTTP requests.
+* Added a section on testing to `README.md`.
 
 ## 1.5.0
 
