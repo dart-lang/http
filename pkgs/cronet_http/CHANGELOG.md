@@ -1,4 +1,4 @@
-## 1.6.1
+## 1.6.1-wip
 
 * Fix a bug where cronet would throw `ClassNotFoundException` in debug mode.
 
