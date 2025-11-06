@@ -156,7 +156,6 @@ void testResponseBodyStreamed(Client client,
           .transform(const Utf8Decoder())
           .transform(const LineSplitter())
           .listen((line) {
-        subscription.pause();
         if (!abortTrigger.isCompleted) {
           abortTrigger.complete();
         }
