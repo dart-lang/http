@@ -1,4 +1,4 @@
-## 1.6.0-wip
+## 1.6.0
 
 * **Breaking** Change the behavior of `Request.body` so that a charset
   parameter is only added for text and XML media types. This brings the
