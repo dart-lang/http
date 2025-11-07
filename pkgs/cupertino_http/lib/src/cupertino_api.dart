@@ -101,7 +101,7 @@ class URLCache extends _ObjectHolder<ncb.NSURLCache> {
     int diskCapacity = 0,
     Uri? directory,
   }) => URLCache._(
-    ncb.NSURLCache.alloc().initWithMemoryCapacity$1(
+    ncb.NSURLCache.alloc().initWithMemoryCapacity(
       memoryCapacity,
       diskCapacity: diskCapacity,
       directoryURL: directory == null ? null : _uriToNSURL(directory),
@@ -139,7 +139,7 @@ class URLSessionConfiguration
   /// See [NSURLSessionConfiguration defaultSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411560-defaultsessionconfiguration)
   factory URLSessionConfiguration.defaultSessionConfiguration() =>
       URLSessionConfiguration._(
-        ncb.NSURLSessionConfiguration.castFrom(
+        ncb.NSURLSessionConfiguration.as(
           ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(),
         ),
         isBackground: false,
@@ -151,7 +151,7 @@ class URLSessionConfiguration
   /// See [NSURLSessionConfiguration ephemeralSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1410529-ephemeralsessionconfiguration)
   factory URLSessionConfiguration.ephemeralSessionConfiguration() =>
       URLSessionConfiguration._(
-        ncb.NSURLSessionConfiguration.castFrom(
+        ncb.NSURLSessionConfiguration.as(
           ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration(),
         ),
         isBackground: false,
@@ -192,8 +192,8 @@ class URLSessionConfiguration
   /// Whether background tasks can be delayed by the system.
   ///
   /// See [NSURLSessionConfiguration.discretionary](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411552-discretionary)
-  bool get discretionary => _nsObject.discretionary;
-  set discretionary(bool value) => _nsObject.discretionary = value;
+  bool get discretionary => _nsObject.isDiscretionary;
+  set discretionary(bool value) => _nsObject.isDiscretionary = value;
 
   /// Additional headers to send with each request.
   ///
@@ -202,7 +202,7 @@ class URLSessionConfiguration
   /// See [NSURLSessionConfiguration.HTTPAdditionalHeaders](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411532-httpadditionalheaders)
   Map<String, String>? get httpAdditionalHeaders {
     if (_nsObject.HTTPAdditionalHeaders case var additionalHeaders?) {
-      final headers = objc.NSDictionary.castFrom(additionalHeaders);
+      final headers = objc.NSDictionary.as(additionalHeaders);
       return (objc.toDartObject(headers) as Map).cast<String, String>();
     }
     return null;
@@ -337,8 +337,8 @@ class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
   URLResponse._(super.c);
 
   factory URLResponse._exactURLResponseType(ncb.NSURLResponse response) {
-    if (ncb.NSHTTPURLResponse.isInstance(response)) {
-      return HTTPURLResponse._(ncb.NSHTTPURLResponse.castFrom(response));
+    if (ncb.NSHTTPURLResponse.isA(response)) {
+      return HTTPURLResponse._(ncb.NSHTTPURLResponse.as(response));
     }
     return URLResponse._(response);
   }
@@ -778,7 +778,7 @@ class MutableURLRequest extends URLRequest {
   }
 
   set cachePolicy(NSURLRequestCachePolicy value) =>
-      _mutableUrlRequest.cachePolicy = value;
+      _mutableUrlRequest.cachePolicy$1 = value;
 
   set httpBody(objc.NSData? data) {
     _mutableUrlRequest.HTTPBody = data;
@@ -796,7 +796,7 @@ class MutableURLRequest extends URLRequest {
   }
 
   set timeoutInterval(Duration interval) {
-    _mutableUrlRequest.timeoutInterval =
+    _mutableUrlRequest.timeoutInterval$1 =
         interval.inMicroseconds.toDouble() / Duration.microsecondsPerSecond;
   }
 
@@ -1115,7 +1115,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   ///
   /// See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
   URLSessionConfiguration get configuration => URLSessionConfiguration._(
-    ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration),
+    ncb.NSURLSessionConfiguration.as(_nsObject.configuration),
     isBackground: _isBackground,
   );
 
@@ -1165,7 +1165,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     final task = ncb.NSURLSessionAsynchronousConvenience(
       _nsObject,
-    ).dataTaskWithRequest(request._nsObject, completionHandler: completer);
+    ).dataTaskWithRequest$1(request._nsObject, completionHandler: completer);
 
     return URLSessionTask._(task);
   }
