@@ -1,6 +1,8 @@
 ## 1.6.1-wip
 
 * Fix a bug where cronet would throw `ClassNotFoundException` in debug mode.
+* Upgrade `package:jni` and `package:jnigen` to 0.15.0. This fixes a bug where
+  using cronet with multiple Flutter engines would cause crashes.
 
 ## 1.6.0
 

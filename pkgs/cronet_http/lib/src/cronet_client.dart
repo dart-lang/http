@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
@@ -126,7 +127,7 @@ class CronetEngine {
       String? storagePath,
       String? userAgent}) {
     final builder = jb.CronetEngine$Builder(
-        JObject.fromReference(Jni.getCachedApplicationContext()));
+        Jni.androidApplicationContext(PlatformDispatcher.instance.engineId!));
 
     try {
       if (storagePath != null) {
