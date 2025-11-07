@@ -67,24 +67,32 @@ void testWebSocketTask() {
       session.finishTasksAndInvalidate();
     });
 
-    test('client code and reason', () async {
-      final session = URLSession.sharedSession();
-      final task = session.webSocketTaskWithRequest(
-        URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}/?noclose')),
-      )..resume();
-      await task.sendMessage(
-        URLSessionWebSocketMessage.fromString('Hello World!'),
-      );
-      await task.receiveMessage();
-      task.cancelWithCloseCode(4998, 'Bye'.codeUnits.toNSData());
+    test(
+      'client code and reason',
+      () async {
+        final session = URLSession.sharedSession();
+        final task = session.webSocketTaskWithRequest(
+          URLRequest.fromUrl(
+            Uri.parse('ws://localhost:${server.port}/?noclose'),
+          ),
+        )..resume();
+        await task.sendMessage(
+          URLSessionWebSocketMessage.fromString('Hello World!'),
+        );
+        await task.receiveMessage();
+        task.cancelWithCloseCode(4998, 'Bye'.codeUnits.toNSData());
 
-      // Allow the server to run and save the close code.
-      while (lastCloseCode == null) {
-        await Future<void>.delayed(const Duration(milliseconds: 10));
-      }
-      expect(lastCloseCode, 4998);
-      expect(lastCloseReason, 'Bye');
-    });
+        // Allow the server to run and save the close code.
+        while (lastCloseCode == null) {
+          await Future<void>.delayed(const Duration(milliseconds: 10));
+        }
+        expect(lastCloseCode, 4998);
+        expect(lastCloseReason, 'Bye');
+      },
+      skip: Platform.isMacOS
+          ? 'https://github.com/dart-lang/http/issues/1814'
+          : false,
+    );
 
     test('server code and reason', () async {
       final session = URLSession.sharedSession();
