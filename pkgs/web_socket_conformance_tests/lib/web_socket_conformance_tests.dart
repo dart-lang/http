@@ -12,6 +12,15 @@ import 'src/payload_transfer_tests.dart';
 import 'src/peer_protocol_errors_tests.dart';
 import 'src/protocol_tests.dart';
 
+export 'src/close_local_tests.dart';
+export 'src/close_remote_tests.dart';
+export 'src/connect_uri_tests.dart';
+export 'src/disconnect_after_upgrade_tests.dart';
+export 'src/no_upgrade_tests.dart';
+export 'src/payload_transfer_tests.dart';
+export 'src/peer_protocol_errors_tests.dart';
+export 'src/protocol_tests.dart';
+
 /// Runs the entire test suite against the given [WebSocket].
 void testAll(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
