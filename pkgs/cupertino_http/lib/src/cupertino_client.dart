@@ -207,6 +207,9 @@ class CupertinoClient extends BaseClient {
     // 2. The user aborts the request, which can happen at any point in the
     //    request lifecycle and causes `CupertinoClient.send` to throw
     //    a `RequestAbortedException` exception.
+    //
+    // In both of these cases [URLSessionTask.cancel] is called, which completes
+    // the task with a NSURLErrorCancelled error.
     final isCancelError =
         error?.domain.toDartString() == 'NSURLErrorDomain' &&
         error?.code == _nsurlErrorCancelled;
@@ -214,7 +217,8 @@ class CupertinoClient extends BaseClient {
         !(isCancelError && taskTracker.responseListenerCancelled)) {
       final Exception exception;
       if (isCancelError) {
-        exception = RequestAbortedException();
+        assert(taskTracker.requestAborted);
+        exception = RequestAbortedException(taskTracker.request.url);
       } else {
         exception = NSErrorClientException(error, taskTracker.request.url);
       }

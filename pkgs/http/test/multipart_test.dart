@@ -6,7 +6,6 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 import 'package:http/src/boundary_characters.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -21,7 +20,8 @@ void main() {
 
   test('boundary characters', () {
     var testBoundary = String.fromCharCodes(boundaryCharacters);
-    var contentType = MediaType.parse('text/plain; boundary=$testBoundary');
+    var contentType =
+        http.MediaType.parse('text/plain; boundary=$testBoundary');
     var boundary = contentType.parameters['boundary'];
     expect(boundary, testBoundary);
   });
@@ -159,7 +159,7 @@ void main() {
   test('with a string file with a content-type but no charset', () {
     var request = http.MultipartRequest('POST', dummyUrl);
     var file = http.MultipartFile.fromString('file', '{"hello": "world"}',
-        contentType: MediaType('application', 'json'));
+        contentType: http.MediaType('application', 'json'));
     request.files.add(file);
 
     expect(request, bodyMatches('''
@@ -175,8 +175,11 @@ void main() {
   test('with a file with a iso-8859-1 body', () {
     var request = http.MultipartRequest('POST', dummyUrl);
     // "Ã¥" encoded as ISO-8859-1 and then read as UTF-8 results in "å".
-    var file = http.MultipartFile.fromString('file', 'non-ascii: "Ã¥"',
-        contentType: MediaType('text', 'plain', {'charset': 'iso-8859-1'}));
+    var file = http.MultipartFile.fromString(
+      'file',
+      'non-ascii: "Ã¥"',
+      contentType: http.MediaType('text', 'plain', {'charset': 'iso-8859-1'}),
+    );
     request.files.add(file);
 
     expect(request, bodyMatches('''

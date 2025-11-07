@@ -5,6 +5,8 @@
   behavior of `package:http` in line with RFC-8259.
 * On the web, fix cancellations for `StreamSubscription`s of response bodies
   waiting for the next chunk.
+* Export `MediaType` from `package:http_parser`.
+* Added a section on testing to `README.md`.
 
 ## 1.5.0
 

@@ -14,6 +14,7 @@
 
 package io.flutter.plugins.cronet_http
 
+import androidx.annotation.Keep
 import org.chromium.net.CronetException
 import org.chromium.net.UrlRequest
 import org.chromium.net.UrlResponseInfo
@@ -31,8 +32,10 @@ import java.nio.ByteBuffer
 // parameter is nullable as specified in the cronet source code:
 // https://source.chromium.org/chromium/chromium/src/+/main:components/cronet/android/api/src/org/chromium/net/UrlRequest.java;l=232
 
+@Keep
 class UrlRequestCallbackProxy(val callback: UrlRequestCallbackInterface) : UrlRequest.Callback() {
-    public interface UrlRequestCallbackInterface {
+    @Keep
+    interface UrlRequestCallbackInterface {
         fun onRedirectReceived(
             request: UrlRequest?,
             info: UrlResponseInfo?,

@@ -891,24 +891,16 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             // ignore: lines_longer_than_80_chars
             (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
               final request = URLRequest._(nsRequest);
-              URLRequest? redirectRequest;
-
-              try {
-                final response =
-                    URLResponse._exactURLResponseType(nsResponse)
-                        as HTTPURLResponse;
-                redirectRequest = onRedirect(
-                  URLSession._(nsSession, isBackground: isBackground),
-                  URLSessionTask._(nsTask),
-                  response,
-                  request,
-                );
-                nsRequestCompleter.call(redirectRequest?._nsObject);
-              } catch (e) {
-                // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-                // this exception as an `Error` and call the completion function
-                // with it.
-              }
+              final response =
+                  URLResponse._exactURLResponseType(nsResponse)
+                      as HTTPURLResponse;
+              final redirectRequest = onRedirect(
+                URLSession._(nsSession, isBackground: isBackground),
+                URLSessionTask._(nsTask),
+                response,
+                request,
+              );
+              nsRequestCompleter.call(redirectRequest?._nsObject);
             },
           );
     }
@@ -1009,14 +1001,15 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// a follow-up request that would honor the server's redirect. If the return
   /// value of this function is `null` then the redirect will not occur.
   /// Otherwise, the returned [URLRequest] (usually `newRequest`) will be
-  /// executed. [onRedirect] will not be called for background sessions, which
-  /// automatically follow redirects. See
+  /// executed. [onRedirect] should not throw. [onRedirect] will not be called
+  /// for background sessions, which automatically follow redirects. See
   /// [URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411626-urlsession)
   ///
   /// If [onResponse] is set then it will be called whenever a valid response
   /// is received. The returned [NSURLSessionResponseDisposition] will decide
-  /// how the content of the response is processed. See
-  /// [URLSession:dataTask:didReceiveResponse:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiondatadelegate/1410027-urlsession)
+  /// how the content of the response is processed. [onResponse] should not
+  /// throw. See
+  /// [URLSession:dataTask:didReceiveResponse:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiondatadelegate/1410027-urlsession).
   ///
   /// If [onData] is set then it will be called whenever response data is
   /// received. If the amount of received data is large, then it may be
