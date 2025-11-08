@@ -323,6 +323,20 @@ Future<String> _read(HttpServer server) => http.read(_urlFor(server));
 Uri _urlFor(HttpServer server) =>
     Uri.http('${server.address.host}:${server.port}', '/');
 
+// The certificates were taken from the Dart SDK at
+// `_sslCert`: tests/standalone/io/certificates/untrusted_server_chain.pem
+// `_sslKey`: tests/standalone/io/certificates/untrusted_server_key.pem
+//
+// I tried to recreate these certificates using a modified version of the script
+// at tests/standalone/io/create_sample_certificates.sh but the
+// "PBE-SHA1-RC4-128" algorithm is no longer supported by openssl and replacing
+// it with "aes-256-cbc" causes the tests to fail with:
+//
+// HandshakeException: Handshake error in client (OS Error:
+// CERTIFICATE_VERIFY_FAILED:
+//                       ... application verification failure(handshake.cc:297))
+//
+// The current certificates will expire in 2030.
 final _sslCert = utf8.encode('''
 -----BEGIN CERTIFICATE-----
 MIIDZDCCAkygAwIBAgIBATANBgkqhkiG9w0BAQsFADAgMR4wHAYDVQQDDBVpbnRl
