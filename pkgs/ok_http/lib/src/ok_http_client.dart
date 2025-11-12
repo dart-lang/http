@@ -14,8 +14,8 @@ library;
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
@@ -111,8 +111,8 @@ Future<String?> choosePrivateKeyAlias({
   JObject? activity,
 }) async {
   final c = Completer<String?>();
-  activity ??= JObject.fromReference(Jni.getCurrentActivity());
-  bindings.KeyChain.choosePrivateKeyAlias(activity,
+  activity ??= Jni.androidActivity(PlatformDispatcher.instance.engineId!);
+  bindings.KeyChain.choosePrivateKeyAlias$1(activity,
       bindings.KeyChainAliasCallback.implement(
           bindings.$KeyChainAliasCallback(alias: (alias) {
     c.complete(alias?.toDartString());
@@ -126,7 +126,8 @@ Future<String?> choosePrivateKeyAlias({
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromAlias(
     String alias,
     {JObject? context}) {
-  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
+  context ??=
+      Jni.androidApplicationContext(PlatformDispatcher.instance.engineId!);
   final jAlias = alias.toJString();
   final pk = bindings.KeyChain.getPrivateKey(context, jAlias)!;
   final chain = bindings.KeyChain.getCertificateChain(context, jAlias)!;
@@ -141,8 +142,9 @@ Future<String?> choosePrivateKeyAlias({
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromPKCS12(
     Uint8List pkcs12Data, String password,
     {JObject? context}) {
-  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
-  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString())!;
+  context ??=
+      Jni.androidApplicationContext(PlatformDispatcher.instance.engineId!);
+  var keyStore = bindings.KeyStore.getInstance$2('PKCS12'.toJString())!;
 
   final jPassword = JCharArray(password.length);
   for (var i = 0; i < password.length; ++i) {
