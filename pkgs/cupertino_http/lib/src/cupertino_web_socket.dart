@@ -203,7 +203,13 @@ class CupertinoWebSocket implements WebSocket {
 
   void _connectionClosed(int? closeCode, objc.NSData? reason) {
     if (!_events.isClosed) {
-      final closeReason = reason == null ? '' : utf8.decode(reason.toList());
+      String closeReason;
+
+      try {
+        closeReason = reason == null ? '' : utf8.decode(reason.toList());
+      } on FormatException {
+        closeReason = 'unknown';
+      }
 
       _events
         ..add(CloseReceived(closeCode, closeReason))
