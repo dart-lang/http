@@ -43,6 +43,8 @@ jobs:
         run: cd example && flutter build apk && cd ..
       - name: Regenerate
         run: dart run jnigen --config jnigen.yaml
+      - name: Upgrade
+        run: dart pub upgrade --major-versions jnigen jni
       - name: Generated Diff
         run: git diff --exit-code
       - name: Upload dependency graph
