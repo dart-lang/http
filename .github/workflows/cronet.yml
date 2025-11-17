@@ -50,7 +50,9 @@ jobs:
       - name: Analyze code
         if: always() && steps.install.outcome == 'success'
         run: flutter analyze --fatal-infos
-      - name: Generate
+      - name: Build APK
+        run: cd pkgs/cronet_http/example && flutter build apk && cd ..
+      - name: Regenerate
         run: dart run jnigen --config jnigen.yaml
       - name: Enable KVM group perms
         run: |
