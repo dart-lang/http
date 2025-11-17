@@ -41,14 +41,15 @@ jobs:
         run: flutter pub get
       - name: Build APK
         run: cd example && flutter build apk && cd ..
-      - name: Regenerate
-        run: dart run jnigen --config jnigen.yaml
       - name: Upgrade
         run: dart pub upgrade --major-versions jnigen jni
+      - name: Regenerate
+        run: dart run jnigen --config jnigen.yaml
       - name: Generated Diff
-        run: git diff --exit-code
+        id: diff
+        run: git diff --exit-code lib/src/jni/jni_bindings.dart
       - name: Upload dependency graph
-        if: failure()
+        if: steps.diff.outcome == 'failure'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: Bindings
