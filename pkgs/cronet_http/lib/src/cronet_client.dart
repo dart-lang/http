@@ -125,8 +125,7 @@ class CronetEngine {
       bool? enableQuic,
       String? storagePath,
       String? userAgent}) {
-    final builder = jb.CronetEngine$Builder(
-        JObject.fromReference(Jni.getCachedApplicationContext()));
+    final builder = jb.CronetEngine$Builder(Jni.androidApplicationContext);
 
     try {
       if (storagePath != null) {
