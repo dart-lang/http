@@ -48,12 +48,12 @@ jobs:
       - name: Generated Diff
         id: diff
         run: git diff --exit-code lib/src/jni/jni_bindings.dart
-      - name: Upload dependency graph
+      - name: Upload bindings
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: Bindings
-          path: lib/src/jni/jni_bindings.dart
+          path: pkgs/cronet_http/lib/src/jni/jni_bindings.dart
           retention-days: 1
   verify:
     name: Format & Analyze & Test (${{ matrix.cronetHttpNoPlay == 'true' && 'without Google Play' || 'with Google Play'}})
