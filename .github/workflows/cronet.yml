@@ -42,6 +42,9 @@ jobs:
       - name: Build APK
         run: cd example && flutter build apk && cd ..
       - name: Upgrade
+        # Set this to `true` if you are using this workflow to regenerate the jni
+        # bindings.
+        if: false
         run: dart pub upgrade --major-versions jnigen jni
       - name: Regenerate
         run: dart run jnigen --config jnigen.yaml
@@ -52,7 +55,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: Bindings
+          name: JNI Bindings
           path: pkgs/cronet_http/lib/src/jni/jni_bindings.dart
           retention-days: 1
   verify:
