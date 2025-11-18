@@ -49,7 +49,7 @@ jobs:
         id: diff
         run: git diff --exit-code lib/src/jni/jni_bindings.dart
       - name: Upload dependency graph
-        if: steps.diff.outcome == 'failure'
+        if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: Bindings
