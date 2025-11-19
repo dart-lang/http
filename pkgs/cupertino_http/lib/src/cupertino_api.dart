@@ -870,7 +870,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     final protoBuilder = objc.ObjCProtocolBuilder();
 
     if (onComplete != null) {
-      ncb.NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
+      ncb.NSURLSessionDataDelegate$Builder.URLSession_task_didCompleteWithError_
           .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
             onComplete(
               URLSession._(nsSession, isBackground: isBackground),
@@ -882,7 +882,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     if (onRedirect != null) {
       ncb
-          .NSURLSessionDataDelegate
+          .NSURLSessionDataDelegate$Builder
           // ignore: lines_longer_than_80_chars
           .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
           .implementAsListener(
@@ -907,7 +907,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     if (onResponse != null) {
       ncb
-          .NSURLSessionDataDelegate
+          .NSURLSessionDataDelegate$Builder
           .URLSession_dataTask_didReceiveResponse_completionHandler_
           .implementAsListener(protoBuilder, (
             nsSession,
@@ -926,7 +926,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onData != null) {
-      ncb.NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_
+      ncb.NSURLSessionDataDelegate$Builder.URLSession_dataTask_didReceiveData_
           .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
             onData(
               URLSession._(nsSession, isBackground: isBackground),
@@ -938,7 +938,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     if (onFinishedDownloading != null) {
       ncb
-          .NSURLSessionDownloadDelegate
+          .NSURLSessionDownloadDelegate$Builder
           .URLSession_downloadTask_didFinishDownloadingToURL_
           .implementAsBlocking(protoBuilder, (nsSession, nsTask, nsUrl) {
             onFinishedDownloading(
@@ -951,7 +951,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     if (onWebSocketTaskOpened != null) {
       ncb
-          .NSURLSessionWebSocketDelegate
+          .NSURLSessionWebSocketDelegate$Builder
           .URLSession_webSocketTask_didOpenWithProtocol_
           .implementAsListener(protoBuilder, (nsSession, nsTask, nsProtocol) {
             onWebSocketTaskOpened(
@@ -964,7 +964,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     if (onWebSocketTaskClosed != null) {
       ncb
-          .NSURLSessionWebSocketDelegate
+          .NSURLSessionWebSocketDelegate$Builder
           .URLSession_webSocketTask_didCloseWithCode_reason_
           .implementAsListener(protoBuilder, (
             nsSession,
@@ -981,7 +981,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           });
     }
 
-    return ncb.NSURLSessionDelegate.castFrom(protoBuilder.build());
+    return ncb.NSURLSessionDelegate.as(protoBuilder.build());
   }
 
   URLSession._(super.c, {required bool isBackground})

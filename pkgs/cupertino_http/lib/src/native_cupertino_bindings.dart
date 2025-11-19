@@ -13510,7 +13510,7 @@ class NativeCupertinoHttp {
     CFStringRef theString,
     int encoding,
   ) {
-    return _CFStringGetPascalStringPtr(theString, encoding);
+    return _CFStringGetPascalStringPtr$1(theString, encoding);
   }
 
   late final _CFStringGetPascalStringPtrPtr =
@@ -13519,7 +13519,7 @@ class NativeCupertinoHttp {
           ConstStringPtr Function(CFStringRef, CFStringEncoding)
         >
       >('CFStringGetPascalStringPtr');
-  late final _CFStringGetPascalStringPtr =
+  late final _CFStringGetPascalStringPtr$1 =
       _CFStringGetPascalStringPtrPtr.asFunction<
         ConstStringPtr Function(CFStringRef, int)
       >();
@@ -13528,7 +13528,7 @@ class NativeCupertinoHttp {
     CFStringRef theString,
     int encoding,
   ) {
-    return _CFStringGetCStringPtr(theString, encoding);
+    return _CFStringGetCStringPtr$1(theString, encoding);
   }
 
   late final _CFStringGetCStringPtrPtr =
@@ -13537,20 +13537,20 @@ class NativeCupertinoHttp {
           ffi.Pointer<ffi.Char> Function(CFStringRef, CFStringEncoding)
         >
       >('CFStringGetCStringPtr');
-  late final _CFStringGetCStringPtr =
+  late final _CFStringGetCStringPtr$1 =
       _CFStringGetCStringPtrPtr.asFunction<
         ffi.Pointer<ffi.Char> Function(CFStringRef, int)
       >();
 
   ffi.Pointer<UniChar> CFStringGetCharactersPtr(CFStringRef theString) {
-    return _CFStringGetCharactersPtr(theString);
+    return _CFStringGetCharactersPtr$1(theString);
   }
 
   late final _CFStringGetCharactersPtrPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<UniChar> Function(CFStringRef)>>(
         'CFStringGetCharactersPtr',
       );
-  late final _CFStringGetCharactersPtr =
+  late final _CFStringGetCharactersPtr$1 =
       _CFStringGetCharactersPtrPtr.asFunction<
         ffi.Pointer<UniChar> Function(CFStringRef)
       >();
@@ -92114,7 +92114,7 @@ extension NSArrayDiffing on objc.NSArray {
   /// differenceFromArray:withOptions:
   objc.NSOrderedCollectionDifference differenceFromArray$1(
     objc.NSArray other, {
-    required objc.NSOrderedCollectionDifferenceCalculationOptions withOptions,
+    required DartNSUInteger withOptions,
   }) {
     objc.checkOsVersionInternal(
       'NSArray.differenceFromArray:withOptions:',
@@ -92137,7 +92137,7 @@ extension NSArrayDiffing on objc.NSArray {
   /// differenceFromArray:withOptions:usingEquivalenceTest:
   objc.NSOrderedCollectionDifference differenceFromArray$2(
     objc.NSArray other, {
-    required objc.NSOrderedCollectionDifferenceCalculationOptions withOptions,
+    required DartNSUInteger withOptions,
     required objc.ObjCBlock<
       ffi.Bool Function(
         ffi.Pointer<objc.ObjCObjectImpl>,
@@ -93218,7 +93218,7 @@ late final _sel_loadPreviewImageWithOptions_completionHandler_ = objc
     .registerName("loadPreviewImageWithOptions:completionHandler:");
 
 /// NSPreviewSupport
-extension NSPreviewSupport on objc.NSItemProvider$2 {
+extension NSPreviewSupport on objc.NSItemProvider {
   /// loadPreviewImageWithOptions:completionHandler:
   void loadPreviewImageWithOptions(
     objc.NSDictionary options, {
@@ -94795,7 +94795,7 @@ extension NSMutableStringExtensionMethods on objc.NSMutableString {
   DartNSUInteger replaceOccurrencesOfString(
     objc.NSString target, {
     required objc.NSString withString,
-    required objc.NSStringCompareOptions options,
+    required DartNSUInteger options,
     required NSRange range,
   }) {
     return _objc_msgSend_1upeo1d(
@@ -96748,7 +96748,7 @@ extension NSExceptionRaisingConveniences on NSException {
 
 typedef NSUncaughtExceptionHandler =
     ffi.NativeFunction<
-      ffi.Void Function(ffi.Pointer<objc.ObjCObjectImpl> exception)
+      ffi.Void Function(ffi.Pointer<objc.ObjCObjectImpl> exception$1)
     >;
 
 enum NSOperationQueuePriority {
@@ -96878,113 +96878,41 @@ extension NSErrorRecoveryAttempting on objc.NSObject {
   }
 }
 
-const int noErr$1 = 0;
+const int noErr = 0;
 
-const int kNilOptions$9 = 0;
+const int kNilOptions = 0;
 
 const int kVariableLengthArray = 1;
 
-const int kUnknownType$6 = 1061109567;
+const int kUnknownType = 1061109567;
 
-const int normal$3 = 0;
+const int normal = 0;
 
-const int bold$7 = 1;
+const int bold = 1;
 
-const int italic$7 = 2;
+const int italic = 2;
 
-const int underline$5 = 4;
-
-const int outline$4 = 8;
-
-const int shadow$1 = 16;
-
-const int condense$2 = 32;
-
-const int extend$7 = 64;
-
-const int developStage$9 = 32;
-
-const int alphaStage$3 = 64;
-
-const int betaStage$9 = 96;
-
-const int finalStage$8 = 128;
-
-const int NSScannedOption$2 = 1;
-
-const int NSCollectorDisabledOption = 2;
-
-const int noErr$10 = 0;
-
-const int kNilOptions$7 = 0;
-
-const int kVariableLengthArray$9 = 1;
-
-const int kUnknownType$1 = 1061109567;
-
-const int normal$4 = 0;
-
-const int bold$8 = 1;
-
-const int italic$8 = 2;
-
-const int underline$10 = 4;
-
-const int outline$6 = 8;
-
-const int shadow = 16;
-
-const int condense$4 = 32;
-
-const int extend$8 = 64;
-
-const int developStage$7 = 32;
-
-const int alphaStage$2 = 64;
-
-const int betaStage$4 = 96;
-
-const int finalStage$5 = 128;
-
-const int NSScannedOption$9 = 1;
-
-const int NSCollectorDisabledOption$1 = 2;
-
-const int noErr$5 = 0;
-
-const int kNilOptions$1 = 0;
-
-const int kVariableLengthArray$5 = 1;
-
-const int kUnknownType$4 = 1061109567;
-
-const int normal$9 = 0;
-
-const int bold$1 = 1;
-
-const int italic$6 = 2;
-
-const int underline$2 = 4;
+const int underline = 4;
 
 const int outline = 8;
 
-const int shadow$9 = 16;
+const int shadow = 16;
 
-const int condense$7 = 32;
+const int condense = 32;
 
-const int extend$1 = 64;
+const int extend = 64;
 
-const int developStage$8 = 32;
+const int developStage = 32;
 
-const int alphaStage$9 = 64;
+const int alphaStage = 64;
 
-const int betaStage$8 = 96;
+const int betaStage = 96;
 
-const int finalStage$2 = 128;
+const int finalStage = 128;
 
-const int NSScannedOption$7 = 1;
+const int NSScannedOption = 1;
 
-const int NSCollectorDisabledOption$2 = 2;
+const int NSCollectorDisabledOption = 2;
 
 const int errSecSuccess = 0;
 
@@ -101610,45 +101538,9 @@ const int SSL_RSA_WITH_3DES_EDE_CBC_MD5 = -125;
 
 const int SSL_NO_SUCH_CIPHERSUITE = -1;
 
-const int noErr = 0;
+const int NSASCIIStringEncoding = 1;
 
-const int kNilOptions$4 = 0;
-
-const int kVariableLengthArray$1 = 1;
-
-const int kUnknownType$9 = 1061109567;
-
-const int normal = 0;
-
-const int bold$5 = 1;
-
-const int italic$5 = 2;
-
-const int underline$6 = 4;
-
-const int outline$9 = 8;
-
-const int shadow$8 = 16;
-
-const int condense = 32;
-
-const int extend$4 = 64;
-
-const int developStage$2 = 32;
-
-const int alphaStage$6 = 64;
-
-const int betaStage$3 = 96;
-
-const int finalStage$10 = 128;
-
-const int NSScannedOption$10 = 1;
-
-const int NSCollectorDisabledOption$10 = 2;
-
-const int NSASCIIStringEncoding$1 = 1;
-
-const int NSNEXTSTEPStringEncoding$1 = 2;
+const int NSNEXTSTEPStringEncoding = 2;
 
 const int NSJapaneseEUCStringEncoding = 3;
 
@@ -101656,243 +101548,13 @@ const int NSUTF8StringEncoding = 4;
 
 const int NSISOLatin1StringEncoding = 5;
 
-const int NSSymbolStringEncoding$1 = 6;
+const int NSSymbolStringEncoding = 6;
 
 const int NSNonLossyASCIIStringEncoding = 7;
 
-const int NSShiftJISStringEncoding$1 = 8;
-
-const int NSISOLatin2StringEncoding = 9;
-
-const int NSUnicodeStringEncoding$1 = 10;
-
-const int NSWindowsCP1251StringEncoding$1 = 11;
-
-const int NSWindowsCP1252StringEncoding$1 = 12;
-
-const int NSWindowsCP1253StringEncoding$1 = 13;
-
-const int NSWindowsCP1254StringEncoding$1 = 14;
-
-const int NSWindowsCP1250StringEncoding$1 = 15;
-
-const int NSISO2022JPStringEncoding = 21;
-
-const int NSMacOSRomanStringEncoding = 30;
-
-const int NSUTF16StringEncoding$1 = 10;
-
-const int NSUTF16BigEndianStringEncoding = 2415919360;
-
-const int NSUTF16LittleEndianStringEncoding$1 = 2483028224;
-
-const int NSUTF32StringEncoding = 2348810496;
-
-const int NSUTF32BigEndianStringEncoding = 2550137088;
-
-const int NSUTF32LittleEndianStringEncoding = 2617245952;
-
-const int NSProprietaryStringEncoding = 65536;
-
-const int NSOpenStepUnicodeReservedBase = 62464;
-
-const int noErr$3 = 0;
-
-const int kNilOptions$5 = 0;
-
-const int kVariableLengthArray$7 = 1;
-
-const int kUnknownType$10 = 1061109567;
-
-const int normal$2 = 0;
-
-const int bold = 1;
-
-const int italic$3 = 2;
-
-const int underline$9 = 4;
-
-const int outline$7 = 8;
-
-const int shadow$7 = 16;
-
-const int condense$3 = 32;
-
-const int extend$2 = 64;
-
-const int developStage$4 = 32;
-
-const int alphaStage$7 = 64;
-
-const int betaStage = 96;
-
-const int finalStage$9 = 128;
-
-const int NSScannedOption$1 = 1;
-
-const int NSCollectorDisabledOption$3 = 2;
-
-const int noErr$4 = 0;
-
-const int kNilOptions$8 = 0;
-
-const int kVariableLengthArray$3 = 1;
-
-const int kUnknownType$8 = 1061109567;
-
-const int normal$6 = 0;
-
-const int bold$10 = 1;
-
-const int italic$1 = 2;
-
-const int underline$7 = 4;
-
-const int outline$3 = 8;
-
-const int shadow$5 = 16;
-
-const int condense$9 = 32;
-
-const int extend = 64;
-
-const int developStage$5 = 32;
-
-const int alphaStage$8 = 64;
-
-const int betaStage$1 = 96;
-
-const int finalStage$1 = 128;
-
-const int NSScannedOption$6 = 1;
-
-const int NSCollectorDisabledOption$4 = 2;
-
-const int noErr$7 = 0;
-
-const int kNilOptions$10 = 0;
-
-const int kVariableLengthArray$10 = 1;
-
-const int kUnknownType$7 = 1061109567;
-
-const int normal$8 = 0;
-
-const int bold$3 = 1;
-
-const int italic$2 = 2;
-
-const int underline$4 = 4;
-
-const int outline$1 = 8;
-
-const int shadow$6 = 16;
-
-const int condense$6 = 32;
-
-const int extend$3 = 64;
-
-const int developStage$10 = 32;
-
-const int alphaStage$1 = 64;
-
-const int betaStage$6 = 96;
-
-const int finalStage$7 = 128;
-
-const int NSScannedOption = 1;
-
-const int NSCollectorDisabledOption$5 = 2;
-
-const int noErr$8 = 0;
-
-const int kNilOptions$3 = 0;
-
-const int kVariableLengthArray$4 = 1;
-
-const int kUnknownType$5 = 1061109567;
-
-const int normal$7 = 0;
-
-const int bold$6 = 1;
-
-const int italic$10 = 2;
-
-const int underline$1 = 4;
-
-const int outline$5 = 8;
-
-const int shadow$3 = 16;
-
-const int condense$1 = 32;
-
-const int extend$6 = 64;
-
-const int developStage$1 = 32;
-
-const int alphaStage$4 = 64;
-
-const int betaStage$2 = 96;
-
-const int finalStage = 128;
-
-const int NSScannedOption$8 = 1;
-
-const int NSCollectorDisabledOption$6 = 2;
-
-const int noErr$2 = 0;
-
-const int kNilOptions$2 = 0;
-
-const int kVariableLengthArray$8 = 1;
-
-const int kUnknownType$2 = 1061109567;
-
-const int normal$1 = 0;
-
-const int bold$4 = 1;
-
-const int italic$9 = 2;
-
-const int underline = 4;
-
-const int outline$10 = 8;
-
-const int shadow$4 = 16;
-
-const int condense$5 = 32;
-
-const int extend$9 = 64;
-
-const int developStage = 32;
-
-const int alphaStage = 64;
-
-const int betaStage$10 = 96;
-
-const int finalStage$4 = 128;
-
-const int NSScannedOption$4 = 1;
-
-const int NSCollectorDisabledOption$7 = 2;
-
-const int NSASCIIStringEncoding = 1;
-
-const int NSNEXTSTEPStringEncoding = 2;
-
-const int NSJapaneseEUCStringEncoding$1 = 3;
-
-const int NSUTF8StringEncoding$1 = 4;
-
-const int NSISOLatin1StringEncoding$1 = 5;
-
-const int NSSymbolStringEncoding = 6;
-
-const int NSNonLossyASCIIStringEncoding$1 = 7;
-
 const int NSShiftJISStringEncoding = 8;
 
-const int NSISOLatin2StringEncoding$1 = 9;
+const int NSISOLatin2StringEncoding = 9;
 
 const int NSUnicodeStringEncoding = 10;
 
@@ -101906,97 +101568,25 @@ const int NSWindowsCP1254StringEncoding = 14;
 
 const int NSWindowsCP1250StringEncoding = 15;
 
-const int NSISO2022JPStringEncoding$1 = 21;
+const int NSISO2022JPStringEncoding = 21;
 
-const int NSMacOSRomanStringEncoding$1 = 30;
+const int NSMacOSRomanStringEncoding = 30;
 
 const int NSUTF16StringEncoding = 10;
 
-const int NSUTF16BigEndianStringEncoding$1 = 2415919360;
+const int NSUTF16BigEndianStringEncoding = 2415919360;
 
 const int NSUTF16LittleEndianStringEncoding = 2483028224;
 
-const int NSUTF32StringEncoding$1 = 2348810496;
+const int NSUTF32StringEncoding = 2348810496;
 
-const int NSUTF32BigEndianStringEncoding$1 = 2550137088;
+const int NSUTF32BigEndianStringEncoding = 2550137088;
 
-const int NSUTF32LittleEndianStringEncoding$1 = 2617245952;
+const int NSUTF32LittleEndianStringEncoding = 2617245952;
 
-const int NSProprietaryStringEncoding$1 = 65536;
+const int NSProprietaryStringEncoding = 65536;
 
-const int DISPATCH_WALLTIME_NOW$1 = -2;
-
-const int noErr$9 = 0;
-
-const int kNilOptions$6 = 0;
-
-const int kVariableLengthArray$6 = 1;
-
-const int kUnknownType = 1061109567;
-
-const int normal$10 = 0;
-
-const int bold$9 = 1;
-
-const int italic = 2;
-
-const int underline$3 = 4;
-
-const int outline$2 = 8;
-
-const int shadow$10 = 16;
-
-const int condense$10 = 32;
-
-const int extend$10 = 64;
-
-const int developStage$3 = 32;
-
-const int alphaStage$10 = 64;
-
-const int betaStage$5 = 96;
-
-const int finalStage$3 = 128;
-
-const int NSScannedOption$5 = 1;
-
-const int NSCollectorDisabledOption$8 = 2;
-
-const int noErr$6 = 0;
-
-const int kNilOptions = 0;
-
-const int kVariableLengthArray$2 = 1;
-
-const int kUnknownType$3 = 1061109567;
-
-const int normal$5 = 0;
-
-const int bold$2 = 1;
-
-const int italic$4 = 2;
-
-const int underline$8 = 4;
-
-const int outline$8 = 8;
-
-const int shadow$2 = 16;
-
-const int condense$8 = 32;
-
-const int extend$5 = 64;
-
-const int developStage$6 = 32;
-
-const int alphaStage$5 = 64;
-
-const int betaStage$7 = 96;
-
-const int finalStage$6 = 128;
-
-const int NSScannedOption$3 = 1;
-
-const int NSCollectorDisabledOption$9 = 2;
+const int NSOpenStepUnicodeReservedBase = 62464;
 
 const int __API_TO_BE_DEPRECATED = 100000;
 

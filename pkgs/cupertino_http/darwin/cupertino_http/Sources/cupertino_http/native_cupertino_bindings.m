@@ -59,7 +59,7 @@ id objc_retainBlock(id);
   };
 
 
-typedef void  (^_ListenerTrampoline)();
+typedef void  (^_ListenerTrampoline)(void);
 __attribute__((visibility("default"))) __attribute__((used))
 _ListenerTrampoline _NativeCupertinoHttp_wrapListenerBlock_1pl9qdv(_ListenerTrampoline block) NS_RETURNS_RETAINED {
   return ^void() {
