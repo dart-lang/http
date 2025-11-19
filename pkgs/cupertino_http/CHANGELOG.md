@@ -1,4 +1,4 @@
-## 2.4.0-wip
+## 2.4.0
 
 * Switch to `package:objective_c` `9.1.0` and `package:ffigen` `20.1.0`.
 * Add URL to thrown `RequestAbortedException`.
