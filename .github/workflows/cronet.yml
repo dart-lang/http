@@ -21,6 +21,43 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
+  generate:
+    name: jnigen
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkgs/cronet_http
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e
+        with:
+          channel: 'stable'
+      - id: install
+        name: Install dependencies
+        run: flutter pub get
+      - name: Build APK
+        run: cd example && flutter build apk && cd ..
+      - name: Upgrade
+        # Set this to `true` if you are using this workflow to regenerate the jni
+        # bindings.
+        if: false
+        run: dart pub upgrade --major-versions jnigen jni
+      - name: Regenerate
+        run: dart run jnigen --config jnigen.yaml
+      - name: Generated Diff
+        id: diff
+        run: git diff --exit-code lib/src/jni/jni_bindings.dart
+      - name: Upload bindings
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: JNI Bindings
+          path: pkgs/cronet_http/lib/src/jni/jni_bindings.dart
+          retention-days: 1
   verify:
     name: Format & Analyze & Test (${{ matrix.cronetHttpNoPlay == 'true' && 'without Google Play' || 'with Google Play'}})
     runs-on: ubuntu-cpu16-ram64
