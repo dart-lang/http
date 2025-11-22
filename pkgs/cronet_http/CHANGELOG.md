@@ -1,4 +1,4 @@
-## 1.7.0-wip
+## 1.7.0
 
 * Fix a bug where cronet would throw `ClassNotFoundException` in debug mode.
 * Upgrade `package:jni` to 0.15.2 and `package:jnigen` to 0.15.0.
