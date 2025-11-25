@@ -1,3 +1,7 @@
+## 1.6.1-wip
+
+* Clarified the behavior of response headers in API documentation comments.
+
 ## 1.6.0
 
 * **Breaking** Change the behavior of `Request.body` so that a charset

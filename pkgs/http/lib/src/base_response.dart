@@ -32,22 +32,26 @@ abstract class BaseResponse {
   /// The HTTP headers returned by the server.
   ///
   /// The header names are converted to lowercase and stored with their
-  /// associated header values.
+  /// associated header values. Because header names are lower-cased, you should
+  /// always use lowercase keys to access them (e.g.,
+  /// `response.headers['content-type']`).
   ///
   /// If the server returns multiple headers with the same name then the header
-  /// values will be associated with a single key and seperated by commas and
+  /// values will be associated with a single key and separated by commas and
   /// possibly whitespace. For example:
   /// ```dart
   /// // HTTP/1.1 200 OK
   /// // Fruit: Apple
   /// // Fruit: Banana
   /// // Fruit: Grape
-  /// final values = response.headers['fruit']!.split(RegExp(r'\s*,\s*'));
-  /// // values = ['Apple', 'Banana', 'Grape']
+  /// final values = response.headers['fruit']!;
+  /// // values = 'Apple, Banana, Grape'
   /// ```
   ///
   /// To retrieve the header values as a `List<String>`, use
-  /// [HeadersWithSplitValues.headersSplitValues].
+  /// [HeadersWithSplitValues.headersSplitValues]. This is particularly
+  /// important for the `Set-Cookie` header, as the values may contain commas
+  /// that make manual splitting difficult.
   ///
   /// If a header value contains whitespace then that whitespace may be replaced
   /// by a single space. Leading and trailing whitespace in header values are
@@ -55,7 +59,11 @@ abstract class BaseResponse {
   ///
   /// Some headers may be excluded by the [Client] for security or privacy
   /// reasons. For example, browser-based clients can only return headers in the
-  /// CORS safelist or specifically allowed by the server.
+  /// CORS safelist or specifically allowed by the server. The server can
+  /// control which headers are exposed to clients running in the browser by
+  /// setting the
+  /// [`Access-Control-Expose-Headers`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers)
+  /// header.
   final Map<String, String> headers;
 
   final bool isRedirect;
