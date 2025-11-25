@@ -1,3 +1,7 @@
+## 1.6.1-wip
+
+* Clarify some of the behavior of response headers.
+
 ## 1.6.0
 
 * **Breaking** Change the behavior of `Request.body` so that a charset
