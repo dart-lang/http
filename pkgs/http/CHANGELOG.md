@@ -1,6 +1,6 @@
 ## 1.6.1-wip
 
-* Clarify some of the behavior of response headers.
+* Clarified the behavior of response headers in API documentation comments.
 
 ## 1.6.0
 
