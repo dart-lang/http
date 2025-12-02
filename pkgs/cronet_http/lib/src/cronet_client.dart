@@ -268,9 +268,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
               'Invalid content-length header [$contentLengthHeader].',
               request.url,
             ));
-            urlRequest
-              ?..cancel()
-              ..release();
+            urlRequest!.cancel();
             return;
           case final contentLengthHeader?:
             contentLength = int.parse(contentLengthHeader);
@@ -311,8 +309,8 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         responseInfo?.releasedBy(arena);
         newLocationUrl?.releasedBy(arena);
         if (responseStreamCancelled) return;
-        final responseHeaders =
-            _cronetToClientHeaders(responseInfo!.getAllHeaders()!);
+        final responseHeaders = _cronetToClientHeaders(
+            responseInfo!.getAllHeaders()!..releasedBy(arena));
 
         if (!request.followRedirects) {
           urlRequest!.cancel();
@@ -328,7 +326,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
                   .toDartString(releaseOriginal: true),
               request: request,
               isRedirect: true,
-              headers: _cronetToClientHeaders(responseInfo.getAllHeaders()!)));
+              headers: responseHeaders));
 
           profile?.responseData
             ?..headersCommaValues = responseHeaders
@@ -545,11 +543,12 @@ class CronetClient extends BaseClient {
       final builder = engine._engine.newUrlRequestBuilder(
         jUrl,
         jb.UrlRequestCallbackProxy(
-            _urlRequestCallbacks(request, responseCompleter, profile)),
+            _urlRequestCallbacks(request, responseCompleter, profile)
+              ..releasedBy(arena)),
         _executor,
       )!
-        ..releasedBy(arena)
-        ..setHttpMethod(jMethod);
+        ..releasedBy(arena);
+      builder.setHttpMethod(jMethod)?.release();
 
       var headers = request.headers;
       if (body.isNotEmpty &&
@@ -577,16 +576,21 @@ class CronetClient extends BaseClient {
           rethrow;
         }
 
-        builder.setUploadDataProvider(
-            jb.UploadDataProviders.create$2(data), _executor);
+        builder
+            .setUploadDataProvider(
+                jb.UploadDataProviders.create$2(data)?..releasedBy(arena),
+                _executor)
+            ?.release();
       }
 
-      final cronetRequest = builder.build()!..releasedBy(arena);
+      final cronetRequest = builder.build()!;
       if (request case Abortable(:final abortTrigger?)) {
-        unawaited(abortTrigger.whenComplete(cronetRequest.cancel));
+        unawaited(abortTrigger.whenComplete(() {
+          if (!cronetRequest.isReleased) cronetRequest.cancel();
+        }));
       }
       cronetRequest.start();
-      return responseCompleter.future;
+      return responseCompleter.future.whenComplete(cronetRequest.release);
     });
   }
 }
