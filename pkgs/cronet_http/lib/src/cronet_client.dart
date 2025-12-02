@@ -28,20 +28,39 @@ class _StreamedResponseWithUrl extends StreamedResponse
       super.reasonPhrase});
 }
 
+class UrlResponseInfo {
+  final String negotiatedProtocol;
+  final int receivedByteCount;
+  final bool wasCached;
+
+  UrlResponseInfo({
+    required this.negotiatedProtocol,
+    required this.receivedByteCount,
+    required this.wasCached,
+  });
+}
+
+extension on jb.UrlResponseInfo {
+  UrlResponseInfo toDart() => UrlResponseInfo(
+        negotiatedProtocol:
+            getNegotiatedProtocol()!.toDartString(releaseOriginal: true),
+        receivedByteCount: getReceivedByteCount(),
+        wasCached: wasCached(),
+      );
+}
+
 /// An HTTP response from the Cronet network stack.
 ///
 /// The response body is received asynchronously after the headers have been
 /// received.
 class CronetStreamedResponse extends _StreamedResponseWithUrl {
-  final jb.UrlResponseInfo _responseInfo;
+  final UrlResponseInfo _responseInfo;
 
   /// The protocol (for example `'quic/1+spdy/3'`) negotiated with the server.
   ///
   /// It will be the empty string or `'unknown'` if no protocol was negotiated,
   /// the protocol is not known, or when using plain HTTP or HTTPS.
-  String get negotiatedProtocol => _responseInfo
-      .getNegotiatedProtocol()!
-      .toDartString(releaseOriginal: true);
+  String get negotiatedProtocol => _responseInfo.negotiatedProtocol;
 
   /// The minimum count of bytes received from the network to process this
   /// request.
@@ -51,16 +70,16 @@ class CronetStreamedResponse extends _StreamedResponseWithUrl {
   /// prior to decompression (for example GZIP) and includes headers and data
   /// from all redirects. This value may change as more response data is
   /// received from the network.
-  int get receivedByteCount => _responseInfo.getReceivedByteCount();
+  int get receivedByteCount => _responseInfo.receivedByteCount;
 
   /// Whether the response came from the cache.
   ///
   /// Is `true` for requests that were revalidated over the network before being
   /// retrieved from the cache
-  bool get wasCached => _responseInfo.wasCached();
+  bool get wasCached => _responseInfo.wasCached;
 
   CronetStreamedResponse._(super.stream, super.statusCode,
-      {required jb.UrlResponseInfo responseInfo,
+      {required UrlResponseInfo responseInfo,
       required super.url,
       super.contentLength,
       super.request,
@@ -225,7 +244,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         // `urlRequest` is captured by the `onCancel` callback of the
         // `StreamController` below. So it must not be registered to be later
         // released here.
-        // Similarly `responseInfo` is used in `CronetStreamedResponse`.
+        responseInfo?.releasedBy(arena);
         responseStream = StreamController(onCancel: () {
           // The user did `response.stream.cancel()`. We can just pretend that
           // the response completed normally.
@@ -259,7 +278,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         responseCompleter.complete(CronetStreamedResponse._(
           responseStream!.stream,
           responseInfo.getHttpStatusCode(),
-          responseInfo: responseInfo,
+          responseInfo: responseInfo.toDart(),
           url: Uri.parse(
               responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
           contentLength: contentLength,
@@ -289,8 +308,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
     onRedirectReceived: (urlRequest, responseInfo, newLocationUrl) {
       using((arena) {
         urlRequest?.releasedBy(arena);
-        // `responseInfo` is used in `CronetStreamedResponse` so it must not be
-        // registered to be released here.
+        responseInfo?.releasedBy(arena);
         newLocationUrl?.releasedBy(arena);
         if (responseStreamCancelled) return;
         final responseHeaders =
@@ -301,7 +319,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           responseCompleter.complete(CronetStreamedResponse._(
               const Stream.empty(), // Cronet provides no body for redirects.
               responseInfo.getHttpStatusCode(),
-              responseInfo: responseInfo,
+              responseInfo: responseInfo.toDart(),
               url: Uri.parse(
                   responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
               contentLength: 0,
