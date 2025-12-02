@@ -203,6 +203,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       // exception of onFailed's UrlResponseInfo as specified in:
       // https://source.chromium.org/chromium/chromium/src/+/main:components/cronet/android/api/src/org/chromium/net/UrlRequest.java;l=232
       jb.$UrlRequestCallbackProxy$UrlRequestCallbackInterface(
+    onResponseStarted$async: true,
     onResponseStarted: (urlRequest, responseInfo) {
       responseStream = StreamController(onCancel: () {
         // The user did `response.stream.cancel()`. We can just pretend that
@@ -258,6 +259,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       jByteBuffer = JByteBuffer.allocateDirect(_bufferSize);
       urlRequest?.read(jByteBuffer!);
     },
+    onRedirectReceived$async: true,
     onRedirectReceived: (urlRequest, responseInfo, newLocationUrl) {
       if (responseStreamCancelled) return;
       final responseHeaders =
@@ -306,6 +308,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             ClientException('Redirect limit exceeded', request.url));
       }
     },
+    onReadCompleted$async: true,
     onReadCompleted: (urlRequest, responseInfo, byteBuffer) {
       if (responseStreamCancelled) return;
       byteBuffer!.flip();
@@ -316,6 +319,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       byteBuffer.clear();
       urlRequest!.read(byteBuffer);
     },
+    onSucceeded$async: true,
     onSucceeded: (urlRequest, responseInfo) {
       if (responseStreamCancelled) return;
       responseStreamCancelled = true;
@@ -323,6 +327,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       jByteBuffer?.release();
       profile?.responseData.close();
     },
+    onFailed$async: true,
     onFailed: (urlRequest, responseInfo /* can be null */, cronetException) {
       if (responseStreamCancelled) return;
       responseStreamCancelled = true;
@@ -344,6 +349,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       }
       jByteBuffer?.release();
     },
+    onCanceled$async: true,
     // Will always be the last callback invoked.
     // See https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/UrlRequest#cancel()
     onCanceled: (urlRequest, urlResponseInfo /* can be null */) {
