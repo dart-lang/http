@@ -16,9 +16,12 @@ void proxy(WebSocket from, WebSocket to) {
         case BinaryDataReceived(:final data):
           to.sendBytes(data);
         case CloseReceived(:var code, :final reason):
-          if (code != null && code != 1000 && (code < 3000 || code > 4999)) {
-            code = null;
-          }
+          code = switch (code) {
+            null => null,
+            1000 => code,
+            < 3000 || > 4999 => null,
+            _ => code,
+          };
           to.close(code, reason);
       }
     } on WebSocketConnectionClosed {

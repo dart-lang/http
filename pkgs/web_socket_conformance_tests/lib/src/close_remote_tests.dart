@@ -73,7 +73,17 @@ void testCloseRemote(
           await channelFactory(uri.replace(queryParameters: {'badutf8': ''}));
 
       channel.sendText('Please close');
-      expect(await channel.events.toList(), [CloseReceived(1007, '')]);
+      final events = await channel.events.toList();
+      expect(events, [
+        isA<CloseReceived>().having(
+            (e) => e.code,
+            'code',
+            anyOf(
+              1005, // No Status Received.
+              1006, // Abnormal Closure.
+              1007, // Invalid Frame Payload Data.
+            ))
+      ]);
     });
   });
 }

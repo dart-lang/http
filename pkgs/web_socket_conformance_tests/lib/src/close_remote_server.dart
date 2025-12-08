@@ -11,7 +11,7 @@ import 'package:stream_channel/stream_channel.dart';
 
 const _webSocketGuid = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 
-Future<void> invalidCloseFrame(HttpRequest request) async {
+Future<void> _invalidCloseReason(HttpRequest request) async {
   final key = request.headers.value('Sec-WebSocket-Key');
   final accept =
       base64.encode(sha1.convert(utf8.encode(key! + _webSocketGuid)).bytes);
@@ -40,7 +40,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       if (request.uri.queryParameters.containsKey('badutf8')) {
-        await invalidCloseFrame(request);
+        await _invalidCloseReason(request);
         return;
       }
 
