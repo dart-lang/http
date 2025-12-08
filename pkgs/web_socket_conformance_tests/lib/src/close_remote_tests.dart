@@ -67,5 +67,13 @@ void testCloseRemote(
       await expectLater(
           channel.close, throwsA(isA<WebSocketConnectionClosed>()));
     });
+
+    test('with invalid UTF-8 reason', () async {
+      final channel = await channelFactory(
+          uri.replace(queryParameters: {'invalidUTF8': 'true'}));
+
+      channel.sendText('Please close');
+      expect(await channel.events.toList(), [CloseReceived(1007, '')]);
+    });
   });
 }
