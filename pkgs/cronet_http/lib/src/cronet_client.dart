@@ -581,7 +581,8 @@ class CronetClient extends BaseClient {
             jb.UploadDataProviders.create$2(data), _executor);
       }
 
-      final cronetRequest = builder.build()!..releasedBy(arena);
+      // Not releasing `cronetRequest` as it's used in `whenComplete` callback.
+      final cronetRequest = builder.build()!;
       if (request case Abortable(:final abortTrigger?)) {
         unawaited(abortTrigger.whenComplete(cronetRequest.cancel));
       }
