@@ -354,8 +354,8 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
         onRedirect:
             (redirectSession, redirectTask, redirectResponse, newRequest) =>
                 URLRequest.fromUrl(
-                  Uri.parse('http://localhost:${redirectServer.port}/'),
-                ),
+          Uri.parse('http://localhost:${redirectServer.port}/'),
+        ),
       );
       final c = Completer<void>();
       URLResponse? response;
@@ -388,8 +388,8 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
           config(),
           onRedirect:
               (redirectSession, redirectTask, redirectResponse, newRequest) {
-                throw UnimplementedError();
-              },
+            throw UnimplementedError();
+          },
         );
         final c = Completer<void>();
         URLResponse? response;
@@ -425,9 +425,9 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
         config(),
         onRedirect:
             (redirectSession, redirectTask, redirectResponse, newRequest) {
-              ++redirectCounter;
-              return newRequest;
-            },
+          ++redirectCounter;
+          return newRequest;
+        },
       );
       final c = Completer<void>();
       URLResponse? response;

@@ -229,8 +229,8 @@ void testURLSession(URLSession session) {
       final task = session.dataTaskWithRequest(
         URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
       )..resume();
-      while (task.state !=
-          NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>.delayed(const Duration());
       }
@@ -242,8 +242,8 @@ void testURLSession(URLSession session) {
       final task = session.downloadTaskWithRequest(
         URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
       )..resume();
-      while (task.state !=
-          NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>.delayed(const Duration());
       }
