@@ -250,12 +250,15 @@ void testURLSessionTaskCommon(
       }
       expect(task.response, null);
       task.toString(); // Just verify that there is no crash.
-    });
+    },
+        // If the task completes before cancelling then the task state will be
+        // `NSURLSessionTaskStateCompleted`.
+        retry: 5);
 
     test('completed', () async {
       task.resume();
-      while (task.state !=
-          NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }
@@ -274,21 +277,20 @@ void testURLSessionTaskCommon(
           await request.response.close();
         });
       final session = URLSession.sharedSession();
-      task =
-          session.dataTaskWithRequest(
-              MutableURLRequest.fromUrl(
-                  Uri.parse('http://localhost:${server.port}/mypath'),
-                )
-                ..httpMethod = 'POST'
-                ..httpBody = [1, 2, 3].toNSData(),
-            )
-            ..prefersIncrementalDelivery = false
-            ..priority = 0.2
-            ..taskDescription = 'my task description'
-            ..resume();
+      task = session.dataTaskWithRequest(
+        MutableURLRequest.fromUrl(
+          Uri.parse('http://localhost:${server.port}/mypath'),
+        )
+          ..httpMethod = 'POST'
+          ..httpBody = [1, 2, 3].toNSData(),
+      )
+        ..prefersIncrementalDelivery = false
+        ..priority = 0.2
+        ..taskDescription = 'my task description'
+        ..resume();
 
-      while (task.state !=
-          NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }
@@ -359,8 +361,8 @@ void testURLSessionTaskCommon(
         MutableURLRequest.fromUrl(Uri.parse('http://notarealserver')),
       )..resume();
 
-      while (task.state !=
-          NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }
@@ -406,8 +408,8 @@ void testURLSessionTaskCommon(
         ),
       )..resume();
 
-      while (task.state !=
-          NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }
