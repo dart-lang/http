@@ -213,6 +213,9 @@ void testURLSessionTaskCommon(
           await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
           request.response.write('Hello World');
+          // Add a small delay to allow cancellation to run before the request
+          // is completed.
+          await Future<void>.delayed(const Duration(seconds: 2));
           await request.response.close();
         });
       final session = URLSession.sharedSession();
