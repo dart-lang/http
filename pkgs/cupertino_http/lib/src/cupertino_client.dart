@@ -22,7 +22,7 @@ class NSErrorClientException extends ClientException {
   final NSError error;
 
   NSErrorClientException(this.error, [Uri? uri])
-      : super(error.localizedDescription.toDartString(), uri);
+    : super(error.localizedDescription.toDartString(), uri);
 
   @override
   String toString() {
@@ -210,7 +210,8 @@ class CupertinoClient extends BaseClient {
     //
     // In both of these cases [URLSessionTask.cancel] is called, which completes
     // the task with a NSURLErrorCancelled error.
-    final isCancelError = error?.domain.toDartString() == 'NSURLErrorDomain' &&
+    final isCancelError =
+        error?.domain.toDartString() == 'NSURLErrorDomain' &&
         error?.code == _nsurlErrorCancelled;
     if (error != null &&
         !(isCancelError && taskTracker.responseListenerCancelled)) {

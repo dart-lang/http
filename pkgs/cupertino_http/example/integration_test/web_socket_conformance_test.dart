@@ -11,7 +11,7 @@ import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
 
 void runTests(
   Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-      webSocketFactory,
+  webSocketFactory,
 ) {
   if (Platform.isMacOS) {
     // TODO(https://github.com/dart-lang/http/issues/1814): Fix web socket tests

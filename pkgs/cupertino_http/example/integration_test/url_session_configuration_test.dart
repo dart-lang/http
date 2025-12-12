@@ -136,7 +136,7 @@ void testProperties(URLSessionConfiguration config) {
       },
       skip: Platform.isMacOS
           ? 'NSURLSessionConfiguration.multipathServiceType is not '
-              'supported on macOS'
+                'supported on macOS'
           : false,
     );
     test('networkServiceType', () {
