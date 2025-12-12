@@ -17,7 +17,9 @@ void proxy(WebSocket from, WebSocket to) {
           to.sendBytes(data);
         case CloseReceived(:var code, :final reason):
           // Remove close codes that are not allowed to be sent by WebSocket
-          // clients
+          // clients.
+          // TODO(https://github.com/dart-lang/test/issues/2576): Throw
+          // `SkipTest` instead of setting `code` to `null`.
           code = switch (code) {
             null => null,
             1000 => code,
