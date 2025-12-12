@@ -1,3 +1,7 @@
+## 2.4.1-wip
+
+* Exclude unnecessary generated code. Slightly reduces disk space requirements.
+
 ## 2.4.0
 
 * Switch to `package:objective_c` `9.1.0` and `package:ffigen` `20.1.0`.
