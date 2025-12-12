@@ -1,3 +1,8 @@
+## 2.4.1-wip
+
+* Fix a bug where close reasons not containing valid UTF-8 would cause an
+  uncatchable exception to be thrown.
+
 ## 2.4.0
 
 * Switch to `package:objective_c` `9.1.0` and `package:ffigen` `20.1.0`.
