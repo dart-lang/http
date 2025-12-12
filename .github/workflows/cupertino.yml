@@ -23,13 +23,34 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
+  format:
+    name: "Format & Analyze"
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: pkgs/cupertino_http
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
+      - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e
+        with:
+          channel: 'stable'
+      - id: install
+        name: Install dependencies
+        run: flutter pub get
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed .
+        if: always() && steps.install.outcome == 'success'
+      - name: Analyze code
+        run: flutter analyze --fatal-infos
+        if: always() && steps.install.outcome == 'success'
   macos:
-    name: "macOS: Format & Analyze & Test"
+    name: "macOS: Test"
     runs-on: macos-latest
     defaults:
       run:
         working-directory: pkgs/cupertino_http
     strategy:
+      fail-fast: false
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
@@ -46,12 +67,6 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-      - name: Check formatting
-        run: dart format --output=none --set-exit-if-changed .
-        if: always() && steps.install.outcome == 'success'
-      - name: Analyze code
-        run: flutter analyze --fatal-infos
-        if: always() && steps.install.outcome == 'success'
       - name: Run tests
         run: |
           cd example
