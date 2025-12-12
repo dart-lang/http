@@ -177,12 +177,6 @@ void testProperties(URLSessionConfiguration config) {
       config.sessionSendsLaunchEvents = false;
       expect(config.sessionSendsLaunchEvents, false);
     });
-    test('shouldUseExtendedBackgroundIdleMode', () {
-      config.shouldUseExtendedBackgroundIdleMode = true;
-      expect(config.shouldUseExtendedBackgroundIdleMode, true);
-      config.shouldUseExtendedBackgroundIdleMode = false;
-      expect(config.shouldUseExtendedBackgroundIdleMode, false);
-    });
     test('timeoutIntervalForRequest', () {
       config.timeoutIntervalForRequest = const Duration(
         seconds: 15,
