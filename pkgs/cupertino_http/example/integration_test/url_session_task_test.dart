@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
@@ -207,21 +208,23 @@ void testURLSessionTaskCommon(
   group('task states', () {
     late HttpServer server;
     late URLSessionTask task;
+    late Completer<void> requestCompleter;
+
     setUp(() async {
+      requestCompleter = Completer<void>();
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
           await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
           request.response.write('Hello World');
-          // Add a small delay to allow cancellation to run before the request
-          // is completed.
-          await Future<void>.delayed(const Duration(seconds: 2));
+          await requestCompleter.future;
           await request.response.close();
         });
       final session = URLSession.sharedSession();
       task = f(session, Uri.parse('http://localhost:${server.port}'));
     });
     tearDown(() {
+      if (!requestCompleter.isCompleted) requestCompleter.complete();
       task.cancel();
       server.close();
     });
@@ -238,33 +241,26 @@ void testURLSessionTaskCommon(
       task.toString(); // Just verify that there is no crash.
     });
 
-    test(
-      'cancel',
-      () {
-        task.cancel();
-        if (suspendedAfterCancel) {
-          expect(
-            task.state,
-            NSURLSessionTaskState.NSURLSessionTaskStateSuspended,
-          );
-        } else {
-          expect(
-            task.state,
-            NSURLSessionTaskState.NSURLSessionTaskStateCanceling,
-          );
-        }
-        expect(task.response, null);
-        task.toString(); // Just verify that there is no crash.
-      },
-      // If the task completes before cancelling then the task state will be
-      // `NSURLSessionTaskStateCompleted`. So run the test a few times to allow
-      // the timing to work out (which still isn't a great approach but I can't
-      // think of a better way).
-      retry: 5,
-    );
+    test('cancel', () {
+      task.cancel();
+      if (suspendedAfterCancel) {
+        expect(
+          task.state,
+          NSURLSessionTaskState.NSURLSessionTaskStateSuspended,
+        );
+      } else {
+        expect(
+          task.state,
+          NSURLSessionTaskState.NSURLSessionTaskStateCanceling,
+        );
+      }
+      expect(task.response, null);
+      task.toString(); // Just verify that there is no crash.
+    });
 
     test('completed', () async {
       task.resume();
+      requestCompleter.complete();
       while (task.state !=
           NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
