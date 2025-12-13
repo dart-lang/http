@@ -280,14 +280,6 @@ class URLSessionConfiguration
   set sessionSendsLaunchEvents(bool value) =>
       _nsObject.sessionSendsLaunchEvents = value;
 
-  /// Whether connections will be preserved if the app moves to the background.
-  ///
-  /// See [NSURLSessionConfiguration.shouldUseExtendedBackgroundIdleMode](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1409517-shoulduseextendedbackgroundidlem)
-  bool get shouldUseExtendedBackgroundIdleMode =>
-      _nsObject.shouldUseExtendedBackgroundIdleMode;
-  set shouldUseExtendedBackgroundIdleMode(bool value) =>
-      _nsObject.shouldUseExtendedBackgroundIdleMode = value;
-
   /// The timeout interval if data is not received.
   ///
   /// See [NSURLSessionConfiguration.timeoutIntervalForRequest](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408259-timeoutintervalforrequest)
@@ -324,7 +316,6 @@ class URLSessionConfiguration
       'requestCachePolicy=$requestCachePolicy '
       'sessionSendsLaunchEvents=$sessionSendsLaunchEvents '
       'shouldUseExtendedBackgroundIdleMode='
-      '$shouldUseExtendedBackgroundIdleMode '
       'timeoutIntervalForRequest=$timeoutIntervalForRequest '
       'waitsForConnectivity=$waitsForConnectivity'
       ']';
