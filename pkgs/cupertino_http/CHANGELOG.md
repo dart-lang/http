@@ -1,6 +1,7 @@
 ## 3.0.0-wip
 
 * Remove `shouldUseExtendedBackgroundIdleMode` from `URLSessionConfiguration`.
+* Exclude unnecessary generated code. Slightly reduces disk space requirements.
 
 ## 2.4.0
 
