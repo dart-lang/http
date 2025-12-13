@@ -1,5 +1,6 @@
-## 2.4.1-wip
+## 3.0.0-wip
 
+* Remove `shouldUseExtendedBackgroundIdleMode` from `URLSessionConfiguration`.
 * Fix a bug where close reasons not containing valid UTF-8 would cause an
   uncatchable exception to be thrown.
 
