@@ -28,6 +28,7 @@ preamble: |
   // ignore_for_file: unused_element
   // ignore_for_file: unused_field
   // ignore_for_file: return_of_invalid_type
+exclude-all-by-default: true
 objc-interfaces:
   include:
     - 'NSCondition'
