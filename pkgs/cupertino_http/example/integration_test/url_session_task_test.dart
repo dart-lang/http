@@ -239,9 +239,6 @@ void testURLSessionTaskCommon(
       'cancel',
       () {
         task.cancel();
-        while (true) {
-          print(task.toString());
-        }
         if (suspendedAfterCancel) {
           expect(
             task.state,
@@ -256,7 +253,7 @@ void testURLSessionTaskCommon(
         expect(task.response, null);
         task.toString(); // Just verify that there is no crash.
       },
-      // If the task completes before cancelling then the task state will be
+      // After the request cancellation is complete, the task state will be
       // `NSURLSessionTaskStateCompleted`. So run the test a few times to allow
       // the timing to work out (which still isn't a great approach but I can't
       // think of a better way).
