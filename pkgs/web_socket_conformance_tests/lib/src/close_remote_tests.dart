@@ -67,5 +67,23 @@ void testCloseRemote(
       await expectLater(
           channel.close, throwsA(isA<WebSocketConnectionClosed>()));
     });
+
+    test('with invalid reason', () async {
+      final channel =
+          await channelFactory(uri.replace(queryParameters: {'badutf8': ''}));
+
+      channel.sendText('Please close');
+      final events = await channel.events.toList();
+      expect(events, [
+        isA<CloseReceived>().having(
+            (e) => e.code,
+            'code',
+            anyOf(
+              1005, // No Status Received.
+              1006, // Abnormal Closure.
+              1007, // Invalid Frame Payload Data.
+            ))
+      ]);
+    });
   });
 }

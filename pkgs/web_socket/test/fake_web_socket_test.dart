@@ -16,9 +16,16 @@ void proxy(WebSocket from, WebSocket to) {
         case BinaryDataReceived(:final data):
           to.sendBytes(data);
         case CloseReceived(:var code, :final reason):
-          if (code != null && code != 1000 && (code < 3000 || code > 4999)) {
-            code = null;
-          }
+          // Remove close codes that are not allowed to be sent by WebSocket
+          // clients.
+          // TODO(https://github.com/dart-lang/test/issues/2576): Throw
+          // `SkipTest` instead of setting `code` to `null`.
+          code = switch (code) {
+            null => null,
+            1000 => code,
+            < 3000 || > 4999 => null,
+            _ => code,
+          };
           to.close(code, reason);
       }
     } on WebSocketConnectionClosed {
