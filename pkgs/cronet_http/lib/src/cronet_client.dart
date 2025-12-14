@@ -19,34 +19,16 @@ class _StreamedResponseWithUrl extends StreamedResponse
   @override
   final Uri url;
 
-  _StreamedResponseWithUrl(super.stream, super.statusCode,
-      {required this.url,
-      super.contentLength,
-      super.request,
-      super.headers,
-      super.isRedirect,
-      super.reasonPhrase});
-}
-
-class UrlResponseInfo {
-  final String negotiatedProtocol;
-  final int receivedByteCount;
-  final bool wasCached;
-
-  UrlResponseInfo({
-    required this.negotiatedProtocol,
-    required this.receivedByteCount,
-    required this.wasCached,
+  _StreamedResponseWithUrl(
+    super.stream,
+    super.statusCode, {
+    required this.url,
+    super.contentLength,
+    super.request,
+    super.headers,
+    super.isRedirect,
+    super.reasonPhrase,
   });
-}
-
-extension on jb.UrlResponseInfo {
-  UrlResponseInfo toDart() => UrlResponseInfo(
-        negotiatedProtocol:
-            getNegotiatedProtocol()!.toDartString(releaseOriginal: true),
-        receivedByteCount: getReceivedByteCount(),
-        wasCached: wasCached(),
-      );
 }
 
 /// An HTTP response from the Cronet network stack.
@@ -54,13 +36,11 @@ extension on jb.UrlResponseInfo {
 /// The response body is received asynchronously after the headers have been
 /// received.
 class CronetStreamedResponse extends _StreamedResponseWithUrl {
-  final UrlResponseInfo _responseInfo;
-
   /// The protocol (for example `'quic/1+spdy/3'`) negotiated with the server.
   ///
   /// It will be the empty string or `'unknown'` if no protocol was negotiated,
   /// the protocol is not known, or when using plain HTTP or HTTPS.
-  String get negotiatedProtocol => _responseInfo.negotiatedProtocol;
+  final String negotiatedProtocol;
 
   /// The minimum count of bytes received from the network to process this
   /// request.
@@ -70,23 +50,27 @@ class CronetStreamedResponse extends _StreamedResponseWithUrl {
   /// prior to decompression (for example GZIP) and includes headers and data
   /// from all redirects. This value may change as more response data is
   /// received from the network.
-  int get receivedByteCount => _responseInfo.receivedByteCount;
+  final int receivedByteCount;
 
   /// Whether the response came from the cache.
   ///
   /// Is `true` for requests that were revalidated over the network before being
   /// retrieved from the cache
-  bool get wasCached => _responseInfo.wasCached;
+  final bool wasCached;
 
-  CronetStreamedResponse._(super.stream, super.statusCode,
-      {required UrlResponseInfo responseInfo,
-      required super.url,
-      super.contentLength,
-      super.request,
-      super.headers,
-      super.isRedirect,
-      super.reasonPhrase})
-      : _responseInfo = responseInfo;
+  CronetStreamedResponse._(
+    super.stream,
+    super.statusCode, {
+    required this.negotiatedProtocol,
+    required this.receivedByteCount,
+    required this.wasCached,
+    required super.url,
+    super.contentLength,
+    super.request,
+    super.headers,
+    super.isRedirect,
+    super.reasonPhrase,
+  });
 }
 
 /// The type of caching to use when making HTTP requests.
@@ -278,7 +262,11 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         responseCompleter.complete(CronetStreamedResponse._(
           responseStream!.stream,
           responseInfo.getHttpStatusCode(),
-          responseInfo: responseInfo.toDart(),
+          negotiatedProtocol: responseInfo
+              .getNegotiatedProtocol()!
+              .toDartString(releaseOriginal: true),
+          receivedByteCount: responseInfo.getReceivedByteCount(),
+          wasCached: responseInfo.wasCached(),
           url: Uri.parse(
               responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
           contentLength: contentLength,
@@ -317,18 +305,23 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         if (!request.followRedirects) {
           urlRequest!.cancel();
           responseCompleter.complete(CronetStreamedResponse._(
-              const Stream.empty(), // Cronet provides no body for redirects.
-              responseInfo.getHttpStatusCode(),
-              responseInfo: responseInfo.toDart(),
-              url: Uri.parse(
-                  responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
-              contentLength: 0,
-              reasonPhrase: responseInfo
-                  .getHttpStatusText()!
-                  .toDartString(releaseOriginal: true),
-              request: request,
-              isRedirect: true,
-              headers: _cronetToClientHeaders(responseInfo.getAllHeaders()!)));
+            const Stream.empty(), // Cronet provides no body for redirects.
+            responseInfo.getHttpStatusCode(),
+            negotiatedProtocol: responseInfo
+                .getNegotiatedProtocol()!
+                .toDartString(releaseOriginal: true),
+            receivedByteCount: responseInfo.getReceivedByteCount(),
+            wasCached: responseInfo.wasCached(),
+            url: Uri.parse(
+                responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
+            contentLength: 0,
+            reasonPhrase: responseInfo
+                .getHttpStatusText()!
+                .toDartString(releaseOriginal: true),
+            request: request,
+            isRedirect: true,
+            headers: responseHeaders,
+          ));
 
           profile?.responseData
             ?..headersCommaValues = responseHeaders
