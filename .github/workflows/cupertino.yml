@@ -74,7 +74,7 @@ jobs:
           flutter test -d macos integration_test/main.dart --test-randomize-ordering-seed=random  
   ios:
     name: "iOS: Test"
-    runs-on: macos-latest
+    runs-on: macos-15
     defaults:
       run:
         working-directory: pkgs/cupertino_http
@@ -83,12 +83,12 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.32.0", "any"]
+        xcode_version: ["16.0", "16.1", "16.4", "26.0.1", "26.1.1"]
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
       - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e
         with:
-          flutter-version: "3.39.0-0.1.pre"
+          flutter-version:  "3.39.0-0.1.pre"
           channel: 'beta'
       - id: install
         name: Install dependencies
@@ -101,5 +101,5 @@ jobs:
         run: |
           cd example
           flutter pub get
-          #sudo xcode-select -switch /Applications/Xcode_16.1.app/Contents/Developer
+          sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode_version }}.app/Contents/Developer
           flutter build ipa --no-codesign
