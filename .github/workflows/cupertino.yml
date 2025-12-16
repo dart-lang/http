@@ -44,7 +44,6 @@ jobs:
         run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
   macos:
-    if: false
     name: "macOS: Test"
     runs-on: macos-latest
     defaults:
@@ -60,7 +59,6 @@ jobs:
         # the oldest supported by GitHub.
         os: [macos-13, macos-latest]
     steps:
-      - if: false
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
       - uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e
         with:
