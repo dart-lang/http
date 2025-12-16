@@ -101,4 +101,5 @@ jobs:
         run: |
           cd example
           flutter pub get
+          sudo xcode-select -switch /Applications/Xcode_16.0.app/Contents/Developer
           flutter test integration_test/main.dart --test-randomize-ordering-seed=random
