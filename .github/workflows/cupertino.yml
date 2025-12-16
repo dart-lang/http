@@ -74,7 +74,7 @@ jobs:
           flutter test -d macos integration_test/main.dart --test-randomize-ordering-seed=random  
   ios:
     name: "iOS: Test"
-    runs-on: macos-14
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: pkgs/cupertino_http
@@ -101,5 +101,5 @@ jobs:
         run: |
           cd example
           flutter pub get
-          sudo xcode-select -switch /Applications/Xcode_16.1.app/Contents/Developer
+          #sudo xcode-select -switch /Applications/Xcode_16.1.app/Contents/Developer
           flutter build ipa --no-codesign
