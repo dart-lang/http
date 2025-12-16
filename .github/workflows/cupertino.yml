@@ -74,7 +74,7 @@ jobs:
           flutter test -d macos integration_test/main.dart --test-randomize-ordering-seed=random  
   ios:
     name: "iOS: Test"
-    runs-on: macos-latest
+    runs-on: macos-13
     defaults:
       run:
         working-directory: pkgs/cupertino_http
