@@ -235,22 +235,30 @@ void testURLSessionTaskCommon(
       task.toString(); // Just verify that there is no crash.
     });
 
-    test('cancel', () {
-      task.cancel();
-      if (suspendedAfterCancel) {
-        expect(
-          task.state,
-          NSURLSessionTaskState.NSURLSessionTaskStateSuspended,
-        );
-      } else {
-        expect(
-          task.state,
-          NSURLSessionTaskState.NSURLSessionTaskStateCanceling,
-        );
-      }
-      expect(task.response, null);
-      task.toString(); // Just verify that there is no crash.
-    });
+    test(
+      'cancel',
+      () {
+        task.cancel();
+        if (suspendedAfterCancel) {
+          expect(
+            task.state,
+            NSURLSessionTaskState.NSURLSessionTaskStateSuspended,
+          );
+        } else {
+          expect(
+            task.state,
+            NSURLSessionTaskState.NSURLSessionTaskStateCanceling,
+          );
+        }
+        expect(task.response, null);
+        task.toString(); // Just verify that there is no crash.
+      },
+      // After the request cancellation is complete, the task state will be
+      // `NSURLSessionTaskStateCompleted`. So run the test a few times to allow
+      // the timing to work out (which still isn't a great approach but I can't
+      // think of a better way).
+      retry: 5,
+    );
 
     test('completed', () async {
       task.resume();
