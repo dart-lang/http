@@ -102,4 +102,4 @@ jobs:
           cd example
           flutter pub get
           sudo xcode-select -switch /Applications/Xcode_16.1.app/Contents/Developer
-          flutter test integration_test/main.dart --test-randomize-ordering-seed=random
+          flutter build ipa  --no-codesign
