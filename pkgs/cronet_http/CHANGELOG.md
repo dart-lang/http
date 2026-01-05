@@ -2,6 +2,7 @@
 
 * Made callbacks asynchronous to prevent background errors caused by the
   unavailability of the Dart callback.
+* Change the compile SDK version to 35 for compatibility with `package:jni`.
 
 ## 1.7.0
 
