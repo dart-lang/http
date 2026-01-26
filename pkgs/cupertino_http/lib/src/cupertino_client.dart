@@ -103,7 +103,39 @@ class CupertinoClient extends BaseClient {
 
   URLSession? _urlSession;
 
-  CupertinoClient._(this._urlSession);
+  /// Whether this client owns the underlying session.
+  ///
+  /// If `true`, [close] will invalidate the session.
+  /// If `false`, the session is managed externally and [close] only marks
+  /// this client as closed.
+  final bool _ownsSession;
+
+  CupertinoClient._(this._urlSession) : _ownsSession = true;
+
+  /// Creates a client from an externally-managed [URLSession].
+  ///
+  /// The session's lifecycle is managed externally - calling [close] will
+  /// NOT invalidate the underlying session.
+  ///
+  /// This is useful for sharing a pre-configured session across isolates,
+  /// where native code manages the session lifecycle and SSL/auth delegates.
+  ///
+  /// Example:
+  /// ```dart
+  /// // Get a shared session from native code
+  /// final sessionPointer = MyNativeManager.getSharedSessionPointer();
+  /// final session = URLSession.fromRawPointer(sessionPointer);
+  /// final client = CupertinoClient.fromSharedSession(session);
+  ///
+  /// // Use the client
+  /// final response = await client.get(Uri.parse('https://example.com'));
+  ///
+  /// // Closing the client does NOT affect the shared session
+  /// client.close();
+  /// ```
+  CupertinoClient.fromSharedSession(URLSession session)
+    : _urlSession = session,
+      _ownsSession = false;
 
   String? _findReasonPhrase(int statusCode) {
     switch (statusCode) {
@@ -319,7 +351,9 @@ class CupertinoClient extends BaseClient {
 
   @override
   void close() {
-    _urlSession?.finishTasksAndInvalidate();
+    if (_ownsSession) {
+      _urlSession?.finishTasksAndInvalidate();
+    }
     _urlSession = null;
   }
 
@@ -418,6 +452,13 @@ class CupertinoClient extends BaseClient {
 
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
+
+    // For shared sessions (created externally), use streaming helper since
+    // delegate callbacks are not connected to this client.
+    if (!_ownsSession) {
+      return _sendWithStreaming(urlSession, urlRequest, request, profile);
+    }
+
     final task = urlSession.dataTaskWithRequest(urlRequest);
     if (request case Abortable(:final abortTrigger?)) {
       unawaited(
@@ -467,17 +508,7 @@ class CupertinoClient extends BaseClient {
       throw ClientException('Redirect limit exceeded', request.url);
     }
 
-    final responseHeaders = response.allHeaderFields.map(
-      (key, value) => MapEntry(key.toLowerCase(), value),
-    );
-
-    if (responseHeaders['content-length'] case final contentLengthHeader?
-        when !_digitRegex.hasMatch(contentLengthHeader)) {
-      throw ClientException(
-        'Invalid content-length header [$contentLengthHeader].',
-        request.url,
-      );
-    }
+    final responseHeaders = _getResponseHeaders(response, request);
 
     final contentLength = response.expectedContentLength == -1
         ? null
@@ -501,6 +532,106 @@ class CupertinoClient extends BaseClient {
       isRedirect: isRedirect,
       headers: responseHeaders,
     );
+  }
+
+  /// Sends request using the streaming helper for external sessions.
+  ///
+  /// This provides true streaming on iOS 15+/macOS 12+ using the `bytes(for:)`
+  /// API, with fallback chunking on older versions.
+  Future<StreamedResponse> _sendWithStreaming(
+    URLSession session,
+    URLRequest urlRequest,
+    BaseRequest request,
+    HttpClientRequestProfile? profile,
+  ) async {
+    final task = StreamingTask(session: session, request: urlRequest)..start();
+
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(task.cancel));
+    }
+
+    final URLResponse urlResponse;
+    try {
+      urlResponse = await task.response;
+    } catch (e) {
+      if (e is NSError) {
+        final exception = e.code == _nsurlErrorCancelled
+            ? RequestAbortedException(request.url)
+            : NSErrorClientException(e, request.url);
+        unawaited(profile?.responseData.closeWithError(exception.toString()));
+        throw exception;
+      }
+      rethrow;
+    }
+
+    final response = urlResponse as HTTPURLResponse;
+    final responseHeaders = _getResponseHeaders(response, request);
+
+    final contentLength = response.expectedContentLength == -1
+        ? null
+        : response.expectedContentLength;
+
+    if (profile != null) {
+      unawaited(profile.requestData.close());
+      profile.responseData
+        ..contentLength = contentLength
+        ..headersCommaValues = responseHeaders
+        ..isRedirect = false
+        ..reasonPhrase = _findReasonPhrase(response.statusCode)
+        ..startTime = DateTime.now()
+        ..statusCode = response.statusCode;
+    }
+
+    final controller = StreamController<Uint8List>(onCancel: task.cancel);
+
+    // Forward data chunks
+    task.data.listen(
+      (nsData) {
+        final bytes = nsData.toList();
+        controller.add(bytes);
+        profile?.responseData.bodySink.add(bytes);
+      },
+      onError: (Object e) {
+        if (e is NSError && e.code == _nsurlErrorCancelled) {
+          return;
+        }
+        controller.addError(e);
+        profile?.responseData.closeWithError(e.toString());
+      },
+      onDone: () {
+        controller.close();
+        profile?.responseData.close();
+      },
+    );
+
+    return _StreamedResponseWithUrl(
+      controller.stream,
+      response.statusCode,
+      url: request.url,
+      contentLength: contentLength,
+      reasonPhrase: _findReasonPhrase(response.statusCode),
+      request: request,
+      isRedirect: false,
+      headers: responseHeaders,
+    );
+  }
+
+  Map<String, String> _getResponseHeaders(
+    HTTPURLResponse response,
+    BaseRequest request,
+  ) {
+    final headers = <String, String>{};
+    for (final entry in response.allHeaderFields.entries) {
+      headers[entry.key.toLowerCase()] = entry.value;
+    }
+    final contentLength = headers['content-length'];
+    if (contentLength != null && !_digitRegex.hasMatch(contentLength)) {
+      throw ClientException(
+        'Invalid content-length header [$contentLength].',
+        request.url,
+      );
+    }
+    return headers;
   }
 }
 

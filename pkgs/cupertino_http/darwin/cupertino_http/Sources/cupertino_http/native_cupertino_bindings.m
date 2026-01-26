@@ -12,6 +12,7 @@
 #import <Foundation/NSOperation.h>
 #import <Foundation/NSError.h>
 #import <Foundation/NSDictionary.h>
+#import "CUPHTTPStreamingTask.h"
 
 #if !__has_feature(objc_arc)
 #error "This file must be compiled with ARC enabled"

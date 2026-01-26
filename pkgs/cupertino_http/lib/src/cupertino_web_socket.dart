@@ -139,6 +139,46 @@ class CupertinoWebSocket implements WebSocket {
     return readyCompleter.future;
   }
 
+  /// Creates a [CupertinoWebSocket] from an existing, connected
+  /// [URLSessionWebSocketTask].
+  ///
+  /// This is useful when using a [URLSession] created externally (e.g., via
+  /// [URLSession.fromRawPointer]) where delegate callbacks are managed by
+  /// native code.
+  ///
+  /// The [task] must already be resumed and the connection must be established
+  /// (i.e., the native delegate's
+  /// `URLSession:webSocketTask:didOpenWithProtocol:` callback has fired).
+  /// Pass the negotiated [protocol] if one was selected during the handshake.
+  ///
+  /// Example:
+  /// ```dart
+  /// // Get a shared session pointer from native code
+  /// final sessionPointer = getSharedSessionPointer();
+  /// final session = URLSession.fromRawPointer(sessionPointer);
+  ///
+  /// // Create and start the WebSocket task
+  /// final task = session.webSocketTaskWithURL(
+  ///   Uri.parse('wss://example.com/socket'),
+  ///   protocols: ['v1'],
+  /// );
+  /// task.resume();
+  ///
+  /// // Wait for native delegate to signal connection is open
+  /// final negotiatedProtocol = await waitForWebSocketOpen(task);
+  ///
+  /// // Create the Dart WebSocket wrapper
+  /// final webSocket = CupertinoWebSocket.fromConnectedTask(
+  ///   task,
+  ///   protocol: negotiatedProtocol,
+  /// );
+  /// ```
+  factory CupertinoWebSocket.fromConnectedTask(
+    URLSessionWebSocketTask task, {
+    String protocol = '',
+  }) =>
+      CupertinoWebSocket._(task, protocol);
+
   final URLSessionWebSocketTask _task;
   final String _protocol;
   final _events = StreamController<WebSocketEvent>();
@@ -187,6 +227,17 @@ class CupertinoWebSocket implements WebSocket {
         // close code.
         return;
       }
+
+      // Check if the task received a close frame from the server.
+      // The task stores the close code/reason regardless of whether
+      // delegate callbacks are connected.
+      final taskCloseCode = _task.closeCode;
+      if (taskCloseCode != 0) {
+        // 0 = NSURLSessionWebSocketCloseCodeInvalid (not set)
+        _connectionClosed(taskCloseCode, _task.closeReason);
+        return;
+      }
+
       var (int code, String? reason) = switch ([domain, e.code]) {
         ['NSPOSIXErrorDomain', 100] => (
           1002,
