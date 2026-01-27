@@ -122,8 +122,8 @@ class CronetEngine {
   ///
   /// [quicHints] adds a list of hosts that support QUIC.  Each hint is a tuple
   /// of (host, port, alternativePort) that indicates that the host supports
-  /// QUIC. Note that [CacheMode.disk] is needed to take advantage of 0-RTT
-  /// connection establishment between sessions.
+  /// QUIC. Note that [CacheMode.disk] or [CacheMode.diskNoHttp] is needed to
+  /// take advantage of 0-RTT connection establishment between sessions.
   static CronetEngine build(
       {CacheMode? cacheMode,
       int? cacheMaxSize,

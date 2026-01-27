@@ -138,17 +138,29 @@ void testQuicHints() {
       server.close();
     });
 
+    test('quic hints', () async {
+      final engine = CronetEngine.build(
+          cacheMode: CacheMode.diskNoHttp,
+          enableQuic: true,
+          enableHttp2: false,
+          quicHints: [
+            ('www.google.com', 443, 443),
+          ]);
+      final response = await CronetClient.fromCronetEngine(engine)
+          .send(Request('GET', Uri.parse('https://www.google.com/')));
+      expect(response.negotiatedProtocol, 'h3');
+    }, skip: 'requires internet access');
+
     test('no quic hints', () async {
-      final engine = CronetEngine.build(quicHints: [
-        ('localhost', server.port, server.port),
-      ]);
-      final r = await CronetClient.fromCronetEngine(engine)
-          .get(Uri.parse('https://localhost:${server.port}'));
-      print(r.headers);
-      print(r.isRedirect);
-      print(r.statusCode);
-      print(r.body);
-    });
+      final engine = CronetEngine.build(
+        cacheMode: CacheMode.diskNoHttp,
+        enableQuic: true,
+        enableHttp2: false,
+      );
+      final response = await CronetClient.fromCronetEngine(engine)
+          .send(Request('GET', Uri.parse('https://www.google.com/')));
+      expect(response.negotiatedProtocol, 'http1.1');
+    }, skip: 'requires internet access');
   });
 }
 
