@@ -143,7 +143,7 @@ void testQuicHints() {
         ('localhost', server.port, server.port),
       ]);
       final r = await CronetClient.fromCronetEngine(engine)
-          .get(Uri.parse('http://localhost:${server.port}'));
+          .get(Uri.parse('https://localhost:${server.port}'));
       print(r.headers);
       print(r.isRedirect);
       print(r.statusCode);
