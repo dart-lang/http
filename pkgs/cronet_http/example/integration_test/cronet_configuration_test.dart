@@ -142,8 +142,12 @@ void testQuicHints() {
       final engine = CronetEngine.build(quicHints: [
         ('localhost', server.port, server.port),
       ]);
-      await CronetClient.fromCronetEngine(engine)
+      final r = await CronetClient.fromCronetEngine(engine)
           .get(Uri.parse('http://localhost:${server.port}'));
+      print(r.headers);
+      print(r.isRedirect);
+      print(r.statusCode);
+      print(r.body);
     });
   });
 }
