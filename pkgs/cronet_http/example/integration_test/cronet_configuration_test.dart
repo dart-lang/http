@@ -121,6 +121,35 @@ void testUserAgent() {
   });
 }
 
+void testQuicHints() {
+  group('quicHints', () {
+    late HttpServer server;
+    late HttpHeaders requestHeaders;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          requestHeaders = request.headers;
+          request.response.headers.set('Content-Type', 'text/plain');
+          request.response.write('Hello World');
+          await request.response.close();
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('quicHints', () async {
+      final engine = CronetEngine.build(quicHints: [
+        ('localhost', server.port, server.port),
+      ]);
+      await CronetClient.fromCronetEngine(engine)
+          .get(Uri.parse('http://localhost:${server.port}'));
+    });
+  });
+}
+
 void testEngineClose() {
   group('engine close', () {
     test('multiple close', () {
@@ -155,5 +184,6 @@ void main() {
   testCache();
   testInvalidConfigurations();
   testUserAgent();
+  testQuicHints();
   testEngineClose();
 }
