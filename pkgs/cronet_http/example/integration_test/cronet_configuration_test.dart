@@ -121,6 +121,49 @@ void testUserAgent() {
   });
 }
 
+void testQuicHints() {
+  group('quicHints', () {
+    late HttpServer server;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          request.response.headers.set('Content-Type', 'text/plain');
+          request.response.write('Hello World');
+          await request.response.close();
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('quic hints', () async {
+      final engine = CronetEngine.build(
+          cacheMode: CacheMode.diskNoHttp,
+          enableQuic: true,
+          enableHttp2: false,
+          quicHints: [
+            ('www.google.com', 443, 443),
+          ]);
+      final response = await CronetClient.fromCronetEngine(engine)
+          .send(Request('GET', Uri.parse('https://www.google.com/')));
+      expect(response.negotiatedProtocol, 'h3');
+    }, skip: 'requires internet access');
+
+    test('no quic hints', () async {
+      final engine = CronetEngine.build(
+        cacheMode: CacheMode.diskNoHttp,
+        enableQuic: true,
+        enableHttp2: false,
+      );
+      final response = await CronetClient.fromCronetEngine(engine)
+          .send(Request('GET', Uri.parse('https://www.google.com/')));
+      expect(response.negotiatedProtocol, 'http1.1');
+    }, skip: 'requires internet access');
+  });
+}
+
 void testEngineClose() {
   group('engine close', () {
     test('multiple close', () {
@@ -155,5 +198,6 @@ void main() {
   testCache();
   testInvalidConfigurations();
   testUserAgent();
+  testQuicHints();
   testEngineClose();
 }

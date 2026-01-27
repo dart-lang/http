@@ -1,8 +1,9 @@
-## 1.7.1-wip
+## 1.8.0-wip
 
 * Made callbacks asynchronous to prevent background errors caused by the
   unavailability of the Dart callback.
 * Change the compile SDK version to 35 for compatibility with `package:jni`.
+* Add support for QUIC hints.
 
 ## 1.7.0
 

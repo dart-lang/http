@@ -119,6 +119,11 @@ class CronetEngine {
   /// should be used per [CronetEngine].
   ///
   /// [userAgent] controls the `User-Agent` header.
+  ///
+  /// [quicHints] adds a list of hosts that support QUIC. Each hint is a tuple
+  /// of (host, port, alternativePort) that indicates that the host supports
+  /// QUIC. Note that [CacheMode.disk] or [CacheMode.diskNoHttp] is needed to
+  /// take advantage of 0-RTT connection establishment between sessions.
   static CronetEngine build(
       {CacheMode? cacheMode,
       int? cacheMaxSize,
@@ -127,7 +132,8 @@ class CronetEngine {
       bool? enablePublicKeyPinningBypassForLocalTrustAnchors,
       bool? enableQuic,
       String? storagePath,
-      String? userAgent}) {
+      String? userAgent,
+      List<(String, int, int)>? quicHints}) {
     try {
       return using((arena) {
         final builder = jb.CronetEngine$Builder(
@@ -171,6 +177,13 @@ class CronetEngine {
           builder
               .setUserAgent(userAgent.toJString()..releasedBy(arena))
               ?.release();
+        }
+
+        if (quicHints != null) {
+          for (final (host, port, alternativePort) in quicHints) {
+            builder.addQuicHint(
+                host.toJString()..releasedBy(arena), port, alternativePort);
+          }
         }
 
         return CronetEngine._(builder.build()!);
