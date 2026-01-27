@@ -124,13 +124,11 @@ void testUserAgent() {
 void testQuicHints() {
   group('quicHints', () {
     late HttpServer server;
-    late HttpHeaders requestHeaders;
 
     setUp(() async {
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
           await request.drain<void>();
-          requestHeaders = request.headers;
           request.response.headers.set('Content-Type', 'text/plain');
           request.response.write('Hello World');
           await request.response.close();
@@ -140,7 +138,7 @@ void testQuicHints() {
       server.close();
     });
 
-    test('quicHints', () async {
+    test('no quic hints', () async {
       final engine = CronetEngine.build(quicHints: [
         ('localhost', server.port, server.port),
       ]);
