@@ -64,9 +64,6 @@ class Response extends BaseResponse {
         persistentConnection: response.persistentConnection,
         reasonPhrase: response.reasonPhrase);
   }
-
-  /// Returns true if the status code is 200 (OK).
-  bool get isOk => statusCode == 200;
 }
 
 /// Returns the encoding to use for a response with the given headers.
