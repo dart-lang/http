@@ -52,4 +52,17 @@ void main() {
       supportsAbort: true,
     );
   });
+  group('fromSharedSession', () {
+    // Uses StreamingTask internally since delegate callbacks aren't available.
+    // Redirect behavior is controlled by the external session's configuration.
+    testAll(
+      () => CupertinoClient.fromSharedSession(URLSession.sharedSession()),
+      canWorkInIsolates: false,
+      redirectAlwaysAllowed: true,
+      canReceiveSetCookieHeaders: true,
+      canSendCookieHeaders: true,
+      correctlyHandlesNullHeaderValues: false,
+      supportsAbort: true,
+    );
+  });
 }

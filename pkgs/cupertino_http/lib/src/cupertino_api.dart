@@ -345,9 +345,23 @@ class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
   /// See [NSURLResponse.MIMEType](https://developer.apple.com/documentation/foundation/nsurlresponse/1411613-mimetype)
   String? get mimeType => _nsObject.MIMEType?.toDartString();
 
+  /// The URL for the response.
+  ///
+  /// This may differ from the request URL if redirects occurred.
+  ///
+  /// See [NSURLResponse.URL](https://developer.apple.com/documentation/foundation/nsurlresponse/1414219-url)
+  Uri? get url {
+    final nsUrl = _nsObject.URL;
+    if (nsUrl == null) {
+      return null;
+    }
+    return _nsurlToUri(nsUrl);
+  }
+
   @override
   String toString() =>
       '[URLResponse '
+      'url=$url '
       'mimeType=$mimeType '
       'expectedContentLength=$expectedContentLength'
       ']';

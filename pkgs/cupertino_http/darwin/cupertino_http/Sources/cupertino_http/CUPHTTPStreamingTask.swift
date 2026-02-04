@@ -15,7 +15,7 @@ public class CUPHTTPStreamingTask: NSObject {
     private let request: URLRequest
     private let chunkSize: Int
 
-    /// Internal data task reference for cancellation (legacy path)
+    /// Internal data task reference for cancellation
     private var dataTask: URLSessionDataTask?
 
     /// Swift Task handle for async cancellation (iOS 15+)
@@ -73,9 +73,8 @@ public class CUPHTTPStreamingTask: NSObject {
             if let task = asyncTask as? Task<Void, Never> {
                 task.cancel()
             }
-        } else {
-            dataTask?.cancel()
         }
+        dataTask?.cancel()
     }
 
     @available(iOS 15.0, macOS 12.0, *)
@@ -84,7 +83,9 @@ public class CUPHTTPStreamingTask: NSObject {
             guard let self = self else { return }
 
             do {
+                if Task.isCancelled { throw URLError(.cancelled) }
                 let (asyncBytes, response) = try await self.session.bytes(for: self.request)
+                self.dataTask = asyncBytes.task
 
                 // Deliver response metadata first
                 self.deliverResponse(response, error: nil)
@@ -97,11 +98,12 @@ public class CUPHTTPStreamingTask: NSObject {
                     buffer[offset] = byte
                     offset += 1
                     if offset >= chunkSize {
-                        if Task.isCancelled { break }
+                        if Task.isCancelled { throw URLError(.cancelled) }
                         self.deliverData(Data(bytes: buffer.baseAddress!, count: offset))
                         offset = 0
                     }
                 }
+                if Task.isCancelled { throw URLError(.cancelled) }
 
                 // Flush remaining buffer
                 if offset > 0 {
@@ -109,13 +111,10 @@ public class CUPHTTPStreamingTask: NSObject {
                 }
 
                 self.deliverCompletion(error: nil)
-
             } catch {
-                if !Task.isCancelled {
-                    let nsError = error as NSError
-                    self.deliverResponse(nil, error: nsError)
-                    self.deliverCompletion(error: nsError)
-                }
+                let nsError = error as NSError
+                self.deliverResponse(nil, error: nsError)
+                self.deliverCompletion(error: nsError)
             }
         }
     }

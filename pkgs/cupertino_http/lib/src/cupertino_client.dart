@@ -120,6 +120,11 @@ class CupertinoClient extends BaseClient {
   /// This is useful for sharing a pre-configured session across isolates,
   /// where native code manages the session lifecycle and SSL/auth delegates.
   ///
+  /// **Note:** Since this client does not own the session's delegate,
+  /// redirect behavior is controlled by the session's configuration.
+  /// [BaseRequest.followRedirects] and [BaseRequest.maxRedirects] have no
+  /// effect - the session will follow redirects according to its own policy.
+  ///
   /// Example:
   /// ```dart
   /// // Get a shared session from native code
@@ -242,9 +247,7 @@ class CupertinoClient extends BaseClient {
     //
     // In both of these cases [URLSessionTask.cancel] is called, which completes
     // the task with a NSURLErrorCancelled error.
-    final isCancelError =
-        error?.domain.toDartString() == 'NSURLErrorDomain' &&
-        error?.code == _nsurlErrorCancelled;
+    final isCancelError = error?.isCancelled ?? false;
     if (error != null &&
         !(isCancelError && taskTracker.responseListenerCancelled)) {
       final Exception exception;
@@ -554,10 +557,11 @@ class CupertinoClient extends BaseClient {
     try {
       urlResponse = await task.response;
     } catch (e) {
-      if (e is NSError) {
-        final exception = e.code == _nsurlErrorCancelled
+      if (e is ObjCObject && NSError.isA(e)) {
+        final nsError = NSError.as(e);
+        final exception = nsError.isCancelled
             ? RequestAbortedException(request.url)
-            : NSErrorClientException(e, request.url);
+            : NSErrorClientException(nsError, request.url);
         unawaited(profile?.responseData.closeWithError(exception.toString()));
         throw exception;
       }
@@ -592,7 +596,13 @@ class CupertinoClient extends BaseClient {
         profile?.responseData.bodySink.add(bytes);
       },
       onError: (Object e) {
-        if (e is NSError && e.code == _nsurlErrorCancelled) {
+        if (e is ObjCObject && NSError.isA(e)) {
+          final nsError = NSError.as(e);
+          final exception = nsError.isCancelled
+              ? RequestAbortedException(request.url)
+              : NSErrorClientException(nsError, request.url);
+          controller.addError(exception);
+          profile?.responseData.closeWithError(exception.toString());
           return;
         }
         controller.addError(e);
@@ -604,10 +614,13 @@ class CupertinoClient extends BaseClient {
       },
     );
 
+    // Use response URL (final URL after redirects) if available
+    final responseUrl = urlResponse.url ?? request.url;
+
     return _StreamedResponseWithUrl(
       controller.stream,
       response.statusCode,
-      url: request.url,
+      url: responseUrl,
       contentLength: contentLength,
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
@@ -656,4 +669,11 @@ class CupertinoClientWithProfile extends CupertinoClient {
     );
     return CupertinoClientWithProfile._(session);
   }
+}
+
+final urlError = NSString('NSURLErrorDomain');
+
+extension NSErrorExtension on NSError {
+  bool get isCancelled =>
+      code == _nsurlErrorCancelled && urlError.isEqualToString(domain);
 }
