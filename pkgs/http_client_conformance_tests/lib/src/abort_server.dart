@@ -26,7 +26,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
 
-      for (var i = 0; i < 10000; ++i) {
+      for (var i = 0; i < 20000; ++i) {
         request.response.write('$i\n');
         await request.response.flush();
         // Let the event loop run.

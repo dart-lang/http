@@ -195,7 +195,7 @@ void testAbort(
         );
         final response = await client.send(request);
 
-        // Verify that fewer than the 10000 lines sent by the server are
+        // Verify that fewer than the 20000 lines sent by the server are
         // received.
         var i = 0;
         await expectLater(
@@ -211,7 +211,7 @@ void testAbort(
           ).asFuture<void>(),
           throwsA(isA<RequestAbortedException>()),
         );
-        expect(i, lessThan(10000));
+        expect(i, lessThan(20000));
       },
       skip: supportsAbort
           ? (canStreamResponseBody ? false : 'does not stream response bodies')

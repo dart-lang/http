@@ -459,7 +459,7 @@ class CupertinoClient extends BaseClient {
     // For shared sessions (created externally), use streaming helper since
     // delegate callbacks are not connected to this client.
     if (!_ownsSession) {
-      return _sendWithStreaming(urlSession, urlRequest, request, profile);
+      return _sendStreaming(urlSession, urlRequest, request, profile, nsStream);
     }
 
     final task = urlSession.dataTaskWithRequest(urlRequest);
@@ -541,11 +541,12 @@ class CupertinoClient extends BaseClient {
   ///
   /// This provides true streaming on iOS 15+/macOS 12+ using the `bytes(for:)`
   /// API, with fallback chunking on older versions.
-  Future<StreamedResponse> _sendWithStreaming(
+  Future<StreamedResponse> _sendStreaming(
     URLSession session,
     URLRequest urlRequest,
     BaseRequest request,
     HttpClientRequestProfile? profile,
+    NSInputStream? nsStream,
   ) async {
     final task = StreamingTask(session: session, request: urlRequest)..start();
 
@@ -566,6 +567,10 @@ class CupertinoClient extends BaseClient {
         throw exception;
       }
       rethrow;
+    } finally {
+      if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
+        nsStream?.close();
+      }
     }
 
     final response = urlResponse as HTTPURLResponse;

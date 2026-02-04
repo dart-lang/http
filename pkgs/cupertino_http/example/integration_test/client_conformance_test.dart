@@ -62,6 +62,7 @@ void main() {
       canReceiveSetCookieHeaders: true,
       canSendCookieHeaders: true,
       correctlyHandlesNullHeaderValues: false,
+      canStreamRequestBody: true,
       supportsAbort: true,
     );
   });

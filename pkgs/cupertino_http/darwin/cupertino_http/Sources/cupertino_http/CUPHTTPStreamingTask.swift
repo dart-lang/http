@@ -15,7 +15,7 @@ public class CUPHTTPStreamingTask: NSObject {
     private let request: URLRequest
     private let chunkSize: Int
 
-    /// Internal data task reference for cancellation
+    /// Internal data task reference for cancellation (legacy path)
     private var dataTask: URLSessionDataTask?
 
     /// Swift Task handle for async cancellation (iOS 15+)
@@ -73,8 +73,9 @@ public class CUPHTTPStreamingTask: NSObject {
             if let task = asyncTask as? Task<Void, Never> {
                 task.cancel()
             }
+        } else {
+            dataTask?.cancel()
         }
-        dataTask?.cancel()
     }
 
     @available(iOS 15.0, macOS 12.0, *)
@@ -83,9 +84,7 @@ public class CUPHTTPStreamingTask: NSObject {
             guard let self = self else { return }
 
             do {
-                if Task.isCancelled { throw URLError(.cancelled) }
                 let (asyncBytes, response) = try await self.session.bytes(for: self.request)
-                self.dataTask = asyncBytes.task
 
                 // Deliver response metadata first
                 self.deliverResponse(response, error: nil)
@@ -98,12 +97,10 @@ public class CUPHTTPStreamingTask: NSObject {
                     buffer[offset] = byte
                     offset += 1
                     if offset >= chunkSize {
-                        if Task.isCancelled { throw URLError(.cancelled) }
                         self.deliverData(Data(bytes: buffer.baseAddress!, count: offset))
                         offset = 0
                     }
                 }
-                if Task.isCancelled { throw URLError(.cancelled) }
 
                 // Flush remaining buffer
                 if offset > 0 {
@@ -112,7 +109,12 @@ public class CUPHTTPStreamingTask: NSObject {
 
                 self.deliverCompletion(error: nil)
             } catch {
-                let nsError = error as NSError
+                let nsError: NSError
+                if error is CancellationError {
+                    nsError = URLError(.cancelled) as NSError
+                } else {
+                    nsError = error as NSError
+                }
                 self.deliverResponse(nil, error: nsError)
                 self.deliverCompletion(error: nsError)
             }
@@ -128,8 +130,9 @@ public class CUPHTTPStreamingTask: NSObject {
             guard let self = self else { return }
 
             if let error = error {
-                self.deliverResponse(response, error: error as NSError)
-                self.deliverCompletion(error: error as NSError)
+                let nsError = error as NSError
+                self.deliverResponse(response, error: nsError)
+                self.deliverCompletion(error: nsError)
                 return
             }
 
@@ -147,7 +150,7 @@ public class CUPHTTPStreamingTask: NSObject {
 
     private func deliverResponse(_ response: URLResponse?, error: NSError?) {
         let cb = onResponse
-        onResponse = nil  // One-shot callback
+        onResponse = nil
         cb?(response, error)
     }
 
@@ -157,8 +160,8 @@ public class CUPHTTPStreamingTask: NSObject {
 
     private func deliverCompletion(error: NSError?) {
         let cb = onComplete
-        onComplete = nil  // One-shot callback
-        onData = nil  // Release reference
+        onComplete = nil
+        onData = nil
         cb?(error)
     }
 }
