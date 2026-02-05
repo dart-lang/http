@@ -56,4 +56,29 @@ Future<void> testConformance() async {
       }
     });
   });
+
+  group('ok_http client fromJniGlobalRef', () {
+    final owners = <OkHttpClient>[];
+
+    tearDownAll(() {
+      for (final owner in owners) {
+        owner.close();
+      }
+    });
+
+    testAll(
+      () {
+        final owner = OkHttpClient();
+        owners.add(owner);
+        return OkHttpClient.fromJniGlobalRef(owner.nativeReference);
+      },
+      canStreamRequestBody: true,
+      preservesMethodCase: true,
+      supportsFoldedHeaders: false,
+      canSendCookieHeaders: true,
+      canReceiveSetCookieHeaders: true,
+      correctlyHandlesNullHeaderValues: false,
+      supportsAbort: true,
+    );
+  });
 }

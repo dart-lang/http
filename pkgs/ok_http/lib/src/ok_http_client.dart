@@ -232,6 +232,16 @@ class OkHttpClient extends BaseClient {
   /// It can be updated multiple times during the client's lifecycle.
   OkHttpClientConfiguration configuration;
 
+  /// Returns the JNI global reference pointer for this client's native object.
+  ///
+  /// This is useful for passing the native client to other Dart code via
+  /// [OkHttpClient.fromJniGlobalRef], or for interop with native code.
+  ///
+  /// The returned pointer remains valid until [close] is called (if this client
+  /// owns the native object) or until the external owner releases it.
+  // ignore: invalid_use_of_internal_member
+  Pointer<Void> get nativeReference => _client.reference.pointer;
+
   /// Creates an [OkHttpClient] from a JNI global reference pointer.
   ///
   /// The [pointer] must be a valid JNI global reference to an `okhttp3.OkHttpClient`
