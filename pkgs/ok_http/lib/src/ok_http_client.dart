@@ -13,6 +13,7 @@
 library;
 
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -218,15 +219,55 @@ class OkHttpClient extends BaseClient {
   late bindings.OkHttpClient _client;
   bool _isClosed = false;
 
+  /// Whether this client owns the underlying native client.
+  ///
+  /// If `true`, [close] will shut down the native client's executor service,
+  /// evict all connections, and close the cache.
+  ///
+  /// If `false`, [close] will only mark this wrapper as closed without
+  /// affecting the underlying native client, which is managed externally.
+  final bool _ownsClient;
+
   /// The configuration for this client, applied on a per-call basis.
   /// It can be updated multiple times during the client's lifecycle.
   OkHttpClientConfiguration configuration;
 
+  /// Creates an [OkHttpClient] from a JNI global reference pointer.
+  ///
+  /// The [pointer] must be a valid JNI global reference to an `okhttp3.OkHttpClient`
+  /// Java object. The reference is NOT released when [close] is called - the
+  /// caller is responsible for releasing the global reference when done.
+  ///
+  /// This is useful for sharing a pre-configured client across Dart and native
+  /// code, where native code manages the client lifecycle and SSL configuration.
+  ///
+  /// Example:
+  /// ```dart
+  /// // Get a JNI global reference from native code (e.g., via Pigeon or platform channel)
+  /// final pointer = Pointer<Void>.fromAddress(globalRefAddress);
+  /// final client = OkHttpClient.fromJniGlobalRef(pointer);
+  ///
+  /// // Use the client
+  /// final response = await client.get(Uri.parse('https://example.com'));
+  ///
+  /// // Closing this wrapper does NOT release the global reference
+  /// client.close();
+  /// ```
+  OkHttpClient.fromJniGlobalRef(
+    Pointer<Void> pointer, {
+    OkHttpClientConfiguration configuration = const OkHttpClientConfiguration(),
+  })  : this.configuration = configuration,
+        _client =
+            bindings.OkHttpClient.fromReference(JGlobalReference(pointer)),
+        _ownsClient = false;
+
   /// Creates a new instance of [OkHttpClient] with the given [configuration].
+  ///
+  /// This constructor creates and owns its own native OkHttpClient.
+  /// Calling [close] will shut down the native client's resources.
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
-//    required String alias,
-  }) {
+  }) : _ownsClient = true {
     final clientPrivateKey = configuration.clientPrivateKey;
     final clientCertificateChain = configuration.clientCertificateChain;
 
@@ -281,7 +322,9 @@ class OkHttpClient extends BaseClient {
 
   @override
   void close() {
-    if (!_isClosed) {
+    // If we don't own the client, we don't shut it down - it's managed
+    // externally. We just mark this wrapper as closed.
+    if (!_isClosed && _ownsClient) {
       // Refer to OkHttp documentation for the shutdown procedure:
       // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/index.html#:~:text=Shutdown
 
@@ -501,7 +544,10 @@ class OkHttpClient extends BaseClient {
                 bindings.$DataCallback(
                   onDataRead: (bytesRead) {
                     if (bodyStreamController.isClosed) return;
-                    var data = bytesRead.toList(growable: false);
+                    final data = Uint8List(bytesRead.length);
+                    for (var i = 0; i < bytesRead.length; ++i) {
+                      data[i] = bytesRead[i];
+                    }
 
                     bodyStreamController.sink.add(data);
                     profile?.responseData.bodySink.add(data);
