@@ -32,13 +32,11 @@ typedef void (^CUPHTTPCompletionBlock)(NSError * _Nullable error);
 /// @param onResponse Called once when response headers are available, or with error
 /// @param onData Called repeatedly with buffered data chunks
 /// @param onComplete Called once when the request completes
-/// @param chunkSize Buffer size in bytes before delivering to callback (default 65536)
 - (instancetype)initWithSession:(NSURLSession *)session
                         request:(NSURLRequest *)request
                      onResponse:(CUPHTTPResponseBlock _Nullable)onResponse
                          onData:(CUPHTTPDataBlock _Nullable)onData
-                     onComplete:(CUPHTTPCompletionBlock _Nullable)onComplete
-                      chunkSize:(NSInteger)chunkSize;
+                     onComplete:(CUPHTTPCompletionBlock _Nullable)onComplete;
 
 /// Starts the streaming request.
 - (void)start;

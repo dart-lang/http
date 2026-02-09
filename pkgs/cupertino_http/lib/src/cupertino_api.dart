@@ -1359,12 +1359,9 @@ class StreamingTask {
   Stream<objc.NSData> get data => _dataController.stream;
 
   /// Creates a streaming task for the given session and request.
-  ///
-  /// [chunkSize] controls buffering before data is delivered (default 64KB).
   factory StreamingTask({
     required URLSession session,
     required URLRequest request,
-    int chunkSize = 65536,
   }) {
     final responseCompleter = Completer<URLResponse>();
     final dataController = StreamController<objc.NSData>();
@@ -1404,9 +1401,7 @@ class StreamingTask {
         }
         dataController.close();
       }),
-      chunkSize: chunkSize,
     );
-
     return StreamingTask._(nsTask, responseCompleter, dataController);
   }
 

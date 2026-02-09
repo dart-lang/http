@@ -13,14 +13,12 @@ import os
 public class CUPHTTPStreamingTask: NSObject {
     private let session: URLSession
     private let request: URLRequest
-    private let chunkSize: Int
 
-    /// Internal data task reference for cancellation (legacy path)
+    /// Internal data task reference for cancellation
     private var dataTask: URLSessionDataTask?
 
-    /// Swift Task handle for async cancellation (iOS 15+)
-    /// Using Any to avoid @available requirement on stored property
-    private var asyncTask: Any?
+    /// Strong reference keeps delegate alive for the task's lifetime.
+    private var taskDelegate: (any URLSessionDataDelegate)?
 
     /// Callbacks (held strongly during request)
     /// No need for synchronization since they're only used sequentially in the task
@@ -44,14 +42,12 @@ public class CUPHTTPStreamingTask: NSObject {
         onResponse: ((URLResponse?, NSError?) -> Void)?,
         onData: ((NSData) -> Void)?,
         onComplete: ((NSError?) -> Void)?,
-        chunkSize: Int = 65536
     ) {
         self.session = session
         self.request = request
         self.onResponse = onResponse
         self.onData = onData
         self.onComplete = onComplete
-        self.chunkSize = chunkSize
         super.init()
     }
 
@@ -59,7 +55,7 @@ public class CUPHTTPStreamingTask: NSObject {
     @objc
     public func start() {
         if #available(iOS 15.0, macOS 12.0, *) {
-            startWithAsyncBytes()
+            startWithTaskDelegate()
         } else {
             startWithLegacyFallback()
         }
@@ -68,57 +64,25 @@ public class CUPHTTPStreamingTask: NSObject {
     /// Cancels the in-flight request.
     @objc
     public func cancel() {
-        // Cancel the async Task if available (iOS 15+ path)
-        if #available(iOS 15.0, macOS 12.0, *) {
-            if let task = asyncTask as? Task<Void, Never> {
-                task.cancel()
-            }
-        } else {
-            dataTask?.cancel()
-        }
+        dataTask?.cancel()
     }
 
     @available(iOS 15.0, macOS 12.0, *)
-    private func startWithAsyncBytes() {
-        asyncTask = Task { [weak self] in
-            guard let self = self else { return }
+    private func startWithTaskDelegate() {
+        let delegate = _StreamingTaskDelegate(
+            onResponse: onResponse,
+            onData: onData,
+            onComplete: onComplete
+        )
+        onResponse = nil
+        onData = nil
+        onComplete = nil
 
-            do {
-                let (asyncBytes, response) = try await self.session.bytes(for: self.request)
-
-                // Deliver response metadata first
-                self.deliverResponse(response, error: nil)
-
-                let buffer = UnsafeMutableBufferPointer<UInt8>.allocate(capacity: self.chunkSize)
-                defer { buffer.deallocate() }
-                var offset = 0
-
-                for try await byte in asyncBytes {
-                    buffer[offset] = byte
-                    offset += 1
-                    if offset >= chunkSize {
-                        self.deliverData(Data(bytes: buffer.baseAddress!, count: offset))
-                        offset = 0
-                    }
-                }
-
-                // Flush remaining buffer
-                if offset > 0 {
-                    self.deliverData(Data(bytes: buffer.baseAddress!, count: offset))
-                }
-
-                self.deliverCompletion(error: nil)
-            } catch {
-                let nsError: NSError
-                if error is CancellationError {
-                    nsError = URLError(.cancelled) as NSError
-                } else {
-                    nsError = error as NSError
-                }
-                self.deliverResponse(nil, error: nsError)
-                self.deliverCompletion(error: nsError)
-            }
-        }
+        let task = session.dataTask(with: request)
+        task.delegate = delegate
+        self.taskDelegate = delegate
+        self.dataTask = task
+        task.resume()
     }
 
     /// Fallback for older OS versions that don't have bytes(for:).
@@ -162,6 +126,70 @@ public class CUPHTTPStreamingTask: NSObject {
         let cb = onComplete
         onComplete = nil
         onData = nil
+        taskDelegate = nil  // Break retain cycle
         cb?(error)
+    }
+}
+
+/// Per-task data delegate that handles only streaming delivery.
+///
+/// Note: any delegate method implemented here will be used in place of a 
+/// session-level delegate's implementation. As such, adding overrides is
+/// effectively a breaking change.
+private final class _StreamingTaskDelegate: NSObject, URLSessionDataDelegate {
+    private var onResponse: ((URLResponse?, NSError?) -> Void)?
+    private var onData: ((NSData) -> Void)?
+    private var onComplete: ((NSError?) -> Void)?
+    private var responseDelivered = false
+
+    init(
+        onResponse: ((URLResponse?, NSError?) -> Void)?,
+        onData: ((NSData) -> Void)?,
+        onComplete: ((NSError?) -> Void)?
+    ) {
+        self.onResponse = onResponse
+        self.onData = onData
+        self.onComplete = onComplete
+        super.init()
+    }
+
+    func urlSession(
+        _ session: URLSession,
+        dataTask: URLSessionDataTask,
+        didReceive response: URLResponse,
+        completionHandler: @escaping (URLSession.ResponseDisposition) -> Void
+    ) {
+        responseDelivered = true
+        let cb = onResponse
+        onResponse = nil
+        cb?(response, nil)
+        completionHandler(.allow)
+    }
+
+    func urlSession(
+        _ session: URLSession,
+        dataTask: URLSessionDataTask,
+        didReceive data: Data
+    ) {
+        onData?(data as NSData)
+    }
+
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        didCompleteWithError error: Error?
+    ) {
+        let nsError = error.map { $0 as NSError }
+
+        if !responseDelivered {
+            let cb = onResponse
+            onResponse = nil
+            cb?(nil, nsError)
+        }
+
+        let cb = onComplete
+        onComplete = nil
+        onData = nil
+        cb?(nsError)
     }
 }

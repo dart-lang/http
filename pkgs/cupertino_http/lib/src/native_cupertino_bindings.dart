@@ -34586,11 +34586,9 @@ extension ObjCBlock_ffiVoid_NSData$1$CallExtension
 }
 
 late final _class_CUPHTTPStreamingTask = objc.getClass("CUPHTTPStreamingTask");
-late final _sel_initWithSession_request_onResponse_onData_onComplete_chunkSize_ =
-    objc.registerName(
-      "initWithSession:request:onResponse:onData:onComplete:chunkSize:",
-    );
-final _objc_msgSend_m4neo0 = objc.msgSendPointer
+late final _sel_initWithSession_request_onResponse_onData_onComplete_ = objc
+    .registerName("initWithSession:request:onResponse:onData:onComplete:");
+final _objc_msgSend_j4f9jy = objc.msgSendPointer
     .cast<
       ffi.NativeFunction<
         ffi.Pointer<objc.ObjCObjectImpl> Function(
@@ -34601,7 +34599,6 @@ final _objc_msgSend_m4neo0 = objc.msgSendPointer
           ffi.Pointer<objc.ObjCBlockImpl>,
           ffi.Pointer<objc.ObjCBlockImpl>,
           ffi.Pointer<objc.ObjCBlockImpl>,
-          ffi.Long,
         )
       >
     >()
@@ -34614,7 +34611,6 @@ final _objc_msgSend_m4neo0 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCBlockImpl>,
         ffi.Pointer<objc.ObjCBlockImpl>,
         ffi.Pointer<objc.ObjCBlockImpl>,
-        int,
       )
     >();
 late final _sel_start = objc.registerName("start");
@@ -34699,7 +34695,6 @@ extension CUPHTTPStreamingTask$Methods on CUPHTTPStreamingTask {
   /// @param onResponse Called once when response headers are available, or with error
   /// @param onData Called repeatedly with buffered data chunks
   /// @param onComplete Called once when the request completes
-  /// @param chunkSize Buffer size in bytes before delivering to callback (default 65536)
   CUPHTTPStreamingTask initWithSession(
     NSURLSession session, {
     required NSURLRequest request,
@@ -34707,17 +34702,15 @@ extension CUPHTTPStreamingTask$Methods on CUPHTTPStreamingTask {
     onResponse,
     objc.ObjCBlock<ffi.Void Function(objc.NSData)>? onData,
     objc.ObjCBlock<ffi.Void Function(objc.NSError?)>? onComplete,
-    required int chunkSize,
   }) {
-    final $ret = _objc_msgSend_m4neo0(
+    final $ret = _objc_msgSend_j4f9jy(
       object$.ref.retainAndReturnPointer(),
-      _sel_initWithSession_request_onResponse_onData_onComplete_chunkSize_,
+      _sel_initWithSession_request_onResponse_onData_onComplete_,
       session.ref.pointer,
       request.ref.pointer,
       onResponse?.ref.pointer ?? ffi.nullptr,
       onData?.ref.pointer ?? ffi.nullptr,
       onComplete?.ref.pointer ?? ffi.nullptr,
-      chunkSize,
     );
     return CUPHTTPStreamingTask.fromPointer($ret, retain: false, release: true);
   }
