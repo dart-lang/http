@@ -621,33 +621,6 @@ class URLSessionWebSocketTask extends URLSessionTask {
     : _urlSessionWebSocketTask = c,
       super._();
 
-  /// Wraps an existing native [ncb.NSURLSessionWebSocketTask].
-  ///
-  /// This is useful when the WebSocket task was created by native code
-  /// (e.g., when using an externally-managed [URLSession]).
-  ///
-  /// The [pointer] should be obtained from native code. If [retain] is `true`
-  /// (the default), the task will be retained to prevent deallocation.
-  ///
-  /// Example:
-  /// ```dart
-  /// // Get a WebSocket task pointer from native code
-  /// final taskPointer = await nativeManager.createWebSocketTask(url);
-  /// final task = URLSessionWebSocketTask.fromRawPointer(taskPointer);
-  /// final webSocket = CupertinoWebSocket.fromConnectedTask(task);
-  /// ```
-  factory URLSessionWebSocketTask.fromRawPointer(
-    ffi.Pointer<objc.ObjCObjectImpl> pointer, {
-    bool retain = true,
-  }) {
-    final nsTask = ncb.NSURLSessionWebSocketTask.fromPointer(
-      pointer,
-      retain: retain,
-      release: true,
-    );
-    return URLSessionWebSocketTask._(nsTask);
-  }
-
   /// The close code set when the WebSocket connection is closed.
   ///
   /// See [NSURLSessionWebSocketTask.closeCode](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181201-closecode)
@@ -1431,6 +1404,102 @@ class StreamingTask {
   }
 
   /// Cancels the in-flight request.
+  void cancel() {
+    _nsTask.cancel();
+  }
+}
+
+/// A WebSocket task helper for externally-managed sessions.
+///
+/// Provides WebSocket lifecycle events (open, close, complete) via per-task
+/// delegates, working with sessions created via [URLSession.fromRawPointer]
+/// where session-level delegates are not available.
+///
+/// Requires iOS 15+ / macOS 12+.
+///
+/// Example:
+/// ```dart
+/// final session = URLSession.fromRawPointer(sessionPointer);
+/// final request = MutableURLRequest.fromUrl(
+///   Uri.parse('wss://example.com/socket'),
+/// );
+/// final task = WebSocketTask(
+///   session: session,
+///   request: URLRequest._(request._nsObject),
+/// )..start();
+///
+/// final (wsTask, protocol) = await task.opened;
+/// ```
+class WebSocketTask {
+  final ncb.CUPHTTPWebSocketTask _nsTask;
+  final Completer<(URLSessionWebSocketTask, String)> _openCompleter;
+  final Completer<(int, objc.NSData?)> _closeCompleter;
+  final Completer<objc.NSError?> _completeCompleter;
+
+  /// Future that completes when the WebSocket handshake succeeds.
+  /// Yields the task and the negotiated protocol.
+  Future<(URLSessionWebSocketTask, String)> get opened =>
+      _openCompleter.future;
+
+  /// Future that completes when the peer sends a close frame.
+  /// Yields the close code and optional reason.
+  Future<(int, objc.NSData?)> get closed => _closeCompleter.future;
+
+  /// Future that completes when the task finishes.
+  /// Yields the error, or null on success.
+  Future<objc.NSError?> get completed => _completeCompleter.future;
+
+  /// Creates a WebSocket task for the given session and request.
+  factory WebSocketTask({
+    required URLSession session,
+    required URLRequest request,
+  }) {
+    final openCompleter = Completer<(URLSessionWebSocketTask, String)>();
+    final closeCompleter = Completer<(int, objc.NSData?)>();
+    final completeCompleter = Completer<objc.NSError?>();
+
+    late final ncb.CUPHTTPWebSocketTask nsTask;
+
+    nsTask = ncb.CUPHTTPWebSocketTask.alloc().initWithSession(
+      session._nsObject,
+      request: request._nsObject,
+      onOpen: ncb.ObjCBlock_ffiVoid_NSString.listener((protocol) {
+        final nsWebSocketTask = nsTask.webSocketTask!;
+        final task = URLSessionWebSocketTask._(nsWebSocketTask);
+        openCompleter.complete((task, protocol?.toDartString() ?? ''));
+      }),
+      onClose: ncb.ObjCBlock_ffiVoid_NSInteger_NSData.listener((
+        closeCode,
+        reason,
+      ) {
+        if (!closeCompleter.isCompleted) {
+          closeCompleter.complete((closeCode, reason));
+        }
+      }),
+      onComplete: ncb.ObjCBlock_ffiVoid_NSError.listener((error) {
+        if (!completeCompleter.isCompleted) {
+          completeCompleter.complete(error);
+        }
+      }),
+    );
+
+    return WebSocketTask._(nsTask, openCompleter, closeCompleter,
+        completeCompleter);
+  }
+
+  WebSocketTask._(
+    this._nsTask,
+    this._openCompleter,
+    this._closeCompleter,
+    this._completeCompleter,
+  );
+
+  /// Starts the WebSocket connection.
+  void start() {
+    _nsTask.start();
+  }
+
+  /// Cancels the WebSocket connection.
   void cancel() {
     _nsTask.cancel();
   }

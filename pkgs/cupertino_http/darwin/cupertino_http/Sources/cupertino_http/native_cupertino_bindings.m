@@ -13,6 +13,7 @@
 #import <Foundation/NSError.h>
 #import <Foundation/NSDictionary.h>
 #import "CUPHTTPStreamingTask.h"
+#import "CUPHTTPWebSocketTask.h"
 
 #if !__has_feature(objc_arc)
 #error "This file must be compiled with ARC enabled"
@@ -562,6 +563,29 @@ typedef void  (^_ProtocolTrampoline_13)(void * sel);
 __attribute__((visibility("default"))) __attribute__((used))
 void  _NativeCupertinoHttp_protocolTrampoline_ovsamd(id target, void * sel) {
   return ((_ProtocolTrampoline_13)((id (*)(id, SEL, SEL))objc_msgSend)(target, @selector(getDOBJCDartProtocolMethodForSelector:), sel))(sel);
+}
+
+typedef void  (^_ListenerTrampoline_18)(long arg0, id arg1);
+__attribute__((visibility("default"))) __attribute__((used))
+_ListenerTrampoline_18 _NativeCupertinoHttp_wrapListenerBlock_1kva9v1(_ListenerTrampoline_18 block) NS_RETURNS_RETAINED {
+  return ^void(long arg0, id arg1) {
+    objc_retainBlock(block);
+    block(arg0, (__bridge id)(__bridge_retained void*)(arg1));
+  };
+}
+
+typedef void  (^_BlockingTrampoline_18)(void * waiter, long arg0, id arg1);
+__attribute__((visibility("default"))) __attribute__((used))
+_ListenerTrampoline_18 _NativeCupertinoHttp_wrapBlockingBlock_1kva9v1(
+    _BlockingTrampoline_18 block, _BlockingTrampoline_18 listenerBlock,
+    DOBJC_Context* ctx) NS_RETURNS_RETAINED {
+  BLOCKING_BLOCK_IMPL(ctx, ^void(long arg0, id arg1), {
+    objc_retainBlock(block);
+    block(nil, arg0, (__bridge id)(__bridge_retained void*)(arg1));
+  }, {
+    objc_retainBlock(listenerBlock);
+    listenerBlock(waiter, arg0, (__bridge id)(__bridge_retained void*)(arg1));
+  });
 }
 #undef BLOCKING_BLOCK_IMPL
 

@@ -139,45 +139,98 @@ class CupertinoWebSocket implements WebSocket {
     return readyCompleter.future;
   }
 
-  /// Creates a [CupertinoWebSocket] from an existing, connected
-  /// [URLSessionWebSocketTask].
+  /// Creates a [CupertinoWebSocket] using an existing [URLSession].
   ///
-  /// This is useful when using a [URLSession] created externally (e.g., via
-  /// [URLSession.fromRawPointer]) where delegate callbacks are managed by
-  /// native code.
+  /// This is useful when using a session created externally (e.g., via
+  /// [URLSession.fromRawPointer]) where the session-level delegates are
+  /// managed by native code.
   ///
-  /// The [task] must already be resumed and the connection must be established
-  /// (i.e., the native delegate's
-  /// `URLSession:webSocketTask:didOpenWithProtocol:` callback has fired).
-  /// Pass the negotiated [protocol] if one was selected during the handshake.
+  /// Uses iOS 15+ / macOS 12+ per-task delegates to receive WebSocket
+  /// lifecycle events.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
+  ///
+  /// If provided, [headers] will be added to the initial HTTP upgrade request.
   ///
   /// Example:
   /// ```dart
-  /// // Get a shared session pointer from native code
-  /// final sessionPointer = getSharedSessionPointer();
   /// final session = URLSession.fromRawPointer(sessionPointer);
-  ///
-  /// // Create and start the WebSocket task
-  /// final task = session.webSocketTaskWithURL(
+  /// final webSocket = await CupertinoWebSocket.connectWithSession(
+  ///   session,
   ///   Uri.parse('wss://example.com/socket'),
   ///   protocols: ['v1'],
-  /// );
-  /// task.resume();
-  ///
-  /// // Wait for native delegate to signal connection is open
-  /// final negotiatedProtocol = await waitForWebSocketOpen(task);
-  ///
-  /// // Create the Dart WebSocket wrapper
-  /// final webSocket = CupertinoWebSocket.fromConnectedTask(
-  ///   task,
-  ///   protocol: negotiatedProtocol,
+  ///   headers: {'Authorization': 'Bearer token'},
   /// );
   /// ```
-  factory CupertinoWebSocket.fromConnectedTask(
-    URLSessionWebSocketTask task, {
-    String protocol = '',
-  }) =>
-      CupertinoWebSocket._(task, protocol);
+  static Future<CupertinoWebSocket> connectWithSession(
+    URLSession session,
+    Uri url, {
+    Iterable<String>? protocols,
+    Map<String, String>? headers,
+  }) async {
+    if (!url.isScheme('ws') && !url.isScheme('wss')) {
+      throw ArgumentError.value(
+        url,
+        'url',
+        'only ws: and wss: schemes are supported',
+      );
+    }
+
+    final readyCompleter = Completer<CupertinoWebSocket>();
+    late CupertinoWebSocket webSocket;
+
+    final urlRequest = MutableURLRequest.fromUrl(url);
+    if (protocols != null) {
+      urlRequest.setValueForHttpHeaderField(
+        'Sec-WebSocket-Protocol',
+        protocols.join(', '),
+      );
+    }
+    headers?.forEach(urlRequest.setValueForHttpHeaderField);
+
+    final wsTask = WebSocketTask(
+      session: session,
+      request: urlRequest,
+    );
+
+    unawaited(wsTask.opened.then((result) {
+      final (task, protocol) = result;
+      webSocket = CupertinoWebSocket._(task, protocol);
+      readyCompleter.complete(webSocket);
+    }));
+
+    unawaited(wsTask.closed.then((result) {
+      if (readyCompleter.isCompleted) {
+        final (closeCode, reason) = result;
+        webSocket._connectionClosed(closeCode, reason);
+      }
+    }));
+
+    unawaited(wsTask.completed.then((error) {
+      if (!readyCompleter.isCompleted) {
+        if (error == null) {
+          throw AssertionError(
+            'expected an error or "opened" to complete first',
+          );
+        }
+        readyCompleter.completeError(
+          ConnectionException('connection ended unexpectedly', error),
+        );
+      } else {
+        webSocket._connectionClosed(
+          1006,
+          'abnormal close'.codeUnits.toNSData(),
+        );
+      }
+    }));
+
+    wsTask.start();
+    return readyCompleter.future;
+  }
 
   final URLSessionWebSocketTask _task;
   final String _protocol;

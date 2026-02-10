@@ -39,4 +39,13 @@ void main() {
           CupertinoWebSocket.connect(uri, protocols: protocols, config: config),
     );
   });
+  group('connectWithSession', () {
+    runTests(
+      (uri, {protocols}) => CupertinoWebSocket.connectWithSession(
+        URLSession.sharedSession(),
+        uri,
+        protocols: protocols,
+      ),
+    );
+  });
 }
