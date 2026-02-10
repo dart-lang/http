@@ -43,13 +43,10 @@ public class CUPHTTPWebSocketTask: NSObject {
     /// Starts the WebSocket connection.
     ///
     /// Creates the underlying `URLSessionWebSocketTask`, assigns a per-task
-    /// delegate, and resumes the task. On iOS < 15 / macOS < 12, delivers an
-    /// error through `onComplete` since per-task delegates are not available.
+    /// delegate, and resumes the task. Requires iOS 15+ / macOS 12+.
     @objc
     public func start() {
-        if #available(iOS 15.0, macOS 12.0, *) {
-            startWithTaskDelegate()
-        } else {
+        guard #available(iOS 15.0, macOS 12.0, *) else {
             let error = NSError(
                 domain: "CUPHTTPWebSocketTask",
                 code: -1,
@@ -63,17 +60,9 @@ public class CUPHTTPWebSocketTask: NSObject {
             onOpen = nil
             onClose = nil
             cb?(error)
+            return
         }
-    }
 
-    /// Cancels the WebSocket connection.
-    @objc
-    public func cancel() {
-        webSocketTask?.cancel()
-    }
-
-    @available(iOS 15.0, macOS 12.0, *)
-    private func startWithTaskDelegate() {
         let delegate = _WebSocketTaskDelegate(
             onOpen: onOpen,
             onClose: onClose,
@@ -89,6 +78,12 @@ public class CUPHTTPWebSocketTask: NSObject {
         self.webSocketTask = task
         task.resume()
     }
+
+    /// Cancels the WebSocket connection.
+    @objc
+    public func cancel() {
+        webSocketTask?.cancel()
+    }
 }
 
 /// Per-task delegate that handles WebSocket lifecycle events.
@@ -96,7 +91,6 @@ public class CUPHTTPWebSocketTask: NSObject {
 /// Note: any delegate method implemented here will be used in place of a
 /// session-level delegate's implementation for this task. As such, adding
 /// overrides is effectively a breaking change.
-@available(iOS 15.0, macOS 12.0, *)
 private final class _WebSocketTaskDelegate: NSObject, URLSessionWebSocketDelegate {
     private var onOpen: ((String?) -> Void)?
     private var onClose: ((Int, NSData?) -> Void)?

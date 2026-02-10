@@ -17,6 +17,11 @@ final _digitRegex = RegExp(r'^\d+$');
 
 const _nsurlErrorCancelled = -999;
 
+final _supportsPerTaskDelegates = checkOSVersion(
+  iOS: Version(15, 0, 0),
+  macOS: Version(12, 0, 0),
+);
+
 /// A [ClientException] generated from an [NSError].
 class NSErrorClientException extends ClientException {
   final NSError error;
@@ -458,8 +463,14 @@ class CupertinoClient extends BaseClient {
 
     // For shared sessions (created externally), use streaming helper since
     // delegate callbacks are not connected to this client.
+    // StreamingTask requires iOS 15+ / macOS 12+ for per-task delegates.
+    // On older OS versions, fall back to buffered completion handler.
     if (!_ownsSession) {
-      return _sendStreaming(urlSession, urlRequest, request, profile, nsStream);
+      if (_supportsPerTaskDelegates) {
+        return _sendStream(urlSession, urlRequest, request, profile, nsStream);
+      } else {
+        return _sendBuffer(urlSession, urlRequest, request, nsStream);
+      }
     }
 
     final task = urlSession.dataTaskWithRequest(urlRequest);
@@ -538,7 +549,7 @@ class CupertinoClient extends BaseClient {
   }
 
   /// Sends request using the streaming helper for external sessions.
-  Future<StreamedResponse> _sendStreaming(
+  Future<StreamedResponse> _sendStream(
     URLSession session,
     URLRequest urlRequest,
     BaseRequest request,
@@ -635,6 +646,65 @@ class CupertinoClient extends BaseClient {
       isRedirect: !request.followRedirects && task.numRedirects > 0,
       headers: responseHeaders,
     );
+  }
+
+  /// Sends request using dataTaskWithCompletionHandler for external sessions
+  /// on iOS < 15 / macOS < 12 where per-task delegates are not available.
+  Future<StreamedResponse> _sendBuffer(
+    URLSession session,
+    URLRequest urlRequest,
+    BaseRequest request,
+    NSInputStream? nsStream,
+  ) {
+    final completer = Completer<StreamedResponse>();
+
+    final task = session.dataTaskWithCompletionHandler(urlRequest, (
+      data,
+      urlResponse,
+      error,
+    ) {
+      if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
+        nsStream?.close();
+      }
+
+      if (error != null) {
+        final exception = error.isCancelled
+            ? RequestAbortedException(request.url)
+            : NSErrorClientException(error, request.url);
+        completer.completeError(exception);
+        return;
+      }
+
+      if (urlResponse == null) {
+        completer.completeError(ClientException('No response', request.url));
+        return;
+      }
+
+      final response = urlResponse as HTTPURLResponse;
+      final responseHeaders = _getResponseHeaders(response, request);
+
+      final contentLength = response.expectedContentLength == -1
+          ? null
+          : response.expectedContentLength;
+
+      completer.complete(
+        StreamedResponse(
+          Stream.value(data?.toList() ?? Uint8List(0)),
+          response.statusCode,
+          contentLength: contentLength,
+          reasonPhrase: _findReasonPhrase(response.statusCode),
+          request: request,
+          headers: responseHeaders,
+        ),
+      );
+    });
+
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(task.cancel));
+    }
+
+    task.resume();
+    return completer.future;
   }
 
   Map<String, String> _getResponseHeaders(

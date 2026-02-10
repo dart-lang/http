@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import Foundation
-import os
 
 /// A streaming HTTP task helper for externally-managed URLSessions.
 @objc(CUPHTTPStreamingTask)
@@ -15,7 +14,7 @@ public class CUPHTTPStreamingTask: NSObject {
     private var dataTask: URLSessionDataTask?
 
     /// Strong reference keeps delegate alive for the task's lifetime.
-    private var taskDelegate: (any URLSessionDataDelegate)?
+    private var taskDelegate: _StreamingTaskDelegate?
 
     /// Callbacks (held strongly during request)
     /// No need for synchronization since they're only used sequentially in the task
@@ -26,13 +25,9 @@ public class CUPHTTPStreamingTask: NSObject {
     private let followRedirects: Bool
     private let maxRedirects: Int
 
-    @objc public var numRedirects: Int {
-        (taskDelegate as? _StreamingTaskDelegate)?.numRedirects ?? 0
-    }
+    @objc public var numRedirects: Int { taskDelegate?.numRedirects ?? 0 }
 
-    @objc public var lastURL: URL? {
-        (taskDelegate as? _StreamingTaskDelegate)?.lastURL
-    }
+    @objc public var lastURL: URL? { taskDelegate?.lastURL }
 
     /// Creates a new streaming task with callback blocks.
     ///
@@ -64,23 +59,27 @@ public class CUPHTTPStreamingTask: NSObject {
     }
 
     /// Starts the streaming request.
+    ///
+    /// Requires iOS 15+ / macOS 12+ for per-task delegate support.
     @objc
     public func start() {
-        if #available(iOS 15.0, macOS 12.0, *) {
-            startWithTaskDelegate()
-        } else {
-            startWithLegacyFallback()
+        guard #available(iOS 15.0, macOS 12.0, *) else {
+            let error = NSError(
+                domain: "CUPHTTPStreamingTask",
+                code: -1,
+                userInfo: [
+                    NSLocalizedDescriptionKey:
+                        "Per-task delegates require iOS 15+ / macOS 12+"
+                ]
+            )
+            let cb = onComplete
+            onComplete = nil
+            onResponse = nil
+            onData = nil
+            cb?(error)
+            return
         }
-    }
 
-    /// Cancels the in-flight request.
-    @objc
-    public func cancel() {
-        dataTask?.cancel()
-    }
-
-    @available(iOS 15.0, macOS 12.0, *)
-    private func startWithTaskDelegate() {
         let delegate = _StreamingTaskDelegate(
             onResponse: onResponse,
             onData: onData,
@@ -99,49 +98,10 @@ public class CUPHTTPStreamingTask: NSObject {
         task.resume()
     }
 
-    /// Fallback for older OS versions that don't have task-level delegates.
-    ///
-    /// Uses dataTask(with:completionHandler:) which buffers the entire response
-    /// before calling the handler. No true streaming on iOS 13-14.
-    private func startWithLegacyFallback() {
-        dataTask = session.dataTask(with: request) { [weak self] data, response, error in
-            guard let self = self else { return }
-
-            if let error = error {
-                let nsError = error as NSError
-                self.deliverResponse(response, error: nsError)
-                self.deliverCompletion(error: nsError)
-                return
-            }
-
-            self.deliverResponse(response, error: nil)
-
-            if let data = data {
-                self.deliverData(data)
-            }
-
-            self.deliverCompletion(error: nil)
-        }
-
-        dataTask?.resume()
-    }
-
-    private func deliverResponse(_ response: URLResponse?, error: NSError?) {
-        let cb = onResponse
-        onResponse = nil
-        cb?(response, error)
-    }
-
-    private func deliverData(_ data: Data) {
-        onData?(data as NSData)
-    }
-
-    private func deliverCompletion(error: NSError?) {
-        let cb = onComplete
-        onComplete = nil
-        onData = nil
-        taskDelegate = nil  // Break retain cycle
-        cb?(error)
+    /// Cancels the in-flight request.
+    @objc
+    public func cancel() {
+        dataTask?.cancel()
     }
 }
 
