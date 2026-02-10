@@ -538,9 +538,6 @@ class CupertinoClient extends BaseClient {
   }
 
   /// Sends request using the streaming helper for external sessions.
-  ///
-  /// This provides true streaming on iOS 15+/macOS 12+ using the `bytes(for:)`
-  /// API, with fallback chunking on older versions.
   Future<StreamedResponse> _sendStreaming(
     URLSession session,
     URLRequest urlRequest,
@@ -548,7 +545,12 @@ class CupertinoClient extends BaseClient {
     HttpClientRequestProfile? profile,
     NSInputStream? nsStream,
   ) async {
-    final task = StreamingTask(session: session, request: urlRequest)..start();
+    final task = StreamingTask(
+      session: session,
+      request: urlRequest,
+      followRedirects: request.followRedirects,
+      maxRedirects: request.maxRedirects,
+    )..start();
 
     if (request case Abortable(:final abortTrigger?)) {
       unawaited(abortTrigger.whenComplete(task.cancel));
@@ -574,6 +576,10 @@ class CupertinoClient extends BaseClient {
     }
 
     final response = urlResponse as HTTPURLResponse;
+    if (request.followRedirects && task.numRedirects > request.maxRedirects) {
+      throw ClientException('Redirect limit exceeded', request.url);
+    }
+
     final responseHeaders = _getResponseHeaders(response, request);
 
     final contentLength = response.expectedContentLength == -1
@@ -619,17 +625,14 @@ class CupertinoClient extends BaseClient {
       },
     );
 
-    // Use response URL (final URL after redirects) if available
-    final responseUrl = urlResponse.url ?? request.url;
-
     return _StreamedResponseWithUrl(
       controller.stream,
       response.statusCode,
-      url: responseUrl,
+      url: task.lastUrl ?? request.url,
       contentLength: contentLength,
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
-      isRedirect: false,
+      isRedirect: !request.followRedirects && task.numRedirects > 0,
       headers: responseHeaders,
     );
   }

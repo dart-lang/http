@@ -20,10 +20,13 @@ typedef void (^CUPHTTPDataBlock)(NSData * data);
 typedef void (^CUPHTTPCompletionBlock)(NSError * _Nullable error);
 
 /// A streaming HTTP task helper for externally-managed URLSessions.
-///
-/// Provides chunk-based response delivery using the modern `bytes(for:)` API
-/// on iOS 15+/macOS 12+, with fallback on older versions.
 @interface CUPHTTPStreamingTask : NSObject
+
+/// Whether to automatically follow redirects.
+@property (nonatomic, readonly) NSInteger numRedirects;
+
+/// Maximum number of redirects to follow.
+@property (nonatomic, readonly, nullable) NSURL *lastURL;
 
 /// Creates a new streaming task with callback blocks.
 ///
@@ -32,11 +35,15 @@ typedef void (^CUPHTTPCompletionBlock)(NSError * _Nullable error);
 /// @param onResponse Called once when response headers are available, or with error
 /// @param onData Called repeatedly with buffered data chunks
 /// @param onComplete Called once when the request completes
+/// @param followRedirects Whether to automatically follow redirects (default: true)
+/// @param maxRedirects Maximum number of redirects to follow (default: 5)
 - (instancetype)initWithSession:(NSURLSession *)session
                         request:(NSURLRequest *)request
                      onResponse:(CUPHTTPResponseBlock _Nullable)onResponse
                          onData:(CUPHTTPDataBlock _Nullable)onData
-                     onComplete:(CUPHTTPCompletionBlock _Nullable)onComplete;
+                     onComplete:(CUPHTTPCompletionBlock _Nullable)onComplete
+                followRedirects:(BOOL)followRedirects
+                   maxRedirects:(NSInteger)maxRedirects;
 
 /// Starts the streaming request.
 - (void)start;

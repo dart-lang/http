@@ -6,9 +6,6 @@ import Foundation
 import os
 
 /// A streaming HTTP task helper for externally-managed URLSessions.
-///
-/// Provides chunk-based response delivery using the modern `bytes(for:)` API
-/// on iOS 15+/macOS 12+, with fallback chunking on older versions.
 @objc(CUPHTTPStreamingTask)
 public class CUPHTTPStreamingTask: NSObject {
     private let session: URLSession
@@ -26,6 +23,17 @@ public class CUPHTTPStreamingTask: NSObject {
     private var onData: ((NSData) -> Void)?
     private var onComplete: ((NSError?) -> Void)?
 
+    private let followRedirects: Bool
+    private let maxRedirects: Int
+
+    @objc public var numRedirects: Int {
+        (taskDelegate as? _StreamingTaskDelegate)?.numRedirects ?? 0
+    }
+
+    @objc public var lastURL: URL? {
+        (taskDelegate as? _StreamingTaskDelegate)?.lastURL
+    }
+
     /// Creates a new streaming task with callback blocks.
     ///
     /// - Parameters:
@@ -42,12 +50,16 @@ public class CUPHTTPStreamingTask: NSObject {
         onResponse: ((URLResponse?, NSError?) -> Void)?,
         onData: ((NSData) -> Void)?,
         onComplete: ((NSError?) -> Void)?,
+        followRedirects: Bool,
+        maxRedirects: Int
     ) {
         self.session = session
         self.request = request
         self.onResponse = onResponse
         self.onData = onData
         self.onComplete = onComplete
+        self.followRedirects = followRedirects
+        self.maxRedirects = maxRedirects
         super.init()
     }
 
@@ -72,7 +84,9 @@ public class CUPHTTPStreamingTask: NSObject {
         let delegate = _StreamingTaskDelegate(
             onResponse: onResponse,
             onData: onData,
-            onComplete: onComplete
+            onComplete: onComplete,
+            followRedirects: followRedirects,
+            maxRedirects: maxRedirects
         )
         onResponse = nil
         onData = nil
@@ -85,7 +99,7 @@ public class CUPHTTPStreamingTask: NSObject {
         task.resume()
     }
 
-    /// Fallback for older OS versions that don't have bytes(for:).
+    /// Fallback for older OS versions that don't have task-level delegates.
     ///
     /// Uses dataTask(with:completionHandler:) which buffers the entire response
     /// before calling the handler. No true streaming on iOS 13-14.
@@ -142,14 +156,23 @@ private final class _StreamingTaskDelegate: NSObject, URLSessionDataDelegate {
     private var onComplete: ((NSError?) -> Void)?
     private var responseDelivered = false
 
+    private let followRedirects: Bool
+    private let maxRedirects: Int
+    var numRedirects = 0
+    var lastURL: URL?
+
     init(
         onResponse: ((URLResponse?, NSError?) -> Void)?,
         onData: ((NSData) -> Void)?,
-        onComplete: ((NSError?) -> Void)?
+        onComplete: ((NSError?) -> Void)?,
+        followRedirects: Bool,
+        maxRedirects: Int
     ) {
         self.onResponse = onResponse
         self.onData = onData
         self.onComplete = onComplete
+        self.followRedirects = followRedirects
+        self.maxRedirects = maxRedirects
         super.init()
     }
 
@@ -191,5 +214,22 @@ private final class _StreamingTaskDelegate: NSObject, URLSessionDataDelegate {
         onComplete = nil
         onData = nil
         cb?(nsError)
+    }
+
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        willPerformHTTPRedirection response: HTTPURLResponse,
+        newRequest request: URLRequest,
+        completionHandler: @escaping (URLRequest?) -> Void
+    ) {
+        numRedirects += 1
+        if followRedirects && numRedirects <= maxRedirects {
+            lastURL = request.url
+            completionHandler(request)
+        } else {
+            // Returning nil stops the redirect chain and treats the response as final.
+            completionHandler(nil)
+        }
     }
 }

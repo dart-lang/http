@@ -34586,9 +34586,13 @@ extension ObjCBlock_ffiVoid_NSData$1$CallExtension
 }
 
 late final _class_CUPHTTPStreamingTask = objc.getClass("CUPHTTPStreamingTask");
-late final _sel_initWithSession_request_onResponse_onData_onComplete_ = objc
-    .registerName("initWithSession:request:onResponse:onData:onComplete:");
-final _objc_msgSend_j4f9jy = objc.msgSendPointer
+late final _sel_numRedirects = objc.registerName("numRedirects");
+late final _sel_lastURL = objc.registerName("lastURL");
+late final _sel_initWithSession_request_onResponse_onData_onComplete_followRedirects_maxRedirects_ =
+    objc.registerName(
+      "initWithSession:request:onResponse:onData:onComplete:followRedirects:maxRedirects:",
+    );
+final _objc_msgSend_15boweo = objc.msgSendPointer
     .cast<
       ffi.NativeFunction<
         ffi.Pointer<objc.ObjCObjectImpl> Function(
@@ -34599,6 +34603,8 @@ final _objc_msgSend_j4f9jy = objc.msgSendPointer
           ffi.Pointer<objc.ObjCBlockImpl>,
           ffi.Pointer<objc.ObjCBlockImpl>,
           ffi.Pointer<objc.ObjCBlockImpl>,
+          ffi.Bool,
+          ffi.Long,
         )
       >
     >()
@@ -34611,14 +34617,13 @@ final _objc_msgSend_j4f9jy = objc.msgSendPointer
         ffi.Pointer<objc.ObjCBlockImpl>,
         ffi.Pointer<objc.ObjCBlockImpl>,
         ffi.Pointer<objc.ObjCBlockImpl>,
+        bool,
+        int,
       )
     >();
 late final _sel_start = objc.registerName("start");
 
 /// A streaming HTTP task helper for externally-managed URLSessions.
-///
-/// Provides chunk-based response delivery using the modern `bytes(for:)` API
-/// on iOS 15+/macOS 12+, with fallback on older versions.
 extension type CUPHTTPStreamingTask._(objc.ObjCObject object$)
     implements objc.ObjCObject, objc.NSObject {
   /// Constructs a [CUPHTTPStreamingTask] that points to the same underlying object as [other].
@@ -34695,6 +34700,8 @@ extension CUPHTTPStreamingTask$Methods on CUPHTTPStreamingTask {
   /// @param onResponse Called once when response headers are available, or with error
   /// @param onData Called repeatedly with buffered data chunks
   /// @param onComplete Called once when the request completes
+  /// @param followRedirects Whether to automatically follow redirects (default: true)
+  /// @param maxRedirects Maximum number of redirects to follow (default: 5)
   CUPHTTPStreamingTask initWithSession(
     NSURLSession session, {
     required NSURLRequest request,
@@ -34702,17 +34709,34 @@ extension CUPHTTPStreamingTask$Methods on CUPHTTPStreamingTask {
     onResponse,
     objc.ObjCBlock<ffi.Void Function(objc.NSData)>? onData,
     objc.ObjCBlock<ffi.Void Function(objc.NSError?)>? onComplete,
+    required bool followRedirects,
+    required int maxRedirects,
   }) {
-    final $ret = _objc_msgSend_j4f9jy(
+    final $ret = _objc_msgSend_15boweo(
       object$.ref.retainAndReturnPointer(),
-      _sel_initWithSession_request_onResponse_onData_onComplete_,
+      _sel_initWithSession_request_onResponse_onData_onComplete_followRedirects_maxRedirects_,
       session.ref.pointer,
       request.ref.pointer,
       onResponse?.ref.pointer ?? ffi.nullptr,
       onData?.ref.pointer ?? ffi.nullptr,
       onComplete?.ref.pointer ?? ffi.nullptr,
+      followRedirects,
+      maxRedirects,
     );
     return CUPHTTPStreamingTask.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// Maximum number of redirects to follow.
+  objc.NSURL? get lastURL {
+    final $ret = _objc_msgSend_151sglz(object$.ref.pointer, _sel_lastURL);
+    return $ret.address == 0
+        ? null
+        : objc.NSURL.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// Whether to automatically follow redirects.
+  int get numRedirects {
+    return _objc_msgSend_1hz7y9r(object$.ref.pointer, _sel_numRedirects);
   }
 
   /// Starts the streaming request.

@@ -1325,10 +1325,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 /// A streaming HTTP task for externally-managed sessions.
 ///
 /// Provides chunk-based response delivery that works with sessions created
-/// via [URLSession.fromRawPointer] where delegate callbacks are not available.
-///
-/// Uses the modern `bytes(for:)` async API on iOS 15+/macOS 12+ for efficient
-/// streaming, with fallback on older versions.
+/// via [URLSession.fromRawPointer] where session delegates are not available.
 ///
 /// Example:
 /// ```dart
@@ -1358,10 +1355,24 @@ class StreamingTask {
   /// Stream of data chunks as they arrive.
   Stream<objc.NSData> get data => _dataController.stream;
 
+  /// The number of redirects followed so far, if any.
+  int get numRedirects => _nsTask.numRedirects;
+
+  /// The URL of the most recent redirect response, if any.
+  Uri? get lastUrl {
+    final nsUrl = _nsTask.lastURL;
+    if (nsUrl == null) {
+      return null;
+    }
+    return _nsurlToUri(nsUrl);
+  }
+
   /// Creates a streaming task for the given session and request.
   factory StreamingTask({
     required URLSession session,
     required URLRequest request,
+    required bool followRedirects,
+    required int maxRedirects,
   }) {
     final responseCompleter = Completer<URLResponse>();
     final dataController = StreamController<objc.NSData>();
@@ -1401,6 +1412,8 @@ class StreamingTask {
         }
         dataController.close();
       }),
+      followRedirects: followRedirects,
+      maxRedirects: maxRedirects,
     );
     return StreamingTask._(nsTask, responseCompleter, dataController);
   }

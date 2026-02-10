@@ -58,7 +58,6 @@ void main() {
     testAll(
       () => CupertinoClient.fromSharedSession(URLSession.sharedSession()),
       canWorkInIsolates: false,
-      redirectAlwaysAllowed: true,
       canReceiveSetCookieHeaders: true,
       canSendCookieHeaders: true,
       correctlyHandlesNullHeaderValues: false,
