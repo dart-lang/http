@@ -597,12 +597,13 @@ class CupertinoClient extends BaseClient {
         ? null
         : response.expectedContentLength;
 
+    final isRedirect = !request.followRedirects && task.numRedirects > 0;
     if (profile != null) {
       unawaited(profile.requestData.close());
       profile.responseData
         ..contentLength = contentLength
         ..headersCommaValues = responseHeaders
-        ..isRedirect = false
+        ..isRedirect = isRedirect
         ..reasonPhrase = _findReasonPhrase(response.statusCode)
         ..startTime = DateTime.now()
         ..statusCode = response.statusCode;
@@ -643,7 +644,7 @@ class CupertinoClient extends BaseClient {
       contentLength: contentLength,
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
-      isRedirect: !request.followRedirects && task.numRedirects > 0,
+      isRedirect: isRedirect,
       headers: responseHeaders,
     );
   }
