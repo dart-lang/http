@@ -1372,15 +1372,15 @@ class StreamingTask {
         }
       }),
       onData: ncb.ObjCBlock_ffiVoid_NSData.listener((data) {
-        if (data != null && !dataController.isClosed) {
+        if (data != null) {
           dataController.add(data);
         }
       }),
       onComplete: ncb.ObjCBlock_ffiVoid_NSError.listener((error) {
-        if (error != null && !responseCompleter.isCompleted) {
-          responseCompleter.completeError(error);
-        }
         if (error != null) {
+          if (!responseCompleter.isCompleted) {
+            responseCompleter.completeError(error);
+          }
           dataController.addError(error);
         }
         dataController.close();
@@ -1406,6 +1406,7 @@ class StreamingTask {
   /// Cancels the in-flight request.
   void cancel() {
     _nsTask.cancel();
+    _nsTask
   }
 }
 

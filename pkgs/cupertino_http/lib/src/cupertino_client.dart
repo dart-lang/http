@@ -563,8 +563,12 @@ class CupertinoClient extends BaseClient {
       maxRedirects: request.maxRedirects,
     )..start();
 
+    bool _didAbort = false;
     if (request case Abortable(:final abortTrigger?)) {
-      unawaited(abortTrigger.whenComplete(task.cancel));
+      unawaited(abortTrigger.whenComplete(() {
+        _didAbort = true;
+        task.cancel();
+      }));
     }
 
     final URLResponse urlResponse;
@@ -614,6 +618,9 @@ class CupertinoClient extends BaseClient {
     // Forward data chunks
     task.data.listen(
       (nsData) {
+        if (_didAbort) {
+          return;
+        }
         final bytes = nsData.toList();
         controller.add(bytes);
         profile?.responseData.bodySink.add(bytes);

@@ -149,19 +149,11 @@ private final class _StreamingTaskDelegate: NSObject, URLSessionDataDelegate {
         completionHandler(.allow)
     }
 
-    func urlSession(
-        _ session: URLSession,
-        dataTask: URLSessionDataTask,
-        didReceive data: Data
-    ) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         onData?(data as NSData)
     }
 
-    func urlSession(
-        _ session: URLSession,
-        task: URLSessionTask,
-        didCompleteWithError error: Error?
-    ) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         let nsError = error.map { $0 as NSError }
 
         if !responseDelivered {
