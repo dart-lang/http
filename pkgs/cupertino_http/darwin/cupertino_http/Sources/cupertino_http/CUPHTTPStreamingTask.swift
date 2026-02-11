@@ -17,7 +17,8 @@ public class CUPHTTPStreamingTask: NSObject {
     private var taskDelegate: _StreamingTaskDelegate?
 
     /// Callbacks (held strongly during request)
-    /// No need for synchronization since they're only used sequentially in the task
+    /// No need for synchronization since delegate callbacks are serialized by URLSession
+    /// per task even if the operation queue is concurrent, and each task has its own delegate.
     private var onResponse: ((URLResponse?, NSError?) -> Void)?
     private var onData: ((NSData) -> Void)?
     private var onComplete: ((NSError?) -> Void)?
