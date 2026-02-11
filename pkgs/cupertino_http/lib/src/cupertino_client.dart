@@ -125,11 +125,6 @@ class CupertinoClient extends BaseClient {
   /// This is useful for sharing a pre-configured session across isolates,
   /// where native code manages the session lifecycle and SSL/auth delegates.
   ///
-  /// **Note:** Since this client does not own the session's delegate,
-  /// redirect behavior is controlled by the session's configuration.
-  /// [BaseRequest.followRedirects] and [BaseRequest.maxRedirects] have no
-  /// effect - the session will follow redirects according to its own policy.
-  ///
   /// Example:
   /// ```dart
   /// // Get a shared session from native code
@@ -563,10 +558,10 @@ class CupertinoClient extends BaseClient {
       maxRedirects: request.maxRedirects,
     )..start();
 
-    bool _didAbort = false;
+    bool didAbort = false;
     if (request case Abortable(:final abortTrigger?)) {
       unawaited(abortTrigger.whenComplete(() {
-        _didAbort = true;
+        didAbort = true;
         task.cancel();
       }));
     }
@@ -618,7 +613,7 @@ class CupertinoClient extends BaseClient {
     // Forward data chunks
     task.data.listen(
       (nsData) {
-        if (_didAbort) {
+        if (didAbort) {
           return;
         }
         final bytes = nsData.toList();
@@ -757,9 +752,9 @@ class CupertinoClientWithProfile extends CupertinoClient {
   }
 }
 
-final urlError = NSString('NSURLErrorDomain');
+final _urlError = NSString('NSURLErrorDomain');
 
-extension NSErrorExtension on NSError {
+extension _NSErrorExtension on NSError {
   bool get isCancelled =>
-      code == _nsurlErrorCancelled && urlError.isEqualToString(domain);
+      code == _nsurlErrorCancelled && _urlError.isEqualToString(domain);
 }

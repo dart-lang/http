@@ -199,7 +199,7 @@ class CupertinoWebSocket implements WebSocket {
 
     unawaited(wsTask.opened.then((result) {
       final (task, protocol) = result;
-      webSocket = CupertinoWebSocket._(task, protocol);
+      webSocket = CupertinoWebSocket._(task, protocol ?? '');
       readyCompleter.complete(webSocket);
     }));
 

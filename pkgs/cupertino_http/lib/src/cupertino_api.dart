@@ -1406,7 +1406,6 @@ class StreamingTask {
   /// Cancels the in-flight request.
   void cancel() {
     _nsTask.cancel();
-    _nsTask
   }
 }
 
@@ -1433,13 +1432,13 @@ class StreamingTask {
 /// ```
 class WebSocketTask {
   final ncb.CUPHTTPWebSocketTask _nsTask;
-  final Completer<(URLSessionWebSocketTask, String)> _openCompleter;
+  final Completer<(URLSessionWebSocketTask, String?)> _openCompleter;
   final Completer<(int, objc.NSData?)> _closeCompleter;
   final Completer<objc.NSError?> _completeCompleter;
 
   /// Future that completes when the WebSocket handshake succeeds.
   /// Yields the task and the negotiated protocol.
-  Future<(URLSessionWebSocketTask, String)> get opened =>
+  Future<(URLSessionWebSocketTask, String?)> get opened =>
       _openCompleter.future;
 
   /// Future that completes when the peer sends a close frame.
@@ -1455,7 +1454,7 @@ class WebSocketTask {
     required URLSession session,
     required URLRequest request,
   }) {
-    final openCompleter = Completer<(URLSessionWebSocketTask, String)>();
+    final openCompleter = Completer<(URLSessionWebSocketTask, String?)>();
     final closeCompleter = Completer<(int, objc.NSData?)>();
     final completeCompleter = Completer<objc.NSError?>();
 
@@ -1467,7 +1466,7 @@ class WebSocketTask {
       onOpen: ncb.ObjCBlock_ffiVoid_NSString.listener((protocol) {
         final nsWebSocketTask = nsTask.webSocketTask!;
         final task = URLSessionWebSocketTask._(nsWebSocketTask);
-        openCompleter.complete((task, protocol?.toDartString() ?? ''));
+        openCompleter.complete((task, protocol?.toDartString()));
       }),
       onClose: ncb.ObjCBlock_ffiVoid_NSInteger_NSData.listener((
         closeCode,
