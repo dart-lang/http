@@ -94,17 +94,16 @@ void testStreamingBehavior() {
     test('POST request body is sent correctly', () async {
       late List<int> receivedBody;
       server.listen((request) async {
-        receivedBody =
-            await request.fold<List<int>>([], (a, b) => a..addAll(b));
+        receivedBody = await request.fold<List<int>>(
+          [],
+          (a, b) => a..addAll(b),
+        );
         request.response.statusCode = 200;
         await request.response.close();
       });
 
       final body = List.generate(10000, (i) => i % 256);
-      await client.post(
-        Uri.http('localhost:${server.port}', '/'),
-        body: body,
-      );
+      await client.post(Uri.http('localhost:${server.port}', '/'), body: body);
       expect(receivedBody, body);
     });
 
@@ -124,8 +123,10 @@ void testStreamingBehavior() {
         data[i] = i % 256;
       }
 
-      final request =
-          StreamedRequest('POST', Uri.http('localhost:${server.port}', '/'));
+      final request = StreamedRequest(
+        'POST',
+        Uri.http('localhost:${server.port}', '/'),
+      );
       request.sink.add(data);
       unawaited(request.sink.close());
       await client.send(request);

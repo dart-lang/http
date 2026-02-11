@@ -192,41 +192,44 @@ class CupertinoWebSocket implements WebSocket {
     }
     headers?.forEach(urlRequest.setValueForHttpHeaderField);
 
-    final wsTask = WebSocketTask(
-      session: session,
-      request: urlRequest,
+    final wsTask = WebSocketTask(session: session, request: urlRequest);
+
+    unawaited(
+      wsTask.opened.then((result) {
+        final (task, protocol) = result;
+        webSocket = CupertinoWebSocket._(task, protocol ?? '');
+        readyCompleter.complete(webSocket);
+      }),
     );
 
-    unawaited(wsTask.opened.then((result) {
-      final (task, protocol) = result;
-      webSocket = CupertinoWebSocket._(task, protocol ?? '');
-      readyCompleter.complete(webSocket);
-    }));
+    unawaited(
+      wsTask.closed.then((result) {
+        if (readyCompleter.isCompleted) {
+          final (closeCode, reason) = result;
+          webSocket._connectionClosed(closeCode, reason);
+        }
+      }),
+    );
 
-    unawaited(wsTask.closed.then((result) {
-      if (readyCompleter.isCompleted) {
-        final (closeCode, reason) = result;
-        webSocket._connectionClosed(closeCode, reason);
-      }
-    }));
-
-    unawaited(wsTask.completed.then((error) {
-      if (!readyCompleter.isCompleted) {
-        if (error == null) {
-          throw AssertionError(
-            'expected an error or "opened" to complete first',
+    unawaited(
+      wsTask.completed.then((error) {
+        if (!readyCompleter.isCompleted) {
+          if (error == null) {
+            throw AssertionError(
+              'expected an error or "opened" to complete first',
+            );
+          }
+          readyCompleter.completeError(
+            ConnectionException('connection ended unexpectedly', error),
+          );
+        } else {
+          webSocket._connectionClosed(
+            1006,
+            'abnormal close'.codeUnits.toNSData(),
           );
         }
-        readyCompleter.completeError(
-          ConnectionException('connection ended unexpectedly', error),
-        );
-      } else {
-        webSocket._connectionClosed(
-          1006,
-          'abnormal close'.codeUnits.toNSData(),
-        );
-      }
-    }));
+      }),
+    );
 
     wsTask.start();
     return readyCompleter.future;
