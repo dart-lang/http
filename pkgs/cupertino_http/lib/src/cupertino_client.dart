@@ -15,8 +15,6 @@ import 'cupertino_api.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
 
-const _nsurlErrorCancelled = -999;
-
 final _supportsPerTaskDelegates = checkOSVersion(
   iOS: Version(15, 0, 0),
   macOS: Version(12, 0, 0),
@@ -462,7 +460,7 @@ class CupertinoClient extends BaseClient {
     // On older OS versions, fall back to buffered completion handler.
     if (!_ownsSession) {
       if (_supportsPerTaskDelegates) {
-        return _sendStream(urlSession, urlRequest, request, profile, nsStream);
+        return _sendStream(urlSession, urlRequest, request, nsStream);
       } else {
         return _sendBuffer(urlSession, urlRequest, request, nsStream);
       }
@@ -548,7 +546,6 @@ class CupertinoClient extends BaseClient {
     URLSession session,
     URLRequest urlRequest,
     BaseRequest request,
-    HttpClientRequestProfile? profile,
     NSInputStream? nsStream,
   ) async {
     final task = StreamingTask(
@@ -556,29 +553,16 @@ class CupertinoClient extends BaseClient {
       request: urlRequest,
       followRedirects: request.followRedirects,
       maxRedirects: request.maxRedirects,
+      mapError: _mapError,
     )..start();
 
-    bool didAbort = false;
     if (request case Abortable(:final abortTrigger?)) {
-      unawaited(abortTrigger.whenComplete(() {
-        didAbort = true;
-        task.cancel();
-      }));
+      unawaited(abortTrigger.whenComplete(task.cancel));
     }
 
     final URLResponse urlResponse;
     try {
       urlResponse = await task.response;
-    } catch (e) {
-      if (e is ObjCObject && NSError.isA(e)) {
-        final nsError = NSError.as(e);
-        final exception = nsError.isCancelled
-            ? RequestAbortedException(request.url)
-            : NSErrorClientException(nsError, request.url);
-        unawaited(profile?.responseData.closeWithError(exception.toString()));
-        throw exception;
-      }
-      rethrow;
     } finally {
       if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
         nsStream?.close();
@@ -596,57 +580,14 @@ class CupertinoClient extends BaseClient {
         ? null
         : response.expectedContentLength;
 
-    final isRedirect = !request.followRedirects && task.numRedirects > 0;
-    if (profile != null) {
-      unawaited(profile.requestData.close());
-      profile.responseData
-        ..contentLength = contentLength
-        ..headersCommaValues = responseHeaders
-        ..isRedirect = isRedirect
-        ..reasonPhrase = _findReasonPhrase(response.statusCode)
-        ..startTime = DateTime.now()
-        ..statusCode = response.statusCode;
-    }
-
-    final controller = StreamController<Uint8List>(onCancel: task.cancel);
-
-    // Forward data chunks
-    task.data.listen(
-      (nsData) {
-        if (didAbort) {
-          return;
-        }
-        final bytes = nsData.toList();
-        controller.add(bytes);
-        profile?.responseData.bodySink.add(bytes);
-      },
-      onError: (Object e) {
-        if (e is ObjCObject && NSError.isA(e)) {
-          final nsError = NSError.as(e);
-          final exception = nsError.isCancelled
-              ? RequestAbortedException(request.url)
-              : NSErrorClientException(nsError, request.url);
-          controller.addError(exception);
-          profile?.responseData.closeWithError(exception.toString());
-          return;
-        }
-        controller.addError(e);
-        profile?.responseData.closeWithError(e.toString());
-      },
-      onDone: () {
-        controller.close();
-        profile?.responseData.close();
-      },
-    );
-
     return _StreamedResponseWithUrl(
-      controller.stream,
+      task.data,
       response.statusCode,
       url: task.lastUrl ?? request.url,
       contentLength: contentLength,
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
-      isRedirect: isRedirect,
+      isRedirect: !request.followRedirects && task.numRedirects > 0,
       headers: responseHeaders,
     );
   }
@@ -671,10 +612,7 @@ class CupertinoClient extends BaseClient {
       }
 
       if (error != null) {
-        final exception = error.isCancelled
-            ? RequestAbortedException(request.url)
-            : NSErrorClientException(error, request.url);
-        completer.completeError(exception);
+        completer.completeError(_mapError(error, urlRequest));
         return;
       }
 
@@ -724,6 +662,10 @@ class CupertinoClient extends BaseClient {
     }
     return headers;
   }
+
+  Object _mapError(NSError error, URLRequest request) => error.isCancelled
+      ? RequestAbortedException(request.url)
+      : NSErrorClientException(error, request.url);
 }
 
 /// A test-only class that makes the [HttpClientRequestProfile] data available.
@@ -747,11 +689,4 @@ class CupertinoClientWithProfile extends CupertinoClient {
     );
     return CupertinoClientWithProfile._(session);
   }
-}
-
-final _urlError = NSString('NSURLErrorDomain');
-
-extension _NSErrorExtension on NSError {
-  bool get isCancelled =>
-      code == _nsurlErrorCancelled && _urlError.isEqualToString(domain);
 }

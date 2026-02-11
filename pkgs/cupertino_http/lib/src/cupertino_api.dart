@@ -28,6 +28,7 @@ library;
 
 import 'dart:async';
 import 'dart:ffi' as ffi;
+import 'dart:typed_data';
 
 import 'package:objective_c/objective_c.dart' as objc;
 
@@ -387,8 +388,8 @@ class HTTPURLResponse extends URLResponse {
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
   Map<String, String> get allHeaderFields {
     final headers = <String, String>{};
-    for (final MapEntry(:key, :value) in _httpUrlResponse.allHeaderFields.asDart().entries) {
-      headers[(key as String).toLowerCase()] = value as String;
+    for (final entry in _httpUrlResponse.allHeaderFields.asDart().entries) {
+      headers[(entry.key as String).toLowerCase()] = entry.value as String;
     }
     return headers;
   }
@@ -1324,13 +1325,14 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 class StreamingTask {
   final ncb.CUPHTTPStreamingTask _nsTask;
   final Completer<URLResponse> _responseCompleter;
-  final StreamController<objc.NSData> _dataController;
+  final StreamController<Uint8List> _dataController;
+  bool _cancelled = false;
 
   /// Future that completes when response headers are received.
   Future<URLResponse> get response => _responseCompleter.future;
 
   /// Stream of data chunks as they arrive.
-  Stream<objc.NSData> get data => _dataController.stream;
+  Stream<Uint8List> get data => _dataController.stream;
 
   /// The number of redirects followed so far, if any.
   int get numRedirects => _nsTask.numRedirects;
@@ -1350,9 +1352,13 @@ class StreamingTask {
     required URLRequest request,
     required bool followRedirects,
     required int maxRedirects,
+    required Object Function(objc.NSError error, URLRequest request) mapError,
   }) {
-    final responseCompleter = Completer<URLResponse>();
-    final dataController = StreamController<objc.NSData>();
+    final completer = Completer<URLResponse>();
+    late final StreamingTask task;
+    final controller = StreamController<Uint8List>(
+      onCancel: () => task.cancel(),
+    );
 
     final nsTask = ncb.CUPHTTPStreamingTask.alloc().initWithSession(
       session._nsObject,
@@ -1362,45 +1368,35 @@ class StreamingTask {
         error,
       ) {
         if (error != null) {
-          responseCompleter.completeError(error);
+          completer.completeError(mapError(error, request));
         } else if (response != null) {
-          responseCompleter.complete(
-            URLResponse._exactURLResponseType(response),
-          );
+          completer.complete(URLResponse._exactURLResponseType(response));
         } else {
-          responseCompleter.completeError(
-            StateError(
-              'Response callback received null response and null error',
-            ),
-          );
+          completer.completeError(StateError('No response/error in callback'));
         }
       }),
       onData: ncb.ObjCBlock_ffiVoid_NSData.listener((data) {
-        if (data != null) {
-          dataController.add(data);
+        if (data != null && !task._cancelled) {
+          controller.add(data.toList());
         }
       }),
       onComplete: ncb.ObjCBlock_ffiVoid_NSError.listener((error) {
         if (error != null) {
-          if (!responseCompleter.isCompleted) {
-            responseCompleter.completeError(error);
+          final mappedError = mapError(error, request);
+          if (!completer.isCompleted) {
+            completer.completeError(mappedError);
           }
-          dataController.addError(error);
+          controller.addError(mappedError);
         }
-        dataController.close();
+        controller.close();
       }),
       followRedirects: followRedirects,
       maxRedirects: maxRedirects,
     );
-    return StreamingTask._(nsTask, responseCompleter, dataController);
+    return task = StreamingTask._(nsTask, completer, controller);
   }
 
-  StreamingTask._(
-    this._nsTask,
-    Completer<URLResponse> responseCompleter,
-    StreamController<objc.NSData> dataController,
-  ) : _responseCompleter = responseCompleter,
-      _dataController = dataController;
+  StreamingTask._(this._nsTask, this._responseCompleter, this._dataController);
 
   /// Starts the streaming request.
   void start() {
@@ -1409,8 +1405,17 @@ class StreamingTask {
 
   /// Cancels the in-flight request.
   void cancel() {
+    _cancelled = true;
     _nsTask.cancel();
   }
+}
+
+const _nsurlErrorCancelled = -999;
+final _urlError = objc.NSString('NSURLErrorDomain');
+
+extension NSErrorExtension on objc.NSError {
+  bool get isCancelled =>
+      code == _nsurlErrorCancelled && _urlError.isEqualToString(domain);
 }
 
 /// A WebSocket task helper for externally-managed sessions.
@@ -1487,8 +1492,12 @@ class WebSocketTask {
       }),
     );
 
-    return WebSocketTask._(nsTask, openCompleter, closeCompleter,
-        completeCompleter);
+    return WebSocketTask._(
+      nsTask,
+      openCompleter,
+      closeCompleter,
+      completeCompleter,
+    );
   }
 
   WebSocketTask._(
