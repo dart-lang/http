@@ -22,10 +22,10 @@ typedef void (^CUPHTTPCompletionBlock)(NSError * _Nullable error);
 /// A streaming HTTP task helper for externally-managed URLSessions.
 @interface CUPHTTPStreamingTask : NSObject
 
-/// Whether to automatically follow redirects.
+/// The number of redirects followed so far, if any.
 @property (nonatomic, readonly) NSInteger numRedirects;
 
-/// Maximum number of redirects to follow.
+/// The URL of the most recent redirect response, if any.
 @property (nonatomic, readonly, nullable) NSURL *lastURL;
 
 /// Creates a new streaming task with callback blocks.

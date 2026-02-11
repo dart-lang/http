@@ -34743,7 +34743,7 @@ extension CUPHTTPStreamingTask$Methods on CUPHTTPStreamingTask {
     return CUPHTTPStreamingTask.fromPointer($ret, retain: false, release: true);
   }
 
-  /// Maximum number of redirects to follow.
+  /// The URL of the most recent redirect response, if any.
   objc.NSURL? get lastURL {
     final $ret = _objc_msgSend_151sglz(object$.ref.pointer, _sel_lastURL);
     return $ret.address == 0
@@ -34751,7 +34751,7 @@ extension CUPHTTPStreamingTask$Methods on CUPHTTPStreamingTask {
         : objc.NSURL.fromPointer($ret, retain: true, release: true);
   }
 
-  /// Whether to automatically follow redirects.
+  /// The number of redirects followed so far, if any.
   int get numRedirects {
     return _objc_msgSend_1hz7y9r(object$.ref.pointer, _sel_numRedirects);
   }
