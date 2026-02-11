@@ -490,8 +490,6 @@ class CupertinoClient extends BaseClient {
     _tasks[task] = taskTracker;
     task.resume();
 
-    final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
-
     late URLResponse result;
     try {
       result = await taskTracker.responseCompleter.future;
@@ -510,34 +508,12 @@ class CupertinoClient extends BaseClient {
     }
 
     final response = result as HTTPURLResponse;
-
-    if (request.followRedirects && taskTracker.numRedirects > maxRedirects) {
-      throw ClientException('Redirect limit exceeded', request.url);
-    }
-
-    final responseHeaders = _getResponseHeaders(response, request);
-
-    final contentLength = response.expectedContentLength == -1
-        ? null
-        : response.expectedContentLength;
-    final isRedirect = !request.followRedirects && taskTracker.numRedirects > 0;
-    profile?.responseData
-      ?..contentLength = contentLength
-      ..headersCommaValues = responseHeaders
-      ..isRedirect = isRedirect
-      ..reasonPhrase = _findReasonPhrase(response.statusCode)
-      ..startTime = DateTime.now()
-      ..statusCode = response.statusCode;
-
-    return _StreamedResponseWithUrl(
-      taskTracker.responseController.stream,
-      response.statusCode,
-      url: taskTracker.lastUrl ?? request.url,
-      contentLength: contentLength,
-      reasonPhrase: _findReasonPhrase(response.statusCode),
-      request: request,
-      isRedirect: isRedirect,
-      headers: responseHeaders,
+    return _getStreamedResponse(
+      subscription.stream,
+      request,
+      response,
+      taskTracker.lastUrl,
+      taskTracker.numRedirects,
     );
   }
 
@@ -551,8 +527,7 @@ class CupertinoClient extends BaseClient {
     final task = StreamingTask(
       session: session,
       request: urlRequest,
-      followRedirects: request.followRedirects,
-      maxRedirects: request.maxRedirects,
+      maxRedirects: request.followRedirects ? request.maxRedirects : 0,
       mapError: _mapError,
     )..start();
 
@@ -570,24 +545,39 @@ class CupertinoClient extends BaseClient {
     }
 
     final response = urlResponse as HTTPURLResponse;
-    if (request.followRedirects && task.numRedirects > request.maxRedirects) {
+    return _getStreamedResponse(
+      task.data,
+      request,
+      response,
+      task.lastUrl,
+      task.numRedirects,
+    );
+  }
+
+  _StreamedResponseWithUrl _getStreamedResponse(
+    Stream<List<int>> stream,
+    BaseRequest request,
+    HTTPURLResponse response,
+    Uri? lastUrl,
+    int numRedirects,
+  ) {
+    if (request.followRedirects && numRedirects > request.maxRedirects) {
       throw ClientException('Redirect limit exceeded', request.url);
     }
 
     final responseHeaders = _getResponseHeaders(response, request);
-
     final contentLength = response.expectedContentLength == -1
         ? null
         : response.expectedContentLength;
 
     return _StreamedResponseWithUrl(
-      task.data,
+      stream,
       response.statusCode,
-      url: task.lastUrl ?? request.url,
+      url: lastUrl ?? request.url,
       contentLength: contentLength,
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
-      isRedirect: !request.followRedirects && task.numRedirects > 0,
+      isRedirect: !request.followRedirects && numRedirects > 0,
       headers: responseHeaders,
     );
   }

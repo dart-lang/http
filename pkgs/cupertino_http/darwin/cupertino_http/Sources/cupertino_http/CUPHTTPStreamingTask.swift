@@ -22,7 +22,6 @@ public class CUPHTTPStreamingTask: NSObject {
     private var onData: ((NSData) -> Void)?
     private var onComplete: ((NSError?) -> Void)?
 
-    private let followRedirects: Bool
     private let maxRedirects: Int
 
     @objc public var numRedirects: Int { taskDelegate?.numRedirects ?? 0 }
@@ -45,7 +44,6 @@ public class CUPHTTPStreamingTask: NSObject {
         onResponse: ((URLResponse?, NSError?) -> Void)?,
         onData: ((NSData) -> Void)?,
         onComplete: ((NSError?) -> Void)?,
-        followRedirects: Bool,
         maxRedirects: Int
     ) {
         self.session = session
@@ -53,7 +51,6 @@ public class CUPHTTPStreamingTask: NSObject {
         self.onResponse = onResponse
         self.onData = onData
         self.onComplete = onComplete
-        self.followRedirects = followRedirects
         self.maxRedirects = maxRedirects
         super.init()
     }
@@ -84,7 +81,6 @@ public class CUPHTTPStreamingTask: NSObject {
             onResponse: onResponse,
             onData: onData,
             onComplete: onComplete,
-            followRedirects: followRedirects,
             maxRedirects: maxRedirects
         )
         onResponse = nil
@@ -116,7 +112,6 @@ private final class _StreamingTaskDelegate: NSObject, URLSessionDataDelegate {
     private var onComplete: ((NSError?) -> Void)?
     private var responseDelivered = false
 
-    private let followRedirects: Bool
     private let maxRedirects: Int
     var numRedirects = 0
     var lastURL: URL?
@@ -125,13 +120,11 @@ private final class _StreamingTaskDelegate: NSObject, URLSessionDataDelegate {
         onResponse: ((URLResponse?, NSError?) -> Void)?,
         onData: ((NSData) -> Void)?,
         onComplete: ((NSError?) -> Void)?,
-        followRedirects: Bool,
         maxRedirects: Int
     ) {
         self.onResponse = onResponse
         self.onData = onData
         self.onComplete = onComplete
-        self.followRedirects = followRedirects
         self.maxRedirects = maxRedirects
         super.init()
     }
@@ -176,7 +169,7 @@ private final class _StreamingTaskDelegate: NSObject, URLSessionDataDelegate {
         completionHandler: @escaping (URLRequest?) -> Void
     ) {
         numRedirects += 1
-        if followRedirects && numRedirects <= maxRedirects {
+        if numRedirects <= maxRedirects {
             lastURL = request.url
             completionHandler(request)
         } else {

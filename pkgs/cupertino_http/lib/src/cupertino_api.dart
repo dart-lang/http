@@ -389,7 +389,9 @@ class HTTPURLResponse extends URLResponse {
   Map<String, String> get allHeaderFields {
     final headers = <String, String>{};
     for (final entry in _httpUrlResponse.allHeaderFields.asDart().entries) {
-      headers[(entry.key as String).toLowerCase()] = entry.value as String;
+      final key = (entry.key as objc.NSString).toDartString().toLowerCase();
+      final value = (entry.value as objc.NSString).toDartString();
+      headers[key] = value;
     }
     return headers;
   }
@@ -1350,7 +1352,6 @@ class StreamingTask {
   factory StreamingTask({
     required URLSession session,
     required URLRequest request,
-    required bool followRedirects,
     required int maxRedirects,
     required Object Function(objc.NSError error, URLRequest request) mapError,
   }) {
@@ -1390,7 +1391,6 @@ class StreamingTask {
         }
         controller.close();
       }),
-      followRedirects: followRedirects,
       maxRedirects: maxRedirects,
     );
     return task = StreamingTask._(nsTask, completer, controller);
