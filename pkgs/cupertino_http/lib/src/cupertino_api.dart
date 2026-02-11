@@ -385,9 +385,13 @@ class HTTPURLResponse extends URLResponse {
   /// The HTTP headers of the response.
   ///
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
-  Map<String, String> get allHeaderFields =>
-      (objc.toDartObject(_httpUrlResponse.allHeaderFields) as Map)
-          .cast<String, String>();
+  Map<String, String> get allHeaderFields {
+    final headers = <String, String>{};
+    for (final MapEntry(:key, :value) in _httpUrlResponse.allHeaderFields.asDart().entries) {
+      headers[(key as String).toLowerCase()] = value as String;
+    }
+    return headers;
+  }
 
   @override
   String toString() =>

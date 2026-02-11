@@ -714,10 +714,7 @@ class CupertinoClient extends BaseClient {
     HTTPURLResponse response,
     BaseRequest request,
   ) {
-    final headers = <String, String>{};
-    for (final entry in response.allHeaderFields.entries) {
-      headers[entry.key.toLowerCase()] = entry.value;
-    }
+    final headers = response.allHeaderFields;
     final contentLength = headers['content-length'];
     if (contentLength != null && !_digitRegex.hasMatch(contentLength)) {
       throw ClientException(
