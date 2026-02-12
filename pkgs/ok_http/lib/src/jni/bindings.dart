@@ -12643,6 +12643,139 @@ final class $RedirectInterceptor$Type$
   }
 }
 
+/// from: `com.example.ok_http.AsyncInputStreamReader$Companion`
+class AsyncInputStreamReader$Companion extends jni$_.JObject {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<AsyncInputStreamReader$Companion> $type;
+
+  @jni$_.internal
+  AsyncInputStreamReader$Companion.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = jni$_.JClass.forName(
+      r'com/example/ok_http/AsyncInputStreamReader$Companion');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<AsyncInputStreamReader$Companion?> nullableType =
+      $AsyncInputStreamReader$Companion$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<AsyncInputStreamReader$Companion> type =
+      $AsyncInputStreamReader$Companion$Type$();
+  static final _id_new$ = _class.constructorId(
+    r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
+  );
+
+  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory AsyncInputStreamReader$Companion(
+    jni$_.JObject? defaultConstructorMarker,
+  ) {
+    final _$defaultConstructorMarker =
+        defaultConstructorMarker?.reference ?? jni$_.jNullReference;
+    return AsyncInputStreamReader$Companion.fromReference(_new$(
+            _class.reference.pointer,
+            _id_new$ as jni$_.JMethodIDPtr,
+            _$defaultConstructorMarker.pointer)
+        .reference);
+  }
+}
+
+final class $AsyncInputStreamReader$Companion$NullableType$
+    extends jni$_.JType<AsyncInputStreamReader$Companion?> {
+  @jni$_.internal
+  const $AsyncInputStreamReader$Companion$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature =>
+      r'Lcom/example/ok_http/AsyncInputStreamReader$Companion;';
+
+  @jni$_.internal
+  @core$_.override
+  AsyncInputStreamReader$Companion? fromReference(jni$_.JReference reference) =>
+      reference.isNull
+          ? null
+          : AsyncInputStreamReader$Companion.fromReference(
+              reference,
+            );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const jni$_.$JObject$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<AsyncInputStreamReader$Companion?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 1;
+
+  @core$_.override
+  int get hashCode =>
+      ($AsyncInputStreamReader$Companion$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType ==
+            ($AsyncInputStreamReader$Companion$NullableType$) &&
+        other is $AsyncInputStreamReader$Companion$NullableType$;
+  }
+}
+
+final class $AsyncInputStreamReader$Companion$Type$
+    extends jni$_.JType<AsyncInputStreamReader$Companion> {
+  @jni$_.internal
+  const $AsyncInputStreamReader$Companion$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature =>
+      r'Lcom/example/ok_http/AsyncInputStreamReader$Companion;';
+
+  @jni$_.internal
+  @core$_.override
+  AsyncInputStreamReader$Companion fromReference(jni$_.JReference reference) =>
+      AsyncInputStreamReader$Companion.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const jni$_.$JObject$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<AsyncInputStreamReader$Companion?> get nullableType =>
+      const $AsyncInputStreamReader$Companion$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 1;
+
+  @core$_.override
+  int get hashCode => ($AsyncInputStreamReader$Companion$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($AsyncInputStreamReader$Companion$Type$) &&
+        other is $AsyncInputStreamReader$Companion$Type$;
+  }
+}
+
 /// from: `com.example.ok_http.AsyncInputStreamReader`
 class AsyncInputStreamReader extends jni$_.JObject {
   @jni$_.internal
@@ -12665,6 +12798,16 @@ class AsyncInputStreamReader extends jni$_.JObject {
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<AsyncInputStreamReader> type =
       $AsyncInputStreamReader$Type$();
+  static final _id_Companion = _class.staticFieldId(
+    r'Companion',
+    r'Lcom/example/ok_http/AsyncInputStreamReader$Companion;',
+  );
+
+  /// from: `static public final com.example.ok_http.AsyncInputStreamReader$Companion Companion`
+  /// The returned object must be released after use, by calling the [release] method.
+  static AsyncInputStreamReader$Companion get Companion => _id_Companion.get(
+      _class, const $AsyncInputStreamReader$Companion$Type$());
+
   static final _id_new$ = _class.constructorId(
     r'()V',
   );
@@ -12722,28 +12865,6 @@ class AsyncInputStreamReader extends jni$_.JObject {
     return _readAsync(reference.pointer, _id_readAsync as jni$_.JMethodIDPtr,
             _$inputStream.pointer, _$dataCallback.pointer)
         .object<jni$_.JObject>(const jni$_.$JObject$Type$());
-  }
-
-  static final _id_shutdown = _class.instanceMethodId(
-    r'shutdown',
-    r'()V',
-  );
-
-  static final _shutdown = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JThrowablePtr Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public fun shutdown(): kotlin.Unit`
-  void shutdown() {
-    _shutdown(reference.pointer, _id_shutdown as jni$_.JMethodIDPtr).check();
   }
 }
 
@@ -13403,6 +13524,138 @@ final class $WriteCallback$Type$ extends jni$_.JType<WriteCallback> {
   }
 }
 
+/// from: `com.example.ok_http.StreamingRequestBody$Companion`
+class StreamingRequestBody$Companion extends jni$_.JObject {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<StreamingRequestBody$Companion> $type;
+
+  @jni$_.internal
+  StreamingRequestBody$Companion.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = jni$_.JClass.forName(
+      r'com/example/ok_http/StreamingRequestBody$Companion');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<StreamingRequestBody$Companion?> nullableType =
+      $StreamingRequestBody$Companion$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<StreamingRequestBody$Companion> type =
+      $StreamingRequestBody$Companion$Type$();
+  static final _id_new$ = _class.constructorId(
+    r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
+  );
+
+  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory StreamingRequestBody$Companion(
+    jni$_.JObject? defaultConstructorMarker,
+  ) {
+    final _$defaultConstructorMarker =
+        defaultConstructorMarker?.reference ?? jni$_.jNullReference;
+    return StreamingRequestBody$Companion.fromReference(_new$(
+            _class.reference.pointer,
+            _id_new$ as jni$_.JMethodIDPtr,
+            _$defaultConstructorMarker.pointer)
+        .reference);
+  }
+}
+
+final class $StreamingRequestBody$Companion$NullableType$
+    extends jni$_.JType<StreamingRequestBody$Companion?> {
+  @jni$_.internal
+  const $StreamingRequestBody$Companion$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature =>
+      r'Lcom/example/ok_http/StreamingRequestBody$Companion;';
+
+  @jni$_.internal
+  @core$_.override
+  StreamingRequestBody$Companion? fromReference(jni$_.JReference reference) =>
+      reference.isNull
+          ? null
+          : StreamingRequestBody$Companion.fromReference(
+              reference,
+            );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const jni$_.$JObject$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<StreamingRequestBody$Companion?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 1;
+
+  @core$_.override
+  int get hashCode => ($StreamingRequestBody$Companion$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType ==
+            ($StreamingRequestBody$Companion$NullableType$) &&
+        other is $StreamingRequestBody$Companion$NullableType$;
+  }
+}
+
+final class $StreamingRequestBody$Companion$Type$
+    extends jni$_.JType<StreamingRequestBody$Companion> {
+  @jni$_.internal
+  const $StreamingRequestBody$Companion$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature =>
+      r'Lcom/example/ok_http/StreamingRequestBody$Companion;';
+
+  @jni$_.internal
+  @core$_.override
+  StreamingRequestBody$Companion fromReference(jni$_.JReference reference) =>
+      StreamingRequestBody$Companion.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const jni$_.$JObject$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<StreamingRequestBody$Companion?> get nullableType =>
+      const $StreamingRequestBody$Companion$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 1;
+
+  @core$_.override
+  int get hashCode => ($StreamingRequestBody$Companion$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($StreamingRequestBody$Companion$Type$) &&
+        other is $StreamingRequestBody$Companion$Type$;
+  }
+}
+
 /// from: `com.example.ok_http.StreamingRequestBody`
 class StreamingRequestBody extends RequestBody {
   @jni$_.internal
@@ -13425,6 +13678,16 @@ class StreamingRequestBody extends RequestBody {
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<StreamingRequestBody> type =
       $StreamingRequestBody$Type$();
+  static final _id_Companion$1 = _class.staticFieldId(
+    r'Companion',
+    r'Lcom/example/ok_http/StreamingRequestBody$Companion;',
+  );
+
+  /// from: `static public final com.example.ok_http.StreamingRequestBody$Companion Companion`
+  /// The returned object must be released after use, by calling the [release] method.
+  static StreamingRequestBody$Companion get Companion$1 => _id_Companion$1.get(
+      _class, const $StreamingRequestBody$Companion$Type$());
+
   static final _id_new$ = _class.constructorId(
     r'(Lokhttp3/MediaType;JJ)V',
   );

@@ -26,17 +26,20 @@ import java.util.concurrent.Executors
  * 3. [WriteCallback.onWriteComplete] fires after each chunk, signaling Dart
  *    to send the next chunk.
  * 4. [finish] closes the pipe sink, causing [writeTo]'s writeAll to complete.
- * 5. [cancel] aborts the pipe and shuts down the executor for early
- *    termination (e.g., server responded 413 before body was fully sent).
+ * 5. [cancel] aborts the pipe for early termination (e.g., server
+ *    responded 413 before body was fully sent).
  */
 class StreamingRequestBody(
     private val mediaType: MediaType?,
     private val length: Long,
     bufferSize: Long = 65536
 ) : RequestBody() {
+    companion object {
+        private val executor = Executors.newCachedThreadPool()
+    }
+
     private val pipe = Pipe(bufferSize)
     private val bufferedSink = pipe.sink.buffer()
-    private val executor = Executors.newSingleThreadExecutor()
 
     override fun contentType(): MediaType? = mediaType
 
@@ -56,7 +59,6 @@ class StreamingRequestBody(
         executor.submit {
             try {
                 bufferedSink.write(data, 0, length)
-                bufferedSink.flush()
                 callback.onWriteComplete()
             } catch (e: IOException) {
                 callback.onError(e)
@@ -70,7 +72,6 @@ class StreamingRequestBody(
      */
     fun finish() {
         executor.submit { bufferedSink.close() }
-        executor.shutdown()
     }
 
     /**
@@ -78,6 +79,5 @@ class StreamingRequestBody(
      */
     fun cancel() {
         try { pipe.cancel() } catch (_: Exception) {}
-        executor.shutdownNow()
     }
 }

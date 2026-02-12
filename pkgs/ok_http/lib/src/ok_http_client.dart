@@ -507,7 +507,6 @@ class OkHttpClient extends BaseClient {
                     profile?.responseData.bodySink.add(data);
                   },
                   onFinished: () {
-                    reader!.shutdown();
                     if (bodyStreamController.isClosed) return;
                     bodyStreamController.sink.close();
                     if (!profileRespClosed) {
@@ -524,7 +523,6 @@ class OkHttpClient extends BaseClient {
                     addProfileError(profile, exception);
                     profileRespClosed = true;
 
-                    reader!.shutdown();
                     bodyStreamController.sink.close();
                   },
                 ),
@@ -590,7 +588,6 @@ class OkHttpClient extends BaseClient {
           c
             ..addError(RequestAbortedException(request.url))
             ..close();
-          reader?.shutdown();
           if (!profileRespClosed) {
             addProfileError(profile, RequestAbortedException(request.url));
             profileRespClosed = true;

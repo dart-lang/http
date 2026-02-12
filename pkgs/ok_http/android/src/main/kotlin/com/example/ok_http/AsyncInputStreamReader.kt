@@ -6,7 +6,6 @@ package com.example.ok_http
 
 import java.io.IOException
 import java.io.InputStream
-import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
@@ -24,7 +23,9 @@ interface DataCallback {
  * Provides functions to read data from an InputStream asynchronously.
  */
 class AsyncInputStreamReader {
-    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+    companion object {
+        private val executor = Executors.newCachedThreadPool()
+    }
 
     /**
      * Reads data from an InputStream asynchronously using an executor service.
@@ -35,7 +36,7 @@ class AsyncInputStreamReader {
      * @return Future<*>
      */
     fun readAsync(inputStream: InputStream, callback: DataCallback): Future<*> {
-        return executorService.submit {
+        return executor.submit {
             try {
                 val buffer = ByteArray(4096)
                 var bytesRead: Int
@@ -55,9 +56,5 @@ class AsyncInputStreamReader {
                 callback.onFinished()
             }
         }
-    }
-
-    fun shutdown() {
-        executorService.shutdown()
     }
 }
