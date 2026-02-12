@@ -13136,6 +13136,634 @@ final class $DataCallback$Type$ extends jni$_.JType<DataCallback> {
   }
 }
 
+/// from: `com.example.ok_http.WriteCallback`
+class WriteCallback extends jni$_.JObject {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<WriteCallback> $type;
+
+  @jni$_.internal
+  WriteCallback.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      jni$_.JClass.forName(r'com/example/ok_http/WriteCallback');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<WriteCallback?> nullableType =
+      $WriteCallback$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<WriteCallback> type = $WriteCallback$Type$();
+  static final _id_onWriteComplete = _class.instanceMethodId(
+    r'onWriteComplete',
+    r'()V',
+  );
+
+  static final _onWriteComplete = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun onWriteComplete(): kotlin.Unit`
+  void onWriteComplete() {
+    _onWriteComplete(
+            reference.pointer, _id_onWriteComplete as jni$_.JMethodIDPtr)
+        .check();
+  }
+
+  static final _id_onError = _class.instanceMethodId(
+    r'onError',
+    r'(Ljava/io/IOException;)V',
+  );
+
+  static final _onError = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public fun onError(e: java.io.IOException): kotlin.Unit`
+  void onError(
+    jni$_.JObject iOException,
+  ) {
+    final _$iOException = iOException.reference;
+    _onError(reference.pointer, _id_onError as jni$_.JMethodIDPtr,
+            _$iOException.pointer)
+        .check();
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final core$_.Map<int, $WriteCallback> _$impls = {};
+  static jni$_.JObjectPtr _$invoke(
+    int port,
+    jni$_.JObjectPtr descriptor,
+    jni$_.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      jni$_.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final jni$_.Pointer<
+          jni$_.NativeFunction<
+              jni$_.JObjectPtr Function(
+                  jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)>>
+      _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
+
+  static jni$_.Pointer<jni$_.Void> _$invokeMethod(
+    int $p,
+    jni$_.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r'onWriteComplete()V') {
+        _$impls[$p]!.onWriteComplete();
+        return jni$_.nullptr;
+      }
+      if ($d == r'onError(Ljava/io/IOException;)V') {
+        _$impls[$p]!.onError(
+          $a![0]!.as(const jni$_.$JObject$Type$(), releaseOriginal: true),
+        );
+        return jni$_.nullptr;
+      }
+    } catch (e) {
+      return jni$_.ProtectedJniExtensions.newDartException(e);
+    }
+    return jni$_.nullptr;
+  }
+
+  static void implementIn(
+    jni$_.JImplementer implementer,
+    $WriteCallback $impl,
+  ) {
+    late final jni$_.RawReceivePort $p;
+    $p = jni$_.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = jni$_.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      jni$_.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'com.example.ok_http.WriteCallback',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.onWriteComplete$async) r'onWriteComplete()V',
+        if ($impl.onError$async) r'onError(Ljava/io/IOException;)V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory WriteCallback.implement(
+    $WriteCallback $impl,
+  ) {
+    final $i = jni$_.JImplementer();
+    implementIn($i, $impl);
+    return WriteCallback.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $WriteCallback {
+  factory $WriteCallback({
+    required void Function() onWriteComplete,
+    bool onWriteComplete$async,
+    required void Function(jni$_.JObject iOException) onError,
+    bool onError$async,
+  }) = _$WriteCallback;
+
+  void onWriteComplete();
+  bool get onWriteComplete$async => false;
+  void onError(jni$_.JObject iOException);
+  bool get onError$async => false;
+}
+
+final class _$WriteCallback with $WriteCallback {
+  _$WriteCallback({
+    required void Function() onWriteComplete,
+    this.onWriteComplete$async = false,
+    required void Function(jni$_.JObject iOException) onError,
+    this.onError$async = false,
+  })  : _onWriteComplete = onWriteComplete,
+        _onError = onError;
+
+  final void Function() _onWriteComplete;
+  final bool onWriteComplete$async;
+  final void Function(jni$_.JObject iOException) _onError;
+  final bool onError$async;
+
+  void onWriteComplete() {
+    return _onWriteComplete();
+  }
+
+  void onError(jni$_.JObject iOException) {
+    return _onError(iOException);
+  }
+}
+
+final class $WriteCallback$NullableType$ extends jni$_.JType<WriteCallback?> {
+  @jni$_.internal
+  const $WriteCallback$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lcom/example/ok_http/WriteCallback;';
+
+  @jni$_.internal
+  @core$_.override
+  WriteCallback? fromReference(jni$_.JReference reference) => reference.isNull
+      ? null
+      : WriteCallback.fromReference(
+          reference,
+        );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const jni$_.$JObject$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<WriteCallback?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 1;
+
+  @core$_.override
+  int get hashCode => ($WriteCallback$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($WriteCallback$NullableType$) &&
+        other is $WriteCallback$NullableType$;
+  }
+}
+
+final class $WriteCallback$Type$ extends jni$_.JType<WriteCallback> {
+  @jni$_.internal
+  const $WriteCallback$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lcom/example/ok_http/WriteCallback;';
+
+  @jni$_.internal
+  @core$_.override
+  WriteCallback fromReference(jni$_.JReference reference) =>
+      WriteCallback.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const jni$_.$JObject$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<WriteCallback?> get nullableType =>
+      const $WriteCallback$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 1;
+
+  @core$_.override
+  int get hashCode => ($WriteCallback$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($WriteCallback$Type$) &&
+        other is $WriteCallback$Type$;
+  }
+}
+
+/// from: `com.example.ok_http.StreamingRequestBody`
+class StreamingRequestBody extends RequestBody {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<StreamingRequestBody> $type;
+
+  @jni$_.internal
+  StreamingRequestBody.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      jni$_.JClass.forName(r'com/example/ok_http/StreamingRequestBody');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<StreamingRequestBody?> nullableType =
+      $StreamingRequestBody$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<StreamingRequestBody> type =
+      $StreamingRequestBody$Type$();
+  static final _id_new$ = _class.constructorId(
+    r'(Lokhttp3/MediaType;JJ)V',
+  );
+
+  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Int64,
+                        jni$_.Int64
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>, int, int)>();
+
+  /// from: `public void <init>(okhttp3.MediaType mediaType, long j, long j1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory StreamingRequestBody(
+    jni$_.JObject? mediaType,
+    int j,
+    int j1,
+  ) {
+    final _$mediaType = mediaType?.reference ?? jni$_.jNullReference;
+    return StreamingRequestBody.fromReference(_new$(_class.reference.pointer,
+            _id_new$ as jni$_.JMethodIDPtr, _$mediaType.pointer, j, j1)
+        .reference);
+  }
+
+  static final _id_new$1 = _class.constructorId(
+    r'(Lokhttp3/MediaType;JJILkotlin/jvm/internal/DefaultConstructorMarker;)V',
+  );
+
+  static final _new$1 = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Int64,
+                        jni$_.Int64,
+                        jni$_.Int32,
+                        jni$_.Pointer<jni$_.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              int,
+              int,
+              int,
+              jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `synthetic public void <init>(okhttp3.MediaType mediaType, long j, long j1, int i, kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory StreamingRequestBody.new$1(
+    jni$_.JObject? mediaType,
+    int j,
+    int j1,
+    int i,
+    jni$_.JObject? defaultConstructorMarker,
+  ) {
+    final _$mediaType = mediaType?.reference ?? jni$_.jNullReference;
+    final _$defaultConstructorMarker =
+        defaultConstructorMarker?.reference ?? jni$_.jNullReference;
+    return StreamingRequestBody.fromReference(_new$1(
+            _class.reference.pointer,
+            _id_new$1 as jni$_.JMethodIDPtr,
+            _$mediaType.pointer,
+            j,
+            j1,
+            i,
+            _$defaultConstructorMarker.pointer)
+        .reference);
+  }
+
+  static final _id_contentType = _class.instanceMethodId(
+    r'contentType',
+    r'()Lokhttp3/MediaType;',
+  );
+
+  static final _contentType = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun contentType(): okhttp3.MediaType?`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JObject? contentType() {
+    return _contentType(
+            reference.pointer, _id_contentType as jni$_.JMethodIDPtr)
+        .object<jni$_.JObject?>(const jni$_.$JObject$NullableType$());
+  }
+
+  static final _id_contentLength = _class.instanceMethodId(
+    r'contentLength',
+    r'()J',
+  );
+
+  static final _contentLength = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun contentLength(): kotlin.Long`
+  int contentLength() {
+    return _contentLength(
+            reference.pointer, _id_contentLength as jni$_.JMethodIDPtr)
+        .long;
+  }
+
+  static final _id_isOneShot = _class.instanceMethodId(
+    r'isOneShot',
+    r'()Z',
+  );
+
+  static final _isOneShot = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallBooleanMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun isOneShot(): kotlin.Boolean`
+  bool isOneShot() {
+    return _isOneShot(reference.pointer, _id_isOneShot as jni$_.JMethodIDPtr)
+        .boolean;
+  }
+
+  static final _id_writeTo = _class.instanceMethodId(
+    r'writeTo',
+    r'(Lokio/BufferedSink;)V',
+  );
+
+  static final _writeTo = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public fun writeTo(sink: okio.BufferedSink): kotlin.Unit`
+  void writeTo(
+    jni$_.JObject bufferedSink,
+  ) {
+    final _$bufferedSink = bufferedSink.reference;
+    _writeTo(reference.pointer, _id_writeTo as jni$_.JMethodIDPtr,
+            _$bufferedSink.pointer)
+        .check();
+  }
+
+  static final _id_writeChunk = _class.instanceMethodId(
+    r'writeChunk',
+    r'([BILcom/example/ok_http/WriteCallback;)V',
+  );
+
+  static final _writeChunk = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Int32,
+                        jni$_.Pointer<jni$_.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              int,
+              jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public fun writeChunk(data: kotlin.ByteArray, length: kotlin.Int, callback: com.example.ok_http.WriteCallback): kotlin.Unit`
+  void writeChunk(
+    jni$_.JByteArray bs,
+    int i,
+    WriteCallback writeCallback,
+  ) {
+    final _$bs = bs.reference;
+    final _$writeCallback = writeCallback.reference;
+    _writeChunk(reference.pointer, _id_writeChunk as jni$_.JMethodIDPtr,
+            _$bs.pointer, i, _$writeCallback.pointer)
+        .check();
+  }
+
+  static final _id_finish = _class.instanceMethodId(
+    r'finish',
+    r'()V',
+  );
+
+  static final _finish = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun finish(): kotlin.Unit`
+  void finish() {
+    _finish(reference.pointer, _id_finish as jni$_.JMethodIDPtr).check();
+  }
+
+  static final _id_cancel = _class.instanceMethodId(
+    r'cancel',
+    r'()V',
+  );
+
+  static final _cancel = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun cancel(): kotlin.Unit`
+  void cancel() {
+    _cancel(reference.pointer, _id_cancel as jni$_.JMethodIDPtr).check();
+  }
+}
+
+final class $StreamingRequestBody$NullableType$
+    extends jni$_.JType<StreamingRequestBody?> {
+  @jni$_.internal
+  const $StreamingRequestBody$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lcom/example/ok_http/StreamingRequestBody;';
+
+  @jni$_.internal
+  @core$_.override
+  StreamingRequestBody? fromReference(jni$_.JReference reference) =>
+      reference.isNull
+          ? null
+          : StreamingRequestBody.fromReference(
+              reference,
+            );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $RequestBody$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<StreamingRequestBody?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 2;
+
+  @core$_.override
+  int get hashCode => ($StreamingRequestBody$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($StreamingRequestBody$NullableType$) &&
+        other is $StreamingRequestBody$NullableType$;
+  }
+}
+
+final class $StreamingRequestBody$Type$
+    extends jni$_.JType<StreamingRequestBody> {
+  @jni$_.internal
+  const $StreamingRequestBody$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lcom/example/ok_http/StreamingRequestBody;';
+
+  @jni$_.internal
+  @core$_.override
+  StreamingRequestBody fromReference(jni$_.JReference reference) =>
+      StreamingRequestBody.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $RequestBody$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<StreamingRequestBody?> get nullableType =>
+      const $StreamingRequestBody$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 2;
+
+  @core$_.override
+  int get hashCode => ($StreamingRequestBody$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($StreamingRequestBody$Type$) &&
+        other is $StreamingRequestBody$Type$;
+  }
+}
+
 /// from: `okhttp3.WebSocket$Factory`
 class WebSocket$Factory extends jni$_.JObject {
   @jni$_.internal
