@@ -15,6 +15,7 @@ library;
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
@@ -109,14 +110,14 @@ class OkHttpClientConfiguration {
 /// See [`KeyChain.choosePrivateKeyAlias`](https://developer.android.com/reference/android/security/KeyChain#choosePrivateKeyAlias(android.app.Activity,%20android.security.KeyChainAliasCallback,%20java.lang.String[],%20java.security.Principal[],%20android.net.Uri,%20java.lang.String).
 Future<String?> choosePrivateKeyAlias({
   JObject? activity,
-}) async {
+}) {
   final c = Completer<String?>();
-  activity ??= JObject.fromReference(Jni.getCurrentActivity());
+  activity ??= Jni.androidActivity(PlatformDispatcher.instance.engineId!);
   bindings.KeyChain.choosePrivateKeyAlias(activity,
       bindings.KeyChainAliasCallback.implement(
           bindings.$KeyChainAliasCallback(alias: (alias) {
     c.complete(alias?.toDartString());
-  })), null, null, null, -1, null);
+  })), null, null, null, null);
   return c.future;
 }
 
@@ -126,7 +127,7 @@ Future<String?> choosePrivateKeyAlias({
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromAlias(
     String alias,
     {JObject? context}) {
-  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
+  context ??= Jni.androidApplicationContext;
   final jAlias = alias.toJString();
   final pk = bindings.KeyChain.getPrivateKey(context, jAlias)!;
   final chain = bindings.KeyChain.getCertificateChain(context, jAlias)!;
@@ -141,8 +142,8 @@ Future<String?> choosePrivateKeyAlias({
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromPKCS12(
     Uint8List pkcs12Data, String password,
     {JObject? context}) {
-  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
-  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString())!;
+  context ??= Jni.androidApplicationContext;
+  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString(), null)!;
 
   final jPassword = JCharArray(password.length);
   for (var i = 0; i < password.length; ++i) {
