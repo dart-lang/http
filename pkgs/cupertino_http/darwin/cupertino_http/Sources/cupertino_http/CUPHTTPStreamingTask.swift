@@ -34,7 +34,6 @@ public class CUPHTTPStreamingTask: NSObject {
     /// - Parameters:
     ///   - session: The URLSession to use (can be externally managed)
     ///   - request: The URL request to execute
-    ///   - chunkSize: Buffer size before delivering to callback (default 64KB)
     ///   - onResponse: Called once when response headers are available
     ///   - onData: Called repeatedly with buffered data chunks
     ///   - onComplete: Called once when the request completes
