@@ -4,6 +4,8 @@
 * Fix a bug where close reasons not containing valid UTF-8 would cause an
   uncatchable exception to be thrown.
 * Exclude unnecessary generated code. Slightly reduces disk space requirements.
+* Add `CupertinoClient.fromSharedSession` and `CupertinoWebSocket.connectWithSession`
+  to use pre-existing sessions.
 
 ## 2.4.0
 
