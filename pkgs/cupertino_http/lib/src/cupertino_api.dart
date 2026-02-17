@@ -1325,7 +1325,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 /// }
 /// ```
 class StreamingTask {
-  final ncb.CUPHTTPStreamingTask _nsTask;
+  final ncb.NSURLSessionTask _nsTask;
   final Completer<URLResponse> _responseCompleter;
   final StreamController<Uint8List> _dataController;
   bool _cancelled = false;
@@ -1337,16 +1337,10 @@ class StreamingTask {
   Stream<Uint8List> get data => _dataController.stream;
 
   /// The number of redirects followed so far, if any.
-  int get numRedirects => _nsTask.numRedirects;
+  int numRedirects = 0;
 
   /// The URL of the most recent redirect response, if any.
-  Uri? get lastUrl {
-    final nsUrl = _nsTask.lastURL;
-    if (nsUrl == null) {
-      return null;
-    }
-    return _nsurlToUri(nsUrl);
-  }
+  Uri? lastUrl;
 
   /// Creates a streaming task for the given session and request.
   factory StreamingTask({
@@ -1361,46 +1355,74 @@ class StreamingTask {
       onCancel: () => task.cancel(),
     );
 
-    final nsTask = ncb.CUPHTTPStreamingTask.alloc().initWithSession(
-      session._nsObject,
-      request: request._nsObject,
-      onResponse: ncb.ObjCBlock_ffiVoid_NSURLResponse_NSError.listener((
-        response,
-        error,
-      ) {
-        if (error != null) {
-          completer.completeError(mapError(error, request));
-        } else if (response != null) {
-          completer.complete(URLResponse._exactURLResponseType(response));
-        } else {
-          completer.completeError(StateError('No response/error in callback'));
-        }
-      }),
-      onData: ncb.ObjCBlock_ffiVoid_NSData.listener((data) {
-        if (data != null && !task._cancelled) {
-          controller.add(data.toList());
-        }
-      }),
-      onComplete: ncb.ObjCBlock_ffiVoid_NSError.listener((error) {
-        if (error != null) {
-          final mappedError = mapError(error, request);
-          if (!completer.isCompleted) {
-            completer.completeError(mappedError);
+    final protoBuilder = objc.ObjCProtocolBuilder();
+
+    ncb
+        .NSURLSessionDataDelegate$Builder
+        .URLSession_dataTask_didReceiveResponse_completionHandler_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsDataTask,
+          nsResponse,
+          nsCompletionHandler,
+        ) {
+          completer.complete(URLResponse._exactURLResponseType(nsResponse));
+          nsCompletionHandler.call(
+            NSURLSessionResponseDisposition.NSURLSessionResponseAllow,
+          );
+        });
+
+    ncb.NSURLSessionDataDelegate$Builder.URLSession_dataTask_didReceiveData_
+        .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
+          if (!task._cancelled) {
+            controller.add(nsData.toList());
           }
-          controller.addError(mappedError);
-        }
-        controller.close();
-      }),
-      maxRedirects: maxRedirects,
-    );
-    return task = StreamingTask._(nsTask, completer, controller);
+        });
+
+    ncb.NSURLSessionDataDelegate$Builder.URLSession_task_didCompleteWithError_
+        .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
+          if (nsError != null) {
+            final mappedError = mapError(nsError, request);
+            if (!completer.isCompleted) {
+              completer.completeError(mappedError);
+            }
+            controller.addError(mappedError);
+          }
+          controller.close();
+        });
+
+    ncb
+        .NSURLSessionDataDelegate$Builder
+        // ignore: lines_longer_than_80_chars
+        .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsTask,
+          nsResponse,
+          nsRequest,
+          nsRequestCompleter,
+        ) {
+          task.numRedirects += 1;
+          if (task.numRedirects <= maxRedirects) {
+            task.lastUrl = _nsurlToUri(nsRequest.URL!);
+            nsRequestCompleter.call(nsRequest);
+          } else {
+            nsRequestCompleter.call(null);
+          }
+        });
+
+    final delegate = ncb.NSURLSessionTaskDelegate.as(protoBuilder.build());
+    final nsDataTask = session._nsObject.dataTaskWithRequest(request._nsObject)
+      ..delegate = delegate;
+
+    return task = StreamingTask._(nsDataTask, completer, controller);
   }
 
   StreamingTask._(this._nsTask, this._responseCompleter, this._dataController);
 
   /// Starts the streaming request.
   void start() {
-    _nsTask.start();
+    _nsTask.resume();
   }
 
   /// Cancels the in-flight request.
@@ -1440,7 +1462,7 @@ extension NSErrorExtension on objc.NSError {
 /// final (wsTask, protocol) = await task.opened;
 /// ```
 class WebSocketTask {
-  final ncb.CUPHTTPWebSocketTask _nsTask;
+  final ncb.NSURLSessionWebSocketTask _nsTask;
   final Completer<(URLSessionWebSocketTask, String?)> _openCompleter;
   final Completer<(int, objc.NSData?)> _closeCompleter;
   final Completer<objc.NSError?> _completeCompleter;
@@ -1467,33 +1489,46 @@ class WebSocketTask {
     final closeCompleter = Completer<(int, objc.NSData?)>();
     final completeCompleter = Completer<objc.NSError?>();
 
-    late final ncb.CUPHTTPWebSocketTask nsTask;
+    final protoBuilder = objc.ObjCProtocolBuilder();
 
-    nsTask = ncb.CUPHTTPWebSocketTask.alloc().initWithSession(
-      session._nsObject,
-      request: request._nsObject,
-      onOpen: ncb.ObjCBlock_ffiVoid_NSString.listener((protocol) {
-        final nsWebSocketTask = nsTask.webSocketTask!;
-        final task = URLSessionWebSocketTask._(nsWebSocketTask);
-        openCompleter.complete((task, protocol?.toDartString()));
-      }),
-      onClose: ncb.ObjCBlock_ffiVoid_NSInteger_NSData.listener((
-        closeCode,
-        reason,
-      ) {
-        if (!closeCompleter.isCompleted) {
-          closeCompleter.complete((closeCode, reason));
-        }
-      }),
-      onComplete: ncb.ObjCBlock_ffiVoid_NSError.listener((error) {
-        if (!completeCompleter.isCompleted) {
-          completeCompleter.complete(error);
-        }
-      }),
-    );
+    ncb
+        .NSURLSessionWebSocketDelegate$Builder
+        .URLSession_webSocketTask_didOpenWithProtocol_
+        .implementAsListener(protoBuilder, (nsSession, nsWsTask, nsProtocol) {
+          final task = URLSessionWebSocketTask._(nsWsTask);
+          openCompleter.complete((task, nsProtocol?.toDartString()));
+        });
+
+    ncb
+        .NSURLSessionWebSocketDelegate$Builder
+        .URLSession_webSocketTask_didCloseWithCode_reason_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsWsTask,
+          closeCode,
+          reason,
+        ) {
+          if (!closeCompleter.isCompleted) {
+            closeCompleter.complete((closeCode, reason));
+          }
+        });
+
+    ncb
+        .NSURLSessionWebSocketDelegate$Builder
+        .URLSession_task_didCompleteWithError_
+        .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
+          if (!completeCompleter.isCompleted) {
+            completeCompleter.complete(nsError);
+          }
+        });
+
+    final delegate = ncb.NSURLSessionTaskDelegate.as(protoBuilder.build());
+    final nsWsTask = session._nsObject.webSocketTaskWithRequest(
+      request._nsObject,
+    )..delegate = delegate;
 
     return WebSocketTask._(
-      nsTask,
+      nsWsTask,
       openCompleter,
       closeCompleter,
       completeCompleter,
@@ -1509,7 +1544,7 @@ class WebSocketTask {
 
   /// Starts the WebSocket connection.
   void start() {
-    _nsTask.start();
+    _nsTask.resume();
   }
 
   /// Cancels the WebSocket connection.

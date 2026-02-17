@@ -432,7 +432,7 @@ class CupertinoClient extends BaseClient {
 
       completer.complete(
         StreamedResponse(
-          data == null ? Stream.empty() : Stream.value(data.toList()),
+          data == null ? const Stream.empty() : Stream.value(data.toList()),
           response.statusCode,
           contentLength: contentLength,
           reasonPhrase: _findReasonPhrase(response.statusCode),

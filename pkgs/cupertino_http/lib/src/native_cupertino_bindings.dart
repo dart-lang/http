@@ -630,28 +630,6 @@ external void _NativeCupertinoHttp_protocolTrampoline_ovsamd(
   ffi.Pointer<ffi.Void> arg0,
 );
 
-@ffi.Native<
-  ffi.Pointer<objc.ObjCBlockImpl> Function(ffi.Pointer<objc.ObjCBlockImpl>)
->(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
-_NativeCupertinoHttp_wrapListenerBlock_1kva9v1(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-  ffi.Pointer<objc.ObjCBlockImpl> Function(
-    ffi.Pointer<objc.ObjCBlockImpl>,
-    ffi.Pointer<objc.ObjCBlockImpl>,
-    ffi.Pointer<objc.DOBJC_Context>,
-  )
->(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
-_NativeCupertinoHttp_wrapBlockingBlock_1kva9v1(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
-  ffi.Pointer<objc.DOBJC_Context> context,
-);
-
 /// !
 /// @enum NSURLCacheStoragePolicy
 ///
@@ -4416,10 +4394,6 @@ extension type NSProgressReporting._(objc.ObjCProtocol object$)
   }) : object$ = objc.ObjCProtocol(other, retain: retain, release: release);
 }
 
-final class __SecIdentity extends ffi.Opaque {}
-
-final class __SecTrust extends ffi.Opaque {}
-
 enum tls_protocol_version_t {
   tls_protocol_version_TLSv10(769),
   tls_protocol_version_TLSv11(770),
@@ -4722,7 +4696,7 @@ late final _sel_setHTTPCookieStorage_ = objc.registerName(
 ///
 /// NSURLCredentialStorage
 extension type NSURLCredentialStorage._(objc.ObjCObject object$)
-    implements objc.ObjCObject, objc.NSObject {
+    implements objc.ObjCObject {
   /// Constructs a [NSURLCredentialStorage] that points to the same underlying object as [other].
   NSURLCredentialStorage.as(objc.ObjCObject other) : object$ = other {}
 
@@ -8985,7 +8959,7 @@ final _objc_msgSend_9slupp = objc.msgSendPointer
 ///
 /// NSNetService
 extension type NSNetService._(objc.ObjCObject object$)
-    implements objc.ObjCObject, objc.NSObject {
+    implements objc.ObjCObject {
   /// Constructs a [NSNetService] that points to the same underlying object as [other].
   NSNetService.as(objc.ObjCObject other) : object$ = other {}
 
@@ -13003,6 +12977,283 @@ final _objc_msgSend_r8gdi7 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObjectImpl>,
       )
     >();
+late final _class_NSHTTPURLResponse = objc.getClass("NSHTTPURLResponse");
+late final _sel_initWithURL_statusCode_HTTPVersion_headerFields_ = objc
+    .registerName("initWithURL:statusCode:HTTPVersion:headerFields:");
+final _objc_msgSend_xw7l5 = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<objc.ObjCObjectImpl> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Long,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<objc.ObjCObjectImpl> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        int,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+      )
+    >();
+late final _sel_statusCode = objc.registerName("statusCode");
+late final _sel_allHeaderFields = objc.registerName("allHeaderFields");
+late final _sel_localizedStringForStatusCode_ = objc.registerName(
+  "localizedStringForStatusCode:",
+);
+final _objc_msgSend_qugqlf = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<objc.ObjCObjectImpl> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+          ffi.Long,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<objc.ObjCObjectImpl> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+        int,
+      )
+    >();
+
+/// NSHTTPURLResponse
+extension type NSHTTPURLResponse._(objc.ObjCObject object$)
+    implements objc.ObjCObject, NSURLResponse {
+  /// Constructs a [NSHTTPURLResponse] that points to the same underlying object as [other].
+  NSHTTPURLResponse.as(objc.ObjCObject other) : object$ = other {
+    assert(isA(object$));
+  }
+
+  /// Constructs a [NSHTTPURLResponse] that wraps the given raw object pointer.
+  NSHTTPURLResponse.fromPointer(
+    ffi.Pointer<objc.ObjCObjectImpl> other, {
+    bool retain = false,
+    bool release = false,
+  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {
+    assert(isA(object$));
+  }
+
+  /// Returns whether [obj] is an instance of [NSHTTPURLResponse].
+  static bool isA(objc.ObjCObject obj) => _objc_msgSend_19nvye5(
+    obj.ref.pointer,
+    _sel_isKindOfClass_,
+    _class_NSHTTPURLResponse,
+  );
+
+  /// alloc
+  static NSHTTPURLResponse alloc() {
+    final $ret = _objc_msgSend_151sglz(_class_NSHTTPURLResponse, _sel_alloc);
+    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSHTTPURLResponse allocWithZone(ffi.Pointer<objc.NSZone> zone) {
+    final $ret = _objc_msgSend_1cwp428(
+      _class_NSHTTPURLResponse,
+      _sel_allocWithZone_,
+      zone,
+    );
+    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @method localizedStringForStatusCode:
+  /// @abstract Convenience method which returns a localized string
+  /// corresponding to the status code for this response.
+  /// @param statusCode the status code to use to produce a localized string.
+  /// @result A localized string corresponding to the given status code.
+  static objc.NSString localizedStringForStatusCode(int statusCode) {
+    objc.checkOsVersionInternal(
+      'NSHTTPURLResponse.localizedStringForStatusCode:',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_qugqlf(
+      _class_NSHTTPURLResponse,
+      _sel_localizedStringForStatusCode_,
+      statusCode,
+    );
+    return objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// new
+  static NSHTTPURLResponse new$() {
+    final $ret = _objc_msgSend_151sglz(_class_NSHTTPURLResponse, _sel_new);
+    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// supportsSecureCoding
+  static bool getSupportsSecureCoding() {
+    return _objc_msgSend_91o635(
+      _class_NSHTTPURLResponse,
+      _sel_supportsSecureCoding,
+    );
+  }
+
+  /// Returns a new instance of NSHTTPURLResponse constructed with the default `new` method.
+  NSHTTPURLResponse() : this.as(new$().object$);
+}
+
+extension NSHTTPURLResponse$Methods on NSHTTPURLResponse {
+  /// !
+  /// @abstract Returns a dictionary containing all the HTTP header fields
+  /// of the receiver.
+  /// @discussion By examining this header dictionary, clients can see
+  /// the "raw" header information which was reported to the protocol
+  /// implementation by the HTTP server. This may be of use to
+  /// sophisticated or special-purpose HTTP clients.
+  /// @result A dictionary containing all the HTTP header fields of the
+  /// receiver.
+  objc.NSDictionary get allHeaderFields {
+    objc.checkOsVersionInternal(
+      'NSHTTPURLResponse.allHeaderFields',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      object$.ref.pointer,
+      _sel_allHeaderFields,
+    );
+    return objc.NSDictionary.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// init
+  NSHTTPURLResponse init() {
+    objc.checkOsVersionInternal(
+      'NSHTTPURLResponse.init',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 0, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      object$.ref.retainAndReturnPointer(),
+      _sel_init,
+    );
+    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// initWithCoder:
+  NSHTTPURLResponse? initWithCoder(objc.NSCoder coder) {
+    final $ret = _objc_msgSend_1sotr3r(
+      object$.ref.retainAndReturnPointer(),
+      _sel_initWithCoder_,
+      coder.ref.pointer,
+    );
+    return $ret.address == 0
+        ? null
+        : NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @method initWithURL:MIMEType:expectedContentLength:textEncodingName:
+  /// @abstract Initialize an NSURLResponse with the provided values.
+  /// @param URL the URL
+  /// @param MIMEType the MIME content type of the response
+  /// @param length the expected content length of the associated data
+  /// @param name the name of the text encoding for the associated data, if applicable, else nil
+  /// @result The initialized NSURLResponse.
+  /// @discussion This is the designated initializer for NSURLResponse.
+  NSHTTPURLResponse initWithUrlAndMIMEType(
+    objc.NSURL URL, {
+    objc.NSString? MIMEType,
+    required int length,
+    objc.NSString? name,
+  }) {
+    objc.checkOsVersionInternal(
+      'NSHTTPURLResponse.initWithURL:MIMEType:expectedContentLength:textEncodingName:',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_l9ppnx(
+      object$.ref.retainAndReturnPointer(),
+      _sel_initWithURL_MIMEType_expectedContentLength_textEncodingName_,
+      URL.ref.pointer,
+      MIMEType?.ref.pointer ?? ffi.nullptr,
+      length,
+      name?.ref.pointer ?? ffi.nullptr,
+    );
+    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @method	initWithURL:statusCode:HTTPVersion:headerFields:
+  /// @abstract initializer for NSHTTPURLResponse objects.
+  /// @param 	url the URL from which the response was generated.
+  /// @param	statusCode an HTTP status code.
+  /// @param	HTTPVersion The version of the HTTP response as represented by the server.  This is typically represented as "HTTP/1.1".
+  /// @param 	headerFields A dictionary representing the header keys and values of the server response.
+  /// @result 	the instance of the object, or NULL if an error occurred during initialization.
+  /// @discussion This API was introduced in Mac OS X 10.7.2 and iOS 5.0 and is not available prior to those releases.
+  NSHTTPURLResponse? initWithURLAndStatusCode(
+    objc.NSURL url, {
+    required int statusCode,
+    objc.NSString? HTTPVersion,
+    objc.NSDictionary? headerFields,
+  }) {
+    objc.checkOsVersionInternal(
+      'NSHTTPURLResponse.initWithURL:statusCode:HTTPVersion:headerFields:',
+      iOS: (false, (5, 0, 0)),
+      macOS: (false, (10, 7, 0)),
+    );
+    final $ret = _objc_msgSend_xw7l5(
+      object$.ref.retainAndReturnPointer(),
+      _sel_initWithURL_statusCode_HTTPVersion_headerFields_,
+      url.ref.pointer,
+      statusCode,
+      HTTPVersion?.ref.pointer ?? ffi.nullptr,
+      headerFields?.ref.pointer ?? ffi.nullptr,
+    );
+    return $ret.address == 0
+        ? null
+        : NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @abstract Returns the HTTP status code of the receiver.
+  /// @result The HTTP status code of the receiver.
+  int get statusCode {
+    objc.checkOsVersionInternal(
+      'NSHTTPURLResponse.statusCode',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    return _objc_msgSend_1hz7y9r(object$.ref.pointer, _sel_statusCode);
+  }
+
+  /// !
+  /// @method valueForHTTPHeaderField:
+  /// @abstract Returns the value which corresponds to the given header
+  /// field. Note that, in keeping with the HTTP RFC, HTTP header field
+  /// names are case-insensitive.
+  /// @param field the header field name to use for the lookup
+  /// (case-insensitive).
+  /// @result the value associated with the given header field, or nil if
+  /// there is no value associated with the given header field.
+  objc.NSString? valueForHTTPHeaderField(objc.NSString field) {
+    objc.checkOsVersionInternal(
+      'NSHTTPURLResponse.valueForHTTPHeaderField:',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    final $ret = _objc_msgSend_1sotr3r(
+      object$.ref.pointer,
+      _sel_valueForHTTPHeaderField_,
+      field.ref.pointer,
+    );
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+}
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask {
@@ -15816,283 +16067,6 @@ extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_f
 late final _sel_URLSession_taskIsWaitingForConnectivity_ = objc.registerName(
   "URLSession:taskIsWaitingForConnectivity:",
 );
-late final _class_NSHTTPURLResponse = objc.getClass("NSHTTPURLResponse");
-late final _sel_initWithURL_statusCode_HTTPVersion_headerFields_ = objc
-    .registerName("initWithURL:statusCode:HTTPVersion:headerFields:");
-final _objc_msgSend_xw7l5 = objc.msgSendPointer
-    .cast<
-      ffi.NativeFunction<
-        ffi.Pointer<objc.ObjCObjectImpl> Function(
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCSelector>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Long,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-        )
-      >
-    >()
-    .asFunction<
-      ffi.Pointer<objc.ObjCObjectImpl> Function(
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCSelector>,
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        int,
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCObjectImpl>,
-      )
-    >();
-late final _sel_statusCode = objc.registerName("statusCode");
-late final _sel_allHeaderFields = objc.registerName("allHeaderFields");
-late final _sel_localizedStringForStatusCode_ = objc.registerName(
-  "localizedStringForStatusCode:",
-);
-final _objc_msgSend_qugqlf = objc.msgSendPointer
-    .cast<
-      ffi.NativeFunction<
-        ffi.Pointer<objc.ObjCObjectImpl> Function(
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCSelector>,
-          ffi.Long,
-        )
-      >
-    >()
-    .asFunction<
-      ffi.Pointer<objc.ObjCObjectImpl> Function(
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCSelector>,
-        int,
-      )
-    >();
-
-/// NSHTTPURLResponse
-extension type NSHTTPURLResponse._(objc.ObjCObject object$)
-    implements objc.ObjCObject, NSURLResponse {
-  /// Constructs a [NSHTTPURLResponse] that points to the same underlying object as [other].
-  NSHTTPURLResponse.as(objc.ObjCObject other) : object$ = other {
-    assert(isA(object$));
-  }
-
-  /// Constructs a [NSHTTPURLResponse] that wraps the given raw object pointer.
-  NSHTTPURLResponse.fromPointer(
-    ffi.Pointer<objc.ObjCObjectImpl> other, {
-    bool retain = false,
-    bool release = false,
-  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {
-    assert(isA(object$));
-  }
-
-  /// Returns whether [obj] is an instance of [NSHTTPURLResponse].
-  static bool isA(objc.ObjCObject obj) => _objc_msgSend_19nvye5(
-    obj.ref.pointer,
-    _sel_isKindOfClass_,
-    _class_NSHTTPURLResponse,
-  );
-
-  /// alloc
-  static NSHTTPURLResponse alloc() {
-    final $ret = _objc_msgSend_151sglz(_class_NSHTTPURLResponse, _sel_alloc);
-    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSHTTPURLResponse allocWithZone(ffi.Pointer<objc.NSZone> zone) {
-    final $ret = _objc_msgSend_1cwp428(
-      _class_NSHTTPURLResponse,
-      _sel_allocWithZone_,
-      zone,
-    );
-    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// !
-  /// @method localizedStringForStatusCode:
-  /// @abstract Convenience method which returns a localized string
-  /// corresponding to the status code for this response.
-  /// @param statusCode the status code to use to produce a localized string.
-  /// @result A localized string corresponding to the given status code.
-  static objc.NSString localizedStringForStatusCode(int statusCode) {
-    objc.checkOsVersionInternal(
-      'NSHTTPURLResponse.localizedStringForStatusCode:',
-      iOS: (false, (2, 0, 0)),
-      macOS: (false, (10, 2, 0)),
-    );
-    final $ret = _objc_msgSend_qugqlf(
-      _class_NSHTTPURLResponse,
-      _sel_localizedStringForStatusCode_,
-      statusCode,
-    );
-    return objc.NSString.fromPointer($ret, retain: true, release: true);
-  }
-
-  /// new
-  static NSHTTPURLResponse new$() {
-    final $ret = _objc_msgSend_151sglz(_class_NSHTTPURLResponse, _sel_new);
-    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// supportsSecureCoding
-  static bool getSupportsSecureCoding() {
-    return _objc_msgSend_91o635(
-      _class_NSHTTPURLResponse,
-      _sel_supportsSecureCoding,
-    );
-  }
-
-  /// Returns a new instance of NSHTTPURLResponse constructed with the default `new` method.
-  NSHTTPURLResponse() : this.as(new$().object$);
-}
-
-extension NSHTTPURLResponse$Methods on NSHTTPURLResponse {
-  /// !
-  /// @abstract Returns a dictionary containing all the HTTP header fields
-  /// of the receiver.
-  /// @discussion By examining this header dictionary, clients can see
-  /// the "raw" header information which was reported to the protocol
-  /// implementation by the HTTP server. This may be of use to
-  /// sophisticated or special-purpose HTTP clients.
-  /// @result A dictionary containing all the HTTP header fields of the
-  /// receiver.
-  objc.NSDictionary get allHeaderFields {
-    objc.checkOsVersionInternal(
-      'NSHTTPURLResponse.allHeaderFields',
-      iOS: (false, (2, 0, 0)),
-      macOS: (false, (10, 2, 0)),
-    );
-    final $ret = _objc_msgSend_151sglz(
-      object$.ref.pointer,
-      _sel_allHeaderFields,
-    );
-    return objc.NSDictionary.fromPointer($ret, retain: true, release: true);
-  }
-
-  /// init
-  NSHTTPURLResponse init() {
-    objc.checkOsVersionInternal(
-      'NSHTTPURLResponse.init',
-      iOS: (false, (2, 0, 0)),
-      macOS: (false, (10, 0, 0)),
-    );
-    final $ret = _objc_msgSend_151sglz(
-      object$.ref.retainAndReturnPointer(),
-      _sel_init,
-    );
-    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// initWithCoder:
-  NSHTTPURLResponse? initWithCoder(objc.NSCoder coder) {
-    final $ret = _objc_msgSend_1sotr3r(
-      object$.ref.retainAndReturnPointer(),
-      _sel_initWithCoder_,
-      coder.ref.pointer,
-    );
-    return $ret.address == 0
-        ? null
-        : NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// !
-  /// @method initWithURL:MIMEType:expectedContentLength:textEncodingName:
-  /// @abstract Initialize an NSURLResponse with the provided values.
-  /// @param URL the URL
-  /// @param MIMEType the MIME content type of the response
-  /// @param length the expected content length of the associated data
-  /// @param name the name of the text encoding for the associated data, if applicable, else nil
-  /// @result The initialized NSURLResponse.
-  /// @discussion This is the designated initializer for NSURLResponse.
-  NSHTTPURLResponse initWithUrlAndMIMEType(
-    objc.NSURL URL, {
-    objc.NSString? MIMEType,
-    required int length,
-    objc.NSString? name,
-  }) {
-    objc.checkOsVersionInternal(
-      'NSHTTPURLResponse.initWithURL:MIMEType:expectedContentLength:textEncodingName:',
-      iOS: (false, (2, 0, 0)),
-      macOS: (false, (10, 2, 0)),
-    );
-    final $ret = _objc_msgSend_l9ppnx(
-      object$.ref.retainAndReturnPointer(),
-      _sel_initWithURL_MIMEType_expectedContentLength_textEncodingName_,
-      URL.ref.pointer,
-      MIMEType?.ref.pointer ?? ffi.nullptr,
-      length,
-      name?.ref.pointer ?? ffi.nullptr,
-    );
-    return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// !
-  /// @method	initWithURL:statusCode:HTTPVersion:headerFields:
-  /// @abstract initializer for NSHTTPURLResponse objects.
-  /// @param 	url the URL from which the response was generated.
-  /// @param	statusCode an HTTP status code.
-  /// @param	HTTPVersion The version of the HTTP response as represented by the server.  This is typically represented as "HTTP/1.1".
-  /// @param 	headerFields A dictionary representing the header keys and values of the server response.
-  /// @result 	the instance of the object, or NULL if an error occurred during initialization.
-  /// @discussion This API was introduced in Mac OS X 10.7.2 and iOS 5.0 and is not available prior to those releases.
-  NSHTTPURLResponse? initWithURLAndStatusCode(
-    objc.NSURL url, {
-    required int statusCode,
-    objc.NSString? HTTPVersion,
-    objc.NSDictionary? headerFields,
-  }) {
-    objc.checkOsVersionInternal(
-      'NSHTTPURLResponse.initWithURL:statusCode:HTTPVersion:headerFields:',
-      iOS: (false, (5, 0, 0)),
-      macOS: (false, (10, 7, 0)),
-    );
-    final $ret = _objc_msgSend_xw7l5(
-      object$.ref.retainAndReturnPointer(),
-      _sel_initWithURL_statusCode_HTTPVersion_headerFields_,
-      url.ref.pointer,
-      statusCode,
-      HTTPVersion?.ref.pointer ?? ffi.nullptr,
-      headerFields?.ref.pointer ?? ffi.nullptr,
-    );
-    return $ret.address == 0
-        ? null
-        : NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// !
-  /// @abstract Returns the HTTP status code of the receiver.
-  /// @result The HTTP status code of the receiver.
-  int get statusCode {
-    objc.checkOsVersionInternal(
-      'NSHTTPURLResponse.statusCode',
-      iOS: (false, (2, 0, 0)),
-      macOS: (false, (10, 2, 0)),
-    );
-    return _objc_msgSend_1hz7y9r(object$.ref.pointer, _sel_statusCode);
-  }
-
-  /// !
-  /// @method valueForHTTPHeaderField:
-  /// @abstract Returns the value which corresponds to the given header
-  /// field. Note that, in keeping with the HTTP RFC, HTTP header field
-  /// names are case-insensitive.
-  /// @param field the header field name to use for the lookup
-  /// (case-insensitive).
-  /// @result the value associated with the given header field, or nil if
-  /// there is no value associated with the given header field.
-  objc.NSString? valueForHTTPHeaderField(objc.NSString field) {
-    objc.checkOsVersionInternal(
-      'NSHTTPURLResponse.valueForHTTPHeaderField:',
-      iOS: (false, (13, 0, 0)),
-      macOS: (false, (10, 15, 0)),
-    );
-    final $ret = _objc_msgSend_1sotr3r(
-      object$.ref.pointer,
-      _sel_valueForHTTPHeaderField_,
-      field.ref.pointer,
-    );
-    return $ret.address == 0
-        ? null
-        : objc.NSString.fromPointer($ret, retain: true, release: true);
-  }
-}
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>`.
 abstract final class ObjCBlock_ffiVoid_NSURLRequest {
@@ -16949,7 +16923,7 @@ extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLRespo
 ///
 /// NSURLAuthenticationChallenge
 extension type NSURLAuthenticationChallenge._(objc.ObjCObject object$)
-    implements objc.ObjCObject, objc.NSObject, objc.NSSecureCoding {
+    implements objc.ObjCObject {
   /// Constructs a [NSURLAuthenticationChallenge] that points to the same underlying object as [other].
   NSURLAuthenticationChallenge.as(objc.ObjCObject other) : object$ = other {}
 
@@ -16966,11 +16940,7 @@ extension type NSURLAuthenticationChallenge._(objc.ObjCObject object$)
 ///
 /// NSURLCredential
 extension type NSURLCredential._(objc.ObjCObject object$)
-    implements
-        objc.ObjCObject,
-        objc.NSObject,
-        objc.NSSecureCoding,
-        objc.NSCopying {
+    implements objc.ObjCObject {
   /// Constructs a [NSURLCredential] that points to the same underlying object as [other].
   NSURLCredential.as(objc.ObjCObject other) : object$ = other {}
 
@@ -34010,1441 +33980,4 @@ enum NSOperationQueuePriority {
       'Unknown value for NSOperationQueuePriority: $value',
     ),
   };
-}
-
-enum NSURLCredentialPersistence {
-  NSURLCredentialPersistenceNone(0),
-  NSURLCredentialPersistenceForSession(1),
-  NSURLCredentialPersistencePermanent(2),
-  NSURLCredentialPersistenceSynchronizable(3);
-
-  final int value;
-  const NSURLCredentialPersistence(this.value);
-
-  static NSURLCredentialPersistence fromValue(int value) => switch (value) {
-    0 => NSURLCredentialPersistenceNone,
-    1 => NSURLCredentialPersistenceForSession,
-    2 => NSURLCredentialPersistencePermanent,
-    3 => NSURLCredentialPersistenceSynchronizable,
-    _ => throw ArgumentError(
-      'Unknown value for NSURLCredentialPersistence: $value',
-    ),
-  };
-}
-
-sealed class NSNetServiceOptions {
-  static const NSNetServiceNoAutoRename = 1;
-  static const NSNetServiceListenForConnections = 2;
-}
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>`.
-abstract final class ObjCBlock_ffiVoid_NSURLResponse_NSError {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>
-  fromPointer(
-    ffi.Pointer<objc.ObjCBlockImpl> pointer, {
-    bool retain = false,
-    bool release = false,
-  }) => objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>(
-    pointer,
-    retain: retain,
-    release: release,
-  );
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>
-  fromFunctionPointer(
-    ffi.Pointer<
-      ffi.NativeFunction<
-        ffi.Void Function(
-          ffi.Pointer<objc.ObjCObjectImpl> arg0,
-          ffi.Pointer<objc.ObjCObjectImpl> arg1,
-        )
-      >
-    >
-    ptr,
-  ) => objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>(
-    objc.newPointerBlock(_fnPtrCallable, ptr.cast()),
-    retain: false,
-    release: true,
-  );
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>
-  fromFunction(
-    void Function(NSURLResponse?, objc.NSError?) fn, {
-    bool keepIsolateAlive = true,
-  }) => objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>(
-    objc.newClosureBlock(
-      _closureCallable,
-      (
-        ffi.Pointer<objc.ObjCObjectImpl> arg0,
-        ffi.Pointer<objc.ObjCObjectImpl> arg1,
-      ) => fn(
-        arg0.address == 0
-            ? null
-            : NSURLResponse.fromPointer(arg0, retain: true, release: true),
-        arg1.address == 0
-            ? null
-            : objc.NSError.fromPointer(arg1, retain: true, release: true),
-      ),
-      keepIsolateAlive,
-    ),
-    retain: false,
-    release: true,
-  );
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>
-  listener(
-    void Function(NSURLResponse?, objc.NSError?) fn, {
-    bool keepIsolateAlive = true,
-  }) {
-    final raw = objc.newClosureBlock(
-      _listenerCallable.nativeFunction.cast(),
-      (
-        ffi.Pointer<objc.ObjCObjectImpl> arg0,
-        ffi.Pointer<objc.ObjCObjectImpl> arg1,
-      ) => fn(
-        arg0.address == 0
-            ? null
-            : NSURLResponse.fromPointer(arg0, retain: false, release: true),
-        arg1.address == 0
-            ? null
-            : objc.NSError.fromPointer(arg1, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_pfv6jd(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>(
-      wrapper,
-      retain: false,
-      release: true,
-    );
-  }
-
-  /// Creates a blocking block from a Dart function.
-  ///
-  /// This callback can be invoked from any native thread, and will block the
-  /// caller until the callback is handled by the Dart isolate that created
-  /// the block. Async functions are not supported.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC. If the owner isolate
-  /// has shut down, and the block is invoked by native code, it may block
-  /// indefinitely, or have other undefined behavior.
-  static objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>
-  blocking(
-    void Function(NSURLResponse?, objc.NSError?) fn, {
-    bool keepIsolateAlive = true,
-  }) {
-    final raw = objc.newClosureBlock(
-      _blockingCallable.nativeFunction.cast(),
-      (
-        ffi.Pointer<objc.ObjCObjectImpl> arg0,
-        ffi.Pointer<objc.ObjCObjectImpl> arg1,
-      ) => fn(
-        arg0.address == 0
-            ? null
-            : NSURLResponse.fromPointer(arg0, retain: false, release: true),
-        arg1.address == 0
-            ? null
-            : objc.NSError.fromPointer(arg1, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final rawListener = objc.newClosureBlock(
-      _blockingListenerCallable.nativeFunction.cast(),
-      (
-        ffi.Pointer<objc.ObjCObjectImpl> arg0,
-        ffi.Pointer<objc.ObjCObjectImpl> arg1,
-      ) => fn(
-        arg0.address == 0
-            ? null
-            : NSURLResponse.fromPointer(arg0, retain: false, release: true),
-        arg1.address == 0
-            ? null
-            : objc.NSError.fromPointer(arg1, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final wrapper = _NativeCupertinoHttp_wrapBlockingBlock_pfv6jd(
-      raw,
-      rawListener,
-      objc.objCContext,
-    );
-    objc.objectRelease(raw.cast());
-    objc.objectRelease(rawListener.cast());
-    return objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>(
-      wrapper,
-      retain: false,
-      release: true,
-    );
-  }
-
-  static void _listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-    ffi.Pointer<objc.ObjCObjectImpl> arg1,
-  ) {
-    (objc.getBlockClosure(block)
-        as void Function(
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-        ))(arg0, arg1);
-    objc.objectRelease(block.cast());
-  }
-
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _listenerCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.listener(_listenerTrampoline)
-        ..keepIsolateAlive = false;
-  static void _blockingTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> waiter,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-    ffi.Pointer<objc.ObjCObjectImpl> arg1,
-  ) {
-    try {
-      (objc.getBlockClosure(block)
-          as void Function(
-            ffi.Pointer<objc.ObjCObjectImpl>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          ))(arg0, arg1);
-    } catch (e) {
-    } finally {
-      objc.signalWaiter(waiter);
-      objc.objectRelease(block.cast());
-    }
-  }
-
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _blockingCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.isolateLocal(_blockingTrampoline)
-        ..keepIsolateAlive = false;
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _blockingListenerCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.listener(_blockingTrampoline)
-        ..keepIsolateAlive = false;
-  static void _fnPtrTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-    ffi.Pointer<objc.ObjCObjectImpl> arg1,
-  ) => block.ref.target
-      .cast<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCObjectImpl> arg0,
-            ffi.Pointer<objc.ObjCObjectImpl> arg1,
-          )
-        >
-      >()
-      .asFunction<
-        void Function(
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-        )
-      >()(arg0, arg1);
-  static ffi.Pointer<ffi.Void> _fnPtrCallable =
-      ffi.Pointer.fromFunction<
-            ffi.Void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >(_fnPtrTrampoline)
-          .cast();
-  static void _closureTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-    ffi.Pointer<objc.ObjCObjectImpl> arg1,
-  ) =>
-      (objc.getBlockClosure(block)
-          as void Function(
-            ffi.Pointer<objc.ObjCObjectImpl>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          ))(arg0, arg1);
-  static ffi.Pointer<ffi.Void> _closureCallable =
-      ffi.Pointer.fromFunction<
-            ffi.Void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >(_closureTrampoline)
-          .cast();
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>`.
-extension ObjCBlock_ffiVoid_NSURLResponse_NSError$CallExtension
-    on objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)> {
-  void call(NSURLResponse? arg0, objc.NSError? arg1) =>
-      ref.pointer.ref.invoke
-          .cast<
-            ffi.NativeFunction<
-              ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl> block,
-                ffi.Pointer<objc.ObjCObjectImpl> arg0,
-                ffi.Pointer<objc.ObjCObjectImpl> arg1,
-              )
-            >
-          >()
-          .asFunction<
-            void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >()(
-        ref.pointer,
-        arg0?.ref.pointer ?? ffi.nullptr,
-        arg1?.ref.pointer ?? ffi.nullptr,
-      );
-}
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSData)>`.
-abstract final class ObjCBlock_ffiVoid_NSData$1 {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData)> fromPointer(
-    ffi.Pointer<objc.ObjCBlockImpl> pointer, {
-    bool retain = false,
-    bool release = false,
-  }) => objc.ObjCBlock<ffi.Void Function(objc.NSData)>(
-    pointer,
-    retain: retain,
-    release: release,
-  );
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData)> fromFunctionPointer(
-    ffi.Pointer<
-      ffi.NativeFunction<
-        ffi.Void Function(ffi.Pointer<objc.ObjCObjectImpl> arg0)
-      >
-    >
-    ptr,
-  ) => objc.ObjCBlock<ffi.Void Function(objc.NSData)>(
-    objc.newPointerBlock(_fnPtrCallable, ptr.cast()),
-    retain: false,
-    release: true,
-  );
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData)> fromFunction(
-    void Function(objc.NSData) fn, {
-    bool keepIsolateAlive = true,
-  }) => objc.ObjCBlock<ffi.Void Function(objc.NSData)>(
-    objc.newClosureBlock(
-      _closureCallable,
-      (ffi.Pointer<objc.ObjCObjectImpl> arg0) =>
-          fn(objc.NSData.fromPointer(arg0, retain: true, release: true)),
-      keepIsolateAlive,
-    ),
-    retain: false,
-    release: true,
-  );
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData)> listener(
-    void Function(objc.NSData) fn, {
-    bool keepIsolateAlive = true,
-  }) {
-    final raw = objc.newClosureBlock(
-      _listenerCallable.nativeFunction.cast(),
-      (ffi.Pointer<objc.ObjCObjectImpl> arg0) =>
-          fn(objc.NSData.fromPointer(arg0, retain: false, release: true)),
-      keepIsolateAlive,
-    );
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_xtuoz7(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(objc.NSData)>(
-      wrapper,
-      retain: false,
-      release: true,
-    );
-  }
-
-  /// Creates a blocking block from a Dart function.
-  ///
-  /// This callback can be invoked from any native thread, and will block the
-  /// caller until the callback is handled by the Dart isolate that created
-  /// the block. Async functions are not supported.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC. If the owner isolate
-  /// has shut down, and the block is invoked by native code, it may block
-  /// indefinitely, or have other undefined behavior.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData)> blocking(
-    void Function(objc.NSData) fn, {
-    bool keepIsolateAlive = true,
-  }) {
-    final raw = objc.newClosureBlock(
-      _blockingCallable.nativeFunction.cast(),
-      (ffi.Pointer<objc.ObjCObjectImpl> arg0) =>
-          fn(objc.NSData.fromPointer(arg0, retain: false, release: true)),
-      keepIsolateAlive,
-    );
-    final rawListener = objc.newClosureBlock(
-      _blockingListenerCallable.nativeFunction.cast(),
-      (ffi.Pointer<objc.ObjCObjectImpl> arg0) =>
-          fn(objc.NSData.fromPointer(arg0, retain: false, release: true)),
-      keepIsolateAlive,
-    );
-    final wrapper = _NativeCupertinoHttp_wrapBlockingBlock_xtuoz7(
-      raw,
-      rawListener,
-      objc.objCContext,
-    );
-    objc.objectRelease(raw.cast());
-    objc.objectRelease(rawListener.cast());
-    return objc.ObjCBlock<ffi.Void Function(objc.NSData)>(
-      wrapper,
-      retain: false,
-      release: true,
-    );
-  }
-
-  static void _listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-  ) {
-    (objc.getBlockClosure(block)
-        as void Function(ffi.Pointer<objc.ObjCObjectImpl>))(arg0);
-    objc.objectRelease(block.cast());
-  }
-
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _listenerCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.listener(_listenerTrampoline)
-        ..keepIsolateAlive = false;
-  static void _blockingTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> waiter,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-  ) {
-    try {
-      (objc.getBlockClosure(block)
-          as void Function(ffi.Pointer<objc.ObjCObjectImpl>))(arg0);
-    } catch (e) {
-    } finally {
-      objc.signalWaiter(waiter);
-      objc.objectRelease(block.cast());
-    }
-  }
-
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _blockingCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.isolateLocal(_blockingTrampoline)
-        ..keepIsolateAlive = false;
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _blockingListenerCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.listener(_blockingTrampoline)
-        ..keepIsolateAlive = false;
-  static void _fnPtrTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-  ) => block.ref.target
-      .cast<
-        ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<objc.ObjCObjectImpl> arg0)
-        >
-      >()
-      .asFunction<void Function(ffi.Pointer<objc.ObjCObjectImpl>)>()(arg0);
-  static ffi.Pointer<ffi.Void> _fnPtrCallable =
-      ffi.Pointer.fromFunction<
-            ffi.Void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >(_fnPtrTrampoline)
-          .cast();
-  static void _closureTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-  ) =>
-      (objc.getBlockClosure(block)
-          as void Function(ffi.Pointer<objc.ObjCObjectImpl>))(arg0);
-  static ffi.Pointer<ffi.Void> _closureCallable =
-      ffi.Pointer.fromFunction<
-            ffi.Void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >(_closureTrampoline)
-          .cast();
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSData)>`.
-extension ObjCBlock_ffiVoid_NSData$1$CallExtension
-    on objc.ObjCBlock<ffi.Void Function(objc.NSData)> {
-  void call(objc.NSData arg0) => ref.pointer.ref.invoke
-      .cast<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<objc.ObjCObjectImpl> arg0,
-          )
-        >
-      >()
-      .asFunction<
-        void Function(
-          ffi.Pointer<objc.ObjCBlockImpl>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-        )
-      >()(ref.pointer, arg0.ref.pointer);
-}
-
-late final _class_CUPHTTPStreamingTask = objc.getClass("CUPHTTPStreamingTask");
-late final _sel_numRedirects = objc.registerName("numRedirects");
-late final _sel_lastURL = objc.registerName("lastURL");
-late final _sel_initWithSession_request_onResponse_onData_onComplete_maxRedirects_ =
-    objc.registerName(
-      "initWithSession:request:onResponse:onData:onComplete:maxRedirects:",
-    );
-final _objc_msgSend_m4neo0 = objc.msgSendPointer
-    .cast<
-      ffi.NativeFunction<
-        ffi.Pointer<objc.ObjCObjectImpl> Function(
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCSelector>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCBlockImpl>,
-          ffi.Pointer<objc.ObjCBlockImpl>,
-          ffi.Pointer<objc.ObjCBlockImpl>,
-          ffi.Long,
-        )
-      >
-    >()
-    .asFunction<
-      ffi.Pointer<objc.ObjCObjectImpl> Function(
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCSelector>,
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCBlockImpl>,
-        ffi.Pointer<objc.ObjCBlockImpl>,
-        ffi.Pointer<objc.ObjCBlockImpl>,
-        int,
-      )
-    >();
-late final _sel_start = objc.registerName("start");
-
-/// A streaming HTTP task helper for externally-managed URLSessions.
-extension type CUPHTTPStreamingTask._(objc.ObjCObject object$)
-    implements objc.ObjCObject, objc.NSObject {
-  /// Constructs a [CUPHTTPStreamingTask] that points to the same underlying object as [other].
-  CUPHTTPStreamingTask.as(objc.ObjCObject other) : object$ = other {
-    assert(isA(object$));
-  }
-
-  /// Constructs a [CUPHTTPStreamingTask] that wraps the given raw object pointer.
-  CUPHTTPStreamingTask.fromPointer(
-    ffi.Pointer<objc.ObjCObjectImpl> other, {
-    bool retain = false,
-    bool release = false,
-  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {
-    assert(isA(object$));
-  }
-
-  /// Returns whether [obj] is an instance of [CUPHTTPStreamingTask].
-  static bool isA(objc.ObjCObject obj) => _objc_msgSend_19nvye5(
-    obj.ref.pointer,
-    _sel_isKindOfClass_,
-    _class_CUPHTTPStreamingTask,
-  );
-
-  /// alloc
-  static CUPHTTPStreamingTask alloc() {
-    final $ret = _objc_msgSend_151sglz(_class_CUPHTTPStreamingTask, _sel_alloc);
-    return CUPHTTPStreamingTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static CUPHTTPStreamingTask allocWithZone(ffi.Pointer<objc.NSZone> zone) {
-    final $ret = _objc_msgSend_1cwp428(
-      _class_CUPHTTPStreamingTask,
-      _sel_allocWithZone_,
-      zone,
-    );
-    return CUPHTTPStreamingTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// new
-  static CUPHTTPStreamingTask new$() {
-    final $ret = _objc_msgSend_151sglz(_class_CUPHTTPStreamingTask, _sel_new);
-    return CUPHTTPStreamingTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// Returns a new instance of CUPHTTPStreamingTask constructed with the default `new` method.
-  CUPHTTPStreamingTask() : this.as(new$().object$);
-}
-
-extension CUPHTTPStreamingTask$Methods on CUPHTTPStreamingTask {
-  /// Cancels the in-flight request.
-  void cancel() {
-    _objc_msgSend_1pl9qdv(object$.ref.pointer, _sel_cancel);
-  }
-
-  /// init
-  CUPHTTPStreamingTask init() {
-    objc.checkOsVersionInternal(
-      'CUPHTTPStreamingTask.init',
-      iOS: (false, (2, 0, 0)),
-      macOS: (false, (10, 0, 0)),
-    );
-    final $ret = _objc_msgSend_151sglz(
-      object$.ref.retainAndReturnPointer(),
-      _sel_init,
-    );
-    return CUPHTTPStreamingTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// Creates a new streaming task with callback blocks.
-  ///
-  /// @param session The URLSession to use (can be externally managed)
-  /// @param request The URL request to execute
-  /// @param onResponse Called once when response headers are available, or with error
-  /// @param onData Called repeatedly with buffered data chunks
-  /// @param onComplete Called once when the request completes
-  /// @param maxRedirects Maximum number of redirects to follow (default: 5)
-  CUPHTTPStreamingTask initWithSession(
-    NSURLSession session, {
-    required NSURLRequest request,
-    objc.ObjCBlock<ffi.Void Function(NSURLResponse?, objc.NSError?)>?
-    onResponse,
-    objc.ObjCBlock<ffi.Void Function(objc.NSData)>? onData,
-    objc.ObjCBlock<ffi.Void Function(objc.NSError?)>? onComplete,
-    required int maxRedirects,
-  }) {
-    final $ret = _objc_msgSend_m4neo0(
-      object$.ref.retainAndReturnPointer(),
-      _sel_initWithSession_request_onResponse_onData_onComplete_maxRedirects_,
-      session.ref.pointer,
-      request.ref.pointer,
-      onResponse?.ref.pointer ?? ffi.nullptr,
-      onData?.ref.pointer ?? ffi.nullptr,
-      onComplete?.ref.pointer ?? ffi.nullptr,
-      maxRedirects,
-    );
-    return CUPHTTPStreamingTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// The URL of the most recent redirect response, if any.
-  objc.NSURL? get lastURL {
-    final $ret = _objc_msgSend_151sglz(object$.ref.pointer, _sel_lastURL);
-    return $ret.address == 0
-        ? null
-        : objc.NSURL.fromPointer($ret, retain: true, release: true);
-  }
-
-  /// The number of redirects followed so far, if any.
-  int get numRedirects {
-    return _objc_msgSend_1hz7y9r(object$.ref.pointer, _sel_numRedirects);
-  }
-
-  /// Starts the streaming request.
-  void start() {
-    _objc_msgSend_1pl9qdv(object$.ref.pointer, _sel_start);
-  }
-}
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSString?)>`.
-abstract final class ObjCBlock_ffiVoid_NSString {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSString?)> fromPointer(
-    ffi.Pointer<objc.ObjCBlockImpl> pointer, {
-    bool retain = false,
-    bool release = false,
-  }) => objc.ObjCBlock<ffi.Void Function(objc.NSString?)>(
-    pointer,
-    retain: retain,
-    release: release,
-  );
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSString?)> fromFunctionPointer(
-    ffi.Pointer<
-      ffi.NativeFunction<
-        ffi.Void Function(ffi.Pointer<objc.ObjCObjectImpl> arg0)
-      >
-    >
-    ptr,
-  ) => objc.ObjCBlock<ffi.Void Function(objc.NSString?)>(
-    objc.newPointerBlock(_fnPtrCallable, ptr.cast()),
-    retain: false,
-    release: true,
-  );
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSString?)> fromFunction(
-    void Function(objc.NSString?) fn, {
-    bool keepIsolateAlive = true,
-  }) => objc.ObjCBlock<ffi.Void Function(objc.NSString?)>(
-    objc.newClosureBlock(
-      _closureCallable,
-      (ffi.Pointer<objc.ObjCObjectImpl> arg0) => fn(
-        arg0.address == 0
-            ? null
-            : objc.NSString.fromPointer(arg0, retain: true, release: true),
-      ),
-      keepIsolateAlive,
-    ),
-    retain: false,
-    release: true,
-  );
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSString?)> listener(
-    void Function(objc.NSString?) fn, {
-    bool keepIsolateAlive = true,
-  }) {
-    final raw = objc.newClosureBlock(
-      _listenerCallable.nativeFunction.cast(),
-      (ffi.Pointer<objc.ObjCObjectImpl> arg0) => fn(
-        arg0.address == 0
-            ? null
-            : objc.NSString.fromPointer(arg0, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_xtuoz7(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(objc.NSString?)>(
-      wrapper,
-      retain: false,
-      release: true,
-    );
-  }
-
-  /// Creates a blocking block from a Dart function.
-  ///
-  /// This callback can be invoked from any native thread, and will block the
-  /// caller until the callback is handled by the Dart isolate that created
-  /// the block. Async functions are not supported.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC. If the owner isolate
-  /// has shut down, and the block is invoked by native code, it may block
-  /// indefinitely, or have other undefined behavior.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSString?)> blocking(
-    void Function(objc.NSString?) fn, {
-    bool keepIsolateAlive = true,
-  }) {
-    final raw = objc.newClosureBlock(
-      _blockingCallable.nativeFunction.cast(),
-      (ffi.Pointer<objc.ObjCObjectImpl> arg0) => fn(
-        arg0.address == 0
-            ? null
-            : objc.NSString.fromPointer(arg0, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final rawListener = objc.newClosureBlock(
-      _blockingListenerCallable.nativeFunction.cast(),
-      (ffi.Pointer<objc.ObjCObjectImpl> arg0) => fn(
-        arg0.address == 0
-            ? null
-            : objc.NSString.fromPointer(arg0, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final wrapper = _NativeCupertinoHttp_wrapBlockingBlock_xtuoz7(
-      raw,
-      rawListener,
-      objc.objCContext,
-    );
-    objc.objectRelease(raw.cast());
-    objc.objectRelease(rawListener.cast());
-    return objc.ObjCBlock<ffi.Void Function(objc.NSString?)>(
-      wrapper,
-      retain: false,
-      release: true,
-    );
-  }
-
-  static void _listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-  ) {
-    (objc.getBlockClosure(block)
-        as void Function(ffi.Pointer<objc.ObjCObjectImpl>))(arg0);
-    objc.objectRelease(block.cast());
-  }
-
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _listenerCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.listener(_listenerTrampoline)
-        ..keepIsolateAlive = false;
-  static void _blockingTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> waiter,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-  ) {
-    try {
-      (objc.getBlockClosure(block)
-          as void Function(ffi.Pointer<objc.ObjCObjectImpl>))(arg0);
-    } catch (e) {
-    } finally {
-      objc.signalWaiter(waiter);
-      objc.objectRelease(block.cast());
-    }
-  }
-
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _blockingCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.isolateLocal(_blockingTrampoline)
-        ..keepIsolateAlive = false;
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _blockingListenerCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.listener(_blockingTrampoline)
-        ..keepIsolateAlive = false;
-  static void _fnPtrTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-  ) => block.ref.target
-      .cast<
-        ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<objc.ObjCObjectImpl> arg0)
-        >
-      >()
-      .asFunction<void Function(ffi.Pointer<objc.ObjCObjectImpl>)>()(arg0);
-  static ffi.Pointer<ffi.Void> _fnPtrCallable =
-      ffi.Pointer.fromFunction<
-            ffi.Void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >(_fnPtrTrampoline)
-          .cast();
-  static void _closureTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObjectImpl> arg0,
-  ) =>
-      (objc.getBlockClosure(block)
-          as void Function(ffi.Pointer<objc.ObjCObjectImpl>))(arg0);
-  static ffi.Pointer<ffi.Void> _closureCallable =
-      ffi.Pointer.fromFunction<
-            ffi.Void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >(_closureTrampoline)
-          .cast();
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSString?)>`.
-extension ObjCBlock_ffiVoid_NSString$CallExtension
-    on objc.ObjCBlock<ffi.Void Function(objc.NSString?)> {
-  void call(objc.NSString? arg0) => ref.pointer.ref.invoke
-      .cast<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<objc.ObjCObjectImpl> arg0,
-          )
-        >
-      >()
-      .asFunction<
-        void Function(
-          ffi.Pointer<objc.ObjCBlockImpl>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-        )
-      >()(ref.pointer, arg0?.ref.pointer ?? ffi.nullptr);
-}
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>`.
-abstract final class ObjCBlock_ffiVoid_NSInteger_NSData {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)> fromPointer(
-    ffi.Pointer<objc.ObjCBlockImpl> pointer, {
-    bool retain = false,
-    bool release = false,
-  }) => objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>(
-    pointer,
-    retain: retain,
-    release: release,
-  );
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>
-  fromFunctionPointer(
-    ffi.Pointer<
-      ffi.NativeFunction<
-        ffi.Void Function(ffi.Long arg0, ffi.Pointer<objc.ObjCObjectImpl> arg1)
-      >
-    >
-    ptr,
-  ) => objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>(
-    objc.newPointerBlock(_fnPtrCallable, ptr.cast()),
-    retain: false,
-    release: true,
-  );
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)> fromFunction(
-    void Function(int, objc.NSData?) fn, {
-    bool keepIsolateAlive = true,
-  }) => objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>(
-    objc.newClosureBlock(
-      _closureCallable,
-      (int arg0, ffi.Pointer<objc.ObjCObjectImpl> arg1) => fn(
-        arg0,
-        arg1.address == 0
-            ? null
-            : objc.NSData.fromPointer(arg1, retain: true, release: true),
-      ),
-      keepIsolateAlive,
-    ),
-    retain: false,
-    release: true,
-  );
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)> listener(
-    void Function(int, objc.NSData?) fn, {
-    bool keepIsolateAlive = true,
-  }) {
-    final raw = objc.newClosureBlock(
-      _listenerCallable.nativeFunction.cast(),
-      (int arg0, ffi.Pointer<objc.ObjCObjectImpl> arg1) => fn(
-        arg0,
-        arg1.address == 0
-            ? null
-            : objc.NSData.fromPointer(arg1, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1kva9v1(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>(
-      wrapper,
-      retain: false,
-      release: true,
-    );
-  }
-
-  /// Creates a blocking block from a Dart function.
-  ///
-  /// This callback can be invoked from any native thread, and will block the
-  /// caller until the callback is handled by the Dart isolate that created
-  /// the block. Async functions are not supported.
-  ///
-  /// If `keepIsolateAlive` is true, this block will keep this isolate alive
-  /// until it is garbage collected by both Dart and ObjC. If the owner isolate
-  /// has shut down, and the block is invoked by native code, it may block
-  /// indefinitely, or have other undefined behavior.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)> blocking(
-    void Function(int, objc.NSData?) fn, {
-    bool keepIsolateAlive = true,
-  }) {
-    final raw = objc.newClosureBlock(
-      _blockingCallable.nativeFunction.cast(),
-      (int arg0, ffi.Pointer<objc.ObjCObjectImpl> arg1) => fn(
-        arg0,
-        arg1.address == 0
-            ? null
-            : objc.NSData.fromPointer(arg1, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final rawListener = objc.newClosureBlock(
-      _blockingListenerCallable.nativeFunction.cast(),
-      (int arg0, ffi.Pointer<objc.ObjCObjectImpl> arg1) => fn(
-        arg0,
-        arg1.address == 0
-            ? null
-            : objc.NSData.fromPointer(arg1, retain: false, release: true),
-      ),
-      keepIsolateAlive,
-    );
-    final wrapper = _NativeCupertinoHttp_wrapBlockingBlock_1kva9v1(
-      raw,
-      rawListener,
-      objc.objCContext,
-    );
-    objc.objectRelease(raw.cast());
-    objc.objectRelease(rawListener.cast());
-    return objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>(
-      wrapper,
-      retain: false,
-      release: true,
-    );
-  }
-
-  static void _listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    int arg0,
-    ffi.Pointer<objc.ObjCObjectImpl> arg1,
-  ) {
-    (objc.getBlockClosure(block)
-        as void Function(int, ffi.Pointer<objc.ObjCObjectImpl>))(arg0, arg1);
-    objc.objectRelease(block.cast());
-  }
-
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Long,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _listenerCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Long,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.listener(_listenerTrampoline)
-        ..keepIsolateAlive = false;
-  static void _blockingTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> waiter,
-    int arg0,
-    ffi.Pointer<objc.ObjCObjectImpl> arg1,
-  ) {
-    try {
-      (objc.getBlockClosure(block)
-          as void Function(int, ffi.Pointer<objc.ObjCObjectImpl>))(arg0, arg1);
-    } catch (e) {
-    } finally {
-      objc.signalWaiter(waiter);
-      objc.objectRelease(block.cast());
-    }
-  }
-
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<ffi.Void>,
-      ffi.Long,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _blockingCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Long,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.isolateLocal(_blockingTrampoline)
-        ..keepIsolateAlive = false;
-  static ffi.NativeCallable<
-    ffi.Void Function(
-      ffi.Pointer<objc.ObjCBlockImpl>,
-      ffi.Pointer<ffi.Void>,
-      ffi.Long,
-      ffi.Pointer<objc.ObjCObjectImpl>,
-    )
-  >
-  _blockingListenerCallable =
-      ffi.NativeCallable<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Long,
-            ffi.Pointer<objc.ObjCObjectImpl>,
-          )
-        >.listener(_blockingTrampoline)
-        ..keepIsolateAlive = false;
-  static void _fnPtrTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    int arg0,
-    ffi.Pointer<objc.ObjCObjectImpl> arg1,
-  ) =>
-      block.ref.target
-          .cast<
-            ffi.NativeFunction<
-              ffi.Void Function(
-                ffi.Long arg0,
-                ffi.Pointer<objc.ObjCObjectImpl> arg1,
-              )
-            >
-          >()
-          .asFunction<void Function(int, ffi.Pointer<objc.ObjCObjectImpl>)>()(
-        arg0,
-        arg1,
-      );
-  static ffi.Pointer<ffi.Void> _fnPtrCallable =
-      ffi.Pointer.fromFunction<
-            ffi.Void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Long,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >(_fnPtrTrampoline)
-          .cast();
-  static void _closureTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    int arg0,
-    ffi.Pointer<objc.ObjCObjectImpl> arg1,
-  ) =>
-      (objc.getBlockClosure(block)
-          as void Function(int, ffi.Pointer<objc.ObjCObjectImpl>))(arg0, arg1);
-  static ffi.Pointer<ffi.Void> _closureCallable =
-      ffi.Pointer.fromFunction<
-            ffi.Void Function(
-              ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Long,
-              ffi.Pointer<objc.ObjCObjectImpl>,
-            )
-          >(_closureTrampoline)
-          .cast();
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>`.
-extension ObjCBlock_ffiVoid_NSInteger_NSData$CallExtension
-    on objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)> {
-  void call(int arg0, objc.NSData? arg1) => ref.pointer.ref.invoke
-      .cast<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Long arg0,
-            ffi.Pointer<objc.ObjCObjectImpl> arg1,
-          )
-        >
-      >()
-      .asFunction<
-        void Function(
-          ffi.Pointer<objc.ObjCBlockImpl>,
-          int,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-        )
-      >()(ref.pointer, arg0, arg1?.ref.pointer ?? ffi.nullptr);
-}
-
-late final _class_CUPHTTPWebSocketTask = objc.getClass("CUPHTTPWebSocketTask");
-late final _sel_webSocketTask = objc.registerName("webSocketTask");
-late final _sel_initWithSession_request_onOpen_onClose_onComplete_ = objc
-    .registerName("initWithSession:request:onOpen:onClose:onComplete:");
-final _objc_msgSend_j4f9jy = objc.msgSendPointer
-    .cast<
-      ffi.NativeFunction<
-        ffi.Pointer<objc.ObjCObjectImpl> Function(
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCSelector>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCObjectImpl>,
-          ffi.Pointer<objc.ObjCBlockImpl>,
-          ffi.Pointer<objc.ObjCBlockImpl>,
-          ffi.Pointer<objc.ObjCBlockImpl>,
-        )
-      >
-    >()
-    .asFunction<
-      ffi.Pointer<objc.ObjCObjectImpl> Function(
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCSelector>,
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCObjectImpl>,
-        ffi.Pointer<objc.ObjCBlockImpl>,
-        ffi.Pointer<objc.ObjCBlockImpl>,
-        ffi.Pointer<objc.ObjCBlockImpl>,
-      )
-    >();
-
-/// A WebSocket task helper for externally-managed URLSessions.
-///
-/// Uses iOS 15+ / macOS 12+ per-task delegates to receive WebSocket lifecycle
-/// events (open, close, completion) without requiring a session-level delegate.
-extension type CUPHTTPWebSocketTask._(objc.ObjCObject object$)
-    implements objc.ObjCObject, objc.NSObject {
-  /// Constructs a [CUPHTTPWebSocketTask] that points to the same underlying object as [other].
-  CUPHTTPWebSocketTask.as(objc.ObjCObject other) : object$ = other {
-    assert(isA(object$));
-  }
-
-  /// Constructs a [CUPHTTPWebSocketTask] that wraps the given raw object pointer.
-  CUPHTTPWebSocketTask.fromPointer(
-    ffi.Pointer<objc.ObjCObjectImpl> other, {
-    bool retain = false,
-    bool release = false,
-  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {
-    assert(isA(object$));
-  }
-
-  /// Returns whether [obj] is an instance of [CUPHTTPWebSocketTask].
-  static bool isA(objc.ObjCObject obj) => _objc_msgSend_19nvye5(
-    obj.ref.pointer,
-    _sel_isKindOfClass_,
-    _class_CUPHTTPWebSocketTask,
-  );
-
-  /// alloc
-  static CUPHTTPWebSocketTask alloc() {
-    final $ret = _objc_msgSend_151sglz(_class_CUPHTTPWebSocketTask, _sel_alloc);
-    return CUPHTTPWebSocketTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static CUPHTTPWebSocketTask allocWithZone(ffi.Pointer<objc.NSZone> zone) {
-    final $ret = _objc_msgSend_1cwp428(
-      _class_CUPHTTPWebSocketTask,
-      _sel_allocWithZone_,
-      zone,
-    );
-    return CUPHTTPWebSocketTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// new
-  static CUPHTTPWebSocketTask new$() {
-    final $ret = _objc_msgSend_151sglz(_class_CUPHTTPWebSocketTask, _sel_new);
-    return CUPHTTPWebSocketTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// Returns a new instance of CUPHTTPWebSocketTask constructed with the default `new` method.
-  CUPHTTPWebSocketTask() : this.as(new$().object$);
-}
-
-extension CUPHTTPWebSocketTask$Methods on CUPHTTPWebSocketTask {
-  /// Cancels the WebSocket connection.
-  void cancel() {
-    _objc_msgSend_1pl9qdv(object$.ref.pointer, _sel_cancel);
-  }
-
-  /// init
-  CUPHTTPWebSocketTask init() {
-    objc.checkOsVersionInternal(
-      'CUPHTTPWebSocketTask.init',
-      iOS: (false, (2, 0, 0)),
-      macOS: (false, (10, 0, 0)),
-    );
-    final $ret = _objc_msgSend_151sglz(
-      object$.ref.retainAndReturnPointer(),
-      _sel_init,
-    );
-    return CUPHTTPWebSocketTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// Creates a new WebSocket task with callback blocks.
-  ///
-  /// @param session The URLSession to use (can be externally managed)
-  /// @param request The URL request for the WebSocket connection (may include custom headers)
-  /// @param onOpen Called once when the WebSocket handshake succeeds
-  /// @param onClose Called when the peer sends a close frame
-  /// @param onComplete Called once when the task completes
-  CUPHTTPWebSocketTask initWithSession(
-    NSURLSession session, {
-    required NSURLRequest request,
-    objc.ObjCBlock<ffi.Void Function(objc.NSString?)>? onOpen,
-    objc.ObjCBlock<ffi.Void Function(ffi.Long, objc.NSData?)>? onClose,
-    objc.ObjCBlock<ffi.Void Function(objc.NSError?)>? onComplete,
-  }) {
-    final $ret = _objc_msgSend_j4f9jy(
-      object$.ref.retainAndReturnPointer(),
-      _sel_initWithSession_request_onOpen_onClose_onComplete_,
-      session.ref.pointer,
-      request.ref.pointer,
-      onOpen?.ref.pointer ?? ffi.nullptr,
-      onClose?.ref.pointer ?? ffi.nullptr,
-      onComplete?.ref.pointer ?? ffi.nullptr,
-    );
-    return CUPHTTPWebSocketTask.fromPointer($ret, retain: false, release: true);
-  }
-
-  /// Starts the WebSocket connection (creates and resumes the task).
-  void start() {
-    _objc_msgSend_1pl9qdv(object$.ref.pointer, _sel_start);
-  }
-
-  /// The underlying WebSocket task. Available after -start is called.
-  NSURLSessionWebSocketTask? get webSocketTask {
-    final $ret = _objc_msgSend_151sglz(object$.ref.pointer, _sel_webSocketTask);
-    return $ret.address == 0
-        ? null
-        : NSURLSessionWebSocketTask.fromPointer(
-            $ret,
-            retain: true,
-            release: true,
-          );
-  }
 }
