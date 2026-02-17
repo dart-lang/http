@@ -337,6 +337,7 @@ class CupertinoClient extends BaseClient {
       request: urlRequest,
       maxRedirects: request.followRedirects ? request.maxRedirects : 0,
       mapError: _mapError,
+      profile: profile,
     )..start();
 
     if (request case Abortable(:final abortTrigger?)) {

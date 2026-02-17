@@ -30,6 +30,7 @@ import 'dart:async';
 import 'dart:ffi' as ffi;
 import 'dart:typed_data';
 
+import 'package:http_profile/http_profile.dart';
 import 'package:objective_c/objective_c.dart' as objc;
 
 import 'native_cupertino_bindings.dart' as ncb;
@@ -1348,6 +1349,7 @@ class StreamingTask {
     required URLRequest request,
     required int maxRedirects,
     required Object Function(objc.NSError error, URLRequest request) mapError,
+    HttpClientRequestProfile? profile,
   }) {
     final completer = Completer<URLResponse>();
     late final StreamingTask task;
@@ -1405,6 +1407,16 @@ class StreamingTask {
           task.numRedirects += 1;
           if (task.numRedirects <= maxRedirects) {
             task.lastUrl = _nsurlToUri(nsRequest.URL!);
+            if (profile != null) {
+              final newRequest = URLRequest._(nsRequest);
+              profile.responseData.addRedirect(
+                HttpProfileRedirectData(
+                  statusCode: nsResponse.statusCode,
+                  method: newRequest.httpMethod,
+                  location: newRequest.url!.toString(),
+                ),
+              );
+            }
             nsRequestCompleter.call(nsRequest);
           } else {
             nsRequestCompleter.call(null);
