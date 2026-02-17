@@ -1,4 +1,4 @@
-## 1.8.0-wip
+## 1.8.0
 
 * Made callbacks asynchronous to prevent background errors caused by the
   unavailability of the Dart callback.
