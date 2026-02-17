@@ -143,7 +143,7 @@ Future<String?> choosePrivateKeyAlias({
     Uint8List pkcs12Data, String password,
     {JObject? context}) {
   context ??= Jni.androidApplicationContext;
-  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString(), null)!;
+  var keyStore = bindings.KeyStore.getInstance$2('PKCS12'.toJString())!;
 
   final jPassword = JCharArray(password.length);
   for (var i = 0; i < password.length; ++i) {
