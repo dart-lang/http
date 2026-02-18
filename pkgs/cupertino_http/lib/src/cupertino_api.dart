@@ -27,7 +27,10 @@
 library;
 
 import 'dart:async';
+import 'dart:ffi' as ffi;
+import 'dart:typed_data';
 
+import 'package:http_profile/http_profile.dart';
 import 'package:objective_c/objective_c.dart' as objc;
 
 import 'native_cupertino_bindings.dart' as ncb;
@@ -344,9 +347,23 @@ class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
   /// See [NSURLResponse.MIMEType](https://developer.apple.com/documentation/foundation/nsurlresponse/1411613-mimetype)
   String? get mimeType => _nsObject.MIMEType?.toDartString();
 
+  /// The URL for the response.
+  ///
+  /// This may differ from the request URL if redirects occurred.
+  ///
+  /// See [NSURLResponse.URL](https://developer.apple.com/documentation/foundation/nsurlresponse/1414219-url)
+  Uri? get url {
+    final nsUrl = _nsObject.URL;
+    if (nsUrl == null) {
+      return null;
+    }
+    return _nsurlToUri(nsUrl);
+  }
+
   @override
   String toString() =>
       '[URLResponse '
+      'url=$url '
       'mimeType=$mimeType '
       'expectedContentLength=$expectedContentLength'
       ']';
@@ -370,9 +387,15 @@ class HTTPURLResponse extends URLResponse {
   /// The HTTP headers of the response.
   ///
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
-  Map<String, String> get allHeaderFields =>
-      (objc.toDartObject(_httpUrlResponse.allHeaderFields) as Map)
-          .cast<String, String>();
+  Map<String, String> get allHeaderFields {
+    final headers = <String, String>{};
+    for (final entry in _httpUrlResponse.allHeaderFields.asDart().entries) {
+      final key = (entry.key as objc.NSString).toDartString().toLowerCase();
+      final value = (entry.value as objc.NSString).toDartString();
+      headers[key] = value;
+    }
+    return headers;
+  }
 
   @override
   String toString() =>
@@ -823,6 +846,14 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
 
+  /// Whether this wrapper owns the underlying native session.
+  ///
+  /// If `true`, [finishTasksAndInvalidate] will invalidate the native session.
+  ///
+  /// If `false`, the native session is managed externally and will not be
+  /// invalidated when this wrapper is closed.
+  final bool _ownsSession;
+
   static ncb.NSURLSessionDelegate delegate(
     bool isBackground, {
     URLRequest? Function(
@@ -975,8 +1006,46 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     return ncb.NSURLSessionDelegate.as(protoBuilder.build());
   }
 
-  URLSession._(super.c, {required bool isBackground})
-    : _isBackground = isBackground;
+  URLSession._(super.c, {required bool isBackground, bool ownsSession = true})
+    : _isBackground = isBackground,
+      _ownsSession = ownsSession;
+
+  /// Wraps an existing native [ncb.NSURLSession].
+  ///
+  /// The session's lifecycle is managed externally - calling
+  /// [finishTasksAndInvalidate] will NOT invalidate the session.
+  ///
+  /// This is useful for sharing a pre-configured session across isolates,
+  /// where native code manages the session lifecycle and SSL/auth delegates.
+  ///
+  /// The [pointer] should be obtained from native code that manages the
+  /// shared session. If [retainSession] is `true` (the default), the session
+  /// will be retained, preventing it from being deallocated while this
+  /// wrapper exists.
+  ///
+  /// Example:
+  /// ```dart
+  /// // Get a shared session pointer from your native code via FFI
+  /// final sessionPointer = MyNativeManager.getSharedSessionPointer();
+  /// final session = URLSession.fromRawPointer(sessionPointer);
+  ///
+  /// // Use the session for requests
+  /// final task = session.dataTaskWithRequest(request);
+  ///
+  /// // Closing this wrapper does NOT affect the shared native session
+  /// session.finishTasksAndInvalidate();
+  /// ```
+  factory URLSession.fromRawPointer(
+    ffi.Pointer<objc.ObjCObjectImpl> pointer, {
+    bool retainSession = true,
+  }) {
+    final nsSession = ncb.NSURLSession.fromPointer(
+      pointer,
+      retain: retainSession,
+      release: true,
+    );
+    return URLSession._(nsSession, isBackground: false, ownsSession: false);
+  }
 
   /// A client with reasonable default behavior.
   ///
@@ -1223,8 +1292,275 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// Free resources related to this session after the last task completes.
   /// Returns immediately.
   ///
+  /// If this session was created with [URLSession.fromRawPointer], this method
+  /// does nothing because the session lifecycle is managed externally.
+  ///
   /// See [NSURLSession finishTasksAndInvalidate](https://developer.apple.com/documentation/foundation/nsurlsession/1407428-finishtasksandinvalidate)
   void finishTasksAndInvalidate() {
-    _nsObject.finishTasksAndInvalidate();
+    if (_ownsSession) {
+      _nsObject.finishTasksAndInvalidate();
+    }
+  }
+}
+
+/// A streaming HTTP task for externally-managed sessions.
+///
+/// Provides chunk-based response delivery that works with sessions created
+/// via [URLSession.fromRawPointer] where session delegates are not available.
+///
+/// Example:
+/// ```dart
+/// final session = URLSession.fromRawPointer(sessionPointer);
+/// final task = StreamingTask(
+///   session: session,
+///   request: URLRequest.fromUrl(Uri.parse('https://example.com/large-file')),
+/// );
+///
+/// task.start();
+///
+/// final response = await task.response;
+/// print('Status: ${(response as HTTPURLResponse).statusCode}');
+///
+/// await for (final chunk in task.data) {
+///   // Process chunk...
+/// }
+/// ```
+class StreamingTask {
+  final ncb.NSURLSessionTask _nsTask;
+  final Completer<URLResponse> _responseCompleter;
+  final StreamController<Uint8List> _dataController;
+  bool _cancelled = false;
+
+  /// Future that completes when response headers are received.
+  Future<URLResponse> get response => _responseCompleter.future;
+
+  /// Stream of data chunks as they arrive.
+  Stream<Uint8List> get data => _dataController.stream;
+
+  /// The number of redirects followed so far, if any.
+  int numRedirects = 0;
+
+  /// The URL of the most recent redirect response, if any.
+  Uri? lastUrl;
+
+  /// Creates a streaming task for the given session and request.
+  factory StreamingTask({
+    required URLSession session,
+    required URLRequest request,
+    required int maxRedirects,
+    required Object Function(objc.NSError error, URLRequest request) mapError,
+    HttpClientRequestProfile? profile,
+  }) {
+    final completer = Completer<URLResponse>();
+    late final StreamingTask task;
+    final controller = StreamController<Uint8List>(
+      onCancel: () => task.cancel(),
+    );
+
+    final protoBuilder = objc.ObjCProtocolBuilder();
+
+    ncb
+        .NSURLSessionDataDelegate$Builder
+        .URLSession_dataTask_didReceiveResponse_completionHandler_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsDataTask,
+          nsResponse,
+          nsCompletionHandler,
+        ) {
+          completer.complete(URLResponse._exactURLResponseType(nsResponse));
+          nsCompletionHandler.call(
+            NSURLSessionResponseDisposition.NSURLSessionResponseAllow,
+          );
+        });
+
+    ncb.NSURLSessionDataDelegate$Builder.URLSession_dataTask_didReceiveData_
+        .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
+          if (!task._cancelled) {
+            controller.add(nsData.toList());
+          }
+        });
+
+    ncb.NSURLSessionDataDelegate$Builder.URLSession_task_didCompleteWithError_
+        .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
+          if (nsError != null) {
+            final mappedError = mapError(nsError, request);
+            if (!completer.isCompleted) {
+              completer.completeError(mappedError);
+            }
+            controller.addError(mappedError);
+          }
+          controller.close();
+        });
+
+    ncb
+        .NSURLSessionDataDelegate$Builder
+        // ignore: lines_longer_than_80_chars
+        .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsTask,
+          nsResponse,
+          nsRequest,
+          nsRequestCompleter,
+        ) {
+          task.numRedirects += 1;
+          if (task.numRedirects <= maxRedirects) {
+            task.lastUrl = _nsurlToUri(nsRequest.URL!);
+            if (profile != null) {
+              final newRequest = URLRequest._(nsRequest);
+              profile.responseData.addRedirect(
+                HttpProfileRedirectData(
+                  statusCode: nsResponse.statusCode,
+                  method: newRequest.httpMethod,
+                  location: newRequest.url!.toString(),
+                ),
+              );
+            }
+            nsRequestCompleter.call(nsRequest);
+          } else {
+            nsRequestCompleter.call(null);
+          }
+        });
+
+    final delegate = ncb.NSURLSessionTaskDelegate.as(protoBuilder.build());
+    final nsDataTask = session._nsObject.dataTaskWithRequest(request._nsObject)
+      ..delegate = delegate;
+
+    return task = StreamingTask._(nsDataTask, completer, controller);
+  }
+
+  StreamingTask._(this._nsTask, this._responseCompleter, this._dataController);
+
+  /// Starts the streaming request.
+  void start() {
+    _nsTask.resume();
+  }
+
+  /// Cancels the in-flight request.
+  void cancel() {
+    _cancelled = true;
+    _nsTask.cancel();
+  }
+}
+
+const _nsurlErrorCancelled = -999;
+final _urlError = objc.NSString('NSURLErrorDomain');
+
+extension NSErrorExtension on objc.NSError {
+  bool get isCancelled =>
+      code == _nsurlErrorCancelled && _urlError.isEqualToString(domain);
+}
+
+/// A WebSocket task helper for externally-managed sessions.
+///
+/// Provides WebSocket lifecycle events (open, close, complete) via per-task
+/// delegates, working with sessions created via [URLSession.fromRawPointer]
+/// where session-level delegates are not available.
+///
+/// Requires iOS 15+ / macOS 12+.
+///
+/// Example:
+/// ```dart
+/// final session = URLSession.fromRawPointer(sessionPointer);
+/// final request = MutableURLRequest.fromUrl(
+///   Uri.parse('wss://example.com/socket'),
+/// );
+/// final task = WebSocketTask(
+///   session: session,
+///   request: URLRequest._(request._nsObject),
+/// )..start();
+///
+/// final (wsTask, protocol) = await task.opened;
+/// ```
+class WebSocketTask {
+  final ncb.NSURLSessionWebSocketTask _nsTask;
+  final Completer<(URLSessionWebSocketTask, String?)> _openCompleter;
+  final Completer<(int, objc.NSData?)> _closeCompleter;
+  final Completer<objc.NSError?> _completeCompleter;
+
+  /// Future that completes when the WebSocket handshake succeeds.
+  /// Yields the task and the negotiated protocol.
+  Future<(URLSessionWebSocketTask, String?)> get opened =>
+      _openCompleter.future;
+
+  /// Future that completes when the peer sends a close frame.
+  /// Yields the close code and optional reason.
+  Future<(int, objc.NSData?)> get closed => _closeCompleter.future;
+
+  /// Future that completes when the task finishes.
+  /// Yields the error, or null on success.
+  Future<objc.NSError?> get completed => _completeCompleter.future;
+
+  /// Creates a WebSocket task for the given session and request.
+  factory WebSocketTask({
+    required URLSession session,
+    required URLRequest request,
+  }) {
+    final openCompleter = Completer<(URLSessionWebSocketTask, String?)>();
+    final closeCompleter = Completer<(int, objc.NSData?)>();
+    final completeCompleter = Completer<objc.NSError?>();
+
+    final protoBuilder = objc.ObjCProtocolBuilder();
+
+    ncb
+        .NSURLSessionWebSocketDelegate$Builder
+        .URLSession_webSocketTask_didOpenWithProtocol_
+        .implementAsListener(protoBuilder, (nsSession, nsWsTask, nsProtocol) {
+          final task = URLSessionWebSocketTask._(nsWsTask);
+          openCompleter.complete((task, nsProtocol?.toDartString()));
+        });
+
+    ncb
+        .NSURLSessionWebSocketDelegate$Builder
+        .URLSession_webSocketTask_didCloseWithCode_reason_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsWsTask,
+          closeCode,
+          reason,
+        ) {
+          if (!closeCompleter.isCompleted) {
+            closeCompleter.complete((closeCode, reason));
+          }
+        });
+
+    ncb
+        .NSURLSessionWebSocketDelegate$Builder
+        .URLSession_task_didCompleteWithError_
+        .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
+          if (!completeCompleter.isCompleted) {
+            completeCompleter.complete(nsError);
+          }
+        });
+
+    final delegate = ncb.NSURLSessionTaskDelegate.as(protoBuilder.build());
+    final nsWsTask = session._nsObject.webSocketTaskWithRequest(
+      request._nsObject,
+    )..delegate = delegate;
+
+    return WebSocketTask._(
+      nsWsTask,
+      openCompleter,
+      closeCompleter,
+      completeCompleter,
+    );
+  }
+
+  WebSocketTask._(
+    this._nsTask,
+    this._openCompleter,
+    this._closeCompleter,
+    this._completeCompleter,
+  );
+
+  /// Starts the WebSocket connection.
+  void start() {
+    _nsTask.resume();
+  }
+
+  /// Cancels the WebSocket connection.
+  void cancel() {
+    _nsTask.cancel();
   }
 }

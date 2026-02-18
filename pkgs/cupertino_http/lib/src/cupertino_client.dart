@@ -15,7 +15,10 @@ import 'cupertino_api.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
 
-const _nsurlErrorCancelled = -999;
+final _supportsPerTaskDelegates = checkOSVersion(
+  iOS: Version(15, 0, 0),
+  macOS: Version(12, 0, 0),
+);
 
 /// A [ClientException] generated from an [NSError].
 class NSErrorClientException extends ClientException {
@@ -56,25 +59,6 @@ class _StreamedResponseWithUrl extends StreamedResponse
   });
 }
 
-class _TaskTracker {
-  final responseCompleter = Completer<URLResponse>();
-  final BaseRequest request;
-  final StreamController<Uint8List> responseController;
-
-  /// Whether the response stream subscription has been cancelled.
-  bool responseListenerCancelled = false;
-  bool requestAborted = false;
-  final HttpClientRequestProfile? profile;
-  int numRedirects = 0;
-  Uri? lastUrl; // The last URL redirected to.
-
-  _TaskTracker(this.request, this.responseController, this.profile);
-
-  void close() {
-    responseController.close();
-  }
-}
-
 /// A HTTP [Client] based on the
 /// [Foundation URL Loading System](https://developer.apple.com/documentation/foundation/url_loading_system).
 ///
@@ -99,11 +83,41 @@ class _TaskTracker {
 /// }
 /// ```
 class CupertinoClient extends BaseClient {
-  static final Map<URLSessionTask, _TaskTracker> _tasks = {};
-
   URLSession? _urlSession;
 
-  CupertinoClient._(this._urlSession);
+  /// Whether this client owns the underlying session.
+  ///
+  /// If `true`, [close] will invalidate the session.
+  /// If `false`, the session is managed externally and [close] only marks
+  /// this client as closed.
+  final bool _ownsSession;
+
+  CupertinoClient._(this._urlSession) : _ownsSession = true;
+
+  /// Creates a client from an externally-managed [URLSession].
+  ///
+  /// The session's lifecycle is managed externally - calling [close] will
+  /// NOT invalidate the underlying session.
+  ///
+  /// This is useful for sharing a pre-configured session across isolates,
+  /// where native code manages the session lifecycle and SSL/auth delegates.
+  ///
+  /// Example:
+  /// ```dart
+  /// // Get a shared session from native code
+  /// final sessionPointer = MyNativeManager.getSharedSessionPointer();
+  /// final session = URLSession.fromRawPointer(sessionPointer);
+  /// final client = CupertinoClient.fromSharedSession(session);
+  ///
+  /// // Use the client
+  /// final response = await client.get(Uri.parse('https://example.com'));
+  ///
+  /// // Closing the client does NOT affect the shared session
+  /// client.close();
+  /// ```
+  CupertinoClient.fromSharedSession(URLSession session)
+    : _urlSession = session,
+      _ownsSession = false;
 
   String? _findReasonPhrase(int statusCode) {
     switch (statusCode) {
@@ -192,111 +206,6 @@ class CupertinoClient extends BaseClient {
     }
   }
 
-  static _TaskTracker _tracker(URLSessionTask task) => _tasks[task]!;
-
-  static void _onComplete(
-    URLSession session,
-    URLSessionTask task,
-    NSError? error,
-  ) {
-    final taskTracker = _tracker(task);
-
-    // There are two ways that the request can be cancelled:
-    // 1. The user calls `StreamedResponse.stream.cancel()`, which can only
-    //    happen if the response has already been received.
-    // 2. The user aborts the request, which can happen at any point in the
-    //    request lifecycle and causes `CupertinoClient.send` to throw
-    //    a `RequestAbortedException` exception.
-    //
-    // In both of these cases [URLSessionTask.cancel] is called, which completes
-    // the task with a NSURLErrorCancelled error.
-    final isCancelError =
-        error?.domain.toDartString() == 'NSURLErrorDomain' &&
-        error?.code == _nsurlErrorCancelled;
-    if (error != null &&
-        !(isCancelError && taskTracker.responseListenerCancelled)) {
-      final Exception exception;
-      if (isCancelError) {
-        assert(taskTracker.requestAborted);
-        exception = RequestAbortedException(taskTracker.request.url);
-      } else {
-        exception = NSErrorClientException(error, taskTracker.request.url);
-      }
-      if (taskTracker.profile != null &&
-          taskTracker.profile!.requestData.endTime == null) {
-        // Error occurred during the request.
-        taskTracker.profile!.requestData.closeWithError(exception.toString());
-      } else {
-        // Error occurred during the response.
-        taskTracker.profile?.responseData.closeWithError(exception.toString());
-      }
-      if (taskTracker.responseCompleter.isCompleted) {
-        taskTracker.responseController.addError(exception);
-      } else {
-        taskTracker.responseCompleter.completeError(exception);
-      }
-    } else {
-      assert(error == null || taskTracker.responseListenerCancelled);
-      assert(
-        taskTracker.profile == null ||
-            taskTracker.profile!.requestData.endTime != null,
-      );
-
-      taskTracker.profile?.responseData.close();
-      if (!taskTracker.responseCompleter.isCompleted) {
-        taskTracker.responseCompleter.completeError(
-          StateError('task completed without an error or response'),
-        );
-      }
-    }
-    taskTracker.close();
-    _tasks.remove(task);
-  }
-
-  static void _onData(URLSession session, URLSessionTask task, NSData data) {
-    final taskTracker = _tracker(task);
-    if (taskTracker.responseListenerCancelled || taskTracker.requestAborted) {
-      return;
-    }
-    taskTracker.responseController.add(data.toList());
-    taskTracker.profile?.responseData.bodySink.add(data.toList());
-  }
-
-  static URLRequest? _onRedirect(
-    URLSession session,
-    URLSessionTask task,
-    HTTPURLResponse response,
-    URLRequest request,
-  ) {
-    final taskTracker = _tracker(task);
-    ++taskTracker.numRedirects;
-    if (taskTracker.request.followRedirects &&
-        taskTracker.numRedirects <= taskTracker.request.maxRedirects) {
-      taskTracker.profile?.responseData.addRedirect(
-        HttpProfileRedirectData(
-          statusCode: response.statusCode,
-          method: request.httpMethod,
-          location: request.url!.toString(),
-        ),
-      );
-      taskTracker.lastUrl = request.url;
-      return request;
-    }
-    return null;
-  }
-
-  static NSURLSessionResponseDisposition _onResponse(
-    URLSession session,
-    URLSessionTask task,
-    URLResponse response,
-  ) {
-    final taskTracker = _tracker(task);
-    taskTracker.responseCompleter.complete(response);
-    unawaited(taskTracker.profile?.requestData.close());
-
-    return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
-  }
-
   /// A [Client] with the default configuration.
   factory CupertinoClient.defaultSessionConfiguration() {
     final config = URLSessionConfiguration.defaultSessionConfiguration();
@@ -307,19 +216,15 @@ class CupertinoClient extends BaseClient {
   factory CupertinoClient.fromSessionConfiguration(
     URLSessionConfiguration config,
   ) {
-    final session = URLSession.sessionWithConfiguration(
-      config,
-      onComplete: _onComplete,
-      onData: _onData,
-      onRedirect: _onRedirect,
-      onResponse: _onResponse,
-    );
+    final session = URLSession.sessionWithConfiguration(config);
     return CupertinoClient._(session);
   }
 
   @override
   void close() {
-    _urlSession?.finishTasksAndInvalidate();
+    if (_ownsSession) {
+      _urlSession?.finishTasksAndInvalidate();
+    }
     _urlSession = null;
   }
 
@@ -418,90 +323,174 @@ class CupertinoClient extends BaseClient {
 
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
-    final task = urlSession.dataTaskWithRequest(urlRequest);
-    if (request case Abortable(:final abortTrigger?)) {
-      unawaited(
-        abortTrigger.whenComplete(() {
-          final taskTracker = _tasks[task];
-          if (taskTracker == null) return;
-          taskTracker.requestAborted = true;
-          task.cancel();
-        }),
-      );
+
+    // For shared sessions (created externally), use streaming helper since
+    // delegate callbacks are not connected to this client.
+    // StreamingTask requires iOS 15+ / macOS 12+ for per-task delegates.
+    // On older OS versions, fall back to buffered completion handler.
+    if (!_supportsPerTaskDelegates) {
+      return _sendBuffer(urlSession, urlRequest, request, nsStream);
     }
 
-    final subscription = StreamController<Uint8List>(
-      onCancel: () {
-        final taskTracker = _tasks[task];
-        if (taskTracker == null) return;
-        taskTracker.responseListenerCancelled = true;
-        task.cancel();
-      },
-    );
-    final taskTracker = _TaskTracker(request, subscription, profile);
-    _tasks[task] = taskTracker;
-    task.resume();
+    final task = StreamingTask(
+      session: urlSession,
+      request: urlRequest,
+      maxRedirects: request.followRedirects ? request.maxRedirects : 0,
+      mapError: _mapError,
+      profile: profile,
+    )..start();
 
-    final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(task.cancel));
+    }
 
-    late URLResponse result;
+    final URLResponse urlResponse;
     try {
-      result = await taskTracker.responseCompleter.future;
+      urlResponse = await task.response;
+    } catch (e) {
+      unawaited(profile?.requestData.closeWithError(e.toString()));
+      rethrow;
     } finally {
-      // If the request is aborted before the `NSUrlSessionTask` opens the
-      // `NSInputStream` attached to `NSMutableURLRequest.HTTPBodyStream`, then
-      // the task will not close the `NSInputStream`.
-      //
-      // This will cause the Dart portion of the `NSInputStream` implementation
-      // to hang waiting for a close message.
-      //
-      // See https://github.com/dart-lang/native/issues/2333
       if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
         nsStream?.close();
       }
     }
 
-    final response = result as HTTPURLResponse;
-
-    if (request.followRedirects && taskTracker.numRedirects > maxRedirects) {
+    final response = urlResponse as HTTPURLResponse;
+    if (request.followRedirects && task.numRedirects > request.maxRedirects) {
       throw ClientException('Redirect limit exceeded', request.url);
     }
 
-    final responseHeaders = response.allHeaderFields.map(
-      (key, value) => MapEntry(key.toLowerCase(), value),
-    );
-
-    if (responseHeaders['content-length'] case final contentLengthHeader?
-        when !_digitRegex.hasMatch(contentLengthHeader)) {
-      throw ClientException(
-        'Invalid content-length header [$contentLengthHeader].',
-        request.url,
-      );
-    }
-
+    final responseHeaders = _getResponseHeaders(response, request);
     final contentLength = response.expectedContentLength == -1
         ? null
         : response.expectedContentLength;
-    final isRedirect = !request.followRedirects && taskTracker.numRedirects > 0;
-    profile?.responseData
-      ?..contentLength = contentLength
-      ..headersCommaValues = responseHeaders
-      ..isRedirect = isRedirect
-      ..reasonPhrase = _findReasonPhrase(response.statusCode)
-      ..startTime = DateTime.now()
-      ..statusCode = response.statusCode;
+    final isRedirect = !request.followRedirects && task.numRedirects > 0;
+    final reasonPhrase = _findReasonPhrase(response.statusCode);
+
+    unawaited(profile?.requestData.close());
+    if (profile != null) {
+      profile.responseData
+        ..contentLength = contentLength
+        ..headersCommaValues = responseHeaders
+        ..isRedirect = isRedirect
+        ..reasonPhrase = reasonPhrase
+        ..startTime = DateTime.now()
+        ..statusCode = response.statusCode;
+    }
+
+    final responseStream = profile == null
+        ? task.data
+        : _profileStream(task.data, profile);
 
     return _StreamedResponseWithUrl(
-      taskTracker.responseController.stream,
+      responseStream,
       response.statusCode,
-      url: taskTracker.lastUrl ?? request.url,
+      url: task.lastUrl ?? request.url,
       contentLength: contentLength,
-      reasonPhrase: _findReasonPhrase(response.statusCode),
+      reasonPhrase: reasonPhrase,
       request: request,
       isRedirect: isRedirect,
       headers: responseHeaders,
     );
   }
+
+  /// Sends request using dataTaskWithCompletionHandler for external sessions
+  /// on iOS < 15 / macOS < 12 where per-task delegates are not available.
+  Future<StreamedResponse> _sendBuffer(
+    URLSession session,
+    URLRequest urlRequest,
+    BaseRequest request,
+    NSInputStream? nsStream,
+  ) {
+    final completer = Completer<StreamedResponse>();
+
+    final task = session.dataTaskWithCompletionHandler(urlRequest, (
+      data,
+      urlResponse,
+      error,
+    ) {
+      if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
+        nsStream?.close();
+      }
+
+      if (error != null) {
+        completer.completeError(_mapError(error, urlRequest));
+        return;
+      }
+
+      if (urlResponse == null) {
+        completer.completeError(ClientException('No response', request.url));
+        return;
+      }
+
+      final response = urlResponse as HTTPURLResponse;
+      final responseHeaders = _getResponseHeaders(response, request);
+
+      final contentLength = response.expectedContentLength == -1
+          ? null
+          : response.expectedContentLength;
+
+      completer.complete(
+        StreamedResponse(
+          data == null ? const Stream.empty() : Stream.value(data.toList()),
+          response.statusCode,
+          contentLength: contentLength,
+          reasonPhrase: _findReasonPhrase(response.statusCode),
+          request: request,
+          headers: responseHeaders,
+        ),
+      );
+    });
+
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(task.cancel));
+    }
+
+    task.resume();
+    return completer.future;
+  }
+
+  Map<String, String> _getResponseHeaders(
+    HTTPURLResponse response,
+    BaseRequest request,
+  ) {
+    final headers = response.allHeaderFields;
+    final contentLength = headers['content-length'];
+    if (contentLength != null && !_digitRegex.hasMatch(contentLength)) {
+      throw ClientException(
+        'Invalid content-length header [$contentLength].',
+        request.url,
+      );
+    }
+    return headers;
+  }
+
+  /// Wraps [source] to forward data to the [profile] body sink,
+  /// closing the profile on completion or error.
+  Stream<Uint8List> _profileStream(
+    Stream<Uint8List> source,
+    HttpClientRequestProfile profile,
+  ) => source.transform(
+    StreamTransformer<Uint8List, Uint8List>.fromHandlers(
+      handleData: (data, sink) {
+        profile.responseData.bodySink.add(data);
+        sink.add(data);
+      },
+      handleError: (error, stackTrace, sink) {
+        unawaited(profile.responseData.closeWithError(error.toString()));
+        sink.addError(error, stackTrace);
+      },
+      handleDone: (sink) {
+        unawaited(profile.responseData.close());
+        sink.close();
+      },
+    ),
+  );
+
+  Object _mapError(NSError error, URLRequest request) => error.isCancelled
+      ? RequestAbortedException(request.url)
+      : NSErrorClientException(error, request.url);
 }
 
 /// A test-only class that makes the [HttpClientRequestProfile] data available.
@@ -516,13 +505,7 @@ class CupertinoClientWithProfile extends CupertinoClient {
 
   factory CupertinoClientWithProfile.defaultSessionConfiguration() {
     final config = URLSessionConfiguration.defaultSessionConfiguration();
-    final session = URLSession.sessionWithConfiguration(
-      config,
-      onComplete: CupertinoClient._onComplete,
-      onData: CupertinoClient._onData,
-      onRedirect: CupertinoClient._onRedirect,
-      onResponse: CupertinoClient._onResponse,
-    );
+    final session = URLSession.sessionWithConfiguration(config);
     return CupertinoClientWithProfile._(session);
   }
 }

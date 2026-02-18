@@ -139,6 +139,102 @@ class CupertinoWebSocket implements WebSocket {
     return readyCompleter.future;
   }
 
+  /// Creates a [CupertinoWebSocket] using an existing [URLSession].
+  ///
+  /// This is useful when using a session created externally (e.g., via
+  /// [URLSession.fromRawPointer]) where the session-level delegates are
+  /// managed by native code.
+  ///
+  /// Uses iOS 15+ / macOS 12+ per-task delegates to receive WebSocket
+  /// lifecycle events.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
+  ///
+  /// If provided, [headers] will be added to the initial HTTP upgrade request.
+  ///
+  /// Example:
+  /// ```dart
+  /// final session = URLSession.fromRawPointer(sessionPointer);
+  /// final webSocket = await CupertinoWebSocket.connectWithSession(
+  ///   session,
+  ///   Uri.parse('wss://example.com/socket'),
+  ///   protocols: ['v1'],
+  ///   headers: {'Authorization': 'Bearer token'},
+  /// );
+  /// ```
+  static Future<CupertinoWebSocket> connectWithSession(
+    URLSession session,
+    Uri url, {
+    Iterable<String>? protocols,
+    Map<String, String>? headers,
+  }) async {
+    if (!url.isScheme('ws') && !url.isScheme('wss')) {
+      throw ArgumentError.value(
+        url,
+        'url',
+        'only ws: and wss: schemes are supported',
+      );
+    }
+
+    final readyCompleter = Completer<CupertinoWebSocket>();
+    late CupertinoWebSocket webSocket;
+
+    final urlRequest = MutableURLRequest.fromUrl(url);
+    if (protocols != null) {
+      urlRequest.setValueForHttpHeaderField(
+        'Sec-WebSocket-Protocol',
+        protocols.join(', '),
+      );
+    }
+    headers?.forEach(urlRequest.setValueForHttpHeaderField);
+
+    final wsTask = WebSocketTask(session: session, request: urlRequest);
+
+    unawaited(
+      wsTask.opened.then((result) {
+        final (task, protocol) = result;
+        webSocket = CupertinoWebSocket._(task, protocol ?? '');
+        readyCompleter.complete(webSocket);
+      }),
+    );
+
+    unawaited(
+      wsTask.closed.then((result) {
+        if (readyCompleter.isCompleted) {
+          final (closeCode, reason) = result;
+          webSocket._connectionClosed(closeCode, reason);
+        }
+      }),
+    );
+
+    unawaited(
+      wsTask.completed.then((error) {
+        if (!readyCompleter.isCompleted) {
+          if (error == null) {
+            throw AssertionError(
+              'expected an error or "opened" to complete first',
+            );
+          }
+          readyCompleter.completeError(
+            ConnectionException('connection ended unexpectedly', error),
+          );
+        } else {
+          webSocket._connectionClosed(
+            1006,
+            'abnormal close'.codeUnits.toNSData(),
+          );
+        }
+      }),
+    );
+
+    wsTask.start();
+    return readyCompleter.future;
+  }
+
   final URLSessionWebSocketTask _task;
   final String _protocol;
   final _events = StreamController<WebSocketEvent>();
@@ -187,6 +283,17 @@ class CupertinoWebSocket implements WebSocket {
         // close code.
         return;
       }
+
+      // Check if the task received a close frame from the server.
+      // The task stores the close code/reason regardless of whether
+      // delegate callbacks are connected.
+      final taskCloseCode = _task.closeCode;
+      if (taskCloseCode != 0) {
+        // 0 = NSURLSessionWebSocketCloseCodeInvalid (not set)
+        _connectionClosed(taskCloseCode, _task.closeReason);
+        return;
+      }
+
       var (int code, String? reason) = switch ([domain, e.code]) {
         ['NSPOSIXErrorDomain', 100] => (
           1002,

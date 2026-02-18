@@ -308,8 +308,8 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
         isA<HTTPURLResponse>()
             .having((r) => r.statusCode, 'statusCode', 302)
             .having(
-              (r) => r.allHeaderFields['Location'],
-              "allHeaderFields['Location']",
+              (r) => r.allHeaderFields['location'],
+              "allHeaderFields['location']",
               'http://localhost:${redirectServer.port}/99',
             ),
       );
@@ -486,8 +486,8 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
           isA<HTTPURLResponse>()
               .having((r) => r.statusCode, 'statusCode', 302)
               .having(
-                (r) => r.allHeaderFields['Location'],
-                "r.allHeaderFields['Location']",
+                (r) => r.allHeaderFields['location'],
+                "r.allHeaderFields['location']",
                 matches(
                   'http://localhost:${redirectServer.port}/'
                   r'\d+',

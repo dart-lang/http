@@ -52,4 +52,15 @@ void main() {
       supportsAbort: true,
     );
   });
+  group('fromSharedSession', () {
+    testAll(
+      () => CupertinoClient.fromSharedSession(URLSession.sharedSession()),
+      canWorkInIsolates: false,
+      canReceiveSetCookieHeaders: true,
+      canSendCookieHeaders: true,
+      correctlyHandlesNullHeaderValues: false,
+      canStreamRequestBody: true,
+      supportsAbort: true,
+    );
+  });
 }
