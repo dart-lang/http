@@ -29,6 +29,8 @@ classes:
 - "com.example.ok_http.RedirectInterceptor"
 - "com.example.ok_http.AsyncInputStreamReader"
 - "com.example.ok_http.DataCallback"
+- "com.example.ok_http.WriteCallback"
+- "com.example.ok_http.StreamingRequestBody"
 - "okhttp3.WebSocket"
 - "com.example.ok_http.WebSocketListenerProxy"
 - "com.example.ok_http.FixedResponseX509ExtendedKeyManager"
