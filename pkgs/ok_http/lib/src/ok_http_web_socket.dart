@@ -126,7 +126,8 @@ class OkHttpWebSocket implements WebSocket {
     Iterable<dynamic>? protocols,
   }) {
     final client = bindings.OkHttpClient.fromReference(
-      JGlobalReference(pointer),
+      // ignore: invalid_use_of_internal_member
+      JGlobalReference(Jni.env.NewGlobalRef(pointer)),
     );
     return OkHttpWebSocket._fromClient(client)._connect(url, protocols);
   }
