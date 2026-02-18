@@ -183,4 +183,44 @@ void main() {
       });
     });
   });
+
+  group('BaseResponse getters', () {
+    group('isOk', () {
+      group('Response', () {
+        test('returns true for status code 200', () {
+          final response = http.Response('', 200);
+          expect(response.isOk, isTrue);
+        });
+
+        test('returns false for status code 201', () {
+          final response = http.Response('', 201);
+          expect(response.isOk, isFalse);
+        });
+
+        test('returns false for status code 404', () {
+          final response = http.Response('', 404);
+          expect(response.isOk, isFalse);
+        });
+
+        test('returns false for status code 500', () {
+          final response = http.Response('', 500);
+          expect(response.isOk, isFalse);
+        });
+      });
+
+      group('StreamedResponse', () {
+        test('returns true for status code 200', () {
+          final response =
+          http.StreamedResponse(const Stream<List<int>>.empty(), 200);
+          expect(response.isOk, isTrue);
+        });
+
+        test('returns false for status code 404', () {
+          final response =
+          http.StreamedResponse(const Stream<List<int>>.empty(), 404);
+          expect(response.isOk, isFalse);
+        });
+      });
+    });
+  });
 }
