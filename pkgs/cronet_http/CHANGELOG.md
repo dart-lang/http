@@ -1,3 +1,7 @@
+## 1.9.0
+
+* Add `CronetEngine.startNetLogToFile` and `CronetEngine.stopNetLog`.
+
 ## 1.8.0
 
 * Made callbacks asynchronous to prevent background errors caused by the
