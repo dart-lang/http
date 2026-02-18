@@ -268,7 +268,8 @@ class OkHttpClient extends BaseClient {
     OkHttpClientConfiguration configuration = const OkHttpClientConfiguration(),
   })  : this.configuration = configuration,
         _client =
-            bindings.OkHttpClient.fromReference(JGlobalReference(pointer)),
+            // ignore: invalid_use_of_internal_member
+            bindings.OkHttpClient.fromReference(JGlobalReference(Jni.env.NewGlobalRef(pointer))),
         _ownsClient = false;
 
   /// Creates a new instance of [OkHttpClient] with the given [configuration].
