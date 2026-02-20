@@ -207,6 +207,28 @@ class CronetEngine {
     }
     _isClosed = true;
   }
+
+  /// Starts NetLog logging to a file.
+  ///
+  /// The [fileName] argument specifies the path to the file where the log will be written.
+  /// The [logAll] argument specifies whether to log all events.
+  ///
+  /// This method corresponds to `CronetEngine.startNetLogToFile`.
+  void startNetLogToFile(String fileName, bool logAll) {
+    using((arena) {
+      _engine.startNetLogToFile(
+          fileName.toJString()..releasedBy(arena), logAll);
+    });
+  }
+
+  /// Stops NetLog logging.
+  ///
+  /// This method corresponds to [CronetEngine.stopNetLog].
+  ///
+  /// See https://developer.android.com/reference/org/chromium/net/CronetEngine#stopNetLog()
+  void stopNetLog() {
+    _engine.stopNetLog();
+  }
 }
 
 Map<String, String> _cronetToClientHeaders(
