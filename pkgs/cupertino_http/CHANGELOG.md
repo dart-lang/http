@@ -4,6 +4,7 @@
 * Fix a bug where close reasons not containing valid UTF-8 would cause an
   uncatchable exception to be thrown.
 * Exclude unnecessary generated code. Slightly reduces disk space requirements.
+* Update minimum supported versions to iOS 15 and macOS 12.
 
 ## 2.4.0
 
