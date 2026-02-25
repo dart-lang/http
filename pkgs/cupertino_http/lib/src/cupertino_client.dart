@@ -328,8 +328,8 @@ class CupertinoClient extends BaseClient {
     final isRedirect = !request.followRedirects && task.numRedirects > 0;
     final reasonPhrase = _findReasonPhrase(response.statusCode);
 
-    unawaited(profile?.requestData.close());
     if (profile != null) {
+      unawaited(profile.requestData.close());
       profile.responseData
         ..contentLength = contentLength
         ..headersCommaValues = responseHeaders
