@@ -53,7 +53,7 @@ jobs:
         run: git diff --exit-code lib/src/jni/jni_bindings.dart
       - name: Upload bindings
         if: failure()
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
         with:
           name: JNI Bindings
           path: pkgs/cronet_http/lib/src/jni/jni_bindings.dart
