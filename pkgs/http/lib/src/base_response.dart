@@ -84,6 +84,9 @@ abstract class BaseResponse {
       throw ArgumentError('Invalid content length $contentLength.');
     }
   }
+
+  /// Whether the status code is 200 (OK).
+  bool get isOk => statusCode == 200;
 }
 
 /// A [BaseResponse] with a [url] field.
