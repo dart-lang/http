@@ -4,6 +4,8 @@
 * Fix a bug where close reasons not containing valid UTF-8 would cause an
   uncatchable exception to be thrown.
 * Exclude unnecessary generated code. Slightly reduces disk space requirements.
+* Add `URLSession.taskDelegate` and `URLSessionTask.delegate` to enable
+  use of task-level delegates.
 
 ## 2.4.0
 
