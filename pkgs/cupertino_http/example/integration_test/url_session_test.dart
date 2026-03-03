@@ -165,8 +165,8 @@ void testDataTaskWithCompletionHandler(URLSession session) {
           isA<HTTPURLResponse>()
               .having((r) => r.statusCode, 'statusCode', 302)
               .having(
-                (r) => r.allHeaderFields['Location'],
-                "r.allHeaderFields['Location']",
+                (r) => r.allHeaderFields['location'],
+                "r.allHeaderFields['location']",
                 matches(
                   'http://localhost:${redirectServer.port}/'
                   r'\d+',
