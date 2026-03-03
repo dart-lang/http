@@ -58,55 +58,50 @@ Uri _nsurlToUri(objc.NSURL url) =>
     Uri.parse(url.absoluteString!.toDartString());
 
 /// Callback for HTTP redirect handling.
-typedef OnRedirect = URLRequest? Function(
-  URLSession session,
-  URLSessionTask task,
-  HTTPURLResponse response,
-  URLRequest newRequest,
-);
+typedef OnRedirect =
+    URLRequest? Function(
+      URLSession session,
+      URLSessionTask task,
+      HTTPURLResponse response,
+      URLRequest newRequest,
+    );
 
 /// Callback invoked when the initial response (headers) is received.
-typedef OnResponse = NSURLSessionResponseDisposition Function(
-  URLSession session,
-  URLSessionTask task,
-  URLResponse response,
-);
+typedef OnResponse =
+    NSURLSessionResponseDisposition Function(
+      URLSession session,
+      URLSessionTask task,
+      URLResponse response,
+    );
 
 /// Callback invoked when a data chunk is received.
-typedef OnData = void Function(
-  URLSession session,
-  URLSessionTask task,
-  objc.NSData data,
-);
+typedef OnData =
+    void Function(URLSession session, URLSessionTask task, objc.NSData data);
 
 /// Callback invoked when a download task finishes writing to disk.
-typedef OnFinishedDownloading = void Function(
-  URLSession session,
-  URLSessionDownloadTask task,
-  Uri uri,
-);
+typedef OnFinishedDownloading =
+    void Function(URLSession session, URLSessionDownloadTask task, Uri uri);
 
 /// Callback invoked when a task completes (successfully or with an error).
-typedef OnComplete = void Function(
-  URLSession session,
-  URLSessionTask task,
-  objc.NSError? error,
-);
+typedef OnComplete =
+    void Function(URLSession session, URLSessionTask task, objc.NSError? error);
 
 /// Callback invoked when a WebSocket handshake succeeds.
-typedef OnWebSocketTaskOpened = void Function(
-  URLSession session,
-  URLSessionWebSocketTask task,
-  String? protocol,
-);
+typedef OnWebSocketTaskOpened =
+    void Function(
+      URLSession session,
+      URLSessionWebSocketTask task,
+      String? protocol,
+    );
 
 /// Callback invoked when a WebSocket receives a close frame from the peer.
-typedef OnWebSocketTaskClosed = void Function(
-  URLSession session,
-  URLSessionWebSocketTask task,
-  int closeCode,
-  objc.NSData? reason,
-);
+typedef OnWebSocketTaskClosed =
+    void Function(
+      URLSession session,
+      URLSessionWebSocketTask task,
+      int closeCode,
+      objc.NSData? reason,
+    );
 
 abstract class _ObjectHolder<T extends objc.NSObject> {
   final T _nsObject;
