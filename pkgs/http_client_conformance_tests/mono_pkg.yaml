@@ -1,10 +1,10 @@
 sdk:
 - pubspec
-- dev
+- stable
 
 stages:
 - analyze_and_format:
   - analyze: --fatal-infos
   - format:
     sdk:
-    - dev
+    - stable
