@@ -57,6 +57,180 @@ objc.NSURL _uriToNSURL(Uri uri) =>
 Uri _nsurlToUri(objc.NSURL url) =>
     Uri.parse(url.absoluteString!.toDartString());
 
+/// Callback for HTTP redirect handling.
+typedef OnRedirect =
+    URLRequest? Function(
+      URLSession session,
+      URLSessionTask task,
+      HTTPURLResponse response,
+      URLRequest newRequest,
+    );
+
+/// Callback invoked when the initial response (headers) is received.
+typedef OnResponse =
+    NSURLSessionResponseDisposition Function(
+      URLSession session,
+      URLSessionTask task,
+      URLResponse response,
+    );
+
+/// Callback invoked when a data chunk is received.
+typedef OnData =
+    void Function(URLSession session, URLSessionTask task, objc.NSData data);
+
+/// Callback invoked when a download task finishes writing to disk.
+typedef OnFinishedDownloading =
+    void Function(URLSession session, URLSessionDownloadTask task, Uri uri);
+
+/// Callback invoked when a task completes (successfully or with an error).
+typedef OnComplete =
+    void Function(URLSession session, URLSessionTask task, objc.NSError? error);
+
+/// Callback invoked when a WebSocket handshake succeeds.
+typedef OnWebSocketTaskOpened =
+    void Function(
+      URLSession session,
+      URLSessionWebSocketTask task,
+      String? protocol,
+    );
+
+/// Callback invoked when a WebSocket receives a close frame from the peer.
+typedef OnWebSocketTaskClosed =
+    void Function(
+      URLSession session,
+      URLSessionWebSocketTask task,
+      int closeCode,
+      objc.NSData? reason,
+    );
+
+@pragma('vm:prefer-inline')
+objc.ObjCProtocolBuilder _buildDelegate(
+  bool isBackground, {
+  OnRedirect? onRedirect,
+  OnResponse? onResponse,
+  OnData? onData,
+  OnFinishedDownloading? onFinishedDownloading,
+  OnComplete? onComplete,
+  OnWebSocketTaskOpened? onWebSocketTaskOpened,
+  OnWebSocketTaskClosed? onWebSocketTaskClosed,
+}) {
+  final protoBuilder = objc.ObjCProtocolBuilder();
+
+  if (onComplete != null) {
+    ncb.NSURLSessionDataDelegate$Builder.URLSession_task_didCompleteWithError_
+        .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
+          onComplete(
+            URLSession._(nsSession, isBackground: isBackground),
+            URLSessionTask._(nsTask),
+            nsError,
+          );
+        });
+  }
+
+  if (onRedirect != null) {
+    ncb
+        .NSURLSessionDataDelegate$Builder
+        // ignore: lines_longer_than_80_chars
+        .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(
+          protoBuilder,
+
+          // ignore: lines_longer_than_80_chars
+          (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
+            final request = URLRequest._(nsRequest);
+            final response =
+                URLResponse._exactURLResponseType(nsResponse)
+                    as HTTPURLResponse;
+            final redirectRequest = onRedirect(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionTask._(nsTask),
+              response,
+              request,
+            );
+            nsRequestCompleter.call(redirectRequest?._nsObject);
+          },
+        );
+  }
+
+  if (onResponse != null) {
+    ncb
+        .NSURLSessionDataDelegate$Builder
+        .URLSession_dataTask_didReceiveResponse_completionHandler_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsDataTask,
+          nsResponse,
+          nsCompletionHandler,
+        ) {
+          final exactResponse = URLResponse._exactURLResponseType(nsResponse);
+          final disposition = onResponse(
+            URLSession._(nsSession, isBackground: isBackground),
+            URLSessionTask._(nsDataTask),
+            exactResponse,
+          );
+          nsCompletionHandler.call(disposition);
+        });
+  }
+
+  if (onData != null) {
+    ncb.NSURLSessionDataDelegate$Builder.URLSession_dataTask_didReceiveData_
+        .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
+          onData(
+            URLSession._(nsSession, isBackground: isBackground),
+            URLSessionTask._(nsDataTask),
+            nsData,
+          );
+        });
+  }
+
+  if (onFinishedDownloading != null) {
+    ncb
+        .NSURLSessionDownloadDelegate$Builder
+        .URLSession_downloadTask_didFinishDownloadingToURL_
+        .implementAsBlocking(protoBuilder, (nsSession, nsTask, nsUrl) {
+          onFinishedDownloading(
+            URLSession._(nsSession, isBackground: isBackground),
+            URLSessionDownloadTask._(nsTask),
+            _nsurlToUri(nsUrl),
+          );
+        });
+  }
+
+  if (onWebSocketTaskOpened != null) {
+    ncb
+        .NSURLSessionWebSocketDelegate$Builder
+        .URLSession_webSocketTask_didOpenWithProtocol_
+        .implementAsListener(protoBuilder, (nsSession, nsTask, nsProtocol) {
+          onWebSocketTaskOpened(
+            URLSession._(nsSession, isBackground: isBackground),
+            URLSessionWebSocketTask._(nsTask),
+            nsProtocol?.toDartString(),
+          );
+        });
+  }
+
+  if (onWebSocketTaskClosed != null) {
+    ncb
+        .NSURLSessionWebSocketDelegate$Builder
+        .URLSession_webSocketTask_didCloseWithCode_reason_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsTask,
+          closeCode,
+          reason,
+        ) {
+          onWebSocketTaskClosed(
+            URLSession._(nsSession, isBackground: isBackground),
+            URLSessionWebSocketTask._(nsTask),
+            closeCode,
+            reason,
+          );
+        });
+  }
+
+  return protoBuilder;
+}
+
 abstract class _ObjectHolder<T extends objc.NSObject> {
   final T _nsObject;
 
@@ -569,6 +743,39 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   set prefersIncrementalDelivery(bool value) =>
       _nsObject.prefersIncrementalDelivery = value;
 
+  @pragma('vm:prefer-inline')
+  static ncb.NSURLSessionTaskDelegate delegate({
+    OnRedirect? onRedirect,
+    OnResponse? onResponse,
+    OnData? onData,
+    OnFinishedDownloading? onFinishedDownloading,
+    OnComplete? onComplete,
+    OnWebSocketTaskOpened? onWebSocketTaskOpened,
+    OnWebSocketTaskClosed? onWebSocketTaskClosed,
+  }) {
+    final builder = _buildDelegate(
+      false,
+      onRedirect: onRedirect,
+      onResponse: onResponse,
+      onData: onData,
+      onFinishedDownloading: onFinishedDownloading,
+      onComplete: onComplete,
+      onWebSocketTaskOpened: onWebSocketTaskOpened,
+      onWebSocketTaskClosed: onWebSocketTaskClosed,
+    );
+    return ncb.NSURLSessionTaskDelegate.as(builder.build());
+  }
+
+  /// Sets a task-specific delegate.
+  ///
+  /// Methods not implemented on this delegate will still be forwarded to the
+  /// session delegate. Cannot be modified after the task resumes. Not
+  /// supported on background sessions.
+  ///
+  /// See [NSURLSessionTask.delegate](https://developer.apple.com/documentation/foundation/nsurlsessiontask/3746977-delegate)
+  set taskDelegate(ncb.NSURLSessionTaskDelegate value) =>
+      _nsObject.delegate = value;
+
   String _toStringHelper(String className) =>
       '[$className '
       'taskDescription=$taskDescription '
@@ -823,156 +1030,51 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
 
+  @pragma('vm:prefer-inline')
+  static ncb.NSURLSessionTaskDelegate taskDelegate({
+    OnRedirect? onRedirect,
+    OnResponse? onResponse,
+    OnData? onData,
+    OnFinishedDownloading? onFinishedDownloading,
+    OnComplete? onComplete,
+    OnWebSocketTaskOpened? onWebSocketTaskOpened,
+    OnWebSocketTaskClosed? onWebSocketTaskClosed,
+  }) {
+    final builder = _buildDelegate(
+      false,
+      onRedirect: onRedirect,
+      onResponse: onResponse,
+      onData: onData,
+      onFinishedDownloading: onFinishedDownloading,
+      onComplete: onComplete,
+      onWebSocketTaskOpened: onWebSocketTaskOpened,
+      onWebSocketTaskClosed: onWebSocketTaskClosed,
+    );
+    return ncb.NSURLSessionTaskDelegate.as(builder.build());
+  }
+
+  @pragma('vm:prefer-inline')
   static ncb.NSURLSessionDelegate delegate(
     bool isBackground, {
-    URLRequest? Function(
-      URLSession session,
-      URLSessionTask task,
-      HTTPURLResponse response,
-      URLRequest newRequest,
-    )?
-    onRedirect,
-    NSURLSessionResponseDisposition Function(
-      URLSession session,
-      URLSessionTask task,
-      URLResponse response,
-    )?
-    onResponse,
-    void Function(URLSession session, URLSessionTask task, objc.NSData error)?
-    onData,
-    void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
-    onFinishedDownloading,
-    void Function(URLSession session, URLSessionTask task, objc.NSError? error)?
-    onComplete,
-    void Function(
-      URLSession session,
-      URLSessionWebSocketTask task,
-      String? protocol,
-    )?
-    onWebSocketTaskOpened,
-    void Function(
-      URLSession session,
-      URLSessionWebSocketTask task,
-      int closeCode,
-      objc.NSData? reason,
-    )?
-    onWebSocketTaskClosed,
+    OnRedirect? onRedirect,
+    OnResponse? onResponse,
+    OnData? onData,
+    OnFinishedDownloading? onFinishedDownloading,
+    OnComplete? onComplete,
+    OnWebSocketTaskOpened? onWebSocketTaskOpened,
+    OnWebSocketTaskClosed? onWebSocketTaskClosed,
   }) {
-    final protoBuilder = objc.ObjCProtocolBuilder();
-
-    if (onComplete != null) {
-      ncb.NSURLSessionDataDelegate$Builder.URLSession_task_didCompleteWithError_
-          .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
-            onComplete(
-              URLSession._(nsSession, isBackground: isBackground),
-              URLSessionTask._(nsTask),
-              nsError,
-            );
-          });
-    }
-
-    if (onRedirect != null) {
-      ncb
-          .NSURLSessionDataDelegate$Builder
-          // ignore: lines_longer_than_80_chars
-          .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-          .implementAsListener(
-            protoBuilder,
-
-            // ignore: lines_longer_than_80_chars
-            (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
-              final request = URLRequest._(nsRequest);
-              final response =
-                  URLResponse._exactURLResponseType(nsResponse)
-                      as HTTPURLResponse;
-              final redirectRequest = onRedirect(
-                URLSession._(nsSession, isBackground: isBackground),
-                URLSessionTask._(nsTask),
-                response,
-                request,
-              );
-              nsRequestCompleter.call(redirectRequest?._nsObject);
-            },
-          );
-    }
-
-    if (onResponse != null) {
-      ncb
-          .NSURLSessionDataDelegate$Builder
-          .URLSession_dataTask_didReceiveResponse_completionHandler_
-          .implementAsListener(protoBuilder, (
-            nsSession,
-            nsDataTask,
-            nsResponse,
-            nsCompletionHandler,
-          ) {
-            final exactResponse = URLResponse._exactURLResponseType(nsResponse);
-            final disposition = onResponse(
-              URLSession._(nsSession, isBackground: isBackground),
-              URLSessionTask._(nsDataTask),
-              exactResponse,
-            );
-            nsCompletionHandler.call(disposition);
-          });
-    }
-
-    if (onData != null) {
-      ncb.NSURLSessionDataDelegate$Builder.URLSession_dataTask_didReceiveData_
-          .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
-            onData(
-              URLSession._(nsSession, isBackground: isBackground),
-              URLSessionTask._(nsDataTask),
-              nsData,
-            );
-          });
-    }
-
-    if (onFinishedDownloading != null) {
-      ncb
-          .NSURLSessionDownloadDelegate$Builder
-          .URLSession_downloadTask_didFinishDownloadingToURL_
-          .implementAsBlocking(protoBuilder, (nsSession, nsTask, nsUrl) {
-            onFinishedDownloading(
-              URLSession._(nsSession, isBackground: isBackground),
-              URLSessionDownloadTask._(nsTask),
-              _nsurlToUri(nsUrl),
-            );
-          });
-    }
-
-    if (onWebSocketTaskOpened != null) {
-      ncb
-          .NSURLSessionWebSocketDelegate$Builder
-          .URLSession_webSocketTask_didOpenWithProtocol_
-          .implementAsListener(protoBuilder, (nsSession, nsTask, nsProtocol) {
-            onWebSocketTaskOpened(
-              URLSession._(nsSession, isBackground: isBackground),
-              URLSessionWebSocketTask._(nsTask),
-              nsProtocol?.toDartString(),
-            );
-          });
-    }
-
-    if (onWebSocketTaskClosed != null) {
-      ncb
-          .NSURLSessionWebSocketDelegate$Builder
-          .URLSession_webSocketTask_didCloseWithCode_reason_
-          .implementAsListener(protoBuilder, (
-            nsSession,
-            nsTask,
-            closeCode,
-            reason,
-          ) {
-            onWebSocketTaskClosed(
-              URLSession._(nsSession, isBackground: isBackground),
-              URLSessionWebSocketTask._(nsTask),
-              closeCode,
-              reason,
-            );
-          });
-    }
-
-    return ncb.NSURLSessionDelegate.as(protoBuilder.build());
+    final builder = _buildDelegate(
+      isBackground,
+      onRedirect: onRedirect,
+      onResponse: onResponse,
+      onData: onData,
+      onFinishedDownloading: onFinishedDownloading,
+      onComplete: onComplete,
+      onWebSocketTaskOpened: onWebSocketTaskOpened,
+      onWebSocketTaskClosed: onWebSocketTaskClosed,
+    );
+    return ncb.NSURLSessionDelegate.as(builder.build());
   }
 
   URLSession._(super.c, {required bool isBackground})
@@ -1026,38 +1128,13 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// [onWebSocketTaskClosed] to be called.
   factory URLSession.sessionWithConfiguration(
     URLSessionConfiguration config, {
-    URLRequest? Function(
-      URLSession session,
-      URLSessionTask task,
-      HTTPURLResponse response,
-      URLRequest newRequest,
-    )?
-    onRedirect,
-    NSURLSessionResponseDisposition Function(
-      URLSession session,
-      URLSessionTask task,
-      URLResponse response,
-    )?
-    onResponse,
-    void Function(URLSession session, URLSessionTask task, objc.NSData data)?
-    onData,
-    void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
-    onFinishedDownloading,
-    void Function(URLSession session, URLSessionTask task, objc.NSError? error)?
-    onComplete,
-    void Function(
-      URLSession session,
-      URLSessionWebSocketTask task,
-      String? protocol,
-    )?
-    onWebSocketTaskOpened,
-    void Function(
-      URLSession session,
-      URLSessionWebSocketTask task,
-      int? closeCode,
-      objc.NSData? reason,
-    )?
-    onWebSocketTaskClosed,
+    OnRedirect? onRedirect,
+    OnResponse? onResponse,
+    OnData? onData,
+    OnFinishedDownloading? onFinishedDownloading,
+    OnComplete? onComplete,
+    OnWebSocketTaskOpened? onWebSocketTaskOpened,
+    OnWebSocketTaskClosed? onWebSocketTaskClosed,
   }) {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
     // by only allowing callbacks to execute sequentially.
