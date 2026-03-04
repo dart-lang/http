@@ -207,6 +207,37 @@ class CronetEngine {
     }
     _isClosed = true;
   }
+
+  /// Starts NetLog logging to a file.
+  ///
+  /// The NetLog is meant for debugging and will contain events emitted by
+  /// all live CronetEngines.
+  ///
+  /// NetLog can files can be viewed at https://netlog-viewer.appspot.com/
+  ///
+  /// If [logAll] is `false` then only basic event information will be logged. If it is `true`, then
+  /// user cookies, credentials and all transferred bytes will appear in the log.
+  ///
+  /// > [!CAUTION]
+  /// > Setting [logAll] to `true` presents a privacy risk, since it exposes the user's
+  /// > credentials, and should only be used with the user's consent and in situations
+  /// > where the log won't be public.
+  /// The [logAll] argument specifies whether to log all events.
+  ///
+  /// This method corresponds to `CronetEngine.startNetLogToFile`.
+  void startNetLogToFile(String fileName, bool logAll) {
+    using((arena) {
+      _engine.startNetLogToFile(
+          fileName.toJString()..releasedBy(arena), logAll);
+    });
+  }
+
+  /// Stops NetLog logging.
+  ///
+  /// This method corresponds to [CronetEngine.stopNetLog].
+  void stopNetLog() {
+    _engine.stopNetLog();
+  }
 }
 
 Map<String, String> _cronetToClientHeaders(
