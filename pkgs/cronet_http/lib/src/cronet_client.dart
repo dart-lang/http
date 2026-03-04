@@ -210,7 +210,18 @@ class CronetEngine {
 
   /// Starts NetLog logging to a file.
   ///
-  /// The [fileName] argument specifies the path to the file where the log will be written.
+  /// The NetLog is meant for debugging and will contain events emitted by
+  /// all live CronetEngines.
+  ///
+  /// NetLog can files can be viewed at https://netlog-viewer.appspot.com/
+  ///
+  /// If [logAll] is `false` then only basic event information will be logged. If it is `true`, then
+  /// user cookies, credentials and all transferred bytes will appear in the log.
+  ///
+  /// > [!CAUTION]
+  /// > Setting [logAll] to `true` presents a privacy risk, since it exposes the user's
+  /// > credentials, and should only be used with the user's consent and in situations
+  /// > where the log won't be public.
   /// The [logAll] argument specifies whether to log all events.
   ///
   /// This method corresponds to `CronetEngine.startNetLogToFile`.
