@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
@@ -439,6 +440,228 @@ void testURLSessionTaskCommon(
   });
 }
 
+void testTaskDelegate() {
+  group('task delegate', () {
+    late HttpServer server;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          if (request.requestedUri.path == '/redirect') {
+            await request.response.redirect(Uri(path: '/landed'));
+            return;
+          }
+          request.response.headers.set('Content-Type', 'text/plain');
+          request.response.write('Hello World');
+          await request.response.close();
+        });
+    });
+
+    tearDown(() async {
+      await server.close();
+    });
+
+    test('onComplete success', () async {
+      final completer = Completer<void>();
+      NSError? actualError;
+      late URLSessionTask actualTask;
+
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.defaultSessionConfiguration(),
+      );
+
+      final task = session.dataTaskWithRequest(
+        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+      )
+        ..taskDelegate = URLSessionTask.delegate(
+          onComplete: (session, task, error) {
+            actualTask = task;
+            actualError = error;
+            completer.complete();
+          },
+        )
+        ..resume();
+      await completer.future;
+
+      expect(actualTask, task);
+      expect(actualError, null);
+      session.finishTasksAndInvalidate();
+    });
+
+    test('onComplete error', () async {
+      final completer = Completer<void>();
+      NSError? actualError;
+
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.defaultSessionConfiguration(),
+      );
+
+      session.dataTaskWithRequest(
+        URLRequest.fromUrl(Uri.https('does-not-exist', '')),
+      )
+        ..taskDelegate = URLSessionTask.delegate(
+          onComplete: (session, task, error) {
+            actualError = error;
+            completer.complete();
+          },
+        )
+        ..resume();
+      await completer.future;
+
+      expect(
+        actualError!.code,
+        anyOf(
+          -1001, // kCFURLErrorTimedOut
+          -1003, // kCFURLErrorCannotFindHost
+        ),
+      );
+      session.finishTasksAndInvalidate();
+    });
+
+    test('onResponse', () async {
+      final completer = Completer<void>();
+      late HTTPURLResponse actualResponse;
+      late URLSessionTask actualTask;
+
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.defaultSessionConfiguration(),
+      );
+
+      final task = session.dataTaskWithRequest(
+        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+      )
+        ..taskDelegate = URLSessionTask.delegate(
+          onResponse: (session, task, response) {
+            actualTask = task;
+            actualResponse = response as HTTPURLResponse;
+            completer.complete();
+            return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
+          },
+        )
+        ..resume();
+      await completer.future;
+
+      expect(actualTask, task);
+      expect(actualResponse.statusCode, 200);
+      session.finishTasksAndInvalidate();
+    });
+
+    test('onData', () async {
+      final completer = Completer<void>();
+      final actualData = NSMutableData.data();
+
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.defaultSessionConfiguration(),
+      );
+
+      session.dataTaskWithRequest(
+        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+      )
+        ..taskDelegate = URLSessionTask.delegate(
+          onComplete: (session, task, error) => completer.complete(),
+          onData: (session, task, data) {
+            actualData.appendData(data);
+          },
+        )
+        ..resume();
+      await completer.future;
+
+      expect(actualData.toList(), 'Hello World'.codeUnits);
+      session.finishTasksAndInvalidate();
+    });
+
+    test('onRedirect', () async {
+      final completer = Completer<void>();
+
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.defaultSessionConfiguration(),
+      );
+
+      final task = session.dataTaskWithRequest(
+        URLRequest.fromUrl(
+          Uri.parse('http://localhost:${server.port}/redirect'),
+        ),
+      )
+        ..taskDelegate = URLSessionTask.delegate(
+          onComplete: (session, task, error) => completer.complete(),
+          onRedirect: (session, task, response, newRequest) => null,
+        )
+        ..resume();
+      await completer.future;
+
+      expect(
+        task.response,
+        isA<HTTPURLResponse>()
+            .having((resp) => resp.statusCode, 'statusCode', 302),
+      );
+      session.finishTasksAndInvalidate();
+    });
+
+    test('task delegate falls through to session delegate', () async {
+      final taskDataComplete = Completer<void>();
+      final sessionComplete = Completer<void>();
+      final actualData = NSMutableData.data();
+      NSError? sessionError;
+
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.defaultSessionConfiguration(),
+        onComplete: (session, task, error) {
+          sessionError = error;
+          sessionComplete.complete();
+        },
+      );
+
+      session.dataTaskWithRequest(
+        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+      )
+        ..taskDelegate = URLSessionTask.delegate(
+          onData: (session, task, data) {
+            actualData.appendData(data);
+            if (!taskDataComplete.isCompleted) taskDataComplete.complete();
+          },
+        )
+        ..resume();
+
+      await taskDataComplete.future;
+      await sessionComplete.future;
+
+      expect(actualData.toList(), 'Hello World'.codeUnits);
+      expect(sessionError, null);
+      session.finishTasksAndInvalidate();
+    });
+
+    test('task delegate overrides session delegate', () async {
+      final completer = Completer<void>();
+      var sessionCompleteCalled = false;
+      NSError? taskError;
+
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.defaultSessionConfiguration(),
+        onComplete: (session, task, error) {
+          sessionCompleteCalled = true;
+        },
+      );
+
+      session.dataTaskWithRequest(
+        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+      )
+        ..taskDelegate = URLSessionTask.delegate(
+          onComplete: (session, task, error) {
+            taskError = error;
+            completer.complete();
+          },
+        )
+        ..resume();
+      await completer.future;
+
+      expect(taskError, null);
+      expect(sessionCompleteCalled, false);
+      session.finishTasksAndInvalidate();
+    });
+  });
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -464,4 +687,5 @@ void main() {
   });
 
   testWebSocketTask();
+  testTaskDelegate();
 }
