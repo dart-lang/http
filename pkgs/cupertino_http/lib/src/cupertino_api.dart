@@ -1031,29 +1031,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   final bool _isBackground;
 
   @pragma('vm:prefer-inline')
-  static ncb.NSURLSessionTaskDelegate taskDelegate({
-    OnRedirect? onRedirect,
-    OnResponse? onResponse,
-    OnData? onData,
-    OnFinishedDownloading? onFinishedDownloading,
-    OnComplete? onComplete,
-    OnWebSocketTaskOpened? onWebSocketTaskOpened,
-    OnWebSocketTaskClosed? onWebSocketTaskClosed,
-  }) {
-    final builder = _buildDelegate(
-      false,
-      onRedirect: onRedirect,
-      onResponse: onResponse,
-      onData: onData,
-      onFinishedDownloading: onFinishedDownloading,
-      onComplete: onComplete,
-      onWebSocketTaskOpened: onWebSocketTaskOpened,
-      onWebSocketTaskClosed: onWebSocketTaskClosed,
-    );
-    return ncb.NSURLSessionTaskDelegate.as(builder.build());
-  }
-
-  @pragma('vm:prefer-inline')
   static ncb.NSURLSessionDelegate delegate(
     bool isBackground, {
     OnRedirect? onRedirect,
