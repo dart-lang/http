@@ -645,7 +645,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration Function() config) {
         onWebSocketTaskClosed: (session, task, closeCode, reason) {
           actualSession = session;
           actualTask = task;
-          actualCloseCode = closeCode!;
+          actualCloseCode = closeCode;
           actualReason = utf8.decode(reason!.toList());
           c.complete();
         },
@@ -691,7 +691,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration Function() config) {
         onWebSocketTaskClosed: (session, task, closeCode, reason) {
           actualSession = session;
           actualTask = task;
-          actualCloseCode = closeCode!;
+          actualCloseCode = closeCode;
           actualReason = utf8.decode(reason!.toList());
           c.complete();
         },
@@ -737,7 +737,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration Function() config) {
         onWebSocketTaskClosed: (session, task, closeCode, reason) {
           actualSession = session;
           actualTask = task;
-          actualCloseCode = closeCode!;
+          actualCloseCode = closeCode;
           actualReason = utf8.decode(reason!.toList());
           c.complete();
         },
