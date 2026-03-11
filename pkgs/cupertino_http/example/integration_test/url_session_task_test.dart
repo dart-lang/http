@@ -471,17 +471,18 @@ void testTaskDelegate() {
         URLSessionConfiguration.defaultSessionConfiguration(),
       );
 
-      final task = session.dataTaskWithRequest(
-        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
-      )
-        ..taskDelegate = URLSessionTask.delegate(
-          onComplete: (session, task, error) {
-            actualTask = task;
-            actualError = error;
-            completer.complete();
-          },
-        )
-        ..resume();
+      final task =
+          session.dataTaskWithRequest(
+              URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+            )
+            ..taskDelegate = URLSessionTask.delegate(
+              onComplete: (session, task, error) {
+                actualTask = task;
+                actualError = error;
+                completer.complete();
+              },
+            )
+            ..resume();
       await completer.future;
 
       expect(actualTask, task);
@@ -498,8 +499,8 @@ void testTaskDelegate() {
       );
 
       session.dataTaskWithRequest(
-        URLRequest.fromUrl(Uri.https('does-not-exist', '')),
-      )
+          URLRequest.fromUrl(Uri.https('does-not-exist', '')),
+        )
         ..taskDelegate = URLSessionTask.delegate(
           onComplete: (session, task, error) {
             actualError = error;
@@ -528,18 +529,20 @@ void testTaskDelegate() {
         URLSessionConfiguration.defaultSessionConfiguration(),
       );
 
-      final task = session.dataTaskWithRequest(
-        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
-      )
-        ..taskDelegate = URLSessionTask.delegate(
-          onResponse: (session, task, response) {
-            actualTask = task;
-            actualResponse = response as HTTPURLResponse;
-            completer.complete();
-            return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
-          },
-        )
-        ..resume();
+      final task =
+          session.dataTaskWithRequest(
+              URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+            )
+            ..taskDelegate = URLSessionTask.delegate(
+              onResponse: (session, task, response) {
+                actualTask = task;
+                actualResponse = response as HTTPURLResponse;
+                completer.complete();
+                return NSURLSessionResponseDisposition
+                    .NSURLSessionResponseAllow;
+              },
+            )
+            ..resume();
       await completer.future;
 
       expect(actualTask, task);
@@ -556,8 +559,8 @@ void testTaskDelegate() {
       );
 
       session.dataTaskWithRequest(
-        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
-      )
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+        )
         ..taskDelegate = URLSessionTask.delegate(
           onComplete: (session, task, error) => completer.complete(),
           onData: (session, task, data) {
@@ -578,22 +581,26 @@ void testTaskDelegate() {
         URLSessionConfiguration.defaultSessionConfiguration(),
       );
 
-      final task = session.dataTaskWithRequest(
-        URLRequest.fromUrl(
-          Uri.parse('http://localhost:${server.port}/redirect'),
-        ),
-      )
-        ..taskDelegate = URLSessionTask.delegate(
-          onComplete: (session, task, error) => completer.complete(),
-          onRedirect: (session, task, response, newRequest) => null,
-        )
-        ..resume();
+      final task =
+          session.dataTaskWithRequest(
+              URLRequest.fromUrl(
+                Uri.parse('http://localhost:${server.port}/redirect'),
+              ),
+            )
+            ..taskDelegate = URLSessionTask.delegate(
+              onComplete: (session, task, error) => completer.complete(),
+              onRedirect: (session, task, response, newRequest) => null,
+            )
+            ..resume();
       await completer.future;
 
       expect(
         task.response,
-        isA<HTTPURLResponse>()
-            .having((resp) => resp.statusCode, 'statusCode', 302),
+        isA<HTTPURLResponse>().having(
+          (resp) => resp.statusCode,
+          'statusCode',
+          302,
+        ),
       );
       session.finishTasksAndInvalidate();
     });
@@ -613,8 +620,8 @@ void testTaskDelegate() {
       );
 
       session.dataTaskWithRequest(
-        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
-      )
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+        )
         ..taskDelegate = URLSessionTask.delegate(
           onData: (session, task, data) {
             actualData.appendData(data);
@@ -644,8 +651,8 @@ void testTaskDelegate() {
       );
 
       session.dataTaskWithRequest(
-        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
-      )
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+        )
         ..taskDelegate = URLSessionTask.delegate(
           onComplete: (session, task, error) {
             taskError = error;
