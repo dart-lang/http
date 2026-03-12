@@ -2,9 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: avoid_classes_with_only_static_members
+
 import 'dart:async';
 
-// ignore: avoid_classes_with_only_static_members
 /// An Isolate implementation for the web that throws when used.
 abstract class Isolate {
   static Future<R> run<R>(FutureOr<R> Function() computation,
