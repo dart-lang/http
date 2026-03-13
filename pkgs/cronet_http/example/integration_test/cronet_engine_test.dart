@@ -164,6 +164,48 @@ void testQuicHints() {
   });
 }
 
+void testNetLog() {
+  group('net log', () {
+    late HttpServer server;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          request.response.statusCode = 200;
+          await request.response.close();
+        });
+    });
+
+    tearDown(() {
+      server.close();
+    });
+
+    test('startNetLogToFile and stopNetLog', () async {
+      final engine = CronetEngine.build();
+      final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
+      addTearDown(client.close);
+      final tempDir = await Directory.systemTemp.createTemp('cronet_net_log');
+      final logFile = File('${tempDir.path}/netlog.json');
+
+      engine.startNetLogToFile(logFile.path, true);
+      addTearDown(() async {
+        if (await tempDir.exists()) {
+          await tempDir.delete(recursive: true);
+        }
+      });
+
+      await client.get(Uri.parse('http://localhost:${server.port}'));
+      engine.stopNetLog();
+
+      expect(await logFile.exists(), isTrue);
+      final content = await logFile.readAsString();
+      expect(content, isNotEmpty);
+      expect(content.trim(), startsWith('{'));
+    });
+  });
+}
+
 void testEngineClose() {
   group('engine close', () {
     test('multiple close', () {
@@ -199,5 +241,6 @@ void main() {
   testInvalidConfigurations();
   testUserAgent();
   testQuicHints();
+  testNetLog();
   testEngineClose();
 }
