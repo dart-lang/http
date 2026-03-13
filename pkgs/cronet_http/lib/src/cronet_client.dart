@@ -215,16 +215,14 @@ class CronetEngine {
   ///
   /// NetLog can files can be viewed at https://netlog-viewer.appspot.com/
   ///
-  /// If [logAll] is `false` then only basic event information will be logged. If it is `true`, then
-  /// user cookies, credentials and all transferred bytes will appear in the log.
+  /// If [logAll] is `false` then only basic event information will be logged.
+  /// If it is `true`, then user cookies, credentials and all transferred bytes
+  /// will appear in the log.
   ///
   /// > [!CAUTION]
-  /// > Setting [logAll] to `true` presents a privacy risk, since it exposes the user's
-  /// > credentials, and should only be used with the user's consent and in situations
-  /// > where the log won't be public.
-  /// The [logAll] argument specifies whether to log all events.
-  ///
-  /// This method corresponds to `CronetEngine.startNetLogToFile`.
+  /// > Setting [logAll] to `true` presents a privacy risk, since it exposes the
+  /// > user's credentials, and should only be used with the user's consent and
+  /// > in situations where the log won't be public.
   void startNetLogToFile(String fileName, bool logAll) {
     using((arena) {
       _engine.startNetLogToFile(
@@ -232,9 +230,10 @@ class CronetEngine {
     });
   }
 
-  /// Stops NetLog logging.
+
+  /// Stops NetLog logging and flushes the data to disk.
   ///
-  /// This method corresponds to [CronetEngine.stopNetLog].
+  /// This method does nothing if NetLog was not started.
   void stopNetLog() {
     _engine.stopNetLog();
   }
