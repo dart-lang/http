@@ -284,21 +284,74 @@ class CupertinoClient extends BaseClient {
 
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
-    final task = StreamingTask(
-      session: urlSession,
-      request: urlRequest,
-      maxRedirects: request.followRedirects ? request.maxRedirects : 0,
-      mapError: _mapError,
-      profile: profile,
-    )..start();
+
+    final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
+    final responseCompleter = Completer<URLResponse>();
+    var cancelled = false;
+    var numRedirects = 0;
+    Uri? lastRedirectUrl;
+
+    final task = urlSession.dataTaskWithRequest(urlRequest);
+    final dataController = StreamController<Uint8List>(
+      onCancel: () {
+        cancelled = true;
+        task.cancel();
+      },
+    );
+
+    task
+      ..taskDelegate = URLSessionTask.delegate(
+        onResponse: (session, task, response) {
+          responseCompleter.complete(response);
+          return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
+        },
+        onData: (session, task, data) {
+          if (!cancelled) {
+            dataController.add(data.toList());
+          }
+        },
+        onComplete: (session, task, error) {
+          if (error != null) {
+            final mappedError = _mapError(error, urlRequest);
+            if (!responseCompleter.isCompleted) {
+              responseCompleter.completeError(mappedError);
+            }
+            dataController.addError(mappedError);
+          }
+          dataController.close();
+        },
+        onRedirect: (session, task, response, request) {
+          numRedirects += 1;
+          if (numRedirects > maxRedirects) {
+            return null;
+          }
+          lastRedirectUrl = request.url;
+          if (profile != null) {
+            profile.responseData.addRedirect(
+              HttpProfileRedirectData(
+                statusCode: response.statusCode,
+                method: request.httpMethod,
+                location: request.url!.toString(),
+              ),
+            );
+          }
+          return request;
+        },
+      )
+      ..resume();
 
     if (request case Abortable(:final abortTrigger?)) {
-      unawaited(abortTrigger.whenComplete(task.cancel));
+      unawaited(
+        abortTrigger.whenComplete(() {
+          cancelled = true;
+          task.cancel();
+        }),
+      );
     }
 
     final URLResponse urlResponse;
     try {
-      urlResponse = await task.response;
+      urlResponse = await responseCompleter.future;
     } catch (e) {
       unawaited(profile?.requestData.closeWithError(e.toString()));
       rethrow;
@@ -317,7 +370,7 @@ class CupertinoClient extends BaseClient {
     }
 
     final response = urlResponse as HTTPURLResponse;
-    if (request.followRedirects && task.numRedirects > request.maxRedirects) {
+    if (request.followRedirects && numRedirects > request.maxRedirects) {
       throw ClientException('Redirect limit exceeded', request.url);
     }
 
@@ -325,7 +378,7 @@ class CupertinoClient extends BaseClient {
     final contentLength = response.expectedContentLength == -1
         ? null
         : response.expectedContentLength;
-    final isRedirect = !request.followRedirects && task.numRedirects > 0;
+    final isRedirect = !request.followRedirects && numRedirects > 0;
     final reasonPhrase = _findReasonPhrase(response.statusCode);
 
     if (profile != null) {
@@ -340,13 +393,13 @@ class CupertinoClient extends BaseClient {
     }
 
     final responseStream = profile == null
-        ? task.data
-        : _profileStream(task.data, profile);
+        ? dataController.stream
+        : _profileStream(dataController.stream, profile);
 
     return _StreamedResponseWithUrl(
       responseStream,
       response.statusCode,
-      url: task.lastUrl ?? request.url,
+      url: lastRedirectUrl ?? request.url,
       contentLength: contentLength,
       reasonPhrase: reasonPhrase,
       request: request,
