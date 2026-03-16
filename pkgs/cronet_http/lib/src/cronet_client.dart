@@ -230,7 +230,6 @@ class CronetEngine {
     });
   }
 
-
   /// Stops NetLog logging and flushes the data to disk.
   ///
   /// This method does nothing if NetLog was not started.
