@@ -1,6 +1,9 @@
 ## 3.0.0-wip
 
-* Remove `shouldUseExtendedBackgroundIdleMode` from `URLSessionConfiguration`.
+* **BREAKING CHANGE:** Remove `shouldUseExtendedBackgroundIdleMode` from
+  `URLSessionConfiguration`.
+* **BREAKING CHANGE:** Require Dart 3.10+.
+* Support usage in Dart SDK projects.
 * Fix a bug where close reasons not containing valid UTF-8 would cause an
   uncatchable exception to be thrown.
 * Exclude unnecessary generated code. Slightly reduces disk space requirements.
