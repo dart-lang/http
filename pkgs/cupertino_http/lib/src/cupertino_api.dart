@@ -1307,6 +1307,7 @@ const _nsurlErrorCancelled = -999;
 final _urlError = objc.NSString('NSURLErrorDomain');
 
 extension NSErrorExtension on objc.NSError {
+  /// Whether the error was caused by a cancelled `NSURLSession` request.
   bool get isCancelled =>
       code == _nsurlErrorCancelled && _urlError.isEqualToString(domain);
 }
