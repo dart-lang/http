@@ -9,7 +9,7 @@
 * Exclude unnecessary generated code. Slightly reduces disk space requirements.
 * Add `URLSessionTask.taskDelegate` setter and `URLSessionTask.delegate` builder
   to enable use of task-level delegates.
-* Update minimum supported versions to iOS 15 and macOS 12.
+* **BREAKING:** Update minimum supported versions to iOS 15 (released on September 20, 2022) and macOS 12 (released October 25, 2021).
 
 ## 2.4.0
 
