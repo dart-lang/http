@@ -1,0 +1,19 @@
+# Gemini code reviews configuration; see
+# https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github
+
+code_review:
+  # Valid levels are LOW, MEDIUM, HIGH, or CRITICAL.
+  comment_severity_threshold: MEDIUM
+  pull_request_opened:
+    code_review: true
+    # Make the gemini PR comments more terse.
+    help: false
+    summary: false
+
+# Don't ask for reviews of the generated code.
+ignore_patterns:
+  - .github/workflows/dart.yml
+  - tool/ci.sh
+  - pkgs/*/.metadata
+  - "**/*.g.dart"
+  - "**/*_bindings.*"
