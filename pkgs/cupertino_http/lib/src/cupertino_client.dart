@@ -308,6 +308,7 @@ class CupertinoClient extends BaseClient {
         onData: (session, task, data) {
           if (!cancelled) {
             dataController.add(data.toList());
+            profile?.responseData.bodySink.add(data.toList());
           }
         },
         onComplete: (session, task, error) {
@@ -317,6 +318,13 @@ class CupertinoClient extends BaseClient {
               responseCompleter.completeError(mappedError);
             }
             dataController.addError(mappedError);
+            if (profile != null) {
+              profile.requestData.endTime == null
+                  ? profile.requestData.closeWithError(mappedError.toString())
+                  : profile.responseData.closeWithError(mappedError.toString());
+            }
+          } else {
+            unawaited(profile?.responseData.close());
           }
           dataController.close();
         },
@@ -368,6 +376,7 @@ class CupertinoClient extends BaseClient {
         nsStream?.close();
       }
     }
+    unawaited(profile?.requestData.close());
 
     final response = urlResponse as HTTPURLResponse;
     if (request.followRedirects && numRedirects > request.maxRedirects) {
@@ -381,23 +390,16 @@ class CupertinoClient extends BaseClient {
     final isRedirect = !request.followRedirects && numRedirects > 0;
     final reasonPhrase = _findReasonPhrase(response.statusCode);
 
-    if (profile != null) {
-      unawaited(profile.requestData.close());
-      profile.responseData
-        ..contentLength = contentLength
-        ..headersCommaValues = responseHeaders
-        ..isRedirect = isRedirect
-        ..reasonPhrase = reasonPhrase
-        ..startTime = DateTime.now()
-        ..statusCode = response.statusCode;
-    }
-
-    final responseStream = profile == null
-        ? dataController.stream
-        : _profileStream(dataController.stream, profile);
+    profile?.responseData
+      ?..contentLength = contentLength
+      ..headersCommaValues = responseHeaders
+      ..isRedirect = isRedirect
+      ..reasonPhrase = reasonPhrase
+      ..startTime = DateTime.now()
+      ..statusCode = response.statusCode;
 
     return _StreamedResponseWithUrl(
-      responseStream,
+      dataController.stream,
       response.statusCode,
       url: lastRedirectUrl ?? request.url,
       contentLength: contentLength,
@@ -422,28 +424,6 @@ class CupertinoClient extends BaseClient {
     }
     return headers;
   }
-
-  /// Wraps [source] to forward data to the [profile] body sink,
-  /// closing the profile on completion or error.
-  Stream<Uint8List> _profileStream(
-    Stream<Uint8List> source,
-    HttpClientRequestProfile profile,
-  ) => source.transform(
-    StreamTransformer<Uint8List, Uint8List>.fromHandlers(
-      handleData: (data, sink) {
-        profile.responseData.bodySink.add(data);
-        sink.add(data);
-      },
-      handleError: (error, stackTrace, sink) {
-        unawaited(profile.responseData.closeWithError(error.toString()));
-        sink.addError(error, stackTrace);
-      },
-      handleDone: (sink) {
-        unawaited(profile.responseData.close());
-        sink.close();
-      },
-    ),
-  );
 
   Object _mapError(NSError error, URLRequest request) => error.isCancelled
       ? RequestAbortedException(request.url)
