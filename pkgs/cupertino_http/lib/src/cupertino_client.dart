@@ -360,9 +360,6 @@ class CupertinoClient extends BaseClient {
     final URLResponse urlResponse;
     try {
       urlResponse = await responseCompleter.future;
-    } catch (e) {
-      unawaited(profile?.requestData.closeWithError(e.toString()));
-      rethrow;
     } finally {
       // If the request is aborted before the `NSUrlSessionTask` opens the
       // `NSInputStream` attached to `NSMutableURLRequest.HTTPBodyStream`, then
