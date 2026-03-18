@@ -449,6 +449,7 @@ void main() {
           // Expected exception.
         }
         profile = client.profile!;
+        await Future<void>.delayed(Duration.zero); // give it a tick to update the profile
 
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, isNull);
