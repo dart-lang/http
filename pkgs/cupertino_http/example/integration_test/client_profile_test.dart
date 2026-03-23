@@ -450,6 +450,7 @@ void main() {
         await Future<void>.delayed(Duration.zero); // tick to update the profile
 
         expect(profile.requestData.endTime, isNotNull);
+        expect(profile.responseData.endTime, isNotNull);
         expect(profile.requestData.error, isNull);
       });
     });
