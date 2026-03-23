@@ -348,7 +348,12 @@ void main() {
         expect(profile.requestData.contentLength, isNull);
         expect(profile.requestData.startTime, isNotNull);
         expect(profile.requestData.endTime, isNotNull);
+      });
+
+      test('response attributes', () async {
         expect(profile.responseData.bodyBytes, receivedData);
+        expect(profile.responseData.startTime, isNotNull);
+        expect(profile.responseData.endTime, isNotNull);
       });
     });
 
@@ -429,6 +434,24 @@ void main() {
         expect(profile.requestData.followRedirects, false);
         expect(profile.responseData.isRedirect, true);
         expect(profile.responseData.redirects, isEmpty);
+      });
+
+      test('exceed maxRedirects', () async {
+        final client = CupertinoClientWithProfile.defaultSessionConfiguration();
+        await expectLater(
+          client.send(
+            Request('GET', successServerUri.replace(path: '/3'))
+              ..followRedirects = true
+              ..maxRedirects = 1,
+          ),
+          throwsA(isA<ClientException>()),
+        );
+        profile = client.profile!;
+        await Future<void>.delayed(Duration.zero); // tick to update the profile
+
+        expect(profile.requestData.endTime, isNotNull);
+        expect(profile.responseData.endTime, isNotNull);
+        expect(profile.requestData.error, isNull);
       });
     });
   });
