@@ -217,13 +217,13 @@ class CupertinoClient extends BaseClient {
     // 1. send is called by BaseClient
     // 2. send starts the request with UrlSession.dataTaskWithRequest and waits
     //    on a Completer
-    // 3. _onResponse is called with the HTTP headers, status code, etc.
-    // 4. _onResponse calls complete on the Completer that send is waiting on.
+    // 3. onResponse is called with the HTTP headers, status code, etc.
+    // 4. onResponse calls complete on the Completer that send is waiting on.
     // 5. send continues executing and returns a StreamedResponse.
     //    StreamedResponse contains a Stream<UInt8List>.
-    // 6. _onData is called one or more times and adds that to the
+    // 6. onData is called one or more times and adds that to the
     //    StreamController that controls the Stream<UInt8List>
-    // 7. _onComplete is called after all the data is read and closes the
+    // 7. onComplete is called after all the data is read and closes the
     //    StreamController
     if (_urlSession == null) {
       throw ClientException(
@@ -313,7 +313,9 @@ class CupertinoClient extends BaseClient {
         },
         onComplete: (session, task, error) {
           if (error != null) {
-            final mappedError = _mapError(error, urlRequest);
+            final mappedError = error.isCancelled
+                ? RequestAbortedException(request.url)
+                : NSErrorClientException(error, request.url);
             if (!responseCompleter.isCompleted) {
               responseCompleter.completeError(mappedError);
             }
@@ -423,10 +425,6 @@ class CupertinoClient extends BaseClient {
     }
     return headers;
   }
-
-  Object _mapError(NSError error, URLRequest request) => error.isCancelled
-      ? RequestAbortedException(request.url)
-      : NSErrorClientException(error, request.url);
 }
 
 /// A test-only class that makes the [HttpClientRequestProfile] data available.

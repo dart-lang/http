@@ -438,16 +438,14 @@ void main() {
 
       test('exceed maxRedirects', () async {
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
-        try {
-          await client.send(
+        await expectLater(
+          client.send(
             Request('GET', successServerUri.replace(path: '/3'))
               ..followRedirects = true
               ..maxRedirects = 1,
-          );
-          fail('expected exception');
-        } on ClientException {
-          // Expected exception.
-        }
+          ),
+          throwsA(isA<ClientException>()),
+        );
         profile = client.profile!;
         await Future<void>.delayed(Duration.zero); // tick to update the profile
 
