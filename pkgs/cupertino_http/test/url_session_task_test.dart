@@ -242,6 +242,8 @@ void testURLSessionTaskCommon(
           task.state,
           anyOf(
             NSURLSessionTaskState.NSURLSessionTaskStateSuspended,
+            // Suspended transitions to completed so it may already be completed
+            // before the check.
             NSURLSessionTaskState.NSURLSessionTaskStateCompleted,
           ),
         );
@@ -250,6 +252,8 @@ void testURLSessionTaskCommon(
           task.state,
           anyOf(
             NSURLSessionTaskState.NSURLSessionTaskStateCanceling,
+            // Canceling transitions to completed so it may already be completed
+            // before the check.
             NSURLSessionTaskState.NSURLSessionTaskStateCompleted,
           ),
         );

@@ -15,7 +15,7 @@ Future<void> _waitForCompletedResponse(HttpClientRequestProfile profile) async {
     await Future<void>.delayed(const Duration(milliseconds: 1));
   }
   if (profile.responseData.endTime == null) {
-    throw StateError('Profile not ready');
+    throw StateError('profile.responseData.endTime is null');
   }
 }
 
@@ -24,7 +24,7 @@ Future<void> _waitForCompletedRequest(HttpClientRequestProfile profile) async {
     await Future<void>.delayed(const Duration(milliseconds: 1));
   }
   if (profile.requestData.endTime == null) {
-    throw StateError('Profile not ready');
+    throw StateError('profile.requestData.endTime is null');
   }
 }
 
