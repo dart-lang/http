@@ -11,7 +11,6 @@ import 'package:http_profile/http_profile.dart';
 import 'package:test/test.dart';
 
 void main() {
-
   group('profile', () {
     final profilingEnabled = HttpClientRequestProfile.profilingEnabled;
 
@@ -330,10 +329,8 @@ void main() {
         receivedData = [];
         s = response.stream.listen((d) {
           receivedData += d;
-          if (++i == 1000) {
-            s.cancel();
-            cancelCompleter.complete();
-          }
+          s.cancel();
+          cancelCompleter.complete();
         });
         await cancelCompleter.future;
         profile = client.profile!;
