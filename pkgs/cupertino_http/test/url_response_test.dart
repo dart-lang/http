@@ -6,7 +6,6 @@ import 'package:cupertino_http/cupertino_http.dart';
 import 'package:test/test.dart';
 
 void main() {
-
   group('response', () {
     late URLResponse response;
     setUp(() async {

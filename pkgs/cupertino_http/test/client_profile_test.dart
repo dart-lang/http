@@ -324,7 +324,6 @@ void main() {
         unawaited(request.sink.close());
         final response = await client.send(request);
 
-        var i = 0;
         late final StreamSubscription<List<int>> s;
         receivedData = [];
         s = response.stream.listen((d) {

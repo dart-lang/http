@@ -8,7 +8,6 @@ import 'package:http_profile/http_profile.dart';
 import 'package:test/test.dart';
 
 void main() {
-
   group('defaultSessionConfiguration', () {
     group('profile enabled', () {
       final profile = HttpClientRequestProfile.profilingEnabled;

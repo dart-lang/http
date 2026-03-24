@@ -253,7 +253,6 @@ void testURLSession(URLSession session) {
 }
 
 void main() {
-
   group('sharedSession', () {
     final session = URLSession.sharedSession();
 

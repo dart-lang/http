@@ -196,7 +196,6 @@ void testProperties(URLSessionConfiguration config) {
 }
 
 void main() {
-
   group('backgroundSession', () {
     final config = URLSessionConfiguration.backgroundSession('myid');
 

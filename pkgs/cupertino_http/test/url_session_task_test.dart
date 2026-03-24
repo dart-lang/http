@@ -669,7 +669,6 @@ void testTaskDelegate() {
 }
 
 void main() {
-
   group('data task', () {
     testURLSessionTaskCommon(
       (session, uri) => session.dataTaskWithRequest(URLRequest.fromUrl(uri)),

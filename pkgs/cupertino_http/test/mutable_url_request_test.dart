@@ -9,7 +9,6 @@ import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
 void main() {
-
   group('cachePolicy', () {
     final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');
     late MutableURLRequest request;

@@ -6,7 +6,6 @@ import 'package:cupertino_http/cupertino_http.dart';
 import 'package:test/test.dart';
 
 void main() {
-
   group('fromUrl', () {
     test('absolute URL', () {
       final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');

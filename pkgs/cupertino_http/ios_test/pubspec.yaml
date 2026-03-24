@@ -13,15 +13,15 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  cupertino_http:
-    path: ../
+  # Dependencies required by the the tests in the "test/" directory must be
+  # duplicated here.
   convert: ^3.1.1
   crypto: ^3.0.3
-  dart_flutter_team_lints: ^3.0.0
+  cupertino_http:
+    path: ../
   ffigen: ^20.1.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
   http_client_conformance_tests:
     path: ../../http_client_conformance_tests/
   integration_test:

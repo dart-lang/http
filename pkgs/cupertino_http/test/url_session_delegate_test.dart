@@ -769,7 +769,6 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration Function() config) {
 }
 
 void main() {
-
   group('backgroundSession', () {
     var count = 0;
     URLSessionConfiguration config() {

@@ -1,8 +1,6 @@
-import 'package:test/test.dart';
 // Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
-
 
 import 'client_conformance_test.dart' as client_conformance_test;
 import 'client_profile_test.dart' as profile_test;
@@ -24,7 +22,6 @@ import 'web_socket_conformance_test.dart' as web_socket_conformance_test;
 /// `flutter test integration_test/` because only one compilation step and
 /// application launch is required.
 void main() {
-
   client_conformance_test.main();
   profile_test.main();
   client_test.main();

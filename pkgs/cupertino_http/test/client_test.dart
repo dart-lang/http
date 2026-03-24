@@ -53,7 +53,6 @@ void testClient(Client client) {
 }
 
 void main() {
-
   group('defaultSessionConfiguration', () {
     testClient(CupertinoClient.defaultSessionConfiguration());
   });

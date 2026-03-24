@@ -9,7 +9,6 @@ import 'package:cupertino_http/cupertino_http.dart';
 import 'package:test/test.dart';
 
 void main() {
-
   group('dataTaskWithCompletionHandler', () {
     late HttpServer server;
     var uncachedRequestCount = 0;
