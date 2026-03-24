@@ -36,7 +36,9 @@ jobs:
           channel: 'stable'
       - id: install
         name: Install dependencies
-        run: flutter pub get
+        run: |
+          dart pub get
+          cd ios_test && flutter pub get
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
