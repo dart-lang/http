@@ -10,6 +10,24 @@ import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:test/test.dart';
 
+Future<void> _waitForCompletedResponse(HttpClientRequestProfile profile) async {
+  for (var i = 0; i < 1000 && profile.responseData.endTime == null; ++i) {
+    await Future<void>.delayed(const Duration(milliseconds: 1));
+  }
+  if (profile.responseData.endTime == null) {
+    throw StateError('Profile not ready');
+  }
+}
+
+Future<void> _waitForCompletedRequest(HttpClientRequestProfile profile) async {
+  for (var i = 0; i < 1000 && profile.requestData.endTime == null; ++i) {
+    await Future<void>.delayed(const Duration(milliseconds: 1));
+  }
+  if (profile.requestData.endTime == null) {
+    throw StateError('Profile not ready');
+  }
+}
+
 void main() {
   group('profile', () {
     final profilingEnabled = HttpClientRequestProfile.profilingEnabled;
@@ -44,6 +62,7 @@ void main() {
           body: 'Hi',
         );
         profile = client.profile!;
+        await _waitForCompletedResponse(profile);
       });
       tearDownAll(() {
         successServer.close();
@@ -134,6 +153,7 @@ void main() {
 
         await client.send(request);
         profile = client.profile!;
+        await _waitForCompletedResponse(profile);
       });
       tearDownAll(() {
         successServer.close();
@@ -164,6 +184,8 @@ void main() {
           // Expected exception.
         }
         profile = client.profile!;
+
+        await _waitForCompletedRequest(profile);
       });
 
       test('profile attributes', () {
@@ -241,6 +263,7 @@ void main() {
           // Expected exception.
         }
         profile = client.profile!;
+        await _waitForCompletedResponse(profile);
       });
       tearDownAll(() {
         successServer.close();
@@ -333,6 +356,7 @@ void main() {
         });
         await cancelCompleter.future;
         profile = client.profile!;
+        await _waitForCompletedResponse(profile);
       });
       tearDownAll(() {
         successServer.close();
@@ -381,6 +405,7 @@ void main() {
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
         await client.get(successServerUri);
         profile = client.profile!;
+        await _waitForCompletedResponse(profile);
 
         expect(profile.responseData.redirects, isEmpty);
       });
@@ -393,6 +418,7 @@ void main() {
             ..maxRedirects = 4,
         );
         profile = client.profile!;
+        await _waitForCompletedResponse(profile);
 
         expect(profile.requestData.followRedirects, true);
         expect(profile.requestData.maxRedirects, 4);
@@ -424,6 +450,7 @@ void main() {
             ..followRedirects = false,
         );
         profile = client.profile!;
+        await _waitForCompletedResponse(profile);
 
         expect(profile.requestData.followRedirects, false);
         expect(profile.responseData.isRedirect, true);
@@ -441,7 +468,7 @@ void main() {
           throwsA(isA<ClientException>()),
         );
         profile = client.profile!;
-        await Future<void>.delayed(Duration.zero); // tick to update the profile
+        await _waitForCompletedResponse(profile);
 
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.responseData.endTime, isNotNull);
