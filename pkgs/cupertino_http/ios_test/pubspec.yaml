@@ -8,7 +8,6 @@ environment:
   sdk: ^3.10.0
 
 dependencies:
-  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
 
@@ -19,7 +18,6 @@ dev_dependencies:
   crypto: ^3.0.3
   cupertino_http:
     path: ../
-  ffigen: ^20.1.0
   flutter_test:
     sdk: flutter
   http_client_conformance_tests:
