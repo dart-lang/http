@@ -11,6 +11,7 @@
   builder to enable use of task-level delegates.
 * **BREAKING:** Update minimum supported versions to iOS 15
   (released on September 20, 2022) and macOS 12 (released October 25, 2021).
+* Updated the example to not require Flutter.
 
 ## 2.4.0
 

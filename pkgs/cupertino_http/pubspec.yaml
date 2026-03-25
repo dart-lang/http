@@ -10,7 +10,6 @@ environment:
 
 dependencies:
   async: ^2.5.0
-  code_assets: ^1.0.0
   ffi: ^2.1.0
   hooks: ^1.0.2
   http: ^1.5.0
@@ -21,5 +20,16 @@ dependencies:
   web_socket: '>=0.1.5 <2.0.0'
 
 dev_dependencies:
+  convert: ^3.1.1
+  crypto: ^3.0.3
   dart_flutter_team_lints: ^3.0.0
   ffigen: ^20.1.0
+  http_client_conformance_tests:
+    path: ../http_client_conformance_tests/
+  test: ^1.21.1
+  web_socket_conformance_tests:
+    path: ../web_socket_conformance_tests/
+
+dependency_overrides:
+  http:
+    path: ../http/
