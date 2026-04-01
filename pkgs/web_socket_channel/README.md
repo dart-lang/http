@@ -11,12 +11,12 @@ It provides a cross-platform
 that API that communicates over an underlying [`StreamChannel`][stream_channel],
 [an implementation][IOWebSocketChannel] that wraps `dart:io`'s `WebSocket`
 class, and [a similar implementation][HtmlWebSocketChannel] that wraps
-`dart:html`'s.
+`package:web`'s.
 
 [stream_channel]: https://pub.dev/packages/stream_channel
 [WebSocketChannel]: https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html
-[IOWebSocketChannel]: https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel.io/IOWebSocketChannel-class.html
-[HtmlWebSocketChannel]: https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel.html/HtmlWebSocketChannel-class.html
+[IOWebSocketChannel]: https://pub.dev/documentation/web_socket_channel/latest/io/IOWebSocketChannel-class.html
+[HtmlWebSocketChannel]: https://pub.dev/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel-class.html
 
 It also provides constants for the WebSocket protocol's pre-defined status codes
 in the [`status.dart` library][status]. It's strongly recommended that users
