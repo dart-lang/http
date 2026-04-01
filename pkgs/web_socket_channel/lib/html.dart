@@ -13,10 +13,10 @@ import 'package:web/web.dart';
 import 'src/channel.dart';
 import 'src/exception.dart';
 
-/// A [WebSocketChannel] that communicates using a `dart:html` [WebSocket].
+/// A [WebSocketChannel] that communicates using a `package:web` [WebSocket].
 class HtmlWebSocketChannel extends StreamChannelMixin
     implements WebSocketChannel {
-  /// The underlying `dart:html` [WebSocket].
+  /// The underlying `package:web` [WebSocket].
   final WebSocket innerWebSocket;
 
   @override
@@ -83,8 +83,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
   /// Creates a channel wrapping [webSocket].
   ///
-  /// The parameter [webSocket] should be either a dart:html `WebSocket`
-  /// instance or a package:web [WebSocket] instance.
+  /// The parameter [webSocket] should be a `package:web` [WebSocket] instance.
   HtmlWebSocketChannel(Object /*WebSocket*/ webSocket)
       : innerWebSocket = webSocket as WebSocket {
     _readyCompleter = Completer();

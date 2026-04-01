@@ -1,6 +1,7 @@
 ## 3.0.4-wip
 
 - Remove obsolete documentation for `WebSocketChannel.new`.
+- Fix broken links in README.
 
 ## 3.0.3
 
