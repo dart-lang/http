@@ -10,10 +10,10 @@ import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'close_local_server_vm.dart'
-    if (dart.library.html) 'close_local_server_web.dart';
+    if (dart.library.js_interop) 'close_local_server_web.dart';
 
 import 'continuously_writing_server_vm.dart'
-    if (dart.library.html) 'continuously_writing_server_web.dart'
+    if (dart.library.js_interop) 'continuously_writing_server_web.dart'
     as writing_server;
 
 /// Tests that the [WebSocket] can correctly close the connection to the peer.

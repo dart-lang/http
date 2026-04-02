@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'protocol_server_vm.dart'
-    if (dart.library.html) 'protocol_server_web.dart';
+    if (dart.library.js_interop) 'protocol_server_web.dart';
 
 /// Tests that the [WebSocket] can correctly negotiate a subprotocol with the
 /// peer.
