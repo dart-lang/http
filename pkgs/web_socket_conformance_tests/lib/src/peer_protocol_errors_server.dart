@@ -37,7 +37,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       throw e as Exception;
     }
   });
-  channel.sink.add(server.port);
+  channel.sink.add(server.port.toString());
 
   await channel
       .stream.first; // Any writes indicates that the server should exit.

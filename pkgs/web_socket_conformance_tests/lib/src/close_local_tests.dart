@@ -83,7 +83,7 @@ void testCloseLocal(
       final channel = await channelFactory(uri);
 
       await channel.close();
-      final closeCode = await httpServerQueue.next as int?;
+      final closeCode = (await httpServerQueue.next as num?)?.toInt();
       final closeReason = await httpServerQueue.next as String?;
 
       expect(closeCode, 1005);
@@ -95,7 +95,7 @@ void testCloseLocal(
       final channel = await channelFactory(uri);
 
       await channel.close(1000);
-      final closeCode = await httpServerQueue.next as int?;
+      final closeCode = (await httpServerQueue.next as num?)?.toInt();
       final closeReason = await httpServerQueue.next as String?;
 
       expect(closeCode, 1000);
@@ -107,7 +107,7 @@ void testCloseLocal(
       final channel = await channelFactory(uri);
 
       await channel.close(3000);
-      final closeCode = await httpServerQueue.next as int?;
+      final closeCode = (await httpServerQueue.next as num?)?.toInt();
       final closeReason = await httpServerQueue.next as String?;
 
       expect(closeCode, 3000);
@@ -119,7 +119,7 @@ void testCloseLocal(
       final channel = await channelFactory(uri);
 
       await channel.close(4999);
-      final closeCode = await httpServerQueue.next as int?;
+      final closeCode = (await httpServerQueue.next as num?)?.toInt();
       final closeReason = await httpServerQueue.next as String?;
 
       expect(closeCode, 4999);
@@ -131,7 +131,7 @@ void testCloseLocal(
       final channel = await channelFactory(uri);
 
       await channel.close(3000, 'Client initiated closure');
-      final closeCode = await httpServerQueue.next as int?;
+      final closeCode = (await httpServerQueue.next as num?)?.toInt();
       final closeReason = await httpServerQueue.next as String?;
 
       expect(closeCode, 3000);
