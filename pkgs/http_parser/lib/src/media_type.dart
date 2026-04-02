@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 import 'package:string_scanner/string_scanner.dart';
 
 import 'case_insensitive_map.dart';
@@ -41,38 +42,11 @@ class MediaType {
   ///
   /// This will throw a FormatError if the media type is invalid.
   factory MediaType.parse(String mediaType) =>
-      // This parsing is based on sections 3.6 and 3.7 of the HTTP spec:
-      // http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html.
       wrapFormatException('media type', mediaType, () {
         final scanner = StringScanner(mediaType);
-        scanner.scan(whitespace);
-        scanner.expect(token);
-        final type = scanner.lastMatch![0]!;
-        scanner.expect('/');
-        scanner.expect(token);
-        final subtype = scanner.lastMatch![0]!;
-        scanner.scan(whitespace);
-
-        final parameters = <String, String>{};
-        while (scanner.scan(';')) {
-          scanner.scan(whitespace);
-          scanner.expect(token);
-          final attribute = scanner.lastMatch![0]!;
-          scanner.expect('=');
-
-          String value;
-          if (scanner.scan(token)) {
-            value = scanner.lastMatch![0]!;
-          } else {
-            value = expectQuotedString(scanner);
-          }
-
-          scanner.scan(whitespace);
-          parameters[attribute] = value;
-        }
-
+        final result = parseFromScanner(scanner);
         scanner.expectDone();
-        return MediaType(type, subtype, parameters);
+        return result;
       });
 
   MediaType(String type, String subtype, [Map<String, String>? parameters])
@@ -151,4 +125,39 @@ class MediaType {
 
     return buffer.toString();
   }
+}
+
+/// Parses a media type from [scanner].
+///
+/// This is based on sections 3.6 and 3.7 of the HTTP spec:
+/// http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html.
+@internal
+MediaType parseFromScanner(StringScanner scanner) {
+  scanner.scan(whitespace);
+  scanner.expect(token);
+  final type = scanner.lastMatch![0]!;
+  scanner.expect('/');
+  scanner.expect(token);
+  final subtype = scanner.lastMatch![0]!;
+  scanner.scan(whitespace);
+
+  final parameters = <String, String>{};
+  while (scanner.scan(';')) {
+    scanner.scan(whitespace);
+    scanner.expect(token);
+    final attribute = scanner.lastMatch![0]!;
+    scanner.expect('=');
+
+    String value;
+    if (scanner.scan(token)) {
+      value = scanner.lastMatch![0]!;
+    } else {
+      value = expectQuotedString(scanner);
+    }
+
+    scanner.scan(whitespace);
+    parameters[attribute] = value;
+  }
+
+  return MediaType(type, subtype, parameters);
 }
