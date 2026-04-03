@@ -7,10 +7,15 @@ on:
 jobs:
   health:
     # REVERT ME! This is just for testing!
-    uses: dart-lang/ecosystem/.github/workflows/health.yaml@bbd081438368066a290ec6ec2e9a0506ae30b1c1
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@firehose_sync_silly
     with:
       sdk: dev
       channel: dev
       flutter_packages: "pkgs/cronet_http,pkgs/cupertino_http,pkgs/ok_http"
+
+      # REVERT ME! This is just for testing!
+      firehose-repository: dart-lang/ecosystem
+      firehose-ref: firehose_sync_silly
+
     permissions:
       pull-requests: write
