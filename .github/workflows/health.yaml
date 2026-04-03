@@ -6,7 +6,8 @@ on:
 
 jobs:
   health:
-    uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
+    # REVERT ME! This is just for testing!
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@firehose_sync_silly
     with:
       sdk: dev
       channel: dev
