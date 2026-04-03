@@ -1,3 +1,8 @@
+## 4.2.0
+
+* Add `parseAcceptHeader`: parse an Accept header and return a list of
+  `MediaType` objects sorted by preference.
+
 ## 4.1.2
 
 * Fixed a bug where parsing quoted header values could require a regex to

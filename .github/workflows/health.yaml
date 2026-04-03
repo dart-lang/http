@@ -6,10 +6,16 @@ on:
 
 jobs:
   health:
-    uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
+    # REVERT ME! This is just for testing!
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@cleanup_fun
     with:
       sdk: dev
       channel: dev
       flutter_packages: "pkgs/cronet_http,pkgs/cupertino_http,pkgs/ok_http"
+
+      # REVERT ME! This is just for testing!
+      firehose-repository: dart-lang/ecosystem
+      firehose-ref: cleanup_fun
+
     permissions:
       pull-requests: write
