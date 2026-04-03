@@ -7,7 +7,7 @@ on:
 jobs:
   health:
     # REVERT ME! This is just for testing!
-    uses: dart-lang/ecosystem/.github/workflows/health.yaml@firehose_sync_silly
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@bbd081438368066a290ec6ec2e9a0506ae30b1c1
     with:
       sdk: dev
       channel: dev
