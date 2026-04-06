@@ -10,6 +10,7 @@ import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'echo_server_vm.dart' if (dart.library.html) 'echo_server_web.dart';
+import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly transmit and receive text
 /// and binary payloads.
@@ -20,41 +21,48 @@ void testPayloadTransfer(
     late Uri uri;
     late StreamChannel<Object?> httpServerChannel;
     late StreamQueue<Object?> httpServerQueue;
-    late WebSocket webSocket;
 
     setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       uri = Uri.parse('ws://localhost:${await httpServerQueue.next}');
-      webSocket = await webSocketFactory(uri);
     });
     tearDown(() async {
       httpServerChannel.sink.add(null);
-      await webSocket.close();
     });
 
     test('empty string request and response', () async {
+      final webSocket = await webSocketFactory(uri);
+      addTearDown(() => closeWebSocket(webSocket));
       webSocket.sendText('');
       expect(await webSocket.events.first, TextDataReceived(''));
     });
 
     test('empty binary request and response', () async {
+      final webSocket = await webSocketFactory(uri);
+      addTearDown(() => closeWebSocket(webSocket));
       webSocket.sendBytes(Uint8List(0));
       expect(await webSocket.events.first, BinaryDataReceived(Uint8List(0)));
     });
 
     test('string request and response', () async {
+      final webSocket = await webSocketFactory(uri);
+      addTearDown(() => closeWebSocket(webSocket));
       webSocket.sendText('Hello World!');
       expect(await webSocket.events.first, TextDataReceived('Hello World!'));
     });
 
     test('binary request and response', () async {
+      final webSocket = await webSocketFactory(uri);
+      addTearDown(() => closeWebSocket(webSocket));
       webSocket.sendBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
       expect(await webSocket.events.first,
           BinaryDataReceived(Uint8List.fromList([1, 2, 3, 4, 5])));
     });
 
     test('large string request and response', () async {
+      final webSocket = await webSocketFactory(uri);
+      addTearDown(() => closeWebSocket(webSocket));
       final data = 'Hello World!' * 10000;
 
       webSocket.sendText(data);
@@ -62,6 +70,8 @@ void testPayloadTransfer(
     });
 
     test('large binary request and response', () async {
+      final webSocket = await webSocketFactory(uri);
+      addTearDown(() => closeWebSocket(webSocket));
       final data = Uint8List(1000000);
       data
         ..fillRange(0, data.length ~/ 10, 1)
@@ -80,11 +90,15 @@ void testPayloadTransfer(
     });
 
     test('non-ascii string request and response', () async {
+      final webSocket = await webSocketFactory(uri);
+      addTearDown(() => closeWebSocket(webSocket));
       webSocket.sendText('🎨⛳🌈');
       expect(await webSocket.events.first, TextDataReceived('🎨⛳🌈'));
     });
 
     test('alternative string and binary request and response', () async {
+      final webSocket = await webSocketFactory(uri);
+      addTearDown(() => closeWebSocket(webSocket));
       webSocket
         ..sendBytes(Uint8List.fromList([1]))
         ..sendText('Hello!')

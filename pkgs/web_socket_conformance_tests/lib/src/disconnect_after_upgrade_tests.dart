@@ -9,6 +9,7 @@ import 'package:web_socket/web_socket.dart';
 
 import 'disconnect_after_upgrade_server_vm.dart'
     if (dart.library.html) 'disconnect_after_upgrade_server_web.dart';
+import 'utils.dart';
 
 /// Tests that the [WebSocket] generates a correct [CloseReceived] event if
 /// the peer disconnects after WebSocket upgrade.
@@ -29,6 +30,7 @@ void testDisconnectAfterUpgrade(
 
     test('disconnect after upgrade', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
       channel.sendText('test');
       expect(
           (await channel.events.single as CloseReceived).code,
