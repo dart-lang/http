@@ -100,8 +100,7 @@ void testAll(
   testRequestBody(clientFactory);
   testRequestBodyStreamed(clientFactory,
       canStreamRequestBody: canStreamRequestBody);
-  testResponseBody(clientFactory,
-      canStreamResponseBody: canStreamResponseBody);
+  testResponseBody(clientFactory, canStreamResponseBody: canStreamResponseBody);
   testResponseBodyStreamed(clientFactory,
       canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(clientFactory);
@@ -118,8 +117,7 @@ void testAll(
       supportsMultipartRequest: supportsMultipartRequest);
   testClose(clientFactory);
   testIsolate(clientFactory, canWorkInIsolates: canWorkInIsolates);
-  testRequestCookies(clientFactory,
-      canSendCookieHeaders: canSendCookieHeaders);
+  testRequestCookies(clientFactory, canSendCookieHeaders: canSendCookieHeaders);
   testResponseCookies(clientFactory,
       canReceiveSetCookieHeaders: canReceiveSetCookieHeaders);
   testAbort(clientFactory,
