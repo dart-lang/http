@@ -14,8 +14,10 @@ import 'redirect_server_vm.dart'
 ///
 /// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
 /// to limit redirects will be skipped.
-void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
+void testRedirect(Client Function() clientFactory,
+    {bool redirectAlwaysAllowed = false}) {
   group('redirects', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
@@ -25,6 +27,8 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    setUp(() => client = clientFactory());
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('no redirect', () async {

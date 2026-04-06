@@ -15,18 +15,21 @@ import 'request_methods_server_vm.dart'
 ///
 /// If [preservesMethodCase] is `false` then tests that assume that the
 /// [Client] preserves custom request method casing will be skipped.
-void testRequestMethods(Client client,
+void testRequestMethods(Client Function() clientFactory,
     {bool preservesMethodCase = true}) async {
   group('request methods', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
 
+    setUp(() => client = clientFactory());
     setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('custom method - not case preserving', () async {

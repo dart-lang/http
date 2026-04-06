@@ -11,17 +11,20 @@ import 'request_headers_server_vm.dart'
     if (dart.library.js_interop) 'request_headers_server_web.dart';
 
 /// Tests that the [Client] correctly sends headers in the request.
-void testRequestHeaders(Client client) async {
+void testRequestHeaders(Client Function() clientFactory) async {
   group('client headers', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
 
+    setUp(() => client = clientFactory());
     setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('single header', () async {

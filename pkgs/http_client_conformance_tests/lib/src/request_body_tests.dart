@@ -38,18 +38,23 @@ class _Plus2Encoding extends Encoding {
 
 /// Tests that the [Client] correctly implements HTTP requests with bodies e.g.
 /// 'POST'.
-void testRequestBody(Client client) {
+void testRequestBody(Client Function() clientFactory) {
   group('request body', () {
+    late Client client;
     late String host;
     late StreamChannel<Object?> httpServerChannel;
     late StreamQueue<Object?> httpServerQueue;
 
     setUp(() async {
+      client = clientFactory();
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
-    tearDown(() => httpServerChannel.sink.add(null));
+    tearDown(() {
+      client.close();
+      httpServerChannel.sink.add(null);
+    });
 
     test('client.post() with string body', () async {
       await client.post(Uri.http(host, ''), body: 'Hello World!');

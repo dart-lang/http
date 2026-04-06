@@ -14,18 +14,21 @@ import 'response_cookies_server_vm.dart'
 ///
 /// If [canReceiveSetCookieHeaders] is `false` then tests that require that
 /// "set-cookie" headers be received by the client will not be run.
-void testResponseCookies(Client client,
+void testResponseCookies(Client Function() clientFactory,
     {required bool canReceiveSetCookieHeaders}) async {
   group('response cookies', () {
+    late Client client;
     late String host;
     late StreamChannel<Object?> httpServerChannel;
     late StreamQueue<Object?> httpServerQueue;
 
     setUp(() async {
+      client = clientFactory();
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    tearDown(() => client.close());
 
     test('single session cookie', () async {
       httpServerChannel.sink.add(['Set-Cookie: SID=1231AB3']);

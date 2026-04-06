@@ -14,18 +14,21 @@ import 'multipart_server_vm.dart'
 ///
 /// If [supportsMultipartRequest] is `false` then tests that assume that
 /// multipart requests can be sent will be skipped.
-void testMultipartRequests(Client client,
+void testMultipartRequests(Client Function() clientFactory,
     {required bool supportsMultipartRequest}) async {
   group('multipart requests', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
 
+    setUp(() => client = clientFactory());
     setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('attached file', () async {
