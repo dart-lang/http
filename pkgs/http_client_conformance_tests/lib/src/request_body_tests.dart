@@ -169,7 +169,8 @@ void testRequestBody(Client Function() clientFactory) {
       request.sink.add([5]);
       // ignore: unawaited_futures
       request.sink.close();
-      await client.send(request);
+      final response = await client.send(request);
+      await response.stream.drain<void>();
 
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next as String;
@@ -202,7 +203,8 @@ void testRequestBody(Client Function() clientFactory) {
 
       stream().listen(request.sink.add,
           onError: request.sink.addError, onDone: request.sink.close);
-      await client.send(request);
+      final response = await client.send(request);
+      await response.stream.drain<void>();
 
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next as String;
@@ -235,6 +237,7 @@ void testRequestBody(Client Function() clientFactory) {
       request.sink.close();
 
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
 
       final serverReceivedContentType = await httpServerQueue.next;
@@ -254,6 +257,7 @@ void testRequestBody(Client Function() clientFactory) {
       request.sink.close();
 
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
 
       final serverReceivedContentType = await httpServerQueue.next;
@@ -273,6 +277,7 @@ void testRequestBody(Client Function() clientFactory) {
           ..body = 'Hello World $i';
 
         final response = await client.send(request);
+        await response.stream.drain<void>();
         expect(response.statusCode, 200);
 
         final serverReceivedContentType = await httpServerQueue.next;
@@ -295,6 +300,7 @@ void testRequestBody(Client Function() clientFactory) {
         ..body = body;
 
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
 
       final serverReceivedContentType = await httpServerQueue.next;
@@ -312,6 +318,7 @@ void testRequestBody(Client Function() clientFactory) {
       request.sink.close();
 
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
 
       final serverReceivedContentType = await httpServerQueue.next;

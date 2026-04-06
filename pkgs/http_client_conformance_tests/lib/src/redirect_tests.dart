@@ -35,6 +35,7 @@ void testRedirect(Client Function() clientFactory,
       final request = Request('GET', Uri.http(host, '/'))
         ..followRedirects = false;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
       if (response case BaseResponseWithUrl(url: final url)) {
@@ -46,6 +47,7 @@ void testRedirect(Client Function() clientFactory,
       final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = false;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
       if (response case BaseResponseWithUrl(url: final url)) {
@@ -58,6 +60,7 @@ void testRedirect(Client Function() clientFactory,
         ..followRedirects = false
         ..maxRedirects = 0;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
       if (response case BaseResponseWithUrl(url: final url)) {
@@ -69,6 +72,7 @@ void testRedirect(Client Function() clientFactory,
       final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = true;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
       if (response case BaseResponseWithUrl(url: final url)) {
@@ -91,6 +95,7 @@ void testRedirect(Client Function() clientFactory,
         ..followRedirects = true
         ..maxRedirects = 5;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
       if (response case BaseResponseWithUrl(url: final url)) {

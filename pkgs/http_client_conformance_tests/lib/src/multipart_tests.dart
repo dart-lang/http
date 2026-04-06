@@ -36,7 +36,8 @@ void testMultipartRequests(Client Function() clientFactory,
 
       request.files.add(MultipartFile.fromString('file1', 'Hello World'));
 
-      await client.send(request);
+      final response = await client.send(request);
+      await response.stream.drain<void>();
       final serverRequest = await httpServerQueue.next as List;
       final headers = (serverRequest[0] as Map).cast<String, List<Object?>>();
       final body = serverRequest[1] as String;

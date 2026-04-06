@@ -33,19 +33,21 @@ void testRequestMethods(Client Function() clientFactory,
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('custom method - not case preserving', () async {
-      await client.send(Request(
+      final response = await client.send(Request(
         'CuStOm',
         Uri.http(host, ''),
       ));
+      await response.stream.drain<void>();
       final method = await httpServerQueue.next as String;
       expect('CUSTOM', method.toUpperCase());
     });
 
     test('custom method case preserving', () async {
-      await client.send(Request(
+      final response = await client.send(Request(
         'CuStOm',
         Uri.http(host, ''),
       ));
+      await response.stream.drain<void>();
       final method = await httpServerQueue.next as String;
       expect('CuStOm', method);
     },
