@@ -9,6 +9,7 @@ import 'package:web_socket/web_socket.dart';
 
 import 'peer_protocol_errors_server_vm.dart'
     if (dart.library.html) 'peer_protocol_errors_server_web.dart';
+import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly handle incorrect WebSocket frames.
 void testPeerProtocolErrors(
@@ -28,6 +29,7 @@ void testPeerProtocolErrors(
 
     test('bad data after upgrade', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
       expect(
           (await channel.events.single as CloseReceived).code,
           anyOf([
@@ -39,6 +41,7 @@ void testPeerProtocolErrors(
 
     test('bad data after upgrade with write', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
       channel.sendText('test');
       expect(
           (await channel.events.single as CloseReceived).code,
