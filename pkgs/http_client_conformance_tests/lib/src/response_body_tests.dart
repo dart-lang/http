@@ -15,9 +15,10 @@ import 'response_body_server_vm.dart'
 /// If [canStreamResponseBody] is `false` then tests that assume that the
 /// [Client] supports receiving HTTP responses with unbounded body sizes will
 /// be skipped
-void testResponseBody(Client client,
-    {bool canStreamResponseBody = true}) async {
+void testResponseBody(Client Function() clientFactory,
+    {bool canStreamResponseBody = true}) {
   group('response body', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
@@ -28,6 +29,8 @@ void testResponseBody(Client client,
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    setUp(() => client = clientFactory());
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('small response with content length', () async {

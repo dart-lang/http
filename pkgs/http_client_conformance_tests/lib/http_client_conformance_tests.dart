@@ -97,32 +97,30 @@ void testAll(
   bool supportsMultipartRequest = true,
   bool supportsAbort = false,
 }) {
-  testRequestBody(clientFactory());
-  testRequestBodyStreamed(clientFactory(),
+  testRequestBody(clientFactory);
+  testRequestBodyStreamed(clientFactory,
       canStreamRequestBody: canStreamRequestBody);
-  testResponseBody(clientFactory(),
+  testResponseBody(clientFactory, canStreamResponseBody: canStreamResponseBody);
+  testResponseBodyStreamed(clientFactory,
       canStreamResponseBody: canStreamResponseBody);
-  testResponseBodyStreamed(clientFactory(),
-      canStreamResponseBody: canStreamResponseBody);
-  testRequestHeaders(clientFactory());
-  testRequestMethods(clientFactory(), preservesMethodCase: preservesMethodCase);
-  testResponseHeaders(clientFactory(),
+  testRequestHeaders(clientFactory);
+  testRequestMethods(clientFactory, preservesMethodCase: preservesMethodCase);
+  testResponseHeaders(clientFactory,
       supportsFoldedHeaders: supportsFoldedHeaders,
       correctlyHandlesNullHeaderValues: correctlyHandlesNullHeaderValues);
-  testResponseStatusLine(clientFactory());
-  testRedirect(clientFactory(), redirectAlwaysAllowed: redirectAlwaysAllowed);
-  testServerErrors(clientFactory());
-  testCompressedResponseBody(clientFactory());
+  testResponseStatusLine(clientFactory);
+  testRedirect(clientFactory, redirectAlwaysAllowed: redirectAlwaysAllowed);
+  testServerErrors(clientFactory);
+  testCompressedResponseBody(clientFactory);
   testMultipleClients(clientFactory);
-  testMultipartRequests(clientFactory(),
+  testMultipartRequests(clientFactory,
       supportsMultipartRequest: supportsMultipartRequest);
   testClose(clientFactory);
   testIsolate(clientFactory, canWorkInIsolates: canWorkInIsolates);
-  testRequestCookies(clientFactory(),
-      canSendCookieHeaders: canSendCookieHeaders);
-  testResponseCookies(clientFactory(),
+  testRequestCookies(clientFactory, canSendCookieHeaders: canSendCookieHeaders);
+  testResponseCookies(clientFactory,
       canReceiveSetCookieHeaders: canReceiveSetCookieHeaders);
-  testAbort(clientFactory(),
+  testAbort(clientFactory,
       supportsAbort: supportsAbort,
       canStreamRequestBody: canStreamRequestBody,
       canStreamResponseBody: canStreamResponseBody);

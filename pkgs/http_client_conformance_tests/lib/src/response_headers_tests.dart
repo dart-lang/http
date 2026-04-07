@@ -17,19 +17,22 @@ import 'response_headers_server_vm.dart'
 ///
 /// If [correctlyHandlesNullHeaderValues] is `false` then the tests that assume
 /// that the [Client] correctly deals with NUL in header values are skipped.
-void testResponseHeaders(Client client,
+void testResponseHeaders(Client Function() clientFactory,
     {bool supportsFoldedHeaders = true,
     bool correctlyHandlesNullHeaderValues = true}) async {
   group('server headers', () {
+    late Client client;
     late String host;
     late StreamChannel<Object?> httpServerChannel;
     late StreamQueue<Object?> httpServerQueue;
 
     setUp(() async {
+      client = clientFactory();
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    tearDown(() => client.close());
 
     test('single header', () async {
       httpServerChannel.sink.add('foo: bar\r\n');

@@ -17,9 +17,10 @@ final headerSplitter = RegExp(':[ \t]+');
 ///
 /// If [canSendCookieHeaders] is `false` then tests that require that "cookie"
 /// headers be sent by the client will not be run.
-void testRequestCookies(Client client,
-    {bool canSendCookieHeaders = false}) async {
+void testRequestCookies(Client Function() clientFactory,
+    {bool canSendCookieHeaders = false}) {
   group('request cookies', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
@@ -29,6 +30,8 @@ void testRequestCookies(Client client,
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    setUp(() => client = clientFactory());
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('one cookie', () async {

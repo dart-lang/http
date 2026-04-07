@@ -14,8 +14,10 @@ import 'redirect_server_vm.dart'
 ///
 /// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
 /// to limit redirects will be skipped.
-void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
+void testRedirect(Client Function() clientFactory,
+    {bool redirectAlwaysAllowed = false}) {
   group('redirects', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
@@ -25,12 +27,15 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    setUp(() => client = clientFactory());
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('no redirect', () async {
       final request = Request('GET', Uri.http(host, '/'))
         ..followRedirects = false;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
       if (response case BaseResponseWithUrl(url: final url)) {
@@ -42,6 +47,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = false;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
       if (response case BaseResponseWithUrl(url: final url)) {
@@ -54,6 +60,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
         ..followRedirects = false
         ..maxRedirects = 0;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
       if (response case BaseResponseWithUrl(url: final url)) {
@@ -65,6 +72,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = true;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
       if (response case BaseResponseWithUrl(url: final url)) {
@@ -87,6 +95,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
         ..followRedirects = true
         ..maxRedirects = 5;
       final response = await client.send(request);
+      await response.stream.drain<void>();
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
       if (response case BaseResponseWithUrl(url: final url)) {

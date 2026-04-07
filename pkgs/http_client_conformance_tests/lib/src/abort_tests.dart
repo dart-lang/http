@@ -26,23 +26,26 @@ import 'abort_server_vm.dart'
 /// [Client] supports sending HTTP requests with unbounded body sizes will be
 /// skipped.
 void testAbort(
-  Client client, {
+  Client Function() clientFactory, {
   bool supportsAbort = false,
   bool canStreamRequestBody = true,
   bool canStreamResponseBody = true,
 }) {
   group('abort', () {
+    late Client client;
     late String host;
     late StreamChannel<Object?> httpServerChannel;
     late StreamQueue<Object?> httpServerQueue;
     late Uri serverUrl;
 
     setUp(() async {
+      client = clientFactory();
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
       serverUrl = Uri.http(host, '');
     });
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('before request', () async {

@@ -22,8 +22,9 @@ import 'compressed_response_body_server_vm.dart'
 ///
 /// The value of `StreamedResponse.contentLength` is not defined for responses
 /// with a 'Content-Encoding' header.
-void testCompressedResponseBody(Client client) async {
+void testCompressedResponseBody(Client Function() clientFactory) {
   group('response body', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
@@ -34,6 +35,8 @@ void testCompressedResponseBody(Client client) async {
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    setUp(() => client = clientFactory());
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('gzip: small response with content length', () async {
