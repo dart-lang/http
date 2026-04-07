@@ -21,25 +21,25 @@ class FixedResponseX509ExtendedKeyManager(
         private val alias: String,
 ) : X509ExtendedKeyManager() {
 
-    override fun getClientAliases(keyType: String, issuers: Array<Principal>?) = arrayOf(alias)
+    override fun getClientAliases(keyType: String?, issuers: Array<Principal?>?) = arrayOf(alias)
 
     override fun chooseClientAlias(
-            keyType: Array<String>,
-            issuers: Array<Principal>?,
+            keyType: Array<String?>?,
+            issuers: Array<Principal?>?,
             socket: Socket?,
     ) = alias
 
-    override fun getServerAliases(keyType: String, issuers: Array<Principal>?) = arrayOf(alias)
+    override fun getServerAliases(keyType: String?, issuers: Array<Principal?>?) = arrayOf(alias)
 
     override fun chooseServerAlias(
-            keyType: String,
-            issuers: Array<Principal>?,
+            keyType: String?,
+            issuers: Array<Principal?>?,
             socket: Socket?,
     ) = alias
 
-    override fun getCertificateChain(alias: String) = certificateChain
+    override fun getCertificateChain(alias: String?) = certificateChain
 
-    override fun getPrivateKey(alias: String) = privateKey
+    override fun getPrivateKey(alias: String?) = privateKey
 
     override fun chooseEngineClientAlias(
             keyType: Array<String?>?,

@@ -23,12 +23,13 @@ Future<void> testConformance() async {
       try {
         testAll(
           OkHttpClient.new,
-          canStreamRequestBody: false,
+          canStreamRequestBody: true,
           preservesMethodCase: true,
           supportsFoldedHeaders: false,
           canSendCookieHeaders: true,
           canReceiveSetCookieHeaders: true,
           correctlyHandlesNullHeaderValues: false,
+          supportsAbort: true,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
@@ -42,12 +43,13 @@ Future<void> testConformance() async {
       try {
         testAll(
           OkHttpClient.new,
-          canStreamRequestBody: false,
+          canStreamRequestBody: true,
           preservesMethodCase: true,
           supportsFoldedHeaders: false,
           canSendCookieHeaders: true,
           canReceiveSetCookieHeaders: true,
           correctlyHandlesNullHeaderValues: false,
+          supportsAbort: true,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
