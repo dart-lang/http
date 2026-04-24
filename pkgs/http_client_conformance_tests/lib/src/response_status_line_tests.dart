@@ -14,17 +14,20 @@ import 'response_status_line_server_vm.dart'
 /// 'HTTP/1.1 200 OK\r\n').
 ///
 /// Clients behavior varies considerably if the status line is not valid.
-void testResponseStatusLine(Client client) async {
+void testResponseStatusLine(Client Function() clientFactory) {
   group('response status line', () {
+    late Client client;
     late String host;
     late StreamChannel<Object?> httpServerChannel;
     late StreamQueue<Object?> httpServerQueue;
 
     setUp(() async {
+      client = clientFactory();
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    tearDown(() => client.close());
 
     test('complete', () async {
       httpServerChannel.sink.add('HTTP/1.1 201 Created');

@@ -9,6 +9,7 @@ import 'package:web_socket/web_socket.dart';
 
 import 'protocol_server_vm.dart'
     if (dart.library.js_interop) 'protocol_server_web.dart';
+import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly negotiate a subprotocol with the
 /// peer.
@@ -28,10 +29,13 @@ void testProtocols(
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       uri = Uri.parse('ws://localhost:${await httpServerQueue.next}');
     });
-    tearDown(() => httpServerChannel.sink.add(null));
+    tearDown(() async {
+      httpServerChannel.sink.add(null);
+    });
 
     test('no protocol', () async {
       final socket = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(socket));
 
       expect(await httpServerQueue.next, null);
       expect(socket.protocol, '');
@@ -42,6 +46,7 @@ void testProtocols(
       final socket = await channelFactory(
           uri.replace(queryParameters: {'protocol': 'chat.example.com'}),
           protocols: ['chat.example.com']);
+      addTearDown(() => closeWebSocket(socket));
 
       expect(await httpServerQueue.next, ['chat.example.com']);
       expect(socket.protocol, 'chat.example.com');
@@ -52,6 +57,7 @@ void testProtocols(
       final socket = await channelFactory(
           uri.replace(queryParameters: {'protocol': 'text.example.com'}),
           protocols: ['chat.example.com', 'text.example.com']);
+      addTearDown(() => closeWebSocket(socket));
 
       expect(
           await httpServerQueue.next, ['chat.example.com, text.example.com']);

@@ -11,6 +11,7 @@ import 'package:web_socket/web_socket.dart';
 
 import 'close_remote_server_vm.dart'
     if (dart.library.js_interop) 'close_remote_server_web.dart';
+import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly receive Close frames from the peer.
 void testCloseRemote(
@@ -32,6 +33,7 @@ void testCloseRemote(
 
     test('with code and reason', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       channel.sendText('Please close');
       expect(await channel.events.toList(),
@@ -40,6 +42,7 @@ void testCloseRemote(
 
     test('sendBytes after close received', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       channel.sendBytes(Uint8List(10));
       expect(await channel.events.toList(),
@@ -50,6 +53,7 @@ void testCloseRemote(
 
     test('sendText after close received', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       channel.sendText('Please close');
       expect(await channel.events.toList(),
@@ -60,6 +64,7 @@ void testCloseRemote(
 
     test('close after close received', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       channel.sendText('Please close');
       expect(await channel.events.toList(),
@@ -71,6 +76,7 @@ void testCloseRemote(
     test('with invalid reason', () async {
       final channel =
           await channelFactory(uri.replace(queryParameters: {'badutf8': ''}));
+      addTearDown(() => closeWebSocket(channel));
 
       channel.sendText('Please close');
       final events = await channel.events.toList();

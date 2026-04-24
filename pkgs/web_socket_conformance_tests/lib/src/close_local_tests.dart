@@ -15,6 +15,7 @@ import 'close_local_server_vm.dart'
 import 'continuously_writing_server_vm.dart'
     if (dart.library.js_interop) 'continuously_writing_server_web.dart'
     as writing_server;
+import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly close the connection to the peer.
 void testCloseLocal(
@@ -36,6 +37,7 @@ void testCloseLocal(
 
     test('peer writes after close are ignored', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
       await channel.close();
       expect(await channel.events.isEmpty, true);
     });
@@ -57,30 +59,35 @@ void testCloseLocal(
 
     test('reserved close code: 1004', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
       await expectLater(
           () => channel.close(1004), throwsA(isA<ArgumentError>()));
     });
 
     test('reserved close code: 2999', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
       await expectLater(
           () => channel.close(2999), throwsA(isA<ArgumentError>()));
     });
 
     test('reserved close code: 5000', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
       await expectLater(
           () => channel.close(5000), throwsA(isA<ArgumentError>()));
     });
 
     test('too long close reason', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
       await expectLater(() => channel.close(3000, 'a'.padLeft(124)),
           throwsA(isA<ArgumentError>()));
     });
 
     test('close', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       await channel.close();
       final closeCode = (await httpServerQueue.next as num?)?.toInt();
@@ -93,6 +100,7 @@ void testCloseLocal(
 
     test('close with 1000', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       await channel.close(1000);
       final closeCode = (await httpServerQueue.next as num?)?.toInt();
@@ -105,6 +113,7 @@ void testCloseLocal(
 
     test('with code 3000', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       await channel.close(3000);
       final closeCode = (await httpServerQueue.next as num?)?.toInt();
@@ -117,6 +126,7 @@ void testCloseLocal(
 
     test('with code 4999', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       await channel.close(4999);
       final closeCode = (await httpServerQueue.next as num?)?.toInt();
@@ -129,6 +139,7 @@ void testCloseLocal(
 
     test('with code and reason', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       await channel.close(3000, 'Client initiated closure');
       final closeCode = (await httpServerQueue.next as num?)?.toInt();
@@ -141,6 +152,7 @@ void testCloseLocal(
 
     test('close after close', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       await channel.close(3000, 'Client initiated closure');
 
@@ -151,6 +163,7 @@ void testCloseLocal(
 
     test('sendBytes after close', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       await channel.close(3000, 'Client initiated closure');
 
@@ -160,6 +173,7 @@ void testCloseLocal(
 
     test('sendText after close', () async {
       final channel = await channelFactory(uri);
+      addTearDown(() => closeWebSocket(channel));
 
       await channel.close(3000, 'Client initiated closure');
 

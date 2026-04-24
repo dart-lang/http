@@ -11,8 +11,10 @@ import 'server_errors_server_vm.dart'
     if (dart.library.js_interop) 'server_errors_server_web.dart';
 
 /// Tests that the [Client] correctly handles server errors.
-void testServerErrors(Client client, {bool redirectAlwaysAllowed = false}) {
+void testServerErrors(Client Function() clientFactory,
+    {bool redirectAlwaysAllowed = false}) {
   group('server errors', () {
+    late Client client;
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
@@ -22,6 +24,8 @@ void testServerErrors(Client client, {bool redirectAlwaysAllowed = false}) {
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
+    setUp(() => client = clientFactory());
+    tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('no such host', () async {
