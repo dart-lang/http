@@ -11,4 +11,3 @@ stages:
 - unit_test:
   - test: --test-randomize-ordering-seed=random -p vm
   - test: --test-randomize-ordering-seed=random -p chrome -c dart2js,dart2wasm
-  - test: --test-randomize-ordering-seed=random -p node
