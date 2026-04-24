@@ -278,8 +278,8 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           responseInfo?.releasedBy(arena);
           responseStream = StreamController(
             onCancel: () {
-              // The user did `response.stream.cancel()`. We can just pretend that
-              // the response completed normally.
+              // The user did `response.stream.cancel()`. We can just
+              // pretend that the response completed normally.
               if (responseStreamCancelled) return;
               responseStreamCancelled = true;
               urlRequest!
@@ -398,9 +398,9 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             profile?.responseData.addRedirect(
               HttpProfileRedirectData(
                 statusCode: responseInfo.getHttpStatusCode(),
-                // This method is not correct for status codes 303 to 307. Cronet
-                // does not seem to have a way to get the method so we'd have to
-                // calculate it according to the rules in RFC-7231.
+                // This method is not correct for status codes 303 to 307.
+                // Cronet does not seem to have a way to get the method so
+                // we'd have to calculate it according to the rules in RFC-7231.
                 method: 'GET',
                 location: newLocationUrl!.toDartString(releaseOriginal: true),
               ),

@@ -181,8 +181,8 @@ void main() {
       }
     ''');
 
-      // TODO(nweiz): Make this channel use a port number that's guaranteed to be
-      // invalid.
+      // TODO(nweiz): Make this channel use a port number that's
+      // guaranteed to be invalid.
       final channel = HtmlWebSocketChannel.connect(
         'ws://localhost:${await serverChannel.firstAsInt}',
       );

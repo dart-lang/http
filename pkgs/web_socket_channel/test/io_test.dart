@@ -228,9 +228,10 @@ void main() {
         .transform(
           StreamTransformer<HttpRequest, HttpRequest>.fromHandlers(
             handleData: (data, sink) {
-              // Wait before we handle this request, to give the timeout a chance to
-              // kick in. We still want to make sure that we handle the request
-              // afterwards to not have false positives with the timeout
+              // Wait before we handle this request, to give the timeout a
+              // chance to kick in. We still want to make sure that we handle
+              // the request afterwards to not have false positives with the
+              // timeout
               Timer(const Duration(milliseconds: 800), () {
                 sink.add(data);
               });

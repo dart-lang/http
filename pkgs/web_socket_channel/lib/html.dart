@@ -157,8 +157,8 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       (obj) => innerWebSocket.send(obj!.jsify()!),
       onDone: () {
         // On Chrome and possibly other browsers, `null` can't be passed as the
-        // default here. The actual arity of the function call must be correct or
-        // it will fail.
+        // default here. The actual arity of the function call must be
+        // correct or it will fail.
         if ((_localCloseCode, _localCloseReason) case (
           final closeCode?,
           final closeReason?,

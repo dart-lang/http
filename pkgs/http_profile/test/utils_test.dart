@@ -43,8 +43,8 @@ void main() {
     test('two set-cookie, with comma in expires', () async {
       expect(
         splitHeaderValues({
-          // ignore: missing_whitespace_between_adjacent_strings
           'set-cookie':
+              // ignore: missing_whitespace_between_adjacent_strings
               'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT,'
               'sessionId=e8bb43229de9; Domain=foo.example.com',
         }),

@@ -109,15 +109,16 @@ class AdapterWebSocketChannel extends StreamChannelMixin
                   throw UnsupportedError('Cannot send ${obj.runtimeType}');
               }
             } on WebSocketConnectionClosed {
-              // There is nowhere to surface this error; `_controller.local.sink`
-              // has already been closed.
+              // There is nowhere to surface this error;
+              // `_controller.local.sink` has already been closed.
             }
           },
           onDone: () async {
             try {
               await webSocket.close(_localCloseCode, _localCloseReason);
             } on WebSocketConnectionClosed {
-              // It is not an error to close an already-closed `WebSocketChannel`.
+              // It is not an error to close an already-closed
+              // `WebSocketChannel`.
             }
           },
         );
