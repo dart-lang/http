@@ -44,7 +44,7 @@ class StreamedRequest extends BaseRequest {
 
   /// Creates a new streaming request.
   StreamedRequest(super.method, super.url)
-      : _controller = StreamController<List<int>>(sync: true);
+    : _controller = StreamController<List<int>>(sync: true);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that emits the data being written to [sink].
@@ -61,7 +61,7 @@ class StreamedRequest extends BaseRequest {
 /// [StreamedRequest], making it a requirement.
 final class AbortableStreamedRequest extends StreamedRequest with Abortable {
   AbortableStreamedRequest(super.method, super.url, {this.abortTrigger})
-      : super();
+    : super();
 
   @override
   final Future<void>? abortTrigger;

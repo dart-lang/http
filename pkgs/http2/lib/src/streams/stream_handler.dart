@@ -241,10 +241,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void processGoawayFrame(GoawayFrame frame) {
     var lastStreamId = frame.lastStreamId;
-    var streamIds =
-        _openStreams.keys
-            .where((id) => id > lastStreamId && !_isPeerInitiatedStream(id))
-            .toList();
+    var streamIds = _openStreams.keys
+        .where((id) => id > lastStreamId && !_isPeerInitiatedStream(id))
+        .toList();
     for (var id in streamIds) {
       var exception = StreamException(
         id,
@@ -588,10 +587,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           var streamId = frame.header.streamId;
           var isServerStreamId = frame.header.streamId.isEven;
           var isLocalStream = isServerStreamId == isServer;
-          var isIdleStream =
-              isLocalStream
-                  ? streamId >= nextStreamId
-                  : streamId > lastRemoteStreamId;
+          var isIdleStream = isLocalStream
+              ? streamId >= nextStreamId
+              : streamId > lastRemoteStreamId;
           return isIdleStream;
         }
 

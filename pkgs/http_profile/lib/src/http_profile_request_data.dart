@@ -23,10 +23,10 @@ final class HttpProfileProxyData {
     String? username,
     bool? isDirect,
     int? port,
-  })  : _host = host,
-        _username = username,
-        _isDirect = isDirect,
-        _port = port;
+  }) : _host = host,
+       _username = username,
+       _isDirect = isDirect,
+       _port = port;
 
   static HttpProfileProxyData _fromJson(Map<String, dynamic> json) =>
       HttpProfileProxyData(
@@ -37,11 +37,11 @@ final class HttpProfileProxyData {
       );
 
   Map<String, dynamic> _toJson() => <String, dynamic>{
-        if (_host != null) 'host': _host,
-        if (_username != null) 'username': _username,
-        if (_isDirect != null) 'isDirect': _isDirect,
-        if (_port != null) 'port': _port,
-      };
+    if (_host != null) 'host': _host,
+    if (_username != null) 'username': _username,
+    if (_isDirect != null) 'isDirect': _isDirect,
+    if (_port != null) 'port': _port,
+  };
 }
 
 /// Describes details about an HTTP request.
@@ -144,7 +144,8 @@ final class HttpProfileRequestData {
   Map<String, List<String>>? get headers => _requestData['headers'] == null
       ? null
       : UnmodifiableMapView(
-          _requestData['headers'] as Map<String, List<String>>);
+          _requestData['headers'] as Map<String, List<String>>,
+        );
 
   /// The maximum number of redirects allowed during the request.
   set maxRedirects(int? value) {
@@ -189,8 +190,8 @@ final class HttpProfileRequestData {
 
   /// The time at which the request was initiated.
   DateTime get startTime => DateTime.fromMicrosecondsSinceEpoch(
-        _data['requestStartTimestamp'] as int,
-      );
+    _data['requestStartTimestamp'] as int,
+  );
 
   /// The time when the request was fully sent.
   DateTime? get endTime => _data['requestEndTimestamp'] == null
@@ -203,15 +204,14 @@ final class HttpProfileRequestData {
   String? get error =>
       _requestData['error'] == null ? null : _requestData['error'] as String;
 
-  HttpProfileRequestData._(
-    this._data,
-    this._updated,
-  );
+  HttpProfileRequestData._(this._data, this._updated);
 
   void _checkAndUpdate() {
     if (_isClosed) {
-      throw StateError('HttpProfileResponseData has been closed, no further '
-          'updates are allowed');
+      throw StateError(
+        'HttpProfileResponseData has been closed, no further '
+        'updates are allowed',
+      );
     }
     _updated();
   }

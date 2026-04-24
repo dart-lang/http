@@ -71,13 +71,15 @@ abstract class BaseResponse {
   /// Whether the server requested that a persistent connection be maintained.
   final bool persistentConnection;
 
-  BaseResponse(this.statusCode,
-      {this.contentLength,
-      this.request,
-      this.headers = const {},
-      this.isRedirect = false,
-      this.persistentConnection = true,
-      this.reasonPhrase}) {
+  BaseResponse(
+    this.statusCode, {
+    this.contentLength,
+    this.request,
+    this.headers = const {},
+    this.isRedirect = false,
+    this.persistentConnection = true,
+    this.reasonPhrase,
+  }) {
     if (statusCode < 100) {
       throw ArgumentError('Invalid status code $statusCode.');
     } else if (contentLength != null && contentLength! < 0) {
@@ -119,7 +121,8 @@ abstract interface class BaseResponseWithUrl implements BaseResponse {
 
 /// "token" as defined in RFC 2616, 2.2
 /// See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
-const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
+const _tokenChars =
+    r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
     'abcdefghijklmnopqrstuvwxyz|~';
 
 /// Splits comma-seperated header values.

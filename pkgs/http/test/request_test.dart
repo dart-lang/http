@@ -48,16 +48,18 @@ void main() {
       expect(request.encoding.name, equals(latin1.name));
     });
 
-    test('remains the default if the content-type charset is set and unset',
-        () {
-      var request = http.Request('POST', dummyUrl)
-        ..encoding = latin1
-        ..headers['Content-Type'] = 'text/plain; charset=utf-8';
-      expect(request.encoding.name, equals(utf8.name));
+    test(
+      'remains the default if the content-type charset is set and unset',
+      () {
+        var request = http.Request('POST', dummyUrl)
+          ..encoding = latin1
+          ..headers['Content-Type'] = 'text/plain; charset=utf-8';
+        expect(request.encoding.name, equals(utf8.name));
 
-      request.headers.remove('Content-Type');
-      expect(request.encoding.name, equals(latin1.name));
-    });
+        request.headers.remove('Content-Type');
+        expect(request.encoding.name, equals(latin1.name));
+      },
+    );
 
     test('throws an error if the content-type charset is unknown', () {
       var request = http.Request('POST', dummyUrl);
@@ -151,8 +153,10 @@ void main() {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
       request.body = 'key%201=value&key+2=other%2bvalue';
-      expect(request.bodyFields,
-          equals({'key 1': 'value', 'key 2': 'other+value'}));
+      expect(
+        request.bodyFields,
+        equals({'key 1': 'value', 'key 2': 'other+value'}),
+      );
     });
 
     test('is encoded according to the given encoding', () {
@@ -189,92 +193,112 @@ void main() {
       expect(request.headers, containsPair('content-type', 'application/json'));
     });
 
-    test('is set to application/x-www-form-urlencoded if bodyFields is set',
-        () {
-      var request = http.Request('POST', dummyUrl)
-        ..bodyFields = {'hello': 'world'};
-      expect(request.headers['Content-Type'],
-          equals('application/x-www-form-urlencoded'));
-    });
-
     test(
-        'is set to text/plain and the given encoding if body and encoding are '
+      'is set to application/x-www-form-urlencoded if bodyFields is set',
+      () {
+        var request = http.Request('POST', dummyUrl)
+          ..bodyFields = {'hello': 'world'};
+        expect(
+          request.headers['Content-Type'],
+          equals('application/x-www-form-urlencoded'),
+        );
+      },
+    );
+
+    test('is set to text/plain and the given encoding if body and encoding are '
         'both set', () {
       var request = http.Request('POST', dummyUrl)
         ..encoding = latin1
         ..body = 'hello, world';
-      expect(request.headers['Content-Type'],
-          equals('text/plain; charset=iso-8859-1'));
-    });
-
-    test('is modified to include utf-8 if body is set and mime type is text',
-        () {
-      var request = http.Request('POST', dummyUrl);
-      request.headers['Content-Type'] = 'text/plain';
-      request.body = 'Hello World!';
       expect(
-          request.headers['Content-Type'], equals('text/plain; charset=utf-8'));
-    });
-
-    test('is modified to include utf-8 if body is set and mime type is xml',
-        () {
-      var request = http.Request('POST', dummyUrl);
-      request.headers['Content-Type'] = 'application/xml';
-      request.body = '<?xml...';
-      expect(request.headers['Content-Type'],
-          equals('application/xml; charset=utf-8'));
+        request.headers['Content-Type'],
+        equals('text/plain; charset=iso-8859-1'),
+      );
     });
 
     test(
-        'is not modified to include utf-8 if body is set and mime type is json',
-        () {
-      var request = http.Request('POST', dummyUrl);
-      request.headers['Content-Type'] = 'application/json';
-      request.body = '{"hello": "world"}';
-      expect(request.headers['Content-Type'], equals('application/json'));
-    });
+      'is modified to include utf-8 if body is set and mime type is text',
+      () {
+        var request = http.Request('POST', dummyUrl);
+        request.headers['Content-Type'] = 'text/plain';
+        request.body = 'Hello World!';
+        expect(
+          request.headers['Content-Type'],
+          equals('text/plain; charset=utf-8'),
+        );
+      },
+    );
 
     test(
-        'is modified to include the given encoding if encoding is set and '
+      'is modified to include utf-8 if body is set and mime type is xml',
+      () {
+        var request = http.Request('POST', dummyUrl);
+        request.headers['Content-Type'] = 'application/xml';
+        request.body = '<?xml...';
+        expect(
+          request.headers['Content-Type'],
+          equals('application/xml; charset=utf-8'),
+        );
+      },
+    );
+
+    test(
+      'is not modified to include utf-8 if body is set and mime type is json',
+      () {
+        var request = http.Request('POST', dummyUrl);
+        request.headers['Content-Type'] = 'application/json';
+        request.body = '{"hello": "world"}';
+        expect(request.headers['Content-Type'], equals('application/json'));
+      },
+    );
+
+    test('is modified to include the given encoding if encoding is set and '
         'mime type is text', () {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'text/plain';
       request
         ..body = 'Hello World!'
         ..encoding = latin1;
-      expect(request.headers['Content-Type'],
-          equals('text/plain; charset=iso-8859-1'));
+      expect(
+        request.headers['Content-Type'],
+        equals('text/plain; charset=iso-8859-1'),
+      );
     });
 
-    test(
-        'is modified to include the given encoding if encoding is set and '
+    test('is modified to include the given encoding if encoding is set and '
         'mime type is xml', () {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'application/xml';
       request
         ..body = '<?xml...'
         ..encoding = latin1;
-      expect(request.headers['Content-Type'],
-          equals('application/xml; charset=iso-8859-1'));
+      expect(
+        request.headers['Content-Type'],
+        equals('application/xml; charset=iso-8859-1'),
+      );
     });
 
     test(
-        'is not modified to include the given encoding if encoding is set mime '
-        'type is json', () {
-      var request = http.Request('POST', dummyUrl);
-      request.headers['Content-Type'] = 'application/json';
-      request
-        ..body = '{"hello": "world"}'
-        ..encoding = latin1;
-      expect(request.headers['Content-Type'], equals('application/json'));
-    });
+      'is not modified to include the given encoding if encoding is set mime '
+      'type is json',
+      () {
+        var request = http.Request('POST', dummyUrl);
+        request.headers['Content-Type'] = 'application/json';
+        request
+          ..body = '{"hello": "world"}'
+          ..encoding = latin1;
+        expect(request.headers['Content-Type'], equals('application/json'));
+      },
+    );
 
     test('has its charset overridden by an explicit encoding', () {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'application/json; charset=utf-8';
       request.encoding = latin1;
-      expect(request.headers['Content-Type'],
-          equals('application/json; charset=iso-8859-1'));
+      expect(
+        request.headers['Content-Type'],
+        equals('application/json; charset=iso-8859-1'),
+      );
     });
 
     test("doesn't have its charset overridden by setting bodyFields", () {
@@ -282,24 +306,30 @@ void main() {
       request.headers['Content-Type'] =
           'application/x-www-form-urlencoded; charset=iso-8859-1';
       request.bodyFields = {'hello': 'world'};
-      expect(request.headers['Content-Type'],
-          equals('application/x-www-form-urlencoded; charset=iso-8859-1'));
+      expect(
+        request.headers['Content-Type'],
+        equals('application/x-www-form-urlencoded; charset=iso-8859-1'),
+      );
     });
 
     test("doesn't have its charset overridden by setting body", () {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'application/json; charset=iso-8859-1';
       request.body = '{"hello": "world"}';
-      expect(request.headers['Content-Type'],
-          equals('application/json; charset=iso-8859-1'));
+      expect(
+        request.headers['Content-Type'],
+        equals('application/json; charset=iso-8859-1'),
+      );
     });
   });
 
   group('#finalize', () {
     test('returns a stream that emits the request body', () {
       var request = http.Request('POST', dummyUrl)..body = 'Hello, world!';
-      expect(request.finalize().bytesToString(),
-          completion(equals('Hello, world!')));
+      expect(
+        request.finalize().bytesToString(),
+        completion(equals('Hello, world!')),
+      );
     });
 
     test('freezes #persistentConnection', () {

@@ -12,16 +12,18 @@ import 'package:test/test.dart';
 void main() {
   group('encoder', () {
     test('adds a header to the chunk of bytes', () {
-      expect(chunkedCoding.encode([1, 2, 3]),
-          equals([$3, $cr, $lf, 1, 2, 3, $cr, $lf, $0, $cr, $lf, $cr, $lf]));
+      expect(
+        chunkedCoding.encode([1, 2, 3]),
+        equals([$3, $cr, $lf, 1, 2, 3, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
+      );
     });
 
     test('uses hex for chunk size', () {
       final data = Iterable<int>.generate(0xA7).toList();
       expect(
-          chunkedCoding.encode(data),
-          equals(
-              [$a, $7, $cr, $lf, ...data, $cr, $lf, $0, $cr, $lf, $cr, $lf]));
+        chunkedCoding.encode(data),
+        equals([$a, $7, $cr, $lf, ...data, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
+      );
     });
 
     test('just generates a footer for an empty input', () {
@@ -41,27 +43,30 @@ void main() {
       test('adds headers to each chunk of bytes', () {
         sink.add([1, 2, 3, 4]);
         expect(
-            results,
-            equals([
-              [$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf]
-            ]));
+          results,
+          equals([
+            [$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf],
+          ]),
+        );
 
         sink.add([5, 6, 7]);
         expect(
-            results,
-            equals([
-              [$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf],
-              [$3, $cr, $lf, 5, 6, 7, $cr, $lf],
-            ]));
+          results,
+          equals([
+            [$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf],
+            [$3, $cr, $lf, 5, 6, 7, $cr, $lf],
+          ]),
+        );
 
         sink.close();
         expect(
-            results,
-            equals([
-              [$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf],
-              [$3, $cr, $lf, 5, 6, 7, $cr, $lf],
-              [$0, $cr, $lf, $cr, $lf],
-            ]));
+          results,
+          equals([
+            [$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf],
+            [$3, $cr, $lf, 5, 6, 7, $cr, $lf],
+            [$0, $cr, $lf, $cr, $lf],
+          ]),
+        );
       });
 
       test('handles empty chunks', () {
@@ -70,40 +75,44 @@ void main() {
 
         sink.add([1, 2, 3]);
         expect(
-            results,
-            equals([
-              <int>[],
-              [$3, $cr, $lf, 1, 2, 3, $cr, $lf]
-            ]));
+          results,
+          equals([
+            <int>[],
+            [$3, $cr, $lf, 1, 2, 3, $cr, $lf],
+          ]),
+        );
 
         sink.add([]);
         expect(
-            results,
-            equals([
-              <int>[],
-              [$3, $cr, $lf, 1, 2, 3, $cr, $lf],
-              <int>[]
-            ]));
+          results,
+          equals([
+            <int>[],
+            [$3, $cr, $lf, 1, 2, 3, $cr, $lf],
+            <int>[],
+          ]),
+        );
 
         sink.close();
         expect(
-            results,
-            equals([
-              <int>[],
-              [$3, $cr, $lf, 1, 2, 3, $cr, $lf],
-              <int>[],
-              [$0, $cr, $lf, $cr, $lf],
-            ]));
+          results,
+          equals([
+            <int>[],
+            [$3, $cr, $lf, 1, 2, 3, $cr, $lf],
+            <int>[],
+            [$0, $cr, $lf, $cr, $lf],
+          ]),
+        );
       });
 
       group('addSlice()', () {
         test('adds bytes from the specified slice', () {
           sink.addSlice([1, 2, 3, 4, 5], 1, 4, false);
           expect(
-              results,
-              equals([
-                [$3, $cr, $lf, 2, 3, 4, $cr, $lf]
-              ]));
+            results,
+            equals([
+              [$3, $cr, $lf, 2, 3, 4, $cr, $lf],
+            ]),
+          );
         });
 
         test("doesn't add a header if the slice is empty", () {
@@ -114,10 +123,11 @@ void main() {
         test('adds a footer if isLast is true', () {
           sink.addSlice([1, 2, 3, 4, 5], 1, 4, true);
           expect(
-              results,
-              equals([
-                [$3, $cr, $lf, 2, 3, 4, $cr, $lf, $0, $cr, $lf, $cr, $lf]
-              ]));
+            results,
+            equals([
+              [$3, $cr, $lf, 2, 3, 4, $cr, $lf, $0, $cr, $lf, $cr, $lf],
+            ]),
+          );
 
           // Setting isLast shuld close the sink.
           expect(() => sink.add([]), throwsStateError);
@@ -125,18 +135,24 @@ void main() {
 
         group('disallows', () {
           test('start < 0', () {
-            expect(() => sink.addSlice([1, 2, 3, 4, 5], -1, 4, false),
-                throwsRangeError);
+            expect(
+              () => sink.addSlice([1, 2, 3, 4, 5], -1, 4, false),
+              throwsRangeError,
+            );
           });
 
           test('start > end', () {
-            expect(() => sink.addSlice([1, 2, 3, 4, 5], 3, 2, false),
-                throwsRangeError);
+            expect(
+              () => sink.addSlice([1, 2, 3, 4, 5], 3, 2, false),
+              throwsRangeError,
+            );
           });
 
           test('end > length', () {
-            expect(() => sink.addSlice([1, 2, 3, 4, 5], 1, 10, false),
-                throwsRangeError);
+            expect(
+              () => sink.addSlice([1, 2, 3, 4, 5], 1, 10, false),
+              throwsRangeError,
+            );
           });
         });
       });
@@ -146,47 +162,74 @@ void main() {
   group('decoder', () {
     test('parses chunked data', () {
       expect(
-          chunkedCoding.decode([
-            $3,
-            $cr,
-            $lf,
-            1,
-            2,
-            3,
-            $cr,
-            $lf,
-            $4,
-            $cr,
-            $lf,
-            4,
-            5,
-            6,
-            7,
-            $cr,
-            $lf,
-            $0,
-            $cr,
-            $lf,
-            $cr,
-            $lf,
-          ]),
-          equals([1, 2, 3, 4, 5, 6, 7]));
+        chunkedCoding.decode([
+          $3,
+          $cr,
+          $lf,
+          1,
+          2,
+          3,
+          $cr,
+          $lf,
+          $4,
+          $cr,
+          $lf,
+          4,
+          5,
+          6,
+          7,
+          $cr,
+          $lf,
+          $0,
+          $cr,
+          $lf,
+          $cr,
+          $lf,
+        ]),
+        equals([1, 2, 3, 4, 5, 6, 7]),
+      );
     });
 
     test('parses hex size', () {
       final data = Iterable<int>.generate(0xA7).toList();
       expect(
-          chunkedCoding.decode(
-              [$a, $7, $cr, $lf, ...data, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
-          equals(data));
+        chunkedCoding.decode([
+          $a,
+          $7,
+          $cr,
+          $lf,
+          ...data,
+          $cr,
+          $lf,
+          $0,
+          $cr,
+          $lf,
+          $cr,
+          $lf,
+        ]),
+        equals(data),
+      );
     });
 
     test('parses capital hex size', () {
       final data = Iterable<int>.generate(0xA7).toList();
       expect(
-          chunkedCoding.decode(
-              [$A, $7, $cr, $lf, ...data, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
-          equals(data));
+        chunkedCoding.decode([
+          $A,
+          $7,
+          $cr,
+          $lf,
+          ...data,
+          $cr,
+          $lf,
+          $0,
+          $cr,
+          $lf,
+          $cr,
+          $lf,
+        ]),
+        equals(data),
+      );
     });
 
     test('parses an empty message', () {
@@ -208,48 +251,65 @@ void main() {
 
       test('that ends after LF', () {
         expect(
-            () => chunkedCoding.decode([$a, $cr, $lf]), throwsFormatException);
+          () => chunkedCoding.decode([$a, $cr, $lf]),
+          throwsFormatException,
+        );
       });
 
       test('that ends after insufficient bytes', () {
-        expect(() => chunkedCoding.decode([$a, $cr, $lf, 1, 2, 3]),
-            throwsFormatException);
+        expect(
+          () => chunkedCoding.decode([$a, $cr, $lf, 1, 2, 3]),
+          throwsFormatException,
+        );
       });
 
       test("that ends after a chunk's bytes", () {
-        expect(() => chunkedCoding.decode([$1, $cr, $lf, 1]),
-            throwsFormatException);
+        expect(
+          () => chunkedCoding.decode([$1, $cr, $lf, 1]),
+          throwsFormatException,
+        );
       });
 
       test("that ends after a chunk's CR", () {
-        expect(() => chunkedCoding.decode([$1, $cr, $lf, 1, $cr]),
-            throwsFormatException);
+        expect(
+          () => chunkedCoding.decode([$1, $cr, $lf, 1, $cr]),
+          throwsFormatException,
+        );
       });
 
       test("that ends atfter a chunk's LF", () {
-        expect(() => chunkedCoding.decode([$1, $cr, $lf, 1, $cr, $lf]),
-            throwsFormatException);
+        expect(
+          () => chunkedCoding.decode([$1, $cr, $lf, 1, $cr, $lf]),
+          throwsFormatException,
+        );
       });
 
       test('that ends after the empty chunk', () {
         expect(
-            () => chunkedCoding.decode([$0, $cr, $lf]), throwsFormatException);
+          () => chunkedCoding.decode([$0, $cr, $lf]),
+          throwsFormatException,
+        );
       });
 
       test('that ends after the closing CR', () {
-        expect(() => chunkedCoding.decode([$0, $cr, $lf, $cr]),
-            throwsFormatException);
+        expect(
+          () => chunkedCoding.decode([$0, $cr, $lf, $cr]),
+          throwsFormatException,
+        );
       });
 
       test('with a chunk without a size', () {
-        expect(() => chunkedCoding.decode([$cr, $lf, $0, $cr, $lf, $cr, $lf]),
-            throwsFormatException);
+        expect(
+          () => chunkedCoding.decode([$cr, $lf, $0, $cr, $lf, $cr, $lf]),
+          throwsFormatException,
+        );
       });
 
       test('with a chunk with a non-hex size', () {
         expect(
-            () => chunkedCoding.decode([$q, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
-            throwsFormatException);
+          () => chunkedCoding.decode([$q, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
+          throwsFormatException,
+        );
       });
     });
 
@@ -266,27 +326,30 @@ void main() {
       test('decodes each chunk of bytes', () {
         sink.add([$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf]);
         expect(
-            results,
-            equals([
-              [1, 2, 3, 4]
-            ]));
+          results,
+          equals([
+            [1, 2, 3, 4],
+          ]),
+        );
 
         sink.add([$3, $cr, $lf, 5, 6, 7, $cr, $lf]);
         expect(
-            results,
-            equals([
-              [1, 2, 3, 4],
-              [5, 6, 7]
-            ]));
+          results,
+          equals([
+            [1, 2, 3, 4],
+            [5, 6, 7],
+          ]),
+        );
 
         sink.add([$0, $cr, $lf, $cr, $lf]);
         sink.close();
         expect(
-            results,
-            equals([
-              [1, 2, 3, 4],
-              [5, 6, 7]
-            ]));
+          results,
+          equals([
+            [1, 2, 3, 4],
+            [5, 6, 7],
+          ]),
+        );
       });
 
       test('handles empty chunks', () {
@@ -295,25 +358,28 @@ void main() {
 
         sink.add([$3, $cr, $lf, 1, 2, 3, $cr, $lf]);
         expect(
-            results,
-            equals([
-              [1, 2, 3]
-            ]));
+          results,
+          equals([
+            [1, 2, 3],
+          ]),
+        );
 
         sink.add([]);
         expect(
-            results,
-            equals([
-              [1, 2, 3]
-            ]));
+          results,
+          equals([
+            [1, 2, 3],
+          ]),
+        );
 
         sink.add([$0, $cr, $lf, $cr, $lf]);
         sink.close();
         expect(
-            results,
-            equals([
-              [1, 2, 3]
-            ]));
+          results,
+          equals([
+            [1, 2, 3],
+          ]),
+        );
       });
 
       test('throws if the sink is closed before the message is done', () {
@@ -337,10 +403,11 @@ void main() {
 
           sink.add([$cr, $lf, 1, 2, 3]);
           expect(
-              results,
-              equals([
-                [1, 2, 3]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+            ]),
+          );
         });
 
         test('after CR', () {
@@ -349,10 +416,11 @@ void main() {
 
           sink.add([$lf, 1, 2, 3]);
           expect(
-              results,
-              equals([
-                [1, 2, 3]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+            ]),
+          );
         });
 
         test('after LF', () {
@@ -361,78 +429,87 @@ void main() {
 
           sink.add([1, 2, 3]);
           expect(
-              results,
-              equals([
-                [1, 2, 3]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+            ]),
+          );
         });
 
         test('after some bytes', () {
           sink.add([$3, $cr, $lf, 1, 2]);
           expect(
-              results,
-              equals([
-                [1, 2]
-              ]));
+            results,
+            equals([
+              [1, 2],
+            ]),
+          );
 
           sink.add([3]);
           expect(
-              results,
-              equals([
-                [1, 2],
-                [3]
-              ]));
+            results,
+            equals([
+              [1, 2],
+              [3],
+            ]),
+          );
         });
 
         test('after all bytes', () {
           sink.add([$3, $cr, $lf, 1, 2, 3]);
           expect(
-              results,
-              equals([
-                [1, 2, 3]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+            ]),
+          );
 
           sink.add([$cr, $lf, $3, $cr, $lf, 2, 3, 4, $cr, $lf]);
           expect(
-              results,
-              equals([
-                [1, 2, 3],
-                [2, 3, 4]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+              [2, 3, 4],
+            ]),
+          );
         });
 
         test('after a post-chunk CR', () {
           sink.add([$3, $cr, $lf, 1, 2, 3, $cr]);
           expect(
-              results,
-              equals([
-                [1, 2, 3]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+            ]),
+          );
 
           sink.add([$lf, $3, $cr, $lf, 2, 3, 4, $cr, $lf]);
           expect(
-              results,
-              equals([
-                [1, 2, 3],
-                [2, 3, 4]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+              [2, 3, 4],
+            ]),
+          );
         });
 
         test('after a post-chunk LF', () {
           sink.add([$3, $cr, $lf, 1, 2, 3, $cr, $lf]);
           expect(
-              results,
-              equals([
-                [1, 2, 3]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+            ]),
+          );
 
           sink.add([$3, $cr, $lf, 2, 3, 4, $cr, $lf]);
           expect(
-              results,
-              equals([
-                [1, 2, 3],
-                [2, 3, 4]
-              ]));
+            results,
+            equals([
+              [1, 2, 3],
+              [2, 3, 4],
+            ]),
+          );
         });
 
         test('after empty chunk size', () {
@@ -484,10 +561,11 @@ void main() {
         test('adds bytes from the specified slice', () {
           sink.addSlice([1, $3, $cr, $lf, 2, 3, 4, 5], 1, 7, false);
           expect(
-              results,
-              equals([
-                [2, 3, 4]
-              ]));
+            results,
+            equals([
+              [2, 3, 4],
+            ]),
+          );
         });
 
         test("doesn't decode if the slice is empty", () {
@@ -502,18 +580,24 @@ void main() {
 
         group('disallows', () {
           test('start < 0', () {
-            expect(() => sink.addSlice([1, 2, 3, 4, 5], -1, 4, false),
-                throwsRangeError);
+            expect(
+              () => sink.addSlice([1, 2, 3, 4, 5], -1, 4, false),
+              throwsRangeError,
+            );
           });
 
           test('start > end', () {
-            expect(() => sink.addSlice([1, 2, 3, 4, 5], 3, 2, false),
-                throwsRangeError);
+            expect(
+              () => sink.addSlice([1, 2, 3, 4, 5], 3, 2, false),
+              throwsRangeError,
+            );
           });
 
           test('end > length', () {
-            expect(() => sink.addSlice([1, 2, 3, 4, 5], 1, 10, false),
-                throwsRangeError);
+            expect(
+              () => sink.addSlice([1, 2, 3, 4, 5], 1, 10, false),
+              throwsRangeError,
+            );
           });
         });
       });

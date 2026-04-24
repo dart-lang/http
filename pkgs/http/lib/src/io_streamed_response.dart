@@ -16,15 +16,17 @@ class IOStreamedResponse extends StreamedResponse {
   /// [stream] should be a single-subscription stream.
   ///
   /// If [inner] is not provided, [detachSocket] will throw.
-  IOStreamedResponse(super.stream, super.statusCode,
-      {super.contentLength,
-      super.request,
-      super.headers,
-      super.isRedirect,
-      super.persistentConnection,
-      super.reasonPhrase,
-      HttpClientResponse? inner})
-      : _inner = inner;
+  IOStreamedResponse(
+    super.stream,
+    super.statusCode, {
+    super.contentLength,
+    super.request,
+    super.headers,
+    super.isRedirect,
+    super.persistentConnection,
+    super.reasonPhrase,
+    HttpClientResponse? inner,
+  }) : _inner = inner;
 
   /// Detaches the underlying socket from the HTTP server.
   ///

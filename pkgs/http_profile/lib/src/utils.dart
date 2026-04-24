@@ -4,7 +4,8 @@
 
 /// "token" as defined in RFC 2616, 2.2
 /// See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
-const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
+const _tokenChars =
+    r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
     'abcdefghijklmnopqrstuvwxyz|~';
 
 /// Splits comma-separated header values.

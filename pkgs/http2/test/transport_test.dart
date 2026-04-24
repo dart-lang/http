@@ -207,8 +207,8 @@ void main() {
               await for (TransportStreamPush pushedStream
                   in stream.peerPushes) {
                 numberOfPushes++;
-                var messages =
-                    await pushedStream.stream.incomingMessages.toList();
+                var messages = await pushedStream.stream.incomingMessages
+                    .toList();
                 expect(messages, hasLength(1));
                 expect(
                   (messages[0] as HeadersStreamMessage).headers[0],

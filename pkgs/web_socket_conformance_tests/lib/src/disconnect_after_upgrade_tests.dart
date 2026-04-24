@@ -14,8 +14,9 @@ import 'utils.dart';
 /// Tests that the [WebSocket] generates a correct [CloseReceived] event if
 /// the peer disconnects after WebSocket upgrade.
 void testDisconnectAfterUpgrade(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        channelFactory) {
+  Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+  channelFactory,
+) {
   group('disconnect', () {
     late final Uri uri;
     late final StreamChannel<Object?> httpServerChannel;
@@ -33,12 +34,13 @@ void testDisconnectAfterUpgrade(
       addTearDown(() => closeWebSocket(channel));
       channel.sendText('test');
       expect(
-          (await channel.events.single as CloseReceived).code,
-          anyOf([
-            1002, // protocol error
-            1005, // closed no status
-            1006, // closed abnormal
-          ]));
+        (await channel.events.single as CloseReceived).code,
+        anyOf([
+          1002, // protocol error
+          1005, // closed no status
+          1006, // closed abnormal
+        ]),
+      );
     });
   });
 }

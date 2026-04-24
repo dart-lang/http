@@ -27,24 +27,36 @@ abstract mixin class BaseClient implements Client {
       _sendUnstreamed('GET', url, headers);
 
   @override
-  Future<Response> post(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('POST', url, headers, body, encoding);
+  Future<Response> post(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) => _sendUnstreamed('POST', url, headers, body, encoding);
 
   @override
-  Future<Response> put(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PUT', url, headers, body, encoding);
+  Future<Response> put(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) => _sendUnstreamed('PUT', url, headers, body, encoding);
 
   @override
-  Future<Response> patch(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PATCH', url, headers, body, encoding);
+  Future<Response> patch(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) => _sendUnstreamed('PATCH', url, headers, body, encoding);
 
   @override
-  Future<Response> delete(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('DELETE', url, headers, body, encoding);
+  Future<Response> delete(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  }) => _sendUnstreamed('DELETE', url, headers, body, encoding);
 
   @override
   Future<String> read(Uri url, {Map<String, String>? headers}) async {
@@ -72,8 +84,12 @@ abstract mixin class BaseClient implements Client {
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(
-      String method, Uri url, Map<String, String>? headers,
-      [Object? body, Encoding? encoding]) async {
+    String method,
+    Uri url,
+    Map<String, String>? headers, [
+    Object? body,
+    Encoding? encoding,
+  ]) async {
     var request = Request(method, url);
 
     if (headers != null) request.headers.addAll(headers);

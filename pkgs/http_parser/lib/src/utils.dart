@@ -13,9 +13,15 @@ T wrapFormatException<T>(String name, String value, T Function() body) {
     return body();
   } on SourceSpanFormatException catch (error) {
     throw SourceSpanFormatException(
-        'Invalid $name: ${error.message}', error.span, error.source);
+      'Invalid $name: ${error.message}',
+      error.span,
+      error.source,
+    );
   } on FormatException catch (error) {
     throw FormatException(
-        'Invalid $name "$value": ${error.message}', error.source, error.offset);
+      'Invalid $name "$value": ${error.message}',
+      error.source,
+      error.offset,
+    );
   }
 }

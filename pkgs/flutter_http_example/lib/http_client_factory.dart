@@ -16,9 +16,10 @@ Client httpClient() {
   if (Platform.isAndroid) {
     WidgetsFlutterBinding.ensureInitialized();
     final engine = CronetEngine.build(
-        cacheMode: CacheMode.memory,
-        cacheMaxSize: _maxCacheSize,
-        userAgent: 'Book Agent');
+      cacheMode: CacheMode.memory,
+      cacheMaxSize: _maxCacheSize,
+      userAgent: 'Book Agent',
+    );
     return CronetClient.fromCronetEngine(engine);
   }
   if (Platform.isIOS || Platform.isMacOS) {

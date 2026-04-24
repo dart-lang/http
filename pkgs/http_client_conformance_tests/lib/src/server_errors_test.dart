@@ -11,8 +11,10 @@ import 'server_errors_server_vm.dart'
     if (dart.library.js_interop) 'server_errors_server_web.dart';
 
 /// Tests that the [Client] correctly handles server errors.
-void testServerErrors(Client Function() clientFactory,
-    {bool redirectAlwaysAllowed = false}) {
+void testServerErrors(
+  Client Function() clientFactory, {
+  bool redirectAlwaysAllowed = false,
+}) {
   group('server errors', () {
     late Client client;
     late final String host;
@@ -30,16 +32,28 @@ void testServerErrors(Client Function() clientFactory,
 
     test('no such host', () async {
       expect(
-          client.get(Uri.http('thisisnotahost', '')),
-          throwsA(isA<ClientException>()
-              .having((e) => e.uri, 'uri', Uri.http('thisisnotahost', ''))));
+        client.get(Uri.http('thisisnotahost', '')),
+        throwsA(
+          isA<ClientException>().having(
+            (e) => e.uri,
+            'uri',
+            Uri.http('thisisnotahost', ''),
+          ),
+        ),
+      );
     });
 
     test('disconnect', () async {
       expect(
-          client.get(Uri.http(host, '')),
-          throwsA(isA<ClientException>()
-              .having((e) => e.uri, 'uri', Uri.http(host, ''))));
+        client.get(Uri.http(host, '')),
+        throwsA(
+          isA<ClientException>().having(
+            (e) => e.uri,
+            'uri',
+            Uri.http(host, ''),
+          ),
+        ),
+      );
     });
   });
 }

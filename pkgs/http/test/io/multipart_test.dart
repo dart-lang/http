@@ -27,13 +27,16 @@ void main() {
     var request = http.MultipartRequest('POST', dummyUrl);
     request.files.add(file);
 
-    expect(request, bodyMatches('''
+    expect(
+      request,
+      bodyMatches('''
         --{{boundary}}
         content-type: application/octet-stream
         content-disposition: form-data; name="file"; filename="test-file"
 
         hello
         --{{boundary}}--
-      '''));
+      '''),
+    );
   });
 }

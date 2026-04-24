@@ -27,17 +27,16 @@ import 'streamed_response.dart';
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
 BaseClient createClient() {
   if (const bool.fromEnvironment('no_default_http_client')) {
-    throw StateError('no_default_http_client was defined but runWithClient '
-        'was not used to configure a Client implementation.');
+    throw StateError(
+      'no_default_http_client was defined but runWithClient '
+      'was not used to configure a Client implementation.',
+    );
   }
   return BrowserClient();
 }
 
 @JS('fetch')
-external JSPromise<Response> _fetch(
-  RequestInfo input, [
-  RequestInit init,
-]);
+external JSPromise<Response> _fetch(RequestInfo input, [RequestInit init]);
 
 /// A `package:web`-based HTTP client that runs in the browser and is backed by
 /// [`window.fetch`](https://fetch.spec.whatwg.org/).
@@ -66,7 +65,9 @@ class BrowserClient extends BaseClient {
   Future<StreamedResponse> send(BaseRequest request) async {
     if (_isClosed) {
       throw ClientException(
-          'HTTP request failed. Client is already closed.', request.url);
+        'HTTP request failed. Client is already closed.',
+        request.url,
+      );
     }
 
     final abortController = AbortController();
@@ -86,12 +87,14 @@ class BrowserClient extends BaseClient {
           method: request.method,
           body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
           credentials: withCredentials ? 'include' : 'same-origin',
-          headers: {
-            if (request.contentLength case final contentLength?)
-              'content-length': contentLength,
-            for (var header in request.headers.entries)
-              header.key: header.value,
-          }.jsify()! as HeadersInit,
+          headers:
+              {
+                    if (request.contentLength case final contentLength?)
+                      'content-length': contentLength,
+                    for (var header in request.headers.entries)
+                      header.key: header.value,
+                  }.jsify()!
+                  as HeadersInit,
           signal: abortController.signal,
           redirect: request.followRedirects ? 'follow' : 'error',
         ),
@@ -111,10 +114,11 @@ class BrowserClient extends BaseClient {
       }
 
       final headers = <String, String>{};
-      (response.headers as _IterableHeaders)
-          .forEach((String value, String header, [JSAny? _]) {
-        headers[header.toLowerCase()] = value;
-      }.toJS);
+      (response.headers as _IterableHeaders).forEach(
+        (String value, String header, [JSAny? _]) {
+          headers[header.toLowerCase()] = value;
+        }.toJS,
+      );
 
       return StreamedResponseV2(
         _bodyToStream(request, response),
@@ -169,8 +173,11 @@ Stream<List<int>> _bodyToStream(BaseRequest request, Response response) =>
       (listener) => _readStreamBody(request, response, listener),
     );
 
-Future<void> _readStreamBody(BaseRequest request, Response response,
-    MultiStreamController<List<int>> controller) async {
+Future<void> _readStreamBody(
+  BaseRequest request,
+  Response response,
+  MultiStreamController<List<int>> controller,
+) async {
   final reader = response.body?.getReader() as ReadableStreamDefaultReader?;
   if (reader == null) {
     // No response? Treat that as an empty stream.

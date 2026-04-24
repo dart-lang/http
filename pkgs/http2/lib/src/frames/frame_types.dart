@@ -77,12 +77,12 @@ class DataFrame extends Frame {
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
 
   @override
-  Map toJson() =>
-      super.toJson()..addAll({
-        'padLength': padLength,
-        'bytes (length)': bytes.length,
-        'bytes (up to 4 bytes)': bytes.length > 4 ? bytes.sublist(0, 4) : bytes,
-      });
+  Map toJson() => super.toJson()
+    ..addAll({
+      'padLength': padLength,
+      'bytes (length)': bytes.length,
+      'bytes (up to 4 bytes)': bytes.length > 4 ? bytes.sublist(0, 4) : bytes,
+    });
 }
 
 class HeadersFrame extends Frame {
@@ -157,14 +157,14 @@ class HeadersFrame extends Frame {
   }
 
   @override
-  Map toJson() =>
-      super.toJson()..addAll({
-        'padLength': padLength,
-        'exclusiveDependency': exclusiveDependency,
-        'streamDependency': streamDependency,
-        'weight': weight,
-        'headerBlockFragment (length)': headerBlockFragment.length,
-      });
+  Map toJson() => super.toJson()
+    ..addAll({
+      'padLength': padLength,
+      'exclusiveDependency': exclusiveDependency,
+      'streamDependency': streamDependency,
+      'weight': weight,
+      'headerBlockFragment (length)': headerBlockFragment.length,
+    });
 }
 
 class PriorityFrame extends Frame {
@@ -182,12 +182,12 @@ class PriorityFrame extends Frame {
   );
 
   @override
-  Map toJson() =>
-      super.toJson()..addAll({
-        'exclusiveDependency': exclusiveDependency,
-        'streamDependency': streamDependency,
-        'weight': weight,
-      });
+  Map toJson() => super.toJson()
+    ..addAll({
+      'exclusiveDependency': exclusiveDependency,
+      'streamDependency': streamDependency,
+      'weight': weight,
+    });
 }
 
 class RstStreamFrame extends Frame {
@@ -295,12 +295,12 @@ class PushPromiseFrame extends Frame {
   }
 
   @override
-  Map toJson() =>
-      super.toJson()..addAll({
-        'padLength': padLength,
-        'promisedStreamId': promisedStreamId,
-        'headerBlockFragment (len)': headerBlockFragment.length,
-      });
+  Map toJson() => super.toJson()
+    ..addAll({
+      'padLength': padLength,
+      'promisedStreamId': promisedStreamId,
+      'headerBlockFragment (len)': headerBlockFragment.length,
+    });
 }
 
 class PingFrame extends Frame {
@@ -326,12 +326,12 @@ class GoawayFrame extends Frame {
   GoawayFrame(super.header, this.lastStreamId, this.errorCode, this.debugData);
 
   @override
-  Map toJson() =>
-      super.toJson()..addAll({
-        'lastStreamId': lastStreamId,
-        'errorCode': errorCode,
-        'debugData (length)': debugData.length,
-      });
+  Map toJson() => super.toJson()
+    ..addAll({
+      'lastStreamId': lastStreamId,
+      'errorCode': errorCode,
+      'debugData (length)': debugData.length,
+    });
 }
 
 class WindowUpdateFrame extends Frame {

@@ -37,16 +37,23 @@ Future<StreamChannel<Object?>> startServer() async => spawnHybridUri(Uri(
 
 void main() async {
   final files = await Directory('lib/src').list().toList();
-  final formatter =
-      DartFormatter(languageVersion: DartFormatter.latestLanguageVersion);
+  final formatter = DartFormatter(
+    languageVersion: DartFormatter.latestLanguageVersion,
+  );
 
   files.where((file) => file.path.endsWith('_server.dart')).forEach((file) {
     final vmPath = file.path.replaceAll('_server.dart', '_server_vm.dart');
-    File(vmPath).writeAsStringSync(formatter.format(vm.replaceAll(
-        '<server_file_placeholder>', file.uri.pathSegments.last)));
+    File(vmPath).writeAsStringSync(
+      formatter.format(
+        vm.replaceAll('<server_file_placeholder>', file.uri.pathSegments.last),
+      ),
+    );
 
     final webPath = file.path.replaceAll('_server.dart', '_server_web.dart');
-    File(webPath).writeAsStringSync(formatter.format(web.replaceAll(
-        '<server_file_placeholder>', file.uri.pathSegments.last)));
+    File(webPath).writeAsStringSync(
+      formatter.format(
+        web.replaceAll('<server_file_placeholder>', file.uri.pathSegments.last),
+      ),
+    );
   });
 }

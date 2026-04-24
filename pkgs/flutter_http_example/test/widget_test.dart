@@ -34,13 +34,15 @@ final _dummyPngImage = base64Decode(
 
 void main() {
   Widget app(Client client) => Provider<Client>(
-      create: (_) => client,
-      child: const BookSearchApp(),
-      dispose: (_, client) => client.close());
+    create: (_) => client,
+    child: const BookSearchApp(),
+    dispose: (_, client) => client.close(),
+  );
 
   testWidgets('test initial load', (WidgetTester tester) async {
     final mockClient = MockClient(
-        (request) async => throw StateError('unexpected HTTP request'));
+      (request) async => throw StateError('unexpected HTTP request'),
+    );
 
     await tester.pumpWidget(app(mockClient));
 
@@ -53,8 +55,11 @@ void main() {
           request.url.queryParameters['q'] == 'Flutter') {
         return Response(_singleBookResponse, 200);
       } else if (request.url == Uri.https('thumbnailurl', '/')) {
-        return Response.bytes(_dummyPngImage, 200,
-            headers: const {'Content-Type': 'image/png'});
+        return Response.bytes(
+          _dummyPngImage,
+          200,
+          headers: const {'Content-Type': 'image/png'},
+        );
       }
       return Response('', 404);
     });
@@ -67,8 +72,11 @@ void main() {
     expect(find.text('Flutter Cookbook'), findsOneWidget);
     // The book description.
     expect(
-        find.text('Write, test, and publish your web, desktop...',
-            skipOffstage: false),
-        findsOneWidget);
+      find.text(
+        'Write, test, and publish your web, desktop...',
+        skipOffstage: false,
+      ),
+      findsOneWidget,
+    );
   });
 }

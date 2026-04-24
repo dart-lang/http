@@ -55,11 +55,15 @@ void hybridMain(StreamChannel<dynamic> channel) async {
 
     var requestBodyBytes = await ByteStream(request).toBytes();
     var encodingName = request.uri.queryParameters['response-encoding'];
-    var outputEncoding =
-        encodingName == null ? ascii : requiredEncodingForCharset(encodingName);
+    var outputEncoding = encodingName == null
+        ? ascii
+        : requiredEncodingForCharset(encodingName);
 
-    response.headers.contentType =
-        ContentType('application', 'json', charset: outputEncoding.name);
+    response.headers.contentType = ContentType(
+      'application',
+      'json',
+      charset: outputEncoding.name,
+    );
     response.headers.set('single', 'value');
 
     dynamic requestBody;
@@ -68,10 +72,11 @@ void hybridMain(StreamChannel<dynamic> channel) async {
     } else {
       requestBody = switch ((
         request.headers.contentType?.mimeType,
-        request.headers.contentType?.charset
+        request.headers.contentType?.charset,
       )) {
-        (_, var charset?) =>
-          requiredEncodingForCharset(charset).decode(requestBodyBytes),
+        (_, var charset?) => requiredEncodingForCharset(
+          charset,
+        ).decode(requestBodyBytes),
         // This is not a complete set of mime types that default to utf-8,
         // just the ones found in the tests.
         ('application/json' || 'application/x-www-form-urlencoded', null) =>

@@ -11,13 +11,9 @@ import 'package:http2/transport.dart';
 import 'package:test/test.dart';
 
 void main() {
-  var context =
-      SecurityContext()
-        ..useCertificateChain('test/certificates/server_chain.pem')
-        ..usePrivateKey(
-          'test/certificates/server_key.pem',
-          password: 'dartdart',
-        );
+  var context = SecurityContext()
+    ..useCertificateChain('test/certificates/server_chain.pem')
+    ..usePrivateKey('test/certificates/server_key.pem', password: 'dartdart');
 
   group('multiprotocol-server', () {
     test('http/1.1', () async {

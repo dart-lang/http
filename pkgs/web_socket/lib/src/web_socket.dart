@@ -6,7 +6,8 @@ import 'dart:typed_data';
 
 import 'connect_stub.dart'
     if (dart.library.js_interop) 'browser_web_socket.dart'
-    if (dart.library.io) 'io_web_socket.dart' as connector;
+    if (dart.library.io) 'io_web_socket.dart'
+    as connector;
 
 /// An event received from the peer through the [WebSocket].
 sealed class WebSocketEvent {}

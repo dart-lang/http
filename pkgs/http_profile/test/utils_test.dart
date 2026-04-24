@@ -13,62 +13,66 @@ void main() {
 
     test('one header', () async {
       expect(splitHeaderValues({'fruit': 'apple'}), const {
-        'fruit': ['apple']
+        'fruit': ['apple'],
       });
     });
 
     test('two header', () async {
       expect(splitHeaderValues({'fruit': 'apple,banana'}), const {
-        'fruit': ['apple', 'banana']
+        'fruit': ['apple', 'banana'],
       });
     });
 
     test('two headers with lots of spaces', () async {
       expect(splitHeaderValues({'fruit': 'apple   \t   ,  \tbanana'}), const {
-        'fruit': ['apple', 'banana']
+        'fruit': ['apple', 'banana'],
       });
     });
 
     test('one set-cookie', () async {
       expect(
-          splitHeaderValues({
-            'set-cookie': 'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT'
-          }),
-          {
-            'set-cookie': ['id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT']
-          });
+        splitHeaderValues({
+          'set-cookie': 'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
+        }),
+        {
+          'set-cookie': ['id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT'],
+        },
+      );
     });
 
     test('two set-cookie, with comma in expires', () async {
       expect(
-          splitHeaderValues({
-            // ignore: missing_whitespace_between_adjacent_strings
-            'set-cookie': 'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT,'
-                'sessionId=e8bb43229de9; Domain=foo.example.com'
-          }),
-          {
-            'set-cookie': [
-              'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
-              'sessionId=e8bb43229de9; Domain=foo.example.com'
-            ]
-          });
+        splitHeaderValues({
+          // ignore: missing_whitespace_between_adjacent_strings
+          'set-cookie':
+              'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT,'
+              'sessionId=e8bb43229de9; Domain=foo.example.com',
+        }),
+        {
+          'set-cookie': [
+            'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
+            'sessionId=e8bb43229de9; Domain=foo.example.com',
+          ],
+        },
+      );
     });
 
     test('two set-cookie, with lots of commas', () async {
       expect(
-          splitHeaderValues({
-            // ignore: missing_whitespace_between_adjacent_strings
-            'set-cookie':
-                // ignore: missing_whitespace_between_adjacent_strings
-                'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
-                    'sessionId=e8bb43229de9; Domain=foo.example.com'
-          }),
-          {
-            'set-cookie': [
-              'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
-              'sessionId=e8bb43229de9; Domain=foo.example.com'
-            ]
-          });
+        splitHeaderValues({
+          // ignore: missing_whitespace_between_adjacent_strings
+          'set-cookie':
+              // ignore: missing_whitespace_between_adjacent_strings
+              'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
+              'sessionId=e8bb43229de9; Domain=foo.example.com',
+        }),
+        {
+          'set-cookie': [
+            'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
+            'sessionId=e8bb43229de9; Domain=foo.example.com',
+          ],
+        },
+      );
     });
   });
 }

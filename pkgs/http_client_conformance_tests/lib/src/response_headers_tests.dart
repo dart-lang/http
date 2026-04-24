@@ -17,9 +17,11 @@ import 'response_headers_server_vm.dart'
 ///
 /// If [correctlyHandlesNullHeaderValues] is `false` then the tests that assume
 /// that the [Client] correctly deals with NUL in header values are skipped.
-void testResponseHeaders(Client Function() clientFactory,
-    {bool supportsFoldedHeaders = true,
-    bool correctlyHandlesNullHeaderValues = true}) async {
+void testResponseHeaders(
+  Client Function() clientFactory, {
+  bool supportsFoldedHeaders = true,
+  bool correctlyHandlesNullHeaderValues = true,
+}) async {
   group('server headers', () {
     late Client client;
     late String host;
@@ -79,12 +81,17 @@ void testResponseHeaders(Client Function() clientFactory,
 
       final response = await client.get(Uri.http(host, ''));
       expect(
-          response.headers['foo'], matches(RegExp('BAR {0,2}[ \t] {0,3}BAZ')));
+        response.headers['foo'],
+        matches(RegExp('BAR {0,2}[ \t] {0,3}BAZ')),
+      );
     });
 
     test('multiple headers', () async {
-      httpServerChannel.sink
-          .add('field1: value1\r\n' 'field2: value2\r\n' 'field3: value3\r\n');
+      httpServerChannel.sink.add(
+        'field1: value1\r\n'
+        'field2: value2\r\n'
+        'field3: value3\r\n',
+      );
 
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['field1'], 'value1');
@@ -100,37 +107,50 @@ void testResponseHeaders(Client Function() clientFactory,
       httpServerChannel.sink.add('list: apple, orange, banana\r\n');
 
       final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['list'],
-          matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+      expect(
+        response.headers['list'],
+        matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'),
+      );
     });
 
     test('multiple values per header surrounded with spaces', () async {
-      httpServerChannel.sink
-          .add('list: \t apple \t, \t orange \t , \t banana\t \t \r\n');
+      httpServerChannel.sink.add(
+        'list: \t apple \t, \t orange \t , \t banana\t \t \r\n',
+      );
 
       final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['list'],
-          matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+      expect(
+        response.headers['list'],
+        matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'),
+      );
     });
 
     test('multiple headers with the same name', () async {
-      httpServerChannel.sink.add('list: apple\r\n'
-          'list: orange\r\n'
-          'list: banana\r\n');
+      httpServerChannel.sink.add(
+        'list: apple\r\n'
+        'list: orange\r\n'
+        'list: banana\r\n',
+      );
 
       final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['list'],
-          matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+      expect(
+        response.headers['list'],
+        matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'),
+      );
     });
 
     test('multiple headers with the same name but different cases', () async {
-      httpServerChannel.sink.add('list: apple\r\n'
-          'LIST: orange\r\n'
-          'List: banana\r\n');
+      httpServerChannel.sink.add(
+        'list: apple\r\n'
+        'LIST: orange\r\n'
+        'List: banana\r\n',
+      );
 
       final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['list'],
-          matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+      expect(
+        response.headers['list'],
+        matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'),
+      );
     });
 
     group('invalid headers values', () {
@@ -141,19 +161,22 @@ void testResponseHeaders(Client Function() clientFactory,
       // field value MUST either reject the message or replace each of those
       // characters with SP before further processing or forwarding of that
       // message.
-      test('NUL', () async {
-        httpServerChannel.sink.add('invalid: 1\x002\r\n');
+      test(
+        'NUL',
+        () async {
+          httpServerChannel.sink.add('invalid: 1\x002\r\n');
 
-        try {
-          final response = await client.get(Uri.http(host, ''));
-          expect(response.headers['invalid'], '1 2');
-        } on ClientException {
-          // The client rejected the response, which is allowed per RFC-9110.
-        }
-      },
-          skip: !correctlyHandlesNullHeaderValues
-              ? 'does not correctly handle NUL in header values'
-              : false);
+          try {
+            final response = await client.get(Uri.http(host, ''));
+            expect(response.headers['invalid'], '1 2');
+          } on ClientException {
+            // The client rejected the response, which is allowed per RFC-9110.
+          }
+        },
+        skip: !correctlyHandlesNullHeaderValues
+            ? 'does not correctly handle NUL in header values'
+            : false,
+      );
 
       // Bare CR/LF seem to be interpreted the same as CR + LF by most clients
       // so allow that behavior.
@@ -163,11 +186,13 @@ void testResponseHeaders(Client Function() clientFactory,
         try {
           final response = await client.get(Uri.http(host, ''));
           expect(
-              response.headers['foo'],
-              anyOf(
-                  '1 2', // RFC-specified behavior
-                  // Common client behavior (Cronet, Apple URL Loading System).
-                  '1'));
+            response.headers['foo'],
+            anyOf(
+              '1 2', // RFC-specified behavior
+              // Common client behavior (Cronet, Apple URL Loading System).
+              '1',
+            ),
+          );
         } on ClientException {
           // The client rejected the response, which is allowed per RFC-9110.
         }
@@ -179,14 +204,15 @@ void testResponseHeaders(Client Function() clientFactory,
         try {
           final response = await client.get(Uri.http(host, ''));
           expect(
-              response.headers['foo'],
-              anyOf(
-                '1 2', // RFC-specified behavior
-                // Common client behavior (Cronet, Apple URL Loading System).
-                '1',
-                '1\r2', // Common client behavior (Java).
-                isNull, // Common client behavior (Firefox).
-              ));
+            response.headers['foo'],
+            anyOf(
+              '1 2', // RFC-specified behavior
+              // Common client behavior (Cronet, Apple URL Loading System).
+              '1',
+              '1\r2', // Common client behavior (Java).
+              isNull, // Common client behavior (Firefox).
+            ),
+          );
         } on ClientException {
           // The client rejected the response, which is allowed per RFC-9110.
         }
@@ -221,45 +247,56 @@ void testResponseHeaders(Client Function() clientFactory,
       test('non-integer', () async {
         httpServerChannel.sink.add('content-length: cat\r\n');
         await expectLater(
-            client.get(Uri.http(host, '')), throwsA(isA<ClientException>()));
+          client.get(Uri.http(host, '')),
+          throwsA(isA<ClientException>()),
+        );
       });
 
       test('negative', () async {
         httpServerChannel.sink.add('content-length: -5\r\n');
         await expectLater(
-            client.get(Uri.http(host, '')), throwsA(isA<ClientException>()));
+          client.get(Uri.http(host, '')),
+          throwsA(isA<ClientException>()),
+        );
       });
 
       test('bigger than actual body', () async {
         httpServerChannel.sink.add('content-length: 100\r\n');
         await expectLater(
-            client.get(Uri.http(host, '')), throwsA(isA<ClientException>()));
+          client.get(Uri.http(host, '')),
+          throwsA(isA<ClientException>()),
+        );
       });
     });
 
-    group('folded headers', () {
-      // RFC2616 says that HTTP Headers can be split across multiple lines.
-      // See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
-      test('leading space', () async {
-        httpServerChannel.sink.add('foo: BAR\r\n BAZ\r\n');
+    group(
+      'folded headers',
+      () {
+        // RFC2616 says that HTTP Headers can be split across multiple lines.
+        // See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
+        test('leading space', () async {
+          httpServerChannel.sink.add('foo: BAR\r\n BAZ\r\n');
 
-        final response = await client.get(Uri.http(host, ''));
-        expect(response.headers['foo'], 'BAR BAZ');
-      });
+          final response = await client.get(Uri.http(host, ''));
+          expect(response.headers['foo'], 'BAR BAZ');
+        });
 
-      test('extra whitespace', () async {
-        httpServerChannel.sink.add('foo: BAR   \t   \r\n   \t   BAZ \t \r\n');
+        test('extra whitespace', () async {
+          httpServerChannel.sink.add('foo: BAR   \t   \r\n   \t   BAZ \t \r\n');
 
-        final response = await client.get(Uri.http(host, ''));
-        // RFC 2616 4.2 allows LWS between header values to be replace with a
-        // single space.
-        expect(
+          final response = await client.get(Uri.http(host, ''));
+          // RFC 2616 4.2 allows LWS between header values to be replace with a
+          // single space.
+          expect(
             response.headers['foo'],
-            allOf(matches(RegExp(r'BAR {0,3}[ \t]? {0,7}[ \t]? {0,3}BAZ')),
-                contains(' ')));
-      });
-    },
-        skip:
-            !supportsFoldedHeaders ? 'does not support folded headers' : false);
+            allOf(
+              matches(RegExp(r'BAR {0,3}[ \t]? {0,7}[ \t]? {0,3}BAZ')),
+              contains(' '),
+            ),
+          );
+        });
+      },
+      skip: !supportsFoldedHeaders ? 'does not support folded headers' : false,
+    );
   });
 }

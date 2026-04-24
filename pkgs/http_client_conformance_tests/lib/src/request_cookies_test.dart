@@ -17,8 +17,10 @@ final headerSplitter = RegExp(':[ \t]+');
 ///
 /// If [canSendCookieHeaders] is `false` then tests that require that "cookie"
 /// headers be sent by the client will not be run.
-void testRequestCookies(Client Function() clientFactory,
-    {bool canSendCookieHeaders = false}) {
+void testRequestCookies(
+  Client Function() clientFactory, {
+  bool canSendCookieHeaders = false,
+}) {
   group('request cookies', () {
     late Client client;
     late final String host;
@@ -34,26 +36,38 @@ void testRequestCookies(Client Function() clientFactory,
     tearDown(() => client.close());
     tearDownAll(() => httpServerChannel.sink.add(null));
 
-    test('one cookie', () async {
-      await client
-          .get(Uri.http(host, ''), headers: {'cookie': 'SID=298zf09hf012fh2'});
+    test(
+      'one cookie',
+      () async {
+        await client.get(
+          Uri.http(host, ''),
+          headers: {'cookie': 'SID=298zf09hf012fh2'},
+        );
 
-      final cookies = (await httpServerQueue.next as List).cast<String>();
-      expect(cookies, hasLength(1));
-      final [header, value] = cookies[0].split(headerSplitter);
-      expect(header.toLowerCase(), 'cookie');
-      expect(value, 'SID=298zf09hf012fh2');
-    }, skip: canSendCookieHeaders ? false : 'cannot send cookie headers');
+        final cookies = (await httpServerQueue.next as List).cast<String>();
+        expect(cookies, hasLength(1));
+        final [header, value] = cookies[0].split(headerSplitter);
+        expect(header.toLowerCase(), 'cookie');
+        expect(value, 'SID=298zf09hf012fh2');
+      },
+      skip: canSendCookieHeaders ? false : 'cannot send cookie headers',
+    );
 
-    test('multiple cookies semicolon separated', () async {
-      await client.get(Uri.http(host, ''),
-          headers: {'cookie': 'SID=298zf09hf012fh2; lang=en-US'});
+    test(
+      'multiple cookies semicolon separated',
+      () async {
+        await client.get(
+          Uri.http(host, ''),
+          headers: {'cookie': 'SID=298zf09hf012fh2; lang=en-US'},
+        );
 
-      final cookies = (await httpServerQueue.next as List).cast<String>();
-      expect(cookies, hasLength(1));
-      final [header, value] = cookies[0].split(headerSplitter);
-      expect(header.toLowerCase(), 'cookie');
-      expect(value, 'SID=298zf09hf012fh2; lang=en-US');
-    }, skip: canSendCookieHeaders ? false : 'cannot send cookie headers');
+        final cookies = (await httpServerQueue.next as List).cast<String>();
+        expect(cookies, hasLength(1));
+        final [header, value] = cookies[0].split(headerSplitter);
+        expect(header.toLowerCase(), 'cookie');
+        expect(value, 'SID=298zf09hf012fh2; lang=en-US');
+      },
+      skip: canSendCookieHeaders ? false : 'cannot send cookie headers',
+    );
   });
 }

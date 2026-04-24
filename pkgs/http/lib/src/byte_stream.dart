@@ -19,11 +19,14 @@ final class ByteStream extends StreamView<List<int>> {
   Future<Uint8List> toBytes() {
     var completer = Completer<Uint8List>();
     var sink = ByteConversionSink.withCallback(
-        (bytes) => completer.complete(Uint8List.fromList(bytes)));
-    listen(sink.add,
-        onError: completer.completeError,
-        onDone: sink.close,
-        cancelOnError: true);
+      (bytes) => completer.complete(Uint8List.fromList(bytes)),
+    );
+    listen(
+      sink.add,
+      onError: completer.completeError,
+      onDone: sink.close,
+      cancelOnError: true,
+    );
     return completer.future;
   }
 

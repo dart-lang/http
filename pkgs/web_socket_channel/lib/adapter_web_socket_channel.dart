@@ -48,8 +48,10 @@ class AdapterWebSocketChannel extends StreamChannelMixin
   @override
   Stream get stream => _controller.foreign.stream;
 
-  final _controller =
-      StreamChannelController<Object?>(sync: true, allowForeignErrors: false);
+  final _controller = StreamChannelController<Object?>(
+    sync: true,
+    allowForeignErrors: false,
+  );
 
   @override
   late final WebSocketSink sink = _WebSocketSink(this);
@@ -64,9 +66,10 @@ class AdapterWebSocketChannel extends StreamChannelMixin
   /// connected to the peer. The [ready] future will complete after the channel
   /// is connected. If there are errors creating the connection the [ready]
   /// future will complete with an error.
-  factory AdapterWebSocketChannel.connect(Uri url,
-          {Iterable<String>? protocols}) =>
-      AdapterWebSocketChannel(WebSocket.connect(url, protocols: protocols));
+  factory AdapterWebSocketChannel.connect(
+    Uri url, {
+    Iterable<String>? protocols,
+  }) => AdapterWebSocketChannel(WebSocket.connect(url, protocols: protocols));
 
   // Construct a [WebSocketWebSocketChannelAdapter] from an existing
   // [WebSocket].
@@ -78,56 +81,62 @@ class AdapterWebSocketChannel extends StreamChannelMixin
       webSocketFuture = webSocket;
     }
 
-    webSocketFuture.then((webSocket) {
-      webSocket.events.listen((event) {
-        switch (event) {
-          case TextDataReceived(text: final text):
-            _controller.local.sink.add(text);
-          case BinaryDataReceived(data: final data):
-            _controller.local.sink.add(data);
-          case CloseReceived(code: final code, reason: final reason):
-            _closeCode = code;
-            _closeReason = reason;
-            _controller.local.sink.close();
-        }
-      });
-      _controller.local.stream.listen((obj) {
-        try {
-          switch (obj) {
-            case final String s:
-              webSocket.sendText(s);
-            case final Uint8List b:
-              webSocket.sendBytes(b);
-            case final List<int> b:
-              webSocket.sendBytes(Uint8List.fromList(b));
-            default:
-              throw UnsupportedError('Cannot send ${obj.runtimeType}');
+    webSocketFuture.then(
+      (webSocket) {
+        webSocket.events.listen((event) {
+          switch (event) {
+            case TextDataReceived(text: final text):
+              _controller.local.sink.add(text);
+            case BinaryDataReceived(data: final data):
+              _controller.local.sink.add(data);
+            case CloseReceived(code: final code, reason: final reason):
+              _closeCode = code;
+              _closeReason = reason;
+              _controller.local.sink.close();
           }
-        } on WebSocketConnectionClosed {
-          // There is nowhere to surface this error; `_controller.local.sink`
-          // has already been closed.
+        });
+        _controller.local.stream.listen(
+          (obj) {
+            try {
+              switch (obj) {
+                case final String s:
+                  webSocket.sendText(s);
+                case final Uint8List b:
+                  webSocket.sendBytes(b);
+                case final List<int> b:
+                  webSocket.sendBytes(Uint8List.fromList(b));
+                default:
+                  throw UnsupportedError('Cannot send ${obj.runtimeType}');
+              }
+            } on WebSocketConnectionClosed {
+              // There is nowhere to surface this error; `_controller.local.sink`
+              // has already been closed.
+            }
+          },
+          onDone: () async {
+            try {
+              await webSocket.close(_localCloseCode, _localCloseReason);
+            } on WebSocketConnectionClosed {
+              // It is not an error to close an already-closed `WebSocketChannel`.
+            }
+          },
+        );
+        _protocol = webSocket.protocol;
+        _readyCompleter.complete();
+      },
+      onError: (Object e) {
+        Exception error;
+        if (e is TimeoutException) {
+          // Required for backwards compatibility with `IOWebSocketChannel`.
+          error = e;
+        } else {
+          error = WebSocketChannelException.from(e);
         }
-      }, onDone: () async {
-        try {
-          await webSocket.close(_localCloseCode, _localCloseReason);
-        } on WebSocketConnectionClosed {
-          // It is not an error to close an already-closed `WebSocketChannel`.
-        }
-      });
-      _protocol = webSocket.protocol;
-      _readyCompleter.complete();
-    }, onError: (Object e) {
-      Exception error;
-      if (e is TimeoutException) {
-        // Required for backwards compatibility with `IOWebSocketChannel`.
-        error = e;
-      } else {
-        error = WebSocketChannelException.from(e);
-      }
-      _readyCompleter.completeError(error);
-      _controller.local.sink.addError(error);
-      _controller.local.sink.close();
-    });
+        _readyCompleter.completeError(error);
+        _controller.local.sink.addError(error);
+        _controller.local.sink.close();
+      },
+    );
   }
 }
 
@@ -137,8 +146,8 @@ class _WebSocketSink extends DelegatingStreamSink implements WebSocketSink {
   final AdapterWebSocketChannel _channel;
 
   _WebSocketSink(AdapterWebSocketChannel channel)
-      : _channel = channel,
-        super(channel._controller.foreign.sink);
+    : _channel = channel,
+      super(channel._controller.foreign.sink);
 
   @override
   Future close([int? closeCode, String? closeReason]) {

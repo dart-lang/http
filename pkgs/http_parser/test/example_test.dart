@@ -8,13 +8,10 @@ import 'package:test/test.dart';
 
 void main() {
   test('validate example', () {
-    final result = Process.runSync(
-      Platform.executable,
-      [
-        '--enable-experiment=non-nullable',
-        'example/example.dart',
-      ],
-    );
+    final result = Process.runSync(Platform.executable, [
+      '--enable-experiment=non-nullable',
+      'example/example.dart',
+    ]);
 
     expect(result.exitCode, 0);
     expect(result.stdout, '''

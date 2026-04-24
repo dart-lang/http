@@ -28,18 +28,25 @@ void hybridMain(StreamChannel<Object?> channel) async {
       if (request.requestedUri.pathSegments.isEmpty) {
         unawaited(request.response.close());
       } else if (request.requestedUri.pathSegments.last == 'loop') {
-        unawaited(request.response
-            .redirect(Uri.http('localhost:${server.port}', '/loop')));
+        unawaited(
+          request.response.redirect(
+            Uri.http('localhost:${server.port}', '/loop'),
+          ),
+        );
       } else {
         final n = int.parse(request.requestedUri.pathSegments.last);
         final nextPath = n - 1 == 0 ? '' : '${n - 1}';
-        unawaited(request.response
-            .redirect(Uri.http('localhost:${server.port}', '/$nextPath')));
+        unawaited(
+          request.response.redirect(
+            Uri.http('localhost:${server.port}', '/$nextPath'),
+          ),
+        );
       }
     });
 
   channel.sink.add(server.port);
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }

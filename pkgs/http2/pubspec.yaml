@@ -9,7 +9,7 @@ topics:
   - protocols
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.9.0
 
 dev_dependencies:
   build_runner: ^2.4.15

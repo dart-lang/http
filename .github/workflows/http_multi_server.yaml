@@ -14,8 +14,8 @@ on:
   schedule:
     - cron: "0 0 * * 0"
 
-defaults:  
-  run:  
+defaults:
+  run:
     working-directory: pkgs/http_multi_server/
 
 env:
@@ -56,7 +56,7 @@ jobs:
       matrix:
         # Add macos-latest and/or windows-latest if relevant for this package.
         os: [ubuntu-latest]
-        sdk: [3.2, dev]
+        sdk: [3.9, dev]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260

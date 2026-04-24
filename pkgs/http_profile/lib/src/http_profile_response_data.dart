@@ -20,9 +20,9 @@ class HttpProfileRedirectData {
     required int statusCode,
     required String method,
     required String location,
-  })  : _statusCode = statusCode,
-        _method = method,
-        _location = location;
+  }) : _statusCode = statusCode,
+       _method = method,
+       _location = location;
 
   static HttpProfileRedirectData _fromJson(Map<String, dynamic> json) =>
       HttpProfileRedirectData(
@@ -32,10 +32,10 @@ class HttpProfileRedirectData {
       );
 
   Map<String, dynamic> _toJson() => <String, dynamic>{
-        'statusCode': _statusCode,
-        'method': _method,
-        'location': _location,
-      };
+    'statusCode': _statusCode,
+    'method': _method,
+    'location': _location,
+  };
 
   @override
   bool operator ==(Object other) =>
@@ -66,15 +66,18 @@ final class HttpProfileResponseData {
   /// Records a redirect that the connection went through.
   void addRedirect(HttpProfileRedirectData redirect) {
     _checkAndUpdate();
-    (_responseData['redirects'] as List<Map<String, dynamic>>)
-        .add(redirect._toJson());
+    (_responseData['redirects'] as List<Map<String, dynamic>>).add(
+      redirect._toJson(),
+    );
   }
 
   /// An unmodifiable list containing the redirects that the connection went
   /// through.
   List<HttpProfileRedirectData> get redirects => UnmodifiableListView(
-      (_responseData['redirects'] as List<Map<String, dynamic>>)
-          .map(HttpProfileRedirectData._fromJson));
+    (_responseData['redirects'] as List<Map<String, dynamic>>).map(
+      HttpProfileRedirectData._fromJson,
+    ),
+  );
 
   /// A sink that can be used to record the body of the response.
   ///
@@ -142,7 +145,8 @@ final class HttpProfileResponseData {
   Map<String, List<String>>? get headers => _responseData['headers'] == null
       ? null
       : UnmodifiableMapView(
-          _responseData['headers'] as Map<String, List<String>>);
+          _responseData['headers'] as Map<String, List<String>>,
+        );
 
   // The compression state of the response.
   //
@@ -160,9 +164,10 @@ final class HttpProfileResponseData {
 
   HttpClientResponseCompressionState? get compressionState =>
       _responseData['compressionState'] == null
-          ? null
-          : HttpClientResponseCompressionState.values
-              .firstWhere((v) => v.name == _responseData['compressionState']);
+      ? null
+      : HttpClientResponseCompressionState.values.firstWhere(
+          (v) => v.name == _responseData['compressionState'],
+        );
 
   // The reason phrase associated with the response e.g. "OK".
   set reasonPhrase(String? value) {
@@ -247,17 +252,16 @@ final class HttpProfileResponseData {
   String? get error =>
       _responseData['error'] == null ? null : _responseData['error'] as String;
 
-  HttpProfileResponseData._(
-    this._data,
-    this._updated,
-  ) {
+  HttpProfileResponseData._(this._data, this._updated) {
     _responseData['redirects'] = <Map<String, dynamic>>[];
   }
 
   void _checkAndUpdate() {
     if (_isClosed) {
-      throw StateError('HttpProfileResponseData has been closed, no further '
-          'updates are allowed');
+      throw StateError(
+        'HttpProfileResponseData has been closed, no further '
+        'updates are allowed',
+      );
     }
     _updated();
   }

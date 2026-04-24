@@ -37,10 +37,9 @@ void main() {
 
         queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         verify(windowMock.decreaseWindow(BYTES.length)).called(1);
-        final capturedMessage =
-            verify(
-              connectionQueueMock.enqueueMessage(captureAny),
-            ).captured.single;
+        final capturedMessage = verify(
+          connectionQueueMock.enqueueMessage(captureAny),
+        ).captured.single;
         expect(capturedMessage, const TypeMatcher<DataMessage>());
         var capturedDataMessage = capturedMessage as DataMessage;
         expect(capturedDataMessage.bytes, BYTES);
@@ -70,8 +69,9 @@ void main() {
 
         expect(queue.pendingMessages, 0);
         verify(windowMock.decreaseWindow(1)).called(BYTES.length);
-        final messages =
-            verify(connectionQueueMock.enqueueMessage(captureAny)).captured;
+        final messages = verify(
+          connectionQueueMock.enqueueMessage(captureAny),
+        ).captured;
         expect(messages, hasLength(BYTES.length));
         for (var counter = 0; counter < messages.length; counter++) {
           expect(messages[counter], const TypeMatcher<DataMessage>());

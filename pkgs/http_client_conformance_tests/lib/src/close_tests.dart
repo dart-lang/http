@@ -46,8 +46,10 @@ void testClose(Client Function() clientFactory) {
       final client = clientFactory();
       await client.post(Uri.http(host, ''), body: 'Hello');
       client.close();
-      expect(() async => await client.post(Uri.http(host, ''), body: 'Hello'),
-          throwsA(isA<ClientException>()));
+      expect(
+        () async => await client.post(Uri.http(host, ''), body: 'Hello'),
+        throwsA(isA<ClientException>()),
+      );
     });
   });
 }

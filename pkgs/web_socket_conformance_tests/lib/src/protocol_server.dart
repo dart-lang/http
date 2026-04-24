@@ -31,8 +31,11 @@ void hybridMain(StreamChannel<Object?> channel) async {
       }
       request.response.contentLength = 0;
       final socket = await request.response.detachSocket();
-      final webSocket = WebSocket.fromUpgradedSocket(socket,
-          protocol: serverProtocol, serverSide: true);
+      final webSocket = WebSocket.fromUpgradedSocket(
+        socket,
+        protocol: serverProtocol,
+        serverSide: true,
+      );
       webSocket.listen((e) async {
         webSocket.add(e);
         await webSocket.close();
@@ -42,6 +45,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
   channel.sink.add(server.port);
 
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }

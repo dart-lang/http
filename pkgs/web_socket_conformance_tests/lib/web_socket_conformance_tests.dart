@@ -23,8 +23,9 @@ export 'src/protocol_tests.dart';
 
 /// Runs the entire test suite against the given [WebSocket].
 void testAll(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        webSocketFactory) {
+  Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+  webSocketFactory,
+) {
   testCloseLocal(webSocketFactory);
   testCloseRemote(webSocketFactory);
   testConnectUri(webSocketFactory);

@@ -19,8 +19,9 @@ import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly close the connection to the peer.
 void testCloseLocal(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        channelFactory) {
+  Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+  channelFactory,
+) {
   group('remote writing', () {
     late Uri uri;
     late StreamChannel<Object?> httpServerChannel;
@@ -61,28 +62,36 @@ void testCloseLocal(
       final channel = await channelFactory(uri);
       addTearDown(() => closeWebSocket(channel));
       await expectLater(
-          () => channel.close(1004), throwsA(isA<ArgumentError>()));
+        () => channel.close(1004),
+        throwsA(isA<ArgumentError>()),
+      );
     });
 
     test('reserved close code: 2999', () async {
       final channel = await channelFactory(uri);
       addTearDown(() => closeWebSocket(channel));
       await expectLater(
-          () => channel.close(2999), throwsA(isA<ArgumentError>()));
+        () => channel.close(2999),
+        throwsA(isA<ArgumentError>()),
+      );
     });
 
     test('reserved close code: 5000', () async {
       final channel = await channelFactory(uri);
       addTearDown(() => closeWebSocket(channel));
       await expectLater(
-          () => channel.close(5000), throwsA(isA<ArgumentError>()));
+        () => channel.close(5000),
+        throwsA(isA<ArgumentError>()),
+      );
     });
 
     test('too long close reason', () async {
       final channel = await channelFactory(uri);
       addTearDown(() => closeWebSocket(channel));
-      await expectLater(() => channel.close(3000, 'a'.padLeft(124)),
-          throwsA(isA<ArgumentError>()));
+      await expectLater(
+        () => channel.close(3000, 'a'.padLeft(124)),
+        throwsA(isA<ArgumentError>()),
+      );
     });
 
     test('close', () async {
@@ -157,8 +166,9 @@ void testCloseLocal(
       await channel.close(3000, 'Client initiated closure');
 
       await expectLater(
-          () async => await channel.close(3001, 'Client initiated closure'),
-          throwsA(isA<WebSocketConnectionClosed>()));
+        () async => await channel.close(3001, 'Client initiated closure'),
+        throwsA(isA<WebSocketConnectionClosed>()),
+      );
     });
 
     test('sendBytes after close', () async {
@@ -167,8 +177,10 @@ void testCloseLocal(
 
       await channel.close(3000, 'Client initiated closure');
 
-      expect(() => channel.sendBytes(Uint8List(10)),
-          throwsA(isA<WebSocketConnectionClosed>()));
+      expect(
+        () => channel.sendBytes(Uint8List(10)),
+        throwsA(isA<WebSocketConnectionClosed>()),
+      );
     });
 
     test('sendText after close', () async {
@@ -177,8 +189,10 @@ void testCloseLocal(
 
       await channel.close(3000, 'Client initiated closure');
 
-      expect(() => channel.sendText('Hello World'),
-          throwsA(isA<WebSocketConnectionClosed>()));
+      expect(
+        () => channel.sendText('Hello World'),
+        throwsA(isA<WebSocketConnectionClosed>()),
+      );
     });
   });
 }

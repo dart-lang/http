@@ -57,7 +57,9 @@ class IOWebSocketChannel extends AdapterWebSocketChannel {
 
   /// Creates a channel wrapping [webSocket].
   IOWebSocketChannel(FutureOr<WebSocket> webSocket)
-      : super(webSocket is Future<WebSocket>
+    : super(
+        webSocket is Future<WebSocket>
             ? webSocket.then(IOWebSocket.fromWebSocket) as FutureOr<IOWebSocket>
-            : IOWebSocket.fromWebSocket(webSocket));
+            : IOWebSocket.fromWebSocket(webSocket),
+      );
 }

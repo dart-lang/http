@@ -39,8 +39,9 @@ void hybridMain(StreamChannel<Object?> channel) async {
         request.headers.forEach((field, value) {
           headers[field] = value;
         });
-        final body =
-            await const Utf8Decoder().bind(request).fold('', (x, y) => '$x$y');
+        final body = await const Utf8Decoder()
+            .bind(request)
+            .fold('', (x, y) => '$x$y');
         await request.response.close();
         channel.sink.add([headers, body]);
       }
@@ -48,6 +49,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
 
   channel.sink.add(server.port);
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }

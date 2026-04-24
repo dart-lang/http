@@ -56,7 +56,8 @@ class MultipartRequest extends BaseRequest {
     var length = 0;
 
     fields.forEach((name, value) {
-      length += '--'.length +
+      length +=
+          '--'.length +
           _boundaryLength +
           '\r\n'.length +
           utf8.encode(_headerForField(name, value)).length +
@@ -65,7 +66,8 @@ class MultipartRequest extends BaseRequest {
     });
 
     for (var file in files) {
-      length += '--'.length +
+      length +=
+          '--'.length +
           _boundaryLength +
           '\r\n'.length +
           utf8.encode(_headerForFile(file)).length +
@@ -78,8 +80,10 @@ class MultipartRequest extends BaseRequest {
 
   @override
   set contentLength(int? value) {
-    throw UnsupportedError('Cannot set the contentLength property of '
-        'multipart requests.');
+    throw UnsupportedError(
+      'Cannot set the contentLength property of '
+      'multipart requests.',
+    );
   }
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
@@ -121,7 +125,8 @@ class MultipartRequest extends BaseRequest {
     var header =
         'content-disposition: form-data; name="${_browserEncode(name)}"';
     if (!isPlainAscii(value)) {
-      header = '$header\r\n'
+      header =
+          '$header\r\n'
           'content-type: text/plain; charset=utf-8\r\n'
           'content-transfer-encoding: binary';
     }
@@ -132,7 +137,8 @@ class MultipartRequest extends BaseRequest {
   ///
   /// The return value is guaranteed to contain only ASCII characters.
   String _headerForFile(MultipartFile file) {
-    var header = 'content-type: ${file.contentType}\r\n'
+    var header =
+        'content-type: ${file.contentType}\r\n'
         'content-disposition: form-data; name="${_browserEncode(file.field)}"';
 
     if (file.filename != null) {
@@ -154,10 +160,10 @@ class MultipartRequest extends BaseRequest {
   String _boundaryString() {
     var prefix = 'dart-http-boundary-';
     var list = List<int>.generate(
-        _boundaryLength - prefix.length,
-        (index) =>
-            boundaryCharacters[_random.nextInt(boundaryCharacters.length)],
-        growable: false);
+      _boundaryLength - prefix.length,
+      (index) => boundaryCharacters[_random.nextInt(boundaryCharacters.length)],
+      growable: false,
+    );
     return '$prefix${String.fromCharCodes(list)}';
   }
 }
@@ -168,7 +174,7 @@ class MultipartRequest extends BaseRequest {
 /// [MultipartRequest], making it a requirement.
 final class AbortableMultipartRequest extends MultipartRequest with Abortable {
   AbortableMultipartRequest(super.method, super.url, {this.abortTrigger})
-      : super();
+    : super();
 
   @override
   final Future<void>? abortTrigger;

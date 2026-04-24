@@ -17,8 +17,9 @@ import 'utils.dart';
 /// See
 /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
 void testProtocols(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        channelFactory) {
+  Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+  channelFactory,
+) {
   group('protocols', () {
     late Uri uri;
     late StreamChannel<Object?> httpServerChannel;
@@ -44,8 +45,9 @@ void testProtocols(
 
     test('single protocol', () async {
       final socket = await channelFactory(
-          uri.replace(queryParameters: {'protocol': 'chat.example.com'}),
-          protocols: ['chat.example.com']);
+        uri.replace(queryParameters: {'protocol': 'chat.example.com'}),
+        protocols: ['chat.example.com'],
+      );
       addTearDown(() => closeWebSocket(socket));
 
       expect(await httpServerQueue.next, ['chat.example.com']);
@@ -55,22 +57,26 @@ void testProtocols(
 
     test('multiple protocols', () async {
       final socket = await channelFactory(
-          uri.replace(queryParameters: {'protocol': 'text.example.com'}),
-          protocols: ['chat.example.com', 'text.example.com']);
+        uri.replace(queryParameters: {'protocol': 'text.example.com'}),
+        protocols: ['chat.example.com', 'text.example.com'],
+      );
       addTearDown(() => closeWebSocket(socket));
 
-      expect(
-          await httpServerQueue.next, ['chat.example.com, text.example.com']);
+      expect(await httpServerQueue.next, [
+        'chat.example.com, text.example.com',
+      ]);
       expect(socket.protocol, 'text.example.com');
       socket.sendText('Hello World!');
     });
 
     test('protocol mismatch', () async {
       await expectLater(
-          () => channelFactory(
-              uri.replace(queryParameters: {'protocol': 'example.example.com'}),
-              protocols: ['chat.example.com']),
-          throwsA(isA<WebSocketException>()));
+        () => channelFactory(
+          uri.replace(queryParameters: {'protocol': 'example.example.com'}),
+          protocols: ['chat.example.com'],
+        ),
+        throwsA(isA<WebSocketException>()),
+      );
     });
   });
 }

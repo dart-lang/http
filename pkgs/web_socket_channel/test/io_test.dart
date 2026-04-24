@@ -34,20 +34,23 @@ void main() {
     expect(channel.ready, completes);
 
     var n = 0;
-    channel.stream.listen((message) {
-      if (n == 0) {
-        expect(message, equals('hello!'));
-        channel.sink.add('ping');
-      } else if (n == 1) {
-        expect(message, equals('pong'));
-      } else {
-        fail('Only expected two messages.');
-      }
-      n++;
-    }, onDone: expectAsync0(() {
-      expect(channel.closeCode, equals(3678));
-      expect(channel.closeReason, equals('raisin'));
-    }));
+    channel.stream.listen(
+      (message) {
+        if (n == 0) {
+          expect(message, equals('hello!'));
+          channel.sink.add('ping');
+        } else if (n == 1) {
+          expect(message, equals('pong'));
+        } else {
+          fail('Only expected two messages.');
+        }
+        n++;
+      },
+      onDone: expectAsync0(() {
+        expect(channel.closeCode, equals(3678));
+        expect(channel.closeReason, equals('raisin'));
+      }),
+    );
   });
 
   test('.connect communicates immediately', () async {
@@ -67,36 +70,45 @@ void main() {
 
     channel.sink.add('ping');
 
-    channel.stream.listen(expectAsync1((message) {
-      expect(message, equals('pong'));
-      channel.sink.close(3678, 'raisin');
-    }), onDone: expectAsync0(() {}));
+    channel.stream.listen(
+      expectAsync1((message) {
+        expect(message, equals('pong'));
+        channel.sink.close(3678, 'raisin');
+      }),
+      onDone: expectAsync0(() {}),
+    );
   });
 
-  test('.connect communicates immediately using platform independent api',
-      () async {
-    server = await HttpServer.bind('localhost', 0);
-    addTearDown(server.close);
-    server.transform(WebSocketTransformer()).listen((WebSocket webSocket) {
-      final channel = IOWebSocketChannel(webSocket);
-      channel.stream.listen((request) {
-        expect(request, equals('ping'));
-        channel.sink.add('pong');
+  test(
+    '.connect communicates immediately using platform independent api',
+    () async {
+      server = await HttpServer.bind('localhost', 0);
+      addTearDown(server.close);
+      server.transform(WebSocketTransformer()).listen((WebSocket webSocket) {
+        final channel = IOWebSocketChannel(webSocket);
+        channel.stream.listen((request) {
+          expect(request, equals('ping'));
+          channel.sink.add('pong');
+        });
       });
-    });
 
-    final channel =
-        WebSocketChannel.connect(Uri.parse('ws://localhost:${server.port}'));
+      final channel = WebSocketChannel.connect(
+        Uri.parse('ws://localhost:${server.port}'),
+      );
 
-    expect(channel.ready, completes);
+      expect(channel.ready, completes);
 
-    channel.sink.add('ping');
+      channel.sink.add('ping');
 
-    channel.stream.listen(expectAsync1((message) {
-      expect(message, equals('pong'));
-      channel.sink.close(3678, 'raisin');
-    }), onDone: expectAsync0(() {}));
-  });
+      channel.stream.listen(
+        expectAsync1((message) {
+          expect(message, equals('pong'));
+          channel.sink.close(3678, 'raisin');
+        }),
+        onDone: expectAsync0(() {}),
+      );
+    },
+  );
 
   test('.connect with an immediate call to close', () async {
     server = await HttpServer.bind('localhost', 0);
@@ -117,20 +129,26 @@ void main() {
     await channel.sink.close(3678, 'raisin');
   });
 
-  test('.connect wraps a connection error in WebSocketChannelException',
-      () async {
-    server = await HttpServer.bind('localhost', 0);
-    addTearDown(server.close);
-    server.listen((request) {
-      request.response.statusCode = 404;
-      request.response.close();
-    });
+  test(
+    '.connect wraps a connection error in WebSocketChannelException',
+    () async {
+      server = await HttpServer.bind('localhost', 0);
+      addTearDown(server.close);
+      server.listen((request) {
+        request.response.statusCode = 404;
+        request.response.close();
+      });
 
-    final channel = IOWebSocketChannel.connect('ws://localhost:${server.port}');
-    expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
-    expect(channel.stream.drain<void>(),
-        throwsA(isA<WebSocketChannelException>()));
-  });
+      final channel = IOWebSocketChannel.connect(
+        'ws://localhost:${server.port}',
+      );
+      expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
+      expect(
+        channel.stream.drain<void>(),
+        throwsA(isA<WebSocketChannelException>()),
+      );
+    },
+  );
 
   test('.protocols fail', () async {
     const passedProtocol = 'passed-protocol';
@@ -172,8 +190,10 @@ void main() {
       await webSocket.close();
     });
 
-    final channel = IOWebSocketChannel.connect('ws://localhost:${server.port}',
-        protocols: [passedProtocol]);
+    final channel = IOWebSocketChannel.connect(
+      'ws://localhost:${server.port}',
+      protocols: [passedProtocol],
+    );
 
     expect(channel.ready, completes);
 
@@ -205,15 +225,18 @@ void main() {
     server = await HttpServer.bind('localhost', 0);
     addTearDown(server.close);
     server
-        .transform(StreamTransformer<HttpRequest, HttpRequest>.fromHandlers(
+        .transform(
+          StreamTransformer<HttpRequest, HttpRequest>.fromHandlers(
             handleData: (data, sink) {
-          // Wait before we handle this request, to give the timeout a chance to
-          // kick in. We still want to make sure that we handle the request
-          // afterwards to not have false positives with the timeout
-          Timer(const Duration(milliseconds: 800), () {
-            sink.add(data);
-          });
-        }))
+              // Wait before we handle this request, to give the timeout a chance to
+              // kick in. We still want to make sure that we handle the request
+              // afterwards to not have false positives with the timeout
+              Timer(const Duration(milliseconds: 800), () {
+                sink.add(data);
+              });
+            },
+          ),
+        )
         .transform(WebSocketTransformer())
         .listen((webSocket) {
           final channel = IOWebSocketChannel(webSocket);
@@ -232,12 +255,16 @@ void main() {
   test('.custom client is passed through', () async {
     server = await HttpServer.bind('localhost', 0);
     addTearDown(server.close);
-    server.transform(StreamTransformer<HttpRequest, HttpRequest>.fromHandlers(
-      handleData: (data, sink) {
-        expect(data.headers['user-agent'], ['custom']);
-        sink.add(data);
-      },
-    )).transform(WebSocketTransformer());
+    server
+        .transform(
+          StreamTransformer<HttpRequest, HttpRequest>.fromHandlers(
+            handleData: (data, sink) {
+              expect(data.headers['user-agent'], ['custom']);
+              sink.add(data);
+            },
+          ),
+        )
+        .transform(WebSocketTransformer());
 
     final channel = IOWebSocketChannel.connect(
       'ws://localhost:${server.port}',

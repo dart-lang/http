@@ -11,7 +11,8 @@ import 'package:test/test.dart';
 
 void main() {
   testAll(
-    IOClient.new, preservesMethodCase: false, // https://dartbug.com/54187
+    IOClient.new,
+    preservesMethodCase: false, // https://dartbug.com/54187
     canReceiveSetCookieHeaders: true,
     canSendCookieHeaders: true,
     correctlyHandlesNullHeaderValues:

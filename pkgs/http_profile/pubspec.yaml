@@ -6,7 +6,7 @@ repository: https://github.com/dart-lang/http/tree/master/pkgs/http_profile
 version: 0.1.1-wip
 
 environment:
-  sdk: ^3.4.0
+  sdk: ^3.9.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0

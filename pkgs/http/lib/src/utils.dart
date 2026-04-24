@@ -14,11 +14,14 @@ import 'byte_stream.dart';
 ///
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
-String mapToQuery(Map<String, String> map, {required Encoding encoding}) =>
-    map.entries
-        .map((e) => '${Uri.encodeQueryComponent(e.key, encoding: encoding)}'
-            '=${Uri.encodeQueryComponent(e.value, encoding: encoding)}')
-        .join('&');
+String mapToQuery(Map<String, String> map, {required Encoding encoding}) => map
+    .entries
+    .map(
+      (e) =>
+          '${Uri.encodeQueryComponent(e.key, encoding: encoding)}'
+          '=${Uri.encodeQueryComponent(e.value, encoding: encoding)}',
+    )
+    .join('&');
 
 /// Determines the appropriate [Encoding] based on the given [contentTypeHeader]
 ///
@@ -28,8 +31,10 @@ String mapToQuery(Map<String, String> map, {required Encoding encoding}) =>
 ///   it attempts to find a matching [Encoding].
 /// - If no charset is specified or the charset is unknown,
 ///   it falls back to the provided [fallback], which defaults to [latin1].
-Encoding encodingForContentTypeHeader(MediaType contentTypeHeader,
-    [Encoding fallback = latin1]) {
+Encoding encodingForContentTypeHeader(
+  MediaType contentTypeHeader, [
+  Encoding fallback = latin1,
+]) {
   final charset = contentTypeHeader.parameters['charset'];
 
   // Default to utf8 for application/json when charset is unspecified.
@@ -80,7 +85,11 @@ ByteStream toByteStream(Stream<List<int>> stream) {
 /// The return value, also a single-subscription [Stream] should be used in
 /// place of [stream] after calling this method.
 Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
-    stream.transform(StreamTransformer.fromHandlers(handleDone: (sink) {
-      sink.close();
-      onDone();
-    }));
+    stream.transform(
+      StreamTransformer.fromHandlers(
+        handleDone: (sink) {
+          sink.close();
+          onDone();
+        },
+      ),
+    );

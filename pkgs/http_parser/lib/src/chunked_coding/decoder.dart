@@ -165,9 +165,10 @@ class _Sink extends ByteConversionSinkBase {
     }
 
     throw FormatException(
-        'Invalid hexadecimal byte 0x${byte.toRadixString(16).toUpperCase()}.',
-        bytes,
-        index);
+      'Invalid hexadecimal byte 0x${byte.toRadixString(16).toUpperCase()}.',
+      bytes,
+      index,
+    );
   }
 }
 

@@ -44,8 +44,10 @@ void testCompressedResponseBody(Client Function() clientFactory) {
       final response = await client.get(Uri.http(host, '/gzip'));
       final requestHeaders = await httpServerQueue.next as Map;
 
-      expect((requestHeaders['accept-encoding'] as List).join(', '),
-          contains('gzip'));
+      expect(
+        (requestHeaders['accept-encoding'] as List).join(', '),
+        contains('gzip'),
+      );
       expect(response.body, message);
       expect(response.bodyBytes, message.codeUnits);
       expect(response.contentLength, message.length);
@@ -62,8 +64,10 @@ void testCompressedResponseBody(Client Function() clientFactory) {
       final response = await client.send(request);
       final requestHeaders = await httpServerQueue.next as Map;
 
-      expect((requestHeaders['accept-encoding'] as List).join(', '),
-          contains('gzip'));
+      expect(
+        (requestHeaders['accept-encoding'] as List).join(', '),
+        contains('gzip'),
+      );
       expect(await response.stream.bytesToString(), message);
       expect(response.headers['content-type'], 'text/plain');
       expect(response.isRedirect, isFalse);

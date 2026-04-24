@@ -14,20 +14,21 @@ final class HttpProfileRequestEvent {
   String get name => _name;
 
   HttpProfileRequestEvent({required DateTime timestamp, required String name})
-      : _timestamp = timestamp.microsecondsSinceEpoch,
-        _name = name;
+    : _timestamp = timestamp.microsecondsSinceEpoch,
+      _name = name;
 
   static HttpProfileRequestEvent _fromJson(Map<String, dynamic> json) =>
       HttpProfileRequestEvent(
-        timestamp:
-            DateTime.fromMicrosecondsSinceEpoch(json['timestamp'] as int),
+        timestamp: DateTime.fromMicrosecondsSinceEpoch(
+          json['timestamp'] as int,
+        ),
         name: json['event'] as String,
       );
 
   Map<String, dynamic> _toJson() => <String, dynamic>{
-        'timestamp': _timestamp,
-        'event': _name,
-      };
+    'timestamp': _timestamp,
+    'event': _name,
+  };
 }
 
 /// A record of debugging information about an HTTP request.
@@ -72,10 +73,11 @@ final class HttpClientRequestProfile {
   }
 
   /// An unmodifiable list containing the events related to the request.
-  List<HttpProfileRequestEvent> get events =>
-      UnmodifiableListView((_data['events'] as List<Map<String, dynamic>>).map(
-        HttpProfileRequestEvent._fromJson,
-      ));
+  List<HttpProfileRequestEvent> get events => UnmodifiableListView(
+    (_data['events'] as List<Map<String, dynamic>>).map(
+      HttpProfileRequestEvent._fromJson,
+    ),
+  );
 
   /// Information about the networking connection used.
   ///
@@ -96,7 +98,7 @@ final class HttpClientRequestProfile {
   /// // Invalid
   /// profile?.connectionInfo?['localPort'] = 1285;
   /// ```
-  set connectionInfo(Map<String, dynamic /*String|int*/ >? value) {
+  set connectionInfo(Map<String, dynamic /*String|int*/>? value) {
     _updated();
     if (value == null) {
       requestData._requestData.remove('connectionInfo');
@@ -114,13 +116,12 @@ final class HttpClientRequestProfile {
     }
   }
 
-  Map<String, dynamic /*String|int*/ >? get connectionInfo =>
+  Map<String, dynamic /*String|int*/>? get connectionInfo =>
       requestData._requestData['connectionInfo'] == null
-          ? null
-          : UnmodifiableMapView(
-              requestData._requestData['connectionInfo']
-                  as Map<String, dynamic>,
-            );
+      ? null
+      : UnmodifiableMapView(
+          requestData._requestData['connectionInfo'] as Map<String, dynamic>,
+        );
 
   /// Details about the request.
   late final HttpProfileRequestData requestData;
@@ -147,13 +148,14 @@ final class HttpClientRequestProfile {
     responseData = HttpProfileResponseData._(_data, _updated);
     _data['requestBodyBytes'] = <int>[];
     requestData._body.stream.listen(
-        (final bytes) => (_data['requestBodyBytes'] as List<int>).addAll(bytes),
-        onError: (e) {});
+      (final bytes) => (_data['requestBodyBytes'] as List<int>).addAll(bytes),
+      onError: (e) {},
+    );
     _data['responseBodyBytes'] = <int>[];
     responseData._body.stream.listen(
-        (final bytes) =>
-            (_data['responseBodyBytes'] as List<int>).addAll(bytes),
-        onError: (e) {});
+      (final bytes) => (_data['responseBodyBytes'] as List<int>).addAll(bytes),
+      onError: (e) {},
+    );
     // This entry is needed to support the updatedSince parameter of
     // ext.dart.io.getHttpProfile.
     _updated();

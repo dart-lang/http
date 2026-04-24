@@ -47,24 +47,35 @@ void main() {
 
     test('disallows whitespace around the equals', () {
       expect(
-          () => MediaType.parse('text/plain; foo =bar'), throwsFormatException);
+        () => MediaType.parse('text/plain; foo =bar'),
+        throwsFormatException,
+      );
       expect(
-          () => MediaType.parse('text/plain; foo= bar'), throwsFormatException);
+        () => MediaType.parse('text/plain; foo= bar'),
+        throwsFormatException,
+      );
     });
 
     test('disallows separators in the parameters', () {
       expect(
-          () => MediaType.parse('text/plain; fo:o=bar'), throwsFormatException);
+        () => MediaType.parse('text/plain; fo:o=bar'),
+        throwsFormatException,
+      );
       expect(
-          () => MediaType.parse('text/plain; foo=b@ar'), throwsFormatException);
+        () => MediaType.parse('text/plain; foo=b@ar'),
+        throwsFormatException,
+      );
     });
 
     test('parses quoted parameters', () {
-      final type =
-          MediaType.parse(r'text/plain; foo="bar space"; baz="bang\\escape"');
+      final type = MediaType.parse(
+        r'text/plain; foo="bar space"; baz="bang\\escape"',
+      );
       expect(type.mimeType, equals('text/plain'));
       expect(
-          type.parameters, equals({'foo': 'bar space', 'baz': r'bang\escape'}));
+        type.parameters,
+        equals({'foo': 'bar space', 'baz': r'bang\escape'}),
+      );
     });
 
     test('lower-cases type and subtype', () {
@@ -111,8 +122,9 @@ void main() {
 
     test('[parameters] overrides and adds to existing parameters', () {
       expect(
-          type.change(parameters: {'foo': 'zap', 'qux': 'fblthp'}).parameters,
-          equals({'foo': 'zap', 'baz': 'bang', 'qux': 'fblthp'}));
+        type.change(parameters: {'foo': 'zap', 'qux': 'fblthp'}).parameters,
+        equals({'foo': 'zap', 'baz': 'bang', 'qux': 'fblthp'}),
+      );
     });
 
     test('[clearParameters] removes existing parameters', () {
@@ -120,19 +132,25 @@ void main() {
     });
 
     test('[clearParameters] with [parameters] removes before adding', () {
-      final newType =
-          type.change(parameters: {'foo': 'zap'}, clearParameters: true);
+      final newType = type.change(
+        parameters: {'foo': 'zap'},
+        clearParameters: true,
+      );
       expect(newType.parameters, equals({'foo': 'zap'}));
     });
 
     test('[type] with [mimeType] is illegal', () {
-      expect(() => type.change(type: 'new', mimeType: 'image/png'),
-          throwsArgumentError);
+      expect(
+        () => type.change(type: 'new', mimeType: 'image/png'),
+        throwsArgumentError,
+      );
     });
 
     test('[subtype] with [mimeType] is illegal', () {
-      expect(() => type.change(subtype: 'new', mimeType: 'image/png'),
-          throwsArgumentError);
+      expect(
+        () => type.change(subtype: 'new', mimeType: 'image/png'),
+        throwsArgumentError,
+      );
     });
   });
 
@@ -142,24 +160,31 @@ void main() {
     });
 
     test('serializes a token parameter as a token', () {
-      expect(MediaType('text', 'plain', {'foo': 'bar'}).toString(),
-          equals('text/plain; foo=bar'));
+      expect(
+        MediaType('text', 'plain', {'foo': 'bar'}).toString(),
+        equals('text/plain; foo=bar'),
+      );
     });
 
     test('serializes a non-token parameter as a quoted string', () {
-      expect(MediaType('text', 'plain', {'foo': 'bar baz'}).toString(),
-          equals('text/plain; foo="bar baz"'));
+      expect(
+        MediaType('text', 'plain', {'foo': 'bar baz'}).toString(),
+        equals('text/plain; foo="bar baz"'),
+      );
     });
 
     test('escapes a quoted string as necessary', () {
-      expect(MediaType('text', 'plain', {'foo': 'bar"\x7Fbaz'}).toString(),
-          equals('text/plain; foo="bar\\"\\\x7Fbaz"'));
+      expect(
+        MediaType('text', 'plain', {'foo': 'bar"\x7Fbaz'}).toString(),
+        equals('text/plain; foo="bar\\"\\\x7Fbaz"'),
+      );
     });
 
     test('serializes multiple parameters', () {
       expect(
-          MediaType('text', 'plain', {'foo': 'bar', 'baz': 'bang'}).toString(),
-          equals('text/plain; foo=bar; baz=bang'));
+        MediaType('text', 'plain', {'foo': 'bar', 'baz': 'bang'}).toString(),
+        equals('text/plain; foo=bar; baz=bang'),
+      );
     });
   });
 }

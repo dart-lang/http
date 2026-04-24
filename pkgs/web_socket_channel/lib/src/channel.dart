@@ -84,11 +84,11 @@ abstract interface class WebSocketChannel extends StreamChannelMixin {
   ///
   /// [initial handshake]: https://tools.ietf.org/html/rfc6455#section-4.2.2
   static String signKey(String key)
-      // We use [codeUnits] here rather than UTF-8-decoding the string because
-      // [key] is expected to be base64 encoded, and so will be pure ASCII.
-      =>
-      convert.base64
-          .encode(sha1.convert((key + _webSocketGUID).codeUnits).bytes);
+  // We use [codeUnits] here rather than UTF-8-decoding the string because
+  // [key] is expected to be base64 encoded, and so will be pure ASCII.
+  => convert.base64.encode(
+    sha1.convert((key + _webSocketGUID).codeUnits).bytes,
+  );
 
   /// Creates a new WebSocket connection.
   ///

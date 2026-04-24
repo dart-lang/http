@@ -5,7 +5,7 @@ description: Demonstrates how to use package:http in a Flutter app.
 publish_to: 'none'
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.9.0
   flutter: '>=3.10.0'
 
 dependencies:

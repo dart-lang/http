@@ -13,8 +13,9 @@ import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly handle incorrect WebSocket frames.
 void testPeerProtocolErrors(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        channelFactory) {
+  Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+  channelFactory,
+) {
   group('peer protocol errors', () {
     late final Uri uri;
     late final StreamChannel<Object?> httpServerChannel;
@@ -31,12 +32,13 @@ void testPeerProtocolErrors(
       final channel = await channelFactory(uri);
       addTearDown(() => closeWebSocket(channel));
       expect(
-          (await channel.events.single as CloseReceived).code,
-          anyOf([
-            1002, // protocol error
-            1005, // closed no status
-            1006, // closed abnormal
-          ]));
+        (await channel.events.single as CloseReceived).code,
+        anyOf([
+          1002, // protocol error
+          1005, // closed no status
+          1006, // closed abnormal
+        ]),
+      );
     });
 
     test('bad data after upgrade with write', () async {
@@ -44,12 +46,13 @@ void testPeerProtocolErrors(
       addTearDown(() => closeWebSocket(channel));
       channel.sendText('test');
       expect(
-          (await channel.events.single as CloseReceived).code,
-          anyOf([
-            1002, // protocol error
-            1005, // closed no status
-            1006, // closed abnormal
-          ]));
+        (await channel.events.single as CloseReceived).code,
+        anyOf([
+          1002, // protocol error
+          1005, // closed no status
+          1006, // closed abnormal
+        ]),
+      );
     });
   });
 }

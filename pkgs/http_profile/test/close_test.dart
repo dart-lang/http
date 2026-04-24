@@ -32,8 +32,10 @@ void main() {
 
       expect(
         backingMap['requestEndTimestamp'],
-        closeTo(DateTime.now().microsecondsSinceEpoch,
-            Duration.microsecondsPerSecond),
+        closeTo(
+          DateTime.now().microsecondsSinceEpoch,
+          Duration.microsecondsPerSecond,
+        ),
       );
     });
 
@@ -59,10 +61,7 @@ void main() {
     test('then mutate', () async {
       await profile.requestData.close();
 
-      expect(
-        () => profile.requestData.contentLength = 5,
-        throwsStateError,
-      );
+      expect(() => profile.requestData.contentLength = 5, throwsStateError);
     });
   });
 
@@ -79,8 +78,10 @@ void main() {
 
       expect(
         responseData['endTime'],
-        closeTo(DateTime.now().microsecondsSinceEpoch,
-            Duration.microsecondsPerSecond),
+        closeTo(
+          DateTime.now().microsecondsSinceEpoch,
+          Duration.microsecondsPerSecond,
+        ),
       );
     });
 
@@ -106,10 +107,7 @@ void main() {
     test('then mutate', () async {
       await profile.responseData.close();
 
-      expect(
-        () => profile.responseData.contentLength = 5,
-        throwsStateError,
-      );
+      expect(() => profile.responseData.contentLength = 5, throwsStateError);
     });
   });
 }

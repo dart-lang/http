@@ -71,8 +71,12 @@ abstract interface class Client {
   /// [encoding] defaults to [utf8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> post(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+  Future<Response> post(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  });
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL.
@@ -92,8 +96,12 @@ abstract interface class Client {
   /// [encoding] defaults to [utf8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> put(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+  Future<Response> put(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  });
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL.
@@ -113,14 +121,22 @@ abstract interface class Client {
   /// [encoding] defaults to [utf8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> patch(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+  Future<Response> patch(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  });
 
   /// Sends an HTTP DELETE request with the given headers to the given URL.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> delete(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+  Future<Response> delete(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+  });
 
   /// Sends an HTTP GET request with the given headers to the given URL and
   /// returns a Future that completes to the body of the response as a String.
@@ -225,8 +241,12 @@ Client? get zoneClient {
 /// >
 /// > See the
 /// > [Flutter Http Example](https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example).
-R runWithClient<R>(R Function() body, Client Function() clientFactory,
-        {ZoneSpecification? zoneSpecification}) =>
-    runZoned(body,
-        zoneValues: {#_clientToken: Zone.current.bindCallback(clientFactory)},
-        zoneSpecification: zoneSpecification);
+R runWithClient<R>(
+  R Function() body,
+  Client Function() clientFactory, {
+  ZoneSpecification? zoneSpecification,
+}) => runZoned(
+  body,
+  zoneValues: {#_clientToken: Zone.current.bindCallback(clientFactory)},
+  zoneSpecification: zoneSpecification,
+);

@@ -76,5 +76,5 @@ const List<int> boundaryCharacters = <int>[
   119,
   120,
   121,
-  122
+  122,
 ];

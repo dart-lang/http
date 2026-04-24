@@ -9,13 +9,22 @@ import 'package:http_parser/http_parser.dart';
 import 'byte_stream.dart';
 import 'multipart_file.dart';
 
-Future<MultipartFile> multipartFileFromPath(String field, String filePath,
-    {String? filename, MediaType? contentType}) async {
+Future<MultipartFile> multipartFileFromPath(
+  String field,
+  String filePath, {
+  String? filename,
+  MediaType? contentType,
+}) async {
   late var segments = Uri.file(filePath).pathSegments;
   filename ??= segments.isEmpty ? '' : segments.last;
   var file = File(filePath);
   var length = await file.length();
   var stream = ByteStream(file.openRead());
-  return MultipartFile(field, stream, length,
-      filename: filename, contentType: contentType);
+  return MultipartFile(
+    field,
+    stream,
+    length,
+    filename: filename,
+    contentType: contentType,
+  );
 }

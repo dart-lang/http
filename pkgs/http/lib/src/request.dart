@@ -40,8 +40,10 @@ class Request extends BaseRequest {
 
   @override
   set contentLength(int? value) {
-    throw UnsupportedError('Cannot set the contentLength property of '
-        'non-streaming Request objects.');
+    throw UnsupportedError(
+      'Cannot set the contentLength property of '
+      'non-streaming Request objects.',
+    );
   }
 
   /// The default encoding to use when converting between [bodyBytes] and
@@ -156,8 +158,10 @@ class Request extends BaseRequest {
     var contentType = _contentType;
     if (contentType == null ||
         contentType.mimeType != 'application/x-www-form-urlencoded') {
-      throw StateError('Cannot access the body fields of a Request without '
-          'content-type "application/x-www-form-urlencoded".');
+      throw StateError(
+        'Cannot access the body fields of a Request without '
+        'content-type "application/x-www-form-urlencoded".',
+      );
     }
 
     return Uri.splitQueryString(body, encoding: encoding);
@@ -168,16 +172,18 @@ class Request extends BaseRequest {
     if (contentType == null) {
       _contentType = MediaType('application', 'x-www-form-urlencoded');
     } else if (contentType.mimeType != 'application/x-www-form-urlencoded') {
-      throw StateError('Cannot set the body fields of a Request with '
-          'content-type "${contentType.mimeType}".');
+      throw StateError(
+        'Cannot set the body fields of a Request with '
+        'content-type "${contentType.mimeType}".',
+      );
     }
 
     body = mapToQuery(fields, encoding: encoding);
   }
 
   Request(super.method, super.url)
-      : _defaultEncoding = utf8,
-        _bodyBytes = Uint8List(0);
+    : _defaultEncoding = utf8,
+      _bodyBytes = Uint8List(0);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// containing the request body.

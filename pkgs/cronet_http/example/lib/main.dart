@@ -19,18 +19,22 @@ void main() {
   if (Platform.isAndroid) {
     WidgetsFlutterBinding.ensureInitialized();
     final engine = CronetEngine.build(
-        cacheMode: CacheMode.memory,
-        cacheMaxSize: 2 * 1024 * 1024,
-        userAgent: 'Book Agent');
+      cacheMode: CacheMode.memory,
+      cacheMaxSize: 2 * 1024 * 1024,
+      userAgent: 'Book Agent',
+    );
     httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
 
-  runApp(Provider<Client>(
+  runApp(
+    Provider<Client>(
       create: (_) => httpClient,
       child: const BookSearchApp(),
-      dispose: (_, client) => client.close()));
+      dispose: (_, client) => client.close(),
+    ),
+  );
 }
 
 class BookSearchApp extends StatelessWidget {
@@ -38,11 +42,11 @@ class BookSearchApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const MaterialApp(
-        // Remove the debug banner.
-        debugShowCheckedModeBanner: false,
-        title: 'Book Search',
-        home: HomePage(),
-      );
+    // Remove the debug banner.
+    debugShowCheckedModeBanner: false,
+    title: 'Book Search',
+    home: HomePage(),
+  );
 }
 
 class HomePage extends StatefulWidget {
@@ -67,11 +71,11 @@ class _HomePageState extends State<HomePage> {
   // The `get` call will automatically use the `client` configured in `main`.
   Future<List<Book>> _findMatchingBooks(String query) async {
     final response = await _client.get(
-      Uri.https(
-        'www.googleapis.com',
-        '/books/v1/volumes',
-        {'q': query, 'maxResults': '20', 'printType': 'books'},
-      ),
+      Uri.https('www.googleapis.com', '/books/v1/volumes', {
+        'q': query,
+        'maxResults': '20',
+        'printType': 'books',
+      }),
     );
 
     final json = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
@@ -101,8 +105,8 @@ class _HomePageState extends State<HomePage> {
     final searchResult = _books == null
         ? const Text('Please enter a query', style: TextStyle(fontSize: 24))
         : _books!.isNotEmpty
-            ? BookList(_books!)
-            : const Text('No results found', style: TextStyle(fontSize: 24));
+        ? BookList(_books!)
+        : const Text('No results found', style: TextStyle(fontSize: 24));
 
     return Scaffold(
       appBar: AppBar(title: const Text('Book Search')),
@@ -138,17 +142,19 @@ class BookList extends StatefulWidget {
 class _BookListState extends State<BookList> {
   @override
   Widget build(BuildContext context) => ListView.builder(
-        itemCount: widget.books.length,
-        itemBuilder: (context, index) => Card(
-          key: ValueKey(widget.books[index].title),
-          child: ListTile(
-            leading: Image(
-                image: HttpImageProvider(
-                    widget.books[index].imageUrl.replace(scheme: 'https'),
-                    client: context.read<Client>())),
-            title: Text(widget.books[index].title),
-            subtitle: Text(widget.books[index].description),
+    itemCount: widget.books.length,
+    itemBuilder: (context, index) => Card(
+      key: ValueKey(widget.books[index].title),
+      child: ListTile(
+        leading: Image(
+          image: HttpImageProvider(
+            widget.books[index].imageUrl.replace(scheme: 'https'),
+            client: context.read<Client>(),
           ),
         ),
-      );
+        title: Text(widget.books[index].title),
+        subtitle: Text(widget.books[index].description),
+      ),
+    ),
+  );
 }
