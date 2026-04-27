@@ -381,11 +381,11 @@ class CupertinoClient extends BaseClient {
         urlResponse = await responseCompleter.future;
       } finally {
         // If the request is aborted before the `NSUrlSessionTask` opens the
-        // `NSInputStream` attached to `NSMutableURLRequest.HTTPBodyStream`, then
-        // the task will not close the `NSInputStream`.
+        // `NSInputStream` attached to `NSMutableURLRequest.HTTPBodyStream`,
+        // then the task will not close the `NSInputStream`.
         //
-        // This will cause the Dart portion of the `NSInputStream` implementation
-        // to hang waiting for a close message.
+        // This will cause the Dart portion of the `NSInputStream`
+        // implementation to hang waiting for a close message.
         //
         // See https://github.com/dart-lang/native/issues/2333
         if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
