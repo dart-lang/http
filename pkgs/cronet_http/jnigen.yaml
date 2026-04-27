@@ -11,6 +11,7 @@ output:
 
 classes:
   - 'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy'
+  - 'java.lang.Throwable'
   - 'java.net.URL'
   - 'java.util.concurrent.Executors'
   - 'org.chromium.net.CronetEngine'

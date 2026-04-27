@@ -13,6 +13,10 @@ import 'jni/jni_bindings.dart' as jb;
 final _digitRegex = RegExp(r'^\d+$');
 const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
 
+class CronetClientException extends ClientException {
+  CronetClientException(super.message, Uri super.uri);
+}
+
 /// This class can be removed when `package:http` v2 is released.
 class _StreamedResponseWithUrl extends StreamedResponse
     implements BaseResponseWithUrl {

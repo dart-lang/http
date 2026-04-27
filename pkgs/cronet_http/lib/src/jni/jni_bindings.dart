@@ -3636,6 +3636,105 @@ final class $CronetEngine$Type$ extends jni$_.JType<CronetEngine> {
   }
 }
 
+/// from: `org.chromium.net.CallbackException`
+class CallbackException extends CronetException {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<CallbackException> $type;
+
+  @jni$_.internal
+  CallbackException.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      jni$_.JClass.forName(r'org/chromium/net/CallbackException');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<CallbackException?> nullableType =
+      $CallbackException$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<CallbackException> type = $CallbackException$Type$();
+}
+
+final class $CallbackException$NullableType$
+    extends jni$_.JType<CallbackException?> {
+  @jni$_.internal
+  const $CallbackException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/CallbackException;';
+
+  @jni$_.internal
+  @core$_.override
+  CallbackException? fromReference(jni$_.JReference reference) =>
+      reference.isNull
+          ? null
+          : CallbackException.fromReference(
+              reference,
+            );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $CronetException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<CallbackException?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 2;
+
+  @core$_.override
+  int get hashCode => ($CallbackException$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($CallbackException$NullableType$) &&
+        other is $CallbackException$NullableType$;
+  }
+}
+
+final class $CallbackException$Type$ extends jni$_.JType<CallbackException> {
+  @jni$_.internal
+  const $CallbackException$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/CallbackException;';
+
+  @jni$_.internal
+  @core$_.override
+  CallbackException fromReference(jni$_.JReference reference) =>
+      CallbackException.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $CronetException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<CallbackException?> get nullableType =>
+      const $CallbackException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 2;
+
+  @core$_.override
+  int get hashCode => ($CallbackException$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($CallbackException$Type$) &&
+        other is $CallbackException$Type$;
+  }
+}
+
 /// from: `org.chromium.net.CronetException`
 class CronetException extends jni$_.JObject {
   @jni$_.internal
@@ -3731,6 +3830,329 @@ final class $CronetException$Type$ extends jni$_.JType<CronetException> {
   bool operator ==(Object other) {
     return other.runtimeType == ($CronetException$Type$) &&
         other is $CronetException$Type$;
+  }
+}
+
+/// from: `org.chromium.net.NetworkException`
+class NetworkException extends CronetException {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<NetworkException> $type;
+
+  @jni$_.internal
+  NetworkException.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      jni$_.JClass.forName(r'org/chromium/net/NetworkException');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<NetworkException?> nullableType =
+      $NetworkException$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<NetworkException> type = $NetworkException$Type$();
+
+  /// from: `static public final int ERROR_HOSTNAME_NOT_RESOLVED`
+  static const ERROR_HOSTNAME_NOT_RESOLVED = 1;
+
+  /// from: `static public final int ERROR_INTERNET_DISCONNECTED`
+  static const ERROR_INTERNET_DISCONNECTED = 2;
+
+  /// from: `static public final int ERROR_NETWORK_CHANGED`
+  static const ERROR_NETWORK_CHANGED = 3;
+
+  /// from: `static public final int ERROR_TIMED_OUT`
+  static const ERROR_TIMED_OUT = 4;
+
+  /// from: `static public final int ERROR_CONNECTION_CLOSED`
+  static const ERROR_CONNECTION_CLOSED = 5;
+
+  /// from: `static public final int ERROR_CONNECTION_TIMED_OUT`
+  static const ERROR_CONNECTION_TIMED_OUT = 6;
+
+  /// from: `static public final int ERROR_CONNECTION_REFUSED`
+  static const ERROR_CONNECTION_REFUSED = 7;
+
+  /// from: `static public final int ERROR_CONNECTION_RESET`
+  static const ERROR_CONNECTION_RESET = 8;
+
+  /// from: `static public final int ERROR_ADDRESS_UNREACHABLE`
+  static const ERROR_ADDRESS_UNREACHABLE = 9;
+
+  /// from: `static public final int ERROR_QUIC_PROTOCOL_FAILED`
+  static const ERROR_QUIC_PROTOCOL_FAILED = 10;
+
+  /// from: `static public final int ERROR_OTHER`
+  static const ERROR_OTHER = 11;
+  static final _id_getErrorCode = _class.instanceMethodId(
+    r'getErrorCode',
+    r'()I',
+  );
+
+  static final _getErrorCode = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallIntMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract int getErrorCode()`
+  int getErrorCode() {
+    return _getErrorCode(
+            reference.pointer, _id_getErrorCode as jni$_.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_getCronetInternalErrorCode = _class.instanceMethodId(
+    r'getCronetInternalErrorCode',
+    r'()I',
+  );
+
+  static final _getCronetInternalErrorCode =
+      jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.JMethodIDPtr,
+                  )>>('globalEnv_CallIntMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>();
+
+  /// from: `public abstract int getCronetInternalErrorCode()`
+  int getCronetInternalErrorCode() {
+    return _getCronetInternalErrorCode(reference.pointer,
+            _id_getCronetInternalErrorCode as jni$_.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_immediatelyRetryable = _class.instanceMethodId(
+    r'immediatelyRetryable',
+    r'()Z',
+  );
+
+  static final _immediatelyRetryable = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallBooleanMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract boolean immediatelyRetryable()`
+  bool immediatelyRetryable() {
+    return _immediatelyRetryable(
+            reference.pointer, _id_immediatelyRetryable as jni$_.JMethodIDPtr)
+        .boolean;
+  }
+}
+
+final class $NetworkException$NullableType$
+    extends jni$_.JType<NetworkException?> {
+  @jni$_.internal
+  const $NetworkException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/NetworkException;';
+
+  @jni$_.internal
+  @core$_.override
+  NetworkException? fromReference(jni$_.JReference reference) =>
+      reference.isNull
+          ? null
+          : NetworkException.fromReference(
+              reference,
+            );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $CronetException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<NetworkException?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 2;
+
+  @core$_.override
+  int get hashCode => ($NetworkException$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($NetworkException$NullableType$) &&
+        other is $NetworkException$NullableType$;
+  }
+}
+
+final class $NetworkException$Type$ extends jni$_.JType<NetworkException> {
+  @jni$_.internal
+  const $NetworkException$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/NetworkException;';
+
+  @jni$_.internal
+  @core$_.override
+  NetworkException fromReference(jni$_.JReference reference) =>
+      NetworkException.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $CronetException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<NetworkException?> get nullableType =>
+      const $NetworkException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 2;
+
+  @core$_.override
+  int get hashCode => ($NetworkException$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($NetworkException$Type$) &&
+        other is $NetworkException$Type$;
+  }
+}
+
+/// from: `org.chromium.net.QuicException`
+class QuicException extends NetworkException {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<QuicException> $type;
+
+  @jni$_.internal
+  QuicException.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = jni$_.JClass.forName(r'org/chromium/net/QuicException');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<QuicException?> nullableType =
+      $QuicException$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<QuicException> type = $QuicException$Type$();
+  static final _id_getQuicDetailedErrorCode = _class.instanceMethodId(
+    r'getQuicDetailedErrorCode',
+    r'()I',
+  );
+
+  static final _getQuicDetailedErrorCode = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallIntMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract int getQuicDetailedErrorCode()`
+  int getQuicDetailedErrorCode() {
+    return _getQuicDetailedErrorCode(reference.pointer,
+            _id_getQuicDetailedErrorCode as jni$_.JMethodIDPtr)
+        .integer;
+  }
+}
+
+final class $QuicException$NullableType$ extends jni$_.JType<QuicException?> {
+  @jni$_.internal
+  const $QuicException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/QuicException;';
+
+  @jni$_.internal
+  @core$_.override
+  QuicException? fromReference(jni$_.JReference reference) => reference.isNull
+      ? null
+      : QuicException.fromReference(
+          reference,
+        );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $NetworkException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<QuicException?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 3;
+
+  @core$_.override
+  int get hashCode => ($QuicException$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($QuicException$NullableType$) &&
+        other is $QuicException$NullableType$;
+  }
+}
+
+final class $QuicException$Type$ extends jni$_.JType<QuicException> {
+  @jni$_.internal
+  const $QuicException$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/QuicException;';
+
+  @jni$_.internal
+  @core$_.override
+  QuicException fromReference(jni$_.JReference reference) =>
+      QuicException.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $NetworkException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<QuicException?> get nullableType =>
+      const $QuicException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 3;
+
+  @core$_.override
+  int get hashCode => ($QuicException$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($QuicException$Type$) &&
+        other is $QuicException$Type$;
   }
 }
 
