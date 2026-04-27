@@ -1,3 +1,7 @@
+## 4.1.3-wip
+
+* Replace reference to `dart:web` with `package:web` in README.md.
+
 ## 4.1.2
 
 * Fixed a bug where parsing quoted header values could require a regex to
