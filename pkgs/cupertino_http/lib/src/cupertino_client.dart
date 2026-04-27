@@ -78,6 +78,16 @@ class _StreamedResponseWithUrl extends StreamedResponse
 /// }
 /// ```
 class CupertinoClient extends BaseClient {
+  /// A map of [URLSessionTask.taskIdentifier] to a [Completer] that will be
+  /// completed when the task's `onComplete` callback is invoked (i.e. the task
+  /// is complete and will no longer invoke callbacks).
+  ///
+  /// The [Completer.future] is `await`ed to ensure that there is no possibility
+  /// of further callbacks being invoked after:
+  /// - [send] throws (e.g. too many redirects).
+  /// - the response stream subscription is cancelled.
+  final _tasks = <int, Completer<void>>{};
+
   URLSession? _urlSession;
 
   CupertinoClient._(this._urlSession);
@@ -185,6 +195,9 @@ class CupertinoClient extends BaseClient {
 
   @override
   void close() {
+    if (_tasks.isNotEmpty) {
+      throw StateError('cannot close with running requests');
+    }
     _urlSession?.finishTasksAndInvalidate();
     _urlSession = null;
   }
@@ -293,9 +306,10 @@ class CupertinoClient extends BaseClient {
 
     final task = urlSession.dataTaskWithRequest(urlRequest);
     final dataController = StreamController<Uint8List>(
-      onCancel: () {
+      onCancel: () async {
         cancelled = true;
         task.cancel();
+        await _tasks[task.taskIdentifier]?.future;
       },
     );
 
@@ -329,6 +343,7 @@ class CupertinoClient extends BaseClient {
             unawaited(profile?.responseData.close());
           }
           dataController.close();
+          _tasks.remove(task.taskIdentifier)!.complete();
         },
         onRedirect: (session, task, response, request) {
           numRedirects += 1;
@@ -349,64 +364,70 @@ class CupertinoClient extends BaseClient {
         },
       )
       ..resume();
+    _tasks[task.taskIdentifier] = Completer<void>();
 
-    if (request case Abortable(:final abortTrigger?)) {
-      unawaited(
-        abortTrigger.whenComplete(() {
-          cancelled = true;
-          task.cancel();
-        }),
-      );
-    }
-
-    final URLResponse urlResponse;
     try {
-      urlResponse = await responseCompleter.future;
-    } finally {
-      // If the request is aborted before the `NSUrlSessionTask` opens the
-      // `NSInputStream` attached to `NSMutableURLRequest.HTTPBodyStream`, then
-      // the task will not close the `NSInputStream`.
-      //
-      // This will cause the Dart portion of the `NSInputStream` implementation
-      // to hang waiting for a close message.
-      //
-      // See https://github.com/dart-lang/native/issues/2333
-      if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
-        nsStream?.close();
+      if (request case Abortable(:final abortTrigger?)) {
+        unawaited(
+          abortTrigger.whenComplete(() {
+            cancelled = true;
+            task.cancel();
+          }),
+        );
       }
+
+      final URLResponse urlResponse;
+      try {
+        urlResponse = await responseCompleter.future;
+      } finally {
+        // If the request is aborted before the `NSUrlSessionTask` opens the
+        // `NSInputStream` attached to `NSMutableURLRequest.HTTPBodyStream`, then
+        // the task will not close the `NSInputStream`.
+        //
+        // This will cause the Dart portion of the `NSInputStream` implementation
+        // to hang waiting for a close message.
+        //
+        // See https://github.com/dart-lang/native/issues/2333
+        if (nsStream?.streamStatus != NSStreamStatus.NSStreamStatusClosed) {
+          nsStream?.close();
+        }
+      }
+      unawaited(profile?.requestData.close());
+
+      final response = urlResponse as HTTPURLResponse;
+      if (request.followRedirects && numRedirects > request.maxRedirects) {
+        throw ClientException('Redirect limit exceeded', request.url);
+      }
+
+      final responseHeaders = _getResponseHeaders(response, request);
+      final contentLength = response.expectedContentLength == -1
+          ? null
+          : response.expectedContentLength;
+      final isRedirect = !request.followRedirects && numRedirects > 0;
+      final reasonPhrase = _findReasonPhrase(response.statusCode);
+
+      profile?.responseData
+        ?..contentLength = contentLength
+        ..headersCommaValues = responseHeaders
+        ..isRedirect = isRedirect
+        ..reasonPhrase = reasonPhrase
+        ..startTime = DateTime.now()
+        ..statusCode = response.statusCode;
+
+      return _StreamedResponseWithUrl(
+        dataController.stream,
+        response.statusCode,
+        url: lastRedirectUrl ?? request.url,
+        contentLength: contentLength,
+        reasonPhrase: reasonPhrase,
+        request: request,
+        isRedirect: isRedirect,
+        headers: responseHeaders,
+      );
+    } catch (e) {
+      await _tasks[task.taskIdentifier]?.future;
+      rethrow;
     }
-    unawaited(profile?.requestData.close());
-
-    final response = urlResponse as HTTPURLResponse;
-    if (request.followRedirects && numRedirects > request.maxRedirects) {
-      throw ClientException('Redirect limit exceeded', request.url);
-    }
-
-    final responseHeaders = _getResponseHeaders(response, request);
-    final contentLength = response.expectedContentLength == -1
-        ? null
-        : response.expectedContentLength;
-    final isRedirect = !request.followRedirects && numRedirects > 0;
-    final reasonPhrase = _findReasonPhrase(response.statusCode);
-
-    profile?.responseData
-      ?..contentLength = contentLength
-      ..headersCommaValues = responseHeaders
-      ..isRedirect = isRedirect
-      ..reasonPhrase = reasonPhrase
-      ..startTime = DateTime.now()
-      ..statusCode = response.statusCode;
-
-    return _StreamedResponseWithUrl(
-      dataController.stream,
-      response.statusCode,
-      url: lastRedirectUrl ?? request.url,
-      contentLength: contentLength,
-      reasonPhrase: reasonPhrase,
-      request: request,
-      isRedirect: isRedirect,
-      headers: responseHeaders,
-    );
   }
 
   Map<String, String> _getResponseHeaders(

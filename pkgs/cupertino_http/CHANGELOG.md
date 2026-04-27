@@ -2,7 +2,6 @@
 
 * **BREAKING CHANGE:** Remove `shouldUseExtendedBackgroundIdleMode` from
   `URLSessionConfiguration`.
-* **BREAKING CHANGE:** Require Dart 3.10+.
 * Support usage in Dart SDK projects.
 * Fix a bug where close reasons not containing valid UTF-8 would cause an
   uncatchable exception to be thrown.
@@ -12,6 +11,7 @@
 * **BREAKING:** Update minimum supported versions to iOS 15
   (released on September 20, 2022) and macOS 12 (released October 25, 2021).
 * Updated the example to not require Flutter.
+* Make `close` throw if there are pending requests when called.
 
 ## 2.4.0
 

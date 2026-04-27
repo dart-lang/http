@@ -1,6 +1,7 @@
 ## 1.6.1-wip
 
 * Clarified the behavior of response headers in API documentation comments.
+* Make it more clear that `close` must be called for correctness.
 
 ## 1.6.0
 
