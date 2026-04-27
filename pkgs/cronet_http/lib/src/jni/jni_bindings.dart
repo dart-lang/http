@@ -1048,6 +1048,544 @@ final class $UrlRequestCallbackProxy$Type$
   }
 }
 
+/// from: `java.lang.Throwable`
+class Throwable extends jni$_.JObject {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<Throwable> $type;
+
+  @jni$_.internal
+  Throwable.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = jni$_.JClass.forName(r'java/lang/Throwable');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<Throwable?> nullableType =
+      $Throwable$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<Throwable> type = $Throwable$Type$();
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Throwable() {
+    return Throwable.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as jni$_.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_new$1 = _class.constructorId(
+    r'(Ljava/lang/String;)V',
+  );
+
+  static final _new$1 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Throwable.new$1(
+    jni$_.JString? string,
+  ) {
+    final _$string = string?.reference ?? jni$_.jNullReference;
+    return Throwable.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as jni$_.JMethodIDPtr, _$string.pointer)
+        .reference);
+  }
+
+  static final _id_new$2 = _class.constructorId(
+    r'(Ljava/lang/String;Ljava/lang/Throwable;)V',
+  );
+
+  static final _new$2 = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Pointer<jni$_.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.String string, java.lang.Throwable throwable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Throwable.new$2(
+    jni$_.JString? string,
+    Throwable? throwable,
+  ) {
+    final _$string = string?.reference ?? jni$_.jNullReference;
+    final _$throwable = throwable?.reference ?? jni$_.jNullReference;
+    return Throwable.fromReference(_new$2(
+            _class.reference.pointer,
+            _id_new$2 as jni$_.JMethodIDPtr,
+            _$string.pointer,
+            _$throwable.pointer)
+        .reference);
+  }
+
+  static final _id_new$3 = _class.constructorId(
+    r'(Ljava/lang/Throwable;)V',
+  );
+
+  static final _new$3 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.Throwable throwable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Throwable.new$3(
+    Throwable? throwable,
+  ) {
+    final _$throwable = throwable?.reference ?? jni$_.jNullReference;
+    return Throwable.fromReference(_new$3(_class.reference.pointer,
+            _id_new$3 as jni$_.JMethodIDPtr, _$throwable.pointer)
+        .reference);
+  }
+
+  static final _id_addSuppressed = _class.instanceMethodId(
+    r'addSuppressed',
+    r'(Ljava/lang/Throwable;)V',
+  );
+
+  static final _addSuppressed = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public final void addSuppressed(java.lang.Throwable throwable)`
+  void addSuppressed(
+    Throwable? throwable,
+  ) {
+    final _$throwable = throwable?.reference ?? jni$_.jNullReference;
+    _addSuppressed(reference.pointer, _id_addSuppressed as jni$_.JMethodIDPtr,
+            _$throwable.pointer)
+        .check();
+  }
+
+  static final _id_fillInStackTrace = _class.instanceMethodId(
+    r'fillInStackTrace',
+    r'()Ljava/lang/Throwable;',
+  );
+
+  static final _fillInStackTrace = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.Throwable fillInStackTrace()`
+  /// The returned object must be released after use, by calling the [release] method.
+  Throwable? fillInStackTrace() {
+    return _fillInStackTrace(
+            reference.pointer, _id_fillInStackTrace as jni$_.JMethodIDPtr)
+        .object<Throwable?>(const $Throwable$NullableType$());
+  }
+
+  static final _id_getCause = _class.instanceMethodId(
+    r'getCause',
+    r'()Ljava/lang/Throwable;',
+  );
+
+  static final _getCause = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.Throwable getCause()`
+  /// The returned object must be released after use, by calling the [release] method.
+  Throwable? getCause() {
+    return _getCause(reference.pointer, _id_getCause as jni$_.JMethodIDPtr)
+        .object<Throwable?>(const $Throwable$NullableType$());
+  }
+
+  static final _id_getLocalizedMessage = _class.instanceMethodId(
+    r'getLocalizedMessage',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getLocalizedMessage = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String getLocalizedMessage()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JString? getLocalizedMessage() {
+    return _getLocalizedMessage(
+            reference.pointer, _id_getLocalizedMessage as jni$_.JMethodIDPtr)
+        .object<jni$_.JString?>(const jni$_.$JString$NullableType$());
+  }
+
+  static final _id_getMessage = _class.instanceMethodId(
+    r'getMessage',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getMessage = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String getMessage()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JString? getMessage() {
+    return _getMessage(reference.pointer, _id_getMessage as jni$_.JMethodIDPtr)
+        .object<jni$_.JString?>(const jni$_.$JString$NullableType$());
+  }
+
+  static final _id_getStackTrace = _class.instanceMethodId(
+    r'getStackTrace',
+    r'()[Ljava/lang/StackTraceElement;',
+  );
+
+  static final _getStackTrace = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.StackTraceElement[] getStackTrace()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JArray<jni$_.JObject?>? getStackTrace() {
+    return _getStackTrace(
+            reference.pointer, _id_getStackTrace as jni$_.JMethodIDPtr)
+        .object<jni$_.JArray<jni$_.JObject?>?>(
+            const jni$_.$JArray$NullableType$<jni$_.JObject?>(
+                jni$_.$JObject$NullableType$()));
+  }
+
+  static final _id_getSuppressed = _class.instanceMethodId(
+    r'getSuppressed',
+    r'()[Ljava/lang/Throwable;',
+  );
+
+  static final _getSuppressed = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.lang.Throwable[] getSuppressed()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JArray<Throwable?>? getSuppressed() {
+    return _getSuppressed(
+            reference.pointer, _id_getSuppressed as jni$_.JMethodIDPtr)
+        .object<jni$_.JArray<Throwable?>?>(
+            const jni$_.$JArray$NullableType$<Throwable?>(
+                $Throwable$NullableType$()));
+  }
+
+  static final _id_initCause = _class.instanceMethodId(
+    r'initCause',
+    r'(Ljava/lang/Throwable;)Ljava/lang/Throwable;',
+  );
+
+  static final _initCause = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public java.lang.Throwable initCause(java.lang.Throwable throwable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  Throwable? initCause(
+    Throwable? throwable,
+  ) {
+    final _$throwable = throwable?.reference ?? jni$_.jNullReference;
+    return _initCause(reference.pointer, _id_initCause as jni$_.JMethodIDPtr,
+            _$throwable.pointer)
+        .object<Throwable?>(const $Throwable$NullableType$());
+  }
+
+  static final _id_printStackTrace = _class.instanceMethodId(
+    r'printStackTrace',
+    r'()V',
+  );
+
+  static final _printStackTrace = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public void printStackTrace()`
+  void printStackTrace() {
+    _printStackTrace(
+            reference.pointer, _id_printStackTrace as jni$_.JMethodIDPtr)
+        .check();
+  }
+
+  static final _id_printStackTrace$1 = _class.instanceMethodId(
+    r'printStackTrace',
+    r'(Ljava/io/PrintStream;)V',
+  );
+
+  static final _printStackTrace$1 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void printStackTrace(java.io.PrintStream printStream)`
+  void printStackTrace$1(
+    jni$_.JObject? printStream,
+  ) {
+    final _$printStream = printStream?.reference ?? jni$_.jNullReference;
+    _printStackTrace$1(reference.pointer,
+            _id_printStackTrace$1 as jni$_.JMethodIDPtr, _$printStream.pointer)
+        .check();
+  }
+
+  static final _id_printStackTrace$2 = _class.instanceMethodId(
+    r'printStackTrace',
+    r'(Ljava/io/PrintWriter;)V',
+  );
+
+  static final _printStackTrace$2 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void printStackTrace(java.io.PrintWriter printWriter)`
+  void printStackTrace$2(
+    jni$_.JObject? printWriter,
+  ) {
+    final _$printWriter = printWriter?.reference ?? jni$_.jNullReference;
+    _printStackTrace$2(reference.pointer,
+            _id_printStackTrace$2 as jni$_.JMethodIDPtr, _$printWriter.pointer)
+        .check();
+  }
+
+  static final _id_setStackTrace = _class.instanceMethodId(
+    r'setStackTrace',
+    r'([Ljava/lang/StackTraceElement;)V',
+  );
+
+  static final _setStackTrace = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void setStackTrace(java.lang.StackTraceElement[] stackTraceElements)`
+  void setStackTrace(
+    jni$_.JArray<jni$_.JObject?>? stackTraceElements,
+  ) {
+    final _$stackTraceElements =
+        stackTraceElements?.reference ?? jni$_.jNullReference;
+    _setStackTrace(reference.pointer, _id_setStackTrace as jni$_.JMethodIDPtr,
+            _$stackTraceElements.pointer)
+        .check();
+  }
+
+  static final _id_toString$1 = _class.instanceMethodId(
+    r'toString',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _toString$1 = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String toString()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JString? toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as jni$_.JMethodIDPtr)
+        .object<jni$_.JString?>(const jni$_.$JString$NullableType$());
+  }
+}
+
+final class $Throwable$NullableType$ extends jni$_.JType<Throwable?> {
+  @jni$_.internal
+  const $Throwable$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Ljava/lang/Throwable;';
+
+  @jni$_.internal
+  @core$_.override
+  Throwable? fromReference(jni$_.JReference reference) => reference.isNull
+      ? null
+      : Throwable.fromReference(
+          reference,
+        );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const jni$_.$JObject$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<Throwable?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 1;
+
+  @core$_.override
+  int get hashCode => ($Throwable$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Throwable$NullableType$) &&
+        other is $Throwable$NullableType$;
+  }
+}
+
+final class $Throwable$Type$ extends jni$_.JType<Throwable> {
+  @jni$_.internal
+  const $Throwable$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Ljava/lang/Throwable;';
+
+  @jni$_.internal
+  @core$_.override
+  Throwable fromReference(jni$_.JReference reference) =>
+      Throwable.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const jni$_.$JObject$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<Throwable?> get nullableType => const $Throwable$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 1;
+
+  @core$_.override
+  int get hashCode => ($Throwable$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Throwable$Type$) && other is $Throwable$Type$;
+  }
+}
+
 /// from: `java.net.URL`
 class URL extends jni$_.JObject {
   @jni$_.internal
