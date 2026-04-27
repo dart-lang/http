@@ -1048,6 +1048,420 @@ final class $UrlRequestCallbackProxy$Type$
   }
 }
 
+/// from: `java.io.IOException`
+class IOException extends Exception {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<IOException> $type;
+
+  @jni$_.internal
+  IOException.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = jni$_.JClass.forName(r'java/io/IOException');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<IOException?> nullableType =
+      $IOException$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<IOException> type = $IOException$Type$();
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory IOException() {
+    return IOException.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as jni$_.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_new1 = _class.constructorId(
+    r'(Ljava/lang/String;)V',
+  );
+
+  static final _new1 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory IOException.new1(
+    jni$_.JString? string,
+  ) {
+    final _$string = string?.reference ?? jni$_.jNullReference;
+    return IOException.fromReference(_new1(_class.reference.pointer,
+            _id_new1 as jni$_.JMethodIDPtr, _$string.pointer)
+        .reference);
+  }
+
+  static final _id_new2 = _class.constructorId(
+    r'(Ljava/lang/String;Ljava/lang/Throwable;)V',
+  );
+
+  static final _new2 = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Pointer<jni$_.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.String string, java.lang.Throwable throwable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory IOException.new2(
+    jni$_.JString? string,
+    Throwable? throwable,
+  ) {
+    final _$string = string?.reference ?? jni$_.jNullReference;
+    final _$throwable = throwable?.reference ?? jni$_.jNullReference;
+    return IOException.fromReference(_new2(
+            _class.reference.pointer,
+            _id_new2 as jni$_.JMethodIDPtr,
+            _$string.pointer,
+            _$throwable.pointer)
+        .reference);
+  }
+
+  static final _id_new3 = _class.constructorId(
+    r'(Ljava/lang/Throwable;)V',
+  );
+
+  static final _new3 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.Throwable throwable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory IOException.new3(
+    Throwable? throwable,
+  ) {
+    final _$throwable = throwable?.reference ?? jni$_.jNullReference;
+    return IOException.fromReference(_new3(_class.reference.pointer,
+            _id_new3 as jni$_.JMethodIDPtr, _$throwable.pointer)
+        .reference);
+  }
+}
+
+final class $IOException$NullableType$ extends jni$_.JType<IOException?> {
+  @jni$_.internal
+  const $IOException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Ljava/io/IOException;';
+
+  @jni$_.internal
+  @core$_.override
+  IOException? fromReference(jni$_.JReference reference) => reference.isNull
+      ? null
+      : IOException.fromReference(
+          reference,
+        );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $Exception$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<IOException?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 3;
+
+  @core$_.override
+  int get hashCode => ($IOException$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($IOException$NullableType$) &&
+        other is $IOException$NullableType$;
+  }
+}
+
+final class $IOException$Type$ extends jni$_.JType<IOException> {
+  @jni$_.internal
+  const $IOException$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Ljava/io/IOException;';
+
+  @jni$_.internal
+  @core$_.override
+  IOException fromReference(jni$_.JReference reference) =>
+      IOException.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $Exception$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<IOException?> get nullableType =>
+      const $IOException$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 3;
+
+  @core$_.override
+  int get hashCode => ($IOException$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($IOException$Type$) &&
+        other is $IOException$Type$;
+  }
+}
+
+/// from: `java.lang.Exception`
+class Exception extends Throwable {
+  @jni$_.internal
+  @core$_.override
+  final jni$_.JType<Exception> $type;
+
+  @jni$_.internal
+  Exception.fromReference(
+    jni$_.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = jni$_.JClass.forName(r'java/lang/Exception');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<Exception?> nullableType =
+      $Exception$NullableType$();
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<Exception> type = $Exception$Type$();
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Exception() {
+    return Exception.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as jni$_.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_new1 = _class.constructorId(
+    r'(Ljava/lang/String;)V',
+  );
+
+  static final _new1 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Exception.new1(
+    jni$_.JString? string,
+  ) {
+    final _$string = string?.reference ?? jni$_.jNullReference;
+    return Exception.fromReference(_new1(_class.reference.pointer,
+            _id_new1 as jni$_.JMethodIDPtr, _$string.pointer)
+        .reference);
+  }
+
+  static final _id_new2 = _class.constructorId(
+    r'(Ljava/lang/String;Ljava/lang/Throwable;)V',
+  );
+
+  static final _new2 = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Pointer<jni$_.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.String string, java.lang.Throwable throwable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Exception.new2(
+    jni$_.JString? string,
+    Throwable? throwable,
+  ) {
+    final _$string = string?.reference ?? jni$_.jNullReference;
+    final _$throwable = throwable?.reference ?? jni$_.jNullReference;
+    return Exception.fromReference(_new2(
+            _class.reference.pointer,
+            _id_new2 as jni$_.JMethodIDPtr,
+            _$string.pointer,
+            _$throwable.pointer)
+        .reference);
+  }
+
+  static final _id_new3 = _class.constructorId(
+    r'(Ljava/lang/Throwable;)V',
+  );
+
+  static final _new3 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(java.lang.Throwable throwable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Exception.new3(
+    Throwable? throwable,
+  ) {
+    final _$throwable = throwable?.reference ?? jni$_.jNullReference;
+    return Exception.fromReference(_new3(_class.reference.pointer,
+            _id_new3 as jni$_.JMethodIDPtr, _$throwable.pointer)
+        .reference);
+  }
+}
+
+final class $Exception$NullableType$ extends jni$_.JType<Exception?> {
+  @jni$_.internal
+  const $Exception$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Ljava/lang/Exception;';
+
+  @jni$_.internal
+  @core$_.override
+  Exception? fromReference(jni$_.JReference reference) => reference.isNull
+      ? null
+      : Exception.fromReference(
+          reference,
+        );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $Throwable$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<Exception?> get nullableType => this;
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 2;
+
+  @core$_.override
+  int get hashCode => ($Exception$NullableType$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Exception$NullableType$) &&
+        other is $Exception$NullableType$;
+  }
+}
+
+final class $Exception$Type$ extends jni$_.JType<Exception> {
+  @jni$_.internal
+  const $Exception$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Ljava/lang/Exception;';
+
+  @jni$_.internal
+  @core$_.override
+  Exception fromReference(jni$_.JReference reference) =>
+      Exception.fromReference(
+        reference,
+      );
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType get superType => const $Throwable$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  jni$_.JType<Exception?> get nullableType => const $Exception$NullableType$();
+
+  @jni$_.internal
+  @core$_.override
+  final superCount = 2;
+
+  @core$_.override
+  int get hashCode => ($Exception$Type$).hashCode;
+
+  @core$_.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Exception$Type$) && other is $Exception$Type$;
+  }
+}
+
 /// from: `java.lang.Throwable`
 class Throwable extends jni$_.JObject {
   @jni$_.internal
@@ -4224,7 +4638,7 @@ final class $CallbackException$NullableType$
 
   @jni$_.internal
   @core$_.override
-  final superCount = 2;
+  final superCount = 5;
 
   @core$_.override
   int get hashCode => ($CallbackException$NullableType$).hashCode;
@@ -4261,7 +4675,7 @@ final class $CallbackException$Type$ extends jni$_.JType<CallbackException> {
 
   @jni$_.internal
   @core$_.override
-  final superCount = 2;
+  final superCount = 5;
 
   @core$_.override
   int get hashCode => ($CallbackException$Type$).hashCode;
@@ -4274,7 +4688,7 @@ final class $CallbackException$Type$ extends jni$_.JType<CallbackException> {
 }
 
 /// from: `org.chromium.net.CronetException`
-class CronetException extends jni$_.JObject {
+class CronetException extends IOException {
   @jni$_.internal
   @core$_.override
   final jni$_.JType<CronetException> $type;
@@ -4314,7 +4728,7 @@ final class $CronetException$NullableType$
         );
   @jni$_.internal
   @core$_.override
-  jni$_.JType get superType => const jni$_.$JObject$NullableType$();
+  jni$_.JType get superType => const $IOException$NullableType$();
 
   @jni$_.internal
   @core$_.override
@@ -4322,7 +4736,7 @@ final class $CronetException$NullableType$
 
   @jni$_.internal
   @core$_.override
-  final superCount = 1;
+  final superCount = 4;
 
   @core$_.override
   int get hashCode => ($CronetException$NullableType$).hashCode;
@@ -4350,7 +4764,7 @@ final class $CronetException$Type$ extends jni$_.JType<CronetException> {
       );
   @jni$_.internal
   @core$_.override
-  jni$_.JType get superType => const jni$_.$JObject$NullableType$();
+  jni$_.JType get superType => const $IOException$NullableType$();
 
   @jni$_.internal
   @core$_.override
@@ -4359,7 +4773,7 @@ final class $CronetException$Type$ extends jni$_.JType<CronetException> {
 
   @jni$_.internal
   @core$_.override
-  final superCount = 1;
+  final superCount = 4;
 
   @core$_.override
   int get hashCode => ($CronetException$Type$).hashCode;
@@ -4526,7 +4940,7 @@ final class $NetworkException$NullableType$
 
   @jni$_.internal
   @core$_.override
-  final superCount = 2;
+  final superCount = 5;
 
   @core$_.override
   int get hashCode => ($NetworkException$NullableType$).hashCode;
@@ -4563,7 +4977,7 @@ final class $NetworkException$Type$ extends jni$_.JType<NetworkException> {
 
   @jni$_.internal
   @core$_.override
-  final superCount = 2;
+  final superCount = 5;
 
   @core$_.override
   int get hashCode => ($NetworkException$Type$).hashCode;
@@ -4645,7 +5059,7 @@ final class $QuicException$NullableType$ extends jni$_.JType<QuicException?> {
 
   @jni$_.internal
   @core$_.override
-  final superCount = 3;
+  final superCount = 6;
 
   @core$_.override
   int get hashCode => ($QuicException$NullableType$).hashCode;
@@ -4682,7 +5096,7 @@ final class $QuicException$Type$ extends jni$_.JType<QuicException> {
 
   @jni$_.internal
   @core$_.override
-  final superCount = 3;
+  final superCount = 6;
 
   @core$_.override
   int get hashCode => ($QuicException$Type$).hashCode;

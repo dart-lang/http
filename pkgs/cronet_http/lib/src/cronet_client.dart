@@ -17,6 +17,76 @@ class CronetClientException extends ClientException {
   CronetClientException(super.message, Uri super.uri);
 }
 
+class CallbackException extends CronetClientException {
+  CallbackException(super.message, super.uri);
+}
+
+class NetowrkClientException extends CronetClientException {
+  final int cronetInternalErrorCode;
+  final int errorCode;
+  final bool immediatelyRetryable;
+
+  NetowrkClientException._(super.message, super.uri,
+      {required this.cronetInternalErrorCode,
+      required this.errorCode,
+      required this.immediatelyRetryable});
+}
+
+class QuicException extends NetowrkClientException {
+  final int quicDetailedErrorCode;
+
+  QuicException._(
+    String message,
+    Uri uri, {
+    required this.quicDetailedErrorCode,
+    required int errorCode,
+    required int cronetInternalErrorCode,
+    required bool immediatelyRetryable,
+  }) : super._(
+          message,
+          uri,
+          cronetInternalErrorCode: cronetInternalErrorCode,
+          errorCode: errorCode,
+          immediatelyRetryable: immediatelyRetryable,
+        );
+}
+
+ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
+  if (e == null) {
+    return CronetClientException('unknown exception', uri);
+  }
+  final message = e.getMessage()?.toDartString(releaseOriginal: true) ??
+      'unknown exception';
+  if (e.isA(jb.QuicException.type)) {
+    final quicException = e.as(jb.QuicException.type, releaseOriginal: true);
+    return QuicException._(
+      message,
+      uri,
+      quicDetailedErrorCode: quicException.getQuicDetailedErrorCode(),
+      errorCode: quicException.getErrorCode(),
+      cronetInternalErrorCode: quicException.getCronetInternalErrorCode(),
+      immediatelyRetryable: quicException.immediatelyRetryable(),
+    );
+  }
+  if (e.isA(jb.NetworkException.type)) {
+    final networkException =
+        e.as(jb.NetworkException.type, releaseOriginal: true);
+    return NetowrkClientException._(
+      message,
+      uri,
+      cronetInternalErrorCode: networkException.getCronetInternalErrorCode(),
+      errorCode: networkException.getErrorCode(),
+      immediatelyRetryable: networkException.immediatelyRetryable(),
+    );
+  }
+
+  if (e.isA(jb.CallbackException.type)) {
+    return CallbackException(message, uri);
+  }
+
+  return CronetClientException(message, uri);
+}
+
 /// This class can be removed when `package:http` v2 is released.
 class _StreamedResponseWithUrl extends StreamedResponse
     implements BaseResponseWithUrl {
@@ -434,8 +504,8 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         cronetException?.releasedBy(arena);
         if (responseStreamCancelled) return;
         responseStreamCancelled = true;
-        final error = ClientException(
-            'Cronet exception: ${cronetException.toString()}', request.url);
+        final error = _convertCronetException(cronetException, request.url);
+
         if (responseStream == null) {
           responseCompleter.completeError(error);
         } else {
