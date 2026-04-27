@@ -200,7 +200,7 @@ Client? get zoneClient {
 /// returns `Client()` then the default [Client] is used.
 ///
 /// Only fresh `Client` instances using the default constructor are impacted.
-/// HTTP requests made using `dart:io` or `dart:html` APIs,
+/// HTTP requests made using `dart:io` or `package:web` APIs,
 /// or using specifically instantiated client implementations, are not affected.
 ///
 /// If [runWithClient] is used and the environment defines
