@@ -1,6 +1,7 @@
 ## 1.6.1-wip
 
 * Clarified the behavior of response headers in API documentation comments.
+* Replace references to `dart:web` with `package:web` dartdoc.
 
 ## 1.6.0
 
