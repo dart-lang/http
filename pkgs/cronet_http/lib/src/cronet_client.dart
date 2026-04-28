@@ -119,7 +119,7 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
   }
 
   if (e.isA(jb.CallbackException.type)) {
-    return CallbackException(message, uri);
+    return CallbackException._(message, uri);
   }
 
   return CronetClientException(message, uri);
