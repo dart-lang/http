@@ -133,7 +133,7 @@ Future<void> testCronetExceptions() async {
               -370 // INVALID_HTTP_RESPONSE
               )
           .having((e) => e.toString(), 'toString',
-              startsWith('NetworkException:'))),
+              startsWith('NetworkClientException:'))),
     );
   });
 

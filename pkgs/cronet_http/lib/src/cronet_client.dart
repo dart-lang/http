@@ -82,19 +82,13 @@ class QuicException extends NetworkClientException {
   final int quicDetailedErrorCode;
 
   QuicException._(
-    String message,
-    Uri uri, {
+    super.message,
+    super.uri, {
     required this.quicDetailedErrorCode,
-    required int errorCode,
-    required int cronetInternalErrorCode,
-    required bool immediatelyRetryable,
-  }) : super._(
-          message,
-          uri,
-          cronetInternalErrorCode: cronetInternalErrorCode,
-          errorCode: errorCode,
-          immediatelyRetryable: immediatelyRetryable,
-        );
+    required super.errorCode,
+    required super.cronetInternalErrorCode,
+    required super.immediatelyRetryable,
+  }) : super._();
 
   @override
   String toString() => 'QuicException: $message, uri=$uri, '
