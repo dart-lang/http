@@ -11,11 +11,14 @@ void main() {
     test('no open quote', () {
       final scanner = StringScanner('test"');
       expect(
-          () => expectQuotedString(scanner),
-          throwsA(isA<StringScannerException>()
+        () => expectQuotedString(scanner),
+        throwsA(
+          isA<StringScannerException>()
               .having((e) => e.offset, 'offset', 0)
               .having((e) => e.message, 'message', 'expected quoted string.')
-              .having((e) => e.source, 'source', 'test"')));
+              .having((e) => e.source, 'source', 'test"'),
+        ),
+      );
       expect(scanner.isDone, isFalse);
       expect(scanner.lastMatch, null);
       expect(scanner.position, 0);
@@ -24,11 +27,14 @@ void main() {
     test('no close quote', () {
       final scanner = StringScanner('"test');
       expect(
-          () => expectQuotedString(scanner),
-          throwsA(isA<StringScannerException>()
+        () => expectQuotedString(scanner),
+        throwsA(
+          isA<StringScannerException>()
               .having((e) => e.offset, 'offset', 0)
               .having((e) => e.message, 'message', 'expected quoted string.')
-              .having((e) => e.source, 'source', '"test')));
+              .having((e) => e.source, 'source', '"test'),
+        ),
+      );
       expect(scanner.isDone, isFalse);
       expect(scanner.lastMatch, null);
       expect(scanner.position, 0);
@@ -53,11 +59,14 @@ void main() {
     test(r'bare \', () {
       final scanner = StringScanner(r'"bare: \"');
       expect(
-          () => expectQuotedString(scanner),
-          throwsA(isA<StringScannerException>()
+        () => expectQuotedString(scanner),
+        throwsA(
+          isA<StringScannerException>()
               .having((e) => e.offset, 'offset', 0)
               .having((e) => e.message, 'message', 'expected quoted string.')
-              .having((e) => e.source, 'source', r'"bare: \"')));
+              .having((e) => e.source, 'source', r'"bare: \"'),
+        ),
+      );
       expect(scanner.isDone, isFalse);
       expect(scanner.lastMatch, null);
       expect(scanner.position, 0);

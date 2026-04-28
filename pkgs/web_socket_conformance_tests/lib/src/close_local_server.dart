@@ -13,21 +13,23 @@ void hybridMain(StreamChannel<Object?> channel) async {
 
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
-      final webSocket = await WebSocketTransformer.upgrade(
-        request,
-      );
+      final webSocket = await WebSocketTransformer.upgrade(request);
 
-      webSocket.listen((event) {
-        channel.sink.add(event);
-      }, onDone: () {
-        webSocket.close(4123, 'server closed the connection');
-        channel.sink.add(webSocket.closeCode);
-        channel.sink.add(webSocket.closeReason);
-      });
+      webSocket.listen(
+        (event) {
+          channel.sink.add(event);
+        },
+        onDone: () {
+          webSocket.close(4123, 'server closed the connection');
+          channel.sink.add(webSocket.closeCode);
+          channel.sink.add(webSocket.closeReason);
+        },
+      );
     });
 
   channel.sink.add(server.port);
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }

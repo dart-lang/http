@@ -11,18 +11,20 @@ Future<void> hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;
 
   server = (await HttpServer.bind('localhost', 0))
-    ..transform(WebSocketTransformer())
-        .listen((WebSocket webSocket) => webSocket.listen((data) {
-              if (data == 'close') {
-                webSocket.close(3001, 'you asked me to');
-              } else {
-                webSocket.add(data);
-              }
-            }));
+    ..transform(WebSocketTransformer()).listen(
+      (WebSocket webSocket) => webSocket.listen((data) {
+        if (data == 'close') {
+          webSocket.close(3001, 'you asked me to');
+        } else {
+          webSocket.add(data);
+        }
+      }),
+    );
 
   channel.sink.add(server.port);
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }
 

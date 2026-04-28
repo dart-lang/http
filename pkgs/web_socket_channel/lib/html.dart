@@ -55,8 +55,10 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   @override
   Stream get stream => _controller.foreign.stream;
 
-  final _controller =
-      StreamChannelController<Object?>(sync: true, allowForeignErrors: false);
+  final _controller = StreamChannelController<Object?>(
+    sync: true,
+    allowForeignErrors: false,
+  );
 
   @override
   late final WebSocketSink sink = _HtmlWebSocketSink(this);
@@ -72,20 +74,22 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// received by this socket. It defaults to [BinaryType.list], which causes
   /// binary messages to be delivered as [Uint8List]s. If it's
   /// [BinaryType.blob], they're delivered as [Blob]s instead.
-  HtmlWebSocketChannel.connect(Object url,
-      {Iterable<String>? protocols, BinaryType? binaryType})
-      : this(
-          WebSocket(
-            url.toString(),
-            protocols?.map((e) => e.toJS).toList().toJS ?? JSArray(),
-          )..binaryType = (binaryType ?? BinaryType.list).value,
-        );
+  HtmlWebSocketChannel.connect(
+    Object url, {
+    Iterable<String>? protocols,
+    BinaryType? binaryType,
+  }) : this(
+         WebSocket(
+           url.toString(),
+           protocols?.map((e) => e.toJS).toList().toJS ?? JSArray(),
+         )..binaryType = (binaryType ?? BinaryType.list).value,
+       );
 
   /// Creates a channel wrapping [webSocket].
   ///
   /// The parameter [webSocket] should be a `package:web` [WebSocket] instance.
   HtmlWebSocketChannel(Object /*WebSocket*/ webSocket)
-      : innerWebSocket = webSocket as WebSocket {
+    : innerWebSocket = webSocket as WebSocket {
     _readyCompleter = Completer();
     if (innerWebSocket.readyState == WebSocket.OPEN) {
       _readyCompleter.complete();
@@ -93,8 +97,11 @@ class HtmlWebSocketChannel extends StreamChannelMixin
     } else {
       if (innerWebSocket.readyState == WebSocket.CLOSING ||
           innerWebSocket.readyState == WebSocket.CLOSED) {
-        _readyCompleter.completeError(WebSocketChannelException(
-            'WebSocket state error: ${innerWebSocket.readyState}'));
+        _readyCompleter.completeError(
+          WebSocketChannelException(
+            'WebSocket state error: ${innerWebSocket.readyState}',
+          ),
+        );
       }
       // The socket API guarantees that only a single open event will be
       // emitted.
@@ -146,20 +153,24 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
   /// Pipes user events to [innerWebSocket].
   void _listen() {
-    _controller.local.stream.listen((obj) => innerWebSocket.send(obj!.jsify()!),
-        onDone: () {
-      // On Chrome and possibly other browsers, `null` can't be passed as the
-      // default here. The actual arity of the function call must be correct or
-      // it will fail.
-      if ((_localCloseCode, _localCloseReason)
-          case (final closeCode?, final closeReason?)) {
-        innerWebSocket.close(closeCode, closeReason);
-      } else if (_localCloseCode case final closeCode?) {
-        innerWebSocket.close(closeCode);
-      } else {
-        innerWebSocket.close();
-      }
-    });
+    _controller.local.stream.listen(
+      (obj) => innerWebSocket.send(obj!.jsify()!),
+      onDone: () {
+        // On Chrome and possibly other browsers, `null` can't be passed as the
+        // default here. The actual arity of the function call must be
+        // correct or it will fail.
+        if ((_localCloseCode, _localCloseReason) case (
+          final closeCode?,
+          final closeReason?,
+        )) {
+          innerWebSocket.close(closeCode, closeReason);
+        } else if (_localCloseCode case final closeCode?) {
+          innerWebSocket.close(closeCode);
+        } else {
+          innerWebSocket.close();
+        }
+      },
+    );
   }
 }
 
@@ -169,8 +180,8 @@ class _HtmlWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
   final HtmlWebSocketChannel _channel;
 
   _HtmlWebSocketSink(HtmlWebSocketChannel channel)
-      : _channel = channel,
-        super(channel._controller.foreign.sink);
+    : _channel = channel,
+      super(channel._controller.foreign.sink);
 
   @override
   Future close([int? closeCode, String? closeReason]) {

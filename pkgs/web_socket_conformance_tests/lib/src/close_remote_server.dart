@@ -13,8 +13,9 @@ const _webSocketGuid = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 
 Future<void> _invalidCloseReason(HttpRequest request) async {
   final key = request.headers.value('Sec-WebSocket-Key');
-  final accept =
-      base64.encode(sha1.convert(utf8.encode(key! + _webSocketGuid)).bytes);
+  final accept = base64.encode(
+    sha1.convert(utf8.encode(key! + _webSocketGuid)).bytes,
+  );
   request.response
     ..statusCode = HttpStatus.switchingProtocols
     ..headers.add('Upgrade', 'websocket')
@@ -44,9 +45,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
         return;
       }
 
-      final webSocket = await WebSocketTransformer.upgrade(
-        request,
-      );
+      final webSocket = await WebSocketTransformer.upgrade(request);
 
       webSocket.listen((event) {
         channel.sink.add(event);
@@ -56,6 +55,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
 
   channel.sink.add(server.port);
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }

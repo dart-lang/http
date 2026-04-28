@@ -26,18 +26,21 @@ void main() {
     expect(response.statusCode, equals(200));
     final bytesString = await response.stream.bytesToString();
     expect(
-        bytesString,
-        parse(equals({
+      bytesString,
+      parse(
+        equals({
           'method': 'GET',
           'path': '/',
           'headers': {
             'content-type': ['text/plain; charset=utf-8'],
             'accept-encoding': ['gzip'],
             'user-agent': ['Dart'],
-            'content-length': ['5']
+            'content-length': ['5'],
           },
           'body': 'hello',
-        })));
+        }),
+      ),
+    );
   });
 
   test('without redirects', () async {
@@ -47,9 +50,13 @@ void main() {
 
     expect(response.statusCode, equals(302));
     expect(
-        response,
-        isA<http.BaseResponseWithUrl>()
-            .having((r) => r.url, 'url', serverUrl.resolve('/redirect')));
+      response,
+      isA<http.BaseResponseWithUrl>().having(
+        (r) => r.url,
+        'url',
+        serverUrl.resolve('/redirect'),
+      ),
+    );
   });
 
   test('with redirects', () async {
@@ -59,17 +66,27 @@ void main() {
     final bytesString = await response.stream.bytesToString();
     expect(bytesString, parse(containsPair('path', '/')));
     expect(
-        response,
-        isA<http.BaseResponseWithUrl>()
-            .having((r) => r.url, 'url', serverUrl.resolve('/')));
+      response,
+      isA<http.BaseResponseWithUrl>().having(
+        (r) => r.url,
+        'url',
+        serverUrl.resolve('/'),
+      ),
+    );
   });
 
   test('exceeding max redirects', () async {
     final request = http.Request('GET', serverUrl.resolve('/loop?1'))
       ..maxRedirects = 2;
     expect(
-        request.send(),
-        throwsA(isA<http.ClientException>()
-            .having((e) => e.message, 'message', 'Redirect limit exceeded')));
+      request.send(),
+      throwsA(
+        isA<http.ClientException>().having(
+          (e) => e.message,
+          'message',
+          'Redirect limit exceeded',
+        ),
+      ),
+    );
   });
 }

@@ -98,30 +98,42 @@ void testAll(
   bool supportsAbort = false,
 }) {
   testRequestBody(clientFactory);
-  testRequestBodyStreamed(clientFactory,
-      canStreamRequestBody: canStreamRequestBody);
+  testRequestBodyStreamed(
+    clientFactory,
+    canStreamRequestBody: canStreamRequestBody,
+  );
   testResponseBody(clientFactory, canStreamResponseBody: canStreamResponseBody);
-  testResponseBodyStreamed(clientFactory,
-      canStreamResponseBody: canStreamResponseBody);
+  testResponseBodyStreamed(
+    clientFactory,
+    canStreamResponseBody: canStreamResponseBody,
+  );
   testRequestHeaders(clientFactory);
   testRequestMethods(clientFactory, preservesMethodCase: preservesMethodCase);
-  testResponseHeaders(clientFactory,
-      supportsFoldedHeaders: supportsFoldedHeaders,
-      correctlyHandlesNullHeaderValues: correctlyHandlesNullHeaderValues);
+  testResponseHeaders(
+    clientFactory,
+    supportsFoldedHeaders: supportsFoldedHeaders,
+    correctlyHandlesNullHeaderValues: correctlyHandlesNullHeaderValues,
+  );
   testResponseStatusLine(clientFactory);
   testRedirect(clientFactory, redirectAlwaysAllowed: redirectAlwaysAllowed);
   testServerErrors(clientFactory);
   testCompressedResponseBody(clientFactory);
   testMultipleClients(clientFactory);
-  testMultipartRequests(clientFactory,
-      supportsMultipartRequest: supportsMultipartRequest);
+  testMultipartRequests(
+    clientFactory,
+    supportsMultipartRequest: supportsMultipartRequest,
+  );
   testClose(clientFactory);
   testIsolate(clientFactory, canWorkInIsolates: canWorkInIsolates);
   testRequestCookies(clientFactory, canSendCookieHeaders: canSendCookieHeaders);
-  testResponseCookies(clientFactory,
-      canReceiveSetCookieHeaders: canReceiveSetCookieHeaders);
-  testAbort(clientFactory,
-      supportsAbort: supportsAbort,
-      canStreamRequestBody: canStreamRequestBody,
-      canStreamResponseBody: canStreamResponseBody);
+  testResponseCookies(
+    clientFactory,
+    canReceiveSetCookieHeaders: canReceiveSetCookieHeaders,
+  );
+  testAbort(
+    clientFactory,
+    supportsAbort: supportsAbort,
+    canStreamRequestBody: canStreamRequestBody,
+    canStreamResponseBody: canStreamResponseBody,
+  );
 }

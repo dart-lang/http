@@ -58,18 +58,21 @@ void main() {
     var bytesString = await response.stream.bytesToString();
     client.close();
     expect(
-        bytesString,
-        parse(equals({
+      bytesString,
+      parse(
+        equals({
           'method': 'POST',
           'path': '/',
           'headers': {
             'content-type': ['application/json; charset=utf-8'],
             'accept-encoding': ['gzip'],
             'user-agent': ['Dart'],
-            'transfer-encoding': ['chunked']
+            'transfer-encoding': ['chunked'],
           },
-          'body': '{"hello": "world"}'
-        })));
+          'body': '{"hello": "world"}',
+        }),
+      ),
+    );
   });
 
   test('#send a StreamedRequest with a custom client', () async {
@@ -96,18 +99,21 @@ void main() {
     var bytesString = await response.stream.bytesToString();
     client.close();
     expect(
-        bytesString,
-        parse(equals({
+      bytesString,
+      parse(
+        equals({
           'method': 'POST',
           'path': '/',
           'headers': {
             'content-type': ['application/json; charset=utf-8'],
             'accept-encoding': ['gzip'],
             'user-agent': ['Dart'],
-            'transfer-encoding': ['chunked']
+            'transfer-encoding': ['chunked'],
           },
-          'body': '{"hello": "world"}'
-        })));
+          'body': '{"hello": "world"}',
+        }),
+      ),
+    );
   });
 
   test('#send with an invalid URL', () {
@@ -118,14 +124,21 @@ void main() {
         'application/json; charset=utf-8';
 
     expect(
-        client.send(request),
-        throwsA(allOf(
-            isA<http.ClientException>().having((e) => e.uri, 'uri', url),
-            isA<SocketException>().having(
-                (e) => e.toString(),
-                'SocketException.toString',
-                matches('ClientException with SocketException.*,'
-                    ' uri=http://http.invalid')))));
+      client.send(request),
+      throwsA(
+        allOf(
+          isA<http.ClientException>().having((e) => e.uri, 'uri', url),
+          isA<SocketException>().having(
+            (e) => e.toString(),
+            'SocketException.toString',
+            matches(
+              'ClientException with SocketException.*,'
+              ' uri=http://http.invalid',
+            ),
+          ),
+        ),
+      ),
+    );
 
     request.sink.add('{"hello": "world"}'.codeUnits);
     request.sink.close();
@@ -140,8 +153,9 @@ void main() {
     var bytesString = await response.stream.bytesToString();
     client.close();
 
-    var headers = (jsonDecode(bytesString) as Map<String, dynamic>)['headers']
-        as Map<String, dynamic>;
+    var headers =
+        (jsonDecode(bytesString) as Map<String, dynamic>)['headers']
+            as Map<String, dynamic>;
     var contentType = (headers['content-type'] as List).single;
     expect(contentType, startsWith('multipart/form-data; boundary='));
   });

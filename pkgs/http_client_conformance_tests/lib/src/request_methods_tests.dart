@@ -15,8 +15,10 @@ import 'request_methods_server_vm.dart'
 ///
 /// If [preservesMethodCase] is `false` then tests that assume that the
 /// [Client] preserves custom request method casing will be skipped.
-void testRequestMethods(Client Function() clientFactory,
-    {bool preservesMethodCase = true}) async {
+void testRequestMethods(
+  Client Function() clientFactory, {
+  bool preservesMethodCase = true,
+}) async {
   group('request methods', () {
     late Client client;
     late final String host;
@@ -33,27 +35,26 @@ void testRequestMethods(Client Function() clientFactory,
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('custom method - not case preserving', () async {
-      final response = await client.send(Request(
-        'CuStOm',
-        Uri.http(host, ''),
-      ));
+      final response = await client.send(Request('CuStOm', Uri.http(host, '')));
       await response.stream.drain<void>();
       final method = await httpServerQueue.next as String;
       expect('CUSTOM', method.toUpperCase());
     });
 
-    test('custom method case preserving', () async {
-      final response = await client.send(Request(
-        'CuStOm',
-        Uri.http(host, ''),
-      ));
-      await response.stream.drain<void>();
-      final method = await httpServerQueue.next as String;
-      expect('CuStOm', method);
-    },
-        skip: preservesMethodCase
-            ? false
-            : 'does not preserve HTTP request method case');
+    test(
+      'custom method case preserving',
+      () async {
+        final response = await client.send(
+          Request('CuStOm', Uri.http(host, '')),
+        );
+        await response.stream.drain<void>();
+        final method = await httpServerQueue.next as String;
+        expect('CuStOm', method);
+      },
+      skip: preservesMethodCase
+          ? false
+          : 'does not preserve HTTP request method case',
+    );
 
     test('delete', () async {
       await client.delete(Uri.http(host, ''));

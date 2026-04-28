@@ -44,8 +44,10 @@ void testRequestHeaders(Client Function() clientFactory) async {
     });
 
     test('test headers different only in case', () async {
-      await client
-          .get(Uri.http(host, ''), headers: {'foo': 'bar', 'Foo': 'Bar'});
+      await client.get(
+        Uri.http(host, ''),
+        headers: {'foo': 'bar', 'Foo': 'Bar'},
+      );
 
       final headers = await httpServerQueue.next as Map;
       // ignore: avoid_dynamic_calls
@@ -55,8 +57,10 @@ void testRequestHeaders(Client Function() clientFactory) async {
     test('multiple headers', () async {
       // The `http.Client` API does not offer a way of sending the name field
       // more than once.
-      await client
-          .get(Uri.http(host, ''), headers: {'fruit': 'apple', 'color': 'red'});
+      await client.get(
+        Uri.http(host, ''),
+        headers: {'fruit': 'apple', 'color': 'red'},
+      );
 
       final headers = await httpServerQueue.next as Map;
       expect(headers['fruit'], ['apple']);

@@ -108,10 +108,11 @@ abstract class BaseRequest {
   }
 
   BaseRequest(String method, this.url)
-      : method = _validateMethod(method),
-        headers = LinkedHashMap(
-            equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
-            hashCode: (key) => key.toLowerCase().hashCode);
+    : method = _validateMethod(method),
+      headers = LinkedHashMap(
+        equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
+        hashCode: (key) => key.toLowerCase().hashCode,
+      );
 
   /// Finalizes the HTTP request in preparation for it being sent.
   ///
@@ -145,22 +146,28 @@ abstract class BaseRequest {
       var stream = onDone(response.stream, client.close);
 
       if (response case BaseResponseWithUrl(:final url)) {
-        return StreamedResponseV2(ByteStream(stream), response.statusCode,
-            contentLength: response.contentLength,
-            request: response.request,
-            headers: response.headers,
-            isRedirect: response.isRedirect,
-            url: url,
-            persistentConnection: response.persistentConnection,
-            reasonPhrase: response.reasonPhrase);
+        return StreamedResponseV2(
+          ByteStream(stream),
+          response.statusCode,
+          contentLength: response.contentLength,
+          request: response.request,
+          headers: response.headers,
+          isRedirect: response.isRedirect,
+          url: url,
+          persistentConnection: response.persistentConnection,
+          reasonPhrase: response.reasonPhrase,
+        );
       } else {
-        return StreamedResponse(ByteStream(stream), response.statusCode,
-            contentLength: response.contentLength,
-            request: response.request,
-            headers: response.headers,
-            isRedirect: response.isRedirect,
-            persistentConnection: response.persistentConnection,
-            reasonPhrase: response.reasonPhrase);
+        return StreamedResponse(
+          ByteStream(stream),
+          response.statusCode,
+          contentLength: response.contentLength,
+          request: response.request,
+          headers: response.headers,
+          isRedirect: response.isRedirect,
+          persistentConnection: response.persistentConnection,
+          reasonPhrase: response.reasonPhrase,
+        );
       }
     } catch (_) {
       client.close();

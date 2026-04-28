@@ -19,12 +19,13 @@ const _months = [
   'Sep',
   'Oct',
   'Nov',
-  'Dec'
+  'Dec',
 ];
 
 final _shortWeekdayRegExp = RegExp(r'Mon|Tue|Wed|Thu|Fri|Sat|Sun');
-final _longWeekdayRegExp =
-    RegExp(r'Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday');
+final _longWeekdayRegExp = RegExp(
+  r'Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday',
+);
 final _monthRegExp = RegExp(r'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec');
 final _digitRegExp = RegExp(r'\d+');
 
@@ -98,8 +99,9 @@ DateTime parseHttpDate(String date) =>
       scanner.expect(' ');
       final month = _parseMonth(scanner);
       scanner.expect(' ');
-      final day =
-          scanner.scan(' ') ? _parseInt(scanner, 1) : _parseInt(scanner, 2);
+      final day = scanner.scan(' ')
+          ? _parseInt(scanner, 1)
+          : _parseInt(scanner, 2);
       scanner.expect(' ');
       final time = _parseTime(scanner);
       scanner.expect(' ');
@@ -147,8 +149,14 @@ DateTime _parseTime(StringScanner scanner) {
 /// Validates that [day] is a valid day for [month]. If it's not, throws a
 /// [FormatException].
 DateTime _makeDateTime(int year, int month, int day, DateTime time) {
-  final dateTime =
-      DateTime.utc(year, month, day, time.hour, time.minute, time.second);
+  final dateTime = DateTime.utc(
+    year,
+    month,
+    day,
+    time.hour,
+    time.minute,
+    time.second,
+  );
 
   // If [day] was too large, it will cause [month] to overflow.
   if (dateTime.month != month) {

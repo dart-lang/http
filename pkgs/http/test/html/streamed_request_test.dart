@@ -23,8 +23,10 @@ void main() {
 
       final response = await BrowserClient().send(request);
 
-      expect(await response.stream.toBytes(),
-          equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+      expect(
+        await response.stream.toBytes(),
+        equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+      );
     });
 
     test("works when it's not set", () async {
@@ -33,8 +35,10 @@ void main() {
       unawaited(request.sink.close());
 
       final response = await BrowserClient().send(request);
-      expect(await response.stream.toBytes(),
-          equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+      expect(
+        await response.stream.toBytes(),
+        equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+      );
     });
   }, skip: 'Need to fix server tests for browser');
 }

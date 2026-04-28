@@ -34,11 +34,14 @@ void main() {
     });
 
     test('failed connect', () async {
-      final channel =
-          AdapterWebSocketChannel.connect(Uri.parse('ws://notahost'));
+      final channel = AdapterWebSocketChannel.connect(
+        Uri.parse('ws://notahost'),
+      );
 
       await expectLater(
-          channel.ready, throwsA(isA<WebSocketChannelException>()));
+        channel.ready,
+        throwsA(isA<WebSocketChannelException>()),
+      );
     });
 
     test('good connect', () async {
@@ -90,7 +93,7 @@ void main() {
         'This count says:',
         [1, 2, 3],
         'And then:',
-        [4, 5, 6]
+        [4, 5, 6],
       ]);
     });
 
@@ -126,7 +129,7 @@ void main() {
         'This count says:',
         [1, 2, 3],
         'And then:',
-        [4, 5, 6]
+        [4, 5, 6],
       ]);
     });
 
@@ -143,7 +146,7 @@ void main() {
         'This count says:',
         [1, 2, 3],
         'And then:',
-        [4, 5, 6]
+        [4, 5, 6],
       ]);
     });
   });

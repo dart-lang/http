@@ -165,8 +165,10 @@ abstract class Connection {
     Settings settingsObject,
   ) {
     // Setup frame reading.
-    var incomingFrames =
-        FrameReader(incoming, acknowledgedSettings).startDecoding();
+    var incomingFrames = FrameReader(
+      incoming,
+      acknowledgedSettings,
+    ).startDecoding();
     _frameReaderSubscription = incomingFrames.listen(
       (Frame frame) {
         _catchProtocolErrors(() => _handleFrameImpl(frame));

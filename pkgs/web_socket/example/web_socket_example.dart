@@ -13,8 +13,9 @@ const requestId = 305;
 void main() async {
   // Whitebit public WebSocket API documentation:
   // https://docs.whitebit.com/public/websocket/
-  final socket =
-      await WebSocket.connect(Uri.parse('wss://api.whitebit.com/ws'));
+  final socket = await WebSocket.connect(
+    Uri.parse('wss://api.whitebit.com/ws'),
+  );
 
   socket.events.listen((e) {
     switch (e) {
@@ -36,9 +37,11 @@ void main() async {
         stderr.writeln('Connection to server closed');
     }
   });
-  socket.sendText(jsonEncode({
-    'id': requestId,
-    'method': 'candles_subscribe',
-    'params': ['BTC_USD', 5]
-  }));
+  socket.sendText(
+    jsonEncode({
+      'id': requestId,
+      'method': 'candles_subscribe',
+      'params': ['BTC_USD', 5],
+    }),
+  );
 }

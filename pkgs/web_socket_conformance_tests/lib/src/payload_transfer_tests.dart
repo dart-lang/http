@@ -15,8 +15,9 @@ import 'utils.dart';
 /// Tests that the [WebSocket] can correctly transmit and receive text
 /// and binary payloads.
 void testPayloadTransfer(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        webSocketFactory) {
+  Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+  webSocketFactory,
+) {
   group('payload transfer', () {
     late Uri uri;
     late StreamChannel<Object?> httpServerChannel;
@@ -56,8 +57,10 @@ void testPayloadTransfer(
       final webSocket = await webSocketFactory(uri);
       addTearDown(() => closeWebSocket(webSocket));
       webSocket.sendBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
-      expect(await webSocket.events.first,
-          BinaryDataReceived(Uint8List.fromList([1, 2, 3, 4, 5])));
+      expect(
+        await webSocket.events.first,
+        BinaryDataReceived(Uint8List.fromList([1, 2, 3, 4, 5])),
+      );
     });
 
     test('large string request and response', () async {
@@ -109,7 +112,7 @@ void testPayloadTransfer(
         BinaryDataReceived(Uint8List.fromList([1])),
         TextDataReceived('Hello!'),
         BinaryDataReceived(Uint8List.fromList([1, 2])),
-        TextDataReceived('Hello World!')
+        TextDataReceived('Hello World!'),
       ]);
     });
   });

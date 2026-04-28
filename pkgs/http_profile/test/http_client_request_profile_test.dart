@@ -59,10 +59,12 @@ void main() {
 
     expect(profile.events, isEmpty);
 
-    profile.addEvent(HttpProfileRequestEvent(
-      timestamp: DateTime.parse('2024-03-22'),
-      name: 'an event',
-    ));
+    profile.addEvent(
+      HttpProfileRequestEvent(
+        timestamp: DateTime.parse('2024-03-22'),
+        name: 'an event',
+      ),
+    );
 
     expect(eventsFromBackingMap.length, 1);
     final eventFromBackingMap = eventsFromBackingMap.last;
@@ -88,7 +90,7 @@ void main() {
     profile.connectionInfo = {
       'localPort': 1285,
       'remotePort': 443,
-      'connectionPoolId': '21x23'
+      'connectionPoolId': '21x23',
     };
 
     final connectionInfoFromRequestData =
@@ -112,7 +114,7 @@ void main() {
     profile.connectionInfo = {
       'localPort': 1285,
       'remotePort': 443,
-      'connectionPoolId': '21x23'
+      'connectionPoolId': '21x23',
     };
 
     final requestData = backingMap['requestData'] as Map<String, dynamic>;

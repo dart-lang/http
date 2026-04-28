@@ -6,7 +6,7 @@ repository: https://github.com/dart-lang/http/tree/master/pkgs/web_socket
 version: 1.0.1
 
 environment:
-  sdk: ^3.4.0
+  sdk: ^3.9.0
 
 dependencies:
   web: '>=0.5.0 <2.0.0'

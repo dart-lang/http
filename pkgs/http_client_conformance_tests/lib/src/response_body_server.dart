@@ -31,6 +31,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
 
   channel.sink.add(server.port);
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }

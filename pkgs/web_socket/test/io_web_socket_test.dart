@@ -21,16 +21,17 @@ void main() {
       server = (await io.HttpServer.bind('localhost', 0))
         ..listen((request) async {
           headers = request.headers;
-          await io.WebSocketTransformer.upgrade(request)
-              .then((webSocket) => webSocket.listen(webSocket.add));
+          await io.WebSocketTransformer.upgrade(
+            request,
+          ).then((webSocket) => webSocket.listen(webSocket.add));
         });
       uri = Uri.parse('ws://localhost:${server.port}');
     });
 
     test('custom headers', () async {
-      final ws = IOWebSocket.fromWebSocket(await io.WebSocket.connect(
-          uri.toString(),
-          headers: {'fruit': 'apple'}));
+      final ws = IOWebSocket.fromWebSocket(
+        await io.WebSocket.connect(uri.toString(), headers: {'fruit': 'apple'}),
+      );
       expect(headers['fruit'], ['apple']);
       ws.sendText('Hello World!');
       expect(await ws.events.first, TextDataReceived('Hello World!'));

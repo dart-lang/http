@@ -15,8 +15,9 @@ import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly receive Close frames from the peer.
 void testCloseRemote(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        channelFactory) {
+  Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+  channelFactory,
+) {
   group('remote close', () {
     late Uri uri;
     late StreamChannel<Object?> httpServerChannel;
@@ -36,8 +37,9 @@ void testCloseRemote(
       addTearDown(() => closeWebSocket(channel));
 
       channel.sendText('Please close');
-      expect(await channel.events.toList(),
-          [CloseReceived(4123, 'server closed the connection')]);
+      expect(await channel.events.toList(), [
+        CloseReceived(4123, 'server closed the connection'),
+      ]);
     });
 
     test('sendBytes after close received', () async {
@@ -45,10 +47,13 @@ void testCloseRemote(
       addTearDown(() => closeWebSocket(channel));
 
       channel.sendBytes(Uint8List(10));
-      expect(await channel.events.toList(),
-          [CloseReceived(4123, 'server closed the connection')]);
-      expect(() => channel.sendText('test'),
-          throwsA(isA<WebSocketConnectionClosed>()));
+      expect(await channel.events.toList(), [
+        CloseReceived(4123, 'server closed the connection'),
+      ]);
+      expect(
+        () => channel.sendText('test'),
+        throwsA(isA<WebSocketConnectionClosed>()),
+      );
     });
 
     test('sendText after close received', () async {
@@ -56,10 +61,13 @@ void testCloseRemote(
       addTearDown(() => closeWebSocket(channel));
 
       channel.sendText('Please close');
-      expect(await channel.events.toList(),
-          [CloseReceived(4123, 'server closed the connection')]);
-      expect(() => channel.sendText('test'),
-          throwsA(isA<WebSocketConnectionClosed>()));
+      expect(await channel.events.toList(), [
+        CloseReceived(4123, 'server closed the connection'),
+      ]);
+      expect(
+        () => channel.sendText('test'),
+        throwsA(isA<WebSocketConnectionClosed>()),
+      );
     });
 
     test('close after close received', () async {
@@ -67,28 +75,33 @@ void testCloseRemote(
       addTearDown(() => closeWebSocket(channel));
 
       channel.sendText('Please close');
-      expect(await channel.events.toList(),
-          [CloseReceived(4123, 'server closed the connection')]);
+      expect(await channel.events.toList(), [
+        CloseReceived(4123, 'server closed the connection'),
+      ]);
       await expectLater(
-          channel.close, throwsA(isA<WebSocketConnectionClosed>()));
+        channel.close,
+        throwsA(isA<WebSocketConnectionClosed>()),
+      );
     });
 
     test('with invalid reason', () async {
-      final channel =
-          await channelFactory(uri.replace(queryParameters: {'badutf8': ''}));
+      final channel = await channelFactory(
+        uri.replace(queryParameters: {'badutf8': ''}),
+      );
       addTearDown(() => closeWebSocket(channel));
 
       channel.sendText('Please close');
       final events = await channel.events.toList();
       expect(events, [
         isA<CloseReceived>().having(
-            (e) => e.code,
-            'code',
-            anyOf(
-              1005, // No Status Received.
-              1006, // Abnormal Closure.
-              1007, // Invalid Frame Payload Data.
-            ))
+          (e) => e.code,
+          'code',
+          anyOf(
+            1005, // No Status Received.
+            1006, // Abnormal Closure.
+            1007, // Invalid Frame Payload Data.
+          ),
+        ),
       ]);
     });
   });

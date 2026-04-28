@@ -14,8 +14,10 @@ import 'redirect_server_vm.dart'
 ///
 /// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
 /// to limit redirects will be skipped.
-void testRedirect(Client Function() clientFactory,
-    {bool redirectAlwaysAllowed = false}) {
+void testRedirect(
+  Client Function() clientFactory, {
+  bool redirectAlwaysAllowed = false,
+}) {
   group('redirects', () {
     late Client client;
     late final String host;
@@ -43,30 +45,38 @@ void testRedirect(Client Function() clientFactory,
       }
     });
 
-    test('disallow redirect', () async {
-      final request = Request('GET', Uri.http(host, '/1'))
-        ..followRedirects = false;
-      final response = await client.send(request);
-      await response.stream.drain<void>();
-      expect(response.statusCode, 302);
-      expect(response.isRedirect, true);
-      if (response case BaseResponseWithUrl(url: final url)) {
-        expect(url, Uri.http(host, '/1'));
-      }
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
+    test(
+      'disallow redirect',
+      () async {
+        final request = Request('GET', Uri.http(host, '/1'))
+          ..followRedirects = false;
+        final response = await client.send(request);
+        await response.stream.drain<void>();
+        expect(response.statusCode, 302);
+        expect(response.isRedirect, true);
+        if (response case BaseResponseWithUrl(url: final url)) {
+          expect(url, Uri.http(host, '/1'));
+        }
+      },
+      skip: redirectAlwaysAllowed ? 'redirects always allowed' : false,
+    );
 
-    test('disallow redirect, 0 maxRedirects', () async {
-      final request = Request('GET', Uri.http(host, '/1'))
-        ..followRedirects = false
-        ..maxRedirects = 0;
-      final response = await client.send(request);
-      await response.stream.drain<void>();
-      expect(response.statusCode, 302);
-      expect(response.isRedirect, true);
-      if (response case BaseResponseWithUrl(url: final url)) {
-        expect(url, Uri.http(host, '/1'));
-      }
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
+    test(
+      'disallow redirect, 0 maxRedirects',
+      () async {
+        final request = Request('GET', Uri.http(host, '/1'))
+          ..followRedirects = false
+          ..maxRedirects = 0;
+        final response = await client.send(request);
+        await response.stream.drain<void>();
+        expect(response.statusCode, 302);
+        expect(response.isRedirect, true);
+        if (response case BaseResponseWithUrl(url: final url)) {
+          expect(url, Uri.http(host, '/1'));
+        }
+      },
+      skip: redirectAlwaysAllowed ? 'redirects always allowed' : false,
+    );
 
     test('allow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
@@ -80,47 +90,68 @@ void testRedirect(Client Function() clientFactory,
       }
     });
 
-    test('allow redirect, 0 maxRedirects', () async {
-      final request = Request('GET', Uri.http(host, '/1'))
-        ..followRedirects = true
-        ..maxRedirects = 0;
-      expect(
+    test(
+      'allow redirect, 0 maxRedirects',
+      () async {
+        final request = Request('GET', Uri.http(host, '/1'))
+          ..followRedirects = true
+          ..maxRedirects = 0;
+        expect(
           client.send(request),
-          throwsA(isA<ClientException>()
-              .having((e) => e.message, 'message', 'Redirect limit exceeded')));
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
-
-    test('exactly the right number of allowed redirects', () async {
-      final request = Request('GET', Uri.http(host, '/5'))
-        ..followRedirects = true
-        ..maxRedirects = 5;
-      final response = await client.send(request);
-      await response.stream.drain<void>();
-      expect(response.statusCode, 200);
-      expect(response.isRedirect, false);
-      if (response case BaseResponseWithUrl(url: final url)) {
-        expect(url, Uri.http(host, '/'));
-      }
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
-
-    test('too many redirects', () async {
-      final request = Request('GET', Uri.http(host, '/6'))
-        ..followRedirects = true
-        ..maxRedirects = 5;
-      expect(
-          client.send(request),
-          throwsA(isA<ClientException>()
-              .having((e) => e.message, 'message', 'Redirect limit exceeded')));
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
+          throwsA(
+            isA<ClientException>().having(
+              (e) => e.message,
+              'message',
+              'Redirect limit exceeded',
+            ),
+          ),
+        );
+      },
+      skip: redirectAlwaysAllowed ? 'redirects always allowed' : false,
+    );
 
     test(
-      'loop',
+      'exactly the right number of allowed redirects',
       () async {
-        final request = Request('GET', Uri.http(host, '/loop'))
+        final request = Request('GET', Uri.http(host, '/5'))
           ..followRedirects = true
           ..maxRedirects = 5;
-        expect(client.send(request), throwsA(isA<ClientException>()));
+        final response = await client.send(request);
+        await response.stream.drain<void>();
+        expect(response.statusCode, 200);
+        expect(response.isRedirect, false);
+        if (response case BaseResponseWithUrl(url: final url)) {
+          expect(url, Uri.http(host, '/'));
+        }
       },
+      skip: redirectAlwaysAllowed ? 'redirects always allowed' : false,
     );
+
+    test(
+      'too many redirects',
+      () async {
+        final request = Request('GET', Uri.http(host, '/6'))
+          ..followRedirects = true
+          ..maxRedirects = 5;
+        expect(
+          client.send(request),
+          throwsA(
+            isA<ClientException>().having(
+              (e) => e.message,
+              'message',
+              'Redirect limit exceeded',
+            ),
+          ),
+        );
+      },
+      skip: redirectAlwaysAllowed ? 'redirects always allowed' : false,
+    );
+
+    test('loop', () async {
+      final request = Request('GET', Uri.http(host, '/loop'))
+        ..followRedirects = true
+        ..maxRedirects = 5;
+      expect(client.send(request), throwsA(isA<ClientException>()));
+    });
   });
 }

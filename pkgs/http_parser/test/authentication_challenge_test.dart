@@ -21,7 +21,8 @@ void main() {
 
     test('parses multiple challenges', () {
       final challenges = AuthenticationChallenge.parseHeader(
-          'scheme1 realm=fblthp, scheme2 realm=asdfg');
+        'scheme1 realm=fblthp, scheme2 realm=asdfg',
+      );
       expect(challenges, hasLength(2));
       expect(challenges.first.scheme, equals('scheme1'));
       expect(challenges.first.parameters, equals({'realm': 'fblthp'}));
@@ -31,16 +32,21 @@ void main() {
 
     test('parses multiple challenges with multiple parameters', () {
       final challenges = AuthenticationChallenge.parseHeader(
-          'scheme1 realm=fblthp, foo=bar, scheme2 realm=asdfg, baz=bang');
+        'scheme1 realm=fblthp, foo=bar, scheme2 realm=asdfg, baz=bang',
+      );
       expect(challenges, hasLength(2));
 
       expect(challenges.first.scheme, equals('scheme1'));
-      expect(challenges.first.parameters,
-          equals({'realm': 'fblthp', 'foo': 'bar'}));
+      expect(
+        challenges.first.parameters,
+        equals({'realm': 'fblthp', 'foo': 'bar'}),
+      );
 
       expect(challenges.last.scheme, equals('scheme2'));
-      expect(challenges.last.parameters,
-          equals({'realm': 'asdfg', 'baz': 'bang'}));
+      expect(
+        challenges.last.parameters,
+        equals({'realm': 'asdfg', 'baz': 'bang'}),
+      );
     });
   });
 }
@@ -51,7 +57,8 @@ void main() {
 /// [AuthenticationChallenge.parseHeader], since they use almost entirely
 /// separate code paths.
 void _singleChallengeTests(
-    AuthenticationChallenge Function(String challenge) parseChallenge) {
+  AuthenticationChallenge Function(String challenge) parseChallenge,
+) {
   test('parses a simple challenge', () {
     final challenge = parseChallenge('scheme realm=fblthp');
     expect(challenge.scheme, equals('scheme'));
@@ -61,24 +68,32 @@ void _singleChallengeTests(
   test('parses multiple parameters', () {
     final challenge = parseChallenge('scheme realm=fblthp, foo=bar, baz=qux');
     expect(challenge.scheme, equals('scheme'));
-    expect(challenge.parameters,
-        equals({'realm': 'fblthp', 'foo': 'bar', 'baz': 'qux'}));
+    expect(
+      challenge.parameters,
+      equals({'realm': 'fblthp', 'foo': 'bar', 'baz': 'qux'}),
+    );
   });
 
   test('parses quoted string parameters', () {
-    final challenge =
-        parseChallenge('scheme realm="fblthp, foo=bar", baz="qux"');
+    final challenge = parseChallenge(
+      'scheme realm="fblthp, foo=bar", baz="qux"',
+    );
     expect(challenge.scheme, equals('scheme'));
-    expect(challenge.parameters,
-        equals({'realm': 'fblthp, foo=bar', 'baz': 'qux'}));
+    expect(
+      challenge.parameters,
+      equals({'realm': 'fblthp, foo=bar', 'baz': 'qux'}),
+    );
   });
 
   test('parses quoted string parameters with surrounding spaces', () {
-    final challenge =
-        parseChallenge('scheme realm= "fblthp, foo=bar" , baz= "qux" ');
+    final challenge = parseChallenge(
+      'scheme realm= "fblthp, foo=bar" , baz= "qux" ',
+    );
     expect(challenge.scheme, equals('scheme'));
-    expect(challenge.parameters,
-        equals({'realm': 'fblthp, foo=bar', 'baz': 'qux'}));
+    expect(
+      challenge.parameters,
+      equals({'realm': 'fblthp, foo=bar', 'baz': 'qux'}),
+    );
   });
 
   test('normalizes the case of the scheme', () {
@@ -102,7 +117,8 @@ void _singleChallengeTests(
 
   test('allows extra whitespace', () {
     final challenge = parseChallenge(
-        '  scheme\t \trealm\t = \tfblthp\t, \tfoo\t\r\n =\tbar\t');
+      '  scheme\t \trealm\t = \tfblthp\t, \tfoo\t\r\n =\tbar\t',
+    );
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, equals({'realm': 'fblthp', 'foo': 'bar'}));
   });
@@ -133,7 +149,9 @@ void _singleChallengeTests(
     expect(() => parseChallenge('scheme realm'), throwsFormatException);
     expect(() => parseChallenge('scheme realm='), throwsFormatException);
     expect(
-        () => parseChallenge('scheme realm, foo=bar'), throwsFormatException);
+      () => parseChallenge('scheme realm, foo=bar'),
+      throwsFormatException,
+    );
   });
 
   test('requires a space after the scheme', () {
@@ -143,8 +161,12 @@ void _singleChallengeTests(
 
   test('disallows junk after the parameters', () {
     expect(
-        () => parseChallenge('scheme realm=fblthp foo'), throwsFormatException);
-    expect(() => parseChallenge('scheme realm=fblthp, foo=bar baz'),
-        throwsFormatException);
+      () => parseChallenge('scheme realm=fblthp foo'),
+      throwsFormatException,
+    );
+    expect(
+      () => parseChallenge('scheme realm=fblthp, foo=bar baz'),
+      throwsFormatException,
+    );
   });
 }

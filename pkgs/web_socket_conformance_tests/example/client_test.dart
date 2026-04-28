@@ -9,9 +9,10 @@ import 'package:web_socket/web_socket.dart';
 import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
 
 class MyWebSocketImplementation implements WebSocket {
-  static Future<MyWebSocketImplementation> connect(Uri uri,
-          {Iterable<String>? protocols}) async =>
-      MyWebSocketImplementation();
+  static Future<MyWebSocketImplementation> connect(
+    Uri uri, {
+    Iterable<String>? protocols,
+  }) async => MyWebSocketImplementation();
 
   @override
   Future<void> close([int? code, String? reason]) => throw UnimplementedError();

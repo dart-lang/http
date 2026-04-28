@@ -39,5 +39,5 @@ abstract mixin class Abortable implements BaseRequest {
 /// This exception is triggered when [Abortable.abortTrigger] completes.
 class RequestAbortedException extends ClientException {
   RequestAbortedException([Uri? uri])
-      : super('Request aborted by `abortTrigger`', uri);
+    : super('Request aborted by `abortTrigger`', uri);
 }

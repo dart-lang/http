@@ -15,8 +15,10 @@ import 'response_body_server_vm.dart'
 /// If [canStreamResponseBody] is `false` then tests that assume that the
 /// [Client] supports receiving HTTP responses with unbounded body sizes will
 /// be skipped
-void testResponseBody(Client Function() clientFactory,
-    {bool canStreamResponseBody = true}) {
+void testResponseBody(
+  Client Function() clientFactory, {
+  bool canStreamResponseBody = true,
+}) {
   group('response body', () {
     late Client client;
     late final String host;

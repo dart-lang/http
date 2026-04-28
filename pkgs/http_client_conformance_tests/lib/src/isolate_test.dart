@@ -14,38 +14,44 @@ import 'request_body_server_vm.dart'
 
 Future<void> _testPost(Client Function() clientFactory, String host) async {
   await Isolate.run(
-      () => clientFactory().post(Uri.http(host, ''), body: 'Hello World!'));
+    () => clientFactory().post(Uri.http(host, ''), body: 'Hello World!'),
+  );
 }
 
 /// Tests that the [Client] is usable from Isolates other than the main
 /// isolate.
 ///
 /// If [canWorkInIsolates] is `false` then the tests will be skipped.
-void testIsolate(Client Function() clientFactory,
-    {bool canWorkInIsolates = true}) {
-  group('test isolate', () {
-    late final String host;
-    late final StreamChannel<Object?> httpServerChannel;
-    late final StreamQueue<Object?> httpServerQueue;
+void testIsolate(
+  Client Function() clientFactory, {
+  bool canWorkInIsolates = true,
+}) {
+  group(
+    'test isolate',
+    () {
+      late final String host;
+      late final StreamChannel<Object?> httpServerChannel;
+      late final StreamQueue<Object?> httpServerQueue;
 
-    setUpAll(() async {
-      httpServerChannel = await startServer();
-      httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.nextAsInt}';
-    });
-    tearDownAll(() => httpServerChannel.sink.add(null));
+      setUpAll(() async {
+        httpServerChannel = await startServer();
+        httpServerQueue = StreamQueue(httpServerChannel.stream);
+        host = 'localhost:${await httpServerQueue.nextAsInt}';
+      });
+      tearDownAll(() => httpServerChannel.sink.add(null));
 
-    test('client.post() with string body', () async {
-      await _testPost(clientFactory, host);
+      test('client.post() with string body', () async {
+        await _testPost(clientFactory, host);
 
-      final serverReceivedContentType = await httpServerQueue.next;
-      final serverReceivedBody = await httpServerQueue.next;
+        final serverReceivedContentType = await httpServerQueue.next;
+        final serverReceivedBody = await httpServerQueue.next;
 
-      expect(serverReceivedContentType, ['text/plain; charset=utf-8']);
-      expect(serverReceivedBody, 'Hello World!');
-    });
-  },
-      skip: canWorkInIsolates
-          ? false
-          : 'does not work outside of the main isolate');
+        expect(serverReceivedContentType, ['text/plain; charset=utf-8']);
+        expect(serverReceivedBody, 'Hello World!');
+      });
+    },
+    skip: canWorkInIsolates
+        ? false
+        : 'does not work outside of the main isolate',
+  );
 }

@@ -64,12 +64,12 @@ final class RetryClient extends BaseClient {
     FutureOr<bool> Function(Object, StackTrace) whenError = _defaultWhenError,
     Duration Function(int retryCount) delay = _defaultDelay,
     FutureOr<void> Function(BaseRequest, BaseResponse?, int retryCount)?
-        onRetry,
-  })  : _retries = retries,
-        _when = when,
-        _whenError = whenError,
-        _delay = delay,
-        _onRetry = onRetry {
+    onRetry,
+  }) : _retries = retries,
+       _when = when,
+       _whenError = whenError,
+       _delay = delay,
+       _onRetry = onRetry {
     RangeError.checkNotNegative(_retries, 'retries');
   }
 
@@ -85,14 +85,14 @@ final class RetryClient extends BaseClient {
     FutureOr<bool> Function(BaseResponse) when = _defaultWhen,
     FutureOr<bool> Function(Object, StackTrace) whenError = _defaultWhenError,
     FutureOr<void> Function(BaseRequest, BaseResponse?, int retryCount)?
-        onRetry,
+    onRetry,
   }) : this._withDelays(
-          inner,
-          delays.toList(),
-          when: when,
-          whenError: whenError,
-          onRetry: onRetry,
-        );
+         inner,
+         delays.toList(),
+         when: when,
+         whenError: whenError,
+         onRetry: onRetry,
+       );
 
   RetryClient._withDelays(
     Client inner,
@@ -101,13 +101,13 @@ final class RetryClient extends BaseClient {
     required FutureOr<bool> Function(Object, StackTrace) whenError,
     required FutureOr<void> Function(BaseRequest, BaseResponse?, int)? onRetry,
   }) : this(
-          inner,
-          retries: delays.length,
-          delay: (retryCount) => delays[retryCount],
-          when: when,
-          whenError: whenError,
-          onRetry: onRetry,
-        );
+         inner,
+         retries: delays.length,
+         delay: (retryCount) => delays[retryCount],
+         when: when,
+         whenError: whenError,
+         onRetry: onRetry,
+       );
 
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
@@ -167,10 +167,12 @@ final class RetryClient extends BaseClient {
       ..maxRedirects = original.maxRedirects
       ..persistentConnection = original.persistentConnection;
 
-    body.listen(request.sink.add,
-        onError: request.sink.addError,
-        onDone: request.sink.close,
-        cancelOnError: true);
+    body.listen(
+      request.sink.add,
+      onError: request.sink.addError,
+      onDone: request.sink.close,
+      cancelOnError: true,
+    );
 
     return request;
   }

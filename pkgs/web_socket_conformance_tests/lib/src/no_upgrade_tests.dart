@@ -13,8 +13,9 @@ import 'no_upgrade_server_vm.dart'
 /// Tests that the [WebSocket] generates the correct exception if the peer
 /// closes the HTTP connection before WebSocket upgrade.
 void testNoUpgrade(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        channelFactory) {
+  Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+  channelFactory,
+) {
   group('no upgrade', () {
     late final Uri uri;
     late final StreamChannel<Object?> httpServerChannel;
@@ -29,7 +30,9 @@ void testNoUpgrade(
 
     test('close before upgrade', () async {
       await expectLater(
-          () => channelFactory(uri), throwsA(isA<WebSocketException>()));
+        () => channelFactory(uri),
+        throwsA(isA<WebSocketException>()),
+      );
     });
   });
 }

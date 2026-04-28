@@ -17,14 +17,16 @@ class StreamedResponse extends BaseResponse {
   /// Creates a new streaming response.
   ///
   /// [stream] should be a single-subscription stream.
-  StreamedResponse(Stream<List<int>> stream, super.statusCode,
-      {super.contentLength,
-      super.request,
-      super.headers,
-      super.isRedirect,
-      super.persistentConnection,
-      super.reasonPhrase})
-      : stream = toByteStream(stream);
+  StreamedResponse(
+    Stream<List<int>> stream,
+    super.statusCode, {
+    super.contentLength,
+    super.request,
+    super.headers,
+    super.isRedirect,
+    super.persistentConnection,
+    super.reasonPhrase,
+  }) : stream = toByteStream(stream);
 }
 
 /// This class is private to `package:http` and will be removed when
@@ -34,12 +36,15 @@ class StreamedResponseV2 extends StreamedResponse
   @override
   final Uri url;
 
-  StreamedResponseV2(super.stream, super.statusCode,
-      {required this.url,
-      super.contentLength,
-      super.request,
-      super.headers,
-      super.isRedirect,
-      super.persistentConnection,
-      super.reasonPhrase});
+  StreamedResponseV2(
+    super.stream,
+    super.statusCode, {
+    required this.url,
+    super.contentLength,
+    super.request,
+    super.headers,
+    super.isRedirect,
+    super.persistentConnection,
+    super.reasonPhrase,
+  });
 }

@@ -30,39 +30,49 @@ class Response extends BaseResponse {
   String get body => _encodingForHeaders(headers).decode(bodyBytes);
 
   /// Creates a new HTTP response with a string body.
-  Response(String body, int statusCode,
-      {BaseRequest? request,
-      Map<String, String> headers = const {},
-      bool isRedirect = false,
-      bool persistentConnection = true,
-      String? reasonPhrase})
-      : this.bytes(_encodingForHeaders(headers).encode(body), statusCode,
-            request: request,
-            headers: headers,
-            isRedirect: isRedirect,
-            persistentConnection: persistentConnection,
-            reasonPhrase: reasonPhrase);
+  Response(
+    String body,
+    int statusCode, {
+    BaseRequest? request,
+    Map<String, String> headers = const {},
+    bool isRedirect = false,
+    bool persistentConnection = true,
+    String? reasonPhrase,
+  }) : this.bytes(
+         _encodingForHeaders(headers).encode(body),
+         statusCode,
+         request: request,
+         headers: headers,
+         isRedirect: isRedirect,
+         persistentConnection: persistentConnection,
+         reasonPhrase: reasonPhrase,
+       );
 
   /// Create a new HTTP response with a byte array body.
-  Response.bytes(List<int> bodyBytes, super.statusCode,
-      {super.request,
-      super.headers,
-      super.isRedirect,
-      super.persistentConnection,
-      super.reasonPhrase})
-      : bodyBytes = toUint8List(bodyBytes),
-        super(contentLength: bodyBytes.length);
+  Response.bytes(
+    List<int> bodyBytes,
+    super.statusCode, {
+    super.request,
+    super.headers,
+    super.isRedirect,
+    super.persistentConnection,
+    super.reasonPhrase,
+  }) : bodyBytes = toUint8List(bodyBytes),
+       super(contentLength: bodyBytes.length);
 
   /// Creates a new HTTP response by waiting for the full body to become
   /// available from a [StreamedResponse].
   static Future<Response> fromStream(StreamedResponse response) async {
     final body = await response.stream.toBytes();
-    return Response.bytes(body, response.statusCode,
-        request: response.request,
-        headers: response.headers,
-        isRedirect: response.isRedirect,
-        persistentConnection: response.persistentConnection,
-        reasonPhrase: response.reasonPhrase);
+    return Response.bytes(
+      body,
+      response.statusCode,
+      request: response.request,
+      headers: response.headers,
+      isRedirect: response.isRedirect,
+      persistentConnection: response.persistentConnection,
+      reasonPhrase: response.reasonPhrase,
+    );
   }
 }
 

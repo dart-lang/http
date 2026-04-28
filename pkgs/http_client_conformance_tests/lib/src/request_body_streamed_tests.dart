@@ -19,52 +19,64 @@ import 'request_body_streamed_server_vm.dart'
 /// If [canStreamRequestBody] is `false` then tests that assume that the
 /// [Client] supports sending HTTP requests with unbounded body sizes will be
 /// skipped.
-void testRequestBodyStreamed(Client Function() clientFactory,
-    {bool canStreamRequestBody = true}) {
-  group('streamed requests', () {
-    late Client client;
-    late String host;
-    late StreamChannel<Object?> httpServerChannel;
-    late StreamQueue<Object?> httpServerQueue;
+void testRequestBodyStreamed(
+  Client Function() clientFactory, {
+  bool canStreamRequestBody = true,
+}) {
+  group(
+    'streamed requests',
+    () {
+      late Client client;
+      late String host;
+      late StreamChannel<Object?> httpServerChannel;
+      late StreamQueue<Object?> httpServerQueue;
 
-    setUp(() async {
-      client = clientFactory();
-      httpServerChannel = await startServer();
-      httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.nextAsInt}';
-    });
-    tearDown(() {
-      client.close();
-      httpServerChannel.sink.add(null);
-    });
+      setUp(() async {
+        client = clientFactory();
+        httpServerChannel = await startServer();
+        httpServerQueue = StreamQueue(httpServerChannel.stream);
+        host = 'localhost:${await httpServerQueue.nextAsInt}';
+      });
+      tearDown(() {
+        client.close();
+        httpServerChannel.sink.add(null);
+      });
 
-    test('client.send() with StreamedRequest', () async {
-      // The client continuously streams data to the server until
-      // instructed to stop (by setting `clientWriting` to `false`).
-      // The server sets `serverWriting` to `false` after it has
-      // already received some data.
-      //
-      // This ensures that the client supports streamed data sends.
-      var lastReceived = 0;
+      test('client.send() with StreamedRequest', () async {
+        // The client continuously streams data to the server until
+        // instructed to stop (by setting `clientWriting` to `false`).
+        // The server sets `serverWriting` to `false` after it has
+        // already received some data.
+        //
+        // This ensures that the client supports streamed data sends.
+        var lastReceived = 0;
 
-      Stream<String> count() async* {
-        var i = 0;
-        unawaited(
-            httpServerQueue.next.then((value) => lastReceived = value as int));
-        do {
-          yield '${i++}\n';
-          // Let the event loop run.
-          await Future<void>.delayed(const Duration());
-        } while (lastReceived < 1000);
-      }
+        Stream<String> count() async* {
+          var i = 0;
+          unawaited(
+            httpServerQueue.next.then((value) => lastReceived = value as int),
+          );
+          do {
+            yield '${i++}\n';
+            // Let the event loop run.
+            await Future<void>.delayed(const Duration());
+          } while (lastReceived < 1000);
+        }
 
-      final request = StreamedRequest('POST', Uri.http(host, ''));
-      const Utf8Encoder().bind(count()).listen(request.sink.add,
-          onError: request.sink.addError, onDone: request.sink.close);
-      final response = await client.send(request);
-      await response.stream.drain<void>();
+        final request = StreamedRequest('POST', Uri.http(host, ''));
+        const Utf8Encoder()
+            .bind(count())
+            .listen(
+              request.sink.add,
+              onError: request.sink.addError,
+              onDone: request.sink.close,
+            );
+        final response = await client.send(request);
+        await response.stream.drain<void>();
 
-      expect(lastReceived, greaterThanOrEqualTo(1000));
-    });
-  }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
+        expect(lastReceived, greaterThanOrEqualTo(1000));
+      });
+    },
+    skip: canStreamRequestBody ? false : 'does not stream request bodies',
+  );
 }

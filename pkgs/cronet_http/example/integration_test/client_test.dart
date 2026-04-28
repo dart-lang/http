@@ -49,7 +49,9 @@ Future<void> testConformance() async {
     testAll(
       () {
         final engine = CronetEngine.build(
-            cacheMode: CacheMode.disabled, userAgent: 'Test Agent (Future)');
+          cacheMode: CacheMode.disabled,
+          userAgent: 'Test Agent (Future)',
+        );
         return CronetClient.fromCronetEngine(engine);
       },
       canStreamRequestBody: false,
@@ -70,8 +72,10 @@ Future<void> testCronetStreamedResponse() async {
         ..listen((request) async {
           await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.headers
-              .set('Cache-Control', 'public, max-age=30, immutable');
+          request.response.headers.set(
+            'Cache-Control',
+            'public, max-age=30, immutable',
+          );
           request.response.headers.set('etag', '12345');
           await request.response.close();
         });
@@ -101,7 +105,9 @@ Future<void> testCronetStreamedResponse() async {
 
     test('wasCached', () async {
       final engine = CronetEngine.build(
-          cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024);
+        cacheMode: CacheMode.memory,
+        cacheMaxSize: 1024 * 1024,
+      );
       final client = CronetClient.fromCronetEngine(engine);
 
       final response1 = await client.send(Request('GET', serverUri));

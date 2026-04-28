@@ -76,10 +76,11 @@ class MediaType {
       });
 
   MediaType(String type, String subtype, [Map<String, String>? parameters])
-      : type = type.toLowerCase(),
-        subtype = subtype.toLowerCase(),
-        parameters = UnmodifiableMapView(
-            parameters == null ? {} : CaseInsensitiveMap.from(parameters));
+    : type = type.toLowerCase(),
+      subtype = subtype.toLowerCase(),
+      parameters = UnmodifiableMapView(
+        parameters == null ? {} : CaseInsensitiveMap.from(parameters),
+      );
 
   /// Returns a copy of this [MediaType] with some fields altered.
   ///
@@ -90,18 +91,21 @@ class MediaType {
   /// [parameters] overwrites and adds to the corresponding field. If
   /// [clearParameters] is passed, it replaces the corresponding field entirely
   /// instead.
-  MediaType change(
-      {String? type,
-      String? subtype,
-      String? mimeType,
-      Map<String, String>? parameters,
-      bool clearParameters = false}) {
+  MediaType change({
+    String? type,
+    String? subtype,
+    String? mimeType,
+    Map<String, String>? parameters,
+    bool clearParameters = false,
+  }) {
     if (mimeType != null) {
       if (type != null) {
         throw ArgumentError('You may not pass both [type] and [mimeType].');
       } else if (subtype != null) {
-        throw ArgumentError('You may not pass both [subtype] and '
-            '[mimeType].');
+        throw ArgumentError(
+          'You may not pass both [subtype] and '
+          '[mimeType].',
+        );
       }
 
       final segments = mimeType.split('/');
@@ -142,7 +146,8 @@ class MediaType {
         buffer
           ..write('"')
           ..write(
-              value.replaceAllMapped(_escapedChar, (match) => '\\${match[0]}'))
+            value.replaceAllMapped(_escapedChar, (match) => '\\${match[0]}'),
+          )
           ..write('"');
       } else {
         buffer.write(value);

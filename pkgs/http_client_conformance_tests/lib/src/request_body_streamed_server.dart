@@ -27,16 +27,17 @@ void hybridMain(StreamChannel<Object?> channel) async {
       await const LineSplitter()
           .bind(const Utf8Decoder().bind(request))
           .forEach((s) {
-        final lastReceived = int.parse(s.trim());
-        if (lastReceived == 1000) {
-          channel.sink.add(lastReceived);
-        }
-      });
+            final lastReceived = int.parse(s.trim());
+            if (lastReceived == 1000) {
+              channel.sink.add(lastReceived);
+            }
+          });
       unawaited(request.response.close());
     });
 
   channel.sink.add(server.port);
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }

@@ -20,11 +20,13 @@ void main() {
     late HttpServer subServer2;
     late HttpServer subServer3;
 
-    setUp(() => Future.wait([
-          HttpServer.bind('localhost', 0).then((server) => subServer1 = server),
-          HttpServer.bind('localhost', 0).then((server) => subServer2 = server),
-          HttpServer.bind('localhost', 0).then((server) => subServer3 = server)
-        ]).then((servers) => multiServer = HttpMultiServer(servers)));
+    setUp(
+      () => Future.wait([
+        HttpServer.bind('localhost', 0).then((server) => subServer1 = server),
+        HttpServer.bind('localhost', 0).then((server) => subServer2 = server),
+        HttpServer.bind('localhost', 0).then((server) => subServer3 = server),
+      ]).then((servers) => multiServer = HttpMultiServer(servers)),
+    );
 
     tearDown(() => multiServer.close());
 
@@ -48,25 +50,25 @@ void main() {
         });
 
       expect(
-          _get(subServer1).then((response) {
-            expect(
-                response.headers['server'], equals('http_multi_server test'));
-          }),
-          completes);
+        _get(subServer1).then((response) {
+          expect(response.headers['server'], equals('http_multi_server test'));
+        }),
+        completes,
+      );
 
       expect(
-          _get(subServer2).then((response) {
-            expect(
-                response.headers['server'], equals('http_multi_server test'));
-          }),
-          completes);
+        _get(subServer2).then((response) {
+          expect(response.headers['server'], equals('http_multi_server test'));
+        }),
+        completes,
+      );
 
       expect(
-          _get(subServer3).then((response) {
-            expect(
-                response.headers['server'], equals('http_multi_server test'));
-          }),
-          completes);
+        _get(subServer3).then((response) {
+          expect(response.headers['server'], equals('http_multi_server test'));
+        }),
+        completes,
+      );
     });
 
     test('autoCompress= sets the value for all servers', () {
@@ -78,27 +80,32 @@ void main() {
         });
 
       expect(
-          _get(subServer1).then((response) {
-            expect(response.headers['content-encoding'], equals('gzip'));
-          }),
-          completes);
+        _get(subServer1).then((response) {
+          expect(response.headers['content-encoding'], equals('gzip'));
+        }),
+        completes,
+      );
 
       expect(
-          _get(subServer2).then((response) {
-            expect(response.headers['content-encoding'], equals('gzip'));
-          }),
-          completes);
+        _get(subServer2).then((response) {
+          expect(response.headers['content-encoding'], equals('gzip'));
+        }),
+        completes,
+      );
 
       expect(
-          _get(subServer3).then((response) {
-            expect(response.headers['content-encoding'], equals('gzip'));
-          }),
-          completes);
+        _get(subServer3).then((response) {
+          expect(response.headers['content-encoding'], equals('gzip'));
+        }),
+        completes,
+      );
     });
 
     test('headers.set sets the value for all servers', () {
-      multiServer.defaultResponseHeaders
-          .set('server', 'http_multi_server test');
+      multiServer.defaultResponseHeaders.set(
+        'server',
+        'http_multi_server test',
+      );
 
       multiServer.listen((request) {
         request.response.write('got request');
@@ -106,25 +113,25 @@ void main() {
       });
 
       expect(
-          _get(subServer1).then((response) {
-            expect(
-                response.headers['server'], equals('http_multi_server test'));
-          }),
-          completes);
+        _get(subServer1).then((response) {
+          expect(response.headers['server'], equals('http_multi_server test'));
+        }),
+        completes,
+      );
 
       expect(
-          _get(subServer2).then((response) {
-            expect(
-                response.headers['server'], equals('http_multi_server test'));
-          }),
-          completes);
+        _get(subServer2).then((response) {
+          expect(response.headers['server'], equals('http_multi_server test'));
+        }),
+        completes,
+      );
 
       expect(
-          _get(subServer3).then((response) {
-            expect(
-                response.headers['server'], equals('http_multi_server test'));
-          }),
-          completes);
+        _get(subServer3).then((response) {
+          expect(response.headers['server'], equals('http_multi_server test'));
+        }),
+        completes,
+      );
     });
 
     test('connectionsInfo sums the values for all servers', () {
@@ -172,13 +179,17 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(http.read(Uri.http('127.0.0.1:${server.port}', '/')),
-            completion(equals('got request')));
+        expect(
+          http.read(Uri.http('127.0.0.1:${server.port}', '/')),
+          completion(equals('got request')),
+        );
       }
 
       if (await supportsIPv6) {
-        expect(http.read(Uri.http('[::1]:${server.port}', '/')),
-            completion(equals('got request')));
+        expect(
+          http.read(Uri.http('[::1]:${server.port}', '/')),
+          completion(equals('got request')),
+        );
       }
     });
   });
@@ -192,13 +203,17 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(http.read(Uri.http('127.0.0.1:${server.port}', '/')),
-            completion(equals('got request')));
+        expect(
+          http.read(Uri.http('127.0.0.1:${server.port}', '/')),
+          completion(equals('got request')),
+        );
       }
 
       if (await supportsIPv6) {
-        expect(http.read(Uri.http('[::1]:${server.port}', '/')),
-            completion(equals('got request')));
+        expect(
+          http.read(Uri.http('[::1]:${server.port}', '/')),
+          completion(equals('got request')),
+        );
       }
     });
 
@@ -210,13 +225,17 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(http.read(Uri.http('127.0.0.1:${server.port}', '/')),
-            completion(equals('got request')));
+        expect(
+          http.read(Uri.http('127.0.0.1:${server.port}', '/')),
+          completion(equals('got request')),
+        );
       }
 
       if (await supportsIPv6) {
-        expect(http.read(Uri.http('[::1]:${server.port}', '/')),
-            completion(equals('got request')));
+        expect(
+          http.read(Uri.http('[::1]:${server.port}', '/')),
+          completion(equals('got request')),
+        );
       }
     });
 
@@ -238,12 +257,16 @@ void main() {
         request.response.close();
       });
 
-      expect(http.read(Uri.http('127.0.0.1:${server.port}', '/')),
-          completion(equals('got request')));
+      expect(
+        http.read(Uri.http('127.0.0.1:${server.port}', '/')),
+        completion(equals('got request')),
+      );
 
       if (await supportsIPv6) {
-        expect(http.read(Uri.http('[::1]:${server.port}', '/')),
-            throwsA(isA<SocketException>()));
+        expect(
+          http.read(Uri.http('[::1]:${server.port}', '/')),
+          throwsA(isA<SocketException>()),
+        );
       }
     });
   });
@@ -266,13 +289,17 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(client.read(Uri.https('127.0.0.1:${server.port}')),
-            completion(equals('got request')));
+        expect(
+          client.read(Uri.https('127.0.0.1:${server.port}')),
+          completion(equals('got request')),
+        );
       }
 
       if (await supportsIPv6) {
-        expect(client.read(Uri.https('[::1]:${server.port}')),
-            completion(equals('got request')));
+        expect(
+          client.read(Uri.https('[::1]:${server.port}')),
+          completion(equals('got request')),
+        );
       }
     });
 
@@ -284,31 +311,42 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(client.read(Uri.https('127.0.0.1:${server.port}')),
-            completion(equals('got request')));
+        expect(
+          client.read(Uri.https('127.0.0.1:${server.port}')),
+          completion(equals('got request')),
+        );
       }
 
       if (await supportsIPv6) {
-        expect(client.read(Uri.https('[::1]:${server.port}')),
-            completion(equals('got request')));
+        expect(
+          client.read(Uri.https('[::1]:${server.port}')),
+          completion(equals('got request')),
+        );
       }
     });
 
     test('listens on specified hostname', () async {
       if (!await supportsIPv4) return;
-      final server =
-          await HttpMultiServer.bindSecure(InternetAddress.anyIPv4, 0, context);
+      final server = await HttpMultiServer.bindSecure(
+        InternetAddress.anyIPv4,
+        0,
+        context,
+      );
       server.listen((request) {
         request.response.write('got request');
         request.response.close();
       });
 
-      expect(client.read(Uri.https('127.0.0.1:${server.port}')),
-          completion(equals('got request')));
+      expect(
+        client.read(Uri.https('127.0.0.1:${server.port}')),
+        completion(equals('got request')),
+      );
 
       if (await supportsIPv6) {
-        expect(client.read(Uri.https('[::1]:${server.port}')),
-            throwsA(isA<SocketException>()));
+        expect(
+          client.read(Uri.https('[::1]:${server.port}')),
+          throwsA(isA<SocketException>()),
+        );
       }
     });
   });

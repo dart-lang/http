@@ -56,10 +56,7 @@ void testTimeouts() {
           ),
         );
         final response = await client.send(
-          Request(
-            'GET',
-            Uri.http('localhost:${server.port}', '1'),
-          ),
+          Request('GET', Uri.http('localhost:${server.port}', '1')),
         );
 
         expect(response.statusCode, 200);
@@ -72,10 +69,7 @@ void testTimeouts() {
         expect(
           () async {
             await client.send(
-              Request(
-                'GET',
-                Uri.http('localhost:${server.port}', '11'),
-              ),
+              Request('GET', Uri.http('localhost:${server.port}', '11')),
             );
           },
           throwsA(

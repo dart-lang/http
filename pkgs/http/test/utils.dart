@@ -92,9 +92,9 @@ class _BodyMatches extends Matcher {
     var body = utf8.decode(bodyBytes);
     var contentType = http.MediaType.parse(item.headers['content-type']!);
     var boundary = contentType.parameters['boundary']!;
-    var expected = cleanUpLiteral(_pattern)
-        .replaceAll('\n', '\r\n')
-        .replaceAll('{{boundary}}', boundary);
+    var expected = cleanUpLiteral(
+      _pattern,
+    ).replaceAll('\n', '\r\n').replaceAll('{{boundary}}', boundary);
 
     expect(body, equals(expected));
     expect(item.contentLength, equals(bodyBytes.length));

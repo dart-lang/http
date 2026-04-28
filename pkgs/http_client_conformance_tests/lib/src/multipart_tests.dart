@@ -14,43 +14,53 @@ import 'multipart_server_vm.dart'
 ///
 /// If [supportsMultipartRequest] is `false` then tests that assume that
 /// multipart requests can be sent will be skipped.
-void testMultipartRequests(Client Function() clientFactory,
-    {required bool supportsMultipartRequest}) async {
-  group('multipart requests', () {
-    late Client client;
-    late final String host;
-    late final StreamChannel<Object?> httpServerChannel;
-    late final StreamQueue<Object?> httpServerQueue;
+void testMultipartRequests(
+  Client Function() clientFactory, {
+  required bool supportsMultipartRequest,
+}) async {
+  group(
+    'multipart requests',
+    () {
+      late Client client;
+      late final String host;
+      late final StreamChannel<Object?> httpServerChannel;
+      late final StreamQueue<Object?> httpServerQueue;
 
-    setUp(() => client = clientFactory());
-    setUpAll(() async {
-      httpServerChannel = await startServer();
-      httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.nextAsInt}';
-    });
-    tearDown(() => client.close());
-    tearDownAll(() => httpServerChannel.sink.add(null));
+      setUp(() => client = clientFactory());
+      setUpAll(() async {
+        httpServerChannel = await startServer();
+        httpServerQueue = StreamQueue(httpServerChannel.stream);
+        host = 'localhost:${await httpServerQueue.nextAsInt}';
+      });
+      tearDown(() => client.close());
+      tearDownAll(() => httpServerChannel.sink.add(null));
 
-    test('attached file', () async {
-      final request = MultipartRequest('POST', Uri.http(host, ''));
+      test('attached file', () async {
+        final request = MultipartRequest('POST', Uri.http(host, ''));
 
-      request.files.add(MultipartFile.fromString('file1', 'Hello World'));
+        request.files.add(MultipartFile.fromString('file1', 'Hello World'));
 
-      final response = await client.send(request);
-      await response.stream.drain<void>();
-      final serverRequest = await httpServerQueue.next as List;
-      final headers = (serverRequest[0] as Map).cast<String, List<Object?>>();
-      final body = serverRequest[1] as String;
-      expect(headers['content-length']!.single, '${request.contentLength}');
-      expect(headers['content-type']!.single,
-          startsWith('multipart/form-data; boundary='));
-      expect(body, contains('''content-type: text/plain; charset=utf-8\r
+        final response = await client.send(request);
+        await response.stream.drain<void>();
+        final serverRequest = await httpServerQueue.next as List;
+        final headers = (serverRequest[0] as Map).cast<String, List<Object?>>();
+        final body = serverRequest[1] as String;
+        expect(headers['content-length']!.single, '${request.contentLength}');
+        expect(
+          headers['content-type']!.single,
+          startsWith('multipart/form-data; boundary='),
+        );
+        expect(
+          body,
+          contains('''content-type: text/plain; charset=utf-8\r
 content-disposition: form-data; name="file1"\r
 \r
-Hello World'''));
-    });
-  },
-      skip: supportsMultipartRequest
-          ? false
-          : 'does not support multipart requests');
+Hello World'''),
+        );
+      });
+    },
+    skip: supportsMultipartRequest
+        ? false
+        : 'does not support multipart requests',
+  );
 }

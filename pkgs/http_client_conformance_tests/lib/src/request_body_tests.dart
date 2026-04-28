@@ -67,8 +67,11 @@ void testRequestBody(Client Function() clientFactory) {
     });
 
     test('client.post() with string body and custom encoding', () async {
-      await client.post(Uri.http(host, ''),
-          body: 'Hello', encoding: _Plus2Encoding());
+      await client.post(
+        Uri.http(host, ''),
+        body: 'Hello',
+        encoding: _Plus2Encoding(),
+      );
 
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next;
@@ -88,8 +91,11 @@ void testRequestBody(Client Function() clientFactory) {
     });
 
     test('client.post() with map body and encoding', () async {
-      await client.post(Uri.http(host, ''),
-          body: {'key': 'value'}, encoding: _Plus2Encoding());
+      await client.post(
+        Uri.http(host, ''),
+        body: {'key': 'value'},
+        encoding: _Plus2Encoding(),
+      );
 
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next;
@@ -113,8 +119,11 @@ void testRequestBody(Client Function() clientFactory) {
     });
 
     test('client.post() with List<int> and content-type', () async {
-      await client.post(Uri.http(host, ''),
-          headers: {'Content-Type': 'image/png'}, body: [1, 2, 3, 4, 5]);
+      await client.post(
+        Uri.http(host, ''),
+        headers: {'Content-Type': 'image/png'},
+        body: [1, 2, 3, 4, 5],
+      );
 
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next as String;
@@ -125,8 +134,11 @@ void testRequestBody(Client Function() clientFactory) {
 
     test('client.post() with List<int> with encoding', () async {
       // Encoding should not affect binary payloads.
-      await client.post(Uri.http(host, ''),
-          body: [1, 2, 3, 4, 5], encoding: _Plus2Encoding());
+      await client.post(
+        Uri.http(host, ''),
+        body: [1, 2, 3, 4, 5],
+        encoding: _Plus2Encoding(),
+      );
 
       await httpServerQueue.next; // Content-Type.
       final serverReceivedBody = await httpServerQueue.next as String;
@@ -139,22 +151,26 @@ void testRequestBody(Client Function() clientFactory) {
       expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
     });
 
-    test('client.post() with List<int> with encoding and content-type',
-        () async {
-      // Encoding should not affect the payload but it should affect the
-      // content-type.
+    test(
+      'client.post() with List<int> with encoding and content-type',
+      () async {
+        // Encoding should not affect the payload but it should affect the
+        // content-type.
 
-      await client.post(Uri.http(host, ''),
+        await client.post(
+          Uri.http(host, ''),
           headers: {'Content-Type': 'image/png'},
           body: [1, 2, 3, 4, 5],
-          encoding: _Plus2Encoding());
+          encoding: _Plus2Encoding(),
+        );
 
-      final serverReceivedContentType = await httpServerQueue.next;
-      final serverReceivedBody = await httpServerQueue.next as String;
+        final serverReceivedContentType = await httpServerQueue.next;
+        final serverReceivedBody = await httpServerQueue.next as String;
 
-      expect(serverReceivedContentType, ['image/png']);
-      expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
-    });
+        expect(serverReceivedContentType, ['image/png']);
+        expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
+      },
+    );
 
     test('client.send() with stream containing empty lists', () async {
       final request = StreamedRequest('POST', Uri.http(host, ''));
@@ -201,8 +217,11 @@ void testRequestBody(Client Function() clientFactory) {
       final request = StreamedRequest('POST', Uri.http(host, ''));
       request.headers['Content-Type'] = 'image/png';
 
-      stream().listen(request.sink.add,
-          onError: request.sink.addError, onDone: request.sink.close);
+      stream().listen(
+        request.sink.add,
+        onError: request.sink.addError,
+        onDone: request.sink.close,
+      );
       final response = await client.send(request);
       await response.stream.drain<void>();
 
@@ -223,11 +242,16 @@ void testRequestBody(Client Function() clientFactory) {
       final request = StreamedRequest('POST', Uri.http(host, ''));
       request.headers['Content-Type'] = 'image/png';
 
-      stream().listen(request.sink.add,
-          onError: request.sink.addError, onDone: request.sink.close);
+      stream().listen(
+        request.sink.add,
+        onError: request.sink.addError,
+        onDone: request.sink.close,
+      );
 
-      await expectLater(client.send(request),
-          throwsA(anyOf(isA<ArgumentError>(), isA<ClientException>())));
+      await expectLater(
+        client.send(request),
+        throwsA(anyOf(isA<ArgumentError>(), isA<ClientException>())),
+      );
     });
 
     test('client.send() GET with empty stream', () async {
@@ -310,24 +334,28 @@ void testRequestBody(Client Function() clientFactory) {
       expect(serverReceivedBody, body);
     });
 
-    test('client.send() GET with non-empty stream', () async {
-      final request = StreamedRequest('GET', Uri.http(host, ''));
-      request.headers['Content-Type'] = 'image/png';
-      request.sink.add('Hello World!'.codeUnits);
-      // ignore: unawaited_futures
-      request.sink.close();
+    test(
+      'client.send() GET with non-empty stream',
+      () async {
+        final request = StreamedRequest('GET', Uri.http(host, ''));
+        request.headers['Content-Type'] = 'image/png';
+        request.sink.add('Hello World!'.codeUnits);
+        // ignore: unawaited_futures
+        request.sink.close();
 
-      final response = await client.send(request);
-      await response.stream.drain<void>();
-      expect(response.statusCode, 200);
+        final response = await client.send(request);
+        await response.stream.drain<void>();
+        expect(response.statusCode, 200);
 
-      final serverReceivedContentType = await httpServerQueue.next;
-      final serverReceivedBody = await httpServerQueue.next as String;
+        final serverReceivedContentType = await httpServerQueue.next;
+        final serverReceivedBody = await httpServerQueue.next as String;
 
-      expect(serverReceivedContentType, ['image/png']);
-      expect(serverReceivedBody, 'Hello World!');
-      // using io passes, on web body is not transmitted, on cupertino_http
-      // exception.
-    }, skip: 'unclear semantics for GET requests with body');
+        expect(serverReceivedContentType, ['image/png']);
+        expect(serverReceivedBody, 'Hello World!');
+        // using io passes, on web body is not transmitted, on cupertino_http
+        // exception.
+      },
+      skip: 'unclear semantics for GET requests with body',
+    );
   });
 }

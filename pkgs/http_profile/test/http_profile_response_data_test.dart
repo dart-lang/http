@@ -29,42 +29,85 @@ void main() {
   group('HttpProfileRedirectData', () {
     test('equal', () {
       expect(
-          HttpProfileRedirectData(
-              statusCode: 302, method: 'GET', location: 'http://somewhere'),
-          HttpProfileRedirectData(
-              statusCode: 302, method: 'GET', location: 'http://somewhere'));
+        HttpProfileRedirectData(
+          statusCode: 302,
+          method: 'GET',
+          location: 'http://somewhere',
+        ),
+        HttpProfileRedirectData(
+          statusCode: 302,
+          method: 'GET',
+          location: 'http://somewhere',
+        ),
+      );
     });
 
     test('not equal', () {
       expect(
-          HttpProfileRedirectData(
-              statusCode: 302, method: 'GET', location: 'http://somewhere'),
-          isNot(Object()));
+        HttpProfileRedirectData(
+          statusCode: 302,
+          method: 'GET',
+          location: 'http://somewhere',
+        ),
+        isNot(Object()),
+      );
       expect(
+        HttpProfileRedirectData(
+          statusCode: 302,
+          method: 'GET',
+          location: 'http://somewhere',
+        ),
+        isNot(
           HttpProfileRedirectData(
-              statusCode: 302, method: 'GET', location: 'http://somewhere'),
-          isNot(HttpProfileRedirectData(
-              statusCode: 303, method: 'GET', location: 'http://somewhere')));
+            statusCode: 303,
+            method: 'GET',
+            location: 'http://somewhere',
+          ),
+        ),
+      );
       expect(
+        HttpProfileRedirectData(
+          statusCode: 302,
+          method: 'GET',
+          location: 'http://somewhere',
+        ),
+        isNot(
           HttpProfileRedirectData(
-              statusCode: 302, method: 'GET', location: 'http://somewhere'),
-          isNot(HttpProfileRedirectData(
-              statusCode: 302, method: 'POST', location: 'http://somewhere')));
+            statusCode: 302,
+            method: 'POST',
+            location: 'http://somewhere',
+          ),
+        ),
+      );
       expect(
+        HttpProfileRedirectData(
+          statusCode: 302,
+          method: 'GET',
+          location: 'http://somewhere',
+        ),
+        isNot(
           HttpProfileRedirectData(
-              statusCode: 302, method: 'GET', location: 'http://somewhere'),
-          isNot(HttpProfileRedirectData(
-              statusCode: 302, method: 'GET', location: 'http://notthere')));
+            statusCode: 302,
+            method: 'GET',
+            location: 'http://notthere',
+          ),
+        ),
+      );
     });
 
     test('hash', () {
       expect(
-          HttpProfileRedirectData(
-                  statusCode: 302, method: 'GET', location: 'http://somewhere')
-              .hashCode,
-          HttpProfileRedirectData(
-                  statusCode: 302, method: 'GET', location: 'http://somewhere')
-              .hashCode);
+        HttpProfileRedirectData(
+          statusCode: 302,
+          method: 'GET',
+          location: 'http://somewhere',
+        ).hashCode,
+        HttpProfileRedirectData(
+          statusCode: 302,
+          method: 'GET',
+          location: 'http://somewhere',
+        ).hashCode,
+      );
     });
   });
 
@@ -75,11 +118,13 @@ void main() {
     expect(redirectsFromBackingMap, isEmpty);
     expect(profile.responseData.redirects, isEmpty);
 
-    profile.responseData.addRedirect(HttpProfileRedirectData(
-      statusCode: 301,
-      method: 'GET',
-      location: 'https://images.example.com/1',
-    ));
+    profile.responseData.addRedirect(
+      HttpProfileRedirectData(
+        statusCode: 301,
+        method: 'GET',
+        location: 'https://images.example.com/1',
+      ),
+    );
 
     expect(redirectsFromBackingMap.length, 1);
     final redirectFromBackingMap = redirectsFromBackingMap.last;
@@ -92,182 +137,172 @@ void main() {
         statusCode: 301,
         method: 'GET',
         location: 'https://images.example.com/1',
-      )
+      ),
     ]);
   });
 
-  test('populating HttpClientRequestProfile.responseData.headersListValues',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['headers'], isNull);
-    expect(profile.responseData.headers, isNull);
+  test(
+    'populating HttpClientRequestProfile.responseData.headersListValues',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
+      expect(responseData['headers'], isNull);
+      expect(profile.responseData.headers, isNull);
 
-    profile.responseData.headersListValues = {
-      'connection': ['keep-alive'],
-      'cache-control': ['max-age=43200'],
-      'content-type': ['application/json', 'charset=utf-8'],
-    };
-
-    expect(
-      responseData['headers'],
-      {
+      profile.responseData.headersListValues = {
         'connection': ['keep-alive'],
         'cache-control': ['max-age=43200'],
         'content-type': ['application/json', 'charset=utf-8'],
-      },
-    );
-    expect(
-      profile.responseData.headers,
-      {
+      };
+
+      expect(responseData['headers'], {
         'connection': ['keep-alive'],
         'cache-control': ['max-age=43200'],
         'content-type': ['application/json', 'charset=utf-8'],
-      },
-    );
-  });
-
-  test('HttpClientRequestProfile.responseData.headersListValues = null',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-
-    profile.responseData.headersListValues = {
-      'connection': ['keep-alive'],
-      'cache-control': ['max-age=43200'],
-      'content-type': ['application/json', 'charset=utf-8'],
-    };
-    expect(
-      responseData['headers'],
-      {
+      });
+      expect(profile.responseData.headers, {
         'connection': ['keep-alive'],
         'cache-control': ['max-age=43200'],
         'content-type': ['application/json', 'charset=utf-8'],
-      },
-    );
-    expect(
-      profile.responseData.headers,
-      {
+      });
+    },
+  );
+
+  test(
+    'HttpClientRequestProfile.responseData.headersListValues = null',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
+
+      profile.responseData.headersListValues = {
         'connection': ['keep-alive'],
         'cache-control': ['max-age=43200'],
         'content-type': ['application/json', 'charset=utf-8'],
-      },
-    );
+      };
+      expect(responseData['headers'], {
+        'connection': ['keep-alive'],
+        'cache-control': ['max-age=43200'],
+        'content-type': ['application/json', 'charset=utf-8'],
+      });
+      expect(profile.responseData.headers, {
+        'connection': ['keep-alive'],
+        'cache-control': ['max-age=43200'],
+        'content-type': ['application/json', 'charset=utf-8'],
+      });
 
-    profile.responseData.headersListValues = null;
-    expect(responseData['headers'], isNull);
-    expect(profile.responseData.headers, isNull);
-  });
+      profile.responseData.headersListValues = null;
+      expect(responseData['headers'], isNull);
+      expect(profile.responseData.headers, isNull);
+    },
+  );
 
-  test('populating HttpClientRequestProfile.responseData.headersCommaValues',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['headers'], isNull);
-    expect(profile.responseData.headers, isNull);
+  test(
+    'populating HttpClientRequestProfile.responseData.headersCommaValues',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
+      expect(responseData['headers'], isNull);
+      expect(profile.responseData.headers, isNull);
 
-    profile.responseData.headersCommaValues = {
-      'set-cookie':
-          // ignore: missing_whitespace_between_adjacent_strings
-          'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
-              'sessionId=e8bb43229de9; Domain=foo.example.com'
-    };
+      profile.responseData.headersCommaValues = {
+        'set-cookie':
+            // ignore: missing_whitespace_between_adjacent_strings
+            'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
+            'sessionId=e8bb43229de9; Domain=foo.example.com',
+      };
 
-    expect(
-      responseData['headers'],
-      {
+      expect(responseData['headers'], {
         'set-cookie': [
           'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
-          'sessionId=e8bb43229de9; Domain=foo.example.com'
-        ]
-      },
-    );
-    expect(
-      profile.responseData.headers,
-      {
+          'sessionId=e8bb43229de9; Domain=foo.example.com',
+        ],
+      });
+      expect(profile.responseData.headers, {
         'set-cookie': [
           'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
-          'sessionId=e8bb43229de9; Domain=foo.example.com'
-        ]
-      },
-    );
-  });
+          'sessionId=e8bb43229de9; Domain=foo.example.com',
+        ],
+      });
+    },
+  );
 
-  test('HttpClientRequestProfile.responseData.headersCommaValues = null',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
+  test(
+    'HttpClientRequestProfile.responseData.headersCommaValues = null',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
 
-    profile.responseData.headersCommaValues = {
-      'set-cookie':
-          // ignore: missing_whitespace_between_adjacent_strings
-          'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
-              'sessionId=e8bb43229de9; Domain=foo.example.com'
-    };
-    expect(
-      responseData['headers'],
-      {
+      profile.responseData.headersCommaValues = {
+        'set-cookie':
+            // ignore: missing_whitespace_between_adjacent_strings
+            'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
+            'sessionId=e8bb43229de9; Domain=foo.example.com',
+      };
+      expect(responseData['headers'], {
         'set-cookie': [
           'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
-          'sessionId=e8bb43229de9; Domain=foo.example.com'
-        ]
-      },
-    );
-    expect(
-      profile.responseData.headers,
-      {
+          'sessionId=e8bb43229de9; Domain=foo.example.com',
+        ],
+      });
+      expect(profile.responseData.headers, {
         'set-cookie': [
           'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
-          'sessionId=e8bb43229de9; Domain=foo.example.com'
-        ]
-      },
-    );
+          'sessionId=e8bb43229de9; Domain=foo.example.com',
+        ],
+      });
 
-    profile.responseData.headersCommaValues = null;
-    expect(responseData['headers'], isNull);
-    expect(profile.responseData.headers, isNull);
-  });
+      profile.responseData.headersCommaValues = null;
+      expect(responseData['headers'], isNull);
+      expect(profile.responseData.headers, isNull);
+    },
+  );
 
-  test('populating HttpClientRequestProfile.responseData.compressionState',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['compressionState'], isNull);
-    expect(profile.responseData.compressionState, isNull);
+  test(
+    'populating HttpClientRequestProfile.responseData.compressionState',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
+      expect(responseData['compressionState'], isNull);
+      expect(profile.responseData.compressionState, isNull);
 
-    profile.responseData.compressionState =
-        HttpClientResponseCompressionState.decompressed;
+      profile.responseData.compressionState =
+          HttpClientResponseCompressionState.decompressed;
 
-    expect(responseData['compressionState'], 'decompressed');
-    expect(
-      profile.responseData.compressionState,
-      HttpClientResponseCompressionState.decompressed,
-    );
-  });
+      expect(responseData['compressionState'], 'decompressed');
+      expect(
+        profile.responseData.compressionState,
+        HttpClientResponseCompressionState.decompressed,
+      );
+    },
+  );
 
-  test('HttpClientRequestProfile.responseData.compressionState = null',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
+  test(
+    'HttpClientRequestProfile.responseData.compressionState = null',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
 
-    profile.responseData.compressionState =
-        HttpClientResponseCompressionState.decompressed;
-    expect(responseData['compressionState'], 'decompressed');
-    expect(
-      profile.responseData.compressionState,
-      HttpClientResponseCompressionState.decompressed,
-    );
+      profile.responseData.compressionState =
+          HttpClientResponseCompressionState.decompressed;
+      expect(responseData['compressionState'], 'decompressed');
+      expect(
+        profile.responseData.compressionState,
+        HttpClientResponseCompressionState.decompressed,
+      );
 
-    profile.responseData.compressionState = null;
-    expect(responseData['compressionState'], isNull);
-    expect(profile.responseData.compressionState, isNull);
-  });
+      profile.responseData.compressionState = null;
+      expect(responseData['compressionState'], isNull);
+      expect(profile.responseData.compressionState, isNull);
+    },
+  );
 
-  test('populating HttpClientRequestProfile.responseData.reasonPhrase',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['reasonPhrase'], isNull);
-    expect(profile.responseData.reasonPhrase, isNull);
+  test(
+    'populating HttpClientRequestProfile.responseData.reasonPhrase',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
+      expect(responseData['reasonPhrase'], isNull);
+      expect(profile.responseData.reasonPhrase, isNull);
 
-    profile.responseData.reasonPhrase = 'OK';
+      profile.responseData.reasonPhrase = 'OK';
 
-    expect(responseData['reasonPhrase'], 'OK');
-    expect(profile.responseData.reasonPhrase, 'OK');
-  });
+      expect(responseData['reasonPhrase'], 'OK');
+      expect(profile.responseData.reasonPhrase, 'OK');
+    },
+  );
 
   test('HttpClientRequestProfile.responseData.reasonPhrase = null', () async {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
@@ -304,42 +339,48 @@ void main() {
     expect(profile.responseData.isRedirect, isNull);
   });
 
-  test('populating HttpClientRequestProfile.responseData.persistentConnection',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['persistentConnection'], isNull);
-    expect(profile.responseData.persistentConnection, isNull);
+  test(
+    'populating HttpClientRequestProfile.responseData.persistentConnection',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
+      expect(responseData['persistentConnection'], isNull);
+      expect(profile.responseData.persistentConnection, isNull);
 
-    profile.responseData.persistentConnection = true;
+      profile.responseData.persistentConnection = true;
 
-    expect(responseData['persistentConnection'], true);
-    expect(profile.responseData.persistentConnection, true);
-  });
+      expect(responseData['persistentConnection'], true);
+      expect(profile.responseData.persistentConnection, true);
+    },
+  );
 
-  test('HttpClientRequestProfile.responseData.persistentConnection = null',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
+  test(
+    'HttpClientRequestProfile.responseData.persistentConnection = null',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
 
-    profile.responseData.persistentConnection = true;
-    expect(responseData['persistentConnection'], true);
-    expect(profile.responseData.persistentConnection, true);
+      profile.responseData.persistentConnection = true;
+      expect(responseData['persistentConnection'], true);
+      expect(profile.responseData.persistentConnection, true);
 
-    profile.responseData.persistentConnection = null;
-    expect(responseData['persistentConnection'], isNull);
-    expect(profile.responseData.persistentConnection, isNull);
-  });
+      profile.responseData.persistentConnection = null;
+      expect(responseData['persistentConnection'], isNull);
+      expect(profile.responseData.persistentConnection, isNull);
+    },
+  );
 
-  test('populating HttpClientRequestProfile.responseData.contentLength',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['contentLength'], isNull);
-    expect(profile.responseData.contentLength, isNull);
+  test(
+    'populating HttpClientRequestProfile.responseData.contentLength',
+    () async {
+      final responseData = backingMap['responseData'] as Map<String, dynamic>;
+      expect(responseData['contentLength'], isNull);
+      expect(profile.responseData.contentLength, isNull);
 
-    profile.responseData.contentLength = 1200;
+      profile.responseData.contentLength = 1200;
 
-    expect(responseData['contentLength'], 1200);
-    expect(profile.responseData.contentLength, 1200);
-  });
+      expect(responseData['contentLength'], 1200);
+      expect(profile.responseData.contentLength, 1200);
+    },
+  );
 
   test('HttpClientRequestProfile.responseData.contentLength = null', () async {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;

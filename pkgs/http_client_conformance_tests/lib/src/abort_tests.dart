@@ -57,72 +57,69 @@ void testAbort(
       );
       abortTrigger.complete();
 
-      expect(
-        client.send(request),
-        throwsA(isA<RequestAbortedException>()),
-      );
+      expect(client.send(request), throwsA(isA<RequestAbortedException>()));
     });
 
-    test('before first streamed item', () async {
-      final abortTrigger = Completer<void>();
+    test(
+      'before first streamed item',
+      () async {
+        final abortTrigger = Completer<void>();
 
-      final request = AbortableStreamedRequest(
-        'POST',
-        serverUrl,
-        abortTrigger: abortTrigger.future,
-      );
+        final request = AbortableStreamedRequest(
+          'POST',
+          serverUrl,
+          abortTrigger: abortTrigger.future,
+        );
 
-      final response = client.send(request);
+        final response = client.send(request);
 
-      abortTrigger.complete();
+        abortTrigger.complete();
 
-      expect(
-        response,
-        throwsA(isA<RequestAbortedException>()),
-      );
+        expect(response, throwsA(isA<RequestAbortedException>()));
 
-      // Ensure that `request.sink` is still writeable after the request is
-      // aborted.
-      for (var i = 0; i < 1000; ++i) {
+        // Ensure that `request.sink` is still writeable after the request is
+        // aborted.
+        for (var i = 0; i < 1000; ++i) {
+          request.sink.add('Hello World'.codeUnits);
+          await Future<void>.delayed(const Duration());
+        }
+        await request.sink.close();
+      },
+      skip: supportsAbort
+          ? (canStreamRequestBody ? false : 'does not stream response bodies')
+          : 'does not support aborting requests',
+    );
+
+    test(
+      'during request stream',
+      () async {
+        final abortTrigger = Completer<void>();
+
+        final request = AbortableStreamedRequest(
+          'POST',
+          serverUrl,
+          abortTrigger: abortTrigger.future,
+        );
+
+        final response = client.send(request);
         request.sink.add('Hello World'.codeUnits);
-        await Future<void>.delayed(const Duration());
-      }
-      await request.sink.close();
-    },
-        skip: supportsAbort
-            ? (canStreamRequestBody ? false : 'does not stream response bodies')
-            : 'does not support aborting requests');
 
-    test('during request stream', () async {
-      final abortTrigger = Completer<void>();
+        abortTrigger.complete();
 
-      final request = AbortableStreamedRequest(
-        'POST',
-        serverUrl,
-        abortTrigger: abortTrigger.future,
-      );
+        expect(response, throwsA(isA<RequestAbortedException>()));
 
-      final response = client.send(request);
-      request.sink.add('Hello World'.codeUnits);
-
-      abortTrigger.complete();
-
-      expect(
-        response,
-        throwsA(isA<RequestAbortedException>()),
-      );
-
-      // Ensure that `request.sink` is still writeable after the request is
-      // aborted.
-      for (var i = 0; i < 1000; ++i) {
-        request.sink.add('Hello World'.codeUnits);
-        await Future<void>.delayed(const Duration());
-      }
-      await request.sink.close();
-    },
-        skip: supportsAbort
-            ? (canStreamRequestBody ? false : 'does not stream request bodies')
-            : 'does not support aborting requests');
+        // Ensure that `request.sink` is still writeable after the request is
+        // aborted.
+        for (var i = 0; i < 1000; ++i) {
+          request.sink.add('Hello World'.codeUnits);
+          await Future<void>.delayed(const Duration());
+        }
+        await request.sink.close();
+      },
+      skip: supportsAbort
+          ? (canStreamRequestBody ? false : 'does not stream request bodies')
+          : 'does not support aborting requests',
+    );
 
     test('after response, response stream listener', () async {
       final abortTrigger = Completer<void>();
@@ -136,10 +133,7 @@ void testAbort(
 
       abortTrigger.complete();
 
-      expect(
-        response.stream.single,
-        throwsA(isA<RequestAbortedException>()),
-      );
+      expect(response.stream.single, throwsA(isA<RequestAbortedException>()));
     });
 
     test('after response, response stream no listener', () async {
@@ -157,10 +151,7 @@ void testAbort(
       // stream
       await Future<void>.delayed(const Duration());
 
-      expect(
-        response.stream.single,
-        throwsA(isA<RequestAbortedException>()),
-      );
+      expect(response.stream.single, throwsA(isA<RequestAbortedException>()));
     });
 
     test('after response, response stream paused', () async {
@@ -205,13 +196,12 @@ void testAbort(
           response.stream
               .transform(const Utf8Decoder())
               .transform(const LineSplitter())
-              .listen(
-            (_) {
-              if (++i >= 1000 && !abortTrigger.isCompleted) {
-                abortTrigger.complete();
-              }
-            },
-          ).asFuture<void>(),
+              .listen((_) {
+                if (++i >= 1000 && !abortTrigger.isCompleted) {
+                  abortTrigger.complete();
+                }
+              })
+              .asFuture<void>(),
           throwsA(isA<RequestAbortedException>()),
         );
         expect(i, lessThan(10000));

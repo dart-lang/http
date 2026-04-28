@@ -12,11 +12,13 @@ void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;
 
   server = (await HttpServer.bind('localhost', 0))
-    ..transform(WebSocketTransformer())
-        .listen((WebSocket webSocket) => webSocket.listen(webSocket.add));
+    ..transform(
+      WebSocketTransformer(),
+    ).listen((WebSocket webSocket) => webSocket.listen(webSocket.add));
 
   channel.sink.add(server.port);
   await channel
-      .stream.first; // Any writes indicates that the server should exit.
+      .stream
+      .first; // Any writes indicates that the server should exit.
   unawaited(server.close());
 }

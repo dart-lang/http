@@ -74,8 +74,10 @@ class AuthenticationChallenge {
             if (scanner.scan(token)) {
               params[name] = scanner.lastMatch![0]!;
             } else {
-              params[name] = expectQuotedString(scanner,
-                  name: 'a token or a quoted string');
+              params[name] = expectQuotedString(
+                scanner,
+                name: 'a token or a quoted string',
+              );
             }
 
             scanner.scan(whitespace);
@@ -126,7 +128,9 @@ class AuthenticationChallenge {
 
   /// Scans a single authentication parameter and stores its result in [params].
   static void _scanAuthParam(
-      StringScanner scanner, Map<String, String> params) {
+    StringScanner scanner,
+    Map<String, String> params,
+  ) {
     scanner.expect(token, name: 'a token');
     final name = scanner.lastMatch![0]!;
     scanner.scan(whitespace);
@@ -136,8 +140,10 @@ class AuthenticationChallenge {
     if (scanner.scan(token)) {
       params[name] = scanner.lastMatch![0]!;
     } else {
-      params[name] =
-          expectQuotedString(scanner, name: 'a token or a quoted string');
+      params[name] = expectQuotedString(
+        scanner,
+        name: 'a token or a quoted string',
+      );
     }
 
     scanner.scan(whitespace);
@@ -145,5 +151,5 @@ class AuthenticationChallenge {
 
   /// Creates a new challenge value with [scheme] and [parameters].
   AuthenticationChallenge(this.scheme, Map<String, String> parameters)
-      : parameters = UnmodifiableMapView(CaseInsensitiveMap.from(parameters));
+    : parameters = UnmodifiableMapView(CaseInsensitiveMap.from(parameters));
 }

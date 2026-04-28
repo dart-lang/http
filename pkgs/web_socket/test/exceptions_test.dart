@@ -25,7 +25,9 @@ void main() {
       final exception = WebSocketConnectionClosed();
       expect(exception.message, 'Connection Closed');
       expect(
-          exception.toString(), 'WebSocketConnectionClosed: Connection Closed');
+        exception.toString(),
+        'WebSocketConnectionClosed: Connection Closed',
+      );
     });
 
     test('empty message', () async {

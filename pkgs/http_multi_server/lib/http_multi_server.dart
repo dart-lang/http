@@ -96,37 +96,54 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// All [servers] should have the same configuration and none should be
   /// listened to when this is called.
   HttpMultiServer(Iterable<HttpServer> servers)
-      : _servers = servers.toSet(),
-        defaultResponseHeaders = MultiHeaders(
-            servers.map((server) => server.defaultResponseHeaders)),
-        super(StreamGroup.merge(servers));
+    : _servers = servers.toSet(),
+      defaultResponseHeaders = MultiHeaders(
+        servers.map((server) => server.defaultResponseHeaders),
+      ),
+      super(StreamGroup.merge(servers));
 
   /// Creates an [HttpServer] listening on all available loopback addresses for
   /// this computer.
   ///
   /// See [HttpServer.bind].
-  static Future<HttpServer> loopback(int port,
-          {int backlog = 0, bool v6Only = false, bool shared = false}) =>
-      _loopback(
-          port,
-          (address, port) => HttpServer.bind(address, port,
-              backlog: backlog, v6Only: v6Only, shared: shared));
+  static Future<HttpServer> loopback(
+    int port, {
+    int backlog = 0,
+    bool v6Only = false,
+    bool shared = false,
+  }) => _loopback(
+    port,
+    (address, port) => HttpServer.bind(
+      address,
+      port,
+      backlog: backlog,
+      v6Only: v6Only,
+      shared: shared,
+    ),
+  );
 
   /// Like [loopback], but supports HTTPS requests.
   ///
   /// See [HttpServer.bindSecure].
-  static Future<HttpServer> loopbackSecure(int port, SecurityContext context,
-          {int backlog = 0,
-          bool v6Only = false,
-          bool requestClientCertificate = false,
-          bool shared = false}) =>
-      _loopback(
-          port,
-          (address, port) => HttpServer.bindSecure(address, port, context,
-              backlog: backlog,
-              v6Only: v6Only,
-              shared: shared,
-              requestClientCertificate: requestClientCertificate));
+  static Future<HttpServer> loopbackSecure(
+    int port,
+    SecurityContext context, {
+    int backlog = 0,
+    bool v6Only = false,
+    bool requestClientCertificate = false,
+    bool shared = false,
+  }) => _loopback(
+    port,
+    (address, port) => HttpServer.bindSecure(
+      address,
+      port,
+      context,
+      backlog: backlog,
+      v6Only: v6Only,
+      shared: shared,
+      requestClientCertificate: requestClientCertificate,
+    ),
+  );
 
   /// Bind an [HttpServer] with handling for special addresses 'localhost' and
   /// 'any'.
@@ -141,24 +158,37 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// the IPvX support may vary.
   ///
   /// See [HttpServer.bind].
-  static Future<HttpServer> bind(dynamic address, int port,
-      {int backlog = 0, bool v6Only = false, bool shared = false}) async {
+  static Future<HttpServer> bind(
+    dynamic address,
+    int port, {
+    int backlog = 0,
+    bool v6Only = false,
+    bool shared = false,
+  }) async {
     if (address == 'localhost') {
-      return HttpMultiServer.loopback(port,
-          backlog: backlog, v6Only: v6Only, shared: shared);
+      return HttpMultiServer.loopback(
+        port,
+        backlog: backlog,
+        v6Only: v6Only,
+        shared: shared,
+      );
     }
     if (address == 'any') {
       return HttpServer.bind(
-          await supportsIPv6
-              ? InternetAddress.anyIPv6
-              : InternetAddress.anyIPv4,
-          port,
-          backlog: backlog,
-          v6Only: v6Only,
-          shared: shared);
+        await supportsIPv6 ? InternetAddress.anyIPv6 : InternetAddress.anyIPv4,
+        port,
+        backlog: backlog,
+        v6Only: v6Only,
+        shared: shared,
+      );
     }
-    return HttpServer.bind(address, port,
-        backlog: backlog, v6Only: v6Only, shared: shared);
+    return HttpServer.bind(
+      address,
+      port,
+      backlog: backlog,
+      v6Only: v6Only,
+      shared: shared,
+    );
   }
 
   /// Bind a secure [HttpServer] with handling for special addresses 'localhost'
@@ -172,25 +202,40 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// See [HttpServer.bindSecure].
   static Future<HttpServer> bindSecure(
-      dynamic address, int port, SecurityContext context,
-      {int backlog = 0, bool v6Only = false, bool shared = false}) async {
+    dynamic address,
+    int port,
+    SecurityContext context, {
+    int backlog = 0,
+    bool v6Only = false,
+    bool shared = false,
+  }) async {
     if (address == 'localhost') {
-      return await HttpMultiServer.loopbackSecure(port, context,
-          backlog: backlog, v6Only: v6Only, shared: shared);
+      return await HttpMultiServer.loopbackSecure(
+        port,
+        context,
+        backlog: backlog,
+        v6Only: v6Only,
+        shared: shared,
+      );
     }
     if (address == 'any') {
       return await HttpServer.bindSecure(
-          await supportsIPv6
-              ? InternetAddress.anyIPv6
-              : InternetAddress.anyIPv4,
-          port,
-          context,
-          backlog: backlog,
-          v6Only: v6Only,
-          shared: shared);
+        await supportsIPv6 ? InternetAddress.anyIPv6 : InternetAddress.anyIPv4,
+        port,
+        context,
+        backlog: backlog,
+        v6Only: v6Only,
+        shared: shared,
+      );
     }
-    return await HttpServer.bindSecure(address, port, context,
-        backlog: backlog, v6Only: v6Only, shared: shared);
+    return await HttpServer.bindSecure(
+      address,
+      port,
+      context,
+      backlog: backlog,
+      v6Only: v6Only,
+      shared: shared,
+    );
   }
 
   /// A helper method for initializing loopback servers.
@@ -198,8 +243,10 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// [bind] should forward to either [HttpServer.bind] or
   /// [HttpServer.bindSecure].
   static Future<HttpServer> _loopback(
-      int port, Future<HttpServer> Function(InternetAddress, int port) bind,
-      [int remainingRetries = 5]) async {
+    int port,
+    Future<HttpServer> Function(InternetAddress, int port) bind, [
+    int remainingRetries = 5,
+  ]) async {
     if (!await supportsIPv4) {
       return await bind(InternetAddress.loopbackIPv6, port);
     }

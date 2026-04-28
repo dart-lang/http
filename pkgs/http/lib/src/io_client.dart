@@ -13,8 +13,10 @@ import 'io_streamed_response.dart';
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
 BaseClient createClient() {
   if (const bool.fromEnvironment('no_default_http_client')) {
-    throw StateError('no_default_http_client was defined but runWithClient '
-        'was not used to configure a Client implementation.');
+    throw StateError(
+      'no_default_http_client was defined but runWithClient '
+      'was not used to configure a Client implementation.',
+    );
   }
   return IOClient();
 }
@@ -28,8 +30,8 @@ class _ClientSocketException extends ClientException
     implements SocketException {
   final SocketException cause;
   _ClientSocketException(SocketException e, Uri uri)
-      : cause = e,
-        super(e.message, uri);
+    : cause = e,
+      super(e.message, uri);
 
   @override
   InternetAddress? get address => cause.address;
@@ -49,15 +51,18 @@ class _IOStreamedResponseV2 extends IOStreamedResponse
   @override
   final Uri url;
 
-  _IOStreamedResponseV2(super.stream, super.statusCode,
-      {required this.url,
-      super.contentLength,
-      super.request,
-      super.headers,
-      super.isRedirect,
-      super.persistentConnection,
-      super.reasonPhrase,
-      super.inner});
+  _IOStreamedResponseV2(
+    super.stream,
+    super.statusCode, {
+    required this.url,
+    super.contentLength,
+    super.request,
+    super.headers,
+    super.isRedirect,
+    super.persistentConnection,
+    super.reasonPhrase,
+    super.inner,
+  });
 }
 
 /// A `dart:io`-based HTTP [Client].
@@ -105,7 +110,9 @@ class IOClient extends BaseClient {
   Future<IOStreamedResponse> send(BaseRequest request) async {
     if (_inner == null) {
       throw ClientException(
-          'HTTP request failed. Client is already closed.', request.url);
+        'HTTP request failed. Client is already closed.',
+        request.url,
+      );
     }
 
     var stream = request.finalize();
@@ -211,8 +218,9 @@ class IOClient extends BaseClient {
       return _IOStreamedResponseV2(
         responseController.stream,
         response.statusCode,
-        contentLength:
-            response.contentLength == -1 ? null : response.contentLength,
+        contentLength: response.contentLength == -1
+            ? null
+            : response.contentLength,
         request: request,
         headers: headers,
         isRedirect: response.isRedirect,

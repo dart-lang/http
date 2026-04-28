@@ -48,20 +48,33 @@ class MultipartFile {
   ///
   /// [contentType] currently defaults to `application/octet-stream`, but in the
   /// future may be inferred from [filename].
-  MultipartFile(this.field, Stream<List<int>> stream, this.length,
-      {this.filename, MediaType? contentType})
-      : _stream = toByteStream(stream),
-        contentType = contentType ?? MediaType('application', 'octet-stream');
+  MultipartFile(
+    this.field,
+    Stream<List<int>> stream,
+    this.length, {
+    this.filename,
+    MediaType? contentType,
+  }) : _stream = toByteStream(stream),
+       contentType = contentType ?? MediaType('application', 'octet-stream');
 
   /// Creates a new [MultipartFile] from a byte array.
   ///
   /// [contentType] currently defaults to `application/octet-stream`, but in the
   /// future may be inferred from [filename].
-  factory MultipartFile.fromBytes(String field, List<int> value,
-      {String? filename, MediaType? contentType}) {
+  factory MultipartFile.fromBytes(
+    String field,
+    List<int> value, {
+    String? filename,
+    MediaType? contentType,
+  }) {
     var stream = ByteStream.fromBytes(value);
-    return MultipartFile(field, stream, value.length,
-        filename: filename, contentType: contentType);
+    return MultipartFile(
+      field,
+      stream,
+      value.length,
+      filename: filename,
+      contentType: contentType,
+    );
   }
 
   /// Creates a new [MultipartFile] from a string.
@@ -70,14 +83,22 @@ class MultipartFile {
   /// [contentType] if it has a charset set. Otherwise, it defaults to UTF-8.
   /// [contentType] currently defaults to `text/plain; charset=utf-8`, but in
   /// the future may be inferred from [filename].
-  factory MultipartFile.fromString(String field, String value,
-      {String? filename, MediaType? contentType}) {
+  factory MultipartFile.fromString(
+    String field,
+    String value, {
+    String? filename,
+    MediaType? contentType,
+  }) {
     contentType ??= MediaType('text', 'plain');
     var encoding = encodingForContentTypeHeader(contentType, utf8);
     contentType = contentType.change(parameters: {'charset': encoding.name});
 
-    return MultipartFile.fromBytes(field, encoding.encode(value),
-        filename: filename, contentType: contentType);
+    return MultipartFile.fromBytes(
+      field,
+      encoding.encode(value),
+      filename: filename,
+      contentType: contentType,
+    );
   }
 
   // TODO(nweiz): Infer the content-type from the filename.
@@ -89,10 +110,17 @@ class MultipartFile {
   ///
   /// Throws an [UnsupportedError] if `dart:io` isn't supported in this
   /// environment.
-  static Future<MultipartFile> fromPath(String field, String filePath,
-          {String? filename, MediaType? contentType}) =>
-      multipartFileFromPath(field, filePath,
-          filename: filename, contentType: contentType);
+  static Future<MultipartFile> fromPath(
+    String field,
+    String filePath, {
+    String? filename,
+    MediaType? contentType,
+  }) => multipartFileFromPath(
+    field,
+    filePath,
+    filename: filename,
+    contentType: contentType,
+  );
 
   // Finalizes the file in preparation for it being sent as part of a
   // [MultipartRequest]. This returns a [ByteStream] that should emit the body

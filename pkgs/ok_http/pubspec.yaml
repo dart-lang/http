@@ -5,7 +5,7 @@ description: >-
 repository: https://github.com/dart-lang/http/tree/master/pkgs/ok_http
 
 environment:
-  sdk: ^3.4.0
+  sdk: ^3.9.0
   flutter: ">=3.22.0"
 
 dependencies:

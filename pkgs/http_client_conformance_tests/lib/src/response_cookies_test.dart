@@ -14,8 +14,10 @@ import 'response_cookies_server_vm.dart'
 ///
 /// If [canReceiveSetCookieHeaders] is `false` then tests that require that
 /// "set-cookie" headers be received by the client will not be run.
-void testResponseCookies(Client Function() clientFactory,
-    {required bool canReceiveSetCookieHeaders}) async {
+void testResponseCookies(
+  Client Function() clientFactory, {
+  required bool canReceiveSetCookieHeaders,
+}) async {
   group('response cookies', () {
     late Client client;
     late String host;
@@ -30,66 +32,89 @@ void testResponseCookies(Client Function() clientFactory,
     });
     tearDown(() => client.close());
 
-    test('single session cookie', () async {
-      httpServerChannel.sink.add(['Set-Cookie: SID=1231AB3']);
-      final response = await client.get(Uri.http(host, ''));
+    test(
+      'single session cookie',
+      () async {
+        httpServerChannel.sink.add(['Set-Cookie: SID=1231AB3']);
+        final response = await client.get(Uri.http(host, ''));
 
-      expect(response.headers['set-cookie'], 'SID=1231AB3');
-    },
-        skip: canReceiveSetCookieHeaders
-            ? false
-            : 'cannot receive set-cookie headers');
+        expect(response.headers['set-cookie'], 'SID=1231AB3');
+      },
+      skip: canReceiveSetCookieHeaders
+          ? false
+          : 'cannot receive set-cookie headers',
+    );
 
-    test('multiple session cookies', () async {
-      // RFC-2616 4.2 says:
-      // "The field value MAY be preceded by any amount of LWS, though a single
-      // SP is preferred." and
-      // "The field-content does not include any leading or trailing LWS ..."
-      httpServerChannel.sink
-          .add(['Set-Cookie: SID=1231AB3', 'Set-Cookie: lang=en_US']);
-      final response = await client.get(Uri.http(host, ''));
+    test(
+      'multiple session cookies',
+      () async {
+        // RFC-2616 4.2 says:
+        // "The field value MAY be preceded by any amount of LWS, though a single
+        // SP is preferred." and
+        // "The field-content does not include any leading or trailing LWS ..."
+        httpServerChannel.sink.add([
+          'Set-Cookie: SID=1231AB3',
+          'Set-Cookie: lang=en_US',
+        ]);
+        final response = await client.get(Uri.http(host, ''));
 
-      expect(
+        expect(
           response.headers['set-cookie'],
-          matches(r'SID=1231AB3'
-              r'[ \t]*,[ \t]*'
-              r'lang=en_US'));
-    },
-        skip: canReceiveSetCookieHeaders
-            ? false
-            : 'cannot receive set-cookie headers');
+          matches(
+            r'SID=1231AB3'
+            r'[ \t]*,[ \t]*'
+            r'lang=en_US',
+          ),
+        );
+      },
+      skip: canReceiveSetCookieHeaders
+          ? false
+          : 'cannot receive set-cookie headers',
+    );
 
-    test('permanent cookie with expires', () async {
-      httpServerChannel.sink
-          .add(['Set-Cookie: id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT']);
-      final response = await client.get(Uri.http(host, ''));
+    test(
+      'permanent cookie with expires',
+      () async {
+        httpServerChannel.sink.add([
+          'Set-Cookie: id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT',
+        ]);
+        final response = await client.get(Uri.http(host, ''));
 
-      expect(response.headers['set-cookie'],
-          'id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT');
-    },
-        skip: canReceiveSetCookieHeaders
-            ? false
-            : 'cannot receive set-cookie headers');
-
-    test('multiple permanent cookies with expires', () async {
-      // RFC-2616 4.2 says:
-      // "The field value MAY be preceded by any amount of LWS, though a single
-      // SP is preferred." and
-      // "The field-content does not include any leading or trailing LWS ..."
-      httpServerChannel.sink.add([
-        'Set-Cookie: id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT',
-        'Set-Cookie: id=2fasd; Expires=Wed, 21 Oct 2025 07:28:00 GMT'
-      ]);
-      final response = await client.get(Uri.http(host, ''));
-
-      expect(
+        expect(
           response.headers['set-cookie'],
-          matches(r'id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT'
-              r'[ \t]*,[ \t]*'
-              r'id=2fasd; Expires=Wed, 21 Oct 2025 07:28:00 GMT'));
-    },
-        skip: canReceiveSetCookieHeaders
-            ? false
-            : 'cannot receive set-cookie headers');
+          'id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT',
+        );
+      },
+      skip: canReceiveSetCookieHeaders
+          ? false
+          : 'cannot receive set-cookie headers',
+    );
+
+    test(
+      'multiple permanent cookies with expires',
+      () async {
+        // RFC-2616 4.2 says:
+        // "The field value MAY be preceded by any amount of LWS, though a single
+        // SP is preferred." and
+        // "The field-content does not include any leading or trailing LWS ..."
+        httpServerChannel.sink.add([
+          'Set-Cookie: id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT',
+          'Set-Cookie: id=2fasd; Expires=Wed, 21 Oct 2025 07:28:00 GMT',
+        ]);
+        final response = await client.get(Uri.http(host, ''));
+
+        expect(
+          response.headers['set-cookie'],
+          matches(
+            r'id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT'
+            r'[ \t]*,[ \t]*'
+            r'id=2fasd; Expires=Wed, 21 Oct 2025 07:28:00 GMT',
+          ),
+        );
+      },
+      skip: canReceiveSetCookieHeaders
+          ? false
+          : 'cannot receive set-cookie headers',
+    );
   });
 }

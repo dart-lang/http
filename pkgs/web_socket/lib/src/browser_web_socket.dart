@@ -25,16 +25,22 @@ class BrowserWebSocket implements WebSocket {
   /// If provided, the [protocols] argument indicates that subprotocols that
   /// the peer is able to select. See
   /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
-  static Future<BrowserWebSocket> connect(Uri url,
-      {Iterable<String>? protocols}) async {
+  static Future<BrowserWebSocket> connect(
+    Uri url, {
+    Iterable<String>? protocols,
+  }) async {
     if (!url.isScheme('ws') && !url.isScheme('wss')) {
       throw ArgumentError.value(
-          url, 'url', 'only ws: and wss: schemes are supported');
+        url,
+        'url',
+        'only ws: and wss: schemes are supported',
+      );
     }
 
-    final webSocket = web.WebSocket(url.toString(),
-        protocols?.map((e) => e.toJS).toList().toJS ?? JSArray())
-      ..binaryType = 'arraybuffer';
+    final webSocket = web.WebSocket(
+      url.toString(),
+      protocols?.map((e) => e.toJS).toList().toJS ?? JSArray(),
+    )..binaryType = 'arraybuffer';
     final browserSocket = BrowserWebSocket._(webSocket);
     final webSocketConnected = Completer<BrowserWebSocket>();
 
@@ -43,28 +49,35 @@ class BrowserWebSocket implements WebSocket {
     } else {
       if (webSocket.readyState == web.WebSocket.CLOSING ||
           webSocket.readyState == web.WebSocket.CLOSED) {
-        webSocketConnected.completeError(WebSocketException(
+        webSocketConnected.completeError(
+          WebSocketException(
             'Unexpected WebSocket state: ${webSocket.readyState}, '
-            'expected CONNECTING (0) or OPEN (1)'));
+            'expected CONNECTING (0) or OPEN (1)',
+          ),
+        );
       } else {
         // The socket API guarantees that only a single open event will be
         // emitted.
-        unawaited(webSocket.onOpen.first.then((_) {
-          webSocketConnected.complete(browserSocket);
-        }));
+        unawaited(
+          webSocket.onOpen.first.then((_) {
+            webSocketConnected.complete(browserSocket);
+          }),
+        );
       }
     }
 
-    unawaited(webSocket.onError.first.then((e) {
-      // Unfortunately, the underlying WebSocket API doesn't expose any
-      // specific information about the error itself.
-      if (!webSocketConnected.isCompleted) {
-        final error = WebSocketException('Failed to connect WebSocket');
-        webSocketConnected.completeError(error);
-      } else {
-        browserSocket._closed(1006, 'error');
-      }
-    }));
+    unawaited(
+      webSocket.onError.first.then((e) {
+        // Unfortunately, the underlying WebSocket API doesn't expose any
+        // specific information about the error itself.
+        if (!webSocketConnected.isCompleted) {
+          final error = WebSocketException('Failed to connect WebSocket');
+          webSocketConnected.completeError(error);
+        } else {
+          browserSocket._closed(1006, 'error');
+        }
+      }),
+    );
 
     webSocket.onMessage.listen((e) {
       if (browserSocket._events.isClosed) return;
@@ -76,19 +89,22 @@ class BrowserWebSocket implements WebSocket {
       } else if (eventData.typeofEquals('object') &&
           (eventData as JSObject).instanceOfString('ArrayBuffer')) {
         data = BinaryDataReceived(
-            (eventData as JSArrayBuffer).toDart.asUint8List());
+          (eventData as JSArrayBuffer).toDart.asUint8List(),
+        );
       } else {
         throw StateError('unexpected message type: ${eventData.runtimeType}');
       }
       browserSocket._events.add(data);
     });
 
-    unawaited(webSocket.onClose.first.then((event) {
-      if (!webSocketConnected.isCompleted) {
-        webSocketConnected.complete(browserSocket);
-      }
-      browserSocket._closed(event.code, event.reason);
-    }));
+    unawaited(
+      webSocket.onClose.first.then((event) {
+        if (!webSocketConnected.isCompleted) {
+          webSocketConnected.complete(browserSocket);
+        }
+        browserSocket._closed(event.code, event.reason);
+      }),
+    );
 
     return webSocketConnected.future;
   }
