@@ -36,7 +36,7 @@ class CallbackException extends CronetClientException {
 /// A [ClientException] generated from a Java [`NetworkException`][1].
 ///
 /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/NetworkException.html
-class NetowrkClientException extends CronetClientException {
+class NetworkClientException extends CronetClientException {
   /// The Cronet internal error code.
   ///
   /// This may provide more specific error diagnosis than [errorCode].
@@ -61,13 +61,13 @@ class NetowrkClientException extends CronetClientException {
   /// configuration.
   final bool immediatelyRetryable;
 
-  NetowrkClientException._(super.message, super.uri,
+  NetworkClientException._(super.message, super.uri,
       {required this.cronetInternalErrorCode,
       required this.errorCode,
       required this.immediatelyRetryable});
 
   @override
-  String toString() => 'NetowrkClientException: $message, uri=$uri, '
+  String toString() => 'NetworkClientException: $message, uri=$uri, '
       'errorCode=$errorCode, cronetInternalErrorCode=$cronetInternalErrorCode, '
       'immediatelyRetryable=$immediatelyRetryable';
 }
@@ -75,7 +75,7 @@ class NetowrkClientException extends CronetClientException {
 /// A [ClientException] generated from a Java [`QuicException`][1].
 ///
 /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/QuicException.html
-class QuicException extends NetowrkClientException {
+class QuicException extends NetworkClientException {
   /// The QUIC error code, which is a value from [`QuicErrorCode`][1].
   ///
   /// [1]: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_error_codes.h
@@ -124,7 +124,7 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
   if (e.isA(jb.NetworkException.type)) {
     final networkException =
         e.as(jb.NetworkException.type, releaseOriginal: true);
-    return NetowrkClientException._(
+    return NetworkClientException._(
       message,
       uri,
       cronetInternalErrorCode: networkException.getCronetInternalErrorCode(),
