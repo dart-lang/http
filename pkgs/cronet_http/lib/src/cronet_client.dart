@@ -33,22 +33,26 @@ class CallbackException extends CronetClientException {
 class NetowrkClientException extends CronetClientException {
   /// The Cronet internal error code.
   ///
-  /// This may provide more specific error diagnosis than [errorCode], but the
-  /// constant values are not exposed to Java and may change over time. See
-  /// [here](https://chromium.googlesource.com/chromium/src/+/main/net/base/net_error_list.h)
-  /// for the latest list of values.
+  /// This may provide more specific error diagnosis than [errorCode].
+  ///
+  /// The list of possible value is contained in [net_error_list.h][1].
+  ///
+  /// [1]: https://chromium.googlesource.com/chromium/src/+/main/net/base/net_error_list.h
   final int cronetInternalErrorCode;
 
-  /// The error code, which is one of the `ERROR_*` constants defined
-  /// in `NetworkException` (e.g., `ERROR_HOSTNAME_NOT_RESOLVED`).
+  /// The error code associated with the failure, which is one of the `ERROR_*`
+  /// constants defined in [`NetworkException`][1].
+  ///
+  /// For example, a value of `6` corresponds to `ERROR_CONNECTION_TIMED_OUT`.
+  ///
+  /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/NetworkException.html#constants
   final int errorCode;
 
   /// Whether retrying this request right away might succeed.
   ///
   /// For example, this is `true` when [errorCode] is `ERROR_NETWORK_CHANGED`
   /// because trying the request might succeed using the new network
-  /// configuration, but `false` when [errorCode] is `ERROR_INTERNET_DISCONNECTED`
-  /// because retrying the request right away will encounter the same failure.
+  /// configuration.
   final bool immediatelyRetryable;
 
 
@@ -59,9 +63,13 @@ class NetowrkClientException extends CronetClientException {
       required this.immediatelyRetryable});
 }
 
+/// A [ClientException] generated from a Java [`QuicException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/QuicException.html
 class QuicException extends NetowrkClientException {
-  /// The QUIC error code, which is a value from `QuicErrorCode`.
-  /// https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_error_codes.h
+  /// The QUIC error code, which is a value from [`QuicErrorCode`][1].
+  ///
+  /// [1]: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_error_codes.h
   final int quicDetailedErrorCode;
 
 
