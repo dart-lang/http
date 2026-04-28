@@ -13,27 +13,57 @@ import 'jni/jni_bindings.dart' as jb;
 final _digitRegex = RegExp(r'^\d+$');
 const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
 
+/// A [ClientException] generated from a Java [`CronetException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CronetException.html
 class CronetClientException extends ClientException {
   CronetClientException(super.message, Uri super.uri);
 }
 
+/// A [ClientException] generated from a Java [`CallbackException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CallbackException.html
 class CallbackException extends CronetClientException {
-  CallbackException(super.message, super.uri);
+  CallbackException._(super.message, super.uri);
 }
 
+/// A [ClientException] generated from a Java [`NetworkException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/NetworkException.html
 class NetowrkClientException extends CronetClientException {
+  /// The Cronet internal error code.
+  ///
+  /// This may provide more specific error diagnosis than [errorCode], but the
+  /// constant values are not exposed to Java and may change over time. See
+  /// [here](https://chromium.googlesource.com/chromium/src/+/main/net/base/net_error_list.h)
+  /// for the latest list of values.
   final int cronetInternalErrorCode;
+
+  /// The error code, which is one of the `ERROR_*` constants defined
+  /// in `NetworkException` (e.g., `ERROR_HOSTNAME_NOT_RESOLVED`).
   final int errorCode;
+
+  /// Whether retrying this request right away might succeed.
+  ///
+  /// For example, this is `true` when [errorCode] is `ERROR_NETWORK_CHANGED`
+  /// because trying the request might succeed using the new network
+  /// configuration, but `false` when [errorCode] is `ERROR_INTERNET_DISCONNECTED`
+  /// because retrying the request right away will encounter the same failure.
   final bool immediatelyRetryable;
 
+
   NetowrkClientException._(super.message, super.uri,
+
       {required this.cronetInternalErrorCode,
       required this.errorCode,
       required this.immediatelyRetryable});
 }
 
 class QuicException extends NetowrkClientException {
+  /// The QUIC error code, which is a value from `QuicErrorCode`.
+  /// https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_error_codes.h
   final int quicDetailedErrorCode;
+
 
   QuicException._(
     String message,
