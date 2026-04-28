@@ -18,6 +18,9 @@ const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
 /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CronetException.html
 class CronetClientException extends ClientException {
   CronetClientException(super.message, Uri super.uri);
+
+  @override
+  String toString() => 'CronetClientException: $message, uri=$uri';
 }
 
 /// A [ClientException] generated from a Java [`CallbackException`][1].
@@ -25,6 +28,9 @@ class CronetClientException extends ClientException {
 /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CallbackException.html
 class CallbackException extends CronetClientException {
   CallbackException._(super.message, super.uri);
+
+  @override
+  String toString() => 'CallbackException: $message, uri=$uri';
 }
 
 /// A [ClientException] generated from a Java [`NetworkException`][1].
@@ -55,12 +61,15 @@ class NetowrkClientException extends CronetClientException {
   /// configuration.
   final bool immediatelyRetryable;
 
-
   NetowrkClientException._(super.message, super.uri,
-
       {required this.cronetInternalErrorCode,
       required this.errorCode,
       required this.immediatelyRetryable});
+
+  @override
+  String toString() => 'NetowrkClientException: $message, uri=$uri, '
+      'errorCode=$errorCode, cronetInternalErrorCode=$cronetInternalErrorCode, '
+      'immediatelyRetryable=$immediatelyRetryable';
 }
 
 /// A [ClientException] generated from a Java [`QuicException`][1].
@@ -71,7 +80,6 @@ class QuicException extends NetowrkClientException {
   ///
   /// [1]: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_error_codes.h
   final int quicDetailedErrorCode;
-
 
   QuicException._(
     String message,
@@ -87,6 +95,12 @@ class QuicException extends NetowrkClientException {
           errorCode: errorCode,
           immediatelyRetryable: immediatelyRetryable,
         );
+
+  @override
+  String toString() => 'QuicException: $message, uri=$uri, '
+      'errorCode=$errorCode, cronetInternalErrorCode=$cronetInternalErrorCode, '
+      'immediatelyRetryable=$immediatelyRetryable, '
+      'quicDetailedErrorCode=$quicDetailedErrorCode';
 }
 
 ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
@@ -95,6 +109,7 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
   }
   final message = e.getMessage()?.toDartString(releaseOriginal: true) ??
       'unknown exception';
+
   if (e.isA(jb.QuicException.type)) {
     final quicException = e.as(jb.QuicException.type, releaseOriginal: true);
     return QuicException._(
