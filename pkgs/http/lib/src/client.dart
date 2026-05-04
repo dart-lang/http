@@ -148,19 +148,13 @@ abstract interface class Client {
 
   /// Closes the client and cleans up any resources associated with it.
   ///
-  /// Some clients maintain a pool of network connections that will not be
-  /// disconnected until the client is closed. This may cause programs using
-  /// the Dart SDK (`dart run`, `dart test`, `dart compile`, etc.) or
-  /// isolates to not exit until the client is closed. Programs run using the
-  /// Flutter SDK can still terminate even with an active connection pool.
-  ///
-  /// Once [close] is called, no other methods should be called. If [close] is
-  /// called while other asynchronous methods are running, the behavior is
+  /// Once [close] is called, no other [Client] methods should be called. If
+  /// [close] is called while there are active requests, the behavior is
   /// undefined.
   ///
   /// > [!WARNING]
   /// > The behavior is undefined if [close] is not called before the isolate
-  /// > exits.
+  /// > that created this [Client], including the main isolate, exits.
   void close();
 }
 
