@@ -13,6 +13,127 @@ import 'jni/jni_bindings.dart' as jb;
 final _digitRegex = RegExp(r'^\d+$');
 const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
 
+/// A [ClientException] generated from a Java [`CronetException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CronetException.html
+class CronetException extends ClientException {
+  CronetException(super.message, Uri super.uri);
+
+  @override
+  String toString() => 'CronetClientException: $message, uri=$uri';
+}
+
+/// A [ClientException] generated from a Java [`CallbackException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CallbackException.html
+class CallbackException extends CronetException {
+  CallbackException._(super.message, super.uri);
+
+  @override
+  String toString() => 'CallbackException: $message, uri=$uri';
+}
+
+/// A [ClientException] generated from a Java [`NetworkException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/NetworkException.html
+class NetworkException extends CronetException {
+  /// The Cronet internal error code.
+  ///
+  /// This may provide more specific error diagnosis than [errorCode].
+  ///
+  /// The list of possible value is contained in [net_error_list.h][1].
+  ///
+  /// [1]: https://chromium.googlesource.com/chromium/src/+/main/net/base/net_error_list.h
+  final int cronetInternalErrorCode;
+
+  /// The error code associated with the failure, which is one of the `ERROR_*`
+  /// constants defined in [`NetworkException`][1].
+  ///
+  /// For example, a value of `6` corresponds to `ERROR_CONNECTION_TIMED_OUT`.
+  ///
+  /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/NetworkException.html#constants
+  final int errorCode;
+
+  /// Whether retrying this request right away might succeed.
+  ///
+  /// For example, this is `true` when [errorCode] is `ERROR_NETWORK_CHANGED`
+  /// because trying the request might succeed using the new network
+  /// configuration.
+  final bool immediatelyRetryable;
+
+  NetworkException._(super.message, super.uri,
+      {required this.cronetInternalErrorCode,
+      required this.errorCode,
+      required this.immediatelyRetryable});
+
+  @override
+  String toString() => 'NetworkClientException: $message, uri=$uri, '
+      'errorCode=$errorCode, cronetInternalErrorCode=$cronetInternalErrorCode, '
+      'immediatelyRetryable=$immediatelyRetryable';
+}
+
+/// A [ClientException] generated from a Java [`QuicException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/QuicException.html
+class QuicException extends NetworkException {
+  /// The QUIC error code, which is a value from [`QuicErrorCode`][1].
+  ///
+  /// [1]: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_error_codes.h
+  final int quicDetailedErrorCode;
+
+  QuicException._(
+    super.message,
+    super.uri, {
+    required this.quicDetailedErrorCode,
+    required super.errorCode,
+    required super.cronetInternalErrorCode,
+    required super.immediatelyRetryable,
+  }) : super._();
+
+  @override
+  String toString() => 'QuicException: $message, uri=$uri, '
+      'errorCode=$errorCode, cronetInternalErrorCode=$cronetInternalErrorCode, '
+      'immediatelyRetryable=$immediatelyRetryable, '
+      'quicDetailedErrorCode=$quicDetailedErrorCode';
+}
+
+ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
+  if (e == null) {
+    return CronetException('unknown exception', uri);
+  }
+  final message = e.getMessage()?.toDartString(releaseOriginal: true) ??
+      'unknown exception';
+
+  if (e.isA(jb.QuicException.type)) {
+    final quicException = e.as(jb.QuicException.type, releaseOriginal: true);
+    return QuicException._(
+      message,
+      uri,
+      quicDetailedErrorCode: quicException.getQuicDetailedErrorCode(),
+      errorCode: quicException.getErrorCode(),
+      cronetInternalErrorCode: quicException.getCronetInternalErrorCode(),
+      immediatelyRetryable: quicException.immediatelyRetryable(),
+    );
+  }
+  if (e.isA(jb.NetworkException.type)) {
+    final networkException =
+        e.as(jb.NetworkException.type, releaseOriginal: true);
+    return NetworkException._(
+      message,
+      uri,
+      cronetInternalErrorCode: networkException.getCronetInternalErrorCode(),
+      errorCode: networkException.getErrorCode(),
+      immediatelyRetryable: networkException.immediatelyRetryable(),
+    );
+  }
+
+  if (e.isA(jb.CallbackException.type)) {
+    return CallbackException._(message, uri);
+  }
+
+  return CronetException(message, uri);
+}
+
 /// This class can be removed when `package:http` v2 is released.
 class _StreamedResponseWithUrl extends StreamedResponse
     implements BaseResponseWithUrl {
@@ -430,8 +551,8 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         cronetException?.releasedBy(arena);
         if (responseStreamCancelled) return;
         responseStreamCancelled = true;
-        final error = ClientException(
-            'Cronet exception: ${cronetException.toString()}', request.url);
+        final error = _convertCronetException(cronetException, request.url);
+
         if (responseStream == null) {
           responseCompleter.completeError(error);
         } else {

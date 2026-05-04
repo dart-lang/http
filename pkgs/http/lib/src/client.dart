@@ -150,13 +150,17 @@ abstract interface class Client {
   ///
   /// Some clients maintain a pool of network connections that will not be
   /// disconnected until the client is closed. This may cause programs using
-  /// using the Dart SDK (`dart run`, `dart test`, `dart compile`, etc.) to
-  /// not terminate until the client is closed. Programs run using the Flutter
-  /// SDK can still terminate even with an active connection pool.
+  /// the Dart SDK (`dart run`, `dart test`, `dart compile`, etc.) or
+  /// isolates to not exit until the client is closed. Programs run using the
+  /// Flutter SDK can still terminate even with an active connection pool.
   ///
   /// Once [close] is called, no other methods should be called. If [close] is
   /// called while other asynchronous methods are running, the behavior is
   /// undefined.
+  ///
+  /// > [!WARNING]
+  /// > The behavior is undefined if [close] is not called before the isolate
+  /// > exits.
   void close();
 }
 
@@ -202,7 +206,7 @@ Client? get zoneClient {
 /// returns `Client()` then the default [Client] is used.
 ///
 /// Only fresh `Client` instances using the default constructor are impacted.
-/// HTTP requests made using `dart:io` or `dart:html` APIs,
+/// HTTP requests made using `dart:io` or `package:web` APIs,
 /// or using specifically instantiated client implementations, are not affected.
 ///
 /// If [runWithClient] is used and the environment defines

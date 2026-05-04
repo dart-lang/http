@@ -11,10 +11,16 @@ output:
 
 classes:
   - 'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy'
+  - 'java.io.IOException'
+  - 'java.lang.Exception'
+  - 'java.lang.Throwable'
   - 'java.net.URL'
   - 'java.util.concurrent.Executors'
   - 'org.chromium.net.CronetEngine'
+  - 'org.chromium.net.CallbackException'
   - 'org.chromium.net.CronetException'
+  - 'org.chromium.net.NetworkException'
+  - 'org.chromium.net.QuicException'
   - 'org.chromium.net.UploadDataProviders'
   - 'org.chromium.net.UrlRequest'
   - 'org.chromium.net.UrlResponseInfo'

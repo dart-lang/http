@@ -115,9 +115,68 @@ Future<void> testCronetStreamedResponse() async {
   });
 }
 
+Future<void> testCronetExceptions() async {
+  test('NetworkClientException', () async {
+    final server = (await ServerSocket.bind('localhost', 0))
+      ..listen((socket) async {
+        socket.write('Gibberish');
+        await socket.close();
+      });
+    addTearDown(server.close);
+    final client = CronetClient.defaultCronetEngine();
+    expect(
+      client.send(Request('GET', Uri.http('localhost:${server.port}'))),
+      throwsA(isA<NetworkException>()
+          .having((e) => e.errorCode, 'errorCode', 11 // ERROR_OTHER
+              )
+          .having((e) => e.cronetInternalErrorCode, 'cronetInternalErrorCode',
+              -370 // INVALID_HTTP_RESPONSE
+              )
+          .having((e) => e.toString(), 'toString',
+              startsWith('NetworkClientException:'))),
+    );
+  });
+
+  test('QuicException', () async {
+    final udpSocket =
+        await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 0);
+    addTearDown(udpSocket.close);
+
+    udpSocket.listen((event) {
+      if (event == RawSocketEvent.read) {
+        final datagram = udpSocket.receive();
+        if (datagram != null) {
+          udpSocket
+              .send([0x01, 0x02, 0x03, 0x04], datagram.address, datagram.port);
+        }
+      }
+    });
+
+    final port = udpSocket.port;
+
+    final engine = CronetEngine.build(enableQuic: true, quicHints: [
+      ('127.0.0.1', port, port),
+    ]);
+    final client = CronetClient.fromCronetEngine(engine);
+
+    expect(
+      client.send(Request('GET', Uri.parse('https://127.0.0.1:$port'))),
+      throwsA(isA<QuicException>()
+          .having(
+              (e) => e.errorCode, 'errorCode', 10 // ERROR_QUIC_PROTOCOL_FAILED
+              )
+          .having(
+              (e) => e.quicDetailedErrorCode, 'quicDetailedErrorCode', isNot(0))
+          .having(
+              (e) => e.toString(), 'toString', startsWith('QuicException:'))),
+    );
+  });
+}
+
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   await testConformance();
   await testCronetStreamedResponse();
+  await testCronetExceptions();
 }
