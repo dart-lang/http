@@ -1,6 +1,7 @@
 ## 1.9.0-wip
 
 * Add `CronetEngine.startNetLogToFile` and `CronetEngine.stopNetLog`.
+* Upgrade to Cronet 18.1.1.
 
 ## 1.8.0
 
