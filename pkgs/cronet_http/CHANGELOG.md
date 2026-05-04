@@ -1,6 +1,7 @@
 ## 1.9.0-wip
 
 * Add `CronetEngine.startNetLogToFile` and `CronetEngine.stopNetLog`.
+* Decode Java `CronetException` into Dart equivalents.
 
 ## 1.8.0
 
