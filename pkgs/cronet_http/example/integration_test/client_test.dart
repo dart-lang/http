@@ -126,7 +126,7 @@ Future<void> testCronetExceptions() async {
     final client = CronetClient.defaultCronetEngine();
     expect(
       client.send(Request('GET', Uri.http('localhost:${server.port}'))),
-      throwsA(isA<NetworkClientException>()
+      throwsA(isA<NetworkException>()
           .having((e) => e.errorCode, 'errorCode', 11 // ERROR_OTHER
               )
           .having((e) => e.cronetInternalErrorCode, 'cronetInternalErrorCode',

@@ -16,8 +16,8 @@ const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
 /// A [ClientException] generated from a Java [`CronetException`][1].
 ///
 /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CronetException.html
-class CronetClientException extends ClientException {
-  CronetClientException(super.message, Uri super.uri);
+class CronetException extends ClientException {
+  CronetException(super.message, Uri super.uri);
 
   @override
   String toString() => 'CronetClientException: $message, uri=$uri';
@@ -26,7 +26,7 @@ class CronetClientException extends ClientException {
 /// A [ClientException] generated from a Java [`CallbackException`][1].
 ///
 /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CallbackException.html
-class CallbackException extends CronetClientException {
+class CallbackException extends CronetException {
   CallbackException._(super.message, super.uri);
 
   @override
@@ -36,7 +36,7 @@ class CallbackException extends CronetClientException {
 /// A [ClientException] generated from a Java [`NetworkException`][1].
 ///
 /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/NetworkException.html
-class NetworkClientException extends CronetClientException {
+class NetworkException extends CronetException {
   /// The Cronet internal error code.
   ///
   /// This may provide more specific error diagnosis than [errorCode].
@@ -61,7 +61,7 @@ class NetworkClientException extends CronetClientException {
   /// configuration.
   final bool immediatelyRetryable;
 
-  NetworkClientException._(super.message, super.uri,
+  NetworkException._(super.message, super.uri,
       {required this.cronetInternalErrorCode,
       required this.errorCode,
       required this.immediatelyRetryable});
@@ -75,7 +75,7 @@ class NetworkClientException extends CronetClientException {
 /// A [ClientException] generated from a Java [`QuicException`][1].
 ///
 /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/QuicException.html
-class QuicException extends NetworkClientException {
+class QuicException extends NetworkException {
   /// The QUIC error code, which is a value from [`QuicErrorCode`][1].
   ///
   /// [1]: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_error_codes.h
@@ -99,7 +99,7 @@ class QuicException extends NetworkClientException {
 
 ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
   if (e == null) {
-    return CronetClientException('unknown exception', uri);
+    return CronetException('unknown exception', uri);
   }
   final message = e.getMessage()?.toDartString(releaseOriginal: true) ??
       'unknown exception';
@@ -118,7 +118,7 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
   if (e.isA(jb.NetworkException.type)) {
     final networkException =
         e.as(jb.NetworkException.type, releaseOriginal: true);
-    return NetworkClientException._(
+    return NetworkException._(
       message,
       uri,
       cronetInternalErrorCode: networkException.getCronetInternalErrorCode(),
@@ -131,7 +131,7 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
     return CallbackException._(message, uri);
   }
 
-  return CronetClientException(message, uri);
+  return CronetException(message, uri);
 }
 
 /// This class can be removed when `package:http` v2 is released.
