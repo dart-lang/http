@@ -588,6 +588,43 @@ void main() {
         clientSettings: const ClientSettings(streamWindowSize: 8096),
       );
     });
+
+    // Regression test for issue #1913: when a peer sends GOAWAY with
+    // NO_ERROR and then closes the underlying transport, pending
+    // operations on the local connection should error with a
+    // distinguishable graceful-shutdown signal — not with the
+    // "Connection is being forcefully terminated." message reserved for
+    // forceful termination paths. Per issue body shape (b) +
+    // brianquinlan's vote: the graceful-shutdown signal is
+    // breaking-cleaner than the prior conflated message.
+    transportTest('graceful-server-finish-distinct-shutdown-signal', (
+      TransportConnection client,
+      TransportConnection server,
+    ) async {
+      // Race a pending client.ping() with server-side graceful shutdown.
+      // Under the prior behavior the ping errored with
+      // "Connection is being forcefully terminated."; per shape (b) the
+      // ping errors with the distinct graceful-shutdown signal.
+      var clientPingError = client.ping().catchError(
+        expectAsync2((Object e, StackTrace s) {
+          expect(e, isA<TransportConnectionException>());
+          // Graceful-shutdown signal: errorCode == NO_ERROR + distinct
+          // message. Either condition is sufficient for callers to
+          // distinguish from the forceful-termination path; we assert
+          // both for regression safety.
+          final tce = e as TransportConnectionException;
+          expect(tce.errorCode, 0); // ErrorCode.NO_ERROR
+          expect(
+            tce.toString(),
+            isNot(contains('forcefully terminated')),
+            reason:
+                'Graceful close must not surface forceful-termination text.',
+          );
+        }),
+      );
+      await server.finish();
+      await clientPingError;
+    });
   });
 }
 
