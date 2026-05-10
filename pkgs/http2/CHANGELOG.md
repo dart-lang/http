@@ -1,6 +1,17 @@
 ## 3.0.1-wip
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
+- **BREAKING (per #1913)**: distinguish graceful peer-initiated
+  shutdown (GOAWAY with `NO_ERROR` followed by transport close) from
+  forceful termination. Under the graceful path, pending operations
+  error with `TransportConnectionException(errorCode: NO_ERROR,
+  message: "Connection gracefully closed by peer.")` instead of the
+  prior conflated `"Connection is being forcefully terminated."` text.
+  Consumers that previously matched the forceful-termination text to
+  detect any peer-side shutdown should switch to observing
+  `TransportConnectionException.errorCode == ErrorCode.NO_ERROR` (or
+  the new message text) to distinguish graceful from forceful close.
+  (#1913)
 
 ## 3.0.0
 
