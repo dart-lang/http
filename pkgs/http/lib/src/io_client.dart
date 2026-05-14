@@ -117,7 +117,7 @@ class IOClient extends BaseClient {
         ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
-        ioRequest.headers.set(name, value);
+        ioRequest.headers.set(name, value, preserveHeaderCase: true);
       });
 
       // SDK request aborting is only effective up until the request is closed,
