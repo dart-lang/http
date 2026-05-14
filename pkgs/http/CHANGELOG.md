@@ -2,6 +2,7 @@
 
 * Clarified the behavior of response headers in API documentation comments.
 * Replace references to `dart:web` with `package:web` dartdoc.
+* Preserve header cases in `IOClient`.
 
 ## 1.6.0
 
