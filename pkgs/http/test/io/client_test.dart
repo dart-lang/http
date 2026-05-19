@@ -8,6 +8,7 @@ library;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart' as http_io;
@@ -184,5 +185,45 @@ void main() {
     http.runWithClient(() {
       http.runWithClient(http.Client.new, http.Client.new);
     }, http.Client.new);
+  });
+
+  test('preserves header case', () async {
+    // Avoid `HttpServer` header normalization with a direct socket server.
+    final server = await ServerSocket.bind('localhost', 0);
+    final url = Uri.http('localhost:${server.port}', '');
+
+    final client = http.Client();
+    final request = http.Request('POST', url)
+      ..headers['X-Custom-Header'] = 'value';
+
+    final responseFuture = client.send(request);
+
+    final socket = await server.first;
+    final bytes = BytesBuilder();
+    const needle = [13, 10, 13, 10];
+    var needleIndex = 0;
+
+    collectHeader:
+    await for (var data in socket) {
+      bytes.add(data);
+      for (final byte in data) {
+        if (byte == needle[needleIndex]) {
+          if (++needleIndex == 4) break collectHeader;
+        } else {
+          needleIndex = (byte == 13) ? 1 : 0;
+        }
+      }
+    }
+
+    expect(utf8.decode(bytes.toBytes()), contains('X-Custom-Header: value'));
+
+    socket.write('HTTP/1.1 200 OK\r\nContent-Length: 0\r\n\r\n');
+    await socket.flush();
+    await socket.close();
+    await server.close();
+
+    final response = await responseFuture;
+    expect(response.statusCode, equals(200));
+    client.close();
   });
 }
