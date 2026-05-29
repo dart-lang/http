@@ -1,3 +1,8 @@
+## 3.0.2
+
+* Fix a [bug](https://github.com/dart-lang/http/issues/1929) where code
+  assets were built on non-code-assets hook invocations.
+
 ## 3.0.1
 
 * Fix a [bug](https://github.com/dart-lang/http/issues/1925) where native
