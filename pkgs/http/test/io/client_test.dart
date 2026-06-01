@@ -36,6 +36,79 @@ void main() {
     serverUrl = await startServer();
   });
 
+  test('aborting without reading the response frees the underlying connection',
+      () async {
+    // Pool of exactly one: a held connection makes the next request hang.
+    final ioClient = HttpClient()..maxConnectionsPerHost = 1;
+    final client = http_io.IOClient(ioClient);
+    addTearDown(client.close);
+
+    final abortTrigger = Completer<void>();
+    final request = http.AbortableRequest('GET', serverUrl,
+        abortTrigger: abortTrigger.future);
+
+    await client.send(request);
+
+    // Abort after we have the response but before reading it.
+    abortTrigger.complete();
+
+    // Can only succeed if the aborted request's connection was released.
+    final request2 = http.Request('GET', serverUrl);
+    final response2 =
+        await client.send(request2).timeout(const Duration(seconds: 5));
+    final body2 = await http.Response.fromStream(response2);
+
+    expect(response2.statusCode, 200);
+    expect(body2.body, isNotEmpty);
+  });
+
+  test('aborting after the response is fully read raises no async error',
+      () async {
+    final errors = <Object>[];
+
+    await runZonedGuarded(() async {
+      final client = http_io.IOClient();
+      addTearDown(client.close);
+
+      final abortTrigger = Completer<void>();
+      final request = http.AbortableRequest('GET', serverUrl,
+          abortTrigger: abortTrigger.future);
+
+      final response = await client.send(request);
+      final body = await http.Response.fromStream(response);
+      expect(body.statusCode, 200);
+
+      abortTrigger.complete();
+      await Future<void>.delayed(Duration.zero); // let the handlers run
+    }, (e, _) => errors.add(e));
+
+    expect(errors, isEmpty);
+  });
+
+  test('aborting while streaming frees the connection', () async {
+    final ioClient = HttpClient()..maxConnectionsPerHost = 1; // pool of 1
+    final client = http_io.IOClient(ioClient);
+    addTearDown(client.close);
+
+    final abortTrigger = Completer<void>();
+    final request = http.AbortableRequest('GET', serverUrl,
+        abortTrigger: abortTrigger.future);
+
+    final response = await client.send(request);
+
+    // Start streaming, then abort before the body's I/O events are delivered.
+    response.stream.listen((_) {}, onError: (_) {});
+    abortTrigger.complete();
+
+    // Only returns if the aborted connection was released back to the pool.
+    final response2 = await client
+        .send(http.Request('GET', serverUrl))
+        .timeout(const Duration(seconds: 5));
+    final body2 = await http.Response.fromStream(response2);
+    expect(response2.statusCode, 200);
+    expect(body2.body, isNotEmpty);
+  });
+
   test('#send a StreamedRequest', () async {
     var client = http.Client();
     var request = http.StreamedRequest('POST', serverUrl)

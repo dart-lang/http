@@ -120,20 +120,25 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value, preserveHeaderCase: true);
       });
 
-      // SDK request aborting is only effective up until the request is closed,
-      // at which point the full response always becomes available.
-      // This occurs at `pipe`, which automatically closes the request once the
-      // request stream has been pumped in.
+      // SDK request aborting is only effective up until the request is
+      // closed, at which point the full response always becomes available.
+      // This happens at `pipe`, which closes the request once the request
+      // stream is pumped in.
       //
-      // Therefore, we have multiple strategies:
-      //  * If the user aborts before we have a response, we can use SDK abort,
-      //    which causes the `pipe` (and therefore this method) to throw the
-      //    aborted error
-      //  * If the user aborts after we have a response but before they listen
-      //    to it, we immediately emit the aborted error then close the response
-      //    as soon as they listen to it
-      //  * If the user aborts whilst streaming the response, we inject the
-      //    aborted error, then close the response
+      // Abort is therefore handled in two phases, split on the `pipe` boundary:
+      //
+      //  * Before we have a response: use SDK abort, which makes `pipe` (and so
+      //    this method) throw the aborted error.
+      //
+      //  * After we have a response, WE own the `HttpClientResponse` and must
+      //    release it ourselves; otherwise the connection stays open
+      //    waiting for a body that will never be read.
+      //    One handler covers all three cases:
+      //      - Never listened to: cancel the native response to destroy the
+      //        connection.
+      //      - Streaming: inject the aborted error into the wrapper and cancel
+      //        the active subscription, which destroys the connection.
+      //      - Already fully read: nothing to release, so it's a no-op.
 
       var isAborted = false;
       var hasResponse = false;
@@ -153,32 +158,32 @@ class IOClient extends BaseClient {
       hasResponse = true;
 
       StreamSubscription<List<int>>? ioResponseSubscription;
-
       late final StreamController<List<int>> responseController;
+      var responseListenStarted = false;
+
+      void abortResponse() {
+        if (!responseController.isClosed) {
+          responseController
+            ..addError(RequestAbortedException(request.url))
+            ..close();
+        }
+        if (responseListenStarted) {
+          unawaited(ioResponseSubscription?.cancel());
+        } else {
+          unawaited(response.listen(null, onError: (_, __) {}).cancel());
+        }
+      }
+
       responseController = StreamController(
         onListen: () {
-          if (isAborted) {
-            responseController
-              ..addError(RequestAbortedException(request.url))
-              ..close();
-            return;
-          } else if (request case Abortable(:final abortTrigger?)) {
-            abortTrigger.whenComplete(() {
-              if (!responseController.isClosed) {
-                responseController
-                  ..addError(RequestAbortedException(request.url))
-                  ..close();
-              }
-              ioResponseSubscription?.cancel();
-            });
-          }
-
+          if (isAborted) return;
+          responseListenStarted = true;
           ioResponseSubscription = response.listen(
             responseController.add,
             onDone: () {
-              // `reponseController.close` will trigger the `onCancel` callback.
-              // Assign `ioResponseSubscription` to `null` to avoid calling its
-              // `cancel` method.
+              // `responseController.close` will trigger the `onCancel`
+              // callback. Assign `ioResponseSubscription` to `null` to avoid
+              // calling its `cancel` method.
               ioResponseSubscription = null;
               unawaited(responseController.close());
             },
@@ -199,6 +204,10 @@ class IOClient extends BaseClient {
         onCancel: () => ioResponseSubscription?.cancel(),
         sync: true,
       );
+
+      if (request case Abortable(:final abortTrigger?)) {
+        unawaited(abortTrigger.whenComplete(abortResponse));
+      }
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
