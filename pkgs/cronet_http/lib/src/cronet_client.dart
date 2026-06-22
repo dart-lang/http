@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
+import 'package:jni_flutter/jni_flutter.dart';
 
 import 'jni/jni_bindings.dart' as jb;
 
@@ -101,7 +102,7 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
   if (e == null) {
     return CronetException('unknown exception', uri);
   }
-  final message = e.getMessage()?.toDartString(releaseOriginal: true) ??
+  final message = e.message?.toDartString(releaseOriginal: true) ??
       'unknown exception';
 
   if (e.isA(jb.QuicException.type)) {
@@ -109,9 +110,9 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
     return QuicException._(
       message,
       uri,
-      quicDetailedErrorCode: quicException.getQuicDetailedErrorCode(),
-      errorCode: quicException.getErrorCode(),
-      cronetInternalErrorCode: quicException.getCronetInternalErrorCode(),
+      quicDetailedErrorCode: quicException.quicDetailedErrorCode,
+      errorCode: quicException.errorCode,
+      cronetInternalErrorCode: quicException.cronetInternalErrorCode,
       immediatelyRetryable: quicException.immediatelyRetryable(),
     );
   }
@@ -121,8 +122,8 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
     return NetworkException._(
       message,
       uri,
-      cronetInternalErrorCode: networkException.getCronetInternalErrorCode(),
-      errorCode: networkException.getErrorCode(),
+      cronetInternalErrorCode: networkException.cronetInternalErrorCode,
+      errorCode: networkException.errorCode,
       immediatelyRetryable: networkException.immediatelyRetryable(),
     );
   }
@@ -258,7 +259,7 @@ class CronetEngine {
     try {
       return using((arena) {
         final builder = jb.CronetEngine$Builder(
-            Jni.androidApplicationContext..releasedBy(arena))
+            androidApplicationContext..releasedBy(arena))
           ..releasedBy(arena);
 
         if (storagePath != null) {
@@ -309,7 +310,7 @@ class CronetEngine {
 
         return CronetEngine._(builder.build()!);
       });
-    } on JniException catch (e) {
+    } on JThrowable catch (e) {
       // TODO: Decode this exception in a better way when
       // https://github.com/dart-lang/jnigen/issues/239 is fixed.
       if (e.message.contains('java.lang.IllegalArgumentException:')) {
@@ -361,10 +362,10 @@ class CronetEngine {
 
 Map<String, String> _cronetToClientHeaders(
         JMap<JString?, JList<JString?>?> cronetHeaders) =>
-    cronetHeaders.map((key, value) {
+    cronetHeaders.asDart().map((key, value) {
       final entry = MapEntry(
           key!.toDartString(releaseOriginal: true).toLowerCase(),
-          value!.join(','));
+          value!.asDart().join(','));
       value.release();
       return entry;
     });
@@ -405,7 +406,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           profile?.responseData.close();
         });
         final responseHeaders = _cronetToClientHeaders(
-            responseInfo!.getAllHeaders()!..releasedBy(arena));
+            responseInfo!.allHeaders!..releasedBy(arena));
         int? contentLength;
 
         switch (responseHeaders['content-length']) {
@@ -424,17 +425,17 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         }
         responseCompleter.complete(CronetStreamedResponse._(
           responseStream!.stream,
-          responseInfo.getHttpStatusCode(),
+          responseInfo.httpStatusCode,
           negotiatedProtocol: responseInfo
-              .getNegotiatedProtocol()!
+              .negotiatedProtocol!
               .toDartString(releaseOriginal: true),
-          receivedByteCount: responseInfo.getReceivedByteCount(),
+          receivedByteCount: responseInfo.receivedByteCount,
           wasCached: responseInfo.wasCached(),
           url: Uri.parse(
-              responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
+              responseInfo.url!.toDartString(releaseOriginal: true)),
           contentLength: contentLength,
           reasonPhrase: responseInfo
-              .getHttpStatusText()!
+              .httpStatusText!
               .toDartString(releaseOriginal: true),
           request: request,
           isRedirect: false,
@@ -447,10 +448,10 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           ..headersCommaValues = responseHeaders
           ..isRedirect = false
           ..reasonPhrase = responseInfo
-              .getHttpStatusText()!
+              .httpStatusText!
               .toDartString(releaseOriginal: true)
           ..startTime = DateTime.now()
-          ..statusCode = responseInfo.getHttpStatusCode();
+          ..statusCode = responseInfo.httpStatusCode;
         jByteBuffer = JByteBuffer.allocateDirect(_bufferSize);
         urlRequest?.read(jByteBuffer!);
       });
@@ -463,23 +464,23 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         newLocationUrl?.releasedBy(arena);
         if (responseStreamCancelled) return;
         final responseHeaders =
-            _cronetToClientHeaders(responseInfo!.getAllHeaders()!);
+            _cronetToClientHeaders(responseInfo!.allHeaders!);
 
         if (!request.followRedirects) {
           urlRequest!.cancel();
           responseCompleter.complete(CronetStreamedResponse._(
             const Stream.empty(), // Cronet provides no body for redirects.
-            responseInfo.getHttpStatusCode(),
+            responseInfo.httpStatusCode,
             negotiatedProtocol: responseInfo
-                .getNegotiatedProtocol()!
+                .negotiatedProtocol!
                 .toDartString(releaseOriginal: true),
-            receivedByteCount: responseInfo.getReceivedByteCount(),
+            receivedByteCount: responseInfo.receivedByteCount,
             wasCached: responseInfo.wasCached(),
             url: Uri.parse(
-                responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
+                responseInfo.url!.toDartString(releaseOriginal: true)),
             contentLength: 0,
             reasonPhrase: responseInfo
-                .getHttpStatusText()!
+                .httpStatusText!
                 .toDartString(releaseOriginal: true),
             request: request,
             isRedirect: true,
@@ -490,17 +491,17 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             ?..headersCommaValues = responseHeaders
             ..isRedirect = true
             ..reasonPhrase = responseInfo
-                .getHttpStatusText()!
+                .httpStatusText!
                 .toDartString(releaseOriginal: true)
             ..startTime = DateTime.now()
-            ..statusCode = responseInfo.getHttpStatusCode();
+            ..statusCode = responseInfo.httpStatusCode;
 
           return;
         }
         ++numRedirects;
         if (numRedirects <= request.maxRedirects) {
           profile?.responseData.addRedirect(HttpProfileRedirectData(
-              statusCode: responseInfo.getHttpStatusCode(),
+              statusCode: responseInfo.httpStatusCode,
               // This method is not correct for status codes 303 to 307. Cronet
               // does not seem to have a way to get the method so we'd have to
               // calculate it according to the rules in RFC-7231.
@@ -721,7 +722,7 @@ class CronetClient extends BaseClient {
         final JByteBuffer data;
         try {
           data = body.toJByteBuffer()..releasedBy(arena);
-        } on JniException catch (e) {
+        } on JThrowable catch (e) {
           // There are no unit tests for this code. You can verify this behavior
           // manually by incrementally increasing the amount of body data in
           // `CronetClient.post` until you get this exception.

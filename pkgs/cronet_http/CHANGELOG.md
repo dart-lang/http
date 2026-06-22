@@ -5,6 +5,7 @@
 * Upgrade to Cronet 18.1.1.
 * Upgrade Kotlin Gradle Plugin version to 2.1.0 for compatibility with the
   upgraded Cronet dependency.
+* Upgrade `package:jni` to 1.0 and `package:jnigen` to 0.16.0.
 
 ## 1.8.0
 
