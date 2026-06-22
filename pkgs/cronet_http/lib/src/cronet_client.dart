@@ -102,8 +102,8 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
   if (e == null) {
     return CronetException('unknown exception', uri);
   }
-  final message = e.message?.toDartString(releaseOriginal: true) ??
-      'unknown exception';
+  final message =
+      e.message?.toDartString(releaseOriginal: true) ?? 'unknown exception';
 
   if (e.isA(jb.QuicException.type)) {
     final quicException = e.as(jb.QuicException.type, releaseOriginal: true);
@@ -426,17 +426,14 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         responseCompleter.complete(CronetStreamedResponse._(
           responseStream!.stream,
           responseInfo.httpStatusCode,
-          negotiatedProtocol: responseInfo
-              .negotiatedProtocol!
+          negotiatedProtocol: responseInfo.negotiatedProtocol!
               .toDartString(releaseOriginal: true),
           receivedByteCount: responseInfo.receivedByteCount,
           wasCached: responseInfo.wasCached(),
-          url: Uri.parse(
-              responseInfo.url!.toDartString(releaseOriginal: true)),
+          url: Uri.parse(responseInfo.url!.toDartString(releaseOriginal: true)),
           contentLength: contentLength,
-          reasonPhrase: responseInfo
-              .httpStatusText!
-              .toDartString(releaseOriginal: true),
+          reasonPhrase:
+              responseInfo.httpStatusText!.toDartString(releaseOriginal: true),
           request: request,
           isRedirect: false,
           headers: responseHeaders,
@@ -447,9 +444,8 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           ?..contentLength = contentLength
           ..headersCommaValues = responseHeaders
           ..isRedirect = false
-          ..reasonPhrase = responseInfo
-              .httpStatusText!
-              .toDartString(releaseOriginal: true)
+          ..reasonPhrase =
+              responseInfo.httpStatusText!.toDartString(releaseOriginal: true)
           ..startTime = DateTime.now()
           ..statusCode = responseInfo.httpStatusCode;
         jByteBuffer = JByteBuffer.allocateDirect(_bufferSize);
@@ -471,16 +467,14 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           responseCompleter.complete(CronetStreamedResponse._(
             const Stream.empty(), // Cronet provides no body for redirects.
             responseInfo.httpStatusCode,
-            negotiatedProtocol: responseInfo
-                .negotiatedProtocol!
+            negotiatedProtocol: responseInfo.negotiatedProtocol!
                 .toDartString(releaseOriginal: true),
             receivedByteCount: responseInfo.receivedByteCount,
             wasCached: responseInfo.wasCached(),
             url: Uri.parse(
                 responseInfo.url!.toDartString(releaseOriginal: true)),
             contentLength: 0,
-            reasonPhrase: responseInfo
-                .httpStatusText!
+            reasonPhrase: responseInfo.httpStatusText!
                 .toDartString(releaseOriginal: true),
             request: request,
             isRedirect: true,
@@ -490,9 +484,8 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           profile?.responseData
             ?..headersCommaValues = responseHeaders
             ..isRedirect = true
-            ..reasonPhrase = responseInfo
-                .httpStatusText!
-                .toDartString(releaseOriginal: true)
+            ..reasonPhrase =
+                responseInfo.httpStatusText!.toDartString(releaseOriginal: true)
             ..startTime = DateTime.now()
             ..statusCode = responseInfo.httpStatusCode;
 
