@@ -11,6 +11,7 @@ output:
 
 classes:
   - 'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy'
+  - 'io.flutter.plugins.cronet_http.UploadDataProviderProxy'
   - 'java.io.IOException'
   - 'java.lang.Exception'
   - 'java.lang.Throwable'
@@ -24,3 +25,5 @@ classes:
   - 'org.chromium.net.UploadDataProviders'
   - 'org.chromium.net.UrlRequest'
   - 'org.chromium.net.UrlResponseInfo'
+  - 'org.chromium.net.UploadDataSink'
+  - 'org.chromium.net.UploadDataProvider'
