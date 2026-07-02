@@ -1,3 +1,12 @@
+## 1.10.0-wip
+
+* Add DNS configuration options to `CronetEngine.build`:
+  `useBuiltInDnsResolver`, `enableStaleDns`, `persistHostCache` and
+  `persistHostCachePeriod`. Setting `useBuiltInDnsResolver: false` forces the
+  system DNS resolver, which works around `ERROR_HOSTNAME_NOT_RESOLVED`
+  failures seen with QUIC enabled on some cellular networks and in background
+  isolates (https://github.com/dart-lang/http/issues/1217).
+
 ## 1.9.0
 
 * Add `CronetEngine.startNetLogToFile` and `CronetEngine.stopNetLog`.

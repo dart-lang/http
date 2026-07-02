@@ -17,6 +17,7 @@ classes:
   - 'java.net.URL'
   - 'java.util.concurrent.Executors'
   - 'org.chromium.net.CronetEngine'
+  - 'org.chromium.net.DnsOptions'
   - 'org.chromium.net.CallbackException'
   - 'org.chromium.net.CronetException'
   - 'org.chromium.net.NetworkException'

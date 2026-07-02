@@ -246,6 +246,30 @@ class CronetEngine {
   /// of (host, port, alternativePort) that indicates that the host supports
   /// QUIC. Note that [CacheMode.disk] or [CacheMode.diskNoHttp] is needed to
   /// take advantage of 0-RTT connection establishment between sessions.
+  ///
+  /// [useBuiltInDnsResolver] controls whether the engine uses Cronet's
+  /// built-in DNS resolver instead of the system resolver. The built-in
+  /// resolver is only used when QUIC is enabled, which it is by default.
+  /// Setting this to `false` forces the system resolver, which can work
+  /// around host resolution failures (`ERROR_HOSTNAME_NOT_RESOLVED`) seen
+  /// with QUIC on some cellular networks and in background isolates.
+  ///
+  /// [enableStaleDns] controls whether the engine may use expired entries
+  /// from its host cache while a new resolution is in flight. Like
+  /// [useBuiltInDnsResolver], this only takes effect when QUIC is enabled.
+  ///
+  /// [persistHostCache] controls whether the engine's host cache is
+  /// persisted to disk so that a freshly created engine (for example in a
+  /// newly spawned isolate) can resolve recently used hosts without a live
+  /// DNS query. Requires [storagePath] to be set.
+  ///
+  /// [persistHostCachePeriod] sets how often the host cache is written to
+  /// disk when [persistHostCache] is `true`.
+  ///
+  /// See [DnsOptions](https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/DnsOptions)
+  /// for details on the DNS configuration options. On devices whose Cronet
+  /// implementation does not support DNS options natively, they are applied
+  /// through Cronet's experimental options fallback.
   static CronetEngine build(
       {CacheMode? cacheMode,
       int? cacheMaxSize,
@@ -255,7 +279,11 @@ class CronetEngine {
       bool? enableQuic,
       String? storagePath,
       String? userAgent,
-      List<(String, int, int)>? quicHints}) {
+      List<(String, int, int)>? quicHints,
+      bool? useBuiltInDnsResolver,
+      bool? enableStaleDns,
+      bool? persistHostCache,
+      Duration? persistHostCachePeriod}) {
     try {
       return using((arena) {
         final builder = jb.CronetEngine$Builder(
@@ -305,6 +333,36 @@ class CronetEngine {
           for (final (host, port, alternativePort) in quicHints) {
             builder.addQuicHint(
                 host.toJString()..releasedBy(arena), port, alternativePort);
+          }
+        }
+
+        if (useBuiltInDnsResolver != null ||
+            enableStaleDns != null ||
+            persistHostCache != null ||
+            persistHostCachePeriod != null) {
+          if (jb.DnsOptions.builder() case final dnsOptionsBuilder?) {
+            dnsOptionsBuilder.releasedBy(arena);
+            if (useBuiltInDnsResolver != null) {
+              dnsOptionsBuilder
+                  .useBuiltInDnsResolver(useBuiltInDnsResolver)
+                  ?.release();
+            }
+            if (enableStaleDns != null) {
+              dnsOptionsBuilder.enableStaleDns(enableStaleDns)?.release();
+            }
+            if (persistHostCache != null) {
+              dnsOptionsBuilder.persistHostCache(persistHostCache)?.release();
+            }
+            if (persistHostCachePeriod != null) {
+              dnsOptionsBuilder
+                  .setPersistHostCachePeriodMillis(
+                      persistHostCachePeriod.inMilliseconds)
+                  ?.release();
+            }
+            if (dnsOptionsBuilder.build() case final dnsOptions?) {
+              dnsOptions.releasedBy(arena);
+              builder.setDnsOptions(dnsOptions)?.release();
+            }
           }
         }
 

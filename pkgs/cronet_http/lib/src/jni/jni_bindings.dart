@@ -3565,7 +3565,7 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
   /// from: `public org.chromium.net.CronetEngine$Builder setDnsOptions(org.chromium.net.DnsOptions dnsOptions)`
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine$Builder? setDnsOptions(
-    jni$_.JObject? dnsOptions,
+    DnsOptions? dnsOptions,
   ) {
     final _$dnsOptions = dnsOptions?.reference ?? jni$_.jNullReference;
     return _setDnsOptions(
@@ -3593,7 +3593,7 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
   /// from: `public org.chromium.net.CronetEngine$Builder setDnsOptions(org.chromium.net.DnsOptions$Builder dnsOptions)`
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine$Builder? setDnsOptions$1(
-    jni$_.JObject? dnsOptions,
+    DnsOptions$Builder? dnsOptions,
   ) {
     final _$dnsOptions = dnsOptions?.reference ?? jni$_.jNullReference;
     return _setDnsOptions$1(reference.pointer, _id_setDnsOptions$1.pointer,
@@ -4415,6 +4415,929 @@ final class $CronetEngine$Type$ extends jni$_.JType<CronetEngine> {
   @jni$_.internal
   @core$_.override
   String get signature => r'Lorg/chromium/net/CronetEngine;';
+}
+
+/// from: `org.chromium.net.DnsOptions$Builder`
+extension type DnsOptions$Builder._(jni$_.JObject _$this)
+    implements jni$_.JObject {
+  static final _class =
+      jni$_.JClass.forName(r'org/chromium/net/DnsOptions$Builder');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<DnsOptions$Builder> type =
+      $DnsOptions$Builder$Type$();
+}
+
+extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
+  static final _id_useBuiltInDnsResolver =
+      DnsOptions$Builder._class.instanceMethodId(
+    r'useBuiltInDnsResolver',
+    r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _useBuiltInDnsResolver = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$Builder useBuiltInDnsResolver(boolean enable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$Builder? useBuiltInDnsResolver(
+    core$_.bool enable,
+  ) {
+    return _useBuiltInDnsResolver(reference.pointer,
+            _id_useBuiltInDnsResolver.pointer, enable ? 1 : 0)
+        .object<DnsOptions$Builder?>();
+  }
+
+  static final _id_enableStaleDns = DnsOptions$Builder._class.instanceMethodId(
+    r'enableStaleDns',
+    r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _enableStaleDns = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$Builder enableStaleDns(boolean enable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$Builder? enableStaleDns(
+    core$_.bool enable,
+  ) {
+    return _enableStaleDns(
+            reference.pointer, _id_enableStaleDns.pointer, enable ? 1 : 0)
+        .object<DnsOptions$Builder?>();
+  }
+
+  static final _id_setStaleDnsOptions =
+      DnsOptions$Builder._class.instanceMethodId(
+    r'setStaleDnsOptions',
+    r'(Lorg/chromium/net/DnsOptions$StaleDnsOptions;)Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _setStaleDnsOptions = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public org.chromium.net.DnsOptions$Builder setStaleDnsOptions(org.chromium.net.DnsOptions$StaleDnsOptions staleDnsOptions)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$Builder? setStaleDnsOptions(
+    DnsOptions$StaleDnsOptions? staleDnsOptions,
+  ) {
+    final _$staleDnsOptions =
+        staleDnsOptions?.reference ?? jni$_.jNullReference;
+    return _setStaleDnsOptions(reference.pointer,
+            _id_setStaleDnsOptions.pointer, _$staleDnsOptions.pointer)
+        .object<DnsOptions$Builder?>();
+  }
+
+  static final _id_setStaleDnsOptions$1 =
+      DnsOptions$Builder._class.instanceMethodId(
+    r'setStaleDnsOptions',
+    r'(Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;)Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _setStaleDnsOptions$1 = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public org.chromium.net.DnsOptions$Builder setStaleDnsOptions(org.chromium.net.DnsOptions$StaleDnsOptions$Builder staleDnsOptionsBuilder)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$Builder? setStaleDnsOptions$1(
+    DnsOptions$StaleDnsOptions$Builder? staleDnsOptionsBuilder,
+  ) {
+    final _$staleDnsOptionsBuilder =
+        staleDnsOptionsBuilder?.reference ?? jni$_.jNullReference;
+    return _setStaleDnsOptions$1(reference.pointer,
+            _id_setStaleDnsOptions$1.pointer, _$staleDnsOptionsBuilder.pointer)
+        .object<DnsOptions$Builder?>();
+  }
+
+  static final _id_preestablishConnectionsToStaleDnsResults =
+      DnsOptions$Builder._class.instanceMethodId(
+    r'preestablishConnectionsToStaleDnsResults',
+    r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _preestablishConnectionsToStaleDnsResults =
+      jni$_.ProtectedJniExtensions.lookup<
+                  jni$_.NativeFunction<
+                      jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+                          jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int32,)>)>>(
+              'globalEnv_CallObjectMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$Builder preestablishConnectionsToStaleDnsResults(boolean enable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$Builder? preestablishConnectionsToStaleDnsResults(
+    core$_.bool enable,
+  ) {
+    return _preestablishConnectionsToStaleDnsResults(
+            reference.pointer,
+            _id_preestablishConnectionsToStaleDnsResults.pointer,
+            enable ? 1 : 0)
+        .object<DnsOptions$Builder?>();
+  }
+
+  static final _id_persistHostCache =
+      DnsOptions$Builder._class.instanceMethodId(
+    r'persistHostCache',
+    r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _persistHostCache = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$Builder persistHostCache(boolean persistHostCache)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$Builder? persistHostCache(
+    core$_.bool persistHostCache,
+  ) {
+    return _persistHostCache(reference.pointer, _id_persistHostCache.pointer,
+            persistHostCache ? 1 : 0)
+        .object<DnsOptions$Builder?>();
+  }
+
+  static final _id_setPersistHostCachePeriodMillis =
+      DnsOptions$Builder._class.instanceMethodId(
+    r'setPersistHostCachePeriodMillis',
+    r'(J)Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _setPersistHostCachePeriodMillis =
+      jni$_.ProtectedJniExtensions.lookup<
+                  jni$_.NativeFunction<
+                      jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+                          jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int64,)>)>>(
+              'globalEnv_CallObjectMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$Builder setPersistHostCachePeriodMillis(long persistHostCachePeriodMillis)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$Builder? setPersistHostCachePeriodMillis(
+    core$_.int persistHostCachePeriodMillis,
+  ) {
+    return _setPersistHostCachePeriodMillis(
+            reference.pointer,
+            _id_setPersistHostCachePeriodMillis.pointer,
+            persistHostCachePeriodMillis)
+        .object<DnsOptions$Builder?>();
+  }
+
+  static final _id_setPersistDelay = DnsOptions$Builder._class.instanceMethodId(
+    r'setPersistDelay',
+    r'(Ljava/time/Duration;)Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _setPersistDelay = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public org.chromium.net.DnsOptions$Builder setPersistDelay(java.time.Duration persistToDiskPeriod)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$Builder? setPersistDelay(
+    jni$_.JObject persistToDiskPeriod,
+  ) {
+    final _$persistToDiskPeriod = persistToDiskPeriod.reference;
+    return _setPersistDelay(reference.pointer, _id_setPersistDelay.pointer,
+            _$persistToDiskPeriod.pointer)
+        .object<DnsOptions$Builder?>();
+  }
+
+  static final _id_build = DnsOptions$Builder._class.instanceMethodId(
+    r'build',
+    r'()Lorg/chromium/net/DnsOptions;',
+  );
+
+  static final _build = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public org.chromium.net.DnsOptions build()`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions? build() {
+    return _build(reference.pointer, _id_build.pointer).object<DnsOptions?>();
+  }
+}
+
+final class $DnsOptions$Builder$Type$ extends jni$_.JType<DnsOptions$Builder> {
+  @jni$_.internal
+  const $DnsOptions$Builder$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/DnsOptions$Builder;';
+}
+
+/// from: `org.chromium.net.DnsOptions$Experimental`
+extension type DnsOptions$Experimental._(jni$_.JObject _$this)
+    implements jni$_.JObject {
+  static final _class =
+      jni$_.JClass.forName(r'org/chromium/net/DnsOptions$Experimental');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<DnsOptions$Experimental> type =
+      $DnsOptions$Experimental$Type$();
+
+  /// Maps a specific port to the implemented interface.
+  static final core$_.Map<core$_.int, $DnsOptions$Experimental> _$impls = {};
+  static jni$_.JObjectPtr _$invoke(
+    core$_.int port,
+    jni$_.JObjectPtr descriptor,
+    jni$_.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      jni$_.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final jni$_.Pointer<
+          jni$_.NativeFunction<
+              jni$_.JObjectPtr Function(
+                  jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)>>
+      _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
+
+  static jni$_.Pointer<jni$_.Void> _$invokeMethod(
+    core$_.int $p,
+    jni$_.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+    } catch (e) {
+      return jni$_.ProtectedJniExtensions.newDartException(e);
+    }
+    return jni$_.nullptr;
+  }
+
+  static void implementIn(
+    jni$_.JImplementer implementer,
+    $DnsOptions$Experimental $impl,
+  ) {
+    late final jni$_.RawReceivePort $p;
+    $p = jni$_.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = jni$_.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      jni$_.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'org.chromium.net.DnsOptions$Experimental',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory DnsOptions$Experimental.implement(
+    $DnsOptions$Experimental $impl,
+  ) {
+    final $i = jni$_.JImplementer();
+    implementIn($i, $impl);
+    return $i.implement<DnsOptions$Experimental>();
+  }
+}
+
+abstract base mixin class $DnsOptions$Experimental {
+  factory $DnsOptions$Experimental() = _$DnsOptions$Experimental;
+}
+
+final class _$DnsOptions$Experimental with $DnsOptions$Experimental {
+  _$DnsOptions$Experimental();
+}
+
+final class $DnsOptions$Experimental$Type$
+    extends jni$_.JType<DnsOptions$Experimental> {
+  @jni$_.internal
+  const $DnsOptions$Experimental$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/DnsOptions$Experimental;';
+}
+
+/// from: `org.chromium.net.DnsOptions$StaleDnsOptions$Builder`
+extension type DnsOptions$StaleDnsOptions$Builder._(jni$_.JObject _$this)
+    implements jni$_.JObject {
+  static final _class = jni$_.JClass.forName(
+      r'org/chromium/net/DnsOptions$StaleDnsOptions$Builder');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<DnsOptions$StaleDnsOptions$Builder> type =
+      $DnsOptions$StaleDnsOptions$Builder$Type$();
+}
+
+extension DnsOptions$StaleDnsOptions$Builder$$Methods
+    on DnsOptions$StaleDnsOptions$Builder {
+  static final _id_setFreshLookupTimeoutMillis =
+      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
+    r'setFreshLookupTimeoutMillis',
+    r'(J)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+  );
+
+  static final _setFreshLookupTimeoutMillis =
+      jni$_.ProtectedJniExtensions.lookup<
+                  jni$_.NativeFunction<
+                      jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+                          jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int64,)>)>>(
+              'globalEnv_CallObjectMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder setFreshLookupTimeoutMillis(long freshLookupTimeoutMillis)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$StaleDnsOptions$Builder? setFreshLookupTimeoutMillis(
+    core$_.int freshLookupTimeoutMillis,
+  ) {
+    return _setFreshLookupTimeoutMillis(reference.pointer,
+            _id_setFreshLookupTimeoutMillis.pointer, freshLookupTimeoutMillis)
+        .object<DnsOptions$StaleDnsOptions$Builder?>();
+  }
+
+  static final _id_setFreshLookupTimeout =
+      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
+    r'setFreshLookupTimeout',
+    r'(Ljava/time/Duration;)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+  );
+
+  static final _setFreshLookupTimeout = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder setFreshLookupTimeout(java.time.Duration freshLookupTimeout)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$StaleDnsOptions$Builder? setFreshLookupTimeout(
+    jni$_.JObject freshLookupTimeout,
+  ) {
+    final _$freshLookupTimeout = freshLookupTimeout.reference;
+    return _setFreshLookupTimeout(reference.pointer,
+            _id_setFreshLookupTimeout.pointer, _$freshLookupTimeout.pointer)
+        .object<DnsOptions$StaleDnsOptions$Builder?>();
+  }
+
+  static final _id_setMaxExpiredDelayMillis =
+      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
+    r'setMaxExpiredDelayMillis',
+    r'(J)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+  );
+
+  static final _setMaxExpiredDelayMillis = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<(jni$_.Int64,)>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder setMaxExpiredDelayMillis(long maxExpiredDelayMillis)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$StaleDnsOptions$Builder? setMaxExpiredDelayMillis(
+    core$_.int maxExpiredDelayMillis,
+  ) {
+    return _setMaxExpiredDelayMillis(reference.pointer,
+            _id_setMaxExpiredDelayMillis.pointer, maxExpiredDelayMillis)
+        .object<DnsOptions$StaleDnsOptions$Builder?>();
+  }
+
+  static final _id_setMaxExpiredDelay =
+      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
+    r'setMaxExpiredDelay',
+    r'(Ljava/time/Duration;)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+  );
+
+  static final _setMaxExpiredDelay = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder setMaxExpiredDelay(java.time.Duration maxExpiredDelay)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$StaleDnsOptions$Builder? setMaxExpiredDelay(
+    jni$_.JObject maxExpiredDelay,
+  ) {
+    final _$maxExpiredDelay = maxExpiredDelay.reference;
+    return _setMaxExpiredDelay(reference.pointer,
+            _id_setMaxExpiredDelay.pointer, _$maxExpiredDelay.pointer)
+        .object<DnsOptions$StaleDnsOptions$Builder?>();
+  }
+
+  static final _id_allowCrossNetworkUsage =
+      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
+    r'allowCrossNetworkUsage',
+    r'(Z)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+  );
+
+  static final _allowCrossNetworkUsage = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder allowCrossNetworkUsage(boolean allowCrossNetworkUsage)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$StaleDnsOptions$Builder? allowCrossNetworkUsage(
+    core$_.bool allowCrossNetworkUsage,
+  ) {
+    return _allowCrossNetworkUsage(reference.pointer,
+            _id_allowCrossNetworkUsage.pointer, allowCrossNetworkUsage ? 1 : 0)
+        .object<DnsOptions$StaleDnsOptions$Builder?>();
+  }
+
+  static final _id_useStaleOnNameNotResolved =
+      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
+    r'useStaleOnNameNotResolved',
+    r'(Z)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+  );
+
+  static final _useStaleOnNameNotResolved = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder useStaleOnNameNotResolved(boolean useStaleOnNameNotResolved)`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$StaleDnsOptions$Builder? useStaleOnNameNotResolved(
+    core$_.bool useStaleOnNameNotResolved,
+  ) {
+    return _useStaleOnNameNotResolved(
+            reference.pointer,
+            _id_useStaleOnNameNotResolved.pointer,
+            useStaleOnNameNotResolved ? 1 : 0)
+        .object<DnsOptions$StaleDnsOptions$Builder?>();
+  }
+
+  static final _id_build =
+      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
+    r'build',
+    r'()Lorg/chromium/net/DnsOptions$StaleDnsOptions;',
+  );
+
+  static final _build = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions build()`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$StaleDnsOptions? build() {
+    return _build(reference.pointer, _id_build.pointer)
+        .object<DnsOptions$StaleDnsOptions?>();
+  }
+}
+
+final class $DnsOptions$StaleDnsOptions$Builder$Type$
+    extends jni$_.JType<DnsOptions$StaleDnsOptions$Builder> {
+  @jni$_.internal
+  const $DnsOptions$StaleDnsOptions$Builder$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature =>
+      r'Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;';
+}
+
+/// from: `org.chromium.net.DnsOptions$StaleDnsOptions`
+extension type DnsOptions$StaleDnsOptions._(jni$_.JObject _$this)
+    implements jni$_.JObject {
+  static final _class =
+      jni$_.JClass.forName(r'org/chromium/net/DnsOptions$StaleDnsOptions');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<DnsOptions$StaleDnsOptions> type =
+      $DnsOptions$StaleDnsOptions$Type$();
+  static final _id_builder = _class.staticMethodId(
+    r'builder',
+    r'()Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+  );
+
+  static final _builder = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `static public org.chromium.net.DnsOptions$StaleDnsOptions$Builder builder()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static DnsOptions$StaleDnsOptions$Builder? builder() {
+    return _builder(_class.reference.pointer, _id_builder.pointer)
+        .object<DnsOptions$StaleDnsOptions$Builder?>();
+  }
+}
+
+extension DnsOptions$StaleDnsOptions$$Methods on DnsOptions$StaleDnsOptions {
+  static final _id_get$freshLookupTimeoutMillis =
+      DnsOptions$StaleDnsOptions._class.instanceMethodId(
+    r'getFreshLookupTimeoutMillis',
+    r'()Ljava/lang/Long;',
+  );
+
+  static final _get$freshLookupTimeoutMillis =
+      jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.JMethodIDPtr,
+                  )>>('globalEnv_CallObjectMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>();
+
+  /// from: `public java.lang.Long getFreshLookupTimeoutMillis()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JLong? get freshLookupTimeoutMillis {
+    return _get$freshLookupTimeoutMillis(
+            reference.pointer, _id_get$freshLookupTimeoutMillis.pointer)
+        .object<jni$_.JLong?>();
+  }
+
+  static final _id_get$maxExpiredDelayMillis =
+      DnsOptions$StaleDnsOptions._class.instanceMethodId(
+    r'getMaxExpiredDelayMillis',
+    r'()Ljava/lang/Long;',
+  );
+
+  static final _get$maxExpiredDelayMillis = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.Long getMaxExpiredDelayMillis()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JLong? get maxExpiredDelayMillis {
+    return _get$maxExpiredDelayMillis(
+            reference.pointer, _id_get$maxExpiredDelayMillis.pointer)
+        .object<jni$_.JLong?>();
+  }
+
+  static final _id_get$allowCrossNetworkUsage =
+      DnsOptions$StaleDnsOptions._class.instanceMethodId(
+    r'getAllowCrossNetworkUsage',
+    r'()Ljava/lang/Boolean;',
+  );
+
+  static final _get$allowCrossNetworkUsage =
+      jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.JMethodIDPtr,
+                  )>>('globalEnv_CallObjectMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>();
+
+  /// from: `public java.lang.Boolean getAllowCrossNetworkUsage()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get allowCrossNetworkUsage {
+    return _get$allowCrossNetworkUsage(
+            reference.pointer, _id_get$allowCrossNetworkUsage.pointer)
+        .object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$useStaleOnNameNotResolved =
+      DnsOptions$StaleDnsOptions._class.instanceMethodId(
+    r'getUseStaleOnNameNotResolved',
+    r'()Ljava/lang/Boolean;',
+  );
+
+  static final _get$useStaleOnNameNotResolved =
+      jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.JMethodIDPtr,
+                  )>>('globalEnv_CallObjectMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>();
+
+  /// from: `public java.lang.Boolean getUseStaleOnNameNotResolved()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get useStaleOnNameNotResolved {
+    return _get$useStaleOnNameNotResolved(
+            reference.pointer, _id_get$useStaleOnNameNotResolved.pointer)
+        .object<jni$_.JBoolean?>();
+  }
+}
+
+final class $DnsOptions$StaleDnsOptions$Type$
+    extends jni$_.JType<DnsOptions$StaleDnsOptions> {
+  @jni$_.internal
+  const $DnsOptions$StaleDnsOptions$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/DnsOptions$StaleDnsOptions;';
+}
+
+/// from: `org.chromium.net.DnsOptions`
+extension type DnsOptions._(jni$_.JObject _$this) implements jni$_.JObject {
+  static final _class = jni$_.JClass.forName(r'org/chromium/net/DnsOptions');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<DnsOptions> type = $DnsOptions$Type$();
+  static final _id_builder = _class.staticMethodId(
+    r'builder',
+    r'()Lorg/chromium/net/DnsOptions$Builder;',
+  );
+
+  static final _builder = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `static public org.chromium.net.DnsOptions$Builder builder()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static DnsOptions$Builder? builder() {
+    return _builder(_class.reference.pointer, _id_builder.pointer)
+        .object<DnsOptions$Builder?>();
+  }
+}
+
+extension DnsOptions$$Methods on DnsOptions {
+  static final _id_get$useBuiltInDnsResolver =
+      DnsOptions._class.instanceMethodId(
+    r'getUseBuiltInDnsResolver',
+    r'()Ljava/lang/Boolean;',
+  );
+
+  static final _get$useBuiltInDnsResolver = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.Boolean getUseBuiltInDnsResolver()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get useBuiltInDnsResolver {
+    return _get$useBuiltInDnsResolver(
+            reference.pointer, _id_get$useBuiltInDnsResolver.pointer)
+        .object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$persistHostCache = DnsOptions._class.instanceMethodId(
+    r'getPersistHostCache',
+    r'()Ljava/lang/Boolean;',
+  );
+
+  static final _get$persistHostCache = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.Boolean getPersistHostCache()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get persistHostCache {
+    return _get$persistHostCache(
+            reference.pointer, _id_get$persistHostCache.pointer)
+        .object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$enableStaleDns = DnsOptions._class.instanceMethodId(
+    r'getEnableStaleDns',
+    r'()Ljava/lang/Boolean;',
+  );
+
+  static final _get$enableStaleDns = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.Boolean getEnableStaleDns()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get enableStaleDns {
+    return _get$enableStaleDns(
+            reference.pointer, _id_get$enableStaleDns.pointer)
+        .object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$persistHostCachePeriodMillis =
+      DnsOptions._class.instanceMethodId(
+    r'getPersistHostCachePeriodMillis',
+    r'()Ljava/lang/Long;',
+  );
+
+  static final _get$persistHostCachePeriodMillis =
+      jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.JMethodIDPtr,
+                  )>>('globalEnv_CallObjectMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>();
+
+  /// from: `public java.lang.Long getPersistHostCachePeriodMillis()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JLong? get persistHostCachePeriodMillis {
+    return _get$persistHostCachePeriodMillis(
+            reference.pointer, _id_get$persistHostCachePeriodMillis.pointer)
+        .object<jni$_.JLong?>();
+  }
+
+  static final _id_get$preestablishConnectionsToStaleDnsResults =
+      DnsOptions._class.instanceMethodId(
+    r'getPreestablishConnectionsToStaleDnsResults',
+    r'()Ljava/lang/Boolean;',
+  );
+
+  static final _get$preestablishConnectionsToStaleDnsResults =
+      jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.JMethodIDPtr,
+                  )>>('globalEnv_CallObjectMethod')
+          .asFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>();
+
+  /// from: `public java.lang.Boolean getPreestablishConnectionsToStaleDnsResults()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get preestablishConnectionsToStaleDnsResults {
+    return _get$preestablishConnectionsToStaleDnsResults(reference.pointer,
+            _id_get$preestablishConnectionsToStaleDnsResults.pointer)
+        .object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$staleDnsOptions = DnsOptions._class.instanceMethodId(
+    r'getStaleDnsOptions',
+    r'()Lorg/chromium/net/DnsOptions$StaleDnsOptions;',
+  );
+
+  static final _get$staleDnsOptions = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions getStaleDnsOptions()`
+  /// The returned object must be released after use, by calling the [release] method.
+  DnsOptions$StaleDnsOptions? get staleDnsOptions {
+    return _get$staleDnsOptions(
+            reference.pointer, _id_get$staleDnsOptions.pointer)
+        .object<DnsOptions$StaleDnsOptions?>();
+  }
+}
+
+final class $DnsOptions$Type$ extends jni$_.JType<DnsOptions> {
+  @jni$_.internal
+  const $DnsOptions$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/DnsOptions;';
 }
 
 /// from: `org.chromium.net.CallbackException`
