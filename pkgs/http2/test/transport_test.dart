@@ -625,6 +625,22 @@ void main() {
       await server.finish();
       await clientPingError;
     });
+
+    transportTest('nonzero-goaway-not-treated-as-graceful', (
+      TransportConnection client,
+      TransportConnection server,
+    ) async {
+      var clientPingError = client.ping().catchError(
+        expectAsync2((Object e, StackTrace s) {
+          expect(e, isA<TransportConnectionException>());
+          final tce = e as TransportConnectionException;
+          expect(tce.errorCode, ErrorCode.ENHANCE_YOUR_CALM);
+          expect(tce.toString(), contains('forcefully terminated'));
+        }),
+      );
+      await server.terminate(ErrorCode.ENHANCE_YOUR_CALM, 'Too many pings');
+      await clientPingError;
+    });
   });
 }
 
