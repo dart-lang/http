@@ -148,6 +148,9 @@ abstract class Connection {
   /// The state of this connection.
   late ConnectionState _state;
 
+  /// Error code received in a peer-initiated GOAWAY frame, if any.
+  int? _peerGoawayErrorCode;
+
   Connection(
     Stream<List<int>> incoming,
     StreamSink<List<int>> outgoing,
@@ -172,7 +175,7 @@ abstract class Connection {
         _catchProtocolErrors(() => _handleFrameImpl(frame));
       },
       onError: (error, stack) {
-        _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+        _terminate(ErrorCode.CONNECT_ERROR, transportClosed: true);
       },
       onDone: () {
         // Ensure existing messages from lower levels are sent to the upper
@@ -180,14 +183,14 @@ abstract class Connection {
         _incomingQueue.forceDispatchIncomingMessages();
         _streams.forceDispatchIncomingMessages();
 
-        _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+        _terminate(ErrorCode.CONNECT_ERROR, transportClosed: true);
       },
     );
 
     // Setup frame writing.
     _frameWriter = FrameWriter(_hpackContext.encoder, outgoing, peerSettings);
     _frameWriter.doneFuture.whenComplete(() {
-      _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+      _terminate(ErrorCode.CONNECT_ERROR, transportClosed: true);
     });
 
     // Setup handlers.
@@ -393,6 +396,7 @@ abstract class Connection {
         _connectionWindowHandler.processWindowUpdate(frame);
       } else if (frame is GoawayFrame) {
         _streams.processGoawayFrame(frame);
+        _peerGoawayErrorCode = frame.errorCode;
         _finishing(active: false);
       } else if (frame is UnknownFrame) {
         // We can safely ignore these.
@@ -448,7 +452,7 @@ abstract class Connection {
   /// The returned future will never complete with an error.
   Future _terminate(
     int errorCode, {
-    bool causedByTransportError = false,
+    bool transportClosed = false,
     String? message,
   }) {
     // TODO: When do we complete here?
@@ -463,14 +467,15 @@ abstract class Connection {
       // terminated.")`. BREAKING vs prior behavior where this path always
       // raised the forceful-termination exception.
       final isGracefulShutdown =
-          causedByTransportError &&
+          transportClosed &&
           _state.isFinishing &&
-          (_state.finishingState & ConnectionState.FinishingPassive) != 0;
+          (_state.finishingState & ConnectionState.FinishingPassive) != 0 &&
+          _peerGoawayErrorCode == ErrorCode.NO_ERROR;
 
       _state.state = ConnectionState.Terminated;
 
       var cancelFuture = Future.sync(_frameReaderSubscription.cancel);
-      if (!causedByTransportError) {
+      if (!transportClosed) {
         _outgoingQueue.enqueueMessage(
           GoawayMessage(
             _streams.highestPeerInitiatedStream,
@@ -497,7 +502,7 @@ abstract class Connection {
                 'Connection gracefully closed by peer.',
               )
               : TransportConnectionException(
-                errorCode,
+                _peerGoawayErrorCode ?? errorCode,
                 'Connection is being forcefully terminated.',
               );
 
