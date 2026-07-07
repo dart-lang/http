@@ -100,8 +100,9 @@ class BrowserClient extends BaseClient {
   /// Defaults to `false`.
   ///
   /// This property is deprecated because it can only represent two of the three
-  /// browser `fetch` credentials modes (`same-origin` and `include`). Use
-  /// the constructor parameter instead to also support [RequestCredentials.omit].
+  /// browser `fetch` credentials modes (`same-origin` and `include`).
+  /// Use the constructor parameter instead to also support
+  /// [RequestCredentials.omit].
   ///
   /// Reading this property returns `true` only when [_requestCredentials] is
   /// [RequestCredentials.include].
