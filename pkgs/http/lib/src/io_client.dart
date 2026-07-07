@@ -70,7 +70,7 @@ class _IOStreamedResponseV2 extends IOStreamedResponse
 ///
 /// Example:
 /// ```dart
-/// final BaseClient client = IOClient();
+/// final client = IOClient();
 /// late String data;
 /// try {
 ///   data = await client.read(Uri.https('example.com', ''));
