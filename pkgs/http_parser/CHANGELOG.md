@@ -1,5 +1,6 @@
 ## 4.1.3-wip
 
+* Apply the RFC 9110 50-year rule when parsing RFC 850 dates.
 * Replace reference to `dart:web` with `package:web` in README.md.
 
 ## 4.1.2
