@@ -266,6 +266,20 @@ class CronetEngine {
   /// [persistHostCachePeriod] sets how often the host cache is written to
   /// disk when [persistHostCache] is `true`.
   ///
+  /// [useStaleOnNameNotResolved] lets a request fall back to an expired host
+  /// cache entry when a fresh DNS lookup fails to resolve the host, instead
+  /// of failing the request with `ERROR_HOSTNAME_NOT_RESOLVED`. Only takes
+  /// effect when [enableStaleDns] is `true`.
+  ///
+  /// [allowCrossNetworkUsage] lets a stale host cache entry resolved on a
+  /// different network (e.g. Wi-Fi) be used after the device switches
+  /// networks (e.g. to cellular). Only takes effect when [enableStaleDns] is
+  /// `true`.
+  ///
+  /// [maxStaleDnsExpiredDelay] sets the maximum time a host cache entry may
+  /// have been expired for and still be eligible for stale-DNS use. Only
+  /// takes effect when [enableStaleDns] is `true`.
+  ///
   /// See [DnsOptions](https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/DnsOptions)
   /// for details on the DNS configuration options. On devices whose Cronet
   /// implementation does not support DNS options natively, they are applied
@@ -283,7 +297,10 @@ class CronetEngine {
       bool? useBuiltInDnsResolver,
       bool? enableStaleDns,
       bool? persistHostCache,
-      Duration? persistHostCachePeriod}) {
+      Duration? persistHostCachePeriod,
+      bool? useStaleOnNameNotResolved,
+      bool? allowCrossNetworkUsage,
+      Duration? maxStaleDnsExpiredDelay}) {
     try {
       return using((arena) {
         final builder = jb.CronetEngine$Builder(
@@ -339,7 +356,10 @@ class CronetEngine {
         if (useBuiltInDnsResolver != null ||
             enableStaleDns != null ||
             persistHostCache != null ||
-            persistHostCachePeriod != null) {
+            persistHostCachePeriod != null ||
+            useStaleOnNameNotResolved != null ||
+            allowCrossNetworkUsage != null ||
+            maxStaleDnsExpiredDelay != null) {
           if (jb.DnsOptions.builder() case final dnsOptionsBuilder?) {
             dnsOptionsBuilder.releasedBy(arena);
             if (useBuiltInDnsResolver != null) {
@@ -358,6 +378,37 @@ class CronetEngine {
                   .setPersistHostCachePeriodMillis(
                       persistHostCachePeriod.inMilliseconds)
                   ?.release();
+            }
+            if (useStaleOnNameNotResolved != null ||
+                allowCrossNetworkUsage != null ||
+                maxStaleDnsExpiredDelay != null) {
+              if (jb.DnsOptions$StaleDnsOptions.builder()
+                  case final staleDnsOptionsBuilder?) {
+                staleDnsOptionsBuilder.releasedBy(arena);
+                if (useStaleOnNameNotResolved != null) {
+                  staleDnsOptionsBuilder
+                      .useStaleOnNameNotResolved(useStaleOnNameNotResolved)
+                      ?.release();
+                }
+                if (allowCrossNetworkUsage != null) {
+                  staleDnsOptionsBuilder
+                      .allowCrossNetworkUsage(allowCrossNetworkUsage)
+                      ?.release();
+                }
+                if (maxStaleDnsExpiredDelay != null) {
+                  staleDnsOptionsBuilder
+                      .setMaxExpiredDelayMillis(
+                          maxStaleDnsExpiredDelay.inMilliseconds)
+                      ?.release();
+                }
+                if (staleDnsOptionsBuilder.build()
+                    case final staleDnsOptions?) {
+                  staleDnsOptions.releasedBy(arena);
+                  dnsOptionsBuilder
+                      .setStaleDnsOptions(staleDnsOptions)
+                      ?.release();
+                }
+              }
             }
             if (dnsOptionsBuilder.build() case final dnsOptions?) {
               dnsOptions.releasedBy(arena);

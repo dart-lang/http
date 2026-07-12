@@ -6,6 +6,12 @@
   system DNS resolver, which works around `ERROR_HOSTNAME_NOT_RESOLVED`
   failures seen with QUIC enabled on some cellular networks and in background
   isolates (https://github.com/dart-lang/http/issues/1217).
+* Add fine-grained stale-DNS options to `CronetEngine.build`:
+  `useStaleOnNameNotResolved`, `allowCrossNetworkUsage` and
+  `maxStaleDnsExpiredDelay`. Setting `useStaleOnNameNotResolved: true` lets a
+  request fall back to an expired host cache entry instead of failing with
+  `ERROR_HOSTNAME_NOT_RESOLVED` when a fresh lookup fails
+  (https://github.com/dart-lang/http/issues/1217).
 
 ## 1.9.0
 
