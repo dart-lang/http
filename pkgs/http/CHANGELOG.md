@@ -1,5 +1,7 @@
 ## 1.6.1-wip
 
+* Add `BrowserCredentialsMode` to support the `omit` browser fetch credentials
+  mode. Deprecate `withCredentials`.
 * Clarified the behavior of response headers in API documentation comments.
 * Make it more clear that `close` must be called for correctness.
 * Replace references to `dart:web` with `package:web` dartdoc.
@@ -48,7 +50,8 @@
 ## 1.2.0
 
 * Add `MockClient.pngResponse`, which makes it easier to fake image responses.
-* Added the ability to fetch the URL of the response through `BaseResponseWithUrl`.
+* Added the ability to fetch the URL of the response through
+  `BaseResponseWithUrl`.
 * Add the ability to get headers as a `Map<String, List<String>` to
   `BaseResponse`.
 
