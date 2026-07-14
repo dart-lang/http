@@ -1,4 +1,4 @@
-## 1.6.1-wip
+## 1.7.0-wip
 
 * Add `BrowserCredentialsMode` to support the `omit` browser fetch credentials
   mode. Deprecate `withCredentials`.
