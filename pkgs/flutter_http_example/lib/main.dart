@@ -58,10 +58,9 @@ class _HomePageState extends State<HomePage> {
         Uri.https('pub.dev', '/api/package-name-completion-data'),
       );
       if (response.statusCode == 200) {
-        final json = jsonDecode(utf8.decode(response.bodyBytes))
-            as Map<String, dynamic>;
-        final packagesList = (json['packages'] as List<dynamic>)
-            .cast<String>()
+        final json =
+            jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+        final packagesList = (json['packages'] as List<dynamic>).cast<String>()
           ..sort((a, b) => a.compareTo(b));
         setState(() {
           _allPackages = packagesList;
@@ -142,26 +141,18 @@ class PackageTable extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  flex: 4,
                   child: Text(
                     'Package Name',
-                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Expanded(
-                  flex: 2,
                   child: Text(
                     'Likes',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.right,
                   ),
                 ),
                 Expanded(
-                  flex: 3,
                   child: Text(
                     '30-day Downloads',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.right,
                   ),
                 ),
               ],
@@ -213,8 +204,8 @@ class _PackageRowState extends State<PackageRow> {
       Uri.https('pub.dev', '/api/packages/$name/score'),
     );
     if (response.statusCode == 200) {
-      final json = jsonDecode(utf8.decode(response.bodyBytes))
-          as Map<String, dynamic>;
+      final json =
+          jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       return Package.fromJson(name, json);
     } else {
       throw Exception('Failed to load score');
@@ -227,11 +218,9 @@ class _PackageRowState extends State<PackageRow> {
         child: Row(
           children: [
             Expanded(
-              flex: 4,
               child: Text(widget.name),
             ),
             Expanded(
-              flex: 5,
               child: FutureBuilder<Package>(
                 future: _scoreFuture,
                 builder: (context, snapshot) {
@@ -244,17 +233,13 @@ class _PackageRowState extends State<PackageRow> {
                   return Row(
                     children: [
                       Expanded(
-                        flex: 2,
                         child: Text(
                           likesText,
-                          textAlign: TextAlign.right,
                         ),
                       ),
                       Expanded(
-                        flex: 3,
                         child: Text(
                           downloadsText,
-                          textAlign: TextAlign.right,
                         ),
                       ),
                     ],
