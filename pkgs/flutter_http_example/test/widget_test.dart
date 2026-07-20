@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_http_example/main.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,64 +9,137 @@ import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
 
-const _singleBookResponse = '''
+const _completionResponse = '''
 {
-  "items": [
-    {
-      "volumeInfo": {
-        "title": "Flutter Cookbook",
-        "description": "Write, test, and publish your web, desktop...",
-        "imageLinks": {
-          "smallThumbnail": "http://thumbnailurl/"
-        }
-      }
-    }
+  "packages": [
+    "http",
+    "http_parser",
+    "shared_preferences"
   ]
 }
 ''';
 
-final _dummyPngImage = base64Decode(
-  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmM'
-  'IQAAAABJRU5ErkJggg==',
-);
+const _httpScoreResponse = '''
+{
+  "likeCount": 8458,
+  "downloadCount30Days": 9436929
+}
+''';
+
+const _httpParserScoreResponse = '''
+{
+  "likeCount": 150,
+  "downloadCount30Days": 500000
+}
+''';
+
+const _sharedPrefsScoreResponse = '''
+{
+  "likeCount": 3200,
+  "downloadCount30Days": 4000000
+}
+''';
 
 void main() {
   Widget app(Client client) => Provider<Client>(
       create: (_) => client,
-      child: const BookSearchApp(),
+      child: const PackageSearchApp(),
       dispose: (_, client) => client.close());
 
-  testWidgets('test initial load', (WidgetTester tester) async {
-    final mockClient = MockClient(
-        (request) async => throw StateError('unexpected HTTP request'));
+  testWidgets('test initial load displays all packages and loads scores',
+      (WidgetTester tester) async {
+    final mockClient = MockClient((request) async {
+      if (request.url.path == '/api/package-name-completion-data') {
+        return Response(_completionResponse, 200);
+      } else if (request.url.path == '/api/packages/http/score') {
+        return Response(_httpScoreResponse, 200);
+      } else if (request.url.path == '/api/packages/http_parser/score') {
+        return Response(_httpParserScoreResponse, 200);
+      } else if (request.url.path == '/api/packages/shared_preferences/score') {
+        return Response(_sharedPrefsScoreResponse, 200);
+      }
+      throw StateError('unexpected HTTP request: ${request.url.path}');
+    });
 
     await tester.pumpWidget(app(mockClient));
+    // Wait for the completion data and all visible scores to load.
+    await tester.pumpAndSettle();
 
-    expect(find.text('Please enter a query'), findsOneWidget);
+    // Verify all package names are shown.
+    expect(
+      find.descendant(
+        of: find.byType(PackageTable),
+        matching: find.text('http'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byType(PackageTable),
+        matching: find.text('http_parser'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byType(PackageTable),
+        matching: find.text('shared_preferences'),
+      ),
+      findsOneWidget,
+    );
+
+    // Verify scores are loaded and displayed.
+    expect(find.text('8458'), findsOneWidget);
+    expect(find.text('9436929'), findsOneWidget);
+    expect(find.text('3200'), findsOneWidget);
+    expect(find.text('4000000'), findsOneWidget);
   });
 
-  testWidgets('test search with one result', (WidgetTester tester) async {
+  testWidgets('test search filters results', (WidgetTester tester) async {
     final mockClient = MockClient((request) async {
-      if (request.url.path == '/books/v1/volumes' &&
-          request.url.queryParameters['q'] == 'Flutter') {
-        return Response(_singleBookResponse, 200);
-      } else if (request.url == Uri.https('thumbnailurl', '/')) {
-        return Response.bytes(_dummyPngImage, 200,
-            headers: const {'Content-Type': 'image/png'});
+      if (request.url.path == '/api/package-name-completion-data') {
+        return Response(_completionResponse, 200);
+      } else if (request.url.path == '/api/packages/http/score') {
+        return Response(_httpScoreResponse, 200);
+      } else if (request.url.path == '/api/packages/http_parser/score') {
+        return Response(_httpParserScoreResponse, 200);
+      } else if (request.url.path == '/api/packages/shared_preferences/score') {
+        return Response(_sharedPrefsScoreResponse, 200);
       }
       return Response('', 404);
     });
 
     await tester.pumpWidget(app(mockClient));
-    await tester.enterText(find.byType(TextField), 'Flutter');
-    await tester.pump();
+    // Wait for initial load to finish.
+    await tester.pumpAndSettle();
 
-    // The book title.
-    expect(find.text('Flutter Cookbook'), findsOneWidget);
-    // The book description.
+    // Search for 'http'
+    await tester.enterText(find.byType(TextField), 'http');
+    await tester.pumpAndSettle();
+
+    // The matching package names should be present.
     expect(
-        find.text('Write, test, and publish your web, desktop...',
-            skipOffstage: false),
-        findsOneWidget);
+      find.descendant(
+        of: find.byType(PackageTable),
+        matching: find.text('http'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byType(PackageTable),
+        matching: find.text('http_parser'),
+      ),
+      findsOneWidget,
+    );
+
+    // The non-matching package should not be present.
+    expect(
+      find.descendant(
+        of: find.byType(PackageTable),
+        matching: find.text('shared_preferences'),
+      ),
+      findsNothing,
+    );
   });
 }
