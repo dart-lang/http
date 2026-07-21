@@ -68,6 +68,11 @@ DateTime parseHttpDate(String date) =>
         scanner.expect('-');
         final month = _parseMonth(scanner);
         scanner.expect('-');
+        // RFC 9110, Section 5.6.7 says:
+        // Recipients of a timestamp value in rfc850-date format, which uses a
+        // two-digit year, MUST interpret a timestamp that appears to be more
+        // than 50 years in the future as representing the most recent year in the
+        // past that had the same last two digits.
         final currentYear = DateTime.now().toUtc().year;
         var year = currentYear - currentYear % 100 + _parseInt(scanner, 2);
         if (year > currentYear + 50) year -= 100;
