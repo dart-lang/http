@@ -1,6 +1,8 @@
 ## 3.0.1-wip
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
+- Add `Http2Client` (`package:http2/client.dart`), a pooled, multiplexed
+  `package:http` `Client` backed by HTTP/2 connections.
 
 ## 3.0.0
 
