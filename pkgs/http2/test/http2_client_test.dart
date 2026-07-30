@@ -28,6 +28,37 @@ Http2Client _testClient({int maxStreamsPerConnection = 100}) => Http2Client(
   onBadCertificate: (_) => true,
 );
 
+/// A minimal HTTP/2-only server that (unlike [MultiProtocolHttpServer])
+/// exposes each accepted [ServerTransportConnection], so a test can finish
+/// one connection gracefully while the server keeps listening for new ones.
+class _RawHttp2Server {
+  _RawHttp2Server._(this._socket) {
+    _socket.listen((socket) {
+      final connection = ServerTransportConnection.viaSocket(socket);
+      connections.add(connection);
+      connection.incomingStreams.listen(_respondWith('ok'));
+    });
+  }
+
+  static Future<_RawHttp2Server> bind() async {
+    final context = _serverContext()..setAlpnProtocols(['h2'], true);
+    final socket = await SecureServerSocket.bind('localhost', 0, context);
+    return _RawHttp2Server._(socket);
+  }
+
+  final SecureServerSocket _socket;
+  final connections = <ServerTransportConnection>[];
+
+  int get port => _socket.port;
+
+  Future<void> close() async {
+    await _socket.close();
+    for (final connection in connections) {
+      await connection.terminate();
+    }
+  }
+}
+
 /// Replies with [body] after waiting on [delay], if given.
 void Function(ServerTransportStream) _respondWith(
   String body, {
@@ -124,6 +155,29 @@ void main() {
       releaseA.complete();
       releaseB.complete();
       await Future.wait([requestA, requestB]);
+
+      await client.terminate();
+      await server.close();
+    });
+
+    test('retries-once-when-pooled-connection-was-closed-by-peer', () async {
+      final server = await _RawHttp2Server.bind();
+      final client = _testClient();
+
+      final r1 = await client.get(
+        Uri.parse('https://localhost:${server.port}/'),
+      );
+      expect(r1.statusCode, 200);
+      expect(client.connectionCount, 1);
+      
+      await server.connections.single.finish();
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+
+      final r2 = await client.get(
+        Uri.parse('https://localhost:${server.port}/'),
+      );
+      expect(r2.statusCode, 200);
+      expect(r2.body, 'ok');
 
       await client.terminate();
       await server.close();

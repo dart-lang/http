@@ -101,8 +101,10 @@ class Http2Client extends BaseClient {
   Future<StreamedResponse> _sendOverHttp2(
     ClientTransportConnection transport,
     BaseRequest request,
+    List<int> bodyBytes,
   ) async {
-    final bodyBytes = await request.finalize().toBytes();
+    if (!transport.isOpen) throw const _ConnectionClosedByPeer();
+
     final path =
         request.url.hasQuery
             ? '${request.url.path}?${request.url.query}'
@@ -177,9 +179,19 @@ class Http2Client extends BaseClient {
       _pools.values.fold(0, (total, pool) => total + pool.size);
 
   @override
-  Future<StreamedResponse> send(BaseRequest request) => _poolFor(
-    request.url,
-  ).run((transport) => _sendOverHttp2(transport, request));
+  Future<StreamedResponse> send(BaseRequest request) {
+    List<int>? bodyBytes;
+    Future<StreamedResponse> attempt() =>
+        _poolFor(request.url).run((transport) async {
+          bodyBytes ??= await request.finalize().toBytes();
+          return _sendOverHttp2(transport, request, bodyBytes!);
+        });
+
+    return attempt().catchError(
+      (Object _) => attempt(),
+      test: (error) => error is _ConnectionClosedByPeer,
+    );
+  }
 
   /// Waits for in-flight requests to finish, then closes every connection.
   ///
@@ -193,4 +205,14 @@ class Http2Client extends BaseClient {
 
   @override
   void close() => unawaited(terminate());
+}
+
+/// Thrown by [Http2Client._sendOverHttp2] when a pooled connection turns
+/// out to have already been closed by the peer (e.g. a graceful `GOAWAY`)
+/// before any bytes were written for this request. [Http2Client.send]
+/// catches this and retries once on whatever the pool dials next -
+/// [ClientPool.run] has already marked the dead connection failed and
+/// evicted it by the time the retry runs.
+class _ConnectionClosedByPeer implements Exception {
+  const _ConnectionClosedByPeer();
 }
