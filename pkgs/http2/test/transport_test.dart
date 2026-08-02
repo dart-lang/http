@@ -154,6 +154,50 @@ void main() {
       expect(await stream.peerPushes.toList(), isEmpty);
     });
 
+    transportTest(
+      'rejects an oversized push promise without publishing it',
+      (
+        ClientTransportConnection client,
+        ServerTransportConnection server,
+      ) async {
+        Future serverFun() async {
+          await for (final stream in server.incomingStreams) {
+            expect(await stream.incomingMessages.toList(), hasLength(1));
+
+            final reset = Completer<void>();
+            final pushed = stream.push([Header.ascii('a', 'x' * 40)]);
+            pushed.onTerminated = (errorCode) {
+              expect(errorCode, ErrorCode.ENHANCE_YOUR_CALM);
+              reset.complete();
+            };
+            final pushedMessages = pushed.incomingMessages.drain<void>().then(
+              (_) {},
+              onError: (_) {},
+            );
+
+            stream.sendHeaders([Header.ascii('status', 'ok')], endStream: true);
+            await Future.wait([reset.future, pushedMessages]);
+          }
+          await server.finish();
+        }
+
+        Future clientFun() async {
+          final stream = client.makeRequest([
+            Header.ascii('request', 'ok'),
+          ], endStream: true);
+          expect(await stream.incomingMessages.toList(), hasLength(1));
+          expect(await stream.peerPushes.toList(), isEmpty);
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      },
+      clientSettings: const ClientSettings(
+        allowServerPushes: true,
+        maxInboundHeaderListSize: 64,
+      ),
+    );
+
     // By default, the stream concurrency level is set to this limit.
     const kDefaultStreamLimit = 100;
     transportTest(
@@ -577,16 +621,12 @@ void main() {
         await testWindowSize(client, server, Window().size);
       });
 
-      transportTest(
-        'fast-sender-receiver-paused--10kb-window-size',
-        (
-          ClientTransportConnection client,
-          ServerTransportConnection server,
-        ) async {
-          await testWindowSize(client, server, 8096);
-        },
-        clientSettings: const ClientSettings(streamWindowSize: 8096),
-      );
+      transportTest('fast-sender-receiver-paused--10kb-window-size', (
+        ClientTransportConnection client,
+        ServerTransportConnection server,
+      ) async {
+        await testWindowSize(client, server, 8096);
+      }, clientSettings: const ClientSettings(streamWindowSize: 8096));
     });
   });
 }
