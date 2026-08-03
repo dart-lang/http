@@ -105,19 +105,23 @@ class Http2Client extends BaseClient {
   ) async {
     if (!transport.isOpen) throw const _ConnectionClosedByPeer();
 
+    // RFC 7540 8.1.2.3: ":path" must not be empty.
+    final rawPath = request.url.path.isEmpty ? '/' : request.url.path;
     final path =
-        request.url.hasQuery
-            ? '${request.url.path}?${request.url.query}'
-            : request.url.path;
+        request.url.hasQuery ? '$rawPath?${request.url.query}' : rawPath;
 
     final stream = transport.makeRequest([
       Header.ascii(':method', request.method),
       Header.ascii(':scheme', 'https'),
       Header.ascii(':authority', request.url.host),
       Header.ascii(':path', path),
-      // HTTP/2 requires lowercase header names (RFC 7540 8.1.2).
+      // HTTP/2 requires lowercase header names (RFC 7540 8.1.2), and forbids
+      // connection-specific header fields (RFC 7540 8.1.2.2) - which a
+      // request built for an HTTP/1.1-oriented client might still set.
+      // `host` is dropped too, since `:authority` already carries it.
       for (final entry in request.headers.entries)
-        Header.ascii(entry.key.toLowerCase(), entry.value),
+        if (!_connectionSpecificHeaders.contains(entry.key.toLowerCase()))
+          Header.ascii(entry.key.toLowerCase(), entry.value),
     ], endStream: bodyBytes.isEmpty);
 
     if (bodyBytes.isNotEmpty) stream.sendData(bodyBytes, endStream: true);
@@ -216,3 +220,14 @@ class Http2Client extends BaseClient {
 class _ConnectionClosedByPeer implements Exception {
   const _ConnectionClosedByPeer();
 }
+
+/// Header fields forbidden on an HTTP/2 stream (RFC 7540 8.1.2.2), plus
+/// `host` since `:authority` already carries what it would.
+const _connectionSpecificHeaders = {
+  'connection',
+  'keep-alive',
+  'proxy-connection',
+  'transfer-encoding',
+  'upgrade',
+  'host',
+};
