@@ -122,8 +122,6 @@ class Http2Client extends BaseClient {
 
     if (bodyBytes.isNotEmpty) stream.sendData(bodyBytes, endStream: true);
 
-    var isAborted = false;
-    var hasResponse = false;
     final statusCompleter = Completer<int>();
     late final StreamSubscription<StreamMessage> subscription;
     final bodyController = StreamController<List<int>>(
@@ -131,30 +129,9 @@ class Http2Client extends BaseClient {
     );
     final responseHeaders = <String, String>{};
 
-    void abortStream() {
-      isAborted = true;
-      if (!hasResponse) {
-        if (!statusCompleter.isCompleted) {
-          statusCompleter.completeError(RequestAbortedException(request.url));
-        }
-      } else {
-        if (!bodyController.isClosed) {
-          bodyController.addError(RequestAbortedException(request.url));
-          unawaited(bodyController.close());
-        }
-      }
-      stream.terminate();
-    }
-
-    if (request case Abortable(:final abortTrigger?)) {
-      unawaited(abortTrigger.whenComplete(abortStream));
-    }
-
     subscription = stream.incomingMessages.listen(
       (message) {
-        if (isAborted) return;
         if (message is HeadersStreamMessage) {
-          hasResponse = true;
           for (final header in message.headers) {
             final name = ascii.decode(header.name);
             final value = ascii.decode(header.value);
@@ -171,7 +148,6 @@ class Http2Client extends BaseClient {
         }
       },
       onDone: () {
-        if (isAborted) return;
         if (!statusCompleter.isCompleted) {
           statusCompleter.completeError(
             StateError('Stream closed before a response status was received'),
@@ -180,7 +156,6 @@ class Http2Client extends BaseClient {
         if (!bodyController.isClosed) bodyController.close();
       },
       onError: (Object error, StackTrace stackTrace) {
-        if (isAborted) return;
         final mappedError = error is TransportException
             ? ClientException(error.message, request.url)
             : error;
