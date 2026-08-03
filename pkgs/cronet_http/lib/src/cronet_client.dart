@@ -253,9 +253,9 @@ class CronetEngine {
   /// Setting this to `false` forces the system resolver, which can work
   /// around host resolution failures (`ERROR_HOSTNAME_NOT_RESOLVED`).
   ///
-  /// [enableStaleDns] controls whether the engine may use expired entries
-  /// from its host cache while a new resolution is in flight. Like
-  /// [useBuiltInDnsResolver], this only takes effect when QUIC is enabled.
+  /// [enableStaleDns] controls whether the engine may use stale (expired)
+  /// entries from its host cache while a new DNS resolution is performed in
+  /// the background.
   ///
   /// [persistHostCache] controls whether the engine's host cache is
   /// persisted to disk so that a freshly created engine (for example in a
@@ -280,9 +280,7 @@ class CronetEngine {
   /// takes effect when [enableStaleDns] is `true`.
   ///
   /// See [DnsOptions](https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/DnsOptions)
-  /// for details on the DNS configuration options. On devices whose Cronet
-  /// implementation does not support DNS options natively, they are applied
-  /// through Cronet's experimental options fallback.
+  /// for details on the DNS configuration options.
   static CronetEngine build(
       {CacheMode? cacheMode,
       int? cacheMaxSize,
