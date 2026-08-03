@@ -123,7 +123,7 @@ class ClientPool<T> {
       await _drained!.future;
     }
 
-    for (final resource in _resources) {
+    for (final resource in List.of(_resources)) {
       try {
         await _destroy(await resource.future);
       } catch (_) {

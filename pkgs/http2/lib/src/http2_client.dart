@@ -122,6 +122,8 @@ class Http2Client extends BaseClient {
 
     if (bodyBytes.isNotEmpty) stream.sendData(bodyBytes, endStream: true);
 
+    var isAborted = false;
+    var hasResponse = false;
     final statusCompleter = Completer<int>();
     late final StreamSubscription<StreamMessage> subscription;
     final bodyController = StreamController<List<int>>(
@@ -129,9 +131,30 @@ class Http2Client extends BaseClient {
     );
     final responseHeaders = <String, String>{};
 
+    void abortStream() {
+      isAborted = true;
+      if (!hasResponse) {
+        if (!statusCompleter.isCompleted) {
+          statusCompleter.completeError(RequestAbortedException(request.url));
+        }
+      } else {
+        if (!bodyController.isClosed) {
+          bodyController.addError(RequestAbortedException(request.url));
+          unawaited(bodyController.close());
+        }
+      }
+      stream.terminate();
+    }
+
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(abortStream));
+    }
+
     subscription = stream.incomingMessages.listen(
       (message) {
+        if (isAborted) return;
         if (message is HeadersStreamMessage) {
+          hasResponse = true;
           for (final header in message.headers) {
             final name = ascii.decode(header.name);
             final value = ascii.decode(header.value);
@@ -148,6 +171,7 @@ class Http2Client extends BaseClient {
         }
       },
       onDone: () {
+        if (isAborted) return;
         if (!statusCompleter.isCompleted) {
           statusCompleter.completeError(
             StateError('Stream closed before a response status was received'),
@@ -156,20 +180,31 @@ class Http2Client extends BaseClient {
         if (!bodyController.isClosed) bodyController.close();
       },
       onError: (Object error, StackTrace stackTrace) {
+        if (isAborted) return;
+        final mappedError = error is TransportException
+            ? ClientException(error.message, request.url)
+            : error;
         if (!statusCompleter.isCompleted) {
-          statusCompleter.completeError(error, stackTrace);
+          statusCompleter.completeError(mappedError, stackTrace);
         }
-        bodyController.addError(error, stackTrace);
+        bodyController.addError(mappedError, stackTrace);
         if (!bodyController.isClosed) bodyController.close();
       },
       cancelOnError: true,
     );
 
     final statusCode = await statusCompleter.future;
+    final contentLengthHeader = responseHeaders['content-length'];
+    final contentLength = contentLengthHeader != null
+        ? int.tryParse(contentLengthHeader)
+        : null;
+
     return StreamedResponse(
       bodyController.stream,
       statusCode,
+      contentLength: contentLength,
       headers: responseHeaders,
+      reasonPhrase: _defaultReasonPhrases[statusCode],
       request: request,
     );
   }
@@ -178,8 +213,14 @@ class Http2Client extends BaseClient {
   int get connectionCount =>
       _pools.values.fold(0, (total, pool) => total + pool.size);
 
+  bool _isClosed = false;
+
   @override
   Future<StreamedResponse> send(BaseRequest request) {
+    if (_isClosed) {
+      throw ClientException(
+          'HTTP request failed. Client is already closed.', request.url);
+    }
     List<int>? bodyBytes;
     Future<StreamedResponse> attempt() =>
         _poolFor(request.url).run((transport) async {
@@ -198,6 +239,7 @@ class Http2Client extends BaseClient {
   /// Unlike [close] (constrained by `http.Client`'s synchronous signature),
   /// this can be awaited by callers who hold a concrete [Http2Client].
   Future<void> terminate() async {
+    _isClosed = true;
     for (final pool in _pools.values) {
       await pool.terminate();
     }
@@ -216,3 +258,48 @@ class Http2Client extends BaseClient {
 class _ConnectionClosedByPeer implements Exception {
   const _ConnectionClosedByPeer();
 }
+
+const _defaultReasonPhrases = {
+  100: 'Continue',
+  101: 'Switching Protocols',
+  200: 'OK',
+  201: 'Created',
+  202: 'Accepted',
+  203: 'Non-Authoritative Information',
+  204: 'No Content',
+  205: 'Reset Content',
+  206: 'Partial Content',
+  300: 'Multiple Choices',
+  301: 'Moved Permanently',
+  302: 'Found',
+  303: 'See Other',
+  304: 'Not Modified',
+  305: 'Use Proxy',
+  307: 'Temporary Redirect',
+  308: 'Permanent Redirect',
+  400: 'Bad Request',
+  401: 'Unauthorized',
+  402: 'Payment Required',
+  403: 'Forbidden',
+  404: 'Not Found',
+  405: 'Method Not Allowed',
+  406: 'Not Acceptable',
+  407: 'Proxy Authentication Required',
+  408: 'Request Timeout',
+  409: 'Conflict',
+  410: 'Gone',
+  411: 'Length Required',
+  412: 'Precondition Failed',
+  413: 'Payload Too Large',
+  414: 'URI Too Long',
+  415: 'Unsupported Media Type',
+  416: 'Range Not Satisfiable',
+  417: 'Expectation Failed',
+  426: 'Upgrade Required',
+  500: 'Internal Server Error',
+  501: 'Not Implemented',
+  502: 'Bad Gateway',
+  503: 'Service Unavailable',
+  504: 'Gateway Timeout',
+  505: 'HTTP Version Not Supported',
+};
