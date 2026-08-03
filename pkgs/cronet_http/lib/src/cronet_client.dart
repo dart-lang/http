@@ -251,8 +251,7 @@ class CronetEngine {
   /// built-in DNS resolver instead of the system resolver. The built-in
   /// resolver is only used when QUIC is enabled, which it is by default.
   /// Setting this to `false` forces the system resolver, which can work
-  /// around host resolution failures (`ERROR_HOSTNAME_NOT_RESOLVED`) seen
-  /// with QUIC on some cellular networks and in background isolates.
+  /// around host resolution failures (`ERROR_HOSTNAME_NOT_RESOLVED`).
   ///
   /// [enableStaleDns] controls whether the engine may use expired entries
   /// from its host cache while a new resolution is in flight. Like
