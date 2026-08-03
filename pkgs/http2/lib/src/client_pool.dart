@@ -4,6 +4,8 @@
 
 import 'dart:async';
 
+import 'package:meta/meta.dart';
+
 class _PooledResource<T> {
   _PooledResource(this.future);
   final Future<T> future;
@@ -40,6 +42,7 @@ class ClientPool<T> {
   int get size => _resources.length;
 
   /// The number of in-flight operations across every resource. For testing.
+  @visibleForTesting
   int get opCount =>
       _resources.fold(0, (total, resource) => total + resource.inFlight);
 
