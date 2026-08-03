@@ -97,7 +97,7 @@ final class HttpProfileRequestData {
   /// // Foo: Bar
   /// // Foo: Baz
   ///
-  /// profile?.requestData.headersListValues({'Foo': ['Bar', 'Baz']});
+  /// profile?.requestData.headersListValues = {'Foo': ['Bar', 'Baz']};
   /// ```
   set headersListValues(Map<String, List<String>>? value) {
     _checkAndUpdate();
@@ -117,7 +117,7 @@ final class HttpProfileRequestData {
   /// // Foo: Bar
   /// // Foo: Baz
   ///
-  /// profile?.requestData.headersCommaValues({'Foo': 'Bar, Baz']});
+  /// profile?.requestData.headersCommaValues = {'Foo': 'Bar, Baz'};
   /// ```
   set headersCommaValues(Map<String, String>? value) {
     _checkAndUpdate();
@@ -134,7 +134,7 @@ final class HttpProfileRequestData {
   /// For example, the map
   ///
   ///  ```dart
-  /// {'Foo': ['Bar', 'Baz']});
+  /// {'Foo': ['Bar', 'Baz']}
   /// ```
   ///
   /// represents the headers
