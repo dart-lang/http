@@ -63,6 +63,7 @@ class Http2Client extends BaseClient {
   final Pool _handshakeGate;
 
   final _pools = <String, ClientPool<ClientTransportConnection>>{};
+  var _closed = false;
 
   // Synchronous (no `await`), so concurrent requests to a new host:port
   // can't race each other into creating two pools for the same key.
@@ -184,6 +185,13 @@ class Http2Client extends BaseClient {
 
   @override
   Future<StreamedResponse> send(BaseRequest request) {
+    if (_closed) {
+      throw ClientException(
+        'HTTP request failed. Client is already closed.',
+        request.url,
+      );
+    }
+
     List<int>? bodyBytes;
     Future<StreamedResponse> attempt() =>
         _poolFor(request.url).run((transport) async {
@@ -202,6 +210,7 @@ class Http2Client extends BaseClient {
   /// Unlike [close] (constrained by `http.Client`'s synchronous signature),
   /// this can be awaited by callers who hold a concrete [Http2Client].
   Future<void> terminate() async {
+    _closed = true;
     for (final pool in _pools.values) {
       await pool.terminate();
     }
