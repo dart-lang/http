@@ -259,6 +259,8 @@ class _PackageCardState extends State<PackageCard> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(4),
                           child: Image(
+                            // Image.network does not allow you to provide your
+                            // own `http.Client` so use `HttpImageProvider`.
                             image: HttpImageProvider(
                               Uri.parse(
                                   'https://www.google.com/s2/favicons?sz=64&domain=${package.publisherId}'),
