@@ -27,46 +27,20 @@ class PackageSearchApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Dart Package Search',
-        theme: ThemeData(
-          useMaterial3: true,
-          brightness: Brightness.dark,
-          scaffoldBackgroundColor: const Color(0xFF0F172A),
-          colorScheme: const ColorScheme.dark(
-            primary: Color(0xFF38BDF8),
-            surface: Color(0xFF1E293B),
-            onSurface: Colors.white,
-          ),
-          inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: const Color(0xFF1E293B),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: Color(0xFF334155)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: Color(0xFF334155)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: Color(0xFF38BDF8), width: 2),
-            ),
-            prefixIconColor: const Color(0xFF94A3B8),
-            labelStyle: const TextStyle(color: Color(0xFF94A3B8)),
-          ),
-        ),
-        home: const HomePage(),
+        theme: ThemeData(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
+        home: const SearchPage(),
       );
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SearchPageState extends State<SearchPage> {
   List<String>? _allPackages;
   List<String>? _matchingNames;
   bool _loadingPackages = false;
@@ -130,20 +104,12 @@ class _HomePageState extends State<HomePage> {
           children: [
             CircularProgressIndicator(),
             SizedBox(height: 16),
-            Text(
-              'Loading package database...',
-              style: TextStyle(color: Color(0xFF94A3B8)),
-            ),
+            Text('Loading package database...'),
           ],
         ),
       );
     } else if (_matchingNames == null) {
-      body = const Center(
-        child: Text(
-          'Loading...',
-          style: TextStyle(color: Color(0xFF94A3B8)),
-        ),
-      );
+      body = const Center(child: Text('Loading...'));
     } else {
       body = PackageList(
         packageNames: _matchingNames!,
@@ -153,16 +119,11 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Pub.dev Package Search',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        backgroundColor: const Color(0xFF0F172A),
+        title: const Text('Dart Package Search'),
         centerTitle: true,
-        elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             TextField(
@@ -170,9 +131,10 @@ class _HomePageState extends State<HomePage> {
               decoration: const InputDecoration(
                 labelText: 'Search packages',
                 prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             Expanded(child: body),
           ],
         ),
@@ -251,136 +213,91 @@ class _PackageCardState extends State<PackageCard> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      elevation: 0,
-      color: theme.colorScheme.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: Color(0xFF334155)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: FutureBuilder<Package>(
-          future: _packageFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+  Widget build(BuildContext context) => Card(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: FutureBuilder<Package>(
+            future: _packageFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.name,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const LinearProgressIndicator(),
+                  ],
+                );
+              }
+
+              if (snapshot.hasError) {
+                return Text('Error loading info for ${widget.name}');
+              }
+
+              final package = snapshot.data!;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.name,
+                    package.name,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
                     ),
                   ),
+                  if (package.publisherId != null) ...[
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Image(
+                            image: HttpImageProvider(
+                              Uri.parse(
+                                  'https://www.google.com/s2/favicons?sz=64&domain=${package.publisherId}'),
+                              client: widget.client,
+                            ),
+                            width: 16,
+                            height: 16,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(Icons.public, size: 16),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          package.publisherId!,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                   const SizedBox(height: 12),
-                  const LinearProgressIndicator(
-                    color: Color(0xFF38BDF8),
-                    backgroundColor: Color(0xFF1E293B),
+                  Row(
+                    children: [
+                      const Icon(Icons.thumb_up_outlined, size: 16),
+                      const SizedBox(width: 6),
+                      Text('${package.likes} Likes'),
+                      const SizedBox(width: 24),
+                      const Icon(Icons.download_outlined, size: 16),
+                      const SizedBox(width: 6),
+                      Text('${package.downloads} Downloads'),
+                    ],
                   ),
                 ],
               );
-            }
-
-            if (snapshot.hasError) {
-              return Text(
-                'Error loading info for ${widget.name}',
-                style: const TextStyle(color: Colors.redAccent),
-              );
-            }
-
-            final package = snapshot.data!;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            package.name,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF38BDF8),
-                            ),
-                          ),
-                          if (package.publisherId != null) ...[
-                            const SizedBox(height: 6),
-                            Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: Image(
-                                    image: HttpImageProvider(
-                                      Uri.parse(
-                                          'https://www.google.com/s2/favicons?sz=64&domain=${package.publisherId}'),
-                                      client: widget.client,
-                                    ),
-                                    width: 16,
-                                    height: 16,
-                                    fit: BoxFit.contain,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(
-                                      Icons.public,
-                                      size: 16,
-                                      color: Color(0xFF94A3B8),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  package.publisherId!,
-                                  style: const TextStyle(
-                                    color: Color(0xFF34D399),
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 14),
-                Row(
-                  children: [
-                    const Icon(Icons.thumb_up_outlined,
-                        size: 16, color: Color(0xFF94A3B8)),
-                    const SizedBox(width: 6),
-                    Text(
-                      '${package.likes} Likes',
-                      style: const TextStyle(
-                          color: Color(0xFF94A3B8), fontSize: 14),
-                    ),
-                    const SizedBox(width: 24),
-                    const Icon(Icons.download_outlined,
-                        size: 16, color: Color(0xFF94A3B8)),
-                    const SizedBox(width: 6),
-                    Text(
-                      '${package.downloads} Downloads',
-                      style: const TextStyle(
-                          color: Color(0xFF94A3B8), fontSize: 14),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
+            },
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
