@@ -98,10 +98,13 @@ class ClientPool<T> {
   }
 
   bool get _hasExcessIdleCapacity {
+    // Failed resources are never routed new work by _acquire(), so they
+    // contribute no real idle capacity.
     final idleCapacity = _resources.fold(
       0,
       (total, resource) =>
-          total + (maxConcurrentOperations - resource.inFlight),
+          total +
+          (resource.failed ? 0 : maxConcurrentOperations - resource.inFlight),
     );
     return idleCapacity > maxIdleResources * maxConcurrentOperations;
   }
