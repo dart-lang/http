@@ -26,7 +26,7 @@ class PackageSearchApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Pub.dev Package Search',
+        title: 'Dart Package Search',
         theme: ThemeData(
           useMaterial3: true,
           brightness: Brightness.dark,
