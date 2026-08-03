@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:http_image_provider/http_image_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'http_client_factory.dart'
@@ -86,10 +87,9 @@ class _HomePageState extends State<HomePage> {
         Uri.https('pub.dev', '/api/package-name-completion-data'),
       );
       if (response.statusCode == 200) {
-        final json = jsonDecode(utf8.decode(response.bodyBytes))
-            as Map<String, dynamic>;
-        final packagesList = (json['packages'] as List<dynamic>)
-            .cast<String>()
+        final json =
+            jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+        final packagesList = (json['packages'] as List<dynamic>).cast<String>()
           ..sort((a, b) => a.compareTo(b));
         setState(() {
           _allPackages = packagesList;
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else {
-      body = PackageTable(
+      body = PackageList(
         packageNames: _matchingNames!,
         client: _client,
       );
@@ -181,199 +181,205 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class PackageTable extends StatelessWidget {
+class PackageList extends StatelessWidget {
   final List<String> packageNames;
   final Client client;
 
-  const PackageTable({
+  const PackageList({
     required this.packageNames,
     required this.client,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFF334155)),
-        borderRadius: BorderRadius.circular(16),
-        color: theme.colorScheme.surface,
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Column(
-          children: [
-            Container(
-              color: const Color(0xFF1E293B),
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-              child: const Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Text(
-                      'Package Name',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF38BDF8),
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      'Likes',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF38BDF8),
-                        fontSize: 15,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      '30-day Downloads',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF38BDF8),
-                        fontSize: 15,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Divider(height: 1, color: Color(0xFF334155)),
-            Expanded(
-              child: ListView.builder(
-                itemCount: packageNames.length,
-                itemBuilder: (context, index) {
-                  final name = packageNames[index];
-                  final isEven = index.isEven;
-                  return PackageRow(
-                    key: ValueKey(name),
-                    name: name,
-                    client: client,
-                    isEven: isEven,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => ListView.builder(
+        itemCount: packageNames.length,
+        itemBuilder: (context, index) {
+          final name = packageNames[index];
+          return PackageCard(
+            key: ValueKey(name),
+            name: name,
+            client: client,
+          );
+        },
+      );
 }
 
-class PackageRow extends StatefulWidget {
+class PackageCard extends StatefulWidget {
   final String name;
   final Client client;
-  final bool isEven;
 
-  const PackageRow({
+  const PackageCard({
     required this.name,
     required this.client,
-    required this.isEven,
     super.key,
   });
 
   @override
-  State<PackageRow> createState() => _PackageRowState();
+  State<PackageCard> createState() => _PackageCardState();
 }
 
-class _PackageRowState extends State<PackageRow> {
-  late Future<Package> _scoreFuture;
+class _PackageCardState extends State<PackageCard> {
+  late Future<Package> _packageFuture;
 
   @override
   void initState() {
     super.initState();
-    _scoreFuture = _fetchScore(widget.name, widget.client);
+    _packageFuture = _fetchPackageInfo(widget.name, widget.client);
   }
 
-  Future<Package> _fetchScore(String name, Client client) async {
-    final response = await client.get(
-      Uri.https('pub.dev', '/api/packages/$name/score'),
-    );
-    if (response.statusCode == 200) {
-      final json = jsonDecode(utf8.decode(response.bodyBytes))
+  Future<Package> _fetchPackageInfo(String name, Client client) async {
+    final results = await Future.wait([
+      client.get(Uri.https('pub.dev', '/api/packages/$name/score')),
+      client.get(Uri.https('pub.dev', '/api/packages/$name/publisher')),
+    ]);
+
+    final scoreResponse = results[0];
+    final publisherResponse = results[1];
+
+    if (scoreResponse.statusCode == 200 &&
+        publisherResponse.statusCode == 200) {
+      final scoreJson = jsonDecode(utf8.decode(scoreResponse.bodyBytes))
           as Map<String, dynamic>;
-      return Package.fromJson(name, json);
+      final publisherJson = jsonDecode(utf8.decode(publisherResponse.bodyBytes))
+          as Map<String, dynamic>;
+      final publisherId = publisherJson['publisherId'] as String?;
+      return Package.fromJson(name, scoreJson, publisherId: publisherId);
     } else {
-      throw Exception('Failed to load score');
+      throw Exception('Failed to load package info');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final rowBgColor =
-        widget.isEven ? const Color(0xFF0F172A) : const Color(0xFF1E293B);
+    final theme = Theme.of(context);
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      elevation: 0,
+      color: theme.colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: const BorderSide(color: Color(0xFF334155)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: FutureBuilder<Package>(
+          future: _packageFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const LinearProgressIndicator(
+                    color: Color(0xFF38BDF8),
+                    backgroundColor: Color(0xFF1E293B),
+                  ),
+                ],
+              );
+            }
 
-    return Container(
-      color: rowBgColor,
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 4,
-            child: Text(
-              widget.name,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: FutureBuilder<Package>(
-              future: _scoreFuture,
-              builder: (context, snapshot) {
-                final package = snapshot.data;
-                final likesText =
-                    package != null ? package.likes.toString() : '...';
-                final downloadsText =
-                    package != null ? package.downloads.toString() : '...';
+            if (snapshot.hasError) {
+              return Text(
+                'Error loading info for ${widget.name}',
+                style: const TextStyle(color: Colors.redAccent),
+              );
+            }
 
-                final isWaiting =
-                    snapshot.connectionState == ConnectionState.waiting;
-
-                return Row(
+            final package = snapshot.data!;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      flex: 2,
-                      child: Text(
-                        likesText,
-                        style: TextStyle(
-                          color: isWaiting
-                              ? const Color(0xFF64748B)
-                              : const Color(0xFFE2E8F0),
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        downloadsText,
-                        style: TextStyle(
-                          color: isWaiting
-                              ? const Color(0xFF64748B)
-                              : const Color(0xFFE2E8F0),
-                        ),
-                        textAlign: TextAlign.right,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            package.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF38BDF8),
+                            ),
+                          ),
+                          if (package.publisherId != null) ...[
+                            const SizedBox(height: 6),
+                            Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Image(
+                                    image: HttpImageProvider(
+                                      Uri.parse(
+                                          'https://www.google.com/s2/favicons?sz=64&domain=${package.publisherId}'),
+                                      client: widget.client,
+                                    ),
+                                    width: 16,
+                                    height: 16,
+                                    fit: BoxFit.contain,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(
+                                      Icons.public,
+                                      size: 16,
+                                      color: Color(0xFF94A3B8),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  package.publisherId!,
+                                  style: const TextStyle(
+                                    color: Color(0xFF34D399),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ],
                       ),
                     ),
                   ],
-                );
-              },
-            ),
-          ),
-        ],
+                ),
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    const Icon(Icons.thumb_up_outlined,
+                        size: 16, color: Color(0xFF94A3B8)),
+                    const SizedBox(width: 6),
+                    Text(
+                      '${package.likes} Likes',
+                      style: const TextStyle(
+                          color: Color(0xFF94A3B8), fontSize: 14),
+                    ),
+                    const SizedBox(width: 24),
+                    const Icon(Icons.download_outlined,
+                        size: 16, color: Color(0xFF94A3B8)),
+                    const SizedBox(width: 6),
+                    Text(
+                      '${package.downloads} Downloads',
+                      style: const TextStyle(
+                          color: Color(0xFF94A3B8), fontSize: 14),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
