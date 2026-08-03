@@ -27,8 +27,7 @@ jobs:
           - web_socket
           - web_socket_channel
           - web_socket_conformance_tests
-    # zizmor: ignore[unpinned-uses]
-    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@main
+    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@main # zizmor: ignore[unpinned-uses, secrets-inherit]
     with:
       directory: pkgs/${{ matrix.package }}
       branch: auto-tidy-${{ matrix.package }}
