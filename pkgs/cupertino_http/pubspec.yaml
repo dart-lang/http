@@ -24,7 +24,11 @@ dev_dependencies:
   convert: ^3.1.1
   crypto: ^3.0.3
   dart_flutter_team_lints: ^3.0.0
-  ffigen: ^20.1.0
+  ffigen:
+    git:
+      url: https://github.com/dart-lang/native.git
+      ref: ffigen_transformer
+      path: pkgs/ffigen
   http_client_conformance_tests:
     path: ../http_client_conformance_tests/
   test: ^1.21.1
