@@ -232,4 +232,55 @@ void main() {
       findsNothing,
     );
   });
+
+  testWidgets('test load package list error displays error and retry',
+      (WidgetTester tester) async {
+    var requestCount = 0;
+    final mockClient = MockClient((request) async {
+      requestCount++;
+      if (requestCount == 1) {
+        return Response('Internal Server Error', 500);
+      }
+      if (request.url.path == '/api/package-name-completion-data') {
+        return Response(_completionResponse, 200);
+      } else if (request.url.path == '/api/packages/http/score') {
+        return Response(_httpScoreResponse, 200);
+      } else if (request.url.path == '/api/packages/http/publisher') {
+        return Response('{"publisherId": "dart.dev"}', 200);
+      } else if (request.url.path == '/api/packages/http_parser/score') {
+        return Response(_httpParserScoreResponse, 200);
+      } else if (request.url.path == '/api/packages/http_parser/publisher') {
+        return Response('{"publisherId": "dart.dev"}', 200);
+      } else if (request.url.path == '/api/packages/shared_preferences/score') {
+        return Response(_sharedPrefsScoreResponse, 200);
+      } else if (request.url.path ==
+          '/api/packages/shared_preferences/publisher') {
+        return Response('{"publisherId": "flutter.dev"}', 200);
+      } else if (request.url.path == '/s2/favicons') {
+        return Response.bytes(_transparentPng, 200);
+      }
+      return Response('', 404);
+    });
+
+    await tester.pumpWidget(app(mockClient));
+    await tester.pumpAndSettle();
+
+    // Verify error message and retry button are shown.
+    expect(
+        find.text('Failed to load package list: Status 500'), findsOneWidget);
+    expect(find.byType(ElevatedButton), findsOneWidget);
+
+    // Tap retry.
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
+
+    // Verify package list loads successfully after retry.
+    expect(
+      find.descendant(
+        of: find.byType(PackageList),
+        matching: find.text('http'),
+      ),
+      findsOneWidget,
+    );
+  });
 }

@@ -44,6 +44,7 @@ class _SearchPageState extends State<SearchPage> {
   List<String>? _allPackages;
   List<String>? _matchingNames;
   bool _loadingPackages = false;
+  String? _errorMessage;
   String? _lastQuery;
   late Client _client;
 
@@ -55,7 +56,10 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<void> _loadPackageList() async {
-    setState(() => _loadingPackages = true);
+    setState(() {
+      _loadingPackages = true;
+      _errorMessage = null;
+    });
     try {
       final response = await _client.get(
         Uri.https('pub.dev', '/api/package-name-completion-data'),
@@ -70,9 +74,18 @@ class _SearchPageState extends State<SearchPage> {
           _loadingPackages = false;
           _runSearch(_lastQuery ?? '');
         });
+      } else {
+        setState(() {
+          _errorMessage =
+              'Failed to load package list: Status ${response.statusCode}';
+          _loadingPackages = false;
+        });
       }
-    } catch (_) {
-      setState(() => _loadingPackages = false);
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Failed to load package list: $e';
+        _loadingPackages = false;
+      });
     }
   }
 
@@ -105,6 +118,24 @@ class _SearchPageState extends State<SearchPage> {
             CircularProgressIndicator(),
             SizedBox(height: 16),
             Text('Loading package database...'),
+          ],
+        ),
+      );
+    } else if (_errorMessage != null) {
+      body = Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              _errorMessage!,
+              style: const TextStyle(color: Colors.redAccent),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _loadPackageList,
+              child: const Text('Retry'),
+            ),
           ],
         ),
       );
