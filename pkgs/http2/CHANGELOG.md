@@ -3,6 +3,8 @@
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
 - Add `Http2Client` (`package:http2/client.dart`), a pooled, multiplexed
   `package:http` `Client` backed by HTTP/2 connections.
+- Add `ClientTransportConnection.peerMaxConcurrentStreams`, exposing the
+  peer's most recently advertised `SETTINGS_MAX_CONCURRENT_STREAMS`.
 
 ## 3.0.0
 
