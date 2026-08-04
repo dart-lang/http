@@ -19,10 +19,6 @@ SecurityContext _serverContext() =>
 Future<MultiProtocolHttpServer> _bind() =>
     MultiProtocolHttpServer.bind('localhost', 0, _serverContext());
 
-// test/certificates/server_chain.pem is long expired and self-signed, same
-// as every other test in this package that dials it - see
-// multiprotocol_server_test.dart. Bypassing verification here is just for
-// this fixture; Http2Client itself defaults to real verification.
 Http2Client _testClient({int maxStreamsPerConnection = 100}) => Http2Client(
   maxStreamsPerConnection: maxStreamsPerConnection,
   onBadCertificate: (_) => true,
@@ -169,7 +165,7 @@ void main() {
       );
       expect(r1.statusCode, 200);
       expect(client.connectionCount, 1);
-      
+
       await server.connections.single.finish();
       await Future<void>.delayed(const Duration(milliseconds: 200));
 
