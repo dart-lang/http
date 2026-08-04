@@ -116,8 +116,8 @@ class ClientPool<T> {
   }
 
   void _maybeCompleteDrain() {
-    final drained = _drained;
-    if (drained != null && !drained.isCompleted && opCount == 0) {
+    if (_drained case final drained?
+        when !drained.isCompleted && opCount == 0) {
       drained.complete();
     }
   }
