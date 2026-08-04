@@ -38,7 +38,7 @@ class ClientPool<T> {
   var _terminated = false;
   Completer<void>? _drained;
 
-  /// The number of resources currently in the pool. For testing.
+  /// The number of resources currently in the pool.
   int get size => _resources.length;
 
   /// The number of in-flight operations across every resource. For testing.
