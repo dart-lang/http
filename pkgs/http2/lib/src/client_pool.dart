@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
 class _PooledResource<T> {
@@ -43,8 +44,7 @@ class ClientPool<T> {
 
   /// The number of in-flight operations across every resource. For testing.
   @visibleForTesting
-  int get opCount =>
-      _resources.fold(0, (total, resource) => total + resource.inFlight);
+  int get opCount => _resources.map((resource) => resource.inFlight).sum;
 
   /// Runs [operation] on an available (or newly created) resource.
   Future<R> run<R>(Future<R> Function(T resource) operation) async {
@@ -103,12 +103,15 @@ class ClientPool<T> {
   bool get _hasExcessIdleCapacity {
     // Failed resources are never routed new work by _acquire(), so they
     // contribute no real idle capacity.
-    final idleCapacity = _resources.fold(
-      0,
-      (total, resource) =>
-          total +
-          (resource.failed ? 0 : maxConcurrentOperations - resource.inFlight),
-    );
+    final idleCapacity =
+        _resources
+            .map(
+              (resource) =>
+                  resource.failed
+                      ? 0
+                      : maxConcurrentOperations - resource.inFlight,
+            )
+            .sum;
     return idleCapacity > maxIdleResources * maxConcurrentOperations;
   }
 

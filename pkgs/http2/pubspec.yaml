@@ -12,6 +12,7 @@ environment:
   sdk: ^3.7.0
 
 dependencies:
+  collection: ^1.19.0
   http: ^1.5.0
   meta: ^1.15.0
   pool: ^1.5.0

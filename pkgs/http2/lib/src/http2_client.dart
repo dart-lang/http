@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:http/http.dart';
 import 'package:pool/pool.dart';
 
@@ -180,8 +181,7 @@ class Http2Client extends BaseClient {
   }
 
   /// The number of connections currently pooled, across every host.
-  int get connectionCount =>
-      _pools.values.fold(0, (total, pool) => total + pool.size);
+  int get connectionCount => _pools.values.map((pool) => pool.size).sum;
 
   @override
   Future<StreamedResponse> send(BaseRequest request) {
