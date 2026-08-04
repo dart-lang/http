@@ -159,14 +159,18 @@ class Http2Client extends BaseClient {
             StateError('Stream closed before a response status was received'),
           );
         }
-        if (!bodyController.isClosed) bodyController.close();
+        if (!bodyController.isClosed) {
+          bodyController.close();
+        }
       },
       onError: (Object error, StackTrace stackTrace) {
         if (!statusCompleter.isCompleted) {
           statusCompleter.completeError(error, stackTrace);
         }
         bodyController.addError(error, stackTrace);
-        if (!bodyController.isClosed) bodyController.close();
+        if (!bodyController.isClosed) {
+          bodyController.close();
+        }
       },
       cancelOnError: true,
     );
