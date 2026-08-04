@@ -262,8 +262,10 @@ class _PackageCardState extends State<PackageCard> {
                             // Image.network does not allow you to provide your
                             // own `http.Client` so use `HttpImageProvider`.
                             image: HttpImageProvider(
-                              Uri.parse(
-                                  'https://www.google.com/s2/favicons?sz=64&domain=${package.publisherId}'),
+                              Uri.https('www.google.com', '/s2/favicons', {
+                                'sz': '64',
+                                'domain': package.publisherId,
+                              }),
                               client: widget.client,
                             ),
                             width: 16,
