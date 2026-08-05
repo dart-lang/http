@@ -13,12 +13,7 @@ ClientPool<int> _pool({
   int maxIdleResources = 1,
   int? Function(int resource)? concurrencyLimitOf,
   List<int>? destroyed,
-  // When given, a resource's destroy doesn't finish until this does - stands
-  // in for `transport.finish()`, which waits on the connection's streams.
   Future<void>? destroyGate,
-  // When given, creating a resource doesn't finish until this does, which is
-  // how a test controls the window where a resource exists but its own limit
-  // isn't knowable yet.
   Future<void>? dialGate,
 }) {
   var nextId = 0;
@@ -176,7 +171,6 @@ void main() {
     });
 
     test('honours-a-resources-own-lower-concurrency-limit', () async {
-      // The pool would allow 10 per resource; each resource only allows 2.
       final pool = _pool(
         maxConcurrentOperations: 10,
         concurrencyLimitOf: (_) => 2,
@@ -192,8 +186,6 @@ void main() {
       );
 
       run(0);
-      // The limit is only visible once resource 0 has been created, so let it
-      // resolve before dispatching work that has to respect it.
       await pool.run((_) async {});
       run(1);
       run(2); // Resource 0 is at its own limit of 2 - this opens resource 1.
@@ -208,7 +200,6 @@ void main() {
     });
 
     test('ignores-a-resource-limit-above-max-concurrent-operations', () async {
-      // A resource permitting more than the pool does must not raise the cap.
       final pool = _pool(
         maxConcurrentOperations: 1,
         concurrencyLimitOf: (_) => 1000,
@@ -228,8 +219,6 @@ void main() {
     });
 
     test('re-reads-a-resource-limit-that-changes', () async {
-      // Stands in for a server revising SETTINGS_MAX_CONCURRENT_STREAMS: the
-      // limit starts at 2 and drops to 1.
       var limit = 2;
       final pool = _pool(
         maxConcurrentOperations: 10,
@@ -262,9 +251,6 @@ void main() {
     });
 
     test('keeps-a-limited-resource-that-is-merely-full', () async {
-      // Regression test for collecting a healthy resource as "excess idle"
-      // because its real capacity is below maxConcurrentOperations, which
-      // would churn one resource per operation.
       final destroyed = <int>[];
       final pool = _pool(
         maxConcurrentOperations: 10,
@@ -281,17 +267,12 @@ void main() {
 
       completers[0].complete();
       await first;
-      // Resource 1 is still busy, so resource 0 going idle doesn't make it
-      // excess - measuring its spare capacity against maxConcurrentOperations
-      // rather than its own limit of 1 would collect it here.
       expect(destroyed, isEmpty);
       expect(pool.size, 2);
 
       completers[1].complete();
       await second;
 
-      // maxIdleResources is 1 and each resource holds 1, so exactly one of
-      // the two is excess - not both, and not one per operation.
       expect(destroyed, hasLength(1));
       expect(pool.size, 1);
     });
@@ -307,9 +288,6 @@ void main() {
     test(
       'does-not-over-commit-a-resource-whose-limit-is-not-known-yet',
       () async {
-        // Every resource only allows one operation, but that isn't knowable
-        // until it has been created - and the pool would otherwise admit work
-        // against the full nominal cap in the meantime.
         final dialGate = Completer<void>();
         final workGate = Completer<void>();
         final pool = _pool(
@@ -332,8 +310,6 @@ void main() {
           }),
         );
 
-        // All eight are admitted before anything has been created, so this is
-        // where over-commitment would happen.
         dialGate.complete();
         await pumpEventQueue();
 
@@ -350,7 +326,6 @@ void main() {
     );
 
     test('tolerates-a-resource-that-reports-a-zero-limit', () async {
-      // A limit of 0 must not make acquire() spin forever looking for room.
       final pool = _pool(
         maxConcurrentOperations: 10,
         concurrencyLimitOf: (_) => 0,
@@ -376,7 +351,6 @@ void main() {
       lease.release();
       lease.release();
 
-      // Not -1: release() is called from several terminal paths that can race.
       expect(pool.opCount, 0);
     });
 
@@ -395,9 +369,6 @@ void main() {
     });
 
     test('does-not-couple-an-operation-to-a-slow-destroy', () async {
-      // `destroy` never finishes. An operation that happens to trigger
-      // collection must still complete - before, run()'s finally awaited the
-      // destroy, so the operation's own future never settled.
       final pool = _pool(
         maxConcurrentOperations: 1,
         maxIdleResources: 0,
@@ -417,8 +388,6 @@ void main() {
         destroyGate: gate.future,
       );
 
-      // Completing this op collects the resource, starting a destroy that
-      // won't finish until the gate does.
       await pool.run((_) async {});
       expect(destroyed, [0]);
 
@@ -439,8 +408,6 @@ void main() {
 
       unawaited(pool.run((_) => completer.future));
 
-      // Both callers must observe the same shutdown. Before, the second call
-      // replaced the completer the first was waiting on, so the first hung.
       final first = pool.terminate();
       final second = pool.terminate();
       completer.complete();
@@ -467,7 +434,6 @@ void main() {
       }
       await Future.wait(ops);
 
-      // Before, the two calls iterated _resources while the other cleared it.
       await expectLater(Future.wait(terminations), completes);
     });
 

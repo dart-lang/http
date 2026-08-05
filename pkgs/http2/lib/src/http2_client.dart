@@ -91,8 +91,6 @@ class Http2Client extends BaseClient {
         maxConcurrentOperations: maxStreamsPerConnection,
         maxIdleResources: maxIdleConnections,
         destroy: (transport) => transport.finish(),
-        // Never open more streams on a connection than its server allows,
-        // which it can revise at any point by sending a new SETTINGS frame.
         concurrencyLimitOf: (transport) => transport.peerMaxConcurrentStreams,
       ),
     );
@@ -113,13 +111,6 @@ class Http2Client extends BaseClient {
       );
     }
 
-    // The peer's stream limit isn't knowable until its initial SETTINGS frame
-    // arrives, and multiplexing onto the connection before then risks
-    // exceeding a limit we haven't been told about yet. Wait for it - but
-    // `onInitialPeerSettingsReceived` is only ever completed successfully, so
-    // it can't be awaited on its own: a peer that connects and then goes
-    // quiet would hang the dial forever. Watch the byte stream for the
-    // connection dying, and cap the wait.
     final died = Completer<void>();
     final incoming = socket.transform(
       StreamTransformer<Uint8List, List<int>>.fromHandlers(
@@ -133,7 +124,6 @@ class Http2Client extends BaseClient {
         },
       ),
     );
-    // The connection usually outlives this race, leaving `died` unhandled.
     unawaited(died.future.catchError((Object _) {}));
 
     final transport = ClientTransportConnection.viaStreams(incoming, socket);
@@ -167,14 +157,8 @@ class Http2Client extends BaseClient {
     List<int> bodyBytes,
   ) async {
     final transport = lease.value;
-    // `isOpen` conflates "the peer went away" with "this connection is
-    // momentarily at its stream limit", so a healthy connection can still be
-    // condemned here in the few microtasks between a lease being released and
-    // http2 retiring the stream it belonged to. Rare, and costs one retry;
-    // separating the two would mean splitting `isOpen` in the public API.
     if (!transport.isOpen) throw const _ConnectionClosedByPeer();
 
-    // RFC 7540 8.1.2.3: ":path" must not be empty.
     final rawPath = request.url.path.isEmpty ? '/' : request.url.path;
     final path =
         request.url.hasQuery ? '$rawPath?${request.url.query}' : rawPath;
@@ -184,10 +168,6 @@ class Http2Client extends BaseClient {
       Header.ascii(':scheme', 'https'),
       Header.ascii(':authority', _authorityOf(request.url)),
       Header.ascii(':path', path),
-      // HTTP/2 requires lowercase header names (RFC 7540 8.1.2), and forbids
-      // connection-specific header fields (RFC 7540 8.1.2.2) - which a
-      // request built for an HTTP/1.1-oriented client might still set.
-      // `host` is dropped too, since `:authority` already carries it.
       for (final entry in request.headers.entries)
         if (!_connectionSpecificHeaders.contains(entry.key.toLowerCase()))
           Header.ascii(entry.key.toLowerCase(), entry.value),
@@ -199,11 +179,7 @@ class Http2Client extends BaseClient {
     late final StreamSubscription<StreamMessage> subscription;
     final bodyController = StreamController<List<int>>(
       onCancel: () {
-        // The consumer abandoned the body, so the stream is done with.
         lease.release();
-        // Reset it rather than just unsubscribing: an abandoned response is an
-        // abnormal end for the h2 stream, and without RST_STREAM neither end
-        // frees it - leaving `finish()` waiting on it forever.
         stream.terminate();
         return subscription.cancel();
       },
@@ -214,10 +190,6 @@ class Http2Client extends BaseClient {
       (message) {
         if (message is HeadersStreamMessage) {
           for (final header in message.headers) {
-            // Not `ascii`: RFC 9113 permits arbitrary octets in field values,
-            // and a decode failure here would be thrown into this handler,
-            // where it becomes an uncaught async error rather than failing
-            // the request.
             final name = latin1.decode(header.name);
             final value = latin1.decode(header.value);
             if (name == ':status') {
@@ -232,13 +204,9 @@ class Http2Client extends BaseClient {
                   );
                 }
               } else if (status >= 200 && !statusCompleter.isCompleted) {
-                // A 1xx is informational (RFC 9113 8.1) - the real response
-                // arrives in a later HEADERS frame.
                 statusCompleter.complete(status);
               }
             } else {
-              // Repeated fields are joined, per the `package:http` convention;
-              // overwriting would silently drop e.g. a second `set-cookie`.
               responseHeaders.update(
                 name,
                 (existing) => '$existing, $value',
@@ -262,14 +230,9 @@ class Http2Client extends BaseClient {
         if (!bodyController.isClosed) {
           bodyController.close();
         }
-        // The h2 stream has ended, so its slot can be reused.
         lease.release();
       },
       onError: (Object error, StackTrace stackTrace) {
-        // Wrapped here rather than in send(): by the time the body errors,
-        // send()'s future has usually already completed with the headers, so
-        // this is the only place a body-stream error can be given the type
-        // `Client` callers are promised.
         final failure =
             error is ClientException
                 ? error
@@ -281,7 +244,6 @@ class Http2Client extends BaseClient {
         if (!bodyController.isClosed) {
           bodyController.close();
         }
-        // RST_STREAM or a connection error - the stream is over either way.
         lease.release();
       },
       cancelOnError: true,
@@ -292,8 +254,6 @@ class Http2Client extends BaseClient {
       bodyController.stream,
       statusCode,
       contentLength: int.tryParse(responseHeaders['content-length'] ?? ''),
-      // Snapshotted: trailer HEADERS frames keep adding to responseHeaders
-      // after this response has been handed to the caller.
       headers: Map.unmodifiable(responseHeaders),
       reasonPhrase: _reasonPhrases[statusCode],
       request: request,
@@ -318,25 +278,17 @@ class Http2Client extends BaseClient {
       );
     }
 
-    // Finalized at most once, including across the retry below.
     List<int>? bodyBytes;
 
     Future<StreamedResponse> attempt() async {
-      // Called before any `await` in this function, so the slot is reserved
-      // synchronously and a concurrent terminate() sees this request as
-      // in-flight rather than racing ahead of it.
       final lease = await _poolFor(request.url).acquire();
       try {
         bodyBytes ??= await request.finalize().toBytes();
       } catch (_) {
-        // Failing to read the caller's body says nothing about the
-        // connection, so release the slot without condemning it.
         lease.release();
         rethrow;
       }
       try {
-        // Returns at the response headers; _sendOverHttp2 owns the lease from
-        // here and releases it when the h2 stream ends.
         return await _sendOverHttp2(lease, request, bodyBytes!);
       } catch (_) {
         lease.markFailed();
@@ -350,9 +302,6 @@ class Http2Client extends BaseClient {
           (Object _) => attempt(),
           test: (error) => error is _ConnectionClosedByPeer,
         )
-        // `Client` promises ClientException; without this a caller can see a
-        // SocketException, a HandshakeException, or one of our own internal
-        // error types.
         .catchError(
           (Object error, StackTrace stackTrace) => Error.throwWithStackTrace(
             ClientException('$error', request.url),
@@ -372,8 +321,6 @@ class Http2Client extends BaseClient {
   /// up. [close] does not await this, so it can never block on that.
   Future<void> terminate() async {
     _closed = true;
-    // Snapshotted: a request already past the _closed check above - or its
-    // retry - can still add a pool for a new host while this is awaiting.
     final pools = _pools.values.toList();
     _pools.clear();
     await Future.wait(pools.map((pool) => pool.terminate()));

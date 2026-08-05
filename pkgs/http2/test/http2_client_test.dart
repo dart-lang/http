@@ -104,10 +104,7 @@ void Function(ServerTransportStream) _respondWith(
     try {
       stream.outgoingMessages.add(DataStreamMessage(ascii.encode(body)));
       await stream.outgoingMessages.close();
-    } catch (_) {
-      // While the body was gated the client may have reset this stream, which
-      // a real server would likewise discover only on its next write.
-    }
+    } catch (_) {}
   };
 }
 
@@ -173,9 +170,6 @@ void main() {
       final requestA = client.get(
         Uri.parse('https://localhost:${server.port}/a'),
       );
-      // Give the pool a chance to dial and dispatch the first request
-      // before the second one arrives, so it's guaranteed to land on an
-      // already-full connection rather than racing to share it.
       await Future<void>.delayed(const Duration(milliseconds: 50));
       final requestB = client.get(
         Uri.parse('https://localhost:${server.port}/b'),
@@ -216,15 +210,11 @@ void main() {
     });
 
     test('respects-server-advertised-max-concurrent-streams', () async {
-      // The server allows a single concurrent stream, well below the 100 this
-      // client would otherwise be willing to multiplex onto one connection.
       final release = Completer<void>();
       final server = await _RawHttp2Server.bind(
         settings: const ServerSettings(concurrentStreamLimit: 1),
         responseDelay: release.future,
       );
-      // Idle connections are kept generously, so the assertion below reflects
-      // whether a connection was evicted as *failed* rather than as excess.
       final client = _testClient(
         maxStreamsPerConnection: 100,
         maxIdleConnections: 5,
@@ -233,8 +223,6 @@ void main() {
       final requestA = client.get(
         Uri.parse('https://localhost:${server.port}/a'),
       );
-      // Let the first request dial and occupy the server's only stream slot,
-      // which also gives the peer's SETTINGS frame time to arrive.
       await Future<void>.delayed(const Duration(milliseconds: 100));
       final requestB = client.get(
         Uri.parse('https://localhost:${server.port}/b'),
@@ -246,8 +234,6 @@ void main() {
       expect(responses.map((r) => r.statusCode), everyElement(200));
       expect(server.connections, hasLength(2));
 
-      // Both connections are healthy and idle, so both should survive: the
-      // first was merely at the server's stream limit, not broken.
       expect(client.connectionCount, 2);
 
       await client.terminate();
@@ -255,8 +241,6 @@ void main() {
     });
 
     test('holds-a-pool-slot-until-the-response-body-completes', () async {
-      // Both responses send headers and then stall, so each request's h2
-      // stream is still open once send() has returned.
       final gate = Completer<void>();
       final server = await _bind();
       server.startServing(
@@ -269,8 +253,6 @@ void main() {
       final first = await client.send(Request('GET', url));
       final second = await client.send(Request('GET', url));
 
-      // The first request still occupies its connection's only slot, so the
-      // second must have been given a connection of its own.
       expect(client.connectionCount, 2);
 
       gate.complete();
@@ -282,7 +264,6 @@ void main() {
     });
 
     test('releases-the-slot-when-the-response-body-is-cancelled', () async {
-      // Only the first response is held open; the second answers normally.
       final gate = Completer<void>();
       final server = await _bind();
       var streamNr = 0;
@@ -298,10 +279,8 @@ void main() {
       final url = Uri.parse('https://localhost:${server.port}/');
 
       final first = await client.send(Request('GET', url));
-      // Abandoning the body must hand the slot back...
       await first.stream.listen((_) {}).cancel();
 
-      // ...so this reuses the connection rather than dialing another.
       final second = await client.get(url);
       expect(second.statusCode, 200);
       expect(client.connectionCount, 1);
@@ -312,8 +291,6 @@ void main() {
     });
 
     test('releases-the-slot-when-the-response-body-errors', () async {
-      // The body is held open, so the reset below lands mid-response rather
-      // than after the stream has already finished.
       final gate = Completer<void>();
       final server = await _RawHttp2Server.bind(bodyGate: gate.future);
       final client = _testClient(maxStreamsPerConnection: 1);
@@ -326,10 +303,8 @@ void main() {
         throwsA(isA<ClientException>()),
       );
 
-      // That stream is dead; let anything dialed from here answer normally.
       gate.complete();
 
-      // The slot was handed back, so a further request can proceed.
       final second = await client.get(url);
       expect(second.statusCode, 200);
 
@@ -338,8 +313,6 @@ void main() {
     });
 
     test('does-not-exceed-the-server-stream-limit-on-a-cold-burst', () async {
-      // A burst arrives before any connection exists, so every request is
-      // admitted before the server's limit of 2 can possibly be known.
       const streamLimit = 2;
       const requestCount = 12;
       final release = Completer<void>();
@@ -376,7 +349,6 @@ void main() {
       final url = Uri.parse('https://localhost:${socket.port}/');
       final requests = List.generate(requestCount, (_) => client.get(url));
 
-      // Let every request reach a connection before any of them completes.
       await pumpEventQueue();
       release.complete();
       final responses = await Future.wait(requests);
@@ -393,8 +365,6 @@ void main() {
     });
 
     test('fails-the-dial-when-the-peer-closes-before-settings', () async {
-      // Negotiates h2 and then hangs up without sending its mandatory initial
-      // SETTINGS frame (RFC 7540 3.5).
       final context = _serverContext()..setAlpnProtocols(['h2'], true);
       final socket = await SecureServerSocket.bind('localhost', 0, context);
       socket.listen((connection) => connection.destroy());
@@ -410,7 +380,6 @@ void main() {
     });
 
     test('fails-the-dial-when-the-peer-never-sends-settings', () async {
-      // Accepts and then stays silent, so only the timeout can end this.
       final context = _serverContext()..setAlpnProtocols(['h2'], true);
       final socket = await SecureServerSocket.bind('localhost', 0, context);
       final held = <SecureSocket>[];

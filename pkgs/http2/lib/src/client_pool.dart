@@ -115,11 +115,6 @@ class ClientPool<T> {
         rethrow;
       }
 
-      // A resource's own limit can only be read once it exists, so everything
-      // admitted while it was being created was admitted against the nominal
-      // cap. If that over-committed it, hand this slot back and pick again -
-      // the resource is resolved from here on, so the next pass either finds
-      // room elsewhere or creates a resource, and progress is guaranteed.
       if (pooled.inFlight <= _capacityOf(pooled)) {
         return PoolLease._(this, pooled, value);
       }
@@ -176,8 +171,6 @@ class ClientPool<T> {
     final limitOf = _concurrencyLimitOf;
     if (value == null || limitOf == null) return maxConcurrentOperations;
     final limit = limitOf(value);
-    // Floored at one: a resource reporting zero would otherwise be unusable,
-    // and acquire()'s confirm loop would spin looking for room for it.
     return limit == null
         ? maxConcurrentOperations
         : max(1, min(maxConcurrentOperations, limit));
@@ -199,23 +192,14 @@ class ClientPool<T> {
   /// resource has actually been destroyed by the time it completes.
   void _startDestroy(_PooledResource<T> resource) {
     final value = resource.value;
-    // Called synchronously when the value is already known, so a resource is
-    // observably destroyed as soon as it leaves the pool.
     final done =
         value != null ? _destroy(value) : resource.future.then(_destroy);
-    // Best-effort: a failure here must neither shadow the caller's own request
-    // error nor surface as an unhandled async error.
     final tracked = done.catchError((Object _) {});
     _pendingDestroys.add(tracked);
     unawaited(tracked.whenComplete(() => _pendingDestroys.remove(tracked)));
   }
 
-  // Measured in [resource]'s own capacity, so that resources holding fewer
-  // operations than [maxConcurrentOperations] aren't collected as excess the
-  // moment they drain - which would churn a connection per operation.
   bool _hasExcessIdleCapacity(_PooledResource<T> resource) {
-    // Failed resources are never routed new work by _acquire(), so they
-    // contribute no real idle capacity.
     final idleCapacity =
         _resources
             .map(
@@ -246,15 +230,11 @@ class ClientPool<T> {
       await _drained!.future;
     }
 
-    // Snapshotted and cleared before any `await`, so nothing is iterating
-    // _resources across a suspension point.
     final resources = _resources.toList();
     _resources.clear();
     for (final resource in resources) {
       _startDestroy(resource);
     }
-    // Includes destroys started earlier by _collectIfIdle, so that when this
-    // completes every resource really has been destroyed.
     await Future.wait(_pendingDestroys.toList());
   }
 }
