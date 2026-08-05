@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:convert' show ascii;
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http/http.dart' show ClientException, Request;
 import 'package:http2/multiprotocol_server.dart';
@@ -334,6 +335,101 @@ void main() {
 
       await client.terminate();
       await server.close();
+    });
+
+    test('does-not-exceed-the-server-stream-limit-on-a-cold-burst', () async {
+      // A burst arrives before any connection exists, so every request is
+      // admitted before the server's limit of 2 can possibly be known.
+      const streamLimit = 2;
+      const requestCount = 12;
+      final release = Completer<void>();
+      final context = _serverContext()..setAlpnProtocols(['h2'], true);
+      final socket = await SecureServerSocket.bind('localhost', 0, context);
+
+      final active = <ServerTransportConnection, int>{};
+      final peak = <ServerTransportConnection, int>{};
+      socket.listen((raw) {
+        final connection = ServerTransportConnection.viaSocket(
+          raw,
+          settings: const ServerSettings(concurrentStreamLimit: streamLimit),
+        );
+        connection.incomingStreams.listen((stream) async {
+          final now = (active[connection] ?? 0) + 1;
+          active[connection] = now;
+          peak[connection] = max(peak[connection] ?? 0, now);
+
+          final messages = StreamIterator(stream.incomingMessages);
+          await messages.moveNext();
+          while (await messages.moveNext()) {}
+          await release.future;
+          stream.outgoingMessages.add(
+            HeadersStreamMessage([Header.ascii(':status', '200')]),
+          );
+          stream.outgoingMessages.add(DataStreamMessage(ascii.encode('ok')));
+          await stream.outgoingMessages.close();
+
+          active[connection] = active[connection]! - 1;
+        });
+      });
+
+      final client = _testClient(maxStreamsPerConnection: 100);
+      final url = Uri.parse('https://localhost:${socket.port}/');
+      final requests = List.generate(requestCount, (_) => client.get(url));
+
+      // Let every request reach a connection before any of them completes.
+      await pumpEventQueue();
+      release.complete();
+      final responses = await Future.wait(requests);
+
+      expect(responses.map((r) => r.statusCode), everyElement(200));
+      expect(
+        peak.values,
+        everyElement(lessThanOrEqualTo(streamLimit)),
+        reason: 'no connection may carry more streams than the server allows',
+      );
+
+      await client.terminate();
+      await socket.close();
+    });
+
+    test('fails-the-dial-when-the-peer-closes-before-settings', () async {
+      // Negotiates h2 and then hangs up without sending its mandatory initial
+      // SETTINGS frame (RFC 7540 3.5).
+      final context = _serverContext()..setAlpnProtocols(['h2'], true);
+      final socket = await SecureServerSocket.bind('localhost', 0, context);
+      socket.listen((connection) => connection.destroy());
+
+      final client = _testClient();
+      await expectLater(
+        client.get(Uri.parse('https://localhost:${socket.port}/')),
+        throwsA(isA<ClientException>()),
+      );
+
+      await client.terminate();
+      await socket.close();
+    });
+
+    test('fails-the-dial-when-the-peer-never-sends-settings', () async {
+      // Accepts and then stays silent, so only the timeout can end this.
+      final context = _serverContext()..setAlpnProtocols(['h2'], true);
+      final socket = await SecureServerSocket.bind('localhost', 0, context);
+      final held = <SecureSocket>[];
+      socket.listen(held.add);
+
+      final client = Http2Client(
+        onBadCertificate: (_) => true,
+        settingsTimeout: const Duration(milliseconds: 200),
+      );
+      await expectLater(
+        client.get(Uri.parse('https://localhost:${socket.port}/')),
+        throwsA(isA<ClientException>()),
+      );
+
+      await client.terminate();
+      for (final connection in held) {
+        connection.destroy();
+      }
+      await socket.close();
     });
 
     test('terminate-waits-for-in-flight-request', () async {

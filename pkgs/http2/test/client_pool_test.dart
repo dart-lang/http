@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:http2/src/client_pool.dart';
 import 'package:test/test.dart';
@@ -15,10 +16,18 @@ ClientPool<int> _pool({
   // When given, a resource's destroy doesn't finish until this does - stands
   // in for `transport.finish()`, which waits on the connection's streams.
   Future<void>? destroyGate,
+  // When given, creating a resource doesn't finish until this does, which is
+  // how a test controls the window where a resource exists but its own limit
+  // isn't knowable yet.
+  Future<void>? dialGate,
 }) {
   var nextId = 0;
   return ClientPool<int>(
-    () async => nextId++,
+    () async {
+      final id = nextId++;
+      if (dialGate != null) await dialGate;
+      return id;
+    },
     maxConcurrentOperations: maxConcurrentOperations,
     maxIdleResources: maxIdleResources,
     destroy: (resource) async {
@@ -293,6 +302,61 @@ void main() {
       await pool.terminate();
 
       expect(() => pool.run((_) async {}), throwsA(isA<StateError>()));
+    });
+
+    test(
+      'does-not-over-commit-a-resource-whose-limit-is-not-known-yet',
+      () async {
+        // Every resource only allows one operation, but that isn't knowable
+        // until it has been created - and the pool would otherwise admit work
+        // against the full nominal cap in the meantime.
+        final dialGate = Completer<void>();
+        final workGate = Completer<void>();
+        final pool = _pool(
+          maxConcurrentOperations: 100,
+          maxIdleResources: 10,
+          concurrencyLimitOf: (_) => 1,
+          dialGate: dialGate.future,
+        );
+
+        final inFlight = <int, int>{};
+        final peak = <int, int>{};
+        final ops = List.generate(
+          8,
+          (_) => pool.run((r) async {
+            final now = (inFlight[r] ?? 0) + 1;
+            inFlight[r] = now;
+            peak[r] = max(peak[r] ?? 0, now);
+            await workGate.future;
+            inFlight[r] = inFlight[r]! - 1;
+          }),
+        );
+
+        // All eight are admitted before anything has been created, so this is
+        // where over-commitment would happen.
+        dialGate.complete();
+        await pumpEventQueue();
+
+        expect(
+          peak.values,
+          everyElement(1),
+          reason: 'no resource may run more than its own limit of 1',
+        );
+        expect(peak, hasLength(8));
+
+        workGate.complete();
+        await Future.wait(ops);
+      },
+    );
+
+    test('tolerates-a-resource-that-reports-a-zero-limit', () async {
+      // A limit of 0 must not make acquire() spin forever looking for room.
+      final pool = _pool(
+        maxConcurrentOperations: 10,
+        concurrencyLimitOf: (_) => 0,
+      );
+
+      await expectLater(pool.run((r) async => r), completion(0));
     });
 
     test('a-held-lease-keeps-its-slot', () async {

@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:http/http.dart';
@@ -35,6 +36,7 @@ class Http2Client extends BaseClient {
   Http2Client({
     this.maxStreamsPerConnection = 100,
     this.maxIdleConnections = 1,
+    this.settingsTimeout = const Duration(seconds: 10),
     int maxConcurrentHandshakes = 50,
     SecurityContext? context,
     bool Function(X509Certificate certificate)? onBadCertificate,
@@ -52,6 +54,14 @@ class Http2Client extends BaseClient {
   /// The maximum number of idle connections to keep per host, per
   /// [ClientPool.maxIdleResources].
   final int maxIdleConnections;
+
+  /// How long to wait for a freshly dialed connection's peer to send its
+  /// mandatory initial SETTINGS frame (RFC 7540 3.5).
+  ///
+  /// Until it arrives the peer's stream limit is unknown, so the connection
+  /// can't be safely multiplexed onto; a peer that never sends one is
+  /// abandoned rather than waited on forever.
+  final Duration settingsTimeout;
 
   final SecurityContext? _context;
 
@@ -101,7 +111,47 @@ class Http2Client extends BaseClient {
         'Server did not negotiate HTTP/2 (got ${socket.selectedProtocol})',
       );
     }
-    return ClientTransportConnection.viaSocket(socket);
+
+    // The peer's stream limit isn't knowable until its initial SETTINGS frame
+    // arrives, and multiplexing onto the connection before then risks
+    // exceeding a limit we haven't been told about yet. Wait for it - but
+    // `onInitialPeerSettingsReceived` is only ever completed successfully, so
+    // it can't be awaited on its own: a peer that connects and then goes
+    // quiet would hang the dial forever. Watch the byte stream for the
+    // connection dying, and cap the wait.
+    final died = Completer<void>();
+    final incoming = socket.transform(
+      StreamTransformer<Uint8List, List<int>>.fromHandlers(
+        handleDone: (sink) {
+          if (!died.isCompleted) died.complete();
+          sink.close();
+        },
+        handleError: (error, stackTrace, sink) {
+          if (!died.isCompleted) died.completeError(error, stackTrace);
+          sink.addError(error, stackTrace);
+        },
+      ),
+    );
+    // The connection usually outlives this race, leaving `died` unhandled.
+    unawaited(died.future.catchError((Object _) {}));
+
+    final transport = ClientTransportConnection.viaStreams(incoming, socket);
+    try {
+      await Future.any([
+        transport.onInitialPeerSettingsReceived,
+        died.future.then<void>(
+          (_) =>
+              throw ClientException(
+                'The connection closed before the peer sent its initial '
+                'SETTINGS frame.',
+              ),
+        ),
+      ]).timeout(settingsTimeout);
+    } catch (_) {
+      await transport.terminate();
+      rethrow;
+    }
+    return transport;
   }
 
   /// Sends [request] as a single HTTP/2 stream on [lease]'s connection,

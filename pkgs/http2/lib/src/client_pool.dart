@@ -103,17 +103,28 @@ class ClientPool<T> {
       throw StateError('This pool has already been terminated.');
     }
 
-    final pooled = _acquire();
-    pooled.inFlight++;
-    final T value;
-    try {
-      value = pooled.value ??= await pooled.future;
-    } catch (_) {
-      pooled.failed = true;
+    while (true) {
+      final pooled = _acquire();
+      pooled.inFlight++;
+      final T value;
+      try {
+        value = pooled.value ??= await pooled.future;
+      } catch (_) {
+        pooled.failed = true;
+        _release(pooled);
+        rethrow;
+      }
+
+      // A resource's own limit can only be read once it exists, so everything
+      // admitted while it was being created was admitted against the nominal
+      // cap. If that over-committed it, hand this slot back and pick again -
+      // the resource is resolved from here on, so the next pass either finds
+      // room elsewhere or creates a resource, and progress is guaranteed.
+      if (pooled.inFlight <= _capacityOf(pooled)) {
+        return PoolLease._(this, pooled, value);
+      }
       _release(pooled);
-      rethrow;
     }
-    return PoolLease._(this, pooled, value);
   }
 
   void _release(_PooledResource<T> resource) {
@@ -165,9 +176,11 @@ class ClientPool<T> {
     final limitOf = _concurrencyLimitOf;
     if (value == null || limitOf == null) return maxConcurrentOperations;
     final limit = limitOf(value);
+    // Floored at one: a resource reporting zero would otherwise be unusable,
+    // and acquire()'s confirm loop would spin looking for room for it.
     return limit == null
         ? maxConcurrentOperations
-        : min(maxConcurrentOperations, limit);
+        : max(1, min(maxConcurrentOperations, limit));
   }
 
   void _collectIfIdle(_PooledResource<T> resource) {
