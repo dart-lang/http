@@ -275,9 +275,11 @@ class Http2Client extends BaseClient {
   /// this can be awaited by callers who hold a concrete [Http2Client].
   Future<void> terminate() async {
     _closed = true;
-    for (final pool in _pools.values) {
-      await pool.terminate();
-    }
+    // Snapshotted: a request already past the _closed check above - or its
+    // retry - can still add a pool for a new host while this is awaiting.
+    final pools = _pools.values.toList();
+    _pools.clear();
+    await Future.wait(pools.map((pool) => pool.terminate()));
   }
 
   @override

@@ -289,6 +289,56 @@ void main() {
       expect(() => pool.run((_) async {}), throwsA(isA<StateError>()));
     });
 
+    test('terminate-is-idempotent', () async {
+      final destroyed = <int>[];
+      final pool = _pool(maxConcurrentOperations: 2, destroyed: destroyed);
+      final completer = Completer<void>();
+
+      unawaited(pool.run((_) => completer.future));
+
+      // Both callers must observe the same shutdown. Before, the second call
+      // replaced the completer the first was waiting on, so the first hung.
+      final first = pool.terminate();
+      final second = pool.terminate();
+      completer.complete();
+      await Future.wait([first, second]);
+
+      expect(destroyed, [0]); // Destroyed once, not once per terminate() call.
+      expect(pool.size, 0);
+    });
+
+    test('terminate-twice-does-not-throw-concurrent-modification', () async {
+      final pool = _pool(maxConcurrentOperations: 1);
+      final completers = List.generate(2, (_) => Completer<void>());
+
+      final ops = [
+        pool.run((_) => completers[0].future),
+        pool.run((_) => completers[1].future),
+      ];
+      await Future<void>.value();
+      expect(pool.size, 2);
+
+      final terminations = [pool.terminate(), pool.terminate()];
+      for (final c in completers) {
+        c.complete();
+      }
+      await Future.wait(ops);
+
+      // Before, the two calls iterated _resources while the other cleared it.
+      await expectLater(Future.wait(terminations), completes);
+    });
+
+    test('terminate-after-terminate-returns-immediately', () async {
+      final destroyed = <int>[];
+      final pool = _pool(maxConcurrentOperations: 1, destroyed: destroyed);
+
+      await pool.run((_) async {});
+      await pool.terminate();
+      await pool.terminate();
+
+      expect(destroyed, hasLength(lessThanOrEqualTo(1)));
+    });
+
     test('waits-for-in-flight-operations-before-terminating', () async {
       final pool = _pool(maxConcurrentOperations: 1);
       final completer = Completer<void>();

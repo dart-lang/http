@@ -54,6 +54,7 @@ class ClientPool<T> {
   final _resources = <_PooledResource<T>>[];
   var _terminated = false;
   Completer<void>? _drained;
+  Future<void>? _termination;
 
   /// The number of resources currently in the pool.
   int get size => _resources.length;
@@ -155,7 +156,11 @@ class ClientPool<T> {
 
   /// Waits for in-flight operations to finish, then destroys every
   /// resource in the pool. No further operations can run afterward.
-  Future<void> terminate() async {
+  ///
+  /// Idempotent: concurrent and repeated calls all observe the same shutdown.
+  Future<void> terminate() => _termination ??= _terminate();
+
+  Future<void> _terminate() async {
     _terminated = true;
 
     if (opCount > 0) {
@@ -163,7 +168,11 @@ class ClientPool<T> {
       await _drained!.future;
     }
 
-    for (final resource in _resources) {
+    // Snapshotted and cleared before any `await`, so nothing is iterating
+    // _resources across a suspension point.
+    final resources = _resources.toList();
+    _resources.clear();
+    for (final resource in resources) {
       try {
         await _destroy(await resource.future);
       } catch (_) {
@@ -171,6 +180,5 @@ class ClientPool<T> {
         // rest from being destroyed.
       }
     }
-    _resources.clear();
   }
 }
