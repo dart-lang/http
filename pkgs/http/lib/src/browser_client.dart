@@ -106,7 +106,7 @@ class BrowserClient extends BaseClient {
   ///
   /// Reading this property returns `true` only when [_requestCredentials] is
   /// [RequestCredentials.include].
-  @Deprecated('Use the requestCredentials constructor parameter instead.')
+  // @Deprecated('Use the requestCredentials constructor parameter instead.')
   bool get withCredentials => _requestCredentials == RequestCredentials.include;
 
   /// Whether to send credentials such as cookies or authorization headers for
@@ -117,7 +117,7 @@ class BrowserClient extends BaseClient {
   ///
   /// Setting this to `false` sets [_requestCredentials] to
   /// [RequestCredentials.sameOrigin].
-  @Deprecated('Use the requestCredentials constructor parameter instead.')
+  // @Deprecated('Use the requestCredentials constructor parameter instead.')
   set withCredentials(bool value) {
     _requestCredentials =
         value ? RequestCredentials.include : RequestCredentials.sameOrigin;
