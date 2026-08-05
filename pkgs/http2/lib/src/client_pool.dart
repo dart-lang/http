@@ -52,6 +52,7 @@ class ClientPool<T> {
   final int maxIdleResources;
 
   final _resources = <_PooledResource<T>>[];
+  final _pendingDestroys = <Future<void>>{};
   var _terminated = false;
   Completer<void>? _drained;
   Future<void>? _termination;
@@ -82,7 +83,7 @@ class ClientPool<T> {
       if (_terminated) {
         _maybeCompleteDrain();
       } else {
-        await _collectIfIdle(pooled);
+        _collectIfIdle(pooled);
       }
     }
   }
@@ -119,17 +120,31 @@ class ClientPool<T> {
         : min(maxConcurrentOperations, limit);
   }
 
-  Future<void> _collectIfIdle(_PooledResource<T> resource) async {
+  void _collectIfIdle(_PooledResource<T> resource) {
     if (resource.inFlight > 0) return;
     if (!resource.failed && !_hasExcessIdleCapacity(resource)) return;
 
     _resources.remove(resource);
-    try {
-      await _destroy(await resource.future);
-    } catch (_) {
-      // Best-effort: a failure here must not shadow the caller's own
-      // request error, since this runs inside run()'s finally block.
-    }
+    _startDestroy(resource);
+  }
+
+  /// Starts destroying [resource] without waiting for it, so that an operation
+  /// is never held up by its resource's teardown - `destroy` may itself wait
+  /// on unrelated work still running on that resource.
+  ///
+  /// Tracked in [_pendingDestroys] so [terminate] can still promise that every
+  /// resource has actually been destroyed by the time it completes.
+  void _startDestroy(_PooledResource<T> resource) {
+    final value = resource.value;
+    // Called synchronously when the value is already known, so a resource is
+    // observably destroyed as soon as it leaves the pool.
+    final done =
+        value != null ? _destroy(value) : resource.future.then(_destroy);
+    // Best-effort: a failure here must neither shadow the caller's own request
+    // error nor surface as an unhandled async error.
+    final tracked = done.catchError((Object _) {});
+    _pendingDestroys.add(tracked);
+    unawaited(tracked.whenComplete(() => _pendingDestroys.remove(tracked)));
   }
 
   // Measured in [resource]'s own capacity, so that resources holding fewer
@@ -173,12 +188,10 @@ class ClientPool<T> {
     final resources = _resources.toList();
     _resources.clear();
     for (final resource in resources) {
-      try {
-        await _destroy(await resource.future);
-      } catch (_) {
-        // Best-effort: one resource failing to close shouldn't stop the
-        // rest from being destroyed.
-      }
+      _startDestroy(resource);
     }
+    // Includes destroys started earlier by _collectIfIdle, so that when this
+    // completes every resource really has been destroyed.
+    await Future.wait(_pendingDestroys.toList());
   }
 }

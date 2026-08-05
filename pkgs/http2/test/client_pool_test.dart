@@ -12,13 +12,19 @@ ClientPool<int> _pool({
   int maxIdleResources = 1,
   int? Function(int resource)? concurrencyLimitOf,
   List<int>? destroyed,
+  // When given, a resource's destroy doesn't finish until this does - stands
+  // in for `transport.finish()`, which waits on the connection's streams.
+  Future<void>? destroyGate,
 }) {
   var nextId = 0;
   return ClientPool<int>(
     () async => nextId++,
     maxConcurrentOperations: maxConcurrentOperations,
     maxIdleResources: maxIdleResources,
-    destroy: (resource) async => destroyed?.add(resource),
+    destroy: (resource) async {
+      destroyed?.add(resource);
+      if (destroyGate != null) await destroyGate;
+    },
     concurrencyLimitOf: concurrencyLimitOf,
   );
 }
@@ -287,6 +293,44 @@ void main() {
       await pool.terminate();
 
       expect(() => pool.run((_) async {}), throwsA(isA<StateError>()));
+    });
+
+    test('does-not-couple-an-operation-to-a-slow-destroy', () async {
+      // `destroy` never finishes. An operation that happens to trigger
+      // collection must still complete - before, run()'s finally awaited the
+      // destroy, so the operation's own future never settled.
+      final pool = _pool(
+        maxConcurrentOperations: 1,
+        maxIdleResources: 0,
+        destroyGate: Completer<void>().future,
+      );
+
+      await expectLater(pool.run((_) async => 'done'), completion('done'));
+    });
+
+    test('terminate-waits-for-a-destroy-started-by-collection', () async {
+      final gate = Completer<void>();
+      final destroyed = <int>[];
+      final pool = _pool(
+        maxConcurrentOperations: 1,
+        maxIdleResources: 0,
+        destroyed: destroyed,
+        destroyGate: gate.future,
+      );
+
+      // Completing this op collects the resource, starting a destroy that
+      // won't finish until the gate does.
+      await pool.run((_) async {});
+      expect(destroyed, [0]);
+
+      var terminated = false;
+      final termination = pool.terminate().then((_) => terminated = true);
+      await Future<void>.value();
+      expect(terminated, isFalse, reason: 'destroy has not finished yet');
+
+      gate.complete();
+      await termination;
+      expect(terminated, isTrue);
     });
 
     test('terminate-is-idempotent', () async {
