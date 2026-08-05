@@ -44,6 +44,9 @@ class Http2Client extends BaseClient {
 
   /// The maximum number of concurrent HTTP/2 streams (i.e. requests) to
   /// multiplex onto a single connection before dialing another.
+  ///
+  /// An upper bound only: if a server says it accepts fewer concurrent
+  /// streams than this, that smaller number is used for its connections.
   final int maxStreamsPerConnection;
 
   /// The maximum number of idle connections to keep per host, per
@@ -77,6 +80,9 @@ class Http2Client extends BaseClient {
         maxConcurrentOperations: maxStreamsPerConnection,
         maxIdleResources: maxIdleConnections,
         destroy: (transport) => transport.finish(),
+        // Never open more streams on a connection than its server allows,
+        // which it can revise at any point by sending a new SETTINGS frame.
+        concurrencyLimitOf: (transport) => transport.peerMaxConcurrentStreams,
       ),
     );
   }

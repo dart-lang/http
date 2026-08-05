@@ -10,13 +10,16 @@ import 'package:test/test.dart';
 ClientPool<int> _pool({
   required int maxConcurrentOperations,
   int maxIdleResources = 1,
+  int? Function(int resource)? concurrencyLimitOf,
+  List<int>? destroyed,
 }) {
   var nextId = 0;
   return ClientPool<int>(
     () async => nextId++,
     maxConcurrentOperations: maxConcurrentOperations,
     maxIdleResources: maxIdleResources,
-    destroy: (_) async {},
+    destroy: (resource) async => destroyed?.add(resource),
+    concurrencyLimitOf: concurrencyLimitOf,
   );
 }
 
@@ -155,6 +158,127 @@ void main() {
       await Future.wait(ops);
 
       expect(pool.size, 3);
+    });
+
+    test('honours-a-resources-own-lower-concurrency-limit', () async {
+      // The pool would allow 10 per resource; each resource only allows 2.
+      final pool = _pool(
+        maxConcurrentOperations: 10,
+        concurrencyLimitOf: (_) => 2,
+      );
+      final completers = List.generate(3, (_) => Completer<void>());
+      final resourcesUsed = <int>[];
+
+      void run(int i) => unawaited(
+        pool.run((r) {
+          resourcesUsed.add(r);
+          return completers[i].future;
+        }),
+      );
+
+      run(0);
+      // The limit is only visible once resource 0 has been created, so let it
+      // resolve before dispatching work that has to respect it.
+      await pool.run((_) async {});
+      run(1);
+      run(2); // Resource 0 is at its own limit of 2 - this opens resource 1.
+      await Future<void>.value();
+
+      expect(resourcesUsed, [0, 0, 1]);
+      expect(pool.size, 2);
+
+      for (final c in completers) {
+        c.complete();
+      }
+    });
+
+    test('ignores-a-resource-limit-above-max-concurrent-operations', () async {
+      // A resource permitting more than the pool does must not raise the cap.
+      final pool = _pool(
+        maxConcurrentOperations: 1,
+        concurrencyLimitOf: (_) => 1000,
+      );
+      final completers = List.generate(2, (_) => Completer<void>());
+
+      unawaited(pool.run((_) => completers[0].future));
+      await Future<void>.value();
+      unawaited(pool.run((_) => completers[1].future));
+      await Future<void>.value();
+
+      expect(pool.size, 2);
+
+      for (final c in completers) {
+        c.complete();
+      }
+    });
+
+    test('re-reads-a-resource-limit-that-changes', () async {
+      // Stands in for a server revising SETTINGS_MAX_CONCURRENT_STREAMS: the
+      // limit starts at 2 and drops to 1.
+      var limit = 2;
+      final pool = _pool(
+        maxConcurrentOperations: 10,
+        concurrencyLimitOf: (_) => limit,
+      );
+      final completers = List.generate(3, (_) => Completer<void>());
+      final resourcesUsed = <int>[];
+
+      void run(int i) => unawaited(
+        pool.run((r) {
+          resourcesUsed.add(r);
+          return completers[i].future;
+        }),
+      );
+
+      run(0);
+      await pool.run((_) async {}); // Let resource 0 resolve.
+      run(1); // Still within the limit of 2, so resource 0 is reused.
+      await Future<void>.value();
+      expect(resourcesUsed, [0, 0]);
+
+      limit = 1;
+      run(2); // Resource 0 is now over its lowered limit, so a new one opens.
+      await Future<void>.value();
+      expect(resourcesUsed, [0, 0, 1]);
+
+      for (final c in completers) {
+        c.complete();
+      }
+    });
+
+    test('keeps-a-limited-resource-that-is-merely-full', () async {
+      // Regression test for collecting a healthy resource as "excess idle"
+      // because its real capacity is below maxConcurrentOperations, which
+      // would churn one resource per operation.
+      final destroyed = <int>[];
+      final pool = _pool(
+        maxConcurrentOperations: 10,
+        concurrencyLimitOf: (_) => 1,
+        destroyed: destroyed,
+      );
+      final completers = List.generate(2, (_) => Completer<void>());
+
+      final first = pool.run((_) => completers[0].future);
+      await Future<void>.value();
+      final second = pool.run((_) => completers[1].future);
+      await Future<void>.value();
+      expect(pool.size, 2);
+
+      completers[0].complete();
+      await first;
+      // Resource 1 is still busy, so resource 0 going idle doesn't make it
+      // excess - measuring its spare capacity against maxConcurrentOperations
+      // rather than its own limit of 1 would collect it here.
+      expect(destroyed, isEmpty);
+      expect(pool.size, 2);
+
+      completers[1].complete();
+      await second;
+
+      // maxIdleResources is 1 and each resource holds 1, so exactly one of
+      // the two is excess - not both, and not one per operation.
+      expect(destroyed, hasLength(1));
+      expect(pool.size, 1);
     });
 
     test('rejects-operations-after-terminate', () async {

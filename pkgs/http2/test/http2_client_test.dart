@@ -19,8 +19,12 @@ SecurityContext _serverContext() =>
 Future<MultiProtocolHttpServer> _bind() =>
     MultiProtocolHttpServer.bind('localhost', 0, _serverContext());
 
-Http2Client _testClient({int maxStreamsPerConnection = 100}) => Http2Client(
+Http2Client _testClient({
+  int maxStreamsPerConnection = 100,
+  int maxIdleConnections = 1,
+}) => Http2Client(
   maxStreamsPerConnection: maxStreamsPerConnection,
+  maxIdleConnections: maxIdleConnections,
   onBadCertificate: (_) => true,
 );
 
@@ -28,21 +32,33 @@ Http2Client _testClient({int maxStreamsPerConnection = 100}) => Http2Client(
 /// exposes each accepted [ServerTransportConnection], so a test can finish
 /// one connection gracefully while the server keeps listening for new ones.
 class _RawHttp2Server {
-  _RawHttp2Server._(this._socket) {
+  _RawHttp2Server._(this._socket, this._settings, this._responseDelay) {
     _socket.listen((socket) {
-      final connection = ServerTransportConnection.viaSocket(socket);
+      final connection = ServerTransportConnection.viaSocket(
+        socket,
+        settings: _settings,
+      );
       connections.add(connection);
-      connection.incomingStreams.listen(_respondWith('ok'));
+      connection.incomingStreams.listen(
+        _respondWith('ok', delay: _responseDelay),
+      );
     });
   }
 
-  static Future<_RawHttp2Server> bind() async {
+  /// [settings] defaults to the same value `ServerTransportConnection` would
+  /// have applied on its own, so callers that don't care are unaffected.
+  static Future<_RawHttp2Server> bind({
+    ServerSettings settings = const ServerSettings(concurrentStreamLimit: 1000),
+    Future<void>? responseDelay,
+  }) async {
     final context = _serverContext()..setAlpnProtocols(['h2'], true);
     final socket = await SecureServerSocket.bind('localhost', 0, context);
-    return _RawHttp2Server._(socket);
+    return _RawHttp2Server._(socket, settings, responseDelay);
   }
 
   final SecureServerSocket _socket;
+  final ServerSettings _settings;
+  final Future<void>? _responseDelay;
   final connections = <ServerTransportConnection>[];
 
   int get port => _socket.port;
@@ -174,6 +190,45 @@ void main() {
       );
       expect(r2.statusCode, 200);
       expect(r2.body, 'ok');
+
+      await client.terminate();
+      await server.close();
+    });
+
+    test('respects-server-advertised-max-concurrent-streams', () async {
+      // The server allows a single concurrent stream, well below the 100 this
+      // client would otherwise be willing to multiplex onto one connection.
+      final release = Completer<void>();
+      final server = await _RawHttp2Server.bind(
+        settings: const ServerSettings(concurrentStreamLimit: 1),
+        responseDelay: release.future,
+      );
+      // Idle connections are kept generously, so the assertion below reflects
+      // whether a connection was evicted as *failed* rather than as excess.
+      final client = _testClient(
+        maxStreamsPerConnection: 100,
+        maxIdleConnections: 5,
+      );
+
+      final requestA = client.get(
+        Uri.parse('https://localhost:${server.port}/a'),
+      );
+      // Let the first request dial and occupy the server's only stream slot,
+      // which also gives the peer's SETTINGS frame time to arrive.
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      final requestB = client.get(
+        Uri.parse('https://localhost:${server.port}/b'),
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+
+      release.complete();
+      final responses = await Future.wait([requestA, requestB]);
+      expect(responses.map((r) => r.statusCode), everyElement(200));
+      expect(server.connections, hasLength(2));
+
+      // Both connections are healthy and idle, so both should survive: the
+      // first was merely at the server's stream limit, not broken.
+      expect(client.connectionCount, 2);
 
       await client.terminate();
       await server.close();
