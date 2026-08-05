@@ -123,11 +123,10 @@ class Http2ProxyServer {
 }
 
 class ProxyRequest extends http.BaseRequest implements http.Abortable {
-  final http.BaseRequest _original;
-  @override
-  final Uri url;
+  // `url` is not redeclared here - BaseRequest's own constructor stores it.
+  ProxyRequest(this._original, Uri url) : super(_original.method, url);
 
-  ProxyRequest(this._original, this.url) : super(_original.method, url);
+  final http.BaseRequest _original;
 
   @override
   Future<void>? get abortTrigger =>
@@ -271,9 +270,8 @@ void main() {
   // `SecureServerSocket`, which cannot be sent across isolates.
   testIsolate(clientFactory, canWorkInIsolates: false);
 
-  // TODO: Support cookies in Http2Client.
-  testRequestCookies(clientFactory, canSendCookieHeaders: false);
-  testResponseCookies(clientFactory, canReceiveSetCookieHeaders: false);
+  testRequestCookies(clientFactory, canSendCookieHeaders: true);
+  testResponseCookies(clientFactory, canReceiveSetCookieHeaders: true);
 
   // TODO: Implement request abort support in Http2Client.
   // testAbort(

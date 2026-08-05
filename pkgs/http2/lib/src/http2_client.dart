@@ -121,7 +121,7 @@ class Http2Client extends BaseClient {
     final stream = transport.makeRequest([
       Header.ascii(':method', request.method),
       Header.ascii(':scheme', 'https'),
-      Header.ascii(':authority', request.url.host),
+      Header.ascii(':authority', _authorityOf(request.url)),
       Header.ascii(':path', path),
       // HTTP/2 requires lowercase header names (RFC 7540 8.1.2), and forbids
       // connection-specific header fields (RFC 7540 8.1.2.2) - which a
@@ -145,14 +145,36 @@ class Http2Client extends BaseClient {
       (message) {
         if (message is HeadersStreamMessage) {
           for (final header in message.headers) {
-            final name = ascii.decode(header.name);
-            final value = ascii.decode(header.value);
+            // Not `ascii`: RFC 9113 permits arbitrary octets in field values,
+            // and a decode failure here would be thrown into this handler,
+            // where it becomes an uncaught async error rather than failing
+            // the request.
+            final name = latin1.decode(header.name);
+            final value = latin1.decode(header.value);
             if (name == ':status') {
-              if (!statusCompleter.isCompleted) {
-                statusCompleter.complete(int.parse(value));
+              final status = int.tryParse(value);
+              if (status == null) {
+                if (!statusCompleter.isCompleted) {
+                  statusCompleter.completeError(
+                    ClientException(
+                      'Invalid HTTP/2 ":status" value "$value"',
+                      request.url,
+                    ),
+                  );
+                }
+              } else if (status >= 200 && !statusCompleter.isCompleted) {
+                // A 1xx is informational (RFC 9113 8.1) - the real response
+                // arrives in a later HEADERS frame.
+                statusCompleter.complete(status);
               }
             } else {
-              responseHeaders[name] = value;
+              // Repeated fields are joined, per the `package:http` convention;
+              // overwriting would silently drop e.g. a second `set-cookie`.
+              responseHeaders.update(
+                name,
+                (existing) => '$existing, $value',
+                ifAbsent: () => value,
+              );
             }
           }
         } else if (message is DataStreamMessage) {
@@ -162,7 +184,10 @@ class Http2Client extends BaseClient {
       onDone: () {
         if (!statusCompleter.isCompleted) {
           statusCompleter.completeError(
-            StateError('Stream closed before a response status was received'),
+            ClientException(
+              'Stream closed before a response status was received',
+              request.url,
+            ),
           );
         }
         if (!bodyController.isClosed) {
@@ -170,10 +195,18 @@ class Http2Client extends BaseClient {
         }
       },
       onError: (Object error, StackTrace stackTrace) {
+        // Wrapped here rather than in send(): by the time the body errors,
+        // send()'s future has usually already completed with the headers, so
+        // this is the only place a body-stream error can be given the type
+        // `Client` callers are promised.
+        final failure =
+            error is ClientException
+                ? error
+                : ClientException('$error', request.url);
         if (!statusCompleter.isCompleted) {
-          statusCompleter.completeError(error, stackTrace);
+          statusCompleter.completeError(failure, stackTrace);
         }
-        bodyController.addError(error, stackTrace);
+        bodyController.addError(failure, stackTrace);
         if (!bodyController.isClosed) {
           bodyController.close();
         }
@@ -185,7 +218,11 @@ class Http2Client extends BaseClient {
     return StreamedResponse(
       bodyController.stream,
       statusCode,
-      headers: responseHeaders,
+      contentLength: int.tryParse(responseHeaders['content-length'] ?? ''),
+      // Snapshotted: trailer HEADERS frames keep adding to responseHeaders
+      // after this response has been handed to the caller.
+      headers: Map.unmodifiable(responseHeaders),
+      reasonPhrase: _reasonPhrases[statusCode],
       request: request,
     );
   }
@@ -194,10 +231,16 @@ class Http2Client extends BaseClient {
   int get connectionCount => _pools.values.map((pool) => pool.size).sum;
 
   @override
-  Future<StreamedResponse> send(BaseRequest request) {
+  Future<StreamedResponse> send(BaseRequest request) async {
     if (_closed) {
       throw ClientException(
         'HTTP request failed. Client is already closed.',
+        request.url,
+      );
+    }
+    if (request.url.scheme != 'https') {
+      throw ClientException(
+        'Http2Client only supports https (got "${request.url.scheme}").',
         request.url,
       );
     }
@@ -209,10 +252,21 @@ class Http2Client extends BaseClient {
           return _sendOverHttp2(transport, request, bodyBytes!);
         });
 
-    return attempt().catchError(
-      (Object _) => attempt(),
-      test: (error) => error is _ConnectionClosedByPeer,
-    );
+    return attempt()
+        .catchError(
+          (Object _) => attempt(),
+          test: (error) => error is _ConnectionClosedByPeer,
+        )
+        // `Client` promises ClientException; without this a caller can see a
+        // SocketException, a HandshakeException, or one of our own internal
+        // error types.
+        .catchError(
+          (Object error, StackTrace stackTrace) => Error.throwWithStackTrace(
+            ClientException('$error', request.url),
+            stackTrace,
+          ),
+          test: (error) => error is! ClientException,
+        );
   }
 
   /// Waits for in-flight requests to finish, then closes every connection.
@@ -238,7 +292,71 @@ class Http2Client extends BaseClient {
 /// evicted it by the time the retry runs.
 class _ConnectionClosedByPeer implements Exception {
   const _ConnectionClosedByPeer();
+
+  @override
+  String toString() =>
+      'The pooled HTTP/2 connection was closed by the peer before this '
+      'request could be sent.';
 }
+
+/// HTTP/2 carries no reason phrase (RFC 9113 8.3.2 dropped it as redundant
+/// with the status code), so one is derived from the status instead - the same
+/// approach `package:cupertino_http` takes for NSURLSession.
+const _reasonPhrases = {
+  100: 'Continue',
+  101: 'Switching Protocols',
+  200: 'OK',
+  201: 'Created',
+  202: 'Accepted',
+  203: 'Non-Authoritative Information',
+  204: 'No Content',
+  205: 'Reset Content',
+  206: 'Partial Content',
+  300: 'Multiple Choices',
+  301: 'Moved Permanently',
+  302: 'Found',
+  303: 'See Other',
+  304: 'Not Modified',
+  305: 'Use Proxy',
+  307: 'Temporary Redirect',
+  308: 'Permanent Redirect',
+  400: 'Bad Request',
+  401: 'Unauthorized',
+  402: 'Payment Required',
+  403: 'Forbidden',
+  404: 'Not Found',
+  405: 'Method Not Allowed',
+  406: 'Not Acceptable',
+  407: 'Proxy Authentication Required',
+  408: 'Request Time-out',
+  409: 'Conflict',
+  410: 'Gone',
+  411: 'Length Required',
+  412: 'Precondition Failed',
+  413: 'Request Entity Too Large',
+  414: 'Request-URI Too Long',
+  415: 'Unsupported Media Type',
+  416: 'Requested range not satisfiable',
+  417: 'Expectation Failed',
+  421: 'Misdirected Request',
+  422: 'Unprocessable Entity',
+  426: 'Upgrade Required',
+  428: 'Precondition Required',
+  429: 'Too Many Requests',
+  431: 'Request Header Fields Too Large',
+  500: 'Internal Server Error',
+  501: 'Not Implemented',
+  502: 'Bad Gateway',
+  503: 'Service Unavailable',
+  504: 'Gateway Time-out',
+  505: 'Http Version not supported',
+  511: 'Network Authentication Required',
+};
+
+/// RFC 9113 8.3.1: ":authority" carries the port unless it is the default for
+/// the scheme - which is always https here, so 443.
+String _authorityOf(Uri url) =>
+    url.port == 443 ? url.host : '${url.host}:${url.port}';
 
 /// Header fields forbidden on an HTTP/2 stream (RFC 7540 8.1.2.2), plus
 /// `host` since `:authority` already carries what it would.
