@@ -19,6 +19,34 @@ class _PooledResource<T> {
   T? value;
 }
 
+/// A claim on one concurrency slot of a pooled resource.
+///
+/// Held from [ClientPool.acquire] until [release], which lets a slot outlive
+/// the future that produced it - an HTTP/2 response, for instance, is returned
+/// as soon as its headers arrive but keeps its stream open until the body ends.
+class PoolLease<T> {
+  PoolLease._(this._pool, this._resource, this.value);
+
+  final ClientPool<T> _pool;
+  final _PooledResource<T> _resource;
+
+  /// The resource this slot was claimed on.
+  final T value;
+
+  var _released = false;
+
+  /// Stops the pool routing new work to this resource.
+  void markFailed() => _resource.failed = true;
+
+  /// Gives the slot back. Idempotent, so it is safe to call from several
+  /// terminal paths that may race.
+  void release() {
+    if (_released) return;
+    _released = true;
+    _pool._release(_resource);
+  }
+}
+
 /// A pool of resources of type [T].
 ///
 /// Packs load onto the most-full resource under its capacity (rather than
@@ -64,27 +92,49 @@ class ClientPool<T> {
   @visibleForTesting
   int get opCount => _resources.map((resource) => resource.inFlight).sum;
 
-  /// Runs [operation] on an available (or newly created) resource.
-  Future<R> run<R>(Future<R> Function(T resource) operation) async {
+  /// Claims a slot on an available (or newly created) resource.
+  ///
+  /// The caller owns the returned lease and must [PoolLease.release] it on
+  /// every path, errors included, or the slot leaks and [terminate] never
+  /// drains. Prefer [run] unless the slot has to outlive the future that
+  /// produced whatever the caller is returning.
+  Future<PoolLease<T>> acquire() async {
     if (_terminated) {
       throw StateError('This pool has already been terminated.');
     }
 
     final pooled = _acquire();
     pooled.inFlight++;
+    final T value;
     try {
-      final resource = pooled.value ??= await pooled.future;
-      return await operation(resource);
+      value = pooled.value ??= await pooled.future;
     } catch (_) {
       pooled.failed = true;
+      _release(pooled);
+      rethrow;
+    }
+    return PoolLease._(this, pooled, value);
+  }
+
+  void _release(_PooledResource<T> resource) {
+    resource.inFlight--;
+    if (_terminated) {
+      _maybeCompleteDrain();
+    } else {
+      _collectIfIdle(resource);
+    }
+  }
+
+  /// Runs [operation] on an available (or newly created) resource.
+  Future<R> run<R>(Future<R> Function(T resource) operation) async {
+    final lease = await acquire();
+    try {
+      return await operation(lease.value);
+    } catch (_) {
+      lease.markFailed();
       rethrow;
     } finally {
-      pooled.inFlight--;
-      if (_terminated) {
-        _maybeCompleteDrain();
-      } else {
-        _collectIfIdle(pooled);
-      }
+      lease.release();
     }
   }
 

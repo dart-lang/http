@@ -295,6 +295,41 @@ void main() {
       expect(() => pool.run((_) async {}), throwsA(isA<StateError>()));
     });
 
+    test('a-held-lease-keeps-its-slot', () async {
+      final pool = _pool(maxConcurrentOperations: 2);
+
+      final lease = await pool.acquire();
+      expect(pool.opCount, 1);
+
+      lease.release();
+      expect(pool.opCount, 0);
+    });
+
+    test('releasing-a-lease-twice-is-a-no-op', () async {
+      final pool = _pool(maxConcurrentOperations: 2);
+
+      final lease = await pool.acquire();
+      lease.release();
+      lease.release();
+
+      // Not -1: release() is called from several terminal paths that can race.
+      expect(pool.opCount, 0);
+    });
+
+    test('a-failed-lease-stops-the-resource-being-reused', () async {
+      final pool = _pool(maxConcurrentOperations: 10);
+      final resourcesUsed = <int>[];
+
+      final lease = await pool.acquire();
+      resourcesUsed.add(lease.value);
+      lease.markFailed();
+      lease.release();
+
+      await pool.run((r) async => resourcesUsed.add(r));
+
+      expect(resourcesUsed, [0, 1]);
+    });
+
     test('does-not-couple-an-operation-to-a-slow-destroy', () async {
       // `destroy` never finishes. An operation that happens to trigger
       // collection must still complete - before, run()'s finally awaited the
