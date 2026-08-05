@@ -18,9 +18,10 @@ import 'client_pool.dart';
 ///
 /// Every request is sent as its own HTTP/2 stream on a shared connection -
 /// see [ClientPool] - dialed per `host:port` via
-/// `SecureSocket.connect(..., supportedProtocols: ['h2'])`. Once a
-/// connection's [maxStreamsPerConnection] concurrent streams are in use, a
-/// new connection is dialed rather than queuing behind the existing one.
+/// `SecureSocket.connect(..., supportedProtocols: ['h2'])`. Once a connection
+/// is carrying as many concurrent streams as it may - the lower of
+/// [maxStreamsPerConnection] and the server's own advertised limit - a new
+/// connection is dialed rather than queuing behind the existing one.
 ///
 /// Being multi-host makes this safe to use as a general-purpose transport -
 /// for example as the `baseClient` passed to `googleapis_auth`'s client
@@ -166,6 +167,11 @@ class Http2Client extends BaseClient {
     List<int> bodyBytes,
   ) async {
     final transport = lease.value;
+    // `isOpen` conflates "the peer went away" with "this connection is
+    // momentarily at its stream limit", so a healthy connection can still be
+    // condemned here in the few microtasks between a lease being released and
+    // http2 retiring the stream it belonged to. Rare, and costs one retry;
+    // separating the two would mean splitting `isOpen` in the public API.
     if (!transport.isOpen) throw const _ConnectionClosedByPeer();
 
     // RFC 7540 8.1.2.3: ":path" must not be empty.
@@ -360,6 +366,10 @@ class Http2Client extends BaseClient {
   ///
   /// Unlike [close] (constrained by `http.Client`'s synchronous signature),
   /// this can be awaited by callers who hold a concrete [Http2Client].
+  ///
+  /// A request counts as in-flight until its response body ends or is
+  /// cancelled, so a caller holding a response it never reads will hold this
+  /// up. [close] does not await this, so it can never block on that.
   Future<void> terminate() async {
     _closed = true;
     // Snapshotted: a request already past the _closed check above - or its
