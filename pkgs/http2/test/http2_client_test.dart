@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert' show ascii;
 import 'dart:io';
 
+import 'package:http/http.dart' show ClientException, Request;
 import 'package:http2/multiprotocol_server.dart';
 import 'package:http2/src/http2_client.dart';
 import 'package:http2/transport.dart';
@@ -32,7 +33,12 @@ Http2Client _testClient({
 /// exposes each accepted [ServerTransportConnection], so a test can finish
 /// one connection gracefully while the server keeps listening for new ones.
 class _RawHttp2Server {
-  _RawHttp2Server._(this._socket, this._settings, this._responseDelay) {
+  _RawHttp2Server._(
+    this._socket,
+    this._settings,
+    this._responseDelay,
+    this._bodyGate,
+  ) {
     _socket.listen((socket) {
       final connection = ServerTransportConnection.viaSocket(
         socket,
@@ -40,7 +46,7 @@ class _RawHttp2Server {
       );
       connections.add(connection);
       connection.incomingStreams.listen(
-        _respondWith('ok', delay: _responseDelay),
+        _respondWith('ok', delay: _responseDelay, bodyGate: _bodyGate),
       );
     });
   }
@@ -50,15 +56,17 @@ class _RawHttp2Server {
   static Future<_RawHttp2Server> bind({
     ServerSettings settings = const ServerSettings(concurrentStreamLimit: 1000),
     Future<void>? responseDelay,
+    Future<void>? bodyGate,
   }) async {
     final context = _serverContext()..setAlpnProtocols(['h2'], true);
     final socket = await SecureServerSocket.bind('localhost', 0, context);
-    return _RawHttp2Server._(socket, settings, responseDelay);
+    return _RawHttp2Server._(socket, settings, responseDelay, bodyGate);
   }
 
   final SecureServerSocket _socket;
   final ServerSettings _settings;
   final Future<void>? _responseDelay;
+  final Future<void>? _bodyGate;
   final connections = <ServerTransportConnection>[];
 
   int get port => _socket.port;
@@ -72,9 +80,14 @@ class _RawHttp2Server {
 }
 
 /// Replies with [body] after waiting on [delay], if given.
+///
+/// [bodyGate] holds the response open *after* its headers have been sent, so a
+/// test can observe a request whose headers have arrived but whose stream is
+/// still open.
 void Function(ServerTransportStream) _respondWith(
   String body, {
   Future<void>? delay,
+  Future<void>? bodyGate,
 }) {
   return (stream) async {
     final subscription = StreamIterator(stream.incomingMessages);
@@ -86,8 +99,14 @@ void Function(ServerTransportStream) _respondWith(
     stream.outgoingMessages.add(
       HeadersStreamMessage([Header.ascii(':status', '200')]),
     );
-    stream.outgoingMessages.add(DataStreamMessage(ascii.encode(body)));
-    await stream.outgoingMessages.close();
+    if (bodyGate != null) await bodyGate;
+    try {
+      stream.outgoingMessages.add(DataStreamMessage(ascii.encode(body)));
+      await stream.outgoingMessages.close();
+    } catch (_) {
+      // While the body was gated the client may have reset this stream, which
+      // a real server would likewise discover only on its next write.
+    }
   };
 }
 
@@ -229,6 +248,89 @@ void main() {
       // Both connections are healthy and idle, so both should survive: the
       // first was merely at the server's stream limit, not broken.
       expect(client.connectionCount, 2);
+
+      await client.terminate();
+      await server.close();
+    });
+
+    test('holds-a-pool-slot-until-the-response-body-completes', () async {
+      // Both responses send headers and then stall, so each request's h2
+      // stream is still open once send() has returned.
+      final gate = Completer<void>();
+      final server = await _bind();
+      server.startServing(
+        (request) {},
+        expectAsync1(_respondWith('ok', bodyGate: gate.future), count: 2),
+      );
+
+      final client = _testClient(maxStreamsPerConnection: 1);
+      final url = Uri.parse('https://localhost:${server.port}/');
+      final first = await client.send(Request('GET', url));
+      final second = await client.send(Request('GET', url));
+
+      // The first request still occupies its connection's only slot, so the
+      // second must have been given a connection of its own.
+      expect(client.connectionCount, 2);
+
+      gate.complete();
+      expect(await first.stream.bytesToString(), 'ok');
+      expect(await second.stream.bytesToString(), 'ok');
+
+      await client.terminate();
+      await server.close();
+    });
+
+    test('releases-the-slot-when-the-response-body-is-cancelled', () async {
+      // Only the first response is held open; the second answers normally.
+      final gate = Completer<void>();
+      final server = await _bind();
+      var streamNr = 0;
+      server.startServing(
+        (request) {},
+        expectAsync1((stream) {
+          final held = streamNr++ == 0 ? gate.future : null;
+          return _respondWith('ok', bodyGate: held)(stream);
+        }, count: 2),
+      );
+
+      final client = _testClient(maxStreamsPerConnection: 1);
+      final url = Uri.parse('https://localhost:${server.port}/');
+
+      final first = await client.send(Request('GET', url));
+      // Abandoning the body must hand the slot back...
+      await first.stream.listen((_) {}).cancel();
+
+      // ...so this reuses the connection rather than dialing another.
+      final second = await client.get(url);
+      expect(second.statusCode, 200);
+      expect(client.connectionCount, 1);
+
+      gate.complete();
+      await client.terminate();
+      await server.close();
+    });
+
+    test('releases-the-slot-when-the-response-body-errors', () async {
+      // The body is held open, so the reset below lands mid-response rather
+      // than after the stream has already finished.
+      final gate = Completer<void>();
+      final server = await _RawHttp2Server.bind(bodyGate: gate.future);
+      final client = _testClient(maxStreamsPerConnection: 1);
+      final url = Uri.parse('https://localhost:${server.port}/');
+
+      final first = await client.send(Request('GET', url));
+      await server.connections.single.terminate();
+      await expectLater(
+        first.stream.drain<void>(),
+        throwsA(isA<ClientException>()),
+      );
+
+      // That stream is dead; let anything dialed from here answer normally.
+      gate.complete();
+
+      // The slot was handed back, so a further request can proceed.
+      final second = await client.get(url);
+      expect(second.statusCode, 200);
 
       await client.terminate();
       await server.close();

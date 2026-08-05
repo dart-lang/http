@@ -104,13 +104,18 @@ class Http2Client extends BaseClient {
     return ClientTransportConnection.viaSocket(socket);
   }
 
-  /// Sends [request] as a single HTTP/2 stream on [transport], translating
-  /// between `BaseRequest`/`StreamedResponse` and http2's frames.
+  /// Sends [request] as a single HTTP/2 stream on [lease]'s connection,
+  /// translating between `BaseRequest`/`StreamedResponse` and http2's frames.
+  ///
+  /// Returns once the response headers arrive, but takes ownership of [lease]:
+  /// the stream stays open while the body is delivered, so the slot is only
+  /// released once that stream reaches a terminal state.
   Future<StreamedResponse> _sendOverHttp2(
-    ClientTransportConnection transport,
+    PoolLease<ClientTransportConnection> lease,
     BaseRequest request,
     List<int> bodyBytes,
   ) async {
+    final transport = lease.value;
     if (!transport.isOpen) throw const _ConnectionClosedByPeer();
 
     // RFC 7540 8.1.2.3: ":path" must not be empty.
@@ -137,7 +142,15 @@ class Http2Client extends BaseClient {
     final statusCompleter = Completer<int>();
     late final StreamSubscription<StreamMessage> subscription;
     final bodyController = StreamController<List<int>>(
-      onCancel: () => subscription.cancel(),
+      onCancel: () {
+        // The consumer abandoned the body, so the stream is done with.
+        lease.release();
+        // Reset it rather than just unsubscribing: an abandoned response is an
+        // abnormal end for the h2 stream, and without RST_STREAM neither end
+        // frees it - leaving `finish()` waiting on it forever.
+        stream.terminate();
+        return subscription.cancel();
+      },
     );
     final responseHeaders = <String, String>{};
 
@@ -193,6 +206,8 @@ class Http2Client extends BaseClient {
         if (!bodyController.isClosed) {
           bodyController.close();
         }
+        // The h2 stream has ended, so its slot can be reused.
+        lease.release();
       },
       onError: (Object error, StackTrace stackTrace) {
         // Wrapped here rather than in send(): by the time the body errors,
@@ -210,6 +225,8 @@ class Http2Client extends BaseClient {
         if (!bodyController.isClosed) {
           bodyController.close();
         }
+        // RST_STREAM or a connection error - the stream is over either way.
+        lease.release();
       },
       cancelOnError: true,
     );
@@ -245,12 +262,32 @@ class Http2Client extends BaseClient {
       );
     }
 
+    // Finalized at most once, including across the retry below.
     List<int>? bodyBytes;
-    Future<StreamedResponse> attempt() =>
-        _poolFor(request.url).run((transport) async {
-          bodyBytes ??= await request.finalize().toBytes();
-          return _sendOverHttp2(transport, request, bodyBytes!);
-        });
+
+    Future<StreamedResponse> attempt() async {
+      // Called before any `await` in this function, so the slot is reserved
+      // synchronously and a concurrent terminate() sees this request as
+      // in-flight rather than racing ahead of it.
+      final lease = await _poolFor(request.url).acquire();
+      try {
+        bodyBytes ??= await request.finalize().toBytes();
+      } catch (_) {
+        // Failing to read the caller's body says nothing about the
+        // connection, so release the slot without condemning it.
+        lease.release();
+        rethrow;
+      }
+      try {
+        // Returns at the response headers; _sendOverHttp2 owns the lease from
+        // here and releases it when the h2 stream ends.
+        return await _sendOverHttp2(lease, request, bodyBytes!);
+      } catch (_) {
+        lease.markFailed();
+        lease.release();
+        rethrow;
+      }
+    }
 
     return attempt()
         .catchError(
