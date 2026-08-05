@@ -20,5 +20,11 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.4.15
   dart_flutter_team_lints: ^3.5.1
+  http_client_conformance_tests:
+    path: ../http_client_conformance_tests/
   mockito: ^5.4.5
   test: ^1.25.15
+
+dependency_overrides:
+  http:
+    path: ../http/
