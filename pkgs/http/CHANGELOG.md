@@ -1,5 +1,6 @@
 ## 1.7.0-wip
 
+* Update example to fetch and display scores of package:http from pub.dev.
 * Add `BrowserCredentialsMode` to support the `omit` browser fetch credentials
   mode. The constructor argument should be preferred over `withCredentials`.
 * Clarified the behavior of response headers in API documentation comments.

@@ -1,3 +1,7 @@
+## 3.0.3-wip
+
+* Update example to fetch and display scores of package:cupertino_http from pub.dev.
+
 ## 3.0.2
 
 * Fix a [bug](https://github.com/dart-lang/http/issues/1929) where code
