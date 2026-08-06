@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'no_upgrade_server_vm.dart'
-    if (dart.library.html) 'no_upgrade_server_web.dart';
+    if (dart.library.js_interop) 'no_upgrade_server_web.dart';
 
 /// Tests that the [WebSocket] generates the correct exception if the peer
 /// closes the HTTP connection before WebSocket upgrade.
