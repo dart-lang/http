@@ -18,10 +18,10 @@ void main() {
     final engine = CronetEngine.build(
         cacheMode: CacheMode.memory,
         cacheMaxSize: 2 * 1024 * 1024,
-        userAgent: 'Package details Agent');
+        userAgent: 'Package Client');
     httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
   } else {
-    httpClient = IOClient(HttpClient()..userAgent = 'Package details Agent');
+    httpClient = IOClient(HttpClient()..userAgent = 'Package Client');
   }
 
   runApp(Provider<Client>(

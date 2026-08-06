@@ -94,7 +94,7 @@ class IOClient extends BaseClient {
   /// For example:
   /// ```dart
   /// final httpClient = HttpClient()
-  ///    ..userAgent = 'Book Agent'
+  ///    ..userAgent = 'Package Client'
   ///    ..idleTimeout = const Duration(seconds: 5);
   /// final client = IOClient(httpClient);
   /// ```

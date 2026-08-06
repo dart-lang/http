@@ -13,7 +13,7 @@
 /// void main() async {
 ///   var client = OkHttpClient();
 ///   final response = await client.get(
-///       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'}));
+///       Uri.https('pub.dev', '/api/packages/ok_http/score'));
 ///   if (response.statusCode != 200) {
 ///     throw HttpException('bad response: ${response.statusCode}');
 ///   }
@@ -21,11 +21,8 @@
 ///   final decodedResponse =
 ///       jsonDecode(utf8.decode(response.bodyBytes)) as Map;
 ///
-///   final itemCount = decodedResponse['totalItems'];
-///   print('Number of books about http: $itemCount.');
-///   for (var i = 0; i < min(itemCount, 10); ++i) {
-///     print(decodedResponse['items'][i]['volumeInfo']['title']);
-///   }
+///   final likes = decodedResponse['likeCount'];
+///   print('Likes: $likes');
 /// }
 /// ```
 ///

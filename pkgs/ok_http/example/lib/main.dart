@@ -16,7 +16,7 @@ void main() {
   if (Platform.isAndroid) {
     httpClient = OkHttpClient();
   } else {
-    httpClient = IOClient(HttpClient()..userAgent = 'Package details Agent');
+    httpClient = IOClient(HttpClient()..userAgent = 'Package Client');
   }
 
   runApp(Provider<Client>(

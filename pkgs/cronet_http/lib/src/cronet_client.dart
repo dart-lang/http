@@ -629,11 +629,11 @@ class CronetClient extends BaseClient {
   /// void main() {
   ///   Client clientFactory() {
   ///     final engine = CronetEngine.build(
-  ///         cacheMode: CacheMode.memory, userAgent: 'Book Agent');
+  ///         cacheMode: CacheMode.memory, userAgent: 'Package Client');
   ///     return CronetClient.fromCronetEngineFuture(engine);
   ///   }
   ///
-  ///   runWithClient(() => runApp(const BookSearchApp()), clientFactory);
+  ///   runWithClient(() => runApp(const PackageDetailsApp()), clientFactory);
   /// }
   /// ```
   @override
