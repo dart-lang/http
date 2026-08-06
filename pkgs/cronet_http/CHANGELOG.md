@@ -1,3 +1,8 @@
+## 1.9.1-wip
+
+* Upgrade Gradle to 8.14, AGP to 8.11.1, and Kotlin to 2.2.20 in the example
+  app to resolve Flutter deprecation warnings.
+
 ## 1.9.0
 
 * Add `CronetEngine.startNetLogToFile` and `CronetEngine.stopNetLog`.
