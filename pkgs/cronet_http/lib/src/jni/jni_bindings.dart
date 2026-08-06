@@ -871,6 +871,458 @@ final class $UrlRequestCallbackProxy$Type$
       r'Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy;';
 }
 
+/// from: `io.flutter.plugins.cronet_http.UploadDataProviderProxy$UploadDataProviderInterface`
+extension type UploadDataProviderProxy$UploadDataProviderInterface._(
+    jni$_.JObject _$this) implements jni$_.JObject {
+  static final _class = jni$_.JClass.forName(
+      r'io/flutter/plugins/cronet_http/UploadDataProviderProxy$UploadDataProviderInterface');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<UploadDataProviderProxy$UploadDataProviderInterface>
+      type = $UploadDataProviderProxy$UploadDataProviderInterface$Type$();
+
+  /// Maps a specific port to the implemented interface.
+  static final core$_
+      .Map<core$_.int, $UploadDataProviderProxy$UploadDataProviderInterface>
+      _$impls = {};
+  static jni$_.JObjectPtr _$invoke(
+    core$_.int port,
+    jni$_.JObjectPtr descriptor,
+    jni$_.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      jni$_.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final jni$_.Pointer<
+          jni$_.NativeFunction<
+              jni$_.JObjectPtr Function(
+                  jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)>>
+      _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
+
+  static jni$_.Pointer<jni$_.Void> _$invokeMethod(
+    core$_.int $p,
+    jni$_.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r'getLength()J') {
+        final $r = _$impls[$p]!.getLength();
+        return $r.toJLong().reference.toPointer();
+      }
+      if ($d ==
+          r'read(Lorg/chromium/net/UploadDataSink;Ljava/nio/ByteBuffer;)V') {
+        _$impls[$p]!.read(
+          ($a![0] as UploadDataSink?),
+          ($a![1] as jni$_.JByteBuffer?),
+        );
+        return jni$_.nullptr;
+      }
+      if ($d == r'rewind(Lorg/chromium/net/UploadDataSink;)V') {
+        _$impls[$p]!.rewind(
+          ($a![0] as UploadDataSink?),
+        );
+        return jni$_.nullptr;
+      }
+      if ($d == r'close()V') {
+        _$impls[$p]!.close();
+        return jni$_.nullptr;
+      }
+    } catch (e) {
+      return jni$_.ProtectedJniExtensions.newDartException(e);
+    }
+    return jni$_.nullptr;
+  }
+
+  static void implementIn(
+    jni$_.JImplementer implementer,
+    $UploadDataProviderProxy$UploadDataProviderInterface $impl,
+  ) {
+    late final jni$_.RawReceivePort $p;
+    $p = jni$_.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = jni$_.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      jni$_.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'io.flutter.plugins.cronet_http.UploadDataProviderProxy$UploadDataProviderInterface',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.read$async)
+          r'read(Lorg/chromium/net/UploadDataSink;Ljava/nio/ByteBuffer;)V',
+        if ($impl.rewind$async) r'rewind(Lorg/chromium/net/UploadDataSink;)V',
+        if ($impl.close$async) r'close()V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory UploadDataProviderProxy$UploadDataProviderInterface.implement(
+    $UploadDataProviderProxy$UploadDataProviderInterface $impl,
+  ) {
+    final $i = jni$_.JImplementer();
+    implementIn($i, $impl);
+    return $i.implement<UploadDataProviderProxy$UploadDataProviderInterface>();
+  }
+}
+
+extension UploadDataProviderProxy$UploadDataProviderInterface$$Methods
+    on UploadDataProviderProxy$UploadDataProviderInterface {
+  static final _id_getLength =
+      UploadDataProviderProxy$UploadDataProviderInterface._class
+          .instanceMethodId(
+    r'getLength',
+    r'()J',
+  );
+
+  static final _getLength = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun getLength(): kotlin.Long`
+  core$_.int getLength() {
+    return _getLength(reference.pointer, _id_getLength.pointer).long;
+  }
+
+  static final _id_read = UploadDataProviderProxy$UploadDataProviderInterface
+      ._class
+      .instanceMethodId(
+    r'read',
+    r'(Lorg/chromium/net/UploadDataSink;Ljava/nio/ByteBuffer;)V',
+  );
+
+  static final _read = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Pointer<jni$_.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public fun read(uploadDataSink: org.chromium.net.UploadDataSink?, byteBuffer: java.nio.ByteBuffer?): kotlin.Unit`
+  void read(
+    UploadDataSink? uploadDataSink,
+    jni$_.JByteBuffer? byteBuffer,
+  ) {
+    final _$uploadDataSink = uploadDataSink?.reference ?? jni$_.jNullReference;
+    final _$byteBuffer = byteBuffer?.reference ?? jni$_.jNullReference;
+    _read(reference.pointer, _id_read.pointer, _$uploadDataSink.pointer,
+            _$byteBuffer.pointer)
+        .check();
+  }
+
+  static final _id_rewind = UploadDataProviderProxy$UploadDataProviderInterface
+      ._class
+      .instanceMethodId(
+    r'rewind',
+    r'(Lorg/chromium/net/UploadDataSink;)V',
+  );
+
+  static final _rewind = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public fun rewind(uploadDataSink: org.chromium.net.UploadDataSink?): kotlin.Unit`
+  void rewind(
+    UploadDataSink? uploadDataSink,
+  ) {
+    final _$uploadDataSink = uploadDataSink?.reference ?? jni$_.jNullReference;
+    _rewind(reference.pointer, _id_rewind.pointer, _$uploadDataSink.pointer)
+        .check();
+  }
+
+  static final _id_close = UploadDataProviderProxy$UploadDataProviderInterface
+      ._class
+      .instanceMethodId(
+    r'close',
+    r'()V',
+  );
+
+  static final _close = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun close(): kotlin.Unit`
+  void close() {
+    _close(reference.pointer, _id_close.pointer).check();
+  }
+}
+
+abstract base mixin class $UploadDataProviderProxy$UploadDataProviderInterface {
+  factory $UploadDataProviderProxy$UploadDataProviderInterface({
+    required core$_.int Function() getLength,
+    required void Function(
+            UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer)
+        read,
+    core$_.bool read$async,
+    required void Function(UploadDataSink? uploadDataSink) rewind,
+    core$_.bool rewind$async,
+    required void Function() close,
+    core$_.bool close$async,
+  }) = _$UploadDataProviderProxy$UploadDataProviderInterface;
+
+  core$_.int getLength();
+  void read(UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer);
+  core$_.bool get read$async => false;
+  void rewind(UploadDataSink? uploadDataSink);
+  core$_.bool get rewind$async => false;
+  void close();
+  core$_.bool get close$async => false;
+}
+
+final class _$UploadDataProviderProxy$UploadDataProviderInterface
+    with $UploadDataProviderProxy$UploadDataProviderInterface {
+  _$UploadDataProviderProxy$UploadDataProviderInterface({
+    required core$_.int Function() getLength,
+    required void Function(
+            UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer)
+        read,
+    this.read$async = false,
+    required void Function(UploadDataSink? uploadDataSink) rewind,
+    this.rewind$async = false,
+    required void Function() close,
+    this.close$async = false,
+  })  : _getLength = getLength,
+        _read = read,
+        _rewind = rewind,
+        _close = close;
+
+  final core$_.int Function() _getLength;
+  final void Function(
+      UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer) _read;
+  final core$_.bool read$async;
+  final void Function(UploadDataSink? uploadDataSink) _rewind;
+  final core$_.bool rewind$async;
+  final void Function() _close;
+  final core$_.bool close$async;
+
+  core$_.int getLength() {
+    return _getLength();
+  }
+
+  void read(UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer) {
+    return _read(uploadDataSink, byteBuffer);
+  }
+
+  void rewind(UploadDataSink? uploadDataSink) {
+    return _rewind(uploadDataSink);
+  }
+
+  void close() {
+    return _close();
+  }
+}
+
+final class $UploadDataProviderProxy$UploadDataProviderInterface$Type$
+    extends jni$_.JType<UploadDataProviderProxy$UploadDataProviderInterface> {
+  @jni$_.internal
+  const $UploadDataProviderProxy$UploadDataProviderInterface$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature =>
+      r'Lio/flutter/plugins/cronet_http/UploadDataProviderProxy$UploadDataProviderInterface;';
+}
+
+/// from: `io.flutter.plugins.cronet_http.UploadDataProviderProxy`
+extension type UploadDataProviderProxy._(jni$_.JObject _$this)
+    implements UploadDataProvider {
+  static final _class = jni$_.JClass.forName(
+      r'io/flutter/plugins/cronet_http/UploadDataProviderProxy');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<UploadDataProviderProxy> type =
+      $UploadDataProviderProxy$Type$();
+  static final _id_new$ = _class.constructorId(
+    r'(Lio/flutter/plugins/cronet_http/UploadDataProviderProxy$UploadDataProviderInterface;)V',
+  );
+
+  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JniResult Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public void <init>(io.flutter.plugins.cronet_http.UploadDataProviderProxy$UploadDataProviderInterface uploadDataProviderInterface)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory UploadDataProviderProxy(
+    UploadDataProviderProxy$UploadDataProviderInterface
+        uploadDataProviderInterface,
+  ) {
+    final _$uploadDataProviderInterface = uploadDataProviderInterface.reference;
+    return _new$(_class.reference.pointer, _id_new$.pointer,
+            _$uploadDataProviderInterface.pointer)
+        .object<UploadDataProviderProxy>();
+  }
+}
+
+extension UploadDataProviderProxy$$Methods on UploadDataProviderProxy {
+  static final _id_get$length = UploadDataProviderProxy._class.instanceMethodId(
+    r'getLength',
+    r'()J',
+  );
+
+  static final _get$length = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun getLength(): kotlin.Long`
+  core$_.int get length {
+    return _get$length(reference.pointer, _id_get$length.pointer).long;
+  }
+
+  static final _id_read = UploadDataProviderProxy._class.instanceMethodId(
+    r'read',
+    r'(Lorg/chromium/net/UploadDataSink;Ljava/nio/ByteBuffer;)V',
+  );
+
+  static final _read = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Pointer<jni$_.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public fun read(uploadDataSink: org.chromium.net.UploadDataSink, byteBuffer: java.nio.ByteBuffer): kotlin.Unit`
+  void read(
+    UploadDataSink uploadDataSink,
+    jni$_.JByteBuffer byteBuffer,
+  ) {
+    final _$uploadDataSink = uploadDataSink.reference;
+    final _$byteBuffer = byteBuffer.reference;
+    _read(reference.pointer, _id_read.pointer, _$uploadDataSink.pointer,
+            _$byteBuffer.pointer)
+        .check();
+  }
+
+  static final _id_rewind = UploadDataProviderProxy._class.instanceMethodId(
+    r'rewind',
+    r'(Lorg/chromium/net/UploadDataSink;)V',
+  );
+
+  static final _rewind = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public fun rewind(uploadDataSink: org.chromium.net.UploadDataSink): kotlin.Unit`
+  void rewind(
+    UploadDataSink uploadDataSink,
+  ) {
+    final _$uploadDataSink = uploadDataSink.reference;
+    _rewind(reference.pointer, _id_rewind.pointer, _$uploadDataSink.pointer)
+        .check();
+  }
+
+  static final _id_close = UploadDataProviderProxy._class.instanceMethodId(
+    r'close',
+    r'()V',
+  );
+
+  static final _close = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public fun close(): kotlin.Unit`
+  void close() {
+    _close(reference.pointer, _id_close.pointer).check();
+  }
+}
+
+final class $UploadDataProviderProxy$Type$
+    extends jni$_.JType<UploadDataProviderProxy> {
+  @jni$_.internal
+  const $UploadDataProviderProxy$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature =>
+      r'Lio/flutter/plugins/cronet_http/UploadDataProviderProxy;';
+}
+
 /// from: `java.io.IOException`
 extension type IOException._(jni$_.JObject _$this) implements Exception {
   static final _class = jni$_.JClass.forName(r'java/io/IOException');
@@ -4678,12 +5130,12 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
 
   /// from: `static public org.chromium.net.UploadDataProvider create(java.io.File file)`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni$_.JObject? create(
+  static UploadDataProvider? create(
     jni$_.JObject? file,
   ) {
     final _$file = file?.reference ?? jni$_.jNullReference;
     return _create(_class.reference.pointer, _id_create.pointer, _$file.pointer)
-        .object<jni$_.JObject?>();
+        .object<UploadDataProvider?>();
   }
 
   static final _id_create$1 = _class.staticMethodId(
@@ -4704,13 +5156,13 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
 
   /// from: `static public org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor fd)`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni$_.JObject? create$1(
+  static UploadDataProvider? create$1(
     jni$_.JObject? fd,
   ) {
     final _$fd = fd?.reference ?? jni$_.jNullReference;
     return _create$1(
             _class.reference.pointer, _id_create$1.pointer, _$fd.pointer)
-        .object<jni$_.JObject?>();
+        .object<UploadDataProvider?>();
   }
 
   static final _id_create$2 = _class.staticMethodId(
@@ -4731,13 +5183,13 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
 
   /// from: `static public org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer buffer)`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni$_.JObject? create$2(
+  static UploadDataProvider? create$2(
     jni$_.JByteBuffer? buffer,
   ) {
     final _$buffer = buffer?.reference ?? jni$_.jNullReference;
     return _create$2(
             _class.reference.pointer, _id_create$2.pointer, _$buffer.pointer)
-        .object<jni$_.JObject?>();
+        .object<UploadDataProvider?>();
   }
 
   static final _id_create$3 = _class.staticMethodId(
@@ -4766,7 +5218,7 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
 
   /// from: `static public org.chromium.net.UploadDataProvider create(byte[] data, int offset, int length)`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni$_.JObject? create$3(
+  static UploadDataProvider? create$3(
     jni$_.JByteArray? data,
     core$_.int offset,
     core$_.int length,
@@ -4774,7 +5226,7 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
     final _$data = data?.reference ?? jni$_.jNullReference;
     return _create$3(_class.reference.pointer, _id_create$3.pointer,
             _$data.pointer, offset, length)
-        .object<jni$_.JObject?>();
+        .object<UploadDataProvider?>();
   }
 
   static final _id_create$4 = _class.staticMethodId(
@@ -4795,13 +5247,13 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
 
   /// from: `static public org.chromium.net.UploadDataProvider create(byte[] data)`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni$_.JObject? create$4(
+  static UploadDataProvider? create$4(
     jni$_.JByteArray? data,
   ) {
     final _$data = data?.reference ?? jni$_.jNullReference;
     return _create$4(
             _class.reference.pointer, _id_create$4.pointer, _$data.pointer)
-        .object<jni$_.JObject?>();
+        .object<UploadDataProvider?>();
   }
 }
 
@@ -4978,7 +5430,7 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
   /// from: `public abstract org.chromium.net.UrlRequest$Builder setUploadDataProvider(org.chromium.net.UploadDataProvider uploadDataProvider, java.util.concurrent.Executor executor)`
   /// The returned object must be released after use, by calling the [release] method.
   UrlRequest$Builder? setUploadDataProvider(
-    jni$_.JObject? uploadDataProvider,
+    UploadDataProvider? uploadDataProvider,
     jni$_.JObject? executor,
   ) {
     final _$uploadDataProvider =
@@ -6175,4 +6627,248 @@ final class $UrlResponseInfo$Type$ extends jni$_.JType<UrlResponseInfo> {
   @jni$_.internal
   @core$_.override
   String get signature => r'Lorg/chromium/net/UrlResponseInfo;';
+}
+
+/// from: `org.chromium.net.UploadDataSink`
+extension type UploadDataSink._(jni$_.JObject _$this) implements jni$_.JObject {
+  static final _class =
+      jni$_.JClass.forName(r'org/chromium/net/UploadDataSink');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<UploadDataSink> type = $UploadDataSink$Type$();
+}
+
+extension UploadDataSink$$Methods on UploadDataSink {
+  static final _id_onReadSucceeded = UploadDataSink._class.instanceMethodId(
+    r'onReadSucceeded',
+    r'(Z)V',
+  );
+
+  static final _onReadSucceeded = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+
+  /// from: `public abstract void onReadSucceeded(boolean finalChunk)`
+  void onReadSucceeded(
+    core$_.bool finalChunk,
+  ) {
+    _onReadSucceeded(
+            reference.pointer, _id_onReadSucceeded.pointer, finalChunk ? 1 : 0)
+        .check();
+  }
+
+  static final _id_onReadError = UploadDataSink._class.instanceMethodId(
+    r'onReadError',
+    r'(Ljava/lang/Exception;)V',
+  );
+
+  static final _onReadError = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public abstract void onReadError(java.lang.Exception exception)`
+  void onReadError(
+    Exception? exception,
+  ) {
+    final _$exception = exception?.reference ?? jni$_.jNullReference;
+    _onReadError(
+            reference.pointer, _id_onReadError.pointer, _$exception.pointer)
+        .check();
+  }
+
+  static final _id_onRewindSucceeded = UploadDataSink._class.instanceMethodId(
+    r'onRewindSucceeded',
+    r'()V',
+  );
+
+  static final _onRewindSucceeded = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract void onRewindSucceeded()`
+  void onRewindSucceeded() {
+    _onRewindSucceeded(reference.pointer, _id_onRewindSucceeded.pointer)
+        .check();
+  }
+
+  static final _id_onRewindError = UploadDataSink._class.instanceMethodId(
+    r'onRewindError',
+    r'(Ljava/lang/Exception;)V',
+  );
+
+  static final _onRewindError = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public abstract void onRewindError(java.lang.Exception exception)`
+  void onRewindError(
+    Exception? exception,
+  ) {
+    final _$exception = exception?.reference ?? jni$_.jNullReference;
+    _onRewindError(
+            reference.pointer, _id_onRewindError.pointer, _$exception.pointer)
+        .check();
+  }
+}
+
+final class $UploadDataSink$Type$ extends jni$_.JType<UploadDataSink> {
+  @jni$_.internal
+  const $UploadDataSink$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/UploadDataSink;';
+}
+
+/// from: `org.chromium.net.UploadDataProvider`
+extension type UploadDataProvider._(jni$_.JObject _$this)
+    implements jni$_.JObject {
+  static final _class =
+      jni$_.JClass.forName(r'org/chromium/net/UploadDataProvider');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<UploadDataProvider> type =
+      $UploadDataProvider$Type$();
+}
+
+extension UploadDataProvider$$Methods on UploadDataProvider {
+  static final _id_get$length = UploadDataProvider._class.instanceMethodId(
+    r'getLength',
+    r'()J',
+  );
+
+  static final _get$length = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni$_.JniResult Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract long getLength()`
+  core$_.int get length {
+    return _get$length(reference.pointer, _id_get$length.pointer).long;
+  }
+
+  static final _id_read = UploadDataProvider._class.instanceMethodId(
+    r'read',
+    r'(Lorg/chromium/net/UploadDataSink;Ljava/nio/ByteBuffer;)V',
+  );
+
+  static final _read = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                  jni$_.Pointer<jni$_.Void>,
+                  jni$_.JMethodIDPtr,
+                  jni$_.VarArgs<
+                      (
+                        jni$_.Pointer<jni$_.Void>,
+                        jni$_.Pointer<jni$_.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public abstract void read(org.chromium.net.UploadDataSink uploadDataSink, java.nio.ByteBuffer byteBuffer)`
+  void read(
+    UploadDataSink? uploadDataSink,
+    jni$_.JByteBuffer? byteBuffer,
+  ) {
+    final _$uploadDataSink = uploadDataSink?.reference ?? jni$_.jNullReference;
+    final _$byteBuffer = byteBuffer?.reference ?? jni$_.jNullReference;
+    _read(reference.pointer, _id_read.pointer, _$uploadDataSink.pointer,
+            _$byteBuffer.pointer)
+        .check();
+  }
+
+  static final _id_rewind = UploadDataProvider._class.instanceMethodId(
+    r'rewind',
+    r'(Lorg/chromium/net/UploadDataSink;)V',
+  );
+
+  static final _rewind = jni$_.ProtectedJniExtensions.lookup<
+              jni$_.NativeFunction<
+                  jni$_.JThrowablePtr Function(
+                      jni$_.Pointer<jni$_.Void>,
+                      jni$_.JMethodIDPtr,
+                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+
+  /// from: `public abstract void rewind(org.chromium.net.UploadDataSink uploadDataSink)`
+  void rewind(
+    UploadDataSink? uploadDataSink,
+  ) {
+    final _$uploadDataSink = uploadDataSink?.reference ?? jni$_.jNullReference;
+    _rewind(reference.pointer, _id_rewind.pointer, _$uploadDataSink.pointer)
+        .check();
+  }
+
+  static final _id_close = UploadDataProvider._class.instanceMethodId(
+    r'close',
+    r'()V',
+  );
+
+  static final _close = jni$_.ProtectedJniExtensions.lookup<
+          jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni$_.JThrowablePtr Function(
+            jni$_.Pointer<jni$_.Void>,
+            jni$_.JMethodIDPtr,
+          )>();
+
+  /// from: `public void close()`
+  void close() {
+    _close(reference.pointer, _id_close.pointer).check();
+  }
+}
+
+final class $UploadDataProvider$Type$ extends jni$_.JType<UploadDataProvider> {
+  @jni$_.internal
+  const $UploadDataProvider$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/UploadDataProvider;';
 }

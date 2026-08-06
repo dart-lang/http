@@ -3,7 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:math';
+import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
@@ -650,6 +653,113 @@ class CronetClient extends BaseClient {
           requestMethod: request.method,
           requestUri: request.url.toString());
 
+  /// Returns true if [stream] includes at least one list with an element.
+  ///
+  /// Since [_hasData] consumes [stream], returns a new stream containing the
+  /// equivalent data.
+  static Future<(bool, Stream<List<int>>)> _hasData(
+    Stream<List<int>> stream,
+  ) async {
+    final queue = StreamQueue(stream);
+    while (await queue.hasNext && (await queue.peek).isEmpty) {
+      await queue.next;
+    }
+
+    return (await queue.hasNext, queue.rest);
+  }
+
+  /// Streams [stream] to Cronet on demand.
+  (jb.UploadDataProvider, Future<void> Function()) _streamingUploadProvider(
+    Stream<List<int>> stream,
+    int? contentLength,
+    HttpClientRequestProfile? profile,
+  ) {
+    // Cronet's UploadDataProvider.read() rejects a non-final zero-byte read, so
+    // strip empty chunks (a StreamedRequest may emit them anywhere) to keep
+    // every read non-empty. The final zero-byte read is handled
+    // via onReadSucceeded(true).
+    final queue = StreamQueue<List<int>>(stream.where((c) => c.isNotEmpty));
+    Uint8List? current;
+    var offset = 0;
+    var bytesSent = 0;
+    var disposed = false;
+    Future<void> dispose() async {
+      if (disposed) return;
+      disposed = true;
+      await queue.cancel(immediate: true);
+    }
+
+    // true if `current` has unconsumed bytes; false at end of stream.
+    Future<bool> ensureChunk() async {
+      if (current != null && offset < current!.length) return true;
+      if (!await queue.hasNext) {
+        current = null;
+        return false;
+      }
+      final chunk = await queue.next;
+      current = chunk is Uint8List ? chunk : Uint8List.fromList(chunk);
+      offset = 0;
+      return true;
+    }
+
+    final impl =
+        jb.UploadDataProviderProxy$UploadDataProviderInterface.implement(
+      jb.$UploadDataProviderProxy$UploadDataProviderInterface(
+        getLength: () => contentLength ?? -1,
+        read$async: true,
+        read: (uploadDataSink, byteBuffer) async {
+          final sink = uploadDataSink!;
+          try {
+            if (!await ensureChunk()) {
+              if (contentLength == null) {
+                sink.onReadSucceeded(true);
+              } else {
+                sink.onReadError(jb.IOException.new1(
+                    'Body ended before contentLength'.toJString()));
+              }
+              return;
+            }
+
+            final dst = byteBuffer!;
+            final pos = dst.position;
+            final available = current!.length - offset;
+
+            if (contentLength != null &&
+                available > contentLength - bytesSent) {
+              sink.onReadError(jb.IOException.new1(
+                'Body exceeded contentLength'.toJString(),
+              ));
+              return;
+            }
+
+            final n = min(dst.remaining, available);
+            dst.asUint8List().setRange(pos, pos + n, current!, offset);
+            dst.position = pos + n;
+
+            profile?.requestData.bodySink.add(
+              Uint8List.sublistView(current!, offset, offset + n),
+            );
+
+            offset += n;
+            bytesSent += n;
+            sink.onReadSucceeded(false);
+          } catch (e) {
+            sink.onReadError(jb.IOException.new1('$e'.toJString()));
+          }
+        },
+        rewind: (uploadDataSink) {
+          // One-shot stream: cannot replay.
+          uploadDataSink!.onRewindError(jb.IOException.new1(
+              'Streamed request bodies cannot be rewound'.toJString()));
+        },
+        close: () {
+          unawaited(dispose());
+        },
+      ),
+    );
+    return (jb.UploadDataProviderProxy(impl), dispose);
+  }
+
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<CronetStreamedResponse> send(BaseRequest request) async {
@@ -684,10 +794,22 @@ class CronetClient extends BaseClient {
     }
 
     final stream = request.finalize();
-    final body = await stream.toBytes();
-    profile?.requestData.bodySink.add(body);
+
+    final inMemoryBody = request is Request ? await stream.toBytes() : null;
+    if (inMemoryBody != null) {
+      profile?.requestData.bodySink.add(inMemoryBody);
+    }
+
+    final bool hasBody;
+    Stream<List<int>>? bodyStream;
+    if (inMemoryBody != null) {
+      hasBody = inMemoryBody.isNotEmpty;
+    } else {
+      (hasBody, bodyStream) = await _hasData(stream);
+    }
 
     final responseCompleter = Completer<CronetStreamedResponse>();
+    Future<void> Function()? disposeUpload;
 
     return await using((arena) async {
       final jUrl = request.url.toString().toJString()..releasedBy(arena);
@@ -702,7 +824,7 @@ class CronetClient extends BaseClient {
         ..setHttpMethod(jMethod);
 
       var headers = request.headers;
-      if (body.isNotEmpty &&
+      if (hasBody &&
           !headers.keys.any((h) => h.toLowerCase() == 'content-type')) {
         // Cronet requires that requests containing upload data set a
         // 'Content-Type' header.
@@ -711,24 +833,30 @@ class CronetClient extends BaseClient {
       headers.forEach((k, v) => builder.addHeader(
           k.toJString()..releasedBy(arena), v.toJString()..releasedBy(arena)));
 
-      if (body.isNotEmpty) {
-        final JByteBuffer data;
-        try {
-          data = body.toJByteBuffer()..releasedBy(arena);
-        } on JThrowable catch (e) {
-          // There are no unit tests for this code. You can verify this behavior
-          // manually by incrementally increasing the amount of body data in
-          // `CronetClient.post` until you get this exception.
-          if (e.message.contains('java.lang.OutOfMemoryError:')) {
-            throw ClientException(
-                'Not enough memory for request body: ${e.message}',
-                request.url);
+      if (hasBody) {
+        if (inMemoryBody != null) {
+          final JByteBuffer data;
+          try {
+            data = inMemoryBody.toJByteBuffer()..releasedBy(arena);
+          } on JThrowable catch (e) {
+            // There are no unit tests for this code. You can verify this
+            // behavior manually by incrementally increasing the amount of body
+            // data in `CronetClient.post` until you get this exception.
+            if (e.message.contains('java.lang.OutOfMemoryError:')) {
+              throw ClientException(
+                  'Not enough memory for request body: ${e.message}',
+                  request.url);
+            }
+            rethrow;
           }
-          rethrow;
+          builder.setUploadDataProvider(
+              jb.UploadDataProviders.create$2(data), _executor);
+        } else {
+          final (provider, dispose) = _streamingUploadProvider(
+              bodyStream!, request.contentLength, profile);
+          disposeUpload = dispose;
+          builder.setUploadDataProvider(provider, _executor);
         }
-
-        builder.setUploadDataProvider(
-            jb.UploadDataProviders.create$2(data), _executor);
       }
 
       // Not releasing `cronetRequest` as it's used in `whenComplete` callback.
@@ -736,8 +864,13 @@ class CronetClient extends BaseClient {
       if (request case Abortable(:final abortTrigger?)) {
         unawaited(abortTrigger.whenComplete(cronetRequest.cancel));
       }
-      cronetRequest.start();
-      return responseCompleter.future;
+      try {
+        cronetRequest.start();
+
+        return await responseCompleter.future;
+      } finally {
+        await disposeUpload?.call();
+      }
     });
   }
 }

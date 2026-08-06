@@ -19,7 +19,7 @@ Future<void> testConformance() async {
       try {
         testAll(
           CronetClient.defaultCronetEngine,
-          canStreamRequestBody: false,
+          canStreamRequestBody: true,
           canReceiveSetCookieHeaders: true,
           canSendCookieHeaders: true,
           supportsAbort: true,
@@ -34,7 +34,7 @@ Future<void> testConformance() async {
       try {
         testAll(
           CronetClient.defaultCronetEngine,
-          canStreamRequestBody: false,
+          canStreamRequestBody: true,
           canReceiveSetCookieHeaders: true,
           canSendCookieHeaders: true,
           supportsAbort: true,
@@ -52,7 +52,7 @@ Future<void> testConformance() async {
             cacheMode: CacheMode.disabled, userAgent: 'Test Agent (Future)');
         return CronetClient.fromCronetEngine(engine);
       },
-      canStreamRequestBody: false,
+      canStreamRequestBody: true,
       canReceiveSetCookieHeaders: true,
       canSendCookieHeaders: true,
       supportsAbort: true,
