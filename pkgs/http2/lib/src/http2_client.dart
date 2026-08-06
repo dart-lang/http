@@ -13,6 +13,7 @@ import 'package:pool/pool.dart';
 
 import '../transport.dart';
 import 'client_pool.dart';
+import 'connection.dart';
 
 /// A pooled, multiplexed `http.Client` backed by HTTP/2 connections.
 ///
@@ -77,16 +78,16 @@ class Http2Client extends BaseClient {
   // needing.
   final Pool _handshakeGate;
 
-  final _pools = <String, ClientPool<ClientTransportConnection>>{};
+  final _pools = <String, ClientPool<ClientConnection>>{};
   var _closed = false;
 
   // Synchronous (no `await`), so concurrent requests to a new host:port
   // can't race each other into creating two pools for the same key.
-  ClientPool<ClientTransportConnection> _poolFor(Uri url) {
+  ClientPool<ClientConnection> _poolFor(Uri url) {
     final key = '${url.host}:${url.port}';
     return _pools.putIfAbsent(
       key,
-      () => ClientPool<ClientTransportConnection>(
+      () => ClientPool<ClientConnection>(
         () => _handshakeGate.withResource(() => _dial(url.host, url.port)),
         maxConcurrentOperations: maxStreamsPerConnection,
         maxIdleResources: maxIdleConnections,
@@ -96,7 +97,7 @@ class Http2Client extends BaseClient {
     );
   }
 
-  Future<ClientTransportConnection> _dial(String host, int port) async {
+  Future<ClientConnection> _dial(String host, int port) async {
     final socket = await SecureSocket.connect(
       host,
       port,
@@ -126,7 +127,11 @@ class Http2Client extends BaseClient {
     );
     unawaited(died.future.catchError((Object _) {}));
 
-    final transport = ClientTransportConnection.viaStreams(incoming, socket);
+    final transport = ClientConnection(
+      incoming,
+      socket,
+      const ClientSettings(),
+    );
     try {
       await Future.any([
         transport.onInitialPeerSettingsReceived,
@@ -152,7 +157,7 @@ class Http2Client extends BaseClient {
   /// the stream stays open while the body is delivered, so the slot is only
   /// released once that stream reaches a terminal state.
   Future<StreamedResponse> _sendOverHttp2(
-    PoolLease<ClientTransportConnection> lease,
+    PoolLease<ClientConnection> lease,
     BaseRequest request,
     List<int> bodyBytes,
   ) async {

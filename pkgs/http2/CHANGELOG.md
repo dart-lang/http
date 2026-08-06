@@ -6,8 +6,6 @@
   given more concurrent streams than its server allows, and is not used at all
   until that server has sent its initial SETTINGS frame - see
   `Http2Client.settingsTimeout` for how long that is waited for.
-- Add `ClientTransportConnection.peerMaxConcurrentStreams`, exposing the
-  peer's most recently advertised `SETTINGS_MAX_CONCURRENT_STREAMS`.
 
 ## 3.0.0
 

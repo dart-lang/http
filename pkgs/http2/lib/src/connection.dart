@@ -513,7 +513,13 @@ class ClientConnection extends Connection implements ClientTransportConnection {
   bool get isOpen =>
       !_state.isFinishing && !_state.isTerminated && _streams.canOpenStream;
 
-  @override
+  /// The maximum number of concurrent streams the peer currently allows, per
+  /// its most recent SETTINGS_MAX_CONCURRENT_STREAMS (RFC 7540 6.5.2), or
+  /// `null` if it hasn't advertised a limit.
+  ///
+  /// Deliberately not on [ClientTransportConnection]: that class can only be
+  /// subtyped with `implements`, so adding a member to it would break every
+  /// downstream implementation.
   int? get peerMaxConcurrentStreams =>
       _settingsHandler.peerSettings.maxConcurrentStreams;
 
