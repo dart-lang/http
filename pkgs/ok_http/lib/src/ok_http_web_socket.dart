@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:jni/jni.dart';
@@ -56,17 +57,26 @@ class OkHttpWebSocket implements WebSocket {
   final _events = StreamController<WebSocketEvent>();
   String? _protocol;
 
+  /// Whether this WebSocket owns the underlying client.
+  ///
+  /// If `true`, [_okHttpClientClose] will shut down the client's resources.
+  /// If `false`, the client is managed externally and won't be closed.
+  final bool _ownsClient;
+
   /// Private constructor to prevent direct instantiation.
   ///
   /// Used by [connect] to create a new WebSocket connection, which requires a
   /// [bindings.OkHttpClient] instance (see [_connect]), and cannot be accessed
   /// statically.
-  OkHttpWebSocket._() {
+  OkHttpWebSocket._() : _ownsClient = true {
     // Add the WebSocketInterceptor to prevent response parsing errors.
     _client = bindings.WebSocketInterceptor.Companion
         .addWSInterceptor(bindings.OkHttpClient$Builder())
         .build();
   }
+
+  /// Private constructor for use with an external client.
+  OkHttpWebSocket._fromClient(this._client) : _ownsClient = false;
 
   /// Create a new WebSocket connection using `OkHttp`'s
   /// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
@@ -80,6 +90,47 @@ class OkHttpWebSocket implements WebSocket {
   static Future<WebSocket> connect(Uri url,
           {Iterable<dynamic>? protocols}) async =>
       OkHttpWebSocket._()._connect(url, protocols);
+
+  /// Create a new WebSocket connection from a JNI global reference pointer.
+  ///
+  /// The [pointer] must be a valid JNI global reference to an
+  /// `okhttp3.OkHttpClient` Java object. The client's lifecycle is managed
+  /// externally - when this WebSocket is closed, it will NOT shut down the
+  /// client's resources or release the global reference.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates the subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
+  ///
+  /// Example:
+  /// ```dart
+  /// // Get a JNI global reference from native code
+  /// final pointer = Pointer<Void>.fromAddress(globalRefAddress);
+  /// final webSocket = await OkHttpWebSocket.connectFromJniGlobalRef(
+  ///   pointer,
+  ///   Uri.parse('wss://example.com/socket'),
+  ///   protocols: ['v1'],
+  /// );
+  ///
+  /// // Use the WebSocket
+  /// webSocket.events.listen((event) { /* ... */ });
+  ///
+  /// // Closing the WebSocket does NOT release the global reference
+  /// await webSocket.close();
+  /// ```
+  static Future<WebSocket> connectFromJniGlobalRef(
+    Pointer<Void> pointer,
+    Uri url, {
+    Iterable<dynamic>? protocols,
+  }) {
+    final client = bindings.OkHttpClient.fromReference(
+      // ignore: invalid_use_of_internal_member
+      JGlobalReference(Jni.env.NewGlobalRef(pointer)),
+    );
+    return OkHttpWebSocket._fromClient(client)._connect(url, protocols);
+  }
 
   Future<WebSocket> _connect(Uri url, Iterable<dynamic>? protocols) async {
     if (!url.isScheme('ws') && !url.isScheme('wss')) {
@@ -217,8 +268,13 @@ class OkHttpWebSocket implements WebSocket {
 
   /// Closes the OkHttpClient using the recommended shutdown procedure.
   ///
+  /// Only closes the client if this WebSocket owns it (i.e., was not created
+  /// with [connectFromJniGlobalRef]).
+  ///
   /// https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/index.html#:~:text=Shutdown
   void _okHttpClientClose() {
+    if (!_ownsClient) return;
+
     _client.dispatcher().executorService().shutdown();
     _client.connectionPool().evictAll();
     var cache = _client.cache();

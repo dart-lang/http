@@ -13,8 +13,10 @@
 library;
 
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
@@ -109,14 +111,14 @@ class OkHttpClientConfiguration {
 /// See [`KeyChain.choosePrivateKeyAlias`](https://developer.android.com/reference/android/security/KeyChain#choosePrivateKeyAlias(android.app.Activity,%20android.security.KeyChainAliasCallback,%20java.lang.String[],%20java.security.Principal[],%20android.net.Uri,%20java.lang.String).
 Future<String?> choosePrivateKeyAlias({
   JObject? activity,
-}) async {
+}) {
   final c = Completer<String?>();
-  activity ??= JObject.fromReference(Jni.getCurrentActivity());
+  activity ??= Jni.androidActivity(PlatformDispatcher.instance.engineId!);
   bindings.KeyChain.choosePrivateKeyAlias(activity,
       bindings.KeyChainAliasCallback.implement(
           bindings.$KeyChainAliasCallback(alias: (alias) {
     c.complete(alias?.toDartString());
-  })), null, null, null, -1, null);
+  })), null, null, null, null);
   return c.future;
 }
 
@@ -126,7 +128,7 @@ Future<String?> choosePrivateKeyAlias({
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromAlias(
     String alias,
     {JObject? context}) {
-  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
+  context ??= Jni.androidApplicationContext;
   final jAlias = alias.toJString();
   final pk = bindings.KeyChain.getPrivateKey(context, jAlias)!;
   final chain = bindings.KeyChain.getCertificateChain(context, jAlias)!;
@@ -141,8 +143,8 @@ Future<String?> choosePrivateKeyAlias({
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromPKCS12(
     Uint8List pkcs12Data, String password,
     {JObject? context}) {
-  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
-  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString())!;
+  context ??= Jni.androidApplicationContext;
+  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString(), null)!;
 
   final jPassword = JCharArray(password.length);
   for (var i = 0; i < password.length; ++i) {
@@ -217,15 +219,66 @@ class OkHttpClient extends BaseClient {
   late bindings.OkHttpClient _client;
   bool _isClosed = false;
 
+  /// Whether this client owns the underlying native client.
+  ///
+  /// If `true`, [close] will shut down the native client's executor service,
+  /// evict all connections, and close the cache.
+  ///
+  /// If `false`, [close] will only mark this wrapper as closed without
+  /// affecting the underlying native client, which is managed externally.
+  final bool _ownsClient;
+
   /// The configuration for this client, applied on a per-call basis.
   /// It can be updated multiple times during the client's lifecycle.
   OkHttpClientConfiguration configuration;
 
+  /// Returns the JNI global reference pointer for this client's native object.
+  ///
+  /// This is useful for passing the native client to other Dart code via
+  /// [OkHttpClient.fromJniGlobalRef], or for interop with native code.
+  ///
+  /// The returned pointer remains valid until [close] is called (if this client
+  /// owns the native object) or until the external owner releases it.
+  // ignore: invalid_use_of_internal_member
+  Pointer<Void> get nativeReference => _client.reference.pointer;
+
+  /// Creates an [OkHttpClient] from a JNI global reference pointer.
+  ///
+  /// The [pointer] must be a valid JNI global reference to an `okhttp3.OkHttpClient`
+  /// Java object. The reference is NOT released when [close] is called - the
+  /// caller is responsible for releasing the global reference when done.
+  ///
+  /// This is useful for sharing a pre-configured client across Dart and native
+  /// code, where native code manages the client lifecycle and SSL configuration.
+  ///
+  /// Example:
+  /// ```dart
+  /// // Get a JNI global reference from native code (e.g., via Pigeon or platform channel)
+  /// final pointer = Pointer<Void>.fromAddress(globalRefAddress);
+  /// final client = OkHttpClient.fromJniGlobalRef(pointer);
+  ///
+  /// // Use the client
+  /// final response = await client.get(Uri.parse('https://example.com'));
+  ///
+  /// // Closing this wrapper does NOT release the global reference
+  /// client.close();
+  /// ```
+  OkHttpClient.fromJniGlobalRef(
+    Pointer<Void> pointer, {
+    OkHttpClientConfiguration configuration = const OkHttpClientConfiguration(),
+  })  : this.configuration = configuration,
+        _client =
+            // ignore: invalid_use_of_internal_member
+            bindings.OkHttpClient.fromReference(JGlobalReference(Jni.env.NewGlobalRef(pointer))),
+        _ownsClient = false;
+
   /// Creates a new instance of [OkHttpClient] with the given [configuration].
+  ///
+  /// This constructor creates and owns its own native OkHttpClient.
+  /// Calling [close] will shut down the native client's resources.
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
-//    required String alias,
-  }) {
+  }) : _ownsClient = true {
     final clientPrivateKey = configuration.clientPrivateKey;
     final clientCertificateChain = configuration.clientCertificateChain;
 
@@ -280,7 +333,9 @@ class OkHttpClient extends BaseClient {
 
   @override
   void close() {
-    if (!_isClosed) {
+    // If we don't own the client, we don't shut it down - it's managed
+    // externally. We just mark this wrapper as closed.
+    if (!_isClosed && _ownsClient) {
       // Refer to OkHttp documentation for the shutdown procedure:
       // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/index.html#:~:text=Shutdown
 
@@ -315,6 +370,56 @@ class OkHttpClient extends BaseClient {
     }
   }
 
+  /// Streams the request body from Dart to OkHttp via [bindings.StreamingRequestBody].
+  ///
+  /// Chunks from [bodyStream] are written to the streaming body one at a time,
+  /// with backpressure controlled by [bindings.WriteCallback]. If the server
+  /// responds early (e.g., 413), streaming stops gracefully.
+  Future<void> _streamBody(
+    ByteStream bodyStream,
+    bindings.StreamingRequestBody streamingBody,
+    bindings.Call call,
+    Completer<StreamedResponse> responseCompleter,
+    HttpClientRequestProfile? profile,
+  ) async {
+    JByteArray? jBytes;
+    var writeCompleter = Completer<void>();
+    final callback =
+        bindings.WriteCallback.implement(bindings.$WriteCallback(
+      onWriteComplete: () => writeCompleter.complete(),
+      onError: (e) => writeCompleter.completeError(
+        ClientException(e.toString()),
+      ),
+    ));
+    try {
+      await for (final chunk in bodyStream) {
+        if (responseCompleter.isCompleted) break;
+        if (jBytes == null || chunk.length > jBytes.length) {
+          jBytes?.release();
+          jBytes = JByteArray(chunk.length);
+        }
+        jBytes.setRange(0, chunk.length, chunk);
+        writeCompleter = Completer<void>();
+        streamingBody.writeChunk(jBytes, chunk.length, callback);
+        await writeCompleter.future;
+        profile?.requestData.bodySink.add(chunk);
+      }
+      streamingBody.finish();
+      unawaited(profile?.requestData.close());
+    } catch (e) {
+      streamingBody.cancel();
+      call.cancel();
+      if (!responseCompleter.isCompleted) {
+        responseCompleter.completeError(
+          ClientException(e.toString()),
+        );
+      }
+    } finally {
+      callback.release();
+      jBytes?.release();
+    }
+  }
+
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     if (_isClosed) {
@@ -342,34 +447,40 @@ class OkHttpClient extends BaseClient {
     }
 
     var requestUrl = request.url.toString();
-    var requestHeaders = request.headers;
     var requestMethod = request.method;
-    var requestBody = await request.finalize().toBytes();
     var maxRedirects = request.maxRedirects;
     var followRedirects = request.followRedirects;
+    final bodyStream = request.finalize();
 
-    profile?.requestData.bodySink.add(requestBody);
     var profileRespClosed = false;
 
     final responseCompleter = Completer<StreamedResponse>();
 
     var reqBuilder = bindings.Request$Builder().url$1(requestUrl.toJString());
-
-    requestHeaders.forEach((headerName, headerValue) {
+    request.headers.forEach((headerName, headerValue) {
       reqBuilder.addHeader(headerName.toJString(), headerValue.toJString());
     });
 
     // OkHttp doesn't allow a non-null RequestBody for GET and HEAD requests.
     // So, we need to handle this case separately.
-    bindings.RequestBody? okReqBody;
+    final bindings.RequestBody? reqBody;
     if (requestMethod != 'GET' && requestMethod != 'HEAD') {
-      okReqBody = bindings.RequestBody.create$10(JByteArray.from(requestBody));
+      if (request is Request) {
+        final requestBody = await bodyStream.toBytes();
+        reqBody = bindings.RequestBody.create$10(JByteArray.from(requestBody));
+        profile?.requestData.bodySink.add(requestBody);
+      } else {
+        reqBody = bindings.StreamingRequestBody(
+          null, // Content-Type is set via request headers (includes boundary etc.)
+          request.contentLength ?? -1,
+          65536, // 64KB pipe buffer
+        );
+      }
+    } else {
+      reqBody = null;
     }
 
-    reqBuilder.method(
-      requestMethod.toJString(),
-      okReqBody,
-    );
+    reqBuilder.method(requestMethod.toJString(), reqBody);
 
     // To configure the client per-request, we create a new client with the
     // builder associated with `_client`.
@@ -408,98 +519,148 @@ class OkHttpClient extends BaseClient {
 
     // `enqueue()` schedules the request to be executed in the future.
     // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-call/enqueue.html
-    reqConfiguredClient
-        .newCall(reqBuilder.build())
-        .enqueue(bindings.Callback.implement(bindings.$Callback(
-          onResponse: (bindings.Call call, bindings.Response response) {
-            var reader = bindings.AsyncInputStreamReader();
-            var respBodyStreamController = StreamController<List<int>>();
+    StreamController<List<int>>? respBodyStreamController;
+    bindings.AsyncInputStreamReader? reader;
 
-            var responseHeaders = <String, String>{};
+    final call = reqConfiguredClient.newCall(reqBuilder.build())
+      ..enqueue(bindings.Callback.implement(bindings.$Callback(
+        onResponse: (bindings.Call call, bindings.Response response) {
+          reader = bindings.AsyncInputStreamReader();
+          final bodyStreamController =
+              respBodyStreamController = StreamController<List<int>>();
 
-            response.headers().toMultimap().forEach((key, value) {
-              responseHeaders[key.toDartString(releaseOriginal: true)] =
-                  value.join(',');
-            });
+          var responseHeaders = <String, String>{};
 
-            int? contentLength;
-            if (responseHeaders.containsKey('content-length')) {
-              contentLength = int.tryParse(responseHeaders['content-length']!);
+          response.headers().toMultimap().forEach((key, value) {
+            responseHeaders[key.toDartString(releaseOriginal: true)] =
+                value.join(',');
+          });
 
-              // To be conformant with RFC 2616 14.13, we need to check if the
-              // content-length is a non-negative integer.
-              if (contentLength == null || contentLength < 0) {
-                responseCompleter.completeError(ClientException(
-                    'Invalid content-length header', request.url));
-                return;
-              }
+          int? contentLength;
+          if (responseHeaders.containsKey('content-length')) {
+            contentLength = int.tryParse(responseHeaders['content-length']!);
+
+            // To be conformant with RFC 2616 14.13, we need to check if the
+            // content-length is a non-negative integer.
+            if (contentLength == null || contentLength < 0) {
+              responseCompleter.completeError(ClientException(
+                  'Invalid content-length header', request.url));
+              return;
             }
+          }
 
-            var responseBodyByteStream = response.body()!.byteStream();
-            reader.readAsync(
-                responseBodyByteStream,
-                bindings.DataCallback.implement(
-                  bindings.$DataCallback(
-                    onDataRead: (bytesRead) {
-                      var data = bytesRead.toList(growable: false);
+          reader!.readAsync(
+              response.body()!.byteStream(),
+              bindings.DataCallback.implement(
+                bindings.$DataCallback(
+                  onDataRead: (bytesRead) {
+                    if (bodyStreamController.isClosed) return;
+                    final data = Uint8List(bytesRead.length);
+                    for (var i = 0; i < bytesRead.length; ++i) {
+                      data[i] = bytesRead[i];
+                    }
 
-                      respBodyStreamController.sink.add(data);
-                      profile?.responseData.bodySink.add(data);
-                    },
-                    onFinished: () {
-                      reader.shutdown();
-                      respBodyStreamController.sink.close();
-                      if (!profileRespClosed) {
-                        profile?.responseData.close();
-                        profileRespClosed = true;
-                      }
-                    },
-                    onError: (iOException) {
-                      var exception =
-                          ClientException(iOException.toString(), request.url);
-
-                      respBodyStreamController.sink.addError(exception);
-                      addProfileError(profile, exception);
+                    bodyStreamController.sink.add(data);
+                    profile?.responseData.bodySink.add(data);
+                  },
+                  onFinished: () {
+                    if (bodyStreamController.isClosed) return;
+                    bodyStreamController.sink.close();
+                    if (!profileRespClosed) {
+                      profile?.responseData.close();
                       profileRespClosed = true;
+                    }
+                  },
+                  onError: (iOException) {
+                    if (bodyStreamController.isClosed) return;
+                    var exception =
+                        ClientException(iOException.toString(), request.url);
 
-                      reader.shutdown();
-                      respBodyStreamController.sink.close();
-                    },
-                  ),
-                ));
+                    bodyStreamController.sink.addError(exception);
+                    addProfileError(profile, exception);
+                    profileRespClosed = true;
 
-            responseCompleter.complete(StreamedResponse(
-              respBodyStreamController.stream,
-              response.code(),
-              reasonPhrase:
-                  response.message().toDartString(releaseOriginal: true),
-              headers: responseHeaders,
-              request: request,
-              contentLength: contentLength,
-              isRedirect: response.isRedirect(),
-            ));
+                    bodyStreamController.sink.close();
+                  },
+                ),
+              ));
 
-            profile?.requestData.close();
-            profile?.responseData
-              ?..contentLength = contentLength
-              ..headersCommaValues = responseHeaders
-              ..isRedirect = response.isRedirect()
-              ..reasonPhrase =
-                  response.message().toDartString(releaseOriginal: true)
-              ..startTime = DateTime.now()
-              ..statusCode = response.code();
-          },
-          onFailure: (bindings.Call call, JObject ioException) {
-            var msg = ioException.toString();
-            if (msg.contains('Redirect limit exceeded')) {
-              msg = 'Redirect limit exceeded';
-            }
-            var exception = ClientException(msg, request.url);
-            responseCompleter.completeError(exception);
-            addProfileError(profile, exception);
+          responseCompleter.complete(StreamedResponse(
+            bodyStreamController.stream,
+            response.code(),
+            reasonPhrase:
+                response.message().toDartString(releaseOriginal: true),
+            headers: responseHeaders,
+            request: request,
+            contentLength: contentLength,
+            isRedirect: response.isRedirect(),
+          ));
+
+          // Close profile request data for non-streaming requests (GET/HEAD).
+          // For streaming requests, _streamBody handles this.
+          if (reqBody is! bindings.StreamingRequestBody) {
+            unawaited(profile?.requestData.close());
+          }
+          profile?.responseData
+            ?..contentLength = contentLength
+            ..headersCommaValues = responseHeaders
+            ..isRedirect = response.isRedirect()
+            ..reasonPhrase =
+                response.message().toDartString(releaseOriginal: true)
+            ..startTime = DateTime.now()
+            ..statusCode = response.code();
+        },
+        onFailure: (bindings.Call call, JObject ioException) {
+          if (reqBody is bindings.StreamingRequestBody) reqBody.cancel();
+          if (responseCompleter.isCompleted) return;
+          if (call.isCanceled()) {
+            final error = RequestAbortedException(request.url);
+            responseCompleter.completeError(error);
+            addProfileError(profile, error);
             profileRespClosed = true;
-          },
-        )));
+            return;
+          }
+          var msg = ioException.toString();
+          if (msg.contains('Redirect limit exceeded')) {
+            msg = 'Redirect limit exceeded';
+          }
+          var exception = ClientException(msg, request.url);
+          responseCompleter.completeError(exception);
+          addProfileError(profile, exception);
+          profileRespClosed = true;
+        },
+      )));
+
+    // Register abort trigger to cancel the OkHttp call.
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(() {
+        call.cancel();
+        if (reqBody is bindings.StreamingRequestBody) reqBody.cancel();
+        if (!responseCompleter.isCompleted) {
+          final error = RequestAbortedException(request.url);
+          responseCompleter.completeError(error);
+          addProfileError(profile, error);
+          profileRespClosed = true;
+        } else if (respBodyStreamController case final c? when !c.isClosed) {
+          c
+            ..addError(RequestAbortedException(request.url))
+            ..close();
+          if (!profileRespClosed) {
+            addProfileError(profile, RequestAbortedException(request.url));
+            profileRespClosed = true;
+          }
+        }
+      }));
+    }
+
+    // Stream the request body to OkHttp after enqueue.
+    // enqueue() is non-blocking; OkHttp will call writeTo() on its
+    // dispatcher thread when it's ready to send the body. The pipe
+    // synchronizes the two sides.
+    if (reqBody is bindings.StreamingRequestBody) {
+      unawaited(
+          _streamBody(bodyStream, reqBody, call, responseCompleter, profile));
+    }
 
     return responseCompleter.future;
   }
