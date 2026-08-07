@@ -1,3 +1,7 @@
+## 1.9.1-wip
+
+* Upgrade `package:jnigen` to 0.17.0.
+
 ## 1.9.0
 
 * Add `CronetEngine.startNetLogToFile` and `CronetEngine.stopNetLog`.
