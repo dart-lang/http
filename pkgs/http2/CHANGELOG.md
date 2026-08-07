@@ -1,6 +1,7 @@
 ## 3.0.1-wip
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
+- Enforce the locally advertised `SETTINGS_MAX_CONCURRENT_STREAMS` limit on incoming remote streams.
 
 ## 3.0.0
 
