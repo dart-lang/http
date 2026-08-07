@@ -615,9 +615,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           if (isServer) {
             var localLimit = _localSettings.maxConcurrentStreams;
             if (localLimit != null) {
-              var activePeerStreams = _openStreams.values
-                  .where((s) => _isPeerInitiatedStream(s.id))
-                  .length;
+              var activePeerStreams =
+                  _openStreams.values
+                      .where((s) => _isPeerInitiatedStream(s.id))
+                      .length;
               if (activePeerStreams >= localLimit) {
                 throw StreamRefusedException(
                   frame.header.streamId,

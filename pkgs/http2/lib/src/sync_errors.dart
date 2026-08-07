@@ -55,6 +55,6 @@ class StreamRefusedException extends StreamException {
   StreamRefusedException(super.streamId, [super.message = '']);
 
   @override
-  String toString() => 'StreamRefusedException(stream id: $streamId): $_message';
+  String toString() =>
+      'StreamRefusedException(stream id: $streamId): $_message';
 }
-
