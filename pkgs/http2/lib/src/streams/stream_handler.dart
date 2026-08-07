@@ -615,6 +615,11 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           if (isServer) {
             var localLimit = _localSettings.maxConcurrentStreams;
             if (localLimit != null) {
+              // Enforce our own advertised SETTINGS_MAX_CONCURRENT_STREAMS on
+              // peer-initiated streams. RFC 7540 5.1.2: an endpoint that
+              // receives a HEADERS frame that causes its advertised concurrent
+              // stream limit to be exceeded MUST treat this as a stream error
+              // of type PROTOCOL_ERROR or REFUSED_STREAM.
               var activePeerStreams =
                   _openStreams.values
                       .where((s) => _isPeerInitiatedStream(s.id))
