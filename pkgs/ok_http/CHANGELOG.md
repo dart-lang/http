@@ -1,4 +1,4 @@
-## 0.1.1-wip
+## 0.1.1-wi
 
 - Upgrade to `jni` 1.0.0 and `jnigen` 0.17.0.
 - `OkHttpClient` now receives an `OkHttpClientConfiguration` to configure the client on a per-call basis.
