@@ -745,6 +745,15 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       throw ProtocolException('Expected open state (was: ${stream.state}).');
     }
 
+    // RFC 7540 6.5.2/8.2: An endpoint that has both sent and received
+    // acknowledgement of SETTINGS_ENABLE_PUSH=0 MUST treat receipt of a
+    // PUSH_PROMISE frame as a connection error of type PROTOCOL_ERROR.
+    if (!_localSettings.enablePush) {
+      throw ProtocolException(
+        'Received PUSH_PROMISE although SETTINGS_ENABLE_PUSH is 0.',
+      );
+    }
+
     var pushedStream = newRemoteStream(frame.promisedStreamId);
     _changeState(pushedStream, StreamState.ReservedRemote);
 
