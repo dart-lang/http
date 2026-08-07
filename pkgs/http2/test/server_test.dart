@@ -295,7 +295,7 @@ void main() {
           expect(closed, false);
         }
 
-        await Future.wait([serverFun(), clientFun()]);
+        await [serverFun(), clientFun()].wait;
       });
     });
   });
