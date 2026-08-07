@@ -141,6 +141,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   final ActiveSettings _peerSettings;
   final ActiveSettings _localSettings;
 
+  final int? _peerInitiatedStreamLimit;
+  final int? _maxPeerStreamLimitViolations;
+  final void Function(String)? _onPeerStreamLimitAbuse;
+  final bool _allowPeerPushes;
+  int _consecutivePeerStreamLimitViolations = 0;
+
   final Map<int, Http2StreamImpl> _openStreams = {};
   int nextStreamId;
   int lastRemoteStreamId;
@@ -170,6 +176,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     this._onActiveStateChanged,
     this.nextStreamId,
     this.lastRemoteStreamId,
+    this._peerInitiatedStreamLimit,
+    this._maxPeerStreamLimitViolations,
+    this._onPeerStreamLimitAbuse,
+    this._allowPeerPushes,
   );
 
   factory StreamHandler.client(
@@ -178,8 +188,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     ConnectionMessageQueueOut outgoingQueue,
     ActiveSettings peerSettings,
     ActiveSettings localSettings,
-    ActiveStateHandler onActiveStateChanged,
-  ) {
+    ActiveStateHandler onActiveStateChanged, [
+    int? peerInitiatedStreamLimit,
+    int? maxPeerStreamLimitViolations,
+    void Function(String)? onPeerStreamLimitAbuse,
+    bool allowPeerPushes = false,
+  ]) {
     return StreamHandler._(
       writer,
       incomingQueue,
@@ -189,6 +203,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       onActiveStateChanged,
       1,
       0,
+      peerInitiatedStreamLimit,
+      maxPeerStreamLimitViolations,
+      onPeerStreamLimitAbuse,
+      allowPeerPushes,
     );
   }
 
@@ -198,8 +216,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     ConnectionMessageQueueOut outgoingQueue,
     ActiveSettings peerSettings,
     ActiveSettings localSettings,
-    ActiveStateHandler onActiveStateChanged,
-  ) {
+    ActiveStateHandler onActiveStateChanged, [
+    int? peerInitiatedStreamLimit,
+    int? maxPeerStreamLimitViolations,
+    void Function(String)? onPeerStreamLimitAbuse,
+    bool allowPeerPushes = false,
+  ]) {
     return StreamHandler._(
       writer,
       incomingQueue,
@@ -209,6 +231,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       onActiveStateChanged,
       2,
       -1,
+      peerInitiatedStreamLimit,
+      maxPeerStreamLimitViolations,
+      onPeerStreamLimitAbuse,
+      allowPeerPushes,
     );
   }
 
@@ -275,7 +301,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   Http2StreamImpl newLocalStream() {
     return ensureNotTerminatedSync(() {
-      assert(_canCreateNewStream());
+      if (!_canCreateNewStream()) {
+        throw StateError('Maximum number of concurrent streams reached.');
+      }
 
       if (MAX_STREAM_ID < nextStreamId) {
         throw StateError(
@@ -288,34 +316,83 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     });
   }
 
-  Http2StreamImpl newRemoteStream(int remoteStreamId) {
+  Http2StreamImpl? newRemoteStream(int remoteStreamId) {
     return ensureNotTerminatedSync(() {
-      assert(remoteStreamId <= MAX_STREAM_ID);
-      // NOTE: We cannot enforce that a new stream id is 2 higher than the last
-      // used stream id. Meaning there can be "holes" in the sense that stream
-      // ids are not used:
-      //
-      // http/2 spec:
-      //   The first use of a new stream identifier implicitly closes all
-      //   streams in the "idle" state that might have been initiated by that
-      //   peer with a lower-valued stream identifier.  For example, if a client
-      //   sends a HEADERS frame on stream 7 without ever sending a frame on
-      //   stream 5, then stream 5 transitions to the "closed" state when the
-      //   first frame for stream 7 is sent or received.
-
-      if (remoteStreamId <= lastRemoteStreamId) {
-        throw ProtocolException(
-          'Remote tried to open new stream which is '
-          'not in "idle" state.',
-        );
+      _registerNewRemoteStreamId(remoteStreamId);
+      if (!_canAcceptPeerInitiatedStream()) {
+        _rejectPeerStreamLimitViolation(remoteStreamId);
+        return null;
       }
-
-      var sameDirection = (nextStreamId + remoteStreamId).isEven;
-      assert(!sameDirection);
-
-      lastRemoteStreamId = remoteStreamId;
+      _consecutivePeerStreamLimitViolations = 0;
       return _newStreamInternal(remoteStreamId);
     });
+  }
+
+  void _registerNewRemoteStreamId(int remoteStreamId) {
+    if (remoteStreamId > MAX_STREAM_ID) {
+      throw ProtocolException('Remote stream id exceeds the HTTP/2 limit.');
+    }
+
+    // A new higher stream id implicitly closes lower unused stream ids, so
+    // holes in the sequence are valid but reuse and reordering are not.
+    if (remoteStreamId <= lastRemoteStreamId) {
+      throw ProtocolException(
+        'Remote tried to open new stream which is not in "idle" state.',
+      );
+    }
+
+    var sameDirection = (nextStreamId + remoteStreamId).isEven;
+    if (sameDirection) {
+      throw ProtocolException(
+        'Remote tried to open a stream with a locally initiated stream id.',
+      );
+    }
+    lastRemoteStreamId = remoteStreamId;
+  }
+
+  bool _canAcceptPeerInitiatedStream() {
+    final limit = _peerInitiatedStreamLimit;
+    return limit == null ||
+        _numberOfActivePeerStreams + _numberOfReservedPeerStreams < limit;
+  }
+
+  void _rejectPeerStreamLimitViolation(int streamId) {
+    _frameWriter.writeRstStreamFrame(streamId, ErrorCode.REFUSED_STREAM);
+    // Enforce local admission immediately, but do not treat the peer as abusive
+    // until it has acknowledged the advertised limit and can be expected to
+    // obey it.
+    if (_localSettings.maxConcurrentStreams == null) return;
+    _consecutivePeerStreamLimitViolations++;
+    final violationLimit = _maxPeerStreamLimitViolations;
+    if (violationLimit != null &&
+        _consecutivePeerStreamLimitViolations >= violationLimit) {
+      _onPeerStreamLimitAbuse?.call(
+        'Peer repeatedly exceeded SETTINGS_MAX_CONCURRENT_STREAMS '
+        '($_consecutivePeerStreamLimitViolations violations, '
+        'configured stream limit: $_peerInitiatedStreamLimit).',
+      );
+    }
+  }
+
+  void _rejectOversizedNewRemoteStream(HeadersFrame frame) {
+    _registerNewRemoteStreamId(frame.header.streamId);
+    _frameWriter.writeRstStreamFrame(
+      frame.header.streamId,
+      ErrorCode.ENHANCE_YOUR_CALM,
+    );
+  }
+
+  void _rejectOversizedHeaders(Http2StreamImpl stream, HeadersFrame frame) {
+    _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.ENHANCE_YOUR_CALM);
+    _closeStreamAbnormally(
+      stream,
+      StreamException(
+        stream.id,
+        'Decoded field section exceeded the local limit '
+        '(${frame.decodedHeaderListSize} bytes).',
+      ),
+      propagateException: true,
+    );
   }
 
   Http2StreamImpl _newStreamInternal(int streamId) {
@@ -607,7 +684,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
         if (frame is HeadersFrame) {
           if (isServer) {
+            if (frame.headerListSizeExceeded) {
+              _rejectOversizedNewRemoteStream(frame);
+              return;
+            }
             var newStream = newRemoteStream(frame.header.streamId);
+            if (newStream == null) return;
             _changeState(newStream, StreamState.Open);
 
             _handleHeadersFrame(newStream, frame);
@@ -688,6 +770,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           throw _throwStreamClosedException(frame.header.streamId);
         }
       } else {
+        if (frame is HeadersFrame && frame.headerListSizeExceeded) {
+          _rejectOversizedHeaders(stream, frame);
+          return;
+        }
         if (frame is HeadersFrame) {
           _handleHeadersFrame(stream, frame);
         } else if (frame is DataFrame) {
@@ -740,12 +826,28 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _handlePushPromiseFrame(Http2StreamImpl stream, PushPromiseFrame frame) {
+    if (!_allowPeerPushes) {
+      throw ProtocolException(
+        'Received PUSH_PROMISE while server push is disabled.',
+      );
+    }
+
     if (stream.state != StreamState.Open &&
         stream.state != StreamState.HalfClosedLocal) {
       throw ProtocolException('Expected open state (was: ${stream.state}).');
     }
 
+    if (frame.headerListSizeExceeded) {
+      _registerNewRemoteStreamId(frame.promisedStreamId);
+      _frameWriter.writeRstStreamFrame(
+        frame.promisedStreamId,
+        ErrorCode.ENHANCE_YOUR_CALM,
+      );
+      return;
+    }
+
     var pushedStream = newRemoteStream(frame.promisedStreamId);
+    if (pushedStream == null) return;
     _changeState(pushedStream, StreamState.ReservedRemote);
 
     incomingQueue.processPushPromiseFrame(frame, pushedStream);
@@ -915,6 +1017,14 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   /// [StreamState.HalfClosedRemote])
   int _numberOfActiveStreams = 0;
 
+  /// The number of active streams initiated by the peer.
+  int _numberOfActivePeerStreams = 0;
+
+  /// Peer-initiated streams in ReservedRemote state. Although these do not
+  /// count toward SETTINGS_MAX_CONCURRENT_STREAMS, they allocate the same
+  /// stream machinery and are included in the local admission guard.
+  int _numberOfReservedPeerStreams = 0;
+
   bool _canCreateNewStream() {
     var limit = _peerSettings.maxConcurrentStreams;
     return limit == null || _numberOfActiveStreams < limit;
@@ -946,34 +1056,57 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           (from != StreamState.Terminated && to == StreamState.Terminated),
     );
 
-    // If we initiated the stream and it became "open" or "closed" we need to
-    // update the [_numberOfActiveStreams] counter.
-    if (_didInitiateStream(stream)) {
-      // NOTE: We wait until the stream is completely done.
-      // (If we waited only until `StreamState.Closed` then we might still have
-      //  the endStream header/data message buffered, but not yet sent out).
-      switch (stream.state) {
+    // Locally initiated streams remain counted until buffered output is done.
+    // Peer-initiated streams follow the RFC active-state definition and stop
+    // counting when they enter Closed.
+    int updateActiveCount(int count, {required bool countClosedAsActive}) {
+      switch (from) {
         case StreamState.ReservedLocal:
         case StreamState.ReservedRemote:
         case StreamState.Idle:
           if (to == StreamState.Open ||
               to == StreamState.HalfClosedLocal ||
               to == StreamState.HalfClosedRemote) {
-            _numberOfActiveStreams++;
+            return count + 1;
           }
           break;
         case StreamState.Open:
         case StreamState.HalfClosedLocal:
         case StreamState.HalfClosedRemote:
+          if (to == StreamState.Terminated ||
+              (!countClosedAsActive && to == StreamState.Closed)) {
+            return count - 1;
+          }
+          break;
         case StreamState.Closed:
-          if (to == StreamState.Terminated) {
-            _numberOfActiveStreams--;
+          if (countClosedAsActive && to == StreamState.Terminated) {
+            return count - 1;
           }
           break;
         case StreamState.Terminated:
           // There is nothing to do here.
           break;
       }
+      return count;
+    }
+
+    if (_didInitiateStream(stream)) {
+      _numberOfActiveStreams = updateActiveCount(
+        _numberOfActiveStreams,
+        countClosedAsActive: true,
+      );
+    } else {
+      if (from == StreamState.Idle && to == StreamState.ReservedRemote) {
+        _numberOfReservedPeerStreams++;
+      } else if (from == StreamState.ReservedRemote &&
+          to != StreamState.ReservedRemote) {
+        _numberOfReservedPeerStreams--;
+        assert(_numberOfReservedPeerStreams >= 0);
+      }
+      _numberOfActivePeerStreams = updateActiveCount(
+        _numberOfActivePeerStreams,
+        countClosedAsActive: false,
+      );
     }
     stream.state = to;
   }
