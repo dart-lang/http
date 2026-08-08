@@ -380,43 +380,39 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
       session.finishTasksAndInvalidate();
     });
 
-    test(
-      'exception in http redirection',
-      () async {
-        final session = URLSession.sessionWithConfiguration(
-          config(),
-          onRedirect:
-              (redirectSession, redirectTask, redirectResponse, newRequest) {
-                throw UnimplementedError();
-              },
-        );
-        final c = Completer<void>();
-        URLResponse? response;
-        // ignore: unused_local_variable
-        NSError? error;
+    test('exception in http redirection', () async {
+      final session = URLSession.sessionWithConfiguration(
+        config(),
+        onRedirect:
+            (redirectSession, redirectTask, redirectResponse, newRequest) {
+              throw UnimplementedError();
+            },
+      );
+      final c = Completer<void>();
+      URLResponse? response;
+      // ignore: unused_local_variable
+      NSError? error;
 
-        session.dataTaskWithCompletionHandler(
-          URLRequest.fromUrl(
-            Uri.parse('http://localhost:${redirectServer.port}/100'),
-          ),
-          (d, r, e) {
-            response = r;
-            error = e;
-            c.complete();
-          },
-        ).resume();
-        await c.future;
+      session.dataTaskWithCompletionHandler(
+        URLRequest.fromUrl(
+          Uri.parse('http://localhost:${redirectServer.port}/100'),
+        ),
+        (d, r, e) {
+          response = r;
+          error = e;
+          c.complete();
+        },
+      ).resume();
+      await c.future;
 
-        expect(
-          response,
-          isA<HTTPURLResponse>().having((r) => r.statusCode, 'statusCode', 302),
-        );
-        // TODO(https://github.com/dart-lang/ffigen/issues/386): Check that the
-        // error is set.
-        session.finishTasksAndInvalidate();
-      },
-      skip: 'Error not set for redirect exceptions.',
-    );
+      expect(
+        response,
+        isA<HTTPURLResponse>().having((r) => r.statusCode, 'statusCode', 302),
+      );
+      // TODO(https://github.com/dart-lang/ffigen/issues/386): Check that the
+      // error is set.
+      session.finishTasksAndInvalidate();
+    }, skip: 'Error not set for redirect exceptions.');
 
     test('3 redirects', () async {
       var redirectCounter = 0;
