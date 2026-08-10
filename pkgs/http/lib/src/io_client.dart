@@ -114,8 +114,10 @@ class IOClient extends BaseClient {
       var ioRequest = (await _inner!.openUrl(request.method, request.url))
         ..followRedirects = request.followRedirects
         ..maxRedirects = request.maxRedirects
-        ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
+      if (request.contentLength case final contentLength?) {
+        ioRequest.contentLength = contentLength;
+      }
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value, preserveHeaderCase: true);
       });
