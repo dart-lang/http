@@ -157,6 +157,34 @@ class IOClient extends BaseClient {
       final response = await stream.pipe(ioRequest) as HttpClientResponse;
       hasResponse = true;
 
+      if (request.method.toUpperCase() == 'HEAD') {
+        unawaited(response.drain<void>().catchError((_) {}));
+
+        var headers = <String, String>{};
+        response.headers.forEach((key, values) {
+          // TODO: Remove trimRight() when
+          // https://github.com/dart-lang/sdk/issues/53005 is resolved and the
+          // package:http SDK constraint requires that version or later.
+          headers[key] = values.map((value) => value.trimRight()).join(',');
+        });
+
+        return _IOStreamedResponseV2(
+          const Stream<List<int>>.empty(),
+          response.statusCode,
+          contentLength:
+              response.contentLength == -1 ? null : response.contentLength,
+          request: request,
+          headers: headers,
+          isRedirect: response.isRedirect,
+          url: response.redirects.isNotEmpty
+              ? response.redirects.last.location
+              : request.url,
+          persistentConnection: response.persistentConnection,
+          reasonPhrase: response.reasonPhrase,
+          inner: response,
+        );
+      }
+
       StreamSubscription<List<int>>? ioResponseSubscription;
       late final StreamController<List<int>> responseController;
       var responseListenStarted = false;
