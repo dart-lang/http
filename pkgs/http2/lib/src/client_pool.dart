@@ -188,6 +188,9 @@ class ClientPool<T> {
     _PooledResource<T>? selected;
     for (final resource in _resources) {
       if (resource.failed) continue;
+      // Pick the available connection with the most inflight requests. This
+      // makes it more likely that fewer active connections need to be
+      // maintained.
       if (resource.inFlight < _capacityOf(resource) &&
           (selected == null || resource.inFlight > selected.inFlight)) {
         selected = resource;

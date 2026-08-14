@@ -27,8 +27,7 @@ void main(List<String> args) async {
     }
     print('Connections used: ${client.connectionCount}');
   } finally {
-    // Waits for the requests above to finish before closing every
-    // connection - see Http2Client.terminate().
-    await client.terminate();
+    // Lets the requests above finish before closing every connection.
+    client.close();
   }
 }

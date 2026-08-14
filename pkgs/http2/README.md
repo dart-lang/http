@@ -70,7 +70,7 @@ Future<void> main() async {
   final client = Http2Client();
   final response = await client.get(Uri.parse('https://example.com/'));
   print(response.body);
-  await client.terminate();
+  client.close();
 }
 ```
 

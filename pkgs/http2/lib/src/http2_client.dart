@@ -9,6 +9,7 @@ import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:http/http.dart';
+import 'package:meta/meta.dart';
 import 'package:pool/pool.dart';
 
 import '../transport.dart';
@@ -79,6 +80,7 @@ class Http2Client extends BaseClient {
 
   final _pools = <String, ClientPool<ClientTransportConnection>>{};
   var _closed = false;
+  Future<void>? _shutdown;
 
   // Synchronous (no `await`), so concurrent requests to a new host:port
   // can't race each other into creating two pools for the same key.
@@ -319,23 +321,28 @@ class Http2Client extends BaseClient {
         );
   }
 
-  /// Waits for in-flight requests to finish, then closes every connection.
-  ///
-  /// Unlike [close] (constrained by `http.Client`'s synchronous signature),
-  /// this can be awaited by callers who hold a concrete [Http2Client].
+  /// Rejects further requests, then waits for the in-flight ones to finish
+  /// before closing every connection.
   ///
   /// A request counts as in-flight until its response body ends or is
-  /// cancelled, so a caller holding a response it never reads will hold this
-  /// up. [close] does not await this, so it can never block on that.
-  Future<void> terminate() async {
+  /// cancelled, so a caller holding a response it never reads will keep a
+  /// connection open. Shutdown runs in the background, so this never blocks
+  /// on that.
+  @override
+  void close() {
     _closed = true;
+    _shutdown ??= _closeAll();
+  }
+
+  Future<void> _closeAll() async {
     final pools = _pools.values.toList();
     _pools.clear();
     await Future.wait(pools.map((pool) => pool.terminate()));
   }
 
-  @override
-  void close() => unawaited(terminate());
+  /// Completes once [close] has finished shutting every connection down.
+  @visibleForTesting
+  Future<void> get closed => _shutdown ?? Future<void>.value();
 }
 
 /// Thrown by [Http2Client._sendOverHttp2] when a pooled connection turns

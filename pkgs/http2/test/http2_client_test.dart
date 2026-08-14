@@ -125,7 +125,8 @@ void main() {
       expect(response.statusCode, 200);
       expect(response.body, 'hello');
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await server.close();
     });
 
@@ -149,7 +150,8 @@ void main() {
 
       expect(client.connectionCount, 2);
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await Future.wait([serverA.close(), serverB.close()]);
     });
 
@@ -182,7 +184,8 @@ void main() {
       releaseB.complete();
       await Future.wait([requestA, requestB]);
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await server.close();
     });
 
@@ -205,7 +208,8 @@ void main() {
       expect(r2.statusCode, 200);
       expect(r2.body, 'ok');
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await server.close();
     });
 
@@ -236,7 +240,8 @@ void main() {
 
       expect(client.connectionCount, 2);
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await server.close();
     });
 
@@ -259,7 +264,8 @@ void main() {
       expect(await first.stream.bytesToString(), 'ok');
       expect(await second.stream.bytesToString(), 'ok');
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await server.close();
     });
 
@@ -286,7 +292,8 @@ void main() {
       expect(client.connectionCount, 1);
 
       gate.complete();
-      await client.terminate();
+      client.close();
+      await client.closed;
       await server.close();
     });
 
@@ -308,7 +315,8 @@ void main() {
       final second = await client.get(url);
       expect(second.statusCode, 200);
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await server.close();
     });
 
@@ -360,7 +368,8 @@ void main() {
         reason: 'no connection may carry more streams than the server allows',
       );
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await socket.close();
     });
 
@@ -375,7 +384,8 @@ void main() {
         throwsA(isA<ClientException>()),
       );
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       await socket.close();
     });
 
@@ -394,14 +404,15 @@ void main() {
         throwsA(isA<ClientException>()),
       );
 
-      await client.terminate();
+      client.close();
+      await client.closed;
       for (final connection in held) {
         connection.destroy();
       }
       await socket.close();
     });
 
-    test('terminate-waits-for-in-flight-request', () async {
+    test('close-waits-for-in-flight-request', () async {
       final server = await _bind();
       final release = Completer<void>();
       server.startServing(
@@ -415,7 +426,8 @@ void main() {
       );
 
       var terminated = false;
-      final terminateFuture = client.terminate().then((_) {
+      client.close();
+      final terminateFuture = client.closed.then((_) {
         terminated = true;
       });
 
