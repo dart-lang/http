@@ -112,6 +112,14 @@ class Http2Client extends BaseClient {
       );
     }
 
+    // A connection can't be multiplexed onto until the peer has said how many
+    // concurrent streams it allows, which it does in a SETTINGS frame sent
+    // right after connecting - so wait for that before handing it to the pool.
+    //
+    // `onInitialPeerSettingsReceived` only ever completes successfully, never
+    // with an error, so awaiting it alone would hang forever against a peer
+    // that connects and then goes quiet. Watch the socket for the connection
+    // dying, and cap the wait with `settingsTimeout`.
     final died = Completer<void>();
     final incoming = socket.transform(
       StreamTransformer<Uint8List, List<int>>.fromHandlers(

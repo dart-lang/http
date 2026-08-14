@@ -2,6 +2,45 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+/// A pool of resources that can each carry several operations at once.
+///
+/// Create one by saying how a resource is made, how many operations it may
+/// carry, and how it is disposed of:
+///
+/// ```dart
+/// final pool = ClientPool<ClientConnection>(
+///   () => dial(host, port),
+///   maxConcurrentOperations: 100,
+///   destroy: (connection) => connection.finish(),
+///   // Optional: a resource may impose a lower limit of its own.
+///   concurrencyLimitOf: (c) => c.peerMaxConcurrentStreams,
+/// );
+/// ```
+///
+/// Use [ClientPool.run] when the work finishes with the call:
+///
+/// ```dart
+/// final result = await pool.run((connection) => send(connection, request));
+/// ```
+///
+/// Use [ClientPool.acquire] when the resource stays busy after the call
+/// returns - an HTTP/2 response, for example, arrives long after its headers
+/// do. The caller then owns the slot until it releases the lease:
+///
+/// ```dart
+/// final lease = await pool.acquire();
+/// try {
+///   return startStreaming(lease.value, onDone: lease.release);
+/// } catch (_) {
+///   lease.release();
+///   rethrow;
+/// }
+/// ```
+///
+/// Finally, [ClientPool.terminate] waits for in-flight operations and then
+/// disposes of every resource.
+library;
+
 import 'dart:async';
 import 'dart:math';
 
