@@ -47,15 +47,28 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
+/// One pooled resource, and the bookkeeping the pool keeps for it.
 class _PooledResource<T> {
-  _PooledResource(this.future);
-  final Future<T> future;
-  int inFlight = 0;
-  bool failed = false;
+  _PooledResource(this.creation);
 
-  /// The resolved value of [future], once available - kept so scheduling can
-  /// consult the resource itself from paths that are synchronous by design.
+  /// Completes with the resource once it has been created.
+  final Future<T> creation;
+
+  /// The resolved value of [creation], once available.
+  ///
+  /// Kept because scheduling decisions are synchronous by design, so they
+  /// need to consult the resource itself without waiting on [creation].
   T? value;
+
+  /// How many operations are running on this resource right now.
+  int inFlightCount = 0;
+
+  /// Whether the pool should stop routing new work to this resource.
+  ///
+  /// Set both when creating it failed and when an operation on it failed -
+  /// either way it is no longer trusted, and it is disposed of once the
+  /// operations it is still carrying finish.
+  bool isBroken = false;
 }
 
 /// A claim on one concurrency slot of a pooled resource.
@@ -75,7 +88,7 @@ class PoolLease<T> {
   var _released = false;
 
   /// Stops the pool routing new work to this resource.
-  void markFailed() => _resource.failed = true;
+  void markFailed() => _resource.isBroken = true;
 
   /// Gives the slot back. Idempotent, so it is safe to call from several
   /// terminal paths that may race.
@@ -129,7 +142,7 @@ class ClientPool<T> {
 
   /// The number of in-flight operations across every resource. For testing.
   @visibleForTesting
-  int get opCount => _resources.map((resource) => resource.inFlight).sum;
+  int get opCount => _resources.map((resource) => resource.inFlightCount).sum;
 
   /// Claims a slot on an available (or newly created) resource.
   ///
@@ -144,24 +157,28 @@ class ClientPool<T> {
 
     while (true) {
       final pooled = _acquire();
-      pooled.inFlight++;
+      pooled.inFlightCount++;
       final PoolLease<T> lease;
       try {
-        lease = PoolLease._(this, pooled, pooled.value ??= await pooled.future);
+        lease = PoolLease._(
+          this,
+          pooled,
+          pooled.value ??= await pooled.creation,
+        );
       } catch (_) {
-        pooled.failed = true;
+        pooled.isBroken = true;
         _freeSlot(pooled);
         rethrow;
       }
 
-      if (pooled.inFlight <= _capacityOf(pooled)) return lease;
+      if (pooled.inFlightCount <= _capacityOf(pooled)) return lease;
       lease.release();
     }
   }
 
   /// Returns one slot to [resource], collecting it if it has gone idle.
   void _freeSlot(_PooledResource<T> resource) {
-    resource.inFlight--;
+    resource.inFlightCount--;
     if (_terminated) {
       _maybeCompleteDrain();
     } else {
@@ -187,12 +204,13 @@ class ClientPool<T> {
   _PooledResource<T> _acquire() {
     _PooledResource<T>? selected;
     for (final resource in _resources) {
-      if (resource.failed) continue;
+      if (resource.isBroken) continue;
       // Pick the available connection with the most inflight requests. This
       // makes it more likely that fewer active connections need to be
       // maintained.
-      if (resource.inFlight < _capacityOf(resource) &&
-          (selected == null || resource.inFlight > selected.inFlight)) {
+      if (resource.inFlightCount < _capacityOf(resource) &&
+          (selected == null ||
+              resource.inFlightCount > selected.inFlightCount)) {
         selected = resource;
       }
     }
@@ -218,8 +236,8 @@ class ClientPool<T> {
   }
 
   void _collectIfIdle(_PooledResource<T> resource) {
-    if (resource.inFlight > 0) return;
-    if (!resource.failed && !_hasExcessIdleCapacity(resource)) return;
+    if (resource.inFlightCount > 0) return;
+    if (!resource.isBroken && !_hasExcessIdleCapacity(resource)) return;
 
     _resources.remove(resource);
     _startDestroy(resource);
@@ -234,7 +252,7 @@ class ClientPool<T> {
   void _startDestroy(_PooledResource<T> resource) {
     final value = resource.value;
     final done =
-        value != null ? _destroy(value) : resource.future.then(_destroy);
+        value != null ? _destroy(value) : resource.creation.then(_destroy);
     final tracked = done.catchError((Object _) {});
     _pendingDestroys.add(tracked);
     unawaited(tracked.whenComplete(() => _pendingDestroys.remove(tracked)));
@@ -244,7 +262,8 @@ class ClientPool<T> {
     final idleCapacity =
         _resources
             .map(
-              (other) => other.failed ? 0 : _capacityOf(other) - other.inFlight,
+              (other) =>
+                  other.isBroken ? 0 : _capacityOf(other) - other.inFlightCount,
             )
             .sum;
     return idleCapacity > maxIdleResources * _capacityOf(resource);
