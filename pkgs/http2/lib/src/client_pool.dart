@@ -43,7 +43,7 @@ class PoolLease<T> {
   void release() {
     if (_released) return;
     _released = true;
-    _pool._release(_resource);
+    _pool._freeSlot(_resource);
   }
 }
 
@@ -106,23 +106,22 @@ class ClientPool<T> {
     while (true) {
       final pooled = _acquire();
       pooled.inFlight++;
-      final T value;
+      final PoolLease<T> lease;
       try {
-        value = pooled.value ??= await pooled.future;
+        lease = PoolLease._(this, pooled, pooled.value ??= await pooled.future);
       } catch (_) {
         pooled.failed = true;
-        _release(pooled);
+        _freeSlot(pooled);
         rethrow;
       }
 
-      if (pooled.inFlight <= _capacityOf(pooled)) {
-        return PoolLease._(this, pooled, value);
-      }
-      _release(pooled);
+      if (pooled.inFlight <= _capacityOf(pooled)) return lease;
+      lease.release();
     }
   }
 
-  void _release(_PooledResource<T> resource) {
+  /// Returns one slot to [resource], collecting it if it has gone idle.
+  void _freeSlot(_PooledResource<T> resource) {
     resource.inFlight--;
     if (_terminated) {
       _maybeCompleteDrain();
