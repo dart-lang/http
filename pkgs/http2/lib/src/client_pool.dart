@@ -2,18 +2,15 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// A pool of resources that can each carry several operations at once.
+/// A pool of HTTP/2 connections, each carrying several streams at once.
 ///
-/// Create one by saying how a resource is made, how many operations it may
-/// carry, and how it is disposed of:
+/// Create one by saying how a connection is dialed and how many streams it may
+/// carry:
 ///
 /// ```dart
-/// final pool = ClientPool<ClientConnection>(
+/// final pool = ClientPool(
 ///   () => dial(host, port),
-///   maxConcurrentOperations: 100,
-///   destroy: (connection) => connection.finish(),
-///   // Optional: a resource may impose a lower limit of its own.
-///   concurrencyLimitOf: (c) => c.peerMaxConcurrentStreams,
+///   maxConcurrentStreams: 100,
 /// );
 /// ```
 ///
@@ -23,22 +20,22 @@
 /// final result = await pool.run((connection) => send(connection, request));
 /// ```
 ///
-/// Use [ClientPool.acquire] when the resource stays busy after the call
+/// Use [ClientPool.acquire] when the connection stays busy after the call
 /// returns - an HTTP/2 response, for example, arrives long after its headers
 /// do. The caller then owns the slot until it releases the lease:
 ///
 /// ```dart
 /// final lease = await pool.acquire();
 /// try {
-///   return startStreaming(lease.value, onDone: lease.release);
+///   return startStreaming(lease.connection, onDone: lease.release);
 /// } catch (_) {
 ///   lease.release();
 ///   rethrow;
 /// }
 /// ```
 ///
-/// Finally, [ClientPool.terminate] waits for in-flight operations and then
-/// disposes of every resource.
+/// Finally, [ClientPool.terminate] waits for in-flight streams and then closes
+/// every connection.
 library;
 
 import 'dart:async';
@@ -47,118 +44,109 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-/// One pooled resource, and the bookkeeping the pool keeps for it.
-class _PooledResource<T> {
-  _PooledResource(this.creation);
+import 'connection.dart';
 
-  /// Completes with the resource once it has been created.
-  final Future<T> creation;
+/// One pooled connection, and the bookkeeping the pool keeps for it.
+class _PooledConnection {
+  _PooledConnection(this.creation);
+
+  /// Completes with the connection once it has been dialed.
+  final Future<ClientConnection> creation;
 
   /// The resolved value of [creation], once available.
   ///
   /// Kept because scheduling decisions are synchronous by design, so they
-  /// need to consult the resource itself without waiting on [creation].
-  T? value;
+  /// need to consult the connection itself without waiting on [creation].
+  ClientConnection? value;
 
-  /// How many operations are running on this resource right now.
+  /// How many streams are running on this connection right now.
   int inFlightCount = 0;
 
-  /// Whether the pool should stop routing new work to this resource.
+  /// Whether the pool should stop routing new work to this connection.
   ///
-  /// Set both when creating it failed and when an operation on it failed -
-  /// either way it is no longer trusted, and it is disposed of once the
-  /// operations it is still carrying finish.
-  bool isBroken = false;
+  /// Set when dialing it failed, and also by [PoolLease.markFailed] when a
+  /// stream on it failed - either way it is no longer trusted, and it is
+  /// closed once the streams it is still carrying finish.
+  bool createFailed = false;
 }
 
-/// A claim on one concurrency slot of a pooled resource.
+/// A claim on one stream slot of a pooled connection.
 ///
 /// Held from [ClientPool.acquire] until [release], which lets a slot outlive
 /// the future that produced it - an HTTP/2 response, for instance, is returned
 /// as soon as its headers arrive but keeps its stream open until the body ends.
-class PoolLease<T> {
-  PoolLease._(this._pool, this._resource, this.value);
+class PoolLease {
+  PoolLease._(this._pool, this._pooled, this.connection);
 
-  final ClientPool<T> _pool;
-  final _PooledResource<T> _resource;
+  final ClientPool _pool;
+  final _PooledConnection _pooled;
 
-  /// The resource this slot was claimed on.
-  final T value;
+  /// The connection this slot was claimed on.
+  final ClientConnection connection;
 
   var _released = false;
 
-  /// Stops the pool routing new work to this resource.
-  void markFailed() => _resource.isBroken = true;
+  /// Stops the pool routing new work to this connection.
+  void markFailed() => _pooled.createFailed = true;
 
   /// Gives the slot back. Idempotent, so it is safe to call from several
   /// terminal paths that may race.
   void release() {
     if (_released) return;
     _released = true;
-    _pool._freeSlot(_resource);
+    _pool._freeSlot(_pooled);
   }
 }
 
-/// A pool of resources of type [T].
+/// A pool of HTTP/2 connections.
 ///
-/// Packs load onto the most-full resource under its capacity (rather than
-/// spreading evenly across resources), opens a new resource once existing
-/// ones are full, stops routing new work to a resource once an operation on
-/// it throws, and garbage-collects idle resources past [maxIdleResources].
+/// Packs streams onto the most-loaded connection under its capacity (rather
+/// than spreading them evenly), dials another once existing ones are full,
+/// stops routing new work to a connection once a stream on it throws, and
+/// closes idle connections past [maxIdleConnections].
 ///
-/// Capacity is [maxConcurrentOperations], lowered to whatever limit a
-/// resource reports for itself via `concurrencyLimitOf`.
-class ClientPool<T> {
+/// Capacity is [maxConcurrentStreams], lowered to whatever limit a server
+/// advertises for its own connection.
+class ClientPool {
   ClientPool(
-    Future<T> Function() create, {
-    required this.maxConcurrentOperations,
-    required Future<void> Function(T resource) destroy,
-    this.maxIdleResources = 1,
-    int? Function(T resource)? concurrencyLimitOf,
-  }) : _create = create,
-       _destroy = destroy,
-       _concurrencyLimitOf = concurrencyLimitOf;
+    Future<ClientConnection> Function() dial, {
+    required this.maxConcurrentStreams,
+    this.maxIdleConnections = 1,
+  }) : _dial = dial;
 
-  final Future<T> Function() _create;
-  final Future<void> Function(T resource) _destroy;
+  final Future<ClientConnection> Function() _dial;
 
-  /// Reports a resource's own concurrency limit, or `null` if it imposes none.
-  ///
-  /// Consulted on every scheduling decision rather than cached, so a limit
-  /// the resource revises over its lifetime is picked up.
-  final int? Function(T resource)? _concurrencyLimitOf;
+  final int maxConcurrentStreams;
+  final int maxIdleConnections;
 
-  final int maxConcurrentOperations;
-  final int maxIdleResources;
-
-  final _resources = <_PooledResource<T>>[];
-  final _pendingDestroys = <Future<void>>{};
+  final _connections = <_PooledConnection>[];
+  final _pendingCloses = <Future<void>>{};
   var _terminated = false;
   Completer<void>? _drained;
   Future<void>? _termination;
 
-  /// The number of resources currently in the pool.
-  int get size => _resources.length;
+  /// The number of connections currently pooled.
+  int get size => _connections.length;
 
-  /// The number of in-flight operations across every resource. For testing.
+  /// The number of in-flight streams across every connection. For testing.
   @visibleForTesting
-  int get opCount => _resources.map((resource) => resource.inFlightCount).sum;
+  int get opCount => _connections.map((c) => c.inFlightCount).sum;
 
-  /// Claims a slot on an available (or newly created) resource.
+  /// Claims a slot on an available (or newly dialed) connection.
   ///
   /// The caller owns the returned lease and must [PoolLease.release] it on
   /// every path, errors included, or the slot leaks and [terminate] never
   /// drains. Prefer [run] unless the slot has to outlive the future that
   /// produced whatever the caller is returning.
-  Future<PoolLease<T>> acquire() async {
+  Future<PoolLease> acquire() async {
     if (_terminated) {
       throw StateError('This pool has already been terminated.');
     }
 
     while (true) {
-      final pooled = _acquire();
+      final pooled = _select();
       pooled.inFlightCount++;
-      final PoolLease<T> lease;
+      final PoolLease lease;
       try {
         lease = PoolLease._(
           this,
@@ -166,7 +154,7 @@ class ClientPool<T> {
           pooled.value ??= await pooled.creation,
         );
       } catch (_) {
-        pooled.isBroken = true;
+        pooled.createFailed = true;
         _freeSlot(pooled);
         rethrow;
       }
@@ -176,21 +164,23 @@ class ClientPool<T> {
     }
   }
 
-  /// Returns one slot to [resource], collecting it if it has gone idle.
-  void _freeSlot(_PooledResource<T> resource) {
-    resource.inFlightCount--;
+  /// Returns one slot to [pooled], closing the connection if it has gone idle.
+  void _freeSlot(_PooledConnection pooled) {
+    pooled.inFlightCount--;
     if (_terminated) {
       _maybeCompleteDrain();
     } else {
-      _collectIfIdle(resource);
+      _closeIfIdle(pooled);
     }
   }
 
-  /// Runs [operation] on an available (or newly created) resource.
-  Future<R> run<R>(Future<R> Function(T resource) operation) async {
+  /// Runs [operation] on an available (or newly dialed) connection.
+  Future<R> run<R>(
+    Future<R> Function(ClientConnection connection) operation,
+  ) async {
     final lease = await acquire();
     try {
-      return await operation(lease.value);
+      return await operation(lease.connection);
     } catch (_) {
       lease.markFailed();
       rethrow;
@@ -200,73 +190,77 @@ class ClientPool<T> {
   }
 
   // Synchronous (no `await`), so concurrent calls can't race each other
-  // into both creating a resource before either sees the other's.
-  _PooledResource<T> _acquire() {
-    _PooledResource<T>? selected;
-    for (final resource in _resources) {
-      if (resource.isBroken) continue;
+  // into both dialing a connection before either sees the other's.
+  _PooledConnection _select() {
+    _PooledConnection? selected;
+    for (final pooled in _connections) {
+      if (pooled.createFailed) continue;
       // Pick the available connection with the most inflight requests. This
       // makes it more likely that fewer active connections need to be
       // maintained.
-      if (resource.inFlightCount < _capacityOf(resource) &&
-          (selected == null ||
-              resource.inFlightCount > selected.inFlightCount)) {
-        selected = resource;
+      if (pooled.inFlightCount < _capacityOf(pooled) &&
+          (selected == null || pooled.inFlightCount > selected.inFlightCount)) {
+        selected = pooled;
       }
     }
     if (selected != null) return selected;
 
-    final resource = _PooledResource<T>(_create());
-    _resources.add(resource);
-    return resource;
+    final pooled = _PooledConnection(_dial());
+    _connections.add(pooled);
+    return pooled;
   }
 
-  /// How many operations [resource] may run at once.
+  /// How many streams [pooled] may carry at once.
   ///
-  /// A resource that hasn't been created yet, or that reports no limit of its
-  /// own, is held to [maxConcurrentOperations].
-  int _capacityOf(_PooledResource<T> resource) {
-    final value = resource.value;
-    final limitOf = _concurrencyLimitOf;
-    if (value == null || limitOf == null) return maxConcurrentOperations;
-    final limit = limitOf(value);
+  /// A connection that hasn't been dialed yet, or whose server advertises no
+  /// limit of its own, is held to [maxConcurrentStreams].
+  int _capacityOf(_PooledConnection pooled) {
+    final connection = pooled.value;
+    if (connection == null) return maxConcurrentStreams;
+    final limit = connection.peerMaxConcurrentStreams;
+    // Floored at one: a server advertising zero would otherwise make the
+    // connection unusable, and acquire()'s confirm loop would spin.
     return limit == null
-        ? maxConcurrentOperations
-        : max(1, min(maxConcurrentOperations, limit));
+        ? maxConcurrentStreams
+        : max(1, min(maxConcurrentStreams, limit));
   }
 
-  void _collectIfIdle(_PooledResource<T> resource) {
-    if (resource.inFlightCount > 0) return;
-    if (!resource.isBroken && !_hasExcessIdleCapacity(resource)) return;
+  void _closeIfIdle(_PooledConnection pooled) {
+    if (pooled.inFlightCount > 0) return;
+    if (!pooled.createFailed && !_hasExcessIdleCapacity(pooled)) return;
 
-    _resources.remove(resource);
-    _startDestroy(resource);
+    _connections.remove(pooled);
+    _startClose(pooled);
   }
 
-  /// Starts destroying [resource] without waiting for it, so that an operation
-  /// is never held up by its resource's teardown - `destroy` may itself wait
-  /// on unrelated work still running on that resource.
+  /// Starts closing [pooled] without waiting for it, so that a stream is never
+  /// held up by its connection's teardown - `finish()` itself waits on every
+  /// other stream still running on that connection.
   ///
-  /// Tracked in [_pendingDestroys] so [terminate] can still promise that every
-  /// resource has actually been destroyed by the time it completes.
-  void _startDestroy(_PooledResource<T> resource) {
-    final value = resource.value;
+  /// Tracked in [_pendingCloses] so [terminate] can still promise that every
+  /// connection has actually been closed by the time it completes.
+  void _startClose(_PooledConnection pooled) {
+    final connection = pooled.value;
     final done =
-        value != null ? _destroy(value) : resource.creation.then(_destroy);
-    final tracked = done.catchError((Object _) {});
-    _pendingDestroys.add(tracked);
-    unawaited(tracked.whenComplete(() => _pendingDestroys.remove(tracked)));
+        connection != null
+            ? connection.finish()
+            : pooled.creation.then((c) => c.finish());
+    final tracked = done.then<void>((_) {}).catchError((Object _) {});
+    _pendingCloses.add(tracked);
+    unawaited(tracked.whenComplete(() => _pendingCloses.remove(tracked)));
   }
 
-  bool _hasExcessIdleCapacity(_PooledResource<T> resource) {
+  bool _hasExcessIdleCapacity(_PooledConnection pooled) {
     final idleCapacity =
-        _resources
+        _connections
             .map(
               (other) =>
-                  other.isBroken ? 0 : _capacityOf(other) - other.inFlightCount,
+                  other.createFailed
+                      ? 0
+                      : _capacityOf(other) - other.inFlightCount,
             )
             .sum;
-    return idleCapacity > maxIdleResources * _capacityOf(resource);
+    return idleCapacity > maxIdleConnections * _capacityOf(pooled);
   }
 
   void _maybeCompleteDrain() {
@@ -276,8 +270,8 @@ class ClientPool<T> {
     }
   }
 
-  /// Waits for in-flight operations to finish, then destroys every
-  /// resource in the pool. No further operations can run afterward.
+  /// Waits for in-flight streams to finish, then closes every connection in
+  /// the pool. No further streams can be opened afterward.
   ///
   /// Idempotent: concurrent and repeated calls all observe the same shutdown.
   Future<void> terminate() => _termination ??= _terminate();
@@ -290,11 +284,13 @@ class ClientPool<T> {
       await _drained!.future;
     }
 
-    final resources = _resources.toList();
-    _resources.clear();
-    for (final resource in resources) {
-      _startDestroy(resource);
+    // Snapshotted and cleared before any `await`, so nothing is iterating
+    // _connections across a suspension point.
+    final connections = _connections.toList();
+    _connections.clear();
+    for (final pooled in connections) {
+      _startClose(pooled);
     }
-    await Future.wait(_pendingDestroys.toList());
+    await Future.wait(_pendingCloses.toList());
   }
 }

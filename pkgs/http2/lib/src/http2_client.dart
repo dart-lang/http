@@ -14,6 +14,7 @@ import 'package:pool/pool.dart';
 
 import '../transport.dart';
 import 'client_pool.dart';
+import 'connection.dart';
 
 /// A pooled, multiplexed `http.Client` backed by HTTP/2 connections.
 ///
@@ -54,7 +55,7 @@ class Http2Client extends BaseClient {
   final int maxStreamsPerConnection;
 
   /// The maximum number of idle connections to keep per host, per
-  /// [ClientPool.maxIdleResources].
+  /// [ClientPool.maxIdleConnections].
   final int maxIdleConnections;
 
   /// How long to wait for a freshly dialed connection's peer to send its
@@ -78,27 +79,25 @@ class Http2Client extends BaseClient {
   // needing.
   final Pool _handshakeGate;
 
-  final _pools = <String, ClientPool<ClientTransportConnection>>{};
+  final _pools = <String, ClientPool>{};
   var _closed = false;
   Future<void>? _shutdown;
 
   // Synchronous (no `await`), so concurrent requests to a new host:port
   // can't race each other into creating two pools for the same key.
-  ClientPool<ClientTransportConnection> _poolFor(Uri url) {
+  ClientPool _poolFor(Uri url) {
     final key = '${url.host}:${url.port}';
     return _pools.putIfAbsent(
       key,
-      () => ClientPool<ClientTransportConnection>(
+      () => ClientPool(
         () => _handshakeGate.withResource(() => _dial(url.host, url.port)),
-        maxConcurrentOperations: maxStreamsPerConnection,
-        maxIdleResources: maxIdleConnections,
-        destroy: (transport) => transport.finish(),
-        concurrencyLimitOf: (transport) => transport.peerMaxConcurrentStreams,
+        maxConcurrentStreams: maxStreamsPerConnection,
+        maxIdleConnections: maxIdleConnections,
       ),
     );
   }
 
-  Future<ClientTransportConnection> _dial(String host, int port) async {
+  Future<ClientConnection> _dial(String host, int port) async {
     final socket = await SecureSocket.connect(
       host,
       port,
@@ -136,7 +135,11 @@ class Http2Client extends BaseClient {
     );
     unawaited(died.future.catchError((Object _) {}));
 
-    final transport = ClientTransportConnection.viaStreams(incoming, socket);
+    final transport = ClientConnection(
+      incoming,
+      socket,
+      const ClientSettings(),
+    );
     try {
       await Future.any([
         transport.onInitialPeerSettingsReceived,
@@ -162,11 +165,11 @@ class Http2Client extends BaseClient {
   /// the stream stays open while the body is delivered, so the slot is only
   /// released once that stream reaches a terminal state.
   Future<StreamedResponse> _sendOverHttp2(
-    PoolLease<ClientTransportConnection> lease,
+    PoolLease lease,
     BaseRequest request,
     List<int> bodyBytes,
   ) async {
-    final transport = lease.value;
+    final transport = lease.connection;
     if (!transport.isOpen) throw const _ConnectionClosedByPeer();
 
     final rawPath = request.url.path.isEmpty ? '/' : request.url.path;
