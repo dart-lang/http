@@ -152,7 +152,11 @@ class Http2Client extends BaseClient {
         ),
       ]).timeout(settingsTimeout);
     } catch (_) {
-      await transport.terminate();
+      // Not awaited: terminating writes a GOAWAY frame, and if the peer has
+      // already gone that write may never complete - which would hang the
+      // dial and defeat the timeout above. Cancelling the frame reader,
+      // which closes the socket, happens synchronously inside terminate().
+      unawaited(transport.terminate().catchError((Object _) => null));
       rethrow;
     }
     return transport;
