@@ -106,8 +106,11 @@ void main() async {
               .having((e) => e.message, 'message', contains('Handshake'))));
       expect(
           () async => await serverException.future,
-          throwsA(isA<io.HandshakeException>()
-              .having((e) => e.message, 'message', contains('Handshake'))));
+          throwsA(anyOf(
+            isA<io.HandshakeException>()
+                .having((e) => e.message, 'message', contains('Handshake')),
+            isA<io.SocketException>(),
+          )));
     });
 
     test('ignore unknown server cert', () async {

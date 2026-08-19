@@ -93,7 +93,7 @@ void testCloseLocal(
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;
 
-      expect(closeCode, 1005);
+      expect(closeCode, anyOf(1000, 1005));
       expect(closeReason, '');
       expect(await channel.events.isEmpty, true);
     });

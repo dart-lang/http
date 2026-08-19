@@ -141,21 +141,19 @@ class OkHttpWebSocket implements WebSocket {
               bindings.Response? response) {
             if (_events.isClosed) return;
 
-            var throwableString = throwable.toString();
+            final throwableMessage = (throwable as JThrowable).message;
 
-            // If the throwable is:
-            // - java.net.ProtocolException: Control frames must be final.
-            // - java.io.EOFException
-            // - java.net.SocketException: Socket closed
-            // Then the connection was closed abnormally.
-            if (throwableString.contains(RegExp(
-                r'(java\.net\.ProtocolException: Control frames must be final\.|java\.io\.EOFException|java\.net\.SocketException: Socket closed)'))) {
+            // If the connection was closed due to a protocol error, EOF,
+            // or closed socket, report an abnormal closure (1006).
+            if (throwableMessage.contains('ProtocolException') ||
+                throwableMessage.contains('EOFException') ||
+                throwableMessage.contains('SocketException')) {
               _events.add(CloseReceived(1006, 'abnormal close'));
               unawaited(_events.close());
               return;
             }
             var error = WebSocketException(
-                'Connection ended unexpectedly $throwableString');
+                'Connection ended unexpectedly: $throwableMessage');
             if (openCompleter.isCompleted) {
               _events.addError(error);
               return;
@@ -184,13 +182,7 @@ class OkHttpWebSocket implements WebSocket {
 
     unawaited(_events.close());
 
-    // When no code is provided, cause an abnormal closure to send 1005.
-    if (code == null) {
-      _webSocket.cancel();
-      return;
-    }
-
-    _webSocket.close(code, reason?.toJString());
+    _webSocket.close(code ?? 1000, reason?.toJString());
   }
 
   @override
