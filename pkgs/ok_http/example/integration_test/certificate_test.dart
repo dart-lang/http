@@ -9,7 +9,7 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:jni/jni.dart';
+import 'package:jni/jni.dart' show JStringExtension;
 import 'package:ok_http/ok_http.dart';
 import 'package:ok_http/src/jni/bindings.dart' as bindings;
 import 'package:test/test.dart';
@@ -28,14 +28,9 @@ void main() async {
             await loadCertificateBytes('test_certs/test-combined.p12');
         final (key, chain) =
             loadPrivateKeyAndCertificateChainFromPKCS12(certBytes, '1234');
-        expect(
-            key
-                .as(bindings.Key.type)
-                .getFormat()!
-                .toDartString(releaseOriginal: true),
-            'PKCS#8');
+        expect(key.getFormat()!.toDartString(releaseOriginal: true), 'PKCS#8');
         expect(chain.length, 1);
-        expect(chain[0].type$1!.toDartString(releaseOriginal: true), 'X.509');
+        expect(chain[0].type$1!.toDartString(), 'X.509');
       });
 
       test('no key', () async {

@@ -246,6 +246,41 @@ class CronetEngine {
   /// of (host, port, alternativePort) that indicates that the host supports
   /// QUIC. Note that [CacheMode.disk] or [CacheMode.diskNoHttp] is needed to
   /// take advantage of 0-RTT connection establishment between sessions.
+  ///
+  /// [useBuiltInDnsResolver] controls whether the engine uses Cronet's
+  /// built-in DNS resolver instead of the system resolver. The built-in
+  /// resolver is only used when QUIC is enabled, which it is by default.
+  /// Setting this to `false` forces the system resolver, which can work
+  /// around host resolution failures (`ERROR_HOSTNAME_NOT_RESOLVED`).
+  ///
+  /// [enableStaleDns] controls whether the engine may use stale (expired)
+  /// entries from its host cache while a new DNS resolution is performed in
+  /// the background.
+  ///
+  /// [persistHostCache] controls whether the engine's host cache is
+  /// persisted to disk so that a freshly created engine (for example in a
+  /// newly spawned isolate) can resolve recently used hosts without a live
+  /// DNS query. Requires [storagePath] to be set.
+  ///
+  /// [persistHostCachePeriod] sets how often the host cache is written to
+  /// disk when [persistHostCache] is `true`.
+  ///
+  /// [useStaleOnNameNotResolved] lets a request fall back to an expired host
+  /// cache entry when a fresh DNS lookup fails to resolve the host, instead
+  /// of failing the request with `ERROR_HOSTNAME_NOT_RESOLVED`. Only takes
+  /// effect when [enableStaleDns] is `true`.
+  ///
+  /// [allowCrossNetworkUsage] lets a stale host cache entry resolved on a
+  /// different network (e.g. Wi-Fi) be used after the device switches
+  /// networks (e.g. to cellular). Only takes effect when [enableStaleDns] is
+  /// `true`.
+  ///
+  /// [maxStaleDnsExpiredDelay] sets the maximum time a host cache entry may
+  /// have been expired for and still be eligible for stale-DNS use. Only
+  /// takes effect when [enableStaleDns] is `true`.
+  ///
+  /// See [DnsOptions](https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/DnsOptions)
+  /// for details on the DNS configuration options.
   static CronetEngine build(
       {CacheMode? cacheMode,
       int? cacheMaxSize,
@@ -255,7 +290,14 @@ class CronetEngine {
       bool? enableQuic,
       String? storagePath,
       String? userAgent,
-      List<(String, int, int)>? quicHints}) {
+      List<(String, int, int)>? quicHints,
+      bool? useBuiltInDnsResolver,
+      bool? enableStaleDns,
+      bool? persistHostCache,
+      Duration? persistHostCachePeriod,
+      bool? useStaleOnNameNotResolved,
+      bool? allowCrossNetworkUsage,
+      Duration? maxStaleDnsExpiredDelay}) {
     try {
       return using((arena) {
         final builder = jb.CronetEngine$Builder(
@@ -305,6 +347,70 @@ class CronetEngine {
           for (final (host, port, alternativePort) in quicHints) {
             builder.addQuicHint(
                 host.toJString()..releasedBy(arena), port, alternativePort);
+          }
+        }
+
+        if (useBuiltInDnsResolver != null ||
+            enableStaleDns != null ||
+            persistHostCache != null ||
+            persistHostCachePeriod != null ||
+            useStaleOnNameNotResolved != null ||
+            allowCrossNetworkUsage != null ||
+            maxStaleDnsExpiredDelay != null) {
+          if (jb.DnsOptions.builder() case final dnsOptionsBuilder?) {
+            dnsOptionsBuilder.releasedBy(arena);
+            if (useBuiltInDnsResolver != null) {
+              dnsOptionsBuilder
+                  .useBuiltInDnsResolver(useBuiltInDnsResolver)
+                  ?.release();
+            }
+            if (enableStaleDns != null) {
+              dnsOptionsBuilder.enableStaleDns(enableStaleDns)?.release();
+            }
+            if (persistHostCache != null) {
+              dnsOptionsBuilder.persistHostCache(persistHostCache)?.release();
+            }
+            if (persistHostCachePeriod != null) {
+              dnsOptionsBuilder
+                  .setPersistHostCachePeriodMillis(
+                      persistHostCachePeriod.inMilliseconds)
+                  ?.release();
+            }
+            if (useStaleOnNameNotResolved != null ||
+                allowCrossNetworkUsage != null ||
+                maxStaleDnsExpiredDelay != null) {
+              if (jb.DnsOptions$StaleDnsOptions.builder()
+                  case final staleDnsOptionsBuilder?) {
+                staleDnsOptionsBuilder.releasedBy(arena);
+                if (useStaleOnNameNotResolved != null) {
+                  staleDnsOptionsBuilder
+                      .useStaleOnNameNotResolved(useStaleOnNameNotResolved)
+                      ?.release();
+                }
+                if (allowCrossNetworkUsage != null) {
+                  staleDnsOptionsBuilder
+                      .allowCrossNetworkUsage(allowCrossNetworkUsage)
+                      ?.release();
+                }
+                if (maxStaleDnsExpiredDelay != null) {
+                  staleDnsOptionsBuilder
+                      .setMaxExpiredDelayMillis(
+                          maxStaleDnsExpiredDelay.inMilliseconds)
+                      ?.release();
+                }
+                if (staleDnsOptionsBuilder.build()
+                    case final staleDnsOptions?) {
+                  staleDnsOptions.releasedBy(arena);
+                  dnsOptionsBuilder
+                      .setStaleDnsOptions(staleDnsOptions)
+                      ?.release();
+                }
+              }
+            }
+            if (dnsOptionsBuilder.build() case final dnsOptions?) {
+              dnsOptions.releasedBy(arena);
+              builder.setDnsOptions(dnsOptions)?.release();
+            }
           }
         }
 

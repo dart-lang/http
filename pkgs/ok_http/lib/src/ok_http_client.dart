@@ -17,6 +17,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart' show PlatformDispatcher;
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';

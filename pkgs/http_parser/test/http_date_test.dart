@@ -155,6 +155,13 @@ void main() {
         expect(date.timeZoneName, equals('UTC'));
       });
 
+      test('applies the two-digit year rule', () {
+        expect(
+          parseHttpDate('Sunday, 21-Jun-26 07:28:00 GMT'),
+          DateTime.utc(2026, DateTime.june, 21, 7, 28),
+        );
+      });
+
       test('whitespace is required', () {
         expect(() => parseHttpDate('Sunday,06-Nov-94 08:49:37 GMT'),
             throwsFormatException);
