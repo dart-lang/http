@@ -1,4 +1,4 @@
-# Created with package:mono_repo v6.6.3
+# Created with package:mono_repo v6.7.2
 name: Dart CI
 on:
   push:
@@ -13,7 +13,8 @@ defaults:
     shell: bash
 env:
   PUB_ENVIRONMENT: bot.github
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   job_001:
@@ -35,8 +36,10 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - name: mono_repo self validate
-        run: dart pub global activate mono_repo 6.6.3
+        run: dart pub global activate mono_repo 6.7.2
       - name: mono_repo self validate
         run: dart pub global run mono_repo generate --validate
   job_002:
@@ -60,6 +63,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -126,6 +131,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -192,6 +199,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -258,6 +267,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -288,6 +299,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -318,6 +331,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -355,6 +370,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -392,6 +409,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -429,6 +448,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -466,6 +487,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_profile_pub_upgrade
         name: pkgs/http_profile; dart pub upgrade
         run: dart pub upgrade
@@ -503,6 +526,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_web_socket_pub_upgrade
         name: pkgs/web_socket; dart pub upgrade
         run: dart pub upgrade
@@ -540,6 +565,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_web_socket_pub_upgrade
         name: pkgs/web_socket; dart pub upgrade
         run: dart pub upgrade
@@ -577,6 +604,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -614,6 +643,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -651,6 +682,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -688,6 +721,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -725,6 +760,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -762,6 +799,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_http_profile_pub_upgrade
         name: pkgs/http_profile; dart pub upgrade
         run: dart pub upgrade
@@ -799,6 +838,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_web_socket_pub_upgrade
         name: pkgs/web_socket; dart pub upgrade
         run: dart pub upgrade
@@ -836,6 +877,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_web_socket_pub_upgrade
         name: pkgs/web_socket; dart pub upgrade
         run: dart pub upgrade
@@ -873,6 +916,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -910,6 +955,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -947,6 +994,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -974,6 +1023,8 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
