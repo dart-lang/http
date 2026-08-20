@@ -12,9 +12,22 @@ class FrameReader {
   /// complying with.
   final ActiveSettings _localSettings;
 
+  /// Called after an inbound HEADERS or PUSH_PROMISE frame header is parsed,
+  /// before waiting for its payload bytes.
+  final void Function()? _onFieldBlockStart;
+
+  /// Called after the final frame of an inbound field block is fully read.
+  final void Function()? _onFieldBlockEnd;
+
   final _framesController = StreamController<Frame>();
 
-  FrameReader(this._inputStream, this._localSettings);
+  FrameReader(
+    this._inputStream,
+    this._localSettings, {
+    void Function()? onFieldBlockStart,
+    void Function()? onFieldBlockEnd,
+  }) : _onFieldBlockStart = onFieldBlockStart,
+       _onFieldBlockEnd = onFieldBlockEnd;
 
   /// Starts to listen on the input stream and decodes HTTP/2 transport frames.
   Stream<Frame> startDecoding() {
@@ -27,7 +40,14 @@ class FrameReader {
         _mergeLists(bufferedData, FRAME_HEADER_SIZE);
 
         // Read the frame header from the first byte array.
-        return _readFrameHeader(bufferedData[0], 0);
+        final header = _readFrameHeader(bufferedData[0], 0);
+        final isFieldBlockStart =
+            header.type == FrameType.HEADERS ||
+            header.type == FrameType.PUSH_PROMISE;
+        if (isFieldBlockStart) {
+          _onFieldBlockStart?.call();
+        }
+        return header;
       }
       return null;
     }
@@ -40,6 +60,15 @@ class FrameReader {
 
         // Read the frame.
         var frame = _readFrame(header, bufferedData[0], FRAME_HEADER_SIZE);
+        final completesFieldBlock = switch (frame) {
+          HeadersFrame frame => frame.hasEndHeadersFlag,
+          PushPromiseFrame frame => frame.hasEndHeadersFlag,
+          ContinuationFrame frame => frame.hasEndHeadersFlag,
+          _ => false,
+        };
+        if (completesFieldBlock) {
+          _onFieldBlockEnd?.call();
+        }
 
         // Update bufferedData/bufferedLength
         var firstChunkLen = bufferedData[0].length;

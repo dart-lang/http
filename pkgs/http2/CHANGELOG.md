@@ -1,6 +1,14 @@
 ## 3.0.1-wip
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
+- Bound peer-initiated concurrent streams and reject peers that ignore the
+  advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
+  are also bounded locally, and disabled server push is enforced on receipt.
+  The default limit is 100.
+- Bound inbound compressed field blocks, decoded field sections, CONTINUATION
+  frame counts, and incomplete field-block duration. HPACK decoding continues
+  in discard mode after the decoded limit is exceeded so the connection-wide
+  compression context remains synchronized.
 
 ## 3.0.0
 
