@@ -120,42 +120,6 @@ class HeadersFrame extends Frame {
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
   bool get hasPriorityFlag => _isFlagSet(header.flags, FLAG_PRIORITY);
 
-  HeadersFrame addBlockContinuation(ContinuationFrame frame) {
-    var fragment = frame.headerBlockFragment;
-    var flags = header.flags | frame.header.flags;
-    var fh = FrameHeader(
-      header.length + fragment.length,
-      header.type,
-      flags,
-      header.streamId,
-    );
-
-    var mergedHeaderBlockFragment = Uint8List(
-      headerBlockFragment.length + fragment.length,
-    );
-
-    mergedHeaderBlockFragment.setRange(
-      0,
-      headerBlockFragment.length,
-      headerBlockFragment,
-    );
-
-    mergedHeaderBlockFragment.setRange(
-      headerBlockFragment.length,
-      mergedHeaderBlockFragment.length,
-      fragment,
-    );
-
-    return HeadersFrame(
-      fh,
-      padLength,
-      exclusiveDependency,
-      streamDependency,
-      weight,
-      mergedHeaderBlockFragment,
-    );
-  }
-
   @override
   Map toJson() =>
       super.toJson()..addAll({
@@ -259,40 +223,6 @@ class PushPromiseFrame extends Frame {
 
   bool get hasEndHeadersFlag => _isFlagSet(header.flags, FLAG_END_HEADERS);
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
-
-  PushPromiseFrame addBlockContinuation(ContinuationFrame frame) {
-    var fragment = frame.headerBlockFragment;
-    var flags = header.flags | frame.header.flags;
-    var fh = FrameHeader(
-      header.length + fragment.length,
-      header.type,
-      flags,
-      header.streamId,
-    );
-
-    var mergedHeaderBlockFragment = Uint8List(
-      headerBlockFragment.length + fragment.length,
-    );
-
-    mergedHeaderBlockFragment.setRange(
-      0,
-      headerBlockFragment.length,
-      headerBlockFragment,
-    );
-
-    mergedHeaderBlockFragment.setRange(
-      headerBlockFragment.length,
-      mergedHeaderBlockFragment.length,
-      fragment,
-    );
-
-    return PushPromiseFrame(
-      fh,
-      padLength,
-      promisedStreamId,
-      mergedHeaderBlockFragment,
-    );
-  }
 
   @override
   Map toJson() =>

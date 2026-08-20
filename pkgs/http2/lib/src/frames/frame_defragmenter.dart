@@ -19,13 +19,10 @@ class FrameDefragmenter {
 
   final int maxAccumulatedHeaderBlockBytes;
 
-  /// The current incomplete [HeadersFrame] fragment.
-  HeadersFrame? _headersFrame;
+  /// The current incomplete [HeadersFrame] or [PushPromiseFrame].
+  Frame? _incompleteFrame;
 
-  /// The current incomplete [PushPromiseFrame] fragment.
-  PushPromiseFrame? _pushPromiseFrame;
-
-  BytesBuilder _builder = BytesBuilder(copy: false);
+  final BytesBuilder _builder = BytesBuilder(copy: false);
   int _accumulatedFlags = 0;
   int _accumulatedLength = 0;
 
@@ -47,11 +44,10 @@ class FrameDefragmenter {
   // TODO: Consider handling continuation frames without preceding
   // headers/push-promise frame here instead of the call site?
   Frame? tryDefragmentFrame(Frame? frame) {
-    if (_headersFrame != null) {
+    if (_incompleteFrame != null) {
       if (frame is ContinuationFrame) {
-        if (_headersFrame!.header.streamId != frame.header.streamId) {
-          _headersFrame = null;
-          _builder.clear();
+        if (_incompleteFrame!.header.streamId != frame.header.streamId) {
+          _reset();
           throw ProtocolException(
             'Defragmentation: frames have different stream ids.',
           );
@@ -62,96 +58,50 @@ class FrameDefragmenter {
         _checkAccumulatedSize(_builder.length);
 
         if (frame.hasEndHeadersFlag) {
-          var savedHeaders = _headersFrame!;
-          _headersFrame = null;
+          var saved = _incompleteFrame!;
           var finalData = _builder.takeBytes();
           var fh = FrameHeader(
             _accumulatedLength,
-            savedHeaders.header.type,
+            saved.header.type,
             _accumulatedFlags,
-            savedHeaders.header.streamId,
+            saved.header.streamId,
           );
-          return HeadersFrame(
-            fh,
-            savedHeaders.padLength,
-            savedHeaders.exclusiveDependency,
-            savedHeaders.streamDependency,
-            savedHeaders.weight,
-            finalData,
-          );
-        } else {
-          return null;
-        }
-      } else {
-        _headersFrame = null;
-        _builder.clear();
-        throw ProtocolException(
-          'Defragmentation: Incomplete frame must be followed by '
-          'continuation frame.',
-        );
-      }
-    } else if (_pushPromiseFrame != null) {
-      if (frame is ContinuationFrame) {
-        if (_pushPromiseFrame!.header.streamId != frame.header.streamId) {
-          _pushPromiseFrame = null;
-          _builder.clear();
-          throw ProtocolException(
-            'Defragmentation: frames have different stream ids.',
-          );
-        }
-        _builder.add(frame.headerBlockFragment);
-        _accumulatedFlags |= frame.header.flags;
-        _accumulatedLength += frame.headerBlockFragment.length;
-        _checkAccumulatedSize(_builder.length);
+          _reset();
 
-        if (frame.hasEndHeadersFlag) {
-          var savedPushPromise = _pushPromiseFrame!;
-          _pushPromiseFrame = null;
-          var finalData = _builder.takeBytes();
-          var fh = FrameHeader(
-            _accumulatedLength,
-            savedPushPromise.header.type,
-            _accumulatedFlags,
-            savedPushPromise.header.streamId,
-          );
-          return PushPromiseFrame(
-            fh,
-            savedPushPromise.padLength,
-            savedPushPromise.promisedStreamId,
-            finalData,
-          );
+          if (saved is HeadersFrame) {
+            return HeadersFrame(
+              fh,
+              saved.padLength,
+              saved.exclusiveDependency,
+              saved.streamDependency,
+              saved.weight,
+              finalData,
+            );
+          } else if (saved is PushPromiseFrame) {
+            return PushPromiseFrame(
+              fh,
+              saved.padLength,
+              saved.promisedStreamId,
+              finalData,
+            );
+          }
         } else {
           return null;
         }
       } else {
-        _pushPromiseFrame = null;
-        _builder.clear();
+        _reset();
         throw ProtocolException(
           'Defragmentation: Incomplete frame must be followed by '
           'continuation frame.',
         );
       }
     } else {
-      if (frame is HeadersFrame) {
-        if (!frame.hasEndHeadersFlag) {
-          _checkAccumulatedSize(frame.headerBlockFragment.length);
-          _headersFrame = frame;
-          _builder = BytesBuilder(copy: false);
-          _builder.add(frame.headerBlockFragment);
-          _accumulatedFlags = frame.header.flags;
-          _accumulatedLength = frame.header.length;
-          return null;
-        }
-      } else if (frame is PushPromiseFrame) {
-        if (!frame.hasEndHeadersFlag) {
-          _checkAccumulatedSize(frame.headerBlockFragment.length);
-          _pushPromiseFrame = frame;
-          _builder = BytesBuilder(copy: false);
-          _builder.add(frame.headerBlockFragment);
-          _accumulatedFlags = frame.header.flags;
-          _accumulatedLength = frame.header.length;
-          return null;
-        }
+      if (frame is HeadersFrame && !frame.hasEndHeadersFlag) {
+        _startDefragmentation(frame, frame.headerBlockFragment);
+        return null;
+      } else if (frame is PushPromiseFrame && !frame.hasEndHeadersFlag) {
+        _startDefragmentation(frame, frame.headerBlockFragment);
+        return null;
       }
     }
 
@@ -160,15 +110,28 @@ class FrameDefragmenter {
     return frame;
   }
 
+  void _startDefragmentation(Frame frame, List<int> initialFragment) {
+    _checkAccumulatedSize(initialFragment.length);
+    _incompleteFrame = frame;
+    _builder.add(initialFragment);
+    _accumulatedFlags = frame.header.flags;
+    _accumulatedLength = frame.header.length;
+  }
+
   void _checkAccumulatedSize(int accumulatedBytes) {
     if (accumulatedBytes > maxAccumulatedHeaderBlockBytes) {
-      _headersFrame = null;
-      _pushPromiseFrame = null;
-      _builder.clear();
+      _reset();
       throw ProtocolException(
         'Defragmentation: accumulated header block exceeds '
         '$maxAccumulatedHeaderBlockBytes bytes.',
       );
     }
+  }
+
+  void _reset() {
+    _incompleteFrame = null;
+    _builder.clear();
+    _accumulatedFlags = 0;
+    _accumulatedLength = 0;
   }
 }

@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:convert' show utf8;
-import 'dart:math' show max;
 
 import '../transport.dart';
 import 'connection_preface.dart';
@@ -168,12 +167,8 @@ abstract class Connection {
     var maxHeaderListSize =
         settingsObject.maxHeaderListSize ??
         FrameDefragmenter.defaultMaxAccumulatedHeaderBlockBytes;
-    var maxAccumulatedHeaderBlockBytes = max(
-      maxHeaderListSize,
-      FrameDefragmenter.defaultMaxAccumulatedHeaderBlockBytes,
-    );
     _hpackContext = HPackContext(maxHeaderListSize: maxHeaderListSize);
-    _defragmenter = FrameDefragmenter(maxAccumulatedHeaderBlockBytes);
+    _defragmenter = FrameDefragmenter(maxHeaderListSize);
 
     // Setup frame reading.
     var incomingFrames =
