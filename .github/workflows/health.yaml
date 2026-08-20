@@ -9,7 +9,7 @@ on:
 
 jobs:
   health:
-    uses: dart-lang/ecosystem/.github/workflows/health.yaml@ed9c592c1d35106c0a8a52044426515017a60646
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@cda8bd535dfbcff45010bc3c843d325682f944b2
     with:
       sdk: dev
       channel: dev
