@@ -1,7 +1,7 @@
 ## 1.7.0-wip
 
 * Add `BrowserCredentialsMode` to support the `omit` browser fetch credentials
-  mode. Deprecate `withCredentials`.
+  mode. The constructor argument should be preferred over `withCredentials`.
 * Clarified the behavior of response headers in API documentation comments.
 * Make it more clear that `close` must be called for correctness.
 * Replace references to `dart:web` with `package:web` dartdoc.

@@ -126,7 +126,7 @@ class OkHttpWebSocket implements WebSocket {
               (bindings.WebSocket webSocket, bindings.ByteString byteString) {
             if (_events.isClosed) return;
             _events.add(BinaryDataReceived(
-                Uint8List.fromList(byteString.toByteArray().toList())));
+                Uint8List.fromList(byteString.toByteArray().asDart())));
           },
           onClosing:
               (bindings.WebSocket webSocket, int i, JString string) async {

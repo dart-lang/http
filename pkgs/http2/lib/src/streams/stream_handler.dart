@@ -542,6 +542,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         ErrorCode.STREAM_CLOSED,
       );
       _closeStreamIdAbnormally(exception.streamId, exception);
+    } on StreamRefusedException catch (exception) {
+      _frameWriter.writeRstStreamFrame(
+        exception.streamId,
+        ErrorCode.REFUSED_STREAM,
+      );
+      _closeStreamIdAbnormally(exception.streamId, exception);
     } on StreamException catch (exception) {
       _frameWriter.writeRstStreamFrame(
         exception.streamId,
@@ -607,6 +613,25 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
         if (frame is HeadersFrame) {
           if (isServer) {
+            var localLimit = _localSettings.maxConcurrentStreams;
+            if (localLimit != null) {
+              // Enforce our own advertised SETTINGS_MAX_CONCURRENT_STREAMS on
+              // peer-initiated streams. RFC 7540 5.1.2: an endpoint that
+              // receives a HEADERS frame that causes its advertised concurrent
+              // stream limit to be exceeded MUST treat this as a stream error
+              // of type PROTOCOL_ERROR or REFUSED_STREAM.
+              var activePeerStreams =
+                  _openStreams.values
+                      .where((s) => _isPeerInitiatedStream(s.id))
+                      .length;
+              if (activePeerStreams >= localLimit) {
+                throw StreamRefusedException(
+                  frame.header.streamId,
+                  'Refusing remote stream: peer exceeded the locally '
+                  'advertised SETTINGS_MAX_CONCURRENT_STREAMS ($localLimit).',
+                );
+              }
+            }
             var newStream = newRemoteStream(frame.header.streamId);
             _changeState(newStream, StreamState.Open);
 
@@ -743,6 +768,15 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     if (stream.state != StreamState.Open &&
         stream.state != StreamState.HalfClosedLocal) {
       throw ProtocolException('Expected open state (was: ${stream.state}).');
+    }
+
+    // RFC 7540 6.5.2/8.2: An endpoint that has both sent and received
+    // acknowledgement of SETTINGS_ENABLE_PUSH=0 MUST treat receipt of a
+    // PUSH_PROMISE frame as a connection error of type PROTOCOL_ERROR.
+    if (!_localSettings.enablePush) {
+      throw ProtocolException(
+        'Received PUSH_PROMISE although SETTINGS_ENABLE_PUSH is 0.',
+      );
     }
 
     var pushedStream = newRemoteStream(frame.promisedStreamId);
