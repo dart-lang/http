@@ -7,9 +7,14 @@ import '../sync_errors.dart';
 import 'frames.dart';
 
 /// Class used for defragmenting [HeadersFrame]s and [PushPromiseFrame]s.
-// TODO: Somehow emit an error if too many continuation frames have been sent
-// (since we're buffering all of them).
 class FrameDefragmenter {
+  /// Maximum total size, in bytes, of a header block accumulated across a
+  /// HEADERS/PUSH_PROMISE frame and its CONTINUATION frames. A peer that
+  /// withholds END_HEADERS could otherwise send unbounded CONTINUATION frames
+  /// and exhaust memory. 256 KiB is far above any legitimate header block but
+  /// small enough to bound per-connection buffering.
+  static const int _maxAccumulatedHeaderBlockBytes = 256 * 1024;
+
   /// The current incomplete [HeadersFrame] fragment.
   HeadersFrame? _headersFrame;
 
@@ -38,6 +43,7 @@ class FrameDefragmenter {
           );
         }
         _headersFrame = _headersFrame!.addBlockContinuation(frame);
+        _checkAccumulatedSize(_headersFrame!.headerBlockFragment.length);
 
         if (frame.hasEndHeadersFlag) {
           var frame = _headersFrame;
@@ -60,6 +66,7 @@ class FrameDefragmenter {
           );
         }
         _pushPromiseFrame = _pushPromiseFrame!.addBlockContinuation(frame);
+        _checkAccumulatedSize(_pushPromiseFrame!.headerBlockFragment.length);
 
         if (frame.hasEndHeadersFlag) {
           var frame = _pushPromiseFrame;
@@ -91,5 +98,16 @@ class FrameDefragmenter {
     // If this frame is not relevant for header defragmentation, we pass it to
     // the next stage.
     return frame;
+  }
+
+  void _checkAccumulatedSize(int accumulatedBytes) {
+    if (accumulatedBytes > _maxAccumulatedHeaderBlockBytes) {
+      _headersFrame = null;
+      _pushPromiseFrame = null;
+      throw ProtocolException(
+        'Defragmentation: accumulated header block exceeds '
+        '$_maxAccumulatedHeaderBlockBytes bytes.',
+      );
+    }
   }
 }

@@ -156,6 +156,38 @@ void main() {
         var f1 = continuationFrame([4, 5, 6], fragmented: true, streamId: 1);
         expect(defrag.tryDefragmentFrame(f1), equals(f1));
       });
+
+      test('fragmented-headers-frame--exceeds-max-size', () {
+        var defrag = FrameDefragmenter();
+
+        var f1 = headersFrame([1], fragmented: true);
+        var f2 = continuationFrame(
+          List<int>.filled(256 * 1024, 0),
+          fragmented: false,
+        );
+
+        expect(defrag.tryDefragmentFrame(f1), isNull);
+        expect(
+          () => defrag.tryDefragmentFrame(f2),
+          throwsA(isProtocolException),
+        );
+      });
+
+      test('fragmented-push-promise-frame--exceeds-max-size', () {
+        var defrag = FrameDefragmenter();
+
+        var f1 = pushPromiseFrame([1], fragmented: true);
+        var f2 = continuationFrame(
+          List<int>.filled(256 * 1024, 0),
+          fragmented: false,
+        );
+
+        expect(defrag.tryDefragmentFrame(f1), isNull);
+        expect(
+          () => defrag.tryDefragmentFrame(f2),
+          throwsA(isProtocolException),
+        );
+      });
     });
   });
 }
