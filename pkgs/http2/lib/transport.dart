@@ -24,7 +24,8 @@ abstract class Settings {
   final int? streamWindowSize;
 
   /// The maximum size of header list that the sender is prepared to accept, in
-  /// bytes (defaults to 256 KiB, which is the value used by Chrome 152).
+  /// bytes (defaults to 256 KiB, which is the value used by Chrome and
+  /// Firefox).
   final int? maxHeaderListSize;
 
   const Settings({

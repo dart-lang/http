@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert' show utf8;
+import 'dart:math' show max;
 
 import '../transport.dart';
 import 'connection_preface.dart';
@@ -167,8 +168,12 @@ abstract class Connection {
     var maxHeaderListSize =
         settingsObject.maxHeaderListSize ??
         FrameDefragmenter.defaultMaxAccumulatedHeaderBlockBytes;
+    var maxAccumulatedHeaderBlockBytes = max(
+      maxHeaderListSize,
+      FrameDefragmenter.defaultMaxAccumulatedHeaderBlockBytes,
+    );
     _hpackContext = HPackContext(maxHeaderListSize: maxHeaderListSize);
-    _defragmenter = FrameDefragmenter(maxHeaderListSize);
+    _defragmenter = FrameDefragmenter(maxAccumulatedHeaderBlockBytes);
 
     // Setup frame reading.
     var incomingFrames =
@@ -288,12 +293,12 @@ abstract class Connection {
       );
     }
 
-    var maxHeaderListSize = settings.maxHeaderListSize;
-    if (maxHeaderListSize != null) {
-      settingsList.add(
-        Setting(Setting.SETTINGS_MAX_HEADER_LIST_SIZE, maxHeaderListSize),
-      );
-    }
+    var maxHeaderListSize =
+        settings.maxHeaderListSize ??
+        FrameDefragmenter.defaultMaxAccumulatedHeaderBlockBytes;
+    settingsList.add(
+      Setting(Setting.SETTINGS_MAX_HEADER_LIST_SIZE, maxHeaderListSize),
+    );
 
     if (settings is ClientSettings) {
       // By default the server is allowed to do server pushes.
