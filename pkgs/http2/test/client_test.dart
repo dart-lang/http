@@ -64,6 +64,80 @@ void main() {
 
         await Future.wait([serverFun(), clientFun()]);
       });
+
+      clientTest('client-advertises-max-header-list-size', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        var settingsDone = Completer<void>();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          var frame = await nextFrame() as SettingsFrame;
+          var setting = frame.settings.firstWhere(
+            (s) => s.identifier == Setting.SETTINGS_MAX_HEADER_LIST_SIZE,
+          );
+          expect(setting.value, 128 * 1024);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          settingsDone.complete();
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.NO_ERROR,
+            ),
+          );
+          expect(await serverReader.moveNext(), false);
+        }
+
+        Future clientFun() async {
+          await settingsDone.future;
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      }, settings: const ClientSettings(maxHeaderListSize: 128 * 1024));
+
+      clientTest('client-advertises-default-max-header-list-size', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        var settingsDone = Completer<void>();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          var frame = await nextFrame() as SettingsFrame;
+          var setting = frame.settings.firstWhere(
+            (s) => s.identifier == Setting.SETTINGS_MAX_HEADER_LIST_SIZE,
+          );
+          expect(setting.value, 256 * 1024);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          settingsDone.complete();
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.NO_ERROR,
+            ),
+          );
+          expect(await serverReader.moveNext(), false);
+        }
+
+        Future clientFun() async {
+          await settingsDone.future;
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
     });
 
     group('connection-operational', () {

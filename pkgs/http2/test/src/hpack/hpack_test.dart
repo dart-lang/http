@@ -780,6 +780,20 @@ void main() {
           0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
         ]);
       });
+
+      test('maxHeaderListSize-within-limit', () {
+        var decoder = HPackDecoder(maxHeaderListSize: 100);
+        // :path: / -> name ':path' (5), value '/' (1), overhead (32) = 38
+        var headers = decoder.decode([0x84]);
+        expect(headers, hasLength(1));
+        expect(headers[0], isHeader(':path', '/'));
+      });
+
+      test('maxHeaderListSize-exceeded', () {
+        var decoder = HPackDecoder(maxHeaderListSize: 37);
+        // :path: / -> 5 + 1 + 32 = 38 > 37
+        expect(() => decoder.decode([0x84]), throwsA(isHPackDecodingException));
+      });
     });
   });
 }

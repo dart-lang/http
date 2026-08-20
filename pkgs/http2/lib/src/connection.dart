@@ -109,7 +109,7 @@ abstract class Connection {
       _onInitialPeerSettingsReceived.future;
 
   /// The HPack context for this connection.
-  final HPackContext _hpackContext = HPackContext();
+  late final HPackContext _hpackContext;
 
   /// The flow window for this connection of the peer.
   final Window _peerWindow = Window();
@@ -118,7 +118,7 @@ abstract class Connection {
   final Window _localWindow = Window();
 
   /// Used for defragmenting PushPromise/Header frames.
-  final FrameDefragmenter _defragmenter = FrameDefragmenter();
+  late final FrameDefragmenter _defragmenter;
 
   /// The outgoing frames of this connection;
   late FrameWriter _frameWriter;
@@ -164,6 +164,12 @@ abstract class Connection {
     StreamSink<List<int>> outgoing,
     Settings settingsObject,
   ) {
+    var maxHeaderListSize =
+        settingsObject.maxHeaderListSize ??
+        FrameDefragmenter.defaultMaxAccumulatedHeaderBlockBytes;
+    _hpackContext = HPackContext(maxHeaderListSize: maxHeaderListSize);
+    _defragmenter = FrameDefragmenter(maxHeaderListSize);
+
     // Setup frame reading.
     var incomingFrames =
         FrameReader(incoming, acknowledgedSettings).startDecoding();
@@ -281,6 +287,13 @@ abstract class Connection {
         Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, streamWindowSize),
       );
     }
+
+    var maxHeaderListSize =
+        settings.maxHeaderListSize ??
+        FrameDefragmenter.defaultMaxAccumulatedHeaderBlockBytes;
+    settingsList.add(
+      Setting(Setting.SETTINGS_MAX_HEADER_LIST_SIZE, maxHeaderListSize),
+    );
 
     if (settings is ClientSettings) {
       // By default the server is allowed to do server pushes.
