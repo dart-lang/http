@@ -40,6 +40,19 @@ void main() {
       expect(await utf8.decodeStream(response.stream),
           parse(containsPair('headers', isNot(contains('content-length')))));
     });
+
+    test('defaults to sending a bodyless GET without framing headers',
+        () async {
+      var request = http.StreamedRequest('GET', serverUrl);
+      unawaited(request.sink.close());
+      var response = await request.send();
+      expect(
+          await utf8.decodeStream(response.stream),
+          parse(containsPair(
+              'headers',
+              allOf(isNot(contains('transfer-encoding')),
+                  isNot(contains('content-length'))))));
+    });
   });
 
   // Regression test.
