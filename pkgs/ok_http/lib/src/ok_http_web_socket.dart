@@ -134,7 +134,17 @@ class OkHttpWebSocket implements WebSocket {
 
             if (_events.isClosed) return;
 
-            _events.add(CloseReceived(i, string.toDartString()));
+            final reason = string.toDartString();
+            // OkHttp replaces invalid UTF-8 bytes in the close reason with
+            // the Unicode replacement character (\uFFFD) instead of failing
+            // the connection. Per RFC 6455 section 5.5.1 and 7.4.1, invalid
+            // UTF-8 close reasons must be reported as code 1007 (Invalid Frame
+            // Payload Data).
+            if (reason.contains('\uFFFD')) {
+              _events.add(CloseReceived(1007, 'invalid close reason'));
+            } else {
+              _events.add(CloseReceived(i, reason));
+            }
             await _events.close();
           },
           onFailure: (bindings.WebSocket webSocket, JObject throwable,
