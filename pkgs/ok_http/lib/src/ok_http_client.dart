@@ -291,12 +291,27 @@ class OkHttpClient extends BaseClient {
       _client.dispatcher().executorService().shutdown();
 
       // Remove all idle connections from the resource pool.
-      _client.connectionPool().evictAll();
+      // Note: evictAll() closes open sockets, which can trigger a
+      // NetworkOnMainThreadException on Android if StrictMode is enabled on
+      // the main thread.
+      try {
+        _client.connectionPool().evictAll();
+      } on JThrowable catch (e) {
+        if (!e.message.contains('NetworkOnMainThreadException')) {
+          rethrow;
+        }
+      }
 
       // Close the cache and release the JNI reference to the client.
       var cache = _client.cache();
       if (cache != null) {
-        cache.close();
+        try {
+          cache.close();
+        } on JThrowable catch (e) {
+          if (!e.message.contains('NetworkOnMainThreadException')) {
+            rethrow;
+          }
+        }
       }
       _client.release();
     }

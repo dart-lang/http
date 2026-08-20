@@ -20,7 +20,7 @@ import 'response_body_streamed_server_vm.dart'
 /// [Client] supports receiving HTTP responses with unbounded body sizes will
 /// be skipped
 void testResponseBodyStreamed(Client Function() clientFactory,
-    {bool canStreamResponseBody = true}) {
+    {bool canStreamResponseBody = true, bool supportsAbort = true}) {
   group('streamed response body', () {
     late Client client;
     late String host;
@@ -174,7 +174,7 @@ void testResponseBodyStreamed(Client Function() clientFactory,
       // cancelled to record that error event.
       subscription.resume();
       await aborted;
-    });
+    }, skip: !supportsAbort ? 'does not support aborting requests' : false);
 
     test('cancel streamed response', () async {
       final request = Request('GET', Uri.http(host, ''));
