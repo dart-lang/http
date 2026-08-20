@@ -18,23 +18,22 @@ import 'connection.dart';
 
 /// A pooled, multiplexed `http.Client` backed by HTTP/2 connections.
 ///
-/// Every request is sent as its own HTTP/2 stream on a shared connection -
-/// see [ClientPool] - dialed per `host:port` via
-/// `SecureSocket.connect(..., supportedProtocols: ['h2'])`. Once a connection
-/// is carrying as many concurrent streams as it may - the lower of
-/// [maxStreamsPerConnection] and the server's own advertised limit - a new
-/// connection is dialed rather than queuing behind the existing one.
+/// Every request is sent as its own HTTP/2 stream on a connection shared with
+/// other requests to the same `host:port`. Once a connection is carrying as
+/// many concurrent streams as it may - the lower of
+/// [maxStreamsPerConnection] and the server's own advertised limit - another
+/// connection is dialed rather than queuing behind the existing one. A
+/// connection dialed for one host is never reused for another.
 ///
-/// Being multi-host makes this safe to use as a general-purpose transport -
-/// for example as the `baseClient` passed to `googleapis_auth`'s client
-/// helpers, whose credential negotiation (OAuth2 token endpoint, WIF/OIDC
-/// token exchange) targets different hosts than the API calls that follow.
-/// A connection dialed for one host is never reused for another.
+/// This client speaks only HTTP/2, and does not fall back to HTTP/1.1: a
+/// server that does not negotiate `h2` over ALPN is treated as an error
+/// rather than retried over HTTP/1.1.
 ///
 /// `onBadCertificate` is forwarded as-is to `SecureSocket.connect`: returning
 /// `true` accepts a certificate that failed normal verification (expired,
 /// self-signed, wrong host, ...). It exists for tests and trusted private
 /// networks - do not use it to accept arbitrary certificates in production.
+@experimental
 class Http2Client extends BaseClient {
   Http2Client({
     this.maxStreamsPerConnection = 100,
@@ -54,8 +53,7 @@ class Http2Client extends BaseClient {
   /// streams than this, that smaller number is used for its connections.
   final int maxStreamsPerConnection;
 
-  /// The maximum number of idle connections to keep per host, per
-  /// [ClientPool.maxIdleConnections].
+  /// The maximum number of idle connections to keep per host.
   final int maxIdleConnections;
 
   /// How long to wait for a freshly dialed connection's peer to send its
@@ -355,9 +353,8 @@ class Http2Client extends BaseClient {
 /// Thrown by [Http2Client._sendOverHttp2] when a pooled connection turns
 /// out to have already been closed by the peer (e.g. a graceful `GOAWAY`)
 /// before any bytes were written for this request. [Http2Client.send]
-/// catches this and retries once on whatever the pool dials next -
-/// [ClientPool.run] has already marked the dead connection failed and
-/// evicted it by the time the retry runs.
+/// catches this and retries once on whatever the pool dials next, having
+/// marked the dead connection failed so it isn't handed out again.
 class _ConnectionClosedByPeer implements Exception {
   const _ConnectionClosedByPeer();
 

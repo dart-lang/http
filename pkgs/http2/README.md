@@ -75,5 +75,7 @@ Future<void> main() async {
 ```
 
 A connection is dialed per `host:port` as needed, so a single `Http2Client`
-is safe to reuse across requests to different hosts. See the example
+is safe to reuse across requests to different hosts. Note that it speaks only
+HTTP/2 and does not fall back to HTTP/1.1: a server that does not negotiate
+`h2` is treated as an error. See the example
 [here](example/pooled_client.dart).

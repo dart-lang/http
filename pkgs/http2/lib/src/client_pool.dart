@@ -14,15 +14,17 @@
 /// );
 /// ```
 ///
-/// Use [ClientPool.run] when the work finishes with the call:
+/// Use [ClientPool.run] when the connection is free again as soon as the
+/// returned future completes:
 ///
 /// ```dart
 /// final result = await pool.run((connection) => send(connection, request));
 /// ```
 ///
-/// Use [ClientPool.acquire] when the connection stays busy after the call
-/// returns - an HTTP/2 response, for example, arrives long after its headers
-/// do. The caller then owns the slot until it releases the lease:
+/// Use [ClientPool.acquire] when the connection is still in use after that
+/// future completes - an HTTP/2 response, for example, is returned as soon as
+/// its headers arrive but keeps its stream open while the body is delivered.
+/// The caller then owns the slot until it releases the lease:
 ///
 /// ```dart
 /// final lease = await pool.acquire();
