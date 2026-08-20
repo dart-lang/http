@@ -1,6 +1,7 @@
 ## 3.0.1-wip
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
+- Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).
 - Enforce the locally advertised `SETTINGS_MAX_CONCURRENT_STREAMS` limit on incoming remote streams.
 
 ## 3.0.0
