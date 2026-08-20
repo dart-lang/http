@@ -23,12 +23,24 @@ abstract class Settings {
   /// streams (defaults to 65535 bytes).
   final int? streamWindowSize;
 
-  const Settings({this.concurrentStreamLimit, this.streamWindowSize});
+  /// The maximum size of header list that the sender is prepared to accept, in
+  /// bytes (defaults to 256 KiB, which is the value used by Chrome 152).
+  final int? maxHeaderListSize;
+
+  const Settings({
+    this.concurrentStreamLimit,
+    this.streamWindowSize,
+    this.maxHeaderListSize,
+  });
 }
 
 /// Settings for a [TransportConnection] a server can make.
 class ServerSettings extends Settings {
-  const ServerSettings({super.concurrentStreamLimit, super.streamWindowSize});
+  const ServerSettings({
+    super.concurrentStreamLimit,
+    super.streamWindowSize,
+    super.maxHeaderListSize,
+  });
 }
 
 /// Settings for a [TransportConnection] a client can make.
@@ -39,6 +51,7 @@ class ClientSettings extends Settings {
   const ClientSettings({
     super.concurrentStreamLimit,
     super.streamWindowSize,
+    super.maxHeaderListSize,
     this.allowServerPushes = false,
   });
 }

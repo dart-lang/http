@@ -173,20 +173,55 @@ void main() {
         );
       });
 
-      test('fragmented-push-promise-frame--exceeds-max-size', () {
-        var defrag = FrameDefragmenter();
+      test('fragmented-headers-frame--initial-exceeds-max-size', () {
+        var defrag = FrameDefragmenter(50);
 
-        var f1 = pushPromiseFrame([1], fragmented: true);
-        var f2 = continuationFrame(
-          List<int>.filled(256 * 1024, 0),
-          fragmented: false,
-        );
-
-        expect(defrag.tryDefragmentFrame(f1), isNull);
+        var f1 = headersFrame(List<int>.filled(51, 0), fragmented: true);
         expect(
-          () => defrag.tryDefragmentFrame(f2),
+          () => defrag.tryDefragmentFrame(f1),
           throwsA(isProtocolException),
         );
+      });
+
+      test('fragmented-push-promise-frame--initial-exceeds-max-size', () {
+        var defrag = FrameDefragmenter(50);
+
+        var f1 = pushPromiseFrame(List<int>.filled(51, 0), fragmented: true);
+        expect(
+          () => defrag.tryDefragmentFrame(f1),
+          throwsA(isProtocolException),
+        );
+      });
+
+      test('fragmented-headers-frame--custom-limit', () {
+        var defrag = FrameDefragmenter(10);
+
+        var f1 = headersFrame([1, 2, 3], fragmented: true);
+        var f2 = continuationFrame([4, 5, 6], fragmented: true);
+        var f3 = continuationFrame([7, 8, 9, 10, 11], fragmented: false);
+
+        expect(defrag.tryDefragmentFrame(f1), isNull);
+        expect(defrag.tryDefragmentFrame(f2), isNull);
+        expect(
+          () => defrag.tryDefragmentFrame(f3),
+          throwsA(isProtocolException),
+        );
+      });
+
+      test('fragmented-headers-frame--multi-chunks', () {
+        var defrag = FrameDefragmenter();
+
+        var f1 = headersFrame([1, 2], fragmented: true);
+        var f2 = continuationFrame([3, 4], fragmented: true);
+        var f3 = continuationFrame([5, 6], fragmented: true);
+        var f4 = continuationFrame([7, 8], fragmented: false);
+
+        expect(defrag.tryDefragmentFrame(f1), isNull);
+        expect(defrag.tryDefragmentFrame(f2), isNull);
+        expect(defrag.tryDefragmentFrame(f3), isNull);
+        var h = defrag.tryDefragmentFrame(f4) as HeadersFrame;
+        expect(h.hasEndHeadersFlag, isTrue);
+        expect(h.headerBlockFragment, [1, 2, 3, 4, 5, 6, 7, 8]);
       });
     });
   });

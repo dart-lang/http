@@ -3,7 +3,7 @@
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
 - Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).
 - Enforce the locally advertised `SETTINGS_MAX_CONCURRENT_STREAMS` limit on incoming remote streams.
-- Limit accumulated header block size to 256 KiB during frame defragmentation to prevent unbounded CONTINUATION-frame buffering.
+- Add `maxHeaderListSize` setting to `ClientSettings` and `ServerSettings` (defaulting to 256 KiB), advertise `SETTINGS_MAX_HEADER_LIST_SIZE`, enforce it during HPACK decoding, and limit CONTINUATION frame buffering with $O(N)$ defragmentation.
 
 ## 3.0.0
 

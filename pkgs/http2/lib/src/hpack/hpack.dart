@@ -29,12 +29,13 @@ class HPackDecodingException implements Exception {
 /// This is a statefull class, so encoding/decoding changes internal state.
 class HPackContext {
   final HPackEncoder encoder = HPackEncoder();
-  final HPackDecoder decoder = HPackDecoder();
+  final HPackDecoder decoder;
 
   HPackContext({
     int maxSendingHeaderTableSize = 4096,
     int maxReceivingHeaderTableSize = 4096,
-  }) {
+    int? maxHeaderListSize,
+  }) : decoder = HPackDecoder(maxHeaderListSize: maxHeaderListSize) {
     encoder.updateMaxSendingHeaderTableSize(maxSendingHeaderTableSize);
     decoder.updateMaxReceivingHeaderTableSize(maxReceivingHeaderTableSize);
   }
@@ -58,9 +59,12 @@ class Header {
 
 /// A stateful HPACK decoder.
 class HPackDecoder {
+  final int? maxHeaderListSize;
   late int _maxHeaderTableSize;
 
   final IndexTable _table = IndexTable();
+
+  HPackDecoder({this.maxHeaderListSize});
 
   void updateMaxReceivingHeaderTableSize(int newMaximumSize) {
     _maxHeaderTableSize = newMaximumSize;
@@ -121,6 +125,21 @@ class HPackDecoder {
 
     try {
       var headers = <Header>[];
+      var totalHeaderListSize = 0;
+
+      void addHeader(Header header) {
+        headers.add(header);
+        if (maxHeaderListSize != null) {
+          totalHeaderListSize += header.name.length + header.value.length + 32;
+          if (totalHeaderListSize > maxHeaderListSize!) {
+            throw HPackDecodingException(
+              'Header list size exceeds maximum allowed size of '
+              '$maxHeaderListSize octets.',
+            );
+          }
+        }
+      }
+
       while (offset < data.length) {
         var byte = data[offset];
         var isIndexedField = (byte & 0x80) != 0;
@@ -133,15 +152,15 @@ class HPackDecoder {
         if (isIndexedField) {
           var index = readInteger(7);
           var field = _table.lookup(index);
-          headers.add(field);
+          addHeader(field);
         } else if (isIncrementalIndexing) {
           var field = readHeaderFieldInternal(readInteger(6));
           _table.addHeaderField(field);
-          headers.add(field);
+          addHeader(field);
         } else if (isWithoutIndexing) {
-          headers.add(readHeaderFieldInternal(readInteger(4)));
+          addHeader(readHeaderFieldInternal(readInteger(4)));
         } else if (isNeverIndexing) {
-          headers.add(
+          addHeader(
             readHeaderFieldInternal(readInteger(4), neverIndexed: true),
           );
         } else if (isDynamicTableSizeUpdate) {
