@@ -542,6 +542,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         ErrorCode.STREAM_CLOSED,
       );
       _closeStreamIdAbnormally(exception.streamId, exception);
+    } on StreamRefusedException catch (exception) {
+      _frameWriter.writeRstStreamFrame(
+        exception.streamId,
+        ErrorCode.REFUSED_STREAM,
+      );
+      _closeStreamIdAbnormally(exception.streamId, exception);
     } on StreamException catch (exception) {
       _frameWriter.writeRstStreamFrame(
         exception.streamId,
@@ -607,6 +613,25 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
         if (frame is HeadersFrame) {
           if (isServer) {
+            var localLimit = _localSettings.maxConcurrentStreams;
+            if (localLimit != null) {
+              // Enforce our own advertised SETTINGS_MAX_CONCURRENT_STREAMS on
+              // peer-initiated streams. RFC 7540 5.1.2: an endpoint that
+              // receives a HEADERS frame that causes its advertised concurrent
+              // stream limit to be exceeded MUST treat this as a stream error
+              // of type PROTOCOL_ERROR or REFUSED_STREAM.
+              var activePeerStreams =
+                  _openStreams.values
+                      .where((s) => _isPeerInitiatedStream(s.id))
+                      .length;
+              if (activePeerStreams >= localLimit) {
+                throw StreamRefusedException(
+                  frame.header.streamId,
+                  'Refusing remote stream: peer exceeded the locally '
+                  'advertised SETTINGS_MAX_CONCURRENT_STREAMS ($localLimit).',
+                );
+              }
+            }
             var newStream = newRemoteStream(frame.header.streamId);
             _changeState(newStream, StreamState.Open);
 

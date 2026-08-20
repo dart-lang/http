@@ -15,17 +15,20 @@ library;
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 
+import 'package:flutter/foundation.dart' show PlatformDispatcher;
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
+import 'package:jni_flutter/jni_flutter.dart';
 
 import 'jni/bindings.dart' as bindings;
 import 'jni/bindings.dart' show PrivateKey, X509Certificate;
 
 class _JavaIOException extends IOException {
   final String _message;
-  _JavaIOException(JniException e) : _message = e.message;
+  _JavaIOException(JThrowable e) : _message = e.message;
 
   @override
   String toString() => _message;
@@ -37,10 +40,10 @@ final _allAllTrustManager =
         checkClientTrusted: (chain, authType) {},
         checkServerTrusted: (chain, authType) {},
         getAcceptedIssuers: () {
-          final factory = bindings.TrustManagerFactory.getInstance(
-              bindings.TrustManagerFactory.getDefaultAlgorithm());
-          factory!.init(null);
-          return JArray(bindings.X509Certificate.nullableType, 0);
+          bindings.TrustManagerFactory.getInstance(
+                  bindings.TrustManagerFactory.defaultAlgorithm)!
+              .init(null);
+          return JArray.withLength(bindings.X509Certificate.type, 0);
         })).as(bindings.TrustManager.type);
 
 /// Configurations for the [OkHttpClient].
@@ -108,11 +111,12 @@ class OkHttpClientConfiguration {
 ///
 /// See [`KeyChain.choosePrivateKeyAlias`](https://developer.android.com/reference/android/security/KeyChain#choosePrivateKeyAlias(android.app.Activity,%20android.security.KeyChainAliasCallback,%20java.lang.String[],%20java.security.Principal[],%20android.net.Uri,%20java.lang.String).
 Future<String?> choosePrivateKeyAlias({
-  JObject? activity,
+  bindings.Activity? activity,
 }) async {
   final c = Completer<String?>();
-  activity ??= JObject.fromReference(Jni.getCurrentActivity());
-  bindings.KeyChain.choosePrivateKeyAlias(activity,
+  activity ??= androidActivity(PlatformDispatcher.instance.engineId ?? 0)
+      as bindings.Activity?;
+  bindings.KeyChain.choosePrivateKeyAlias$1(activity,
       bindings.KeyChainAliasCallback.implement(
           bindings.$KeyChainAliasCallback(alias: (alias) {
     c.complete(alias?.toDartString());
@@ -125,13 +129,13 @@ Future<String?> choosePrivateKeyAlias({
 /// See [Android Keystore system](https://developer.android.com/privacy-and-security/keystore).
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromAlias(
     String alias,
-    {JObject? context}) {
-  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
+    {bindings.Context? context}) {
+  context ??= androidApplicationContext as bindings.Context;
   final jAlias = alias.toJString();
   final pk = bindings.KeyChain.getPrivateKey(context, jAlias)!;
   final chain = bindings.KeyChain.getCertificateChain(context, jAlias)!;
 
-  return (pk, chain.toList().cast<X509Certificate>());
+  return (pk, chain.asDart().cast<X509Certificate>());
 }
 
 /// Load a [PrivateKey] and certificate chain from a PKCS 12 archive.
@@ -140,9 +144,9 @@ Future<String?> choosePrivateKeyAlias({
 /// invalid.
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromPKCS12(
     Uint8List pkcs12Data, String password,
-    {JObject? context}) {
-  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
-  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString())!;
+    {bindings.Context? context}) {
+  context ??= androidApplicationContext as bindings.Context;
+  var keyStore = bindings.KeyStore.getInstance$2('PKCS12'.toJString())!;
 
   final jPassword = JCharArray(password.length);
   for (var i = 0; i < password.length; ++i) {
@@ -150,8 +154,8 @@ Future<String?> choosePrivateKeyAlias({
   }
   try {
     keyStore.load(
-        bindings.ByteArrayInputStream(JByteArray.from(pkcs12Data)), jPassword);
-  } on JniException catch (e) {
+        bindings.ByteArrayInputStream(JByteArray.of(pkcs12Data)), jPassword);
+  } on JThrowable catch (e) {
     if (e.message.contains('java.io.IOException')) {
       throw _JavaIOException(e);
     }
@@ -181,7 +185,7 @@ Future<String?> choosePrivateKeyAlias({
     throw ArgumentError('certificate key is not a PrivateKey', 'pkcs12Data');
   }
 
-  final certificates = jCertificates.map((c) {
+  final certificates = jCertificates.asDart().map((bindings.Certificate? c) {
     if (c == null || !c.isA(X509Certificate.type)) {
       throw ArgumentError(
           'certificate chain contains non-X509 certificates', 'pkcs12Data');
@@ -246,7 +250,7 @@ class OkHttpClient extends BaseClient {
         clientCertificateChain != null ||
         !configuration.validateServerCertificates) {
       JArray<bindings.KeyManager>? keyManagers;
-      final trustManagers = JArray(bindings.TrustManager.nullableType, 1);
+      final trustManagers = JArray.withLength(bindings.TrustManager.type, 1);
 
       if (clientPrivateKey != null && clientCertificateChain != null) {
         final chain =
@@ -254,16 +258,16 @@ class OkHttpClient extends BaseClient {
         final keyManager = bindings.FixedResponseX509ExtendedKeyManager(
             chain, clientPrivateKey, 'DUMMY'.toJString());
         keyManagers = JArray.filled(1, keyManager.as(bindings.KeyManager.type),
-            E: bindings.KeyManager.type);
+            elementType: bindings.KeyManager.type);
       }
 
       if (!configuration.validateServerCertificates) {
         trustManagers[0] = _allAllTrustManager;
       } else {
         final tmf = bindings.TrustManagerFactory.getInstance(
-            bindings.TrustManagerFactory.getDefaultAlgorithm())!
+            bindings.TrustManagerFactory.defaultAlgorithm)!
           ..init(null);
-        final tms = tmf.getTrustManagers()!;
+        final tms = tmf.trustManagers!;
         if (tms.length != 1) {
           throw StateError('unexpected XXX');
         }
@@ -272,7 +276,7 @@ class OkHttpClient extends BaseClient {
 
       final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())!
         ..init(keyManagers, trustManagers, null);
-      builder.sslSocketFactory$1(sslContext.getSocketFactory()!,
+      builder.sslSocketFactory$1(sslContext.socketFactory!,
           trustManagers[0]!.as(bindings.X509TrustManager.type));
     }
     _client = builder.build();
@@ -363,7 +367,7 @@ class OkHttpClient extends BaseClient {
     // So, we need to handle this case separately.
     bindings.RequestBody? okReqBody;
     if (requestMethod != 'GET' && requestMethod != 'HEAD') {
-      okReqBody = bindings.RequestBody.create$10(JByteArray.from(requestBody));
+      okReqBody = bindings.RequestBody.create$10(JByteArray.of(requestBody));
     }
 
     reqBuilder.method(
@@ -417,9 +421,11 @@ class OkHttpClient extends BaseClient {
 
             var responseHeaders = <String, String>{};
 
-            response.headers().toMultimap().forEach((key, value) {
-              responseHeaders[key.toDartString(releaseOriginal: true)] =
-                  value.join(',');
+            response.headers().toMultimap().asDart().forEach((key, value) {
+              responseHeaders[key.toDartString(releaseOriginal: true)] = value
+                  .asDart()
+                  .map((s) => s.toDartString(releaseOriginal: true))
+                  .join(',');
             });
 
             int? contentLength;
@@ -441,7 +447,7 @@ class OkHttpClient extends BaseClient {
                 bindings.DataCallback.implement(
                   bindings.$DataCallback(
                     onDataRead: (bytesRead) {
-                      var data = bytesRead.toList(growable: false);
+                      var data = bytesRead.asDart().toList();
 
                       respBodyStreamController.sink.add(data);
                       profile?.responseData.bodySink.add(data);
@@ -476,14 +482,14 @@ class OkHttpClient extends BaseClient {
               headers: responseHeaders,
               request: request,
               contentLength: contentLength,
-              isRedirect: response.isRedirect(),
+              isRedirect: response.isRedirect,
             ));
 
             profile?.requestData.close();
             profile?.responseData
               ?..contentLength = contentLength
               ..headersCommaValues = responseHeaders
-              ..isRedirect = response.isRedirect()
+              ..isRedirect = response.isRedirect
               ..reasonPhrase =
                   response.message().toDartString(releaseOriginal: true)
               ..startTime = DateTime.now()

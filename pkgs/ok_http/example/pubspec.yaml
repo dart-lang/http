@@ -27,6 +27,7 @@ dev_dependencies:
   http_profile: ^0.1.0
   integration_test:
     sdk: flutter
+  jni: ^1.0.0 # Used in integration tests.
   test: ^1.23.1
   web_socket_conformance_tests:
     path: ../../web_socket_conformance_tests/
