@@ -15,6 +15,7 @@ library;
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart' show PlatformDispatcher;
 import 'package:http/http.dart';
@@ -39,9 +40,9 @@ final _allAllTrustManager =
         checkClientTrusted: (chain, authType) {},
         checkServerTrusted: (chain, authType) {},
         getAcceptedIssuers: () {
-          final factory = bindings.TrustManagerFactory.getInstance(
-              bindings.TrustManagerFactory.defaultAlgorithm);
-          factory!.init(null);
+          bindings.TrustManagerFactory.getInstance(
+                  bindings.TrustManagerFactory.defaultAlgorithm)!
+              .init(null);
           return JArray.withLength(bindings.X509Certificate.type, 0);
         })).as(bindings.TrustManager.type);
 
@@ -110,10 +111,11 @@ class OkHttpClientConfiguration {
 ///
 /// See [`KeyChain.choosePrivateKeyAlias`](https://developer.android.com/reference/android/security/KeyChain#choosePrivateKeyAlias(android.app.Activity,%20android.security.KeyChainAliasCallback,%20java.lang.String[],%20java.security.Principal[],%20android.net.Uri,%20java.lang.String).
 Future<String?> choosePrivateKeyAlias({
-  JObject? activity,
+  bindings.Activity? activity,
 }) async {
   final c = Completer<String?>();
-  activity ??= androidActivity(PlatformDispatcher.instance.engineId!);
+  activity ??= androidActivity(PlatformDispatcher.instance.engineId ?? 0)
+      as bindings.Activity?;
   bindings.KeyChain.choosePrivateKeyAlias$1(activity,
       bindings.KeyChainAliasCallback.implement(
           bindings.$KeyChainAliasCallback(alias: (alias) {
@@ -127,8 +129,8 @@ Future<String?> choosePrivateKeyAlias({
 /// See [Android Keystore system](https://developer.android.com/privacy-and-security/keystore).
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromAlias(
     String alias,
-    {JObject? context}) {
-  context ??= androidApplicationContext;
+    {bindings.Context? context}) {
+  context ??= androidApplicationContext as bindings.Context;
   final jAlias = alias.toJString();
   final pk = bindings.KeyChain.getPrivateKey(context, jAlias)!;
   final chain = bindings.KeyChain.getCertificateChain(context, jAlias)!;
@@ -142,8 +144,8 @@ Future<String?> choosePrivateKeyAlias({
 /// invalid.
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromPKCS12(
     Uint8List pkcs12Data, String password,
-    {JObject? context}) {
-  context ??= androidApplicationContext;
+    {bindings.Context? context}) {
+  context ??= androidApplicationContext as bindings.Context;
   var keyStore = bindings.KeyStore.getInstance$2('PKCS12'.toJString())!;
 
   final jPassword = JCharArray(password.length);
@@ -183,7 +185,7 @@ Future<String?> choosePrivateKeyAlias({
     throw ArgumentError('certificate key is not a PrivateKey', 'pkcs12Data');
   }
 
-  final certificates = jCertificates.asDart().map((c) {
+  final certificates = jCertificates.asDart().map((bindings.Certificate? c) {
     if (c == null || !c.isA(X509Certificate.type)) {
       throw ArgumentError(
           'certificate chain contains non-X509 certificates', 'pkcs12Data');
@@ -420,8 +422,10 @@ class OkHttpClient extends BaseClient {
             var responseHeaders = <String, String>{};
 
             response.headers().toMultimap().asDart().forEach((key, value) {
-              responseHeaders[key.toDartString(releaseOriginal: true)] =
-                  value.asDart().join(',');
+              responseHeaders[key.toDartString(releaseOriginal: true)] = value
+                  .asDart()
+                  .map((s) => s.toDartString(releaseOriginal: true))
+                  .join(',');
             });
 
             int? contentLength;
@@ -443,7 +447,7 @@ class OkHttpClient extends BaseClient {
                 bindings.DataCallback.implement(
                   bindings.$DataCallback(
                     onDataRead: (bytesRead) {
-                      var data = bytesRead.asDart().toList(growable: false);
+                      var data = bytesRead.asDart().toList();
 
                       respBodyStreamController.sink.add(data);
                       profile?.responseData.bodySink.add(data);

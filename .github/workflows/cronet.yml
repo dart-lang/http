@@ -43,8 +43,6 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-      - name: Build APK
-        run: cd example && flutter build apk && cd ..
       - name: Upgrade
         # Set this to `true` if you are using this workflow to regenerate the jni
         # bindings.
