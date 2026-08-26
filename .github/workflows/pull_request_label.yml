@@ -5,7 +5,8 @@
 # https://github.com/actions/labeler.
 
 name: Pull Request Labeler
-permissions: read-all
+permissions:
+  contents: read
 
 on:
   pull_request_target

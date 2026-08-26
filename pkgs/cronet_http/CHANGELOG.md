@@ -1,5 +1,6 @@
 ## 1.10.0-wip
 
+* Upgrade `package:jnigen` to 0.17.0.
 * Add DNS configuration options to `CronetEngine.build`:
   `useBuiltInDnsResolver`, `enableStaleDns`, `persistHostCache` and
   `persistHostCachePeriod`. Setting `useBuiltInDnsResolver: false` forces the
