@@ -49,7 +49,7 @@ jobs:
         if: false
         run: dart pub upgrade --major-versions jnigen jni
       - name: Regenerate
-        run: dart run jnigen --config jnigen.yaml
+        run: dart run tool/jnigen.dart
       - name: Generated Diff
         id: diff
         run: git diff --exit-code lib/src/jni/jni_bindings.dart
