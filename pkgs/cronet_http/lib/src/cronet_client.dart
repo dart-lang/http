@@ -301,7 +301,7 @@ class CronetEngine {
     try {
       return using((arena) {
         final builder = jb.CronetEngine$Builder(
-            androidApplicationContext..releasedBy(arena))
+            (androidApplicationContext as jb.Context)..releasedBy(arena))
           ..releasedBy(arena);
 
         if (storagePath != null) {
@@ -802,7 +802,7 @@ class CronetClient extends BaseClient {
         jUrl,
         jb.UrlRequestCallbackProxy(
             _urlRequestCallbacks(request, responseCompleter, profile)),
-        _executor,
+        _executor as jb.Executor,
       )!
         ..releasedBy(arena)
         ..setHttpMethod(jMethod);
@@ -834,7 +834,7 @@ class CronetClient extends BaseClient {
         }
 
         builder.setUploadDataProvider(
-            jb.UploadDataProviders.create$2(data), _executor);
+            jb.UploadDataProviders.create$2(data), _executor as jb.Executor);
       }
 
       // Not releasing `cronetRequest` as it's used in `whenComplete` callback.

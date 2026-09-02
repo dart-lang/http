@@ -97,6 +97,14 @@ abstract class ClientTransportConnection extends TransportConnection {
   /// via [makeRequest].
   bool get isOpen;
 
+  /// The maximum number of concurrent streams the peer currently allows, per
+  /// its most recent SETTINGS_MAX_CONCURRENT_STREAMS (RFC 7540 6.5.2), or
+  /// `null` if the peer hasn't advertised a limit.
+  ///
+  /// This is only known once the peer's initial SETTINGS frame has arrived -
+  /// see [onInitialPeerSettingsReceived].
+  int? get peerMaxConcurrentStreams;
+
   /// Creates a new outgoing stream.
   ClientTransportStream makeRequest(
     List<Header> headers, {
