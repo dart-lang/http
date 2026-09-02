@@ -1,6 +1,7 @@
 ## 1.10.0-wip
 * Upgrade Gradle to 8.14, AGP to 8.11.1, and Kotlin to 2.2.20 in the example
   app to resolve Flutter deprecation warnings.
+* Upgrade `package:jnigen` to 0.17.0.
 * Add DNS configuration options to `CronetEngine.build`:
   `useBuiltInDnsResolver`, `enableStaleDns`, `persistHostCache` and
   `persistHostCachePeriod`. Setting `useBuiltInDnsResolver: false` forces the

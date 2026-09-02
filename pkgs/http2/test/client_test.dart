@@ -883,6 +883,96 @@ void main() {
         await Future.wait([serverFun(), clientFun()]);
       });
 
+      clientTest('client-reports-connection-error-on-push-when-push-disabled', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        var handshakeCompleter = Completer<void>();
+        var gotPushPromise = Completer<void>();
+
+        Future serverFun() async {
+          // Server accepts the settings with SETTINGS_ENABLE_PUSH = 0.
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          handshakeCompleter.complete();
+
+          var headers = await nextFrame() as HeadersFrame;
+          var streamId = headers.header.streamId;
+
+          // Push stream on the open stream.
+          var pushStreamId = 2;
+          serverWriter.writePushPromiseFrame(streamId, pushStreamId, [
+            Header.ascii('a', 'b'),
+          ]);
+
+          // Since the client sent SETTINGS_ENABLE_PUSH=0, receiving a
+          // PUSH_PROMISE **must** result in a connection error of type
+          // PROTOCOL_ERROR.
+          try {
+            var frame = await nextFrame().timeout(
+              const Duration(milliseconds: 500),
+            );
+            if (frame is GoawayFrame) {
+              expect(frame.errorCode, ErrorCode.PROTOCOL_ERROR);
+              expect(
+                ascii.decode(frame.debugData),
+                contains(
+                  'Received PUSH_PROMISE although SETTINGS_ENABLE_PUSH is 0',
+                ),
+              );
+            } else {
+              fail('Expected GoawayFrame, but got $frame');
+            }
+          } finally {
+            expect(await serverReader.moveNext(), false);
+            await serverWriter.close();
+          }
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
+
+          // Listen for push stream, which should not happen if pushes are
+          // disabled.
+          stream.peerPushes.listen((push) {
+            gotPushPromise.complete();
+          });
+
+          // Wait for the stream to throw an error.
+          var done = Completer<void>();
+          stream.incomingMessages.listen(
+            (_) {},
+            onError: (Object e) {
+              expect(
+                e,
+                isA<TransportConnectionException>().having(
+                  (p0) => p0.message,
+                  'Forcefully terminated message',
+                  contains('Connection is being forcefully terminated'),
+                ),
+              );
+              if (!done.isCompleted) done.complete();
+            },
+            onDone: () {
+              if (!done.isCompleted) done.complete();
+            },
+          );
+
+          await Future.any([gotPushPromise.future, done.future]);
+
+          await client.terminate();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      }, settings: const ClientSettings(allowServerPushes: false));
+
       clientTest('client-reports-flowcontrol-error-on-negative-window', (
         ClientTransportConnection client,
         FrameWriter serverWriter,
@@ -1095,10 +1185,11 @@ void clientTest(
     StreamIterator<Frame> frameReader,
     Future<Frame> Function() readNext,
   )
-  func,
-) {
+  func, {
+  ClientSettings? settings,
+}) {
   return test(name, () {
-    var streams = ClientStreams();
+    var streams = ClientStreams(settings: settings);
     var serverReader = streams.serverConnectionFrameReader;
 
     Future<Frame> readNext() async {
@@ -1116,8 +1207,12 @@ void clientTest(
 }
 
 class ClientStreams {
+  final ClientSettings? settings;
   final StreamController<List<int>> writeA = StreamController();
   final StreamController<List<int>> writeB = StreamController();
+
+  ClientStreams({this.settings});
+
   Stream<List<int>> get readA => writeA.stream;
   Stream<List<int>> get readB => writeB.stream;
 
@@ -1136,5 +1231,5 @@ class ClientStreams {
   }
 
   ClientTransportConnection get clientConnection =>
-      ClientTransportConnection.viaStreams(readB, writeA);
+      ClientTransportConnection.viaStreams(readB, writeA, settings: settings);
 }
