@@ -1,3 +1,9 @@
+## 3.1.0-wip
+
+* Switch to `package:objective_c` `9.5.0` and `package:ffigen` `21.0.0`, fixing
+  a [bug](https://github.com/dart-lang/http/issues/1894) where a request that
+  was still in flight when its isolate shut down could crash the process.
+
 ## 3.0.2
 
 * Fix a [bug](https://github.com/dart-lang/http/issues/1929) where code
