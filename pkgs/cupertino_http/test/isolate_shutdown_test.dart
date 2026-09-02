@@ -14,50 +14,28 @@ import 'package:test/test.dart';
 const _isolateCount = 20;
 
 const _responseDelay = Duration(milliseconds: 500);
+
+/// Allows time for the server to respond and native callbacks to fire against
+/// the dead isolates before the test exits.
 const _callbackGracePeriod = Duration(seconds: 1);
 
-/// Selects the child process; `package:test` rejects a `main` with arguments.
-const _childMarker = 'CUPERTINO_HTTP_ISOLATE_SHUTDOWN_CHILD';
-
-/// A delegate callback that arrives after its isolate is gone aborts the VM,
-/// which would take the test runner down with it, hence the child process.
-Future<void> _shutDownIsolatesWithRequestsInFlight() async {
-  final server = await HttpServer.bind('localhost', 0);
-  server.listen((request) async {
-    await Future<void>.delayed(_responseDelay);
-    await request.response.close();
-  });
-  final uri = Uri.parse('http://localhost:${server.port}');
-
-  for (var i = 0; i < _isolateCount; ++i) {
-    await Isolate.run(() {
-      CupertinoClient.defaultSessionConfiguration().get(uri).ignore();
-    });
-  }
-
-  await Future<void>.delayed(_callbackGracePeriod);
-  await server.close();
-}
-
 void main() {
-  if (Platform.environment.containsKey(_childMarker)) {
-    unawaited(_shutDownIsolatesWithRequestsInFlight());
-    return;
-  }
+  test('isolate shut down with a request in flight', () async {
+    final server = await HttpServer.bind('localhost', 0);
+    addTearDown(server.close);
+    server.listen((request) async {
+      await Future<void>.delayed(_responseDelay);
+      await request.response.close();
+    });
+    final uri = Uri.parse('http://localhost:${server.port}');
 
-  // The generous timeout is for the native assets, which the child builds
-  // itself when the cache is cold.
-  test(
-    'isolate shut down with a request in flight',
-    () async {
-      final result = await Process.run(
-        Platform.resolvedExecutable,
-        ['run', 'test/isolate_shutdown_test.dart'],
-        environment: {_childMarker: '1'},
-      );
-      printOnFailure(result.stderr as String);
-      expect(result.exitCode, 0);
-    },
-    timeout: const Timeout(Duration(minutes: 2)),
-  );
+    for (var i = 0; i < _isolateCount; ++i) {
+      await Isolate.run(() {
+        CupertinoClient.defaultSessionConfiguration().get(uri).ignore();
+      });
+    }
+
+    await Future<void>.delayed(_callbackGracePeriod);
+    await server.close();
+  });
 }
