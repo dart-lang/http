@@ -18,10 +18,7 @@ dependencies:
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
-  jnigen:
-    git:
-      url: https://github.com/dart-lang/native.git
-      path: pkgs/jnigen
+  jnigen: ^1.0.0
   xml: ^6.1.0
   yaml_edit: ^2.0.3
 
