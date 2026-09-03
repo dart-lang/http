@@ -38,6 +38,7 @@ jobs:
       - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
         with:
           channel: 'stable'
+          cache: true
       - id: install
         name: Install dependencies
         run: |
@@ -92,6 +93,7 @@ jobs:
         with:
           flutter-version: ${{ matrix.flutter-version }}
           channel: 'stable'
+          cache: true
       - id: install
         name: Install dependencies
         run: flutter pub get
