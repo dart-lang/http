@@ -13,6 +13,7 @@ on:
       - 'pkgs/http_client_conformance_tests/**'
       - 'pkgs/web_socket_conformance_tests/**'
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     paths:
       - '.github/workflows/cupertino.yml'
       - 'pkgs/cupertino_http/**'
@@ -75,6 +76,9 @@ jobs:
         run: dart test --test-randomize-ordering-seed=random
   ios:
     name: "iOS: Test"
+    if: |
+      github.event_name == 'schedule' ||
+      contains(github.event.pull_request.labels.*.name, 'run-ios-tests')
     runs-on: macos-latest
     defaults:
       run:
