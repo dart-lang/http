@@ -41,17 +41,20 @@ void main() {
           parse(containsPair('headers', isNot(contains('content-length')))));
     });
 
-    test('defaults to sending a bodyless GET without framing headers',
+    test('streaming a non-empty body with null contentLength on GET throws',
         () async {
       var request = http.StreamedRequest('GET', serverUrl);
+      request.sink.add([1, 2, 3]);
       unawaited(request.sink.close());
-      var response = await request.send();
-      expect(
-          await utf8.decodeStream(response.stream),
-          parse(containsPair(
-              'headers',
-              allOf(isNot(contains('transfer-encoding')),
-                  isNot(contains('content-length'))))));
+      expect(request.send(), throwsClientException());
+    });
+
+    test('streaming a non-empty body with null contentLength on HEAD throws',
+        () async {
+      var request = http.StreamedRequest('HEAD', serverUrl);
+      request.sink.add([1, 2, 3]);
+      unawaited(request.sink.close());
+      expect(request.send(), throwsClientException());
     });
   });
 
