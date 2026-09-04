@@ -66,6 +66,174 @@ void main() {
       });
     });
 
+    group('resource limits', () {
+      clientTest('rejects PUSH_PROMISE when server push is disabled', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        final handshakeDone = Completer<void>();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          final clientSettings = await nextFrame() as SettingsFrame;
+          expect(
+            clientSettings.settings,
+            contains(
+              isA<Setting>()
+                  .having(
+                    (s) => s.identifier,
+                    'identifier',
+                    Setting.SETTINGS_ENABLE_PUSH,
+                  )
+                  .having((s) => s.value, 'value', 0),
+            ),
+          );
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          handshakeDone.complete();
+
+          final request = await nextFrame() as HeadersFrame;
+          serverWriter.writePushPromiseFrame(request.header.streamId, 2, [
+            Header.ascii('a', 'b'),
+          ]);
+
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>()
+                .having(
+                  (f) => f.errorCode,
+                  'errorCode',
+                  ErrorCode.PROTOCOL_ERROR,
+                )
+                .having(
+                  (f) => ascii.decode(f.debugData),
+                  'debugData',
+                  contains('SETTINGS_ENABLE_PUSH is 0'),
+                ),
+          );
+          expect(await serverReader.moveNext(), isFalse);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeDone.future;
+          final stream = client.makeRequest([
+            Header.ascii('a', 'b'),
+          ], endStream: true);
+          final incoming = stream.incomingMessages.drain<void>().then(
+            (_) {},
+            onError: (_) {},
+          );
+          expect(await stream.peerPushes.toList(), isEmpty);
+          await incoming;
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
+      clientTest(
+        'bounds reserved peer streams and recovers after reset',
+        (
+          ClientTransportConnection client,
+          FrameWriter serverWriter,
+          StreamIterator<Frame> serverReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final handshakeDone = Completer<void>();
+          final receivedTwoPushes = Completer<void>();
+          final receivedThreePushes = Completer<void>();
+          final pushedStreamIds = <int>[];
+          final pushedStreamDone = <Future<void>>[];
+
+          Future serverFun() async {
+            serverWriter.writeSettingsFrame([]);
+            expect(await nextFrame(), isA<SettingsFrame>());
+            serverWriter.writeSettingsAckFrame();
+            expect(await nextFrame(), isA<SettingsFrame>());
+            handshakeDone.complete();
+
+            final request = await nextFrame() as HeadersFrame;
+            final parentStreamId = request.header.streamId;
+            serverWriter.writePushPromiseFrame(parentStreamId, 2, [
+              Header.ascii('a', 'b'),
+            ]);
+            serverWriter.writePushPromiseFrame(parentStreamId, 4, [
+              Header.ascii('a', 'b'),
+            ]);
+            await receivedTwoPushes.future;
+
+            serverWriter.writePushPromiseFrame(parentStreamId, 6, [
+              Header.ascii('a', 'b'),
+            ]);
+            expect(
+              await nextFrame(),
+              isA<RstStreamFrame>()
+                  .having((f) => f.header.streamId, 'header.streamId', 6)
+                  .having(
+                    (f) => f.errorCode,
+                    'errorCode',
+                    ErrorCode.REFUSED_STREAM,
+                  ),
+            );
+
+            serverWriter.writeRstStreamFrame(2, ErrorCode.CANCEL);
+            serverWriter.writePushPromiseFrame(parentStreamId, 8, [
+              Header.ascii('a', 'b'),
+            ]);
+            await receivedThreePushes.future;
+
+            serverWriter.writeRstStreamFrame(4, ErrorCode.CANCEL);
+            serverWriter.writeRstStreamFrame(8, ErrorCode.CANCEL);
+            serverWriter.writeHeadersFrame(parentStreamId, [
+              Header.ascii('status', 'ok'),
+            ], endStream: true);
+
+            expect(
+              await nextFrame(),
+              isA<GoawayFrame>().having(
+                (f) => f.errorCode,
+                'errorCode',
+                ErrorCode.NO_ERROR,
+              ),
+            );
+            expect(await serverReader.moveNext(), isFalse);
+            await serverWriter.close();
+          }
+
+          Future clientFun() async {
+            await handshakeDone.future;
+            final stream = client.makeRequest([
+              Header.ascii('request', 'ok'),
+            ], endStream: true);
+            stream.peerPushes.listen((push) {
+              pushedStreamIds.add(push.stream.id);
+              pushedStreamDone.add(
+                push.stream.incomingMessages.drain<void>().then(
+                  (_) {},
+                  onError: (_) {},
+                ),
+              );
+              if (pushedStreamIds.length == 2) receivedTwoPushes.complete();
+              if (pushedStreamIds.length == 3) receivedThreePushes.complete();
+            });
+
+            expect(await stream.incomingMessages.toList(), hasLength(1));
+            await Future.wait(pushedStreamDone);
+            expect(pushedStreamIds, [2, 4, 8]);
+            await client.finish();
+          }
+
+          await Future.wait([serverFun(), clientFun()]);
+        },
+        settings: const ClientSettings(
+          allowServerPushes: true,
+          concurrentStreamLimit: 2,
+        ),
+      );
+    });
+
     group('connection-operational', () {
       clientTest('on-connection-operational-fires', (
         ClientTransportConnection client,
@@ -881,7 +1049,7 @@ void main() {
         }
 
         await Future.wait([serverFun(), clientFun()]);
-      });
+      }, settings: const ClientSettings(allowServerPushes: true));
 
       clientTest('client-reports-connection-error-on-push-when-push-disabled', (
         ClientTransportConnection client,
