@@ -15,7 +15,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
     ..transform(WebSocketTransformer())
         .listen((WebSocket webSocket) => webSocket.listen(webSocket.add));
 
-  channel.sink.add(server.port);
+  channel.sink.add(server.port.toString());
   await channel
       .stream.first; // Any writes indicates that the server should exit.
   unawaited(server.close());

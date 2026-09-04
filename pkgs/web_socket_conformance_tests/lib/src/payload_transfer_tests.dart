@@ -9,7 +9,8 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
-import 'echo_server_vm.dart' if (dart.library.html) 'echo_server_web.dart';
+import 'echo_server_vm.dart'
+    if (dart.library.js_interop) 'echo_server_web.dart';
 import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly transmit and receive text
