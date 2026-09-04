@@ -13,7 +13,7 @@ import 'dart:ffi' as ffi;
 import 'package:objective_c/objective_c.dart' as objc;
 import 'package:ffi/ffi.dart' as pkg_ffi;
 
-const _$objcVersionCheck = objc.ObjCVersionCheck(9, 5);
+const _$objcVersionCheck = objc.ObjCVersionCheck(9, 6);
 @ffi.Native<
   ffi.Void Function(
     ffi.Pointer<objc.ObjCObjectImpl>,
@@ -1255,14 +1255,14 @@ extension NSHTTPURLResponse$Methods on NSHTTPURLResponse {
 
   /// init
   NSHTTPURLResponse init() {
-    final _$$ref$1 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSHTTPURLResponse.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$1.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
@@ -1294,13 +1294,13 @@ extension NSHTTPURLResponse$Methods on NSHTTPURLResponse {
   NSHTTPURLResponse initWithUrlAndMIMEType(
     objc.NSURL URL, {
     objc.NSString? MIMEType,
-    required int length,
-    objc.NSString? name,
+    required int expectedContentLength,
+    objc.NSString? textEncodingName,
   }) {
     final _$$ref = object$.ref;
     final _$$ref$1 = URL.ref;
     final _$$ref$2 = MIMEType?.ref;
-    final _$$ref$3 = name?.ref;
+    final _$$ref$3 = textEncodingName?.ref;
     objc.checkOsVersionInternal(
       'NSHTTPURLResponse.initWithURL:MIMEType:expectedContentLength:textEncodingName:',
       iOS: (false, (2, 0, 0)),
@@ -1311,7 +1311,7 @@ extension NSHTTPURLResponse$Methods on NSHTTPURLResponse {
       _sel_initWithURL_MIMEType_expectedContentLength_textEncodingName_,
       _$$ref$1.pointer,
       _$$ref$2?.pointer ?? ffi.nullptr,
-      length,
+      expectedContentLength,
       _$$ref$3?.pointer ?? ffi.nullptr,
     );
     return NSHTTPURLResponse.fromPointer($ret, retain: false, release: true);
@@ -1969,24 +1969,6 @@ extension NSMutableURLRequest$Methods on NSMutableURLRequest {
   }
 
   /// !
-  /// @abstract sets whether a connection created with this request is allowed to use
-  /// network interfaces which have been marked as ultra constrained.
-  /// @discussion NO if the receiver should not be allowed to use an interface marked as ultra constrained to
-  /// satisfy the request, YES otherwise.
-  bool get allowsUltraConstrainedNetworkAccess {
-    final _$$ref = object$.ref;
-    objc.checkOsVersionInternal(
-      'NSMutableURLRequest.allowsUltraConstrainedNetworkAccess',
-      iOS: (false, (26, 1, 0)),
-      macOS: (false, (26, 1, 0)),
-    );
-    return _objc_msgSend_91o635(
-      _$$ref.pointer,
-      _sel_allowsUltraConstrainedNetworkAccess,
-    );
-  }
-
-  /// !
   /// @abstract returns whether we assume that server supports HTTP/3. Enables QUIC
   /// racing without HTTP/3 service discovery.
   /// @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
@@ -2048,14 +2030,14 @@ extension NSMutableURLRequest$Methods on NSMutableURLRequest {
 
   /// init
   NSMutableURLRequest init() {
-    final _$$ref$2 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSMutableURLRequest.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$2.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSMutableURLRequest.fromPointer($ret, retain: false, release: true);
@@ -2063,12 +2045,12 @@ extension NSMutableURLRequest$Methods on NSMutableURLRequest {
 
   /// initWithCoder:
   NSMutableURLRequest? initWithCoder(objc.NSCoder coder) {
-    final _$$ref$2 = object$.ref;
-    final _$$ref$3 = coder.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
     final $ret = _objc_msgSend_1sotr3r(
-      _$$ref$2.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_initWithCoder_,
-      _$$ref$3.pointer,
+      _$$ref$1.pointer,
     );
     return $ret.address == 0
         ? null
@@ -2251,25 +2233,6 @@ extension NSMutableURLRequest$Methods on NSMutableURLRequest {
       macOS: (false, (15, 0, 0)),
     );
     _objc_msgSend_1s56lr9(_$$ref.pointer, _sel_setAllowsPersistentDNS_, value);
-  }
-
-  /// !
-  /// @abstract sets whether a connection created with this request is allowed to use
-  /// network interfaces which have been marked as ultra constrained.
-  /// @discussion NO if the receiver should not be allowed to use an interface marked as ultra constrained to
-  /// satisfy the request, YES otherwise.
-  set allowsUltraConstrainedNetworkAccess$1(bool value) {
-    final _$$ref = object$.ref;
-    objc.checkOsVersionInternal(
-      'NSMutableURLRequest.setAllowsUltraConstrainedNetworkAccess:',
-      iOS: (false, (26, 1, 0)),
-      macOS: (false, (26, 1, 0)),
-    );
-    _objc_msgSend_1s56lr9(
-      _$$ref.pointer,
-      _sel_setAllowsUltraConstrainedNetworkAccess_,
-      value,
-    );
   }
 
   /// !
@@ -2657,14 +2620,14 @@ extension NSOperationQueue$Methods on NSOperationQueue {
 
   /// init
   NSOperationQueue init() {
-    final _$$ref$3 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSOperationQueue.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$3.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSOperationQueue.fromPointer($ret, retain: false, release: true);
@@ -3074,14 +3037,14 @@ extension NSURLCache$Methods on NSURLCache {
 
   /// init
   NSURLCache init() {
-    final _$$ref$4 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSURLCache.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$4.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSURLCache.fromPointer($ret, retain: false, release: true);
@@ -3371,7 +3334,7 @@ extension type NSURLRequest._(objc.ObjCObject object$)
   /// @param URL The URL for the request.
   /// @result A newly-created and autoreleased NSURLRequest instance.
   static NSURLRequest requestWithURL(objc.NSURL URL) {
-    final _$$ref$1 = URL.ref;
+    final _$$ref = URL.ref;
     objc.checkOsVersionInternal(
       'NSURLRequest.requestWithURL:',
       iOS: (false, (2, 0, 0)),
@@ -3380,7 +3343,7 @@ extension type NSURLRequest._(objc.ObjCObject object$)
     final $ret = _objc_msgSend_1sotr3r(
       _class_NSURLRequest,
       _sel_requestWithURL_,
-      _$$ref$1.pointer,
+      _$$ref.pointer,
     );
     return NSURLRequest.fromPointer($ret, retain: true, release: true);
   }
@@ -3400,7 +3363,7 @@ extension type NSURLRequest._(objc.ObjCObject object$)
     required NSURLRequestCachePolicy cachePolicy,
     required double timeoutInterval,
   }) {
-    final _$$ref$1 = URL.ref;
+    final _$$ref = URL.ref;
     objc.checkOsVersionInternal(
       'NSURLRequest.requestWithURL:cachePolicy:timeoutInterval:',
       iOS: (false, (2, 0, 0)),
@@ -3409,7 +3372,7 @@ extension type NSURLRequest._(objc.ObjCObject object$)
     final $ret = _objc_msgSend_1ajs603(
       _class_NSURLRequest,
       _sel_requestWithURL_cachePolicy_timeoutInterval_,
-      _$$ref$1.pointer,
+      _$$ref.pointer,
       cachePolicy.value,
       timeoutInterval,
     );
@@ -3510,24 +3473,6 @@ extension NSURLRequest$Methods on NSURLRequest {
   }
 
   /// !
-  /// @abstract returns whether a connection created with this request is allowed to use
-  /// network interfaces which have been marked as ultra constrained.
-  /// @result YES if the receiver is allowed to use an interface marked as ultra constrained to
-  /// satisfy the request, NO otherwise.
-  bool get allowsUltraConstrainedNetworkAccess {
-    final _$$ref = object$.ref;
-    objc.checkOsVersionInternal(
-      'NSURLRequest.allowsUltraConstrainedNetworkAccess',
-      iOS: (false, (26, 1, 0)),
-      macOS: (false, (26, 1, 0)),
-    );
-    return _objc_msgSend_91o635(
-      _$$ref.pointer,
-      _sel_allowsUltraConstrainedNetworkAccess,
-    );
-  }
-
-  /// !
   /// @abstract returns whether we assume that server supports HTTP/3. Enables QUIC
   /// racing without HTTP/3 service discovery.
   /// @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
@@ -3602,14 +3547,14 @@ extension NSURLRequest$Methods on NSURLRequest {
 
   /// init
   NSURLRequest init() {
-    final _$$ref$5 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSURLRequest.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$5.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSURLRequest.fromPointer($ret, retain: false, release: true);
@@ -3617,12 +3562,12 @@ extension NSURLRequest$Methods on NSURLRequest {
 
   /// initWithCoder:
   NSURLRequest? initWithCoder(objc.NSCoder coder) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = coder.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
     final $ret = _objc_msgSend_1sotr3r(
-      _$$ref$4.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_initWithCoder_,
-      _$$ref$5.pointer,
+      _$$ref$1.pointer,
     );
     return $ret.address == 0
         ? null
@@ -3638,17 +3583,17 @@ extension NSURLRequest$Methods on NSURLRequest {
   /// @param URL The URL for the request.
   /// @result An initialized NSURLRequest.
   NSURLRequest initWithURL(objc.NSURL URL) {
-    final _$$ref$2 = object$.ref;
-    final _$$ref$3 = URL.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = URL.ref;
     objc.checkOsVersionInternal(
       'NSURLRequest.initWithURL:',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 2, 0)),
     );
     final $ret = _objc_msgSend_1sotr3r(
-      _$$ref$2.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_initWithURL_,
-      _$$ref$3.pointer,
+      _$$ref$1.pointer,
     );
     return NSURLRequest.fromPointer($ret, retain: false, release: true);
   }
@@ -3670,17 +3615,17 @@ extension NSURLRequest$Methods on NSURLRequest {
     required NSURLRequestCachePolicy cachePolicy,
     required double timeoutInterval,
   }) {
-    final _$$ref$2 = object$.ref;
-    final _$$ref$3 = URL.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = URL.ref;
     objc.checkOsVersionInternal(
       'NSURLRequest.initWithURL:cachePolicy:timeoutInterval:',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 2, 0)),
     );
     final $ret = _objc_msgSend_1ajs603(
-      _$$ref$2.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_initWithURL_cachePolicy_timeoutInterval_,
-      _$$ref$3.pointer,
+      _$$ref$1.pointer,
       cachePolicy.value,
       timeoutInterval,
     );
@@ -4051,12 +3996,12 @@ extension NSURLResponse$Methods on NSURLResponse {
 
   /// encodeWithCoder:
   void encodeWithCoder(objc.NSCoder coder) {
-    final _$$ref$2 = object$.ref;
-    final _$$ref$3 = coder.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
     _objc_msgSend_xtuoz7(
-      _$$ref$2.pointer,
+      _$$ref.pointer,
       _sel_encodeWithCoder_,
-      _$$ref$3.pointer,
+      _$$ref$1.pointer,
     );
   }
 
@@ -4083,14 +4028,14 @@ extension NSURLResponse$Methods on NSURLResponse {
 
   /// init
   NSURLResponse init() {
-    final _$$ref$6 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSURLResponse.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$6.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSURLResponse.fromPointer($ret, retain: false, release: true);
@@ -4098,12 +4043,12 @@ extension NSURLResponse$Methods on NSURLResponse {
 
   /// initWithCoder:
   NSURLResponse? initWithCoder(objc.NSCoder coder) {
-    final _$$ref$6 = object$.ref;
-    final _$$ref$7 = coder.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
     final $ret = _objc_msgSend_1sotr3r(
-      _$$ref$6.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_initWithCoder_,
-      _$$ref$7.pointer,
+      _$$ref$1.pointer,
     );
     return $ret.address == 0
         ? null
@@ -4122,25 +4067,25 @@ extension NSURLResponse$Methods on NSURLResponse {
   NSURLResponse initWithUrlAndMIMEType(
     objc.NSURL URL, {
     objc.NSString? MIMEType,
-    required int length,
-    objc.NSString? name,
+    required int expectedContentLength,
+    objc.NSString? textEncodingName,
   }) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = URL.ref;
-    final _$$ref$6 = MIMEType?.ref;
-    final _$$ref$7 = name?.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = URL.ref;
+    final _$$ref$2 = MIMEType?.ref;
+    final _$$ref$3 = textEncodingName?.ref;
     objc.checkOsVersionInternal(
       'NSURLResponse.initWithURL:MIMEType:expectedContentLength:textEncodingName:',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 2, 0)),
     );
     final $ret = _objc_msgSend_l9ppnx(
-      _$$ref$4.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_initWithURL_MIMEType_expectedContentLength_textEncodingName_,
-      _$$ref$5.pointer,
-      _$$ref$6?.pointer ?? ffi.nullptr,
-      length,
-      _$$ref$7?.pointer ?? ffi.nullptr,
+      _$$ref$1.pointer,
+      _$$ref$2?.pointer ?? ffi.nullptr,
+      expectedContentLength,
+      _$$ref$3?.pointer ?? ffi.nullptr,
     );
     return NSURLResponse.fromPointer($ret, retain: false, release: true);
   }
@@ -4587,14 +4532,14 @@ extension NSURLSession$Methods on NSURLSession {
 
   /// init
   NSURLSession init() {
-    final _$$ref$7 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSURLSession.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$7.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSURLSession.fromPointer($ret, retain: false, release: true);
@@ -5536,20 +5481,6 @@ extension NSURLSessionConfiguration$Methods on NSURLSessionConfiguration {
     );
   }
 
-  /// allow request to route over ultra constrained networks.
-  bool get allowsUltraConstrainedNetworkAccess {
-    final _$$ref = object$.ref;
-    objc.checkOsVersionInternal(
-      'NSURLSessionConfiguration.allowsUltraConstrainedNetworkAccess',
-      iOS: (false, (26, 1, 0)),
-      macOS: (false, (26, 1, 0)),
-    );
-    return _objc_msgSend_91o635(
-      _$$ref.pointer,
-      _sel_allowsUltraConstrainedNetworkAccess,
-    );
-  }
-
   /// The proxy dictionary, as described by <CFNetwork/CFHTTPStream.h>
   objc.NSDictionary? get connectionProxyDictionary {
     final _$$ref = object$.ref;
@@ -5620,14 +5551,14 @@ extension NSURLSessionConfiguration$Methods on NSURLSessionConfiguration {
 
   /// init
   NSURLSessionConfiguration init() {
-    final _$$ref$8 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionConfiguration.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$8.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSURLSessionConfiguration.fromPointer(
@@ -5771,21 +5702,6 @@ extension NSURLSessionConfiguration$Methods on NSURLSessionConfiguration {
     _objc_msgSend_1s56lr9(
       _$$ref.pointer,
       _sel_setAllowsExpensiveNetworkAccess_,
-      value,
-    );
-  }
-
-  /// allow request to route over ultra constrained networks.
-  set allowsUltraConstrainedNetworkAccess(bool value) {
-    final _$$ref = object$.ref;
-    objc.checkOsVersionInternal(
-      'NSURLSessionConfiguration.setAllowsUltraConstrainedNetworkAccess:',
-      iOS: (false, (26, 1, 0)),
-      macOS: (false, (26, 1, 0)),
-    );
-    _objc_msgSend_1s56lr9(
-      _$$ref.pointer,
-      _sel_setAllowsUltraConstrainedNetworkAccess_,
       value,
     );
   }
@@ -9764,20 +9680,20 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// The last message a session receives.  A session will only become
   /// invalid because of a systemic error or when it has been
   /// explicitly invalidated, in which case the error parameter will be nil.
-  void URLSession$5(
+  void URLSession(
     NSURLSession session, {
     objc.NSError? didBecomeInvalidWithError,
   }) {
-    final _$$ref$3 = object$.ref;
-    final _$$ref$4 = session.ref;
-    final _$$ref$5 = didBecomeInvalidWithError?.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = didBecomeInvalidWithError?.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:didBecomeInvalidWithError:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$3.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didBecomeInvalidWithError_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -9786,10 +9702,10 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_pfv6jd(
-      _$$ref$3.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didBecomeInvalidWithError_,
-      _$$ref$4.pointer,
-      _$$ref$5?.pointer ?? ffi.nullptr,
+      _$$ref$1.pointer,
+      _$$ref$2?.pointer ?? ffi.nullptr,
     );
   }
 
@@ -9798,20 +9714,20 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   ///
   /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
   /// invoked synchronously before the task creation method returns.
-  void URLSession$6(
+  void URLSession$1(
     NSURLSession session, {
     required NSURLSessionTask didCreateTask,
   }) {
-    final _$$ref$3 = object$.ref;
-    final _$$ref$4 = session.ref;
-    final _$$ref$5 = didCreateTask.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = didCreateTask.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:didCreateTask:',
       iOS: (false, (16, 0, 0)),
       macOS: (false, (13, 0, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$3.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didCreateTask_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -9820,10 +9736,10 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_pfv6jd(
-      _$$ref$3.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didCreateTask_,
-      _$$ref$4.pointer,
-      _$$ref$5.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
     );
   }
 
@@ -9835,23 +9751,23 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// challenges).  If this delegate message is not implemented, the
   /// behavior will be to use the default handling, which may involve user
   /// interaction.
-  void URLSession$7(
+  void URLSession$2(
     NSURLSession session, {
     required NSURLAuthenticationChallenge didReceiveChallenge,
     required objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>
     completionHandler,
   }) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = session.ref;
-    final _$$ref$6 = didReceiveChallenge.ref;
-    final _$$ref$7 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = didReceiveChallenge.ref;
+    final _$$ref$3 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:didReceiveChallenge:completionHandler:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didReceiveChallenge_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -9860,11 +9776,11 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_18qun1e(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didReceiveChallenge_completionHandler_,
-      _$$ref$5.pointer,
-      _$$ref$6.pointer,
-      _$$ref$7.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
     );
   }
 
@@ -9872,7 +9788,7 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// copy or move the file at the given location to a new location as it will be
   /// removed when the delegate message returns. URLSession:task:didCompleteWithError: will
   /// still be called.
-  void URLSession(
+  void URLSession$3(
     NSURLSession session, {
     required NSURLSessionDownloadTask downloadTask,
     required objc.NSURL didFinishDownloadingToURL,
@@ -9899,7 +9815,7 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// error, the -userInfo dictionary of the error will contain an
   /// NSURLSessionDownloadTaskResumeData key, whose value is the resume
   /// data.
-  void URLSession$1(
+  void URLSession$4(
     NSURLSession session, {
     required NSURLSessionDownloadTask downloadTask,
     required int didResumeAtOffset,
@@ -9933,7 +9849,7 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   }
 
   /// Sent periodically to notify the delegate of download progress.
-  void URLSession$2(
+  void URLSession$5(
     NSURLSession session, {
     required NSURLSessionDownloadTask downloadTask,
     required int didWriteData,
@@ -9970,22 +9886,22 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
 
   /// Sent as the last message related to a specific task.  Error may be
   /// nil, which implies that no error occurred and this task is complete.
-  void URLSession$8(
+  void URLSession$6(
     NSURLSession session, {
     required NSURLSessionTask task,
     objc.NSError? didCompleteWithError,
   }) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = session.ref;
-    final _$$ref$6 = task.ref;
-    final _$$ref$7 = didCompleteWithError?.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = didCompleteWithError?.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:didCompleteWithError:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didCompleteWithError_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -9994,31 +9910,31 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_r8gdi7(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didCompleteWithError_,
-      _$$ref$5.pointer,
-      _$$ref$6.pointer,
-      _$$ref$7?.pointer ?? ffi.nullptr,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3?.pointer ?? ffi.nullptr,
     );
   }
 
   /// Sent when complete statistics information has been collected for the task.
-  void URLSession$9(
+  void URLSession$7(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSURLSessionTaskMetrics didFinishCollectingMetrics,
   }) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = session.ref;
-    final _$$ref$6 = task.ref;
-    final _$$ref$7 = didFinishCollectingMetrics.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = didFinishCollectingMetrics.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:didFinishCollectingMetrics:',
       iOS: (false, (10, 0, 0)),
       macOS: (false, (10, 12, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didFinishCollectingMetrics_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10027,11 +9943,11 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_r8gdi7(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didFinishCollectingMetrics_,
-      _$$ref$5.pointer,
-      _$$ref$6.pointer,
-      _$$ref$7.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
     );
   }
 
@@ -10039,25 +9955,25 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// If this delegate is not implemented, the session specific authentication challenge
   /// will *NOT* be called and the behavior will be the same as using the default handling
   /// disposition.
-  void URLSession$10(
+  void URLSession$8(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSURLAuthenticationChallenge didReceiveChallenge,
     required objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>
     completionHandler,
   }) {
-    final _$$ref$5 = object$.ref;
-    final _$$ref$6 = session.ref;
-    final _$$ref$7 = task.ref;
-    final _$$ref$8 = didReceiveChallenge.ref;
-    final _$$ref$9 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = didReceiveChallenge.ref;
+    final _$$ref$4 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:didReceiveChallenge:completionHandler:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$5.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didReceiveChallenge_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10066,32 +9982,32 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_m7tls4(
-      _$$ref$5.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didReceiveChallenge_completionHandler_,
-      _$$ref$6.pointer,
-      _$$ref$7.pointer,
-      _$$ref$8.pointer,
-      _$$ref$9.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
+      _$$ref$4.pointer,
     );
   }
 
   /// Sent for each informational response received except 101 switching protocols.
-  void URLSession$11(
+  void URLSession$9(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSHTTPURLResponse didReceiveInformationalResponse,
   }) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = session.ref;
-    final _$$ref$6 = task.ref;
-    final _$$ref$7 = didReceiveInformationalResponse.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = didReceiveInformationalResponse.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:didReceiveInformationalResponse:',
       iOS: (false, (17, 0, 0)),
       macOS: (false, (14, 0, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didReceiveInformationalResponse_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10100,33 +10016,33 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_r8gdi7(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didReceiveInformationalResponse_,
-      _$$ref$5.pointer,
-      _$$ref$6.pointer,
-      _$$ref$7.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
     );
   }
 
   /// Sent periodically to notify the delegate of upload progress.  This
   /// information is also available as properties of the task.
-  void URLSession$12(
+  void URLSession$10(
     NSURLSession session, {
     required NSURLSessionTask task,
     required int didSendBodyData,
     required int totalBytesSent,
     required int totalBytesExpectedToSend,
   }) {
-    final _$$ref$3 = object$.ref;
-    final _$$ref$4 = session.ref;
-    final _$$ref$5 = task.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$3.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10135,10 +10051,10 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_1modw1b(
-      _$$ref$3.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      _$$ref$4.pointer,
-      _$$ref$5.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
       didSendBodyData,
       totalBytesSent,
       totalBytesExpectedToSend,
@@ -10148,23 +10064,23 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// Sent if a task requires a new, unopened body stream.  This may be
   /// necessary when authentication has failed for any request that
   /// involves a body stream.
-  void URLSession$13(
+  void URLSession$11(
     NSURLSession session, {
     required NSURLSessionTask task,
     required objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
     needNewBodyStream,
   }) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = session.ref;
-    final _$$ref$6 = task.ref;
-    final _$$ref$7 = needNewBodyStream.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = needNewBodyStream.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:needNewBodyStream:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_needNewBodyStream_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10173,11 +10089,11 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_18qun1e(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_needNewBodyStream_,
-      _$$ref$5.pointer,
-      _$$ref$6.pointer,
-      _$$ref$7.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
     );
   }
 
@@ -10188,24 +10104,24 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// - Parameter task: The task that needs a new body stream.
   /// - Parameter offset: The starting offset required for the body stream.
   /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
-  void URLSession$14(
+  void URLSession$12(
     NSURLSession session, {
     required NSURLSessionTask task,
     required int needNewBodyStreamFromOffset,
     required objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
     completionHandler,
   }) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = session.ref;
-    final _$$ref$6 = task.ref;
-    final _$$ref$7 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:needNewBodyStreamFromOffset:completionHandler:',
       iOS: (false, (17, 0, 0)),
       macOS: (false, (14, 0, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10214,12 +10130,12 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_9cddqw(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      _$$ref$5.pointer,
-      _$$ref$6.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
       needNewBodyStreamFromOffset,
-      _$$ref$7.pointer,
+      _$$ref$3.pointer,
     );
   }
 
@@ -10243,25 +10159,25 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// Canceling the task is equivalent to calling the task's cancel method; the
   /// URLSession:task:didCompleteWithError: task delegate will be called with error
   /// NSURLErrorCancelled.
-  void URLSession$15(
+  void URLSession$13(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSURLRequest willBeginDelayedRequest,
     required objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLRequest?)>
     completionHandler,
   }) {
-    final _$$ref$5 = object$.ref;
-    final _$$ref$6 = session.ref;
-    final _$$ref$7 = task.ref;
-    final _$$ref$8 = willBeginDelayedRequest.ref;
-    final _$$ref$9 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = willBeginDelayedRequest.ref;
+    final _$$ref$4 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:willBeginDelayedRequest:completionHandler:',
       iOS: (false, (11, 0, 0)),
       macOS: (false, (10, 13, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$5.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10270,12 +10186,12 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_m7tls4(
-      _$$ref$5.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
-      _$$ref$6.pointer,
-      _$$ref$7.pointer,
-      _$$ref$8.pointer,
-      _$$ref$9.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
+      _$$ref$4.pointer,
     );
   }
 
@@ -10287,26 +10203,26 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// is to follow redirections.
   ///
   /// For tasks in background sessions, redirections will always be followed and this method will not be called.
-  void URLSession$16(
+  void URLSession$14(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSHTTPURLResponse willPerformHTTPRedirection,
     required NSURLRequest newRequest,
     required objc.ObjCBlock<ffi.Void Function(NSURLRequest?)> completionHandler,
   }) {
-    final _$$ref$6 = object$.ref;
-    final _$$ref$7 = session.ref;
-    final _$$ref$8 = task.ref;
-    final _$$ref$9 = willPerformHTTPRedirection.ref;
-    final _$$ref$10 = newRequest.ref;
-    final _$$ref$11 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = willPerformHTTPRedirection.ref;
+    final _$$ref$4 = newRequest.ref;
+    final _$$ref$5 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10315,13 +10231,13 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_e1wgee(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      _$$ref$7.pointer,
-      _$$ref$8.pointer,
-      _$$ref$9.pointer,
-      _$$ref$10.pointer,
-      _$$ref$11.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
+      _$$ref$4.pointer,
+      _$$ref$5.pointer,
     );
   }
 
@@ -10334,20 +10250,20 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   ///
   /// This delegate callback will never be called for background sessions, because
   /// the waitForConnectivity property is ignored by those sessions.
-  void URLSession$17(
+  void URLSession$15(
     NSURLSession session, {
     required NSURLSessionTask taskIsWaitingForConnectivity,
   }) {
-    final _$$ref$3 = object$.ref;
-    final _$$ref$4 = session.ref;
-    final _$$ref$5 = taskIsWaitingForConnectivity.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = taskIsWaitingForConnectivity.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSession:taskIsWaitingForConnectivity:',
       iOS: (false, (11, 0, 0)),
       macOS: (false, (10, 13, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$3.pointer,
+      _$$ref.pointer,
       _sel_URLSession_taskIsWaitingForConnectivity_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10356,10 +10272,10 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_pfv6jd(
-      _$$ref$3.pointer,
+      _$$ref.pointer,
       _sel_URLSession_taskIsWaitingForConnectivity_,
-      _$$ref$4.pointer,
-      _$$ref$5.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
     );
   }
 
@@ -10371,15 +10287,15 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
   /// completion handler, or to begin any internal updates that will
   /// result in invoking the completion handler.
   void URLSessionDidFinishEventsForBackgroundURLSession(NSURLSession session) {
-    final _$$ref$2 = object$.ref;
-    final _$$ref$3 = session.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadDelegate.URLSessionDidFinishEventsForBackgroundURLSession:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (11, 0, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$2.pointer,
+      _$$ref.pointer,
       _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -10388,9 +10304,9 @@ extension NSURLSessionDownloadDelegate$Methods on NSURLSessionDownloadDelegate {
       );
     }
     _objc_msgSend_xtuoz7(
-      _$$ref$2.pointer,
+      _$$ref.pointer,
       _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
-      _$$ref$3.pointer,
+      _$$ref$1.pointer,
     );
   }
 }
@@ -12690,14 +12606,14 @@ extension NSURLSessionDownloadTask$Methods on NSURLSessionDownloadTask {
 
   /// init
   NSURLSessionDownloadTask init() {
-    final _$$ref$9 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionDownloadTask.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$9.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSURLSessionDownloadTask.fromPointer(
@@ -13070,14 +12986,14 @@ extension NSURLSessionTask$Methods on NSURLSessionTask {
 
   /// init
   NSURLSessionTask init() {
-    final _$$ref$10 = object$.ref;
+    final _$$ref = object$.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionTask.init',
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 0, 0)),
     );
     final $ret = _objc_msgSend_151sglz(
-      _$$ref$10.retainAndReturnPointer(),
+      _$$ref.retainAndReturnPointer(),
       _sel_init,
     );
     return NSURLSessionTask.fromPointer($ret, retain: false, release: true);
@@ -13145,8 +13061,8 @@ extension NSURLSessionTask$Methods on NSURLSessionTask {
 
   /// progress
   objc.NSProgress get progress {
-    final _$$ref$1 = object$.ref;
-    final $ret = _objc_msgSend_151sglz(_$$ref$1.pointer, _sel_progress);
+    final _$$ref = object$.ref;
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_progress);
     return objc.NSProgress.fromPointer($ret, retain: true, release: true);
   }
 
@@ -13575,20 +13491,20 @@ extension NSURLSessionWebSocketDelegate$Methods
   /// The last message a session receives.  A session will only become
   /// invalid because of a systemic error or when it has been
   /// explicitly invalidated, in which case the error parameter will be nil.
-  void URLSession$5(
+  void URLSession(
     NSURLSession session, {
     objc.NSError? didBecomeInvalidWithError,
   }) {
-    final _$$ref$6 = object$.ref;
-    final _$$ref$7 = session.ref;
-    final _$$ref$8 = didBecomeInvalidWithError?.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = didBecomeInvalidWithError?.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:didBecomeInvalidWithError:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didBecomeInvalidWithError_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13597,10 +13513,10 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_pfv6jd(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didBecomeInvalidWithError_,
-      _$$ref$7.pointer,
-      _$$ref$8?.pointer ?? ffi.nullptr,
+      _$$ref$1.pointer,
+      _$$ref$2?.pointer ?? ffi.nullptr,
     );
   }
 
@@ -13609,20 +13525,20 @@ extension NSURLSessionWebSocketDelegate$Methods
   ///
   /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
   /// invoked synchronously before the task creation method returns.
-  void URLSession$6(
+  void URLSession$1(
     NSURLSession session, {
     required NSURLSessionTask didCreateTask,
   }) {
-    final _$$ref$6 = object$.ref;
-    final _$$ref$7 = session.ref;
-    final _$$ref$8 = didCreateTask.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = didCreateTask.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:didCreateTask:',
       iOS: (false, (16, 0, 0)),
       macOS: (false, (13, 0, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didCreateTask_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13631,10 +13547,10 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_pfv6jd(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didCreateTask_,
-      _$$ref$7.pointer,
-      _$$ref$8.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
     );
   }
 
@@ -13646,23 +13562,23 @@ extension NSURLSessionWebSocketDelegate$Methods
   /// challenges).  If this delegate message is not implemented, the
   /// behavior will be to use the default handling, which may involve user
   /// interaction.
-  void URLSession$7(
+  void URLSession$2(
     NSURLSession session, {
     required NSURLAuthenticationChallenge didReceiveChallenge,
     required objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>
     completionHandler,
   }) {
-    final _$$ref$8 = object$.ref;
-    final _$$ref$9 = session.ref;
-    final _$$ref$10 = didReceiveChallenge.ref;
-    final _$$ref$11 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = didReceiveChallenge.ref;
+    final _$$ref$3 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:didReceiveChallenge:completionHandler:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didReceiveChallenge_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13671,32 +13587,32 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_18qun1e(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_didReceiveChallenge_completionHandler_,
-      _$$ref$9.pointer,
-      _$$ref$10.pointer,
-      _$$ref$11.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
     );
   }
 
   /// Sent as the last message related to a specific task.  Error may be
   /// nil, which implies that no error occurred and this task is complete.
-  void URLSession$8(
+  void URLSession$3(
     NSURLSession session, {
     required NSURLSessionTask task,
     objc.NSError? didCompleteWithError,
   }) {
-    final _$$ref$8 = object$.ref;
-    final _$$ref$9 = session.ref;
-    final _$$ref$10 = task.ref;
-    final _$$ref$11 = didCompleteWithError?.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = didCompleteWithError?.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:didCompleteWithError:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didCompleteWithError_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13705,31 +13621,31 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_r8gdi7(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didCompleteWithError_,
-      _$$ref$9.pointer,
-      _$$ref$10.pointer,
-      _$$ref$11?.pointer ?? ffi.nullptr,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3?.pointer ?? ffi.nullptr,
     );
   }
 
   /// Sent when complete statistics information has been collected for the task.
-  void URLSession$9(
+  void URLSession$4(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSURLSessionTaskMetrics didFinishCollectingMetrics,
   }) {
-    final _$$ref$8 = object$.ref;
-    final _$$ref$9 = session.ref;
-    final _$$ref$10 = task.ref;
-    final _$$ref$11 = didFinishCollectingMetrics.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = didFinishCollectingMetrics.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:didFinishCollectingMetrics:',
       iOS: (false, (10, 0, 0)),
       macOS: (false, (10, 12, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didFinishCollectingMetrics_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13738,11 +13654,11 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_r8gdi7(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didFinishCollectingMetrics_,
-      _$$ref$9.pointer,
-      _$$ref$10.pointer,
-      _$$ref$11.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
     );
   }
 
@@ -13750,25 +13666,25 @@ extension NSURLSessionWebSocketDelegate$Methods
   /// If this delegate is not implemented, the session specific authentication challenge
   /// will *NOT* be called and the behavior will be the same as using the default handling
   /// disposition.
-  void URLSession$10(
+  void URLSession$5(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSURLAuthenticationChallenge didReceiveChallenge,
     required objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>
     completionHandler,
   }) {
-    final _$$ref$10 = object$.ref;
-    final _$$ref$11 = session.ref;
-    final _$$ref$12 = task.ref;
-    final _$$ref$13 = didReceiveChallenge.ref;
-    final _$$ref$14 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = didReceiveChallenge.ref;
+    final _$$ref$4 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:didReceiveChallenge:completionHandler:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$10.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didReceiveChallenge_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13777,32 +13693,32 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_m7tls4(
-      _$$ref$10.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didReceiveChallenge_completionHandler_,
-      _$$ref$11.pointer,
-      _$$ref$12.pointer,
-      _$$ref$13.pointer,
-      _$$ref$14.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
+      _$$ref$4.pointer,
     );
   }
 
   /// Sent for each informational response received except 101 switching protocols.
-  void URLSession$11(
+  void URLSession$6(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSHTTPURLResponse didReceiveInformationalResponse,
   }) {
-    final _$$ref$8 = object$.ref;
-    final _$$ref$9 = session.ref;
-    final _$$ref$10 = task.ref;
-    final _$$ref$11 = didReceiveInformationalResponse.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = didReceiveInformationalResponse.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:didReceiveInformationalResponse:',
       iOS: (false, (17, 0, 0)),
       macOS: (false, (14, 0, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didReceiveInformationalResponse_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13811,33 +13727,33 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_r8gdi7(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didReceiveInformationalResponse_,
-      _$$ref$9.pointer,
-      _$$ref$10.pointer,
-      _$$ref$11.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
     );
   }
 
   /// Sent periodically to notify the delegate of upload progress.  This
   /// information is also available as properties of the task.
-  void URLSession$12(
+  void URLSession$7(
     NSURLSession session, {
     required NSURLSessionTask task,
     required int didSendBodyData,
     required int totalBytesSent,
     required int totalBytesExpectedToSend,
   }) {
-    final _$$ref$6 = object$.ref;
-    final _$$ref$7 = session.ref;
-    final _$$ref$8 = task.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13846,10 +13762,10 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_1modw1b(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      _$$ref$7.pointer,
-      _$$ref$8.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
       didSendBodyData,
       totalBytesSent,
       totalBytesExpectedToSend,
@@ -13859,23 +13775,23 @@ extension NSURLSessionWebSocketDelegate$Methods
   /// Sent if a task requires a new, unopened body stream.  This may be
   /// necessary when authentication has failed for any request that
   /// involves a body stream.
-  void URLSession$13(
+  void URLSession$8(
     NSURLSession session, {
     required NSURLSessionTask task,
     required objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
     needNewBodyStream,
   }) {
-    final _$$ref$8 = object$.ref;
-    final _$$ref$9 = session.ref;
-    final _$$ref$10 = task.ref;
-    final _$$ref$11 = needNewBodyStream.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = needNewBodyStream.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:needNewBodyStream:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_needNewBodyStream_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13884,11 +13800,11 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_18qun1e(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_needNewBodyStream_,
-      _$$ref$9.pointer,
-      _$$ref$10.pointer,
-      _$$ref$11.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
     );
   }
 
@@ -13899,24 +13815,24 @@ extension NSURLSessionWebSocketDelegate$Methods
   /// - Parameter task: The task that needs a new body stream.
   /// - Parameter offset: The starting offset required for the body stream.
   /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
-  void URLSession$14(
+  void URLSession$9(
     NSURLSession session, {
     required NSURLSessionTask task,
     required int needNewBodyStreamFromOffset,
     required objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
     completionHandler,
   }) {
-    final _$$ref$8 = object$.ref;
-    final _$$ref$9 = session.ref;
-    final _$$ref$10 = task.ref;
-    final _$$ref$11 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:needNewBodyStreamFromOffset:completionHandler:',
       iOS: (false, (17, 0, 0)),
       macOS: (false, (14, 0, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13925,12 +13841,12 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_9cddqw(
-      _$$ref$8.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      _$$ref$9.pointer,
-      _$$ref$10.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
       needNewBodyStreamFromOffset,
-      _$$ref$11.pointer,
+      _$$ref$3.pointer,
     );
   }
 
@@ -13954,25 +13870,25 @@ extension NSURLSessionWebSocketDelegate$Methods
   /// Canceling the task is equivalent to calling the task's cancel method; the
   /// URLSession:task:didCompleteWithError: task delegate will be called with error
   /// NSURLErrorCancelled.
-  void URLSession$15(
+  void URLSession$10(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSURLRequest willBeginDelayedRequest,
     required objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLRequest?)>
     completionHandler,
   }) {
-    final _$$ref$10 = object$.ref;
-    final _$$ref$11 = session.ref;
-    final _$$ref$12 = task.ref;
-    final _$$ref$13 = willBeginDelayedRequest.ref;
-    final _$$ref$14 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = willBeginDelayedRequest.ref;
+    final _$$ref$4 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:willBeginDelayedRequest:completionHandler:',
       iOS: (false, (11, 0, 0)),
       macOS: (false, (10, 13, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$10.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -13981,12 +13897,12 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_m7tls4(
-      _$$ref$10.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
-      _$$ref$11.pointer,
-      _$$ref$12.pointer,
-      _$$ref$13.pointer,
-      _$$ref$14.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
+      _$$ref$4.pointer,
     );
   }
 
@@ -13998,26 +13914,26 @@ extension NSURLSessionWebSocketDelegate$Methods
   /// is to follow redirections.
   ///
   /// For tasks in background sessions, redirections will always be followed and this method will not be called.
-  void URLSession$16(
+  void URLSession$11(
     NSURLSession session, {
     required NSURLSessionTask task,
     required NSHTTPURLResponse willPerformHTTPRedirection,
     required NSURLRequest newRequest,
     required objc.ObjCBlock<ffi.Void Function(NSURLRequest?)> completionHandler,
   }) {
-    final _$$ref$12 = object$.ref;
-    final _$$ref$13 = session.ref;
-    final _$$ref$14 = task.ref;
-    final _$$ref$15 = willPerformHTTPRedirection.ref;
-    final _$$ref$16 = newRequest.ref;
-    final _$$ref$17 = completionHandler.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = task.ref;
+    final _$$ref$3 = willPerformHTTPRedirection.ref;
+    final _$$ref$4 = newRequest.ref;
+    final _$$ref$5 = completionHandler.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (10, 9, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$12.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -14026,13 +13942,13 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_e1wgee(
-      _$$ref$12.pointer,
+      _$$ref.pointer,
       _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      _$$ref$13.pointer,
-      _$$ref$14.pointer,
-      _$$ref$15.pointer,
-      _$$ref$16.pointer,
-      _$$ref$17.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+      _$$ref$3.pointer,
+      _$$ref$4.pointer,
+      _$$ref$5.pointer,
     );
   }
 
@@ -14045,20 +13961,20 @@ extension NSURLSessionWebSocketDelegate$Methods
   ///
   /// This delegate callback will never be called for background sessions, because
   /// the waitForConnectivity property is ignored by those sessions.
-  void URLSession$17(
+  void URLSession$12(
     NSURLSession session, {
     required NSURLSessionTask taskIsWaitingForConnectivity,
   }) {
-    final _$$ref$6 = object$.ref;
-    final _$$ref$7 = session.ref;
-    final _$$ref$8 = taskIsWaitingForConnectivity.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
+    final _$$ref$2 = taskIsWaitingForConnectivity.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSession:taskIsWaitingForConnectivity:',
       iOS: (false, (11, 0, 0)),
       macOS: (false, (10, 13, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_taskIsWaitingForConnectivity_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -14067,17 +13983,17 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_pfv6jd(
-      _$$ref$6.pointer,
+      _$$ref.pointer,
       _sel_URLSession_taskIsWaitingForConnectivity_,
-      _$$ref$7.pointer,
-      _$$ref$8.pointer,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
     );
   }
 
   /// Indicates that the WebSocket has received a close frame from the server endpoint.
   /// The close code and the close reason may be provided by the delegate if the server elects to send
   /// this information in the close frame
-  void URLSession(
+  void URLSession$13(
     NSURLSession session, {
     required NSURLSessionWebSocketTask webSocketTask,
     required int didCloseWithCode,
@@ -14113,7 +14029,7 @@ extension NSURLSessionWebSocketDelegate$Methods
 
   /// Indicates that the WebSocket handshake was successful and the connection has been upgraded to webSockets.
   /// It will also provide the protocol that is picked in the handshake. If the handshake fails, this delegate will not be invoked.
-  void URLSession$1(
+  void URLSession$14(
     NSURLSession session, {
     required NSURLSessionWebSocketTask webSocketTask,
     objc.NSString? didOpenWithProtocol,
@@ -14153,15 +14069,15 @@ extension NSURLSessionWebSocketDelegate$Methods
   /// completion handler, or to begin any internal updates that will
   /// result in invoking the completion handler.
   void URLSessionDidFinishEventsForBackgroundURLSession(NSURLSession session) {
-    final _$$ref$4 = object$.ref;
-    final _$$ref$5 = session.ref;
+    final _$$ref = object$.ref;
+    final _$$ref$1 = session.ref;
     objc.checkOsVersionInternal(
       'NSURLSessionWebSocketDelegate.URLSessionDidFinishEventsForBackgroundURLSession:',
       iOS: (false, (7, 0, 0)),
       macOS: (false, (11, 0, 0)),
     );
     if (!objc.respondsToSelector(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     )) {
       throw objc.UnimplementedOptionalMethodException(
@@ -14170,9 +14086,9 @@ extension NSURLSessionWebSocketDelegate$Methods
       );
     }
     _objc_msgSend_xtuoz7(
-      _$$ref$4.pointer,
+      _$$ref.pointer,
       _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
-      _$$ref$5.pointer,
+      _$$ref$1.pointer,
     );
   }
 }
@@ -30782,9 +30698,6 @@ late final _sel_allowsExpensiveNetworkAccess = objc.registerName(
   "allowsExpensiveNetworkAccess",
 );
 late final _sel_allowsPersistentDNS = objc.registerName("allowsPersistentDNS");
-late final _sel_allowsUltraConstrainedNetworkAccess = objc.registerName(
-  "allowsUltraConstrainedNetworkAccess",
-);
 late final _sel_arg0 = objc.registerName("arg0");
 late final _sel_arg1 = objc.registerName("arg1");
 late final _sel_arg2 = objc.registerName("arg2");
@@ -31006,9 +30919,6 @@ late final _sel_setAllowsExpensiveNetworkAccess_ = objc.registerName(
 );
 late final _sel_setAllowsPersistentDNS_ = objc.registerName(
   "setAllowsPersistentDNS:",
-);
-late final _sel_setAllowsUltraConstrainedNetworkAccess_ = objc.registerName(
-  "setAllowsUltraConstrainedNetworkAccess:",
 );
 late final _sel_setAssumesHTTP3Capable_ = objc.registerName(
   "setAssumesHTTP3Capable:",
