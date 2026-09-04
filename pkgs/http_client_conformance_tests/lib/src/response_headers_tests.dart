@@ -235,6 +235,14 @@ void testResponseHeaders(Client Function() clientFactory,
         await expectLater(
             client.get(Uri.http(host, '')), throwsA(isA<ClientException>()));
       });
+
+      test('HEAD request', () async {
+        httpServerChannel.sink.add('content-length: 100\r\n');
+        final response = await client.head(Uri.http(host, ''));
+        expect(response.statusCode, 200);
+        expect(response.headers['content-length'], '100');
+        expect(response.body, '');
+      });
     });
 
     group('folded headers', () {
