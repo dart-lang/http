@@ -20,34 +20,31 @@ FfiGenerator getConfig(Uri packageRoot) {
     'NSError.h',
     'NSDictionary.h',
   ];
-  final input = Input(
-    entryPoints: [
-      for (final header in headers)
-        macSdkUri.resolve(
-          'System/Library/Frameworks/Foundation.framework/Headers/$header',
-        ),
-    ],
-  );
-  const preamble = '''
+  return FfiGenerator(
+    input: Input(
+      entryPoints: [
+        for (final header in headers)
+          macSdkUri.resolve(
+            'System/Library/Frameworks/Foundation.framework/Headers/$header',
+          ),
+      ],
+    ),
+    objectiveC: const ObjectiveC(),
+    output: Output(
+      dart: DartOutput(
+        path: packageRoot.resolve('lib/src/native_cupertino_bindings.dart'),
+      ),
+      objectiveCFile: packageRoot.resolve('src/native_cupertino_bindings.m'),
+      preamble: '''
 // ignore_for_file: always_specify_types
 // ignore_for_file: camel_case_types
 // ignore_for_file: non_constant_identifier_names
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: return_of_invalid_type
-''';
-  final output = Output(
-    dart: DartOutput(
-      path: packageRoot.resolve('lib/src/native_cupertino_bindings.dart'),
+''',
+      commentType: const CommentType(CommentStyle.any, CommentLength.full),
     ),
-    objectiveCFile: packageRoot.resolve('src/native_cupertino_bindings.m'),
-    preamble: preamble,
-    commentType: const CommentType(CommentStyle.any, CommentLength.full),
-  );
-  return FfiGenerator(
-    input: input,
-    objectiveC: const ObjectiveC(),
-    output: output,
     visitors: [
       Visitor(
         objCInterface: (node) {
@@ -81,13 +78,9 @@ FfiGenerator getConfig(Uri packageRoot) {
                   'initWithURLAndStatusCode',
             },
           };
-          final interfaceRenames = memberRenames[node.parent.originalName];
-          if (interfaceRenames != null) {
-            final rename = interfaceRenames[node.originalName];
-            if (rename != null) {
-              node.name = rename;
-            }
-          }
+          node.name =
+              memberRenames[node.parent.originalName]?[node.originalName] ??
+              node.name;
         },
         objCProtocol: (node) {
           const included = {
@@ -98,24 +91,22 @@ FfiGenerator getConfig(Uri packageRoot) {
           node.isIncluded = included.contains(node.originalName);
         },
         enumClass: (node) {
+          const included = {
+            'NSHTTPCookieAcceptPolicy',
+            'NSURLRequestCachePolicy',
+            'NSURLRequestNetworkServiceType',
+            'NSURLSessionMultipathServiceType',
+            'NSURLSessionResponseDisposition',
+            'NSURLSessionTaskState',
+            'NSURLSessionWebSocketCloseCode',
+            'NSURLSessionWebSocketMessageType',
+          };
+          node.isIncluded = included.contains(node.originalName);
+
           const intEnums = {'NSURLSessionWebSocketCloseCode'};
-          final isIntEnum = intEnums.contains(node.originalName);
-          if (isIntEnum) {
-            node
-              ..isIncluded = true
-              ..style = EnumStyle.intConstants;
-          } else {
-            const included = {
-              'NSHTTPCookieAcceptPolicy',
-              'NSURLRequestCachePolicy',
-              'NSURLRequestNetworkServiceType',
-              'NSURLSessionMultipathServiceType',
-              'NSURLSessionResponseDisposition',
-              'NSURLSessionTaskState',
-              'NSURLSessionWebSocketMessageType',
-            };
-            node.isIncluded = included.contains(node.originalName);
-          }
+          node.style = intEnums.contains(node.originalName)
+              ? .intConstants
+              : null;
         },
       ),
     ],
