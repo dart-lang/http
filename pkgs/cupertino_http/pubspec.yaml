@@ -24,7 +24,6 @@ dev_dependencies:
   convert: ^3.1.1
   crypto: ^3.0.3
   dart_flutter_team_lints: ^3.0.0
-  dependency_validator: ^5.0.6
   ffigen: ^21.0.0
   http_client_conformance_tests:
     path: ../http_client_conformance_tests/
