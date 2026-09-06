@@ -19,6 +19,7 @@ dependencies:
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
+  dependency_validator: ^5.0.6
   fake_async: ^1.2.0
   http_client_conformance_tests:
     path: ../http_client_conformance_tests/
