@@ -16,11 +16,11 @@ Note that a failing HTTP connection is almost certainly not caused by a bug in
 package:http.
 
 This package is a wrapper around the HttpClient from dart:io and HttpRequest
-from dart:html. Before filing a bug here verify that the issue is not surfaced
+from package:web. Before filing a bug here verify that the issue is not surfaced
 when using those interfaces directly.
 
 https://api.dart.dev/stable/dart-io/HttpClient-class.html
-https://api.dart.dev/stable/dart-html/HttpRequest-class.html
+https://pub.dev/documentation/web/latest/web/RequestInit-extension-type.html
 
 # Common problems:
 
@@ -34,4 +34,4 @@ None of these problems are influenced by the code in this repo.
 # Diagnosing:
 
 - Attempt the request outside of Dart, for instance in a browser or with `curl`.
-- Attempt the request with the dart:io or dart:html equivalent code paths.
+- Attempt the request with the dart:io or package:web equivalent code paths.

@@ -117,7 +117,8 @@ void main() {
         expect(profile.requestData.bodyBytes, 'Hi'.codeUnits);
         expect(profile.requestData.contentLength, 2);
         expect(profile.requestData.endTime, isNotNull);
-        expect(profile.requestData.error, startsWith('ClientException:'));
+        expect(
+            profile.requestData.error, startsWith('NetworkClientException:'));
         expect(
             profile.requestData.headers, containsPair('Content-Length', ['2']));
         expect(profile.requestData.headers,
@@ -200,7 +201,8 @@ void main() {
         expect(profile.responseData.compressionState, isNull);
         expect(profile.responseData.contentLength, 11);
         expect(profile.responseData.endTime, isNotNull);
-        expect(profile.responseData.error, startsWith('ClientException:'));
+        expect(
+            profile.responseData.error, startsWith('NetworkClientException:'));
         expect(profile.responseData.headers,
             containsPair('content-type', ['text/plain']));
         expect(profile.responseData.headers,

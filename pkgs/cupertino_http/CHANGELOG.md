@@ -1,8 +1,26 @@
-## 3.0.0-wip
+## 3.1.0
+
+* Switch to `package:objective_c` `9.5.0` and `package:ffigen` `21.0.0`, fixing
+  a [bug](https://github.com/dart-lang/http/issues/1894) where a request that
+  was still in flight when its isolate shut down could crash the process.
+
+## 3.0.2
+
+* Fix a [bug](https://github.com/dart-lang/http/issues/1929) where code
+  assets were built on non-code-assets hook invocations.
+
+## 3.0.1
+
+* Fix a [bug](https://github.com/dart-lang/http/issues/1925) where native
+  assets were built on non-Apple platforms.
+* Support the latest semver-major versions of the native assets packages.
+* Fix some code examples.
+* Remove `README.md` text saying that the package is a Flutter plugin.
+
+## 3.0.0
 
 * **BREAKING CHANGE:** Remove `shouldUseExtendedBackgroundIdleMode` from
   `URLSessionConfiguration`.
-* **BREAKING CHANGE:** Require Dart 3.10+.
 * Support usage in Dart SDK projects.
 * Fix a bug where close reasons not containing valid UTF-8 would cause an
   uncatchable exception to be thrown.
@@ -12,6 +30,7 @@
 * **BREAKING:** Update minimum supported versions to iOS 15
   (released on September 20, 2022) and macOS 12 (released October 25, 2021).
 * Updated the example to not require Flutter.
+* Make `close` throw if there are pending requests when called.
 
 ## 2.4.0
 

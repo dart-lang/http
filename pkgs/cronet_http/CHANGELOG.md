@@ -1,6 +1,27 @@
-## 1.9.0-wip
+## 1.10.0-wip
+
+* Upgrade `package:jnigen` to 1.0.0.
+* Add DNS configuration options to `CronetEngine.build`:
+  `useBuiltInDnsResolver`, `enableStaleDns`, `persistHostCache` and
+  `persistHostCachePeriod`. Setting `useBuiltInDnsResolver: false` forces the
+  system DNS resolver, which works around `ERROR_HOSTNAME_NOT_RESOLVED`
+  failures seen with QUIC enabled on some cellular networks and in background
+  isolates (https://github.com/dart-lang/http/issues/1217).
+* Add fine-grained stale-DNS options to `CronetEngine.build`:
+  `useStaleOnNameNotResolved`, `allowCrossNetworkUsage` and
+  `maxStaleDnsExpiredDelay`. Setting `useStaleOnNameNotResolved: true` lets a
+  request fall back to an expired host cache entry instead of failing with
+  `ERROR_HOSTNAME_NOT_RESOLVED` when a fresh lookup fails
+  (https://github.com/dart-lang/http/issues/1217).
+
+## 1.9.0
 
 * Add `CronetEngine.startNetLogToFile` and `CronetEngine.stopNetLog`.
+* Decode Java `CronetException` into Dart equivalents.
+* Upgrade to Cronet 18.1.1.
+* Upgrade Kotlin Gradle Plugin version to 2.1.0 for compatibility with the
+  upgraded Cronet dependency.
+* Upgrade `package:jni` to 1.0 and `package:jnigen` to 0.16.0.
 
 ## 1.8.0
 

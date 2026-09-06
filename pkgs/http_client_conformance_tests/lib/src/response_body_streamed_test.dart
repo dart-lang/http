@@ -188,7 +188,7 @@ void testResponseBodyStreamed(Client Function() clientFactory,
           .listen((s) async {
         final lastReceived = int.parse(s.trim());
         if (lastReceived == 1000) {
-          unawaited(subscription.cancel());
+          await subscription.cancel();
           cancelled.complete();
         }
       });

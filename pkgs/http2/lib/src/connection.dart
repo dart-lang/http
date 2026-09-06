@@ -514,6 +514,10 @@ class ClientConnection extends Connection implements ClientTransportConnection {
       !_state.isFinishing && !_state.isTerminated && _streams.canOpenStream;
 
   @override
+  int? get peerMaxConcurrentStreams =>
+      _settingsHandler.peerSettings.maxConcurrentStreams;
+
+  @override
   ClientTransportStream makeRequest(
     List<Header> headers, {
     bool endStream = false,

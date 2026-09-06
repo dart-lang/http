@@ -7,11 +7,133 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
+import 'package:jni_flutter/jni_flutter.dart';
 
 import 'jni/jni_bindings.dart' as jb;
 
 final _digitRegex = RegExp(r'^\d+$');
 const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
+
+/// A [ClientException] generated from a Java [`CronetException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CronetException.html
+class CronetException extends ClientException {
+  CronetException(super.message, Uri super.uri);
+
+  @override
+  String toString() => 'CronetClientException: $message, uri=$uri';
+}
+
+/// A [ClientException] generated from a Java [`CallbackException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/CallbackException.html
+class CallbackException extends CronetException {
+  CallbackException._(super.message, super.uri);
+
+  @override
+  String toString() => 'CallbackException: $message, uri=$uri';
+}
+
+/// A [ClientException] generated from a Java [`NetworkException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/NetworkException.html
+class NetworkException extends CronetException {
+  /// The Cronet internal error code.
+  ///
+  /// This may provide more specific error diagnosis than [errorCode].
+  ///
+  /// The list of possible value is contained in [net_error_list.h][1].
+  ///
+  /// [1]: https://chromium.googlesource.com/chromium/src/+/main/net/base/net_error_list.h
+  final int cronetInternalErrorCode;
+
+  /// The error code associated with the failure, which is one of the `ERROR_*`
+  /// constants defined in [`NetworkException`][1].
+  ///
+  /// For example, a value of `6` corresponds to `ERROR_CONNECTION_TIMED_OUT`.
+  ///
+  /// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/NetworkException.html#constants
+  final int errorCode;
+
+  /// Whether retrying this request right away might succeed.
+  ///
+  /// For example, this is `true` when [errorCode] is `ERROR_NETWORK_CHANGED`
+  /// because trying the request might succeed using the new network
+  /// configuration.
+  final bool immediatelyRetryable;
+
+  NetworkException._(super.message, super.uri,
+      {required this.cronetInternalErrorCode,
+      required this.errorCode,
+      required this.immediatelyRetryable});
+
+  @override
+  String toString() => 'NetworkClientException: $message, uri=$uri, '
+      'errorCode=$errorCode, cronetInternalErrorCode=$cronetInternalErrorCode, '
+      'immediatelyRetryable=$immediatelyRetryable';
+}
+
+/// A [ClientException] generated from a Java [`QuicException`][1].
+///
+/// [1]: https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/QuicException.html
+class QuicException extends NetworkException {
+  /// The QUIC error code, which is a value from [`QuicErrorCode`][1].
+  ///
+  /// [1]: https://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/quic/core/quic_error_codes.h
+  final int quicDetailedErrorCode;
+
+  QuicException._(
+    super.message,
+    super.uri, {
+    required this.quicDetailedErrorCode,
+    required super.errorCode,
+    required super.cronetInternalErrorCode,
+    required super.immediatelyRetryable,
+  }) : super._();
+
+  @override
+  String toString() => 'QuicException: $message, uri=$uri, '
+      'errorCode=$errorCode, cronetInternalErrorCode=$cronetInternalErrorCode, '
+      'immediatelyRetryable=$immediatelyRetryable, '
+      'quicDetailedErrorCode=$quicDetailedErrorCode';
+}
+
+ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
+  if (e == null) {
+    return CronetException('unknown exception', uri);
+  }
+  final message =
+      e.message?.toDartString(releaseOriginal: true) ?? 'unknown exception';
+
+  if (e.isA(jb.QuicException.type)) {
+    final quicException = e.as(jb.QuicException.type, releaseOriginal: true);
+    return QuicException._(
+      message,
+      uri,
+      quicDetailedErrorCode: quicException.quicDetailedErrorCode,
+      errorCode: quicException.errorCode,
+      cronetInternalErrorCode: quicException.cronetInternalErrorCode,
+      immediatelyRetryable: quicException.immediatelyRetryable(),
+    );
+  }
+  if (e.isA(jb.NetworkException.type)) {
+    final networkException =
+        e.as(jb.NetworkException.type, releaseOriginal: true);
+    return NetworkException._(
+      message,
+      uri,
+      cronetInternalErrorCode: networkException.cronetInternalErrorCode,
+      errorCode: networkException.errorCode,
+      immediatelyRetryable: networkException.immediatelyRetryable(),
+    );
+  }
+
+  if (e.isA(jb.CallbackException.type)) {
+    return CallbackException._(message, uri);
+  }
+
+  return CronetException(message, uri);
+}
 
 /// This class can be removed when `package:http` v2 is released.
 class _StreamedResponseWithUrl extends StreamedResponse
@@ -124,6 +246,41 @@ class CronetEngine {
   /// of (host, port, alternativePort) that indicates that the host supports
   /// QUIC. Note that [CacheMode.disk] or [CacheMode.diskNoHttp] is needed to
   /// take advantage of 0-RTT connection establishment between sessions.
+  ///
+  /// [useBuiltInDnsResolver] controls whether the engine uses Cronet's
+  /// built-in DNS resolver instead of the system resolver. The built-in
+  /// resolver is only used when QUIC is enabled, which it is by default.
+  /// Setting this to `false` forces the system resolver, which can work
+  /// around host resolution failures (`ERROR_HOSTNAME_NOT_RESOLVED`).
+  ///
+  /// [enableStaleDns] controls whether the engine may use stale (expired)
+  /// entries from its host cache while a new DNS resolution is performed in
+  /// the background.
+  ///
+  /// [persistHostCache] controls whether the engine's host cache is
+  /// persisted to disk so that a freshly created engine (for example in a
+  /// newly spawned isolate) can resolve recently used hosts without a live
+  /// DNS query. Requires [storagePath] to be set.
+  ///
+  /// [persistHostCachePeriod] sets how often the host cache is written to
+  /// disk when [persistHostCache] is `true`.
+  ///
+  /// [useStaleOnNameNotResolved] lets a request fall back to an expired host
+  /// cache entry when a fresh DNS lookup fails to resolve the host, instead
+  /// of failing the request with `ERROR_HOSTNAME_NOT_RESOLVED`. Only takes
+  /// effect when [enableStaleDns] is `true`.
+  ///
+  /// [allowCrossNetworkUsage] lets a stale host cache entry resolved on a
+  /// different network (e.g. Wi-Fi) be used after the device switches
+  /// networks (e.g. to cellular). Only takes effect when [enableStaleDns] is
+  /// `true`.
+  ///
+  /// [maxStaleDnsExpiredDelay] sets the maximum time a host cache entry may
+  /// have been expired for and still be eligible for stale-DNS use. Only
+  /// takes effect when [enableStaleDns] is `true`.
+  ///
+  /// See [DnsOptions](https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/DnsOptions)
+  /// for details on the DNS configuration options.
   static CronetEngine build(
       {CacheMode? cacheMode,
       int? cacheMaxSize,
@@ -133,11 +290,18 @@ class CronetEngine {
       bool? enableQuic,
       String? storagePath,
       String? userAgent,
-      List<(String, int, int)>? quicHints}) {
+      List<(String, int, int)>? quicHints,
+      bool? useBuiltInDnsResolver,
+      bool? enableStaleDns,
+      bool? persistHostCache,
+      Duration? persistHostCachePeriod,
+      bool? useStaleOnNameNotResolved,
+      bool? allowCrossNetworkUsage,
+      Duration? maxStaleDnsExpiredDelay}) {
     try {
       return using((arena) {
         final builder = jb.CronetEngine$Builder(
-            Jni.androidApplicationContext..releasedBy(arena))
+            (androidApplicationContext as jb.Context)..releasedBy(arena))
           ..releasedBy(arena);
 
         if (storagePath != null) {
@@ -186,9 +350,73 @@ class CronetEngine {
           }
         }
 
+        if (useBuiltInDnsResolver != null ||
+            enableStaleDns != null ||
+            persistHostCache != null ||
+            persistHostCachePeriod != null ||
+            useStaleOnNameNotResolved != null ||
+            allowCrossNetworkUsage != null ||
+            maxStaleDnsExpiredDelay != null) {
+          if (jb.DnsOptions.builder() case final dnsOptionsBuilder?) {
+            dnsOptionsBuilder.releasedBy(arena);
+            if (useBuiltInDnsResolver != null) {
+              dnsOptionsBuilder
+                  .useBuiltInDnsResolver(useBuiltInDnsResolver)
+                  ?.release();
+            }
+            if (enableStaleDns != null) {
+              dnsOptionsBuilder.enableStaleDns(enableStaleDns)?.release();
+            }
+            if (persistHostCache != null) {
+              dnsOptionsBuilder.persistHostCache(persistHostCache)?.release();
+            }
+            if (persistHostCachePeriod != null) {
+              dnsOptionsBuilder
+                  .setPersistHostCachePeriodMillis(
+                      persistHostCachePeriod.inMilliseconds)
+                  ?.release();
+            }
+            if (useStaleOnNameNotResolved != null ||
+                allowCrossNetworkUsage != null ||
+                maxStaleDnsExpiredDelay != null) {
+              if (jb.DnsOptions$StaleDnsOptions.builder()
+                  case final staleDnsOptionsBuilder?) {
+                staleDnsOptionsBuilder.releasedBy(arena);
+                if (useStaleOnNameNotResolved != null) {
+                  staleDnsOptionsBuilder
+                      .useStaleOnNameNotResolved(useStaleOnNameNotResolved)
+                      ?.release();
+                }
+                if (allowCrossNetworkUsage != null) {
+                  staleDnsOptionsBuilder
+                      .allowCrossNetworkUsage(allowCrossNetworkUsage)
+                      ?.release();
+                }
+                if (maxStaleDnsExpiredDelay != null) {
+                  staleDnsOptionsBuilder
+                      .setMaxExpiredDelayMillis(
+                          maxStaleDnsExpiredDelay.inMilliseconds)
+                      ?.release();
+                }
+                if (staleDnsOptionsBuilder.build()
+                    case final staleDnsOptions?) {
+                  staleDnsOptions.releasedBy(arena);
+                  dnsOptionsBuilder
+                      .setStaleDnsOptions(staleDnsOptions)
+                      ?.release();
+                }
+              }
+            }
+            if (dnsOptionsBuilder.build() case final dnsOptions?) {
+              dnsOptions.releasedBy(arena);
+              builder.setDnsOptions(dnsOptions)?.release();
+            }
+          }
+        }
+
         return CronetEngine._(builder.build()!);
       });
-    } on JniException catch (e) {
+    } on JThrowable catch (e) {
       // TODO: Decode this exception in a better way when
       // https://github.com/dart-lang/jnigen/issues/239 is fixed.
       if (e.message.contains('java.lang.IllegalArgumentException:')) {
@@ -240,10 +468,10 @@ class CronetEngine {
 
 Map<String, String> _cronetToClientHeaders(
         JMap<JString?, JList<JString?>?> cronetHeaders) =>
-    cronetHeaders.map((key, value) {
+    cronetHeaders.asDart().map((key, value) {
       final entry = MapEntry(
           key!.toDartString(releaseOriginal: true).toLowerCase(),
-          value!.join(','));
+          value!.asDart().join(','));
       value.release();
       return entry;
     });
@@ -284,7 +512,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           profile?.responseData.close();
         });
         final responseHeaders = _cronetToClientHeaders(
-            responseInfo!.getAllHeaders()!..releasedBy(arena));
+            responseInfo!.allHeaders!..releasedBy(arena));
         int? contentLength;
 
         switch (responseHeaders['content-length']) {
@@ -303,18 +531,15 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         }
         responseCompleter.complete(CronetStreamedResponse._(
           responseStream!.stream,
-          responseInfo.getHttpStatusCode(),
-          negotiatedProtocol: responseInfo
-              .getNegotiatedProtocol()!
+          responseInfo.httpStatusCode,
+          negotiatedProtocol: responseInfo.negotiatedProtocol!
               .toDartString(releaseOriginal: true),
-          receivedByteCount: responseInfo.getReceivedByteCount(),
+          receivedByteCount: responseInfo.receivedByteCount,
           wasCached: responseInfo.wasCached(),
-          url: Uri.parse(
-              responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
+          url: Uri.parse(responseInfo.url!.toDartString(releaseOriginal: true)),
           contentLength: contentLength,
-          reasonPhrase: responseInfo
-              .getHttpStatusText()!
-              .toDartString(releaseOriginal: true),
+          reasonPhrase:
+              responseInfo.httpStatusText!.toDartString(releaseOriginal: true),
           request: request,
           isRedirect: false,
           headers: responseHeaders,
@@ -325,11 +550,10 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           ?..contentLength = contentLength
           ..headersCommaValues = responseHeaders
           ..isRedirect = false
-          ..reasonPhrase = responseInfo
-              .getHttpStatusText()!
-              .toDartString(releaseOriginal: true)
+          ..reasonPhrase =
+              responseInfo.httpStatusText!.toDartString(releaseOriginal: true)
           ..startTime = DateTime.now()
-          ..statusCode = responseInfo.getHttpStatusCode();
+          ..statusCode = responseInfo.httpStatusCode;
         jByteBuffer = JByteBuffer.allocateDirect(_bufferSize);
         urlRequest?.read(jByteBuffer!);
       });
@@ -342,23 +566,21 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         newLocationUrl?.releasedBy(arena);
         if (responseStreamCancelled) return;
         final responseHeaders =
-            _cronetToClientHeaders(responseInfo!.getAllHeaders()!);
+            _cronetToClientHeaders(responseInfo!.allHeaders!);
 
         if (!request.followRedirects) {
           urlRequest!.cancel();
           responseCompleter.complete(CronetStreamedResponse._(
             const Stream.empty(), // Cronet provides no body for redirects.
-            responseInfo.getHttpStatusCode(),
-            negotiatedProtocol: responseInfo
-                .getNegotiatedProtocol()!
+            responseInfo.httpStatusCode,
+            negotiatedProtocol: responseInfo.negotiatedProtocol!
                 .toDartString(releaseOriginal: true),
-            receivedByteCount: responseInfo.getReceivedByteCount(),
+            receivedByteCount: responseInfo.receivedByteCount,
             wasCached: responseInfo.wasCached(),
             url: Uri.parse(
-                responseInfo.getUrl()!.toDartString(releaseOriginal: true)),
+                responseInfo.url!.toDartString(releaseOriginal: true)),
             contentLength: 0,
-            reasonPhrase: responseInfo
-                .getHttpStatusText()!
+            reasonPhrase: responseInfo.httpStatusText!
                 .toDartString(releaseOriginal: true),
             request: request,
             isRedirect: true,
@@ -368,18 +590,17 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           profile?.responseData
             ?..headersCommaValues = responseHeaders
             ..isRedirect = true
-            ..reasonPhrase = responseInfo
-                .getHttpStatusText()!
-                .toDartString(releaseOriginal: true)
+            ..reasonPhrase =
+                responseInfo.httpStatusText!.toDartString(releaseOriginal: true)
             ..startTime = DateTime.now()
-            ..statusCode = responseInfo.getHttpStatusCode();
+            ..statusCode = responseInfo.httpStatusCode;
 
           return;
         }
         ++numRedirects;
         if (numRedirects <= request.maxRedirects) {
           profile?.responseData.addRedirect(HttpProfileRedirectData(
-              statusCode: responseInfo.getHttpStatusCode(),
+              statusCode: responseInfo.httpStatusCode,
               // This method is not correct for status codes 303 to 307. Cronet
               // does not seem to have a way to get the method so we'd have to
               // calculate it according to the rules in RFC-7231.
@@ -430,8 +651,8 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         cronetException?.releasedBy(arena);
         if (responseStreamCancelled) return;
         responseStreamCancelled = true;
-        final error = ClientException(
-            'Cronet exception: ${cronetException.toString()}', request.url);
+        final error = _convertCronetException(cronetException, request.url);
+
         if (responseStream == null) {
           responseCompleter.completeError(error);
         } else {
@@ -581,7 +802,7 @@ class CronetClient extends BaseClient {
         jUrl,
         jb.UrlRequestCallbackProxy(
             _urlRequestCallbacks(request, responseCompleter, profile)),
-        _executor,
+        _executor as jb.Executor,
       )!
         ..releasedBy(arena)
         ..setHttpMethod(jMethod);
@@ -600,7 +821,7 @@ class CronetClient extends BaseClient {
         final JByteBuffer data;
         try {
           data = body.toJByteBuffer()..releasedBy(arena);
-        } on JniException catch (e) {
+        } on JThrowable catch (e) {
           // There are no unit tests for this code. You can verify this behavior
           // manually by incrementally increasing the amount of body data in
           // `CronetClient.post` until you get this exception.
@@ -613,7 +834,7 @@ class CronetClient extends BaseClient {
         }
 
         builder.setUploadDataProvider(
-            jb.UploadDataProviders.create$2(data), _executor);
+            jb.UploadDataProviders.create$2(data), _executor as jb.Executor);
       }
 
       // Not releasing `cronetRequest` as it's used in `whenComplete` callback.

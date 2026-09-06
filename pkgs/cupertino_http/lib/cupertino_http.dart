@@ -17,6 +17,10 @@
 /// [CupertinoClient].
 ///
 /// ```
+/// import 'dart:convert';
+/// import 'dart:io';
+/// import 'dart:math';
+///
 /// import 'package:cupertino_http/cupertino_http.dart';
 ///
 /// void main() async {
@@ -35,6 +39,7 @@
 ///   for (var i = 0; i < min(itemCount, 10); ++i) {
 ///     print(decodedResponse['items'][i]['volumeInfo']['title']);
 ///   }
+///   client.close();
 /// }
 /// ```
 ///
@@ -43,6 +48,8 @@
 /// platform.
 ///
 /// ```
+/// import 'dart:io';
+///
 /// void main() {
 ///   final Client httpClient;
 ///   if (Platform.isIOS || Platform.isMacOS) {
@@ -75,7 +82,7 @@
 ///     URLRequest.fromUrl(url),
 ///       (data, response, error) {
 ///     if (error == null) {
-///       if (response != null && response.statusCode == 200) {
+///       if (response is HTTPURLResponse && response.statusCode == 200) {
 ///         print(response);  // Do something with the response.
 ///         return;
 ///       }

@@ -69,5 +69,5 @@ dependencies {
     // ""com.google.android.gms:play-services-cronet" is only present so that
     // `jnigen` will work. Applications should not include this line.
     // The version should be synced with `pkgs/cronet_http/android/build.gradle`.
-    implementation "com.google.android.gms:play-services-cronet:18.0.1"
+    implementation "com.google.android.gms:play-services-cronet:18.1.1"
 }

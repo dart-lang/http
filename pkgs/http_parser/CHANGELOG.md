@@ -1,3 +1,10 @@
+## 4.1.3-wip
+
+* **BREAKING:** Apply the RFC 9110 50-year rule when parsing RFC 850 dates.
+  Previously, two-digit years were always interpreted as years between 1900
+  and 1999.
+* Replace reference to `dart:web` with `package:web` in README.md.
+
 ## 4.1.2
 
 * Fixed a bug where parsing quoted header values could require a regex to

@@ -2,6 +2,7 @@
 
 - Remove obsolete documentation for `WebSocketChannel.new`.
 - Fix broken links in README.
+- Replace `dart:html` with `package:web` in dartdoc.
 
 ## 3.0.3
 

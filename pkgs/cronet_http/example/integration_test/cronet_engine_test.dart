@@ -123,21 +123,6 @@ void testUserAgent() {
 
 void testQuicHints() {
   group('quicHints', () {
-    late HttpServer server;
-
-    setUp(() async {
-      server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          await request.drain<void>();
-          request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write('Hello World');
-          await request.response.close();
-        });
-    });
-    tearDown(() {
-      server.close();
-    });
-
     test('quic hints', () async {
       final engine = CronetEngine.build(
           cacheMode: CacheMode.diskNoHttp,
@@ -161,6 +146,48 @@ void testQuicHints() {
           .send(Request('GET', Uri.parse('https://www.google.com/')));
       expect(response.negotiatedProtocol, 'http1.1');
     }, skip: 'requires internet access');
+  });
+}
+
+void testDnsOptions() {
+  group('dnsOptions', () {
+    late HttpServer server;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          request.response.headers.set('Content-Type', 'text/plain');
+          await request.response.close();
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('system resolver', () async {
+      final engine = CronetEngine.build(useBuiltInDnsResolver: false);
+      final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
+      final response =
+          await client.get(Uri.parse('http://localhost:${server.port}'));
+      expect(response.statusCode, 200);
+      client.close();
+    });
+
+    test('persistent host cache', () async {
+      final engine = CronetEngine.build(
+          cacheMode: CacheMode.disk,
+          cacheMaxSize: 1024 * 1024,
+          storagePath: (await Directory.systemTemp.createTemp()).absolute.path,
+          enableStaleDns: true,
+          persistHostCache: true,
+          persistHostCachePeriod: const Duration(seconds: 1));
+      final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
+      final response =
+          await client.get(Uri.parse('http://localhost:${server.port}'));
+      expect(response.statusCode, 200);
+      client.close();
+    });
   });
 }
 
@@ -241,6 +268,7 @@ void main() {
   testInvalidConfigurations();
   testUserAgent();
   testQuicHints();
+  testDnsOptions();
   testNetLog();
   testEngineClose();
 }

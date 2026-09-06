@@ -1,6 +1,13 @@
-## 1.6.1-wip
+## 1.7.0-wip
 
+* Add `BrowserCredentialsMode` to support the `omit` browser fetch credentials
+  mode. The constructor argument should be preferred over `withCredentials`.
 * Clarified the behavior of response headers in API documentation comments.
+* Make it more clear that `close` must be called for correctness.
+* Replace references to `dart:web` with `package:web` dartdoc.
+* Preserve header cases in `IOClient`.
+* Fix a [bug](https://github.com/dart-lang/http/issues/1934) to release the
+  underlying connection when an `AbortableRequest` is aborted before its body is read.
 
 ## 1.6.0
 
@@ -43,7 +50,8 @@
 ## 1.2.0
 
 * Add `MockClient.pngResponse`, which makes it easier to fake image responses.
-* Added the ability to fetch the URL of the response through `BaseResponseWithUrl`.
+* Added the ability to fetch the URL of the response through
+  `BaseResponseWithUrl`.
 * Add the ability to get headers as a `Map<String, List<String>` to
   `BaseResponse`.
 

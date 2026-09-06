@@ -1,4 +1,6 @@
 name: package:cupertino_http CI
+permissions:
+  contents: read
 
 on:
   push:
@@ -11,6 +13,7 @@ on:
       - 'pkgs/http_client_conformance_tests/**'
       - 'pkgs/web_socket_conformance_tests/**'
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     paths:
       - '.github/workflows/cupertino.yml'
       - 'pkgs/cupertino_http/**'
@@ -30,10 +33,13 @@ jobs:
       run:
         working-directory: pkgs/cupertino_http
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
       - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
         with:
           channel: 'stable'
+          cache: true
       - id: install
         name: Install dependencies
         run: |
@@ -57,8 +63,10 @@ jobs:
         sdk: ['3.10.0', 'latest']
         os: [macos-13, macos-latest]
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-      - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -68,6 +76,9 @@ jobs:
         run: dart test --test-randomize-ordering-seed=random
   ios:
     name: "iOS: Test"
+    if: |
+      github.event_name == 'schedule' ||
+      contains(github.event.pull_request.labels.*.name, 'run-ios-tests')
     runs-on: macos-latest
     defaults:
       run:
@@ -79,11 +90,14 @@ jobs:
         # version.
         flutter-version: ["3.38.1", "any"]
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
       - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
         with:
           flutter-version: ${{ matrix.flutter-version }}
           channel: 'stable'
+          cache: true
       - id: install
         name: Install dependencies
         run: flutter pub get

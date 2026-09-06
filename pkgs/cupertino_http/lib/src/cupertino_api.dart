@@ -14,7 +14,7 @@
 ///     URLRequest.fromUrl(url),
 ///       (data, response, error) {
 ///     if (error == null) {
-///       if (response != null && response.statusCode == 200) {
+///       if (response is HTTPURLResponse && response.statusCode == 200) {
 ///         print(response);  // Do something with the response.
 ///         return;
 ///       }

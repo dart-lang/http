@@ -53,3 +53,29 @@ Future<void> main() async {
 An example with better error handling is available [here][example].
 
 See the [API docs][api] for more details.
+
+## Pooled `http.Client`
+
+`package:http2/client.dart` provides `Http2Client`, a `package:http`
+`Client` that pools and multiplexes requests over shared HTTP/2 connections
+instead of opening one connection per request. This is useful for workloads
+that send many concurrent requests to the same host or hosts, where
+`dart:io`'s `HttpClient` (HTTP/1.1 only) would otherwise open a new TCP+TLS
+connection per request.
+
+```dart
+import 'package:http2/client.dart';
+
+Future<void> main() async {
+  final client = Http2Client();
+  final response = await client.get(Uri.parse('https://example.com/'));
+  print(response.body);
+  client.close();
+}
+```
+
+A connection is dialed per `host:port` as needed, so a single `Http2Client`
+is safe to reuse across requests to different hosts. Note that it speaks only
+HTTP/2 and does not fall back to HTTP/1.1: a server that does not negotiate
+`h2` is treated as an error. See the example
+[here](example/main.dart).
