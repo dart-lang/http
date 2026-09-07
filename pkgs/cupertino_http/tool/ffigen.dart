@@ -35,14 +35,6 @@ FfiGenerator getConfig(Uri packageRoot) {
         path: packageRoot.resolve('lib/src/native_cupertino_bindings.dart'),
       ),
       objectiveCFile: packageRoot.resolve('src/native_cupertino_bindings.m'),
-      preamble: '''
-// ignore_for_file: always_specify_types
-// ignore_for_file: camel_case_types
-// ignore_for_file: non_constant_identifier_names
-// ignore_for_file: unused_element
-// ignore_for_file: unused_field
-// ignore_for_file: return_of_invalid_type
-''',
       commentType: const CommentType(CommentStyle.any, CommentLength.full),
     ),
     visitors: [
@@ -64,23 +56,6 @@ FfiGenerator getConfig(Uri packageRoot) {
             'NSURLSessionWebSocketTask',
           };
           node.isIncluded = included.contains(node.originalName);
-        },
-        objCMethod: (node) {
-          const memberRenames = {
-            // TODO(brianquinlan): Remove this when
-            // https://github.com/dart-lang/native/issues/2419 is fixed.
-            'NSURLResponse': {
-              'initWithURL:MIMEType:expectedContentLength:textEncodingName:':
-                  'initWithUrlAndMIMEType',
-            },
-            'NSHTTPURLResponse': {
-              'initWithURL:statusCode:HTTPVersion:headerFields:':
-                  'initWithURLAndStatusCode',
-            },
-          };
-          node.name =
-              memberRenames[node.parent.originalName]?[node.originalName] ??
-              node.name;
         },
         objCProtocol: (node) {
           const included = {
