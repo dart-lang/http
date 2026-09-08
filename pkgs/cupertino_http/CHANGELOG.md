@@ -1,3 +1,7 @@
+## 3.1.1-wip
+
+* Update to `package:ffigen` `22.0.0`.
+
 ## 3.1.0
 
 * Switch to `package:objective_c` `9.5.0` and `package:ffigen` `21.0.0`, fixing
