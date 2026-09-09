@@ -8,6 +8,11 @@
 * Preserve header cases in `IOClient`.
 * Fix a [bug](https://github.com/dart-lang/http/issues/1934) to release the
   underlying connection when an `AbortableRequest` is aborted before its body is read.
+* Stop `IOClient` from sending bodyless GET/HEAD requests with
+  `Transfer-Encoding: chunked` when `BaseRequest.contentLength` is `null`;
+  `dart:io`'s per-method default framing is used instead. A GET or HEAD request
+  that streams a non-empty body while leaving `contentLength` `null` now throws
+  instead of being sent chunked.
 
 ## 1.6.0
 
