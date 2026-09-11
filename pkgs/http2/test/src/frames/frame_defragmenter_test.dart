@@ -4,6 +4,7 @@
 
 import 'package:http2/src/frames/frame_defragmenter.dart';
 import 'package:http2/src/frames/frames.dart';
+import 'package:http2/src/sync_errors.dart';
 import 'package:test/test.dart';
 
 import '../error_matchers.dart';
@@ -155,6 +156,86 @@ void main() {
 
         var f1 = continuationFrame([4, 5, 6], fragmented: true, streamId: 1);
         expect(defrag.tryDefragmentFrame(f1), equals(f1));
+      });
+
+      test('allows a compressed field block at the exact byte limit', () {
+        var defrag = FrameDefragmenter(maxHeaderBlockSize: 6);
+
+        expect(
+          defrag.tryDefragmentFrame(headersFrame([1, 2, 3, 4, 5, 6])),
+          isA<HeadersFrame>(),
+        );
+      });
+
+      test('rejects a compressed field block one byte over the limit', () {
+        var defrag = FrameDefragmenter(maxHeaderBlockSize: 5);
+
+        expect(
+          () => defrag.tryDefragmentFrame(headersFrame([1, 2, 3, 4, 5, 6])),
+          throwsA(isA<HeaderBlockProcessingException>()),
+        );
+      });
+
+      test('enforces the byte limit while receiving continuations', () {
+        var defrag = FrameDefragmenter(maxHeaderBlockSize: 6);
+
+        expect(
+          defrag.tryDefragmentFrame(headersFrame([1, 2, 3], fragmented: true)),
+          isNull,
+        );
+        expect(
+          defrag.tryDefragmentFrame(
+            continuationFrame([4, 5, 6], fragmented: true),
+          ),
+          isNull,
+        );
+        expect(
+          () => defrag.tryDefragmentFrame(continuationFrame([7])),
+          throwsA(isA<HeaderBlockProcessingException>()),
+        );
+        expect(defrag.isDefragmenting, isFalse);
+      });
+
+      test('enforces the continuation frame count', () {
+        var defrag = FrameDefragmenter(maxContinuationFrames: 2);
+
+        expect(
+          defrag.tryDefragmentFrame(headersFrame([1], fragmented: true)),
+          isNull,
+        );
+        expect(
+          defrag.tryDefragmentFrame(continuationFrame([2], fragmented: true)),
+          isNull,
+        );
+        expect(
+          defrag.tryDefragmentFrame(continuationFrame([3], fragmented: true)),
+          isNull,
+        );
+        expect(
+          () => defrag.tryDefragmentFrame(continuationFrame([4])),
+          throwsA(isA<HeaderBlockProcessingException>()),
+        );
+      });
+
+      test('combines many small continuations once at completion', () {
+        var defrag = FrameDefragmenter(
+          maxHeaderBlockSize: 65,
+          maxContinuationFrames: 64,
+        );
+        expect(
+          defrag.tryDefragmentFrame(headersFrame([0], fragmented: true)),
+          isNull,
+        );
+        for (var i = 1; i < 64; i++) {
+          expect(
+            defrag.tryDefragmentFrame(continuationFrame([i], fragmented: true)),
+            isNull,
+          );
+        }
+        final result =
+            defrag.tryDefragmentFrame(continuationFrame([64])) as HeadersFrame;
+
+        expect(result.headerBlockFragment, List<int>.generate(65, (i) => i));
       });
     });
   });
