@@ -212,6 +212,7 @@ Future<String?> choosePrivateKeyAlias({
 ///
 ///   final likes = decodedResponse['likeCount'];
 ///   print('Likes: $likes');
+///   client.close();
 /// }
 /// ```
 class OkHttpClient extends BaseClient {

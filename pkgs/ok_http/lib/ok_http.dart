@@ -23,6 +23,7 @@
 ///
 ///   final likes = decodedResponse['likeCount'];
 ///   print('Likes: $likes');
+///   client.close();
 /// }
 /// ```
 ///
