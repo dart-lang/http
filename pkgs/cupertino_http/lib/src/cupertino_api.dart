@@ -972,7 +972,7 @@ class MutableURLRequest extends URLRequest {
   /// See [NSMutableURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1414617-allhttpheaderfields)
   factory MutableURLRequest.fromUrl(Uri uri) {
     final url = objc.NSURL.URLWithString(uri.toString().toNSString())!;
-    return MutableURLRequest._(ncb.NSMutableURLRequest.requestWithURL(url));
+    return MutableURLRequest._(ncb.NSMutableURLRequest.alloc().initWithURL(url));
   }
 
   set cachePolicy(NSURLRequestCachePolicy value) =>
