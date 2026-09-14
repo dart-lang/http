@@ -217,6 +217,87 @@ void main() {
         await Future.wait([serverFun(), clientFun()]);
       });
     });
+
+    group('max-concurrent-streams', () {
+      test('exceeding-max-concurrent-streams', () async {
+        var writeA = StreamController<List<int>>();
+        var writeB = StreamController<List<int>>();
+
+        var server = ServerTransportConnection.viaStreams(
+          writeB.stream,
+          writeA,
+          settings: const ServerSettings(concurrentStreamLimit: 2),
+        );
+
+        var localSettings = ActiveSettings();
+        var clientReader = StreamIterator(
+          FrameReader(writeA.stream, localSettings).startDecoding(),
+        );
+
+        Future<Frame> nextFrame() async {
+          expect(await clientReader.moveNext(), true);
+          return clientReader.current;
+        }
+
+        var encoder = HPackEncoder();
+        var peerSettings = ActiveSettings();
+        writeB.add(CONNECTION_PREFACE);
+        var clientWriter = FrameWriter(encoder, writeB, peerSettings);
+
+        var clientDone = Completer<void>();
+
+        Future serverFun() async {
+          var incoming = <ServerTransportStream>[];
+          var subscription = server.incomingStreams.listen(incoming.add);
+
+          await clientDone.future;
+
+          expect(incoming.length, 2);
+          await subscription.cancel();
+          await server.terminate();
+        }
+
+        Future clientFun() async {
+          expect(await nextFrame() is SettingsFrame, true);
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+
+          clientWriter.writeHeadersFrame(1, [
+            Header.ascii('a', 'b'),
+          ], endStream: false);
+          clientWriter.writeHeadersFrame(3, [
+            Header.ascii('a', 'b'),
+          ], endStream: false);
+          clientWriter.writeHeadersFrame(5, [
+            Header.ascii('a', 'b'),
+          ], endStream: false);
+
+          var frame = await nextFrame();
+          expect(
+            frame,
+            isA<RstStreamFrame>()
+                .having(
+                  (f) => f.errorCode,
+                  'errorCode',
+                  ErrorCode.REFUSED_STREAM,
+                )
+                .having((f) => f.header.streamId, 'header.streamId', 5),
+          );
+
+          clientDone.complete();
+
+          var hasGoaway = await clientReader.moveNext();
+          expect(hasGoaway, true);
+          expect(clientReader.current is GoawayFrame, true);
+
+          var closed = await clientReader.moveNext();
+          expect(closed, false);
+        }
+
+        await [serverFun(), clientFun()].wait;
+      });
+    });
   });
 }
 

@@ -5,6 +5,7 @@
 import 'package:http/http.dart';
 
 import 'src/abort_tests.dart';
+import 'src/bodyless_request_tests.dart';
 import 'src/close_tests.dart';
 import 'src/compressed_response_body_tests.dart';
 import 'src/isolate_test.dart';
@@ -24,6 +25,7 @@ import 'src/response_status_line_tests.dart';
 import 'src/server_errors_test.dart';
 
 export 'src/abort_tests.dart' show testAbort;
+export 'src/bodyless_request_tests.dart' show testBodylessRequests;
 export 'src/close_tests.dart' show testClose;
 export 'src/compressed_response_body_tests.dart'
     show testCompressedResponseBody;
@@ -100,6 +102,7 @@ void testAll(
   testRequestBody(clientFactory);
   testRequestBodyStreamed(clientFactory,
       canStreamRequestBody: canStreamRequestBody);
+  testBodylessRequests(clientFactory);
   testResponseBody(clientFactory, canStreamResponseBody: canStreamResponseBody);
   testResponseBodyStreamed(clientFactory,
       canStreamResponseBody: canStreamResponseBody);

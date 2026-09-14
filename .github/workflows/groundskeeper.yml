@@ -1,0 +1,35 @@
+name: Groundskeeper
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Daily at 00:00 UTC
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  tidy:
+    permissions:
+      contents: write
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - cronet_http
+          - cupertino_http
+          - flutter_http_example
+          - http
+          - http2
+          - http_client_conformance_tests
+          - http_multi_server
+          - http_parser
+          - http_profile
+          - ok_http
+          - web_socket
+          - web_socket_channel
+          - web_socket_conformance_tests
+    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@main # zizmor: ignore[unpinned-uses, secrets-inherit]
+    with:
+      directory: pkgs/${{ matrix.package }}
+      branch: auto-tidy-${{ matrix.package }}
+      title: 'Tidy: package:${{ matrix.package }}'
+    secrets: inherit

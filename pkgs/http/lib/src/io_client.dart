@@ -114,8 +114,13 @@ class IOClient extends BaseClient {
       var ioRequest = (await _inner!.openUrl(request.method, request.url))
         ..followRedirects = request.followRedirects
         ..maxRedirects = request.maxRedirects
-        ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
+      if (request.contentLength case final contentLength?) {
+        // Work around a Dart SDK issue where setting the contentLength to -1
+        // provokes the use of chunked transfer encoding. See:
+        // https://github.com/dart-lang/sdk/issues/60333
+        ioRequest.contentLength = contentLength;
+      }
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value, preserveHeaderCase: true);
       });

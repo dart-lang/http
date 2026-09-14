@@ -50,3 +50,11 @@ class StreamClosedException extends StreamException {
   @override
   String toString() => 'StreamClosedException(stream id: $streamId): $_message';
 }
+
+class StreamRefusedException extends StreamException {
+  StreamRefusedException(super.streamId, [super.message = '']);
+
+  @override
+  String toString() =>
+      'StreamRefusedException(stream id: $streamId): $_message';
+}

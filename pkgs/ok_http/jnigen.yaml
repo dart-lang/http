@@ -12,6 +12,9 @@ android_sdk_config:
   add_gradle_deps: true
   android_example: "example/"
 
+# IMPORTANT: OkHttp classes declared here
+# must be kept in sync with android/proguard.txt
+# to support Android release builds.
 classes:
 - "okhttp3.Request"
 - "okhttp3.RequestBody"
