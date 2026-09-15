@@ -1,5 +1,7 @@
 ## 3.1.1-wip
 
+* Update example to fetch and display scores of `package:cupertino_http` from
+  pub.dev.
 * Update to `package:ffigen` `22.0.0`.
 
 ## 3.1.0

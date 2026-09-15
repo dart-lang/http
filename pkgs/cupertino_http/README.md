@@ -35,16 +35,15 @@ void main() async {
   if (Platform.isIOS || Platform.isMacOS) {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
       ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
-      ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
+      ..httpAdditionalHeaders = {'User-Agent': 'Package Client'};
     httpClient = CupertinoClient.fromSessionConfiguration(config);
   } else {
-    httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
+    httpClient = IOClient(HttpClient()..userAgent = 'Package Client');
   }
 
-  final response = await httpClient.get(Uri.https(
-      'www.googleapis.com',
-      '/books/v1/volumes',
-      {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
+  final response = await httpClient.get(
+    Uri.https('pub.dev', '/api/packages/cupertino_http/score'),
+  );
 
   httpClient.close();
 }

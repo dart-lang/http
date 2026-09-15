@@ -40,18 +40,14 @@ void main() async {
     final engine = CronetEngine.build(
         cacheMode: CacheMode.memory,
         cacheMaxSize: 2 * 1024 * 1024,
-        userAgent: 'Book Agent');
+        userAgent: 'Package Client');
     httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
   } else {
-    httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
+    httpClient = IOClient(HttpClient()..userAgent = 'Package Client');
   }
 
-  final response = await client.get(
-    Uri.https(
-      'www.googleapis.com',
-      '/books/v1/volumes',
-      {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'},
-    ),
+  final response = await httpClient.get(
+    Uri.https('pub.dev', '/api/packages/cronet_http/score'),
   );
   httpClient.close();
 }

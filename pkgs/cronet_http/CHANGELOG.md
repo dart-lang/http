@@ -1,5 +1,7 @@
 ## 1.10.0-wip
 
+* Update example to fetch and display scores of `package:cronet_http` from
+  pub.dev.
 * Upgrade `package:jnigen` to 1.0.0.
 * Add DNS configuration options to `CronetEngine.build`:
   `useBuiltInDnsResolver`, `enableStaleDns`, `persistHostCache` and
