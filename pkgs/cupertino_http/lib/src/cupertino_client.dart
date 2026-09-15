@@ -314,7 +314,6 @@ class CupertinoClient extends BaseClient {
     Uri? lastRedirectUrl;
 
     final task = urlSession.dataTaskWithRequest(urlRequest);
-    urlRequest.httpBody = null;
     final dataController = StreamController<Uint8List>(
       onCancel: () async {
         cancelled = true;
