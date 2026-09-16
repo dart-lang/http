@@ -117,7 +117,7 @@ objc.ObjCProtocolBuilder _buildDelegate(
   final protoBuilder = objc.ObjCProtocolBuilder();
 
   // `package:objective_c` pushes an autorelease pool around every Dart
-  // callback so calling `autoReleasePool` in each callback is not necessary. 
+  // callback so calling `autoReleasePool` in each callback is not necessary.
   if (onComplete != null) {
     ncb.NSURLSessionDataDelegate$Builder.URLSession_task_didCompleteWithError_
         .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
