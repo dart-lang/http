@@ -1,6 +1,10 @@
 ## 3.1.1-wip
 
 * Update to `package:ffigen` `22.0.0`.
+* Fix potential memory leaks when calling the following methods because the
+  created objects were added to the autorelease pool:
+    * `URLRequest.fromUrl`
+    * `MutableURLRequest.fromUrl`
 
 ## 3.1.0
 

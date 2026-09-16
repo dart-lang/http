@@ -53,7 +53,7 @@ export 'native_cupertino_bindings.dart'
         NSURLSessionWebSocketMessageType;
 
 objc.NSURL _uriToNSURL(Uri uri) =>
-    objc.NSURL.URLWithString(uri.toString().toNSString())!;
+    objc.NSURL.alloc().initWithString(uri.toString().toNSString())!;
 Uri _nsurlToUri(objc.NSURL url) =>
     Uri.parse(url.absoluteString!.toDartString());
 
@@ -116,6 +116,8 @@ objc.ObjCProtocolBuilder _buildDelegate(
 }) {
   final protoBuilder = objc.ObjCProtocolBuilder();
 
+  // `package:objective_c` pushes an autorelease pool around every Dart
+  // callback so calling `autoReleasePool` in each callback is not necessary. 
   if (onComplete != null) {
     ncb.NSURLSessionDataDelegate$Builder.URLSession_task_didCompleteWithError_
         .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
@@ -893,7 +895,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   ///
   /// See [NSURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsurlrequest/1528603-requestwithurl)
   factory URLRequest.fromUrl(Uri uri) =>
-      URLRequest._(ncb.NSURLRequest.requestWithURL(_uriToNSURL(uri)));
+      URLRequest._(ncb.NSURLRequest.alloc().initWithURL(_uriToNSURL(uri)));
 
   /// Returns all of the HTTP headers for the request.
   ///
@@ -970,10 +972,9 @@ class MutableURLRequest extends URLRequest {
   /// Creates a request for a URL.
   ///
   /// See [NSMutableURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1414617-allhttpheaderfields)
-  factory MutableURLRequest.fromUrl(Uri uri) {
-    final url = objc.NSURL.URLWithString(uri.toString().toNSString())!;
-    return MutableURLRequest._(ncb.NSMutableURLRequest.alloc().initWithURL(url));
-  }
+  factory MutableURLRequest.fromUrl(Uri uri) => MutableURLRequest._(
+    ncb.NSMutableURLRequest.alloc().initWithURL(_uriToNSURL(uri)),
+  );
 
   set cachePolicy(NSURLRequestCachePolicy value) =>
       _mutableUrlRequest.cachePolicy$1 = value;
