@@ -5,6 +5,7 @@
   created objects were added to the autorelease pool:
     * `URLRequest.fromUrl`
     * `MutableURLRequest.fromUrl`
+* Eagerly release request body data in `CupertinoClient`.
 
 ## 3.1.0
 

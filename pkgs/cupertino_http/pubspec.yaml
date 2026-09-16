@@ -34,11 +34,3 @@ dev_dependencies:
 dependency_overrides:
   http:
     path: ../http/
-  objective_c:
-    path: ../../../native/pkgs/objective_c
-  code_assets:
-    path: ../../../native/pkgs/code_assets
-  hooks:
-    path: ../../../native/pkgs/hooks
-  native_toolchain_c:
-    path: ../../../native/pkgs/native_toolchain_c
