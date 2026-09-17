@@ -14,7 +14,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.statusCode = 200;
       await request.response.close();
     });
-  channel.sink.add(server.port);
+  channel.sink.add(server.port.toString());
 
   await channel
       .stream.first; // Any writes indicates that the server should exit.
