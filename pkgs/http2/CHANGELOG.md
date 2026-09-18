@@ -1,4 +1,4 @@
-## 3.1.0-wip
+## 3.1.0
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
 - Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).
