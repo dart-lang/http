@@ -9,6 +9,17 @@
   most recently advertised `SETTINGS_MAX_CONCURRENT_STREAMS`. Note this is a
   new member on an implementable class, so any existing
   `implements ClientTransportConnection` will need updating.
+- **BREAKING (per #1913)**: distinguish graceful peer-initiated
+  shutdown (GOAWAY with `NO_ERROR` followed by transport close) from
+  forceful termination. Under the graceful path, pending operations
+  error with `TransportConnectionException(errorCode: NO_ERROR,
+  message: "Connection gracefully closed by peer.")` instead of the
+  prior conflated `"Connection is being forcefully terminated."` text.
+  Consumers that previously matched the forceful-termination text to
+  detect any peer-side shutdown should switch to observing
+  `TransportConnectionException.errorCode == ErrorCode.NO_ERROR` (or
+  the new message text) to distinguish graceful from forceful close.
+  (#1913)
 
 ## 3.0.0
 

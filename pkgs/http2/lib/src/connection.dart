@@ -148,6 +148,9 @@ abstract class Connection {
   /// The state of this connection.
   late ConnectionState _state;
 
+  /// Error code received in a peer-initiated GOAWAY frame, if any.
+  int? _peerGoawayErrorCode;
+
   Connection(
     Stream<List<int>> incoming,
     StreamSink<List<int>> outgoing,
@@ -172,7 +175,7 @@ abstract class Connection {
         _catchProtocolErrors(() => _handleFrameImpl(frame));
       },
       onError: (error, stack) {
-        _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+        _terminate(ErrorCode.CONNECT_ERROR, transportClosed: true);
       },
       onDone: () {
         // Ensure existing messages from lower levels are sent to the upper
@@ -180,14 +183,14 @@ abstract class Connection {
         _incomingQueue.forceDispatchIncomingMessages();
         _streams.forceDispatchIncomingMessages();
 
-        _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+        _terminate(ErrorCode.CONNECT_ERROR, transportClosed: true);
       },
     );
 
     // Setup frame writing.
     _frameWriter = FrameWriter(_hpackContext.encoder, outgoing, peerSettings);
     _frameWriter.doneFuture.whenComplete(() {
-      _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+      _terminate(ErrorCode.CONNECT_ERROR, transportClosed: true);
     });
 
     // Setup handlers.
@@ -393,6 +396,7 @@ abstract class Connection {
         _connectionWindowHandler.processWindowUpdate(frame);
       } else if (frame is GoawayFrame) {
         _streams.processGoawayFrame(frame);
+        _peerGoawayErrorCode = frame.errorCode;
         _finishing(active: false);
       } else if (frame is UnknownFrame) {
         // We can safely ignore these.
@@ -448,15 +452,30 @@ abstract class Connection {
   /// The returned future will never complete with an error.
   Future _terminate(
     int errorCode, {
-    bool causedByTransportError = false,
+    bool transportClosed = false,
     String? message,
   }) {
     // TODO: When do we complete here?
     if (_state.state != ConnectionState.Terminated) {
+      // Detect graceful-shutdown path per issue #1913 shape (b): the peer
+      // has already sent a GOAWAY with NO_ERROR (transitioning us to
+      // passive-finishing state) and the transport then closed as part of
+      // that graceful flow. The transport-close that triggered this
+      // _terminate() call is expected, not an error condition — so we
+      // complete sub-components without an exception rather than surfacing
+      // `TransportConnectionException("Connection is being forcefully
+      // terminated.")`. BREAKING vs prior behavior where this path always
+      // raised the forceful-termination exception.
+      final isGracefulShutdown =
+          transportClosed &&
+          _state.isFinishing &&
+          (_state.finishingState & ConnectionState.FinishingPassive) != 0 &&
+          _peerGoawayErrorCode == ErrorCode.NO_ERROR;
+
       _state.state = ConnectionState.Terminated;
 
       var cancelFuture = Future.sync(_frameReaderSubscription.cancel);
-      if (!causedByTransportError) {
+      if (!transportClosed) {
         _outgoingQueue.enqueueMessage(
           GoawayMessage(
             _streams.highestPeerInitiatedStream,
@@ -469,13 +488,23 @@ abstract class Connection {
         // We ignore any errors after writing to [GoawayFrame]
       });
 
-      // Close all lower level handlers with an error message.
-      // (e.g. if there is a pending connection.ping(), it's returned
-      //  Future will complete with this error).
-      var exception = TransportConnectionException(
-        errorCode,
-        'Connection is being forcefully terminated.',
-      );
+      // Close all lower level handlers. For graceful peer-initiated
+      // shutdown (per #1913 shape (b)), use NO_ERROR + a distinct
+      // "gracefully closed" message so callers can distinguish from
+      // forceful termination. Pending operations (e.g. pending
+      // `connection.ping()` calls or pending settings ACKs) still
+      // complete with an error — they cannot succeed across a peer
+      // shutdown — but the error itself carries the graceful signal.
+      var exception =
+          isGracefulShutdown
+              ? TransportConnectionException(
+                ErrorCode.NO_ERROR,
+                'Connection gracefully closed by peer.',
+              )
+              : TransportConnectionException(
+                _peerGoawayErrorCode ?? errorCode,
+                'Connection is being forcefully terminated.',
+              );
 
       // Close all streams & stream queues
       _streams.terminate(exception);
