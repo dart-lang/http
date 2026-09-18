@@ -118,7 +118,11 @@ abstract class Connection {
   final Window _localWindow = Window();
 
   /// Used for defragmenting PushPromise/Header frames.
-  final FrameDefragmenter _defragmenter = FrameDefragmenter();
+  late final FrameDefragmenter _defragmenter;
+
+  late final int? _maxInboundHeaderListSize;
+  late final Duration? _inboundHeaderBlockTimeout;
+  Timer? _inboundHeaderBlockTimer;
 
   /// The outgoing frames of this connection;
   late FrameWriter _frameWriter;
@@ -164,9 +168,22 @@ abstract class Connection {
     StreamSink<List<int>> outgoing,
     Settings settingsObject,
   ) {
+    _validateSettings(settingsObject);
+    _maxInboundHeaderListSize = settingsObject.maxInboundHeaderListSize;
+    _inboundHeaderBlockTimeout = settingsObject.inboundHeaderBlockTimeout;
+    _defragmenter = FrameDefragmenter(
+      maxHeaderBlockSize: settingsObject.maxInboundHeaderBlockSize,
+      maxContinuationFrames: settingsObject.maxContinuationFramesPerBlock,
+    );
+
     // Setup frame reading.
     var incomingFrames =
-        FrameReader(incoming, acknowledgedSettings).startDecoding();
+        FrameReader(
+          incoming,
+          acknowledgedSettings,
+          onFieldBlockStart: _startInboundHeaderBlockTimer,
+          onFieldBlockEnd: _cancelInboundHeaderBlockTimer,
+        ).startDecoding();
     _frameReaderSubscription = incomingFrames.listen(
       (Frame frame) {
         _catchProtocolErrors(() => _handleFrameImpl(frame));
@@ -245,6 +262,10 @@ abstract class Connection {
         _settingsHandler.peerSettings,
         _settingsHandler.acknowledgedSettings,
         _activeStateHandler,
+        settingsObject.concurrentStreamLimit,
+        settingsObject.maxPeerStreamLimitViolations,
+        _terminateForPeerStreamLimitAbuse,
+        settingsObject is ClientSettings && settingsObject.allowServerPushes,
       );
     } else {
       _streams = StreamHandler.server(
@@ -254,6 +275,10 @@ abstract class Connection {
         _settingsHandler.peerSettings,
         _settingsHandler.acknowledgedSettings,
         _activeStateHandler,
+        settingsObject.concurrentStreamLimit,
+        settingsObject.maxPeerStreamLimitViolations,
+        _terminateForPeerStreamLimitAbuse,
+        false,
       );
     }
 
@@ -279,6 +304,16 @@ abstract class Connection {
     if (streamWindowSize != null) {
       settingsList.add(
         Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, streamWindowSize),
+      );
+    }
+
+    final maxInboundHeaderListSize = settings.maxInboundHeaderListSize;
+    if (maxInboundHeaderListSize != null) {
+      settingsList.add(
+        Setting(
+          Setting.SETTINGS_MAX_HEADER_LIST_SIZE,
+          maxInboundHeaderListSize,
+        ),
       );
     }
 
@@ -336,8 +371,10 @@ abstract class Connection {
       _terminate(ErrorCode.FLOW_CONTROL_ERROR, message: '$error');
     } on FrameSizeException catch (error) {
       _terminate(ErrorCode.FRAME_SIZE_ERROR, message: '$error');
+    } on HeaderBlockProcessingException catch (error) {
+      _terminate(ErrorCode.ENHANCE_YOUR_CALM, message: '$error');
     } on HPackDecodingException catch (error) {
-      _terminate(ErrorCode.PROTOCOL_ERROR, message: '$error');
+      _terminate(ErrorCode.COMPRESSION_ERROR, message: '$error');
     } on TerminatedException {
       // We tried to perform an action even though the connection was already
       // terminated.
@@ -371,13 +408,21 @@ abstract class Connection {
     // [This needs to be done even if the frames get ignored, since the entire
     //  connection shares one HPack compression context.]
     if (frame is HeadersFrame) {
-      frame.decodedHeaders = _hpackContext.decoder.decode(
+      final result = _hpackContext.decoder.decodeWithLimit(
         frame.headerBlockFragment,
+        maxHeaderListSize: _maxInboundHeaderListSize,
       );
+      frame.decodedHeaders = result.headers;
+      frame.decodedHeaderListSize = result.headerListSize;
+      frame.headerListSizeExceeded = result.headerListSizeExceeded;
     } else if (frame is PushPromiseFrame) {
-      frame.decodedHeaders = _hpackContext.decoder.decode(
+      final result = _hpackContext.decoder.decodeWithLimit(
         frame.headerBlockFragment,
+        maxHeaderListSize: _maxInboundHeaderListSize,
       );
+      frame.decodedHeaders = result.headers;
+      frame.decodedHeaderListSize = result.headerListSize;
+      frame.headerListSizeExceeded = result.headerListSizeExceeded;
     }
     if (_frameReceived.hasListener) {
       _frameReceived.add(null);
@@ -403,6 +448,61 @@ abstract class Connection {
       }
     } else {
       _streams.processStreamFrame(_state, frame);
+    }
+  }
+
+  void _startInboundHeaderBlockTimer() {
+    final timeout = _inboundHeaderBlockTimeout;
+    if (timeout == null || _inboundHeaderBlockTimer != null) return;
+    _inboundHeaderBlockTimer = Timer(timeout, () {
+      _terminate(
+        ErrorCode.ENHANCE_YOUR_CALM,
+        message: 'Inbound field block was not completed within $timeout.',
+      );
+    });
+  }
+
+  void _cancelInboundHeaderBlockTimer() {
+    _inboundHeaderBlockTimer?.cancel();
+    _inboundHeaderBlockTimer = null;
+  }
+
+  void _terminateForPeerStreamLimitAbuse(String message) {
+    _terminate(ErrorCode.ENHANCE_YOUR_CALM, message: message);
+  }
+
+  static void _validateSettings(Settings settings) {
+    void nonNegative(int? value, String name) {
+      if (value != null && value < 0) {
+        throw ArgumentError.value(value, name, 'must be >= 0');
+      }
+    }
+
+    nonNegative(settings.concurrentStreamLimit, 'concurrentStreamLimit');
+    nonNegative(
+      settings.maxInboundHeaderBlockSize,
+      'maxInboundHeaderBlockSize',
+    );
+    nonNegative(settings.maxInboundHeaderListSize, 'maxInboundHeaderListSize');
+    nonNegative(
+      settings.maxContinuationFramesPerBlock,
+      'maxContinuationFramesPerBlock',
+    );
+    final timeout = settings.inboundHeaderBlockTimeout;
+    if (timeout != null && timeout.isNegative) {
+      throw ArgumentError.value(
+        timeout,
+        'inboundHeaderBlockTimeout',
+        'must not be negative',
+      );
+    }
+    final violations = settings.maxPeerStreamLimitViolations;
+    if (violations != null && violations < 1) {
+      throw ArgumentError.value(
+        violations,
+        'maxPeerStreamLimitViolations',
+        'must be >= 1',
+      );
     }
   }
 
@@ -454,6 +554,7 @@ abstract class Connection {
     // TODO: When do we complete here?
     if (_state.state != ConnectionState.Terminated) {
       _state.state = ConnectionState.Terminated;
+      _cancelInboundHeaderBlockTimer();
 
       var cancelFuture = Future.sync(_frameReaderSubscription.cancel);
       if (!causedByTransportError) {
