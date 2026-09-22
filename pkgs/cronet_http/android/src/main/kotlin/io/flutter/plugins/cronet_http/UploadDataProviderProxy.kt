@@ -1,4 +1,4 @@
-// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2026, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -33,18 +33,20 @@ import java.nio.ByteBuffer
 
 @Keep
 class UploadDataProviderProxy(
+    private val length: Long,
     private val callback: UploadDataProviderInterface
 ) : UploadDataProvider() {
 
     @Keep
     interface UploadDataProviderInterface {
-        fun getLength(): Long
         fun read(uploadDataSink: UploadDataSink?, byteBuffer: ByteBuffer?)
         fun rewind(uploadDataSink: UploadDataSink?)
         fun close()
     }
 
-    override fun getLength(): Long = callback.getLength()
+    // Cronet calls this on its upload executor, which blocks until a Dart
+    // upcall returns. The length is fixed for the request, so answer here.
+    override fun getLength(): Long = length
 
     override fun read(uploadDataSink: UploadDataSink, byteBuffer: ByteBuffer) =
         callback.read(uploadDataSink, byteBuffer)

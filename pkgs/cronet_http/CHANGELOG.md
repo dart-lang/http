@@ -1,8 +1,6 @@
 ## 1.10.0-wip
 
-* Add support for streaming request bodies on `StreamedRequest` via Cronet's
-  `UploadDataProvider` API. In-memory `Request` bodies continue to use the
-  existing byte-buffer upload path.
+* Support streaming request bodies.
 * Add `UploadDataProviderProxy` Kotlin bridge so Dart can implement Cronet's
   `UploadDataProvider` through JNI (jnigen cannot subclass abstract Java
   classes).

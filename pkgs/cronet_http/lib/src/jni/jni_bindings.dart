@@ -928,10 +928,6 @@ extension type UploadDataProviderProxy$UploadDataProviderInterface._(
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
-      if ($d == r'getLength()J') {
-        final $r = _$impls[$p]!.getLength();
-        return $r.toJLong().reference.toPointer();
-      }
       if ($d ==
           r'read(Lorg/chromium/net/UploadDataSink;Ljava/nio/ByteBuffer;)V') {
         _$impls[$p]!.read(
@@ -998,31 +994,6 @@ extension type UploadDataProviderProxy$UploadDataProviderInterface._(
 
 extension UploadDataProviderProxy$UploadDataProviderInterface$$Methods
     on UploadDataProviderProxy$UploadDataProviderInterface {
-  static final _id_getLength =
-      UploadDataProviderProxy$UploadDataProviderInterface._class
-          .instanceMethodId(
-    r'getLength',
-    r'()J',
-  );
-
-  static final _getLength = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallLongMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public fun getLength(): kotlin.Long`
-  core$_.int getLength() {
-    final _$$selfRef = reference;
-    return _getLength(_$$selfRef.pointer, _id_getLength.pointer).long;
-  }
-
   static final _id_read = UploadDataProviderProxy$UploadDataProviderInterface
       ._class
       .instanceMethodId(
@@ -1116,7 +1087,6 @@ extension UploadDataProviderProxy$UploadDataProviderInterface$$Methods
 
 abstract base mixin class $UploadDataProviderProxy$UploadDataProviderInterface {
   factory $UploadDataProviderProxy$UploadDataProviderInterface({
-    required core$_.int Function() getLength,
     required void Function(
             UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer)
         read,
@@ -1127,7 +1097,6 @@ abstract base mixin class $UploadDataProviderProxy$UploadDataProviderInterface {
     core$_.bool close$async,
   }) = _$UploadDataProviderProxy$UploadDataProviderInterface;
 
-  core$_.int getLength();
   void read(UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer);
   core$_.bool get read$async => false;
   void rewind(UploadDataSink? uploadDataSink);
@@ -1139,7 +1108,6 @@ abstract base mixin class $UploadDataProviderProxy$UploadDataProviderInterface {
 final class _$UploadDataProviderProxy$UploadDataProviderInterface
     with $UploadDataProviderProxy$UploadDataProviderInterface {
   _$UploadDataProviderProxy$UploadDataProviderInterface({
-    required core$_.int Function() getLength,
     required void Function(
             UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer)
         read,
@@ -1148,12 +1116,10 @@ final class _$UploadDataProviderProxy$UploadDataProviderInterface
     this.rewind$async = false,
     required void Function() close,
     this.close$async = false,
-  })  : _getLength = getLength,
-        _read = read,
+  })  : _read = read,
         _rewind = rewind,
         _close = close;
 
-  final core$_.int Function() _getLength;
   final void Function(
       UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer) _read;
   final core$_.bool read$async;
@@ -1161,10 +1127,6 @@ final class _$UploadDataProviderProxy$UploadDataProviderInterface
   final core$_.bool rewind$async;
   final void Function() _close;
   final core$_.bool close$async;
-
-  core$_.int getLength() {
-    return _getLength();
-  }
 
   void read(UploadDataSink? uploadDataSink, jni$_.JByteBuffer? byteBuffer) {
     return _read(uploadDataSink, byteBuffer);
@@ -1200,7 +1162,7 @@ extension type UploadDataProviderProxy._(jni$_.JObject _$this)
   static const jni$_.JType<UploadDataProviderProxy> type =
       $UploadDataProviderProxy$Type$();
   static final _id_new$ = _class.constructorId(
-    r'(Lio/flutter/plugins/cronet_http/UploadDataProviderProxy$UploadDataProviderInterface;)V',
+    r'(JLio/flutter/plugins/cronet_http/UploadDataProviderProxy$UploadDataProviderInterface;)V',
   );
 
   static final _new$ = jni$_.ProtectedJniExtensions.lookup<
@@ -1208,22 +1170,23 @@ extension type UploadDataProviderProxy._(jni$_.JObject _$this)
                   jni$_.JniResult Function(
                       jni$_.Pointer<jni$_.Void>,
                       jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
+                      jni$_
+                          .VarArgs<(jni$_.Int64, jni$_.Pointer<jni$_.Void>)>)>>(
           'globalEnv_NewObject')
       .asFunction<
           jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+              jni$_.JMethodIDPtr, core$_.int, jni$_.Pointer<jni$_.Void>)>();
 
-  /// from: `public void <init>(io.flutter.plugins.cronet_http.UploadDataProviderProxy$UploadDataProviderInterface uploadDataProviderInterface)`
+  /// from: `public void <init>(long length, io.flutter.plugins.cronet_http.UploadDataProviderProxy$UploadDataProviderInterface callback)`
   /// The returned object must be released after use, by calling the [release] method.
   factory UploadDataProviderProxy(
-    UploadDataProviderProxy$UploadDataProviderInterface
-        uploadDataProviderInterface,
+    core$_.int length,
+    UploadDataProviderProxy$UploadDataProviderInterface callback,
   ) {
     final _$$classRef = _class.reference;
-    final _$uploadDataProviderInterface = uploadDataProviderInterface.reference;
-    return _new$(_$$classRef.pointer, _id_new$.pointer,
-            _$uploadDataProviderInterface.pointer)
+    final _$callback = callback.reference;
+    return _new$(
+            _$$classRef.pointer, _id_new$.pointer, length, _$callback.pointer)
         .object<UploadDataProviderProxy>();
   }
 }

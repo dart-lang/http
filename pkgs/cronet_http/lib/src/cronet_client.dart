@@ -808,62 +808,76 @@ class CronetClient extends BaseClient {
       return true;
     }
 
+    /// Copies the next bytes into [dst].
+    ///
+    /// Returns `(lastChunk, error)`. Never calls the sink and never throws.
+    /// [StreamQueue.cancel] with `immediate: true` completes a pending
+    /// `hasNext` with `false`, which is the same signal as end-of-stream, so a
+    /// canceled upload must be reported as an error rather than a final chunk.
+    Future<(bool, String?)> fill(JByteBuffer dst) async {
+      try {
+        final hasData = await ensureChunk();
+        if (disposed) {
+          return (false, 'Request body stream was closed');
+        }
+        if (!hasData) {
+          if (contentLength == null) return (true, null);
+          return (false, 'Body ended before contentLength');
+        }
+        final available = current!.length - offset;
+        if (contentLength != null && available > contentLength - bytesSent) {
+          return (false, 'Body exceeded contentLength');
+        }
+        final pos = dst.position;
+        final n = min(dst.remaining, available);
+        dst.asUint8List().setRange(pos, pos + n, current!, offset);
+        dst.position = pos + n;
+        profile?.requestData.bodySink.add(
+          Uint8List.sublistView(current!, offset, offset + n),
+        );
+        offset += n;
+        bytesSent += n;
+        return (false, null);
+      } catch (e) {
+        return (false, '$e');
+      }
+    }
+
+    jb.IOException ioException(Arena arena, String message) =>
+        jb.IOException.new1(message.toJString()..releasedBy(arena))
+          ..releasedBy(arena);
+
     final impl =
         jb.UploadDataProviderProxy$UploadDataProviderInterface.implement(
       jb.$UploadDataProviderProxy$UploadDataProviderInterface(
-        getLength: () => contentLength ?? -1,
         read$async: true,
-        read: (uploadDataSink, byteBuffer) async {
-          final sink = uploadDataSink!;
-          try {
-            if (!await ensureChunk()) {
-              if (contentLength == null) {
-                sink.onReadSucceeded(true);
-              } else {
-                sink.onReadError(jb.IOException.new1(
-                    'Body ended before contentLength'.toJString()));
-              }
-              return;
-            }
-
-            final dst = byteBuffer!;
-            final pos = dst.position;
-            final available = current!.length - offset;
-
-            if (contentLength != null &&
-                available > contentLength - bytesSent) {
-              sink.onReadError(jb.IOException.new1(
-                'Body exceeded contentLength'.toJString(),
-              ));
-              return;
-            }
-
-            final n = min(dst.remaining, available);
-            dst.asUint8List().setRange(pos, pos + n, current!, offset);
-            dst.position = pos + n;
-
-            profile?.requestData.bodySink.add(
-              Uint8List.sublistView(current!, offset, offset + n),
-            );
-
-            offset += n;
-            bytesSent += n;
-            sink.onReadSucceeded(false);
-          } catch (e) {
-            sink.onReadError(jb.IOException.new1('$e'.toJString()));
+        // Cronet stays in READ until exactly one sink call. That includes
+        // cancel and failure: returning without calling the sink stalls the
+        // upload, and close() is posted only after the sink call returns.
+        read: (uploadDataSink, byteBuffer) => using((arena) async {
+          final sink = uploadDataSink!..releasedBy(arena);
+          final dst = byteBuffer!..releasedBy(arena);
+          final (lastChunk, error) = await fill(dst);
+          if (error == null) {
+            sink.onReadSucceeded(lastChunk);
+          } else {
+            sink.onReadError(ioException(arena, error));
           }
-        },
-        rewind: (uploadDataSink) {
-          // One-shot stream: cannot replay.
-          uploadDataSink!.onRewindError(jb.IOException.new1(
-              'Streamed request bodies cannot be rewound'.toJString()));
-        },
-        close: () {
-          unawaited(dispose());
-        },
+        }),
+        rewind$async: true,
+        rewind: (uploadDataSink) => using((arena) {
+          (uploadDataSink!..releasedBy(arena)).onRewindError(
+            ioException(arena, 'Streamed request bodies cannot be rewound'),
+          );
+        }),
+        close$async: true,
+        close: () => unawaited(dispose()),
       ),
     );
-    return (jb.UploadDataProviderProxy(impl), dispose);
+    final provider = jb.UploadDataProviderProxy(contentLength ?? -1, impl);
+    // The Java proxy keeps the interface alive from its callback field.
+    impl.release();
+    return (provider, dispose);
   }
 
   /// Sends an HTTP request and asynchronously returns the response.
@@ -961,7 +975,8 @@ class CronetClient extends BaseClient {
           final (provider, dispose) = _streamingUploadProvider(
               bodyStream!, request.contentLength, profile);
           disposeUpload = dispose;
-          builder.setUploadDataProvider(provider, _executor as jb.Executor);
+          builder.setUploadDataProvider(
+              provider..releasedBy(arena), _executor as jb.Executor);
         }
       }
 
@@ -974,8 +989,13 @@ class CronetClient extends BaseClient {
         cronetRequest.start();
 
         return await responseCompleter.future;
-      } finally {
+      } catch (_) {
+        // On success the upload can still be in progress: HTTP/2 and QUIC
+        // deliver headers before the body finishes. close() cancels the
+        // stream when Cronet destroys the upload adapter. Dispose here only
+        // when send fails, including cancel before that adapter exists.
         await disposeUpload?.call();
+        rethrow;
       }
     });
   }
