@@ -1,0 +1,14 @@
+targets:
+  $default:
+    builders:
+      dependency_validator:
+        options:
+          exclude:
+            - dart_flutter_team_lints
+            - flutter
+            - integration_test
+          ignore:
+            - code_assets
+            - hooks
+            - logging
+            - native_toolchain_c

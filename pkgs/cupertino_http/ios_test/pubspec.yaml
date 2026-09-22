@@ -18,6 +18,7 @@ dev_dependencies:
   crypto: ^3.0.3
   cupertino_http:
     path: ../
+  dart_flutter_team_lints: ^3.0.0
   flutter_test:
     sdk: flutter
   http_client_conformance_tests:
