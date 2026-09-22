@@ -1,5 +1,6 @@
 ## 1.7.0-wip
 
+* Update example to fetch and display scores of `package:http` from pub.dev.
 * Add `BrowserCredentialsMode` to support the `omit` browser fetch credentials
   mode. The constructor argument should be preferred over `withCredentials`.
 * Clarified the behavior of response headers in API documentation comments.
@@ -8,6 +9,11 @@
 * Preserve header cases in `IOClient`.
 * Fix a [bug](https://github.com/dart-lang/http/issues/1934) to release the
   underlying connection when an `AbortableRequest` is aborted before its body is read.
+* Stop `IOClient` from sending bodyless GET/HEAD requests with
+  `Transfer-Encoding: chunked` when `BaseRequest.contentLength` is `null`;
+  `dart:io`'s per-method default framing is used instead. A GET or HEAD request
+  that streams a non-empty body while leaving `contentLength` `null` now throws
+  instead of being sent chunked.
 
 ## 1.6.0
 

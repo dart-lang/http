@@ -1,3 +1,20 @@
+## 3.1.1-wip
+
+* Update example to fetch and display scores of `package:cupertino_http` from
+  pub.dev.
+* Update to `package:ffigen` `22.0.0`.
+* Fix potential memory leaks when calling the following methods because the
+  created objects were added to the autorelease pool:
+    * `URLRequest.fromUrl`
+    * `MutableURLRequest.fromUrl`
+* Eagerly release request body data in `CupertinoClient`.
+
+## 3.1.0
+
+* Switch to `package:objective_c` `9.5.0` and `package:ffigen` `21.0.0`, fixing
+  a [bug](https://github.com/dart-lang/http/issues/1894) where a request that
+  was still in flight when its isolate shut down could crash the process.
+
 ## 3.0.2
 
 * Fix a [bug](https://github.com/dart-lang/http/issues/1929) where code

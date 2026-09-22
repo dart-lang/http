@@ -285,7 +285,9 @@ class CupertinoClient extends BaseClient {
     if (request is Request) {
       // Optimize the (typical) `Request` case since assigning to
       // `httpBodyStream` requires a lot of expensive setup and data passing.
-      urlRequest.httpBody = request.bodyBytes.toNSData();
+      final nsData = request.bodyBytes.toNSData();
+      urlRequest.httpBody = nsData;
+      nsData.ref.release();
       profile?.requestData.bodySink.add(request.bodyBytes);
     } else if (await _hasData(stream) case (true, final s)) {
       // If the request is supposed to be bodyless (e.g. GET requests)

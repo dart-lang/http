@@ -28,15 +28,16 @@
 ///     final engine = CronetEngine.build(
 ///         cacheMode: CacheMode.memory,
 ///         cacheMaxSize: 2 * 1024 * 1024,
-///         userAgent: 'Book Agent');
+///         userAgent: 'Package Client');
 ///     httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
 ///   } else {
-///     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
+///     httpClient = IOClient(
+///         HttpClient()..userAgent = 'Package Client');
 ///   }
 ///
 ///   runApp(Provider<Client>(
 ///       create: (_) => httpClient,
-///       child: const BookSearchApp(),
+///       child: const PackageDetailsApp(),
 ///       dispose: (_, client) => client.close()));
 ///   }
 /// }
