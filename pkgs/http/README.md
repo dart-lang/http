@@ -80,6 +80,9 @@ class UserAgentClient extends http.BaseClient {
     request.headers['user-agent'] = userAgent;
     return _inner.send(request);
   }
+
+  @override
+  void close() => _inner.close();
 }
 ```
 ## Testing

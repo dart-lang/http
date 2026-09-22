@@ -40,6 +40,22 @@ void main() {
       expect(await utf8.decodeStream(response.stream),
           parse(containsPair('headers', isNot(contains('content-length')))));
     });
+
+    test('streaming a non-empty body with null contentLength on GET throws',
+        () async {
+      var request = http.StreamedRequest('GET', serverUrl);
+      request.sink.add([1, 2, 3]);
+      unawaited(request.sink.close());
+      expect(request.send(), throwsClientException());
+    });
+
+    test('streaming a non-empty body with null contentLength on HEAD throws',
+        () async {
+      var request = http.StreamedRequest('HEAD', serverUrl);
+      request.sink.add([1, 2, 3]);
+      unawaited(request.sink.close());
+      expect(request.send(), throwsClientException());
+    });
   });
 
   // Regression test.

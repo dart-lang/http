@@ -1,6 +1,20 @@
-## 3.0.1-wip
+## 3.1.0
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
+- Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).
+- Bound peer-initiated concurrent streams and reject peers that ignore the
+  advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
+  are also bounded locally. The default limit is 100.
+- Bound inbound compressed field blocks, decoded field sections, CONTINUATION
+  frame counts, and incomplete field-block duration. HPACK decoding continues
+  in discard mode after the decoded limit is exceeded so the connection-wide
+  compression context remains synchronized.
+- Add `Http2Client` (`package:http2/client.dart`), a pooled, multiplexed
+  `package:http` `Client` backed by HTTP/2 connections.
+- Add `ClientTransportConnection.peerMaxConcurrentStreams`, exposing the peer's
+  most recently advertised `SETTINGS_MAX_CONCURRENT_STREAMS`. Note this is a
+  new member on an implementable class, so any existing
+  `implements ClientTransportConnection` will need updating.
 
 ## 3.0.0
 

@@ -29,6 +29,16 @@ class FrameSizeException implements Exception {
   String toString() => 'FrameSizeException: $_message';
 }
 
+/// An inbound field block exceeded a local resource limit.
+class HeaderBlockProcessingException implements Exception {
+  final String _message;
+
+  HeaderBlockProcessingException(this._message);
+
+  @override
+  String toString() => 'HeaderBlockProcessingException: $_message';
+}
+
 class TerminatedException implements Exception {
   @override
   String toString() => 'TerminatedException: The object has been terminated.';
@@ -49,4 +59,12 @@ class StreamClosedException extends StreamException {
 
   @override
   String toString() => 'StreamClosedException(stream id: $streamId): $_message';
+}
+
+class StreamRefusedException extends StreamException {
+  StreamRefusedException(super.streamId, [super.message = '']);
+
+  @override
+  String toString() =>
+      'StreamRefusedException(stream id: $streamId): $_message';
 }

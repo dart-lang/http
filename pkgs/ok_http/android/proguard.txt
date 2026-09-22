@@ -1,0 +1,35 @@
+# IMPORTANT: Keep this file in sync with the OkHttp classes
+# declared in jnigen.yaml. JNI loads these classes by name,
+# so they must not be removed in Android release builds.
+
+-keep class okhttp3.Request** { *; }
+-keep class okhttp3.RequestBody { *; }
+-keep class okhttp3.Response { *; }
+-keep class okhttp3.ResponseBody { *; }
+-keep class okhttp3.OkHttpClient** { *; }
+-keep class okhttp3.Call { *; }
+-keep class okhttp3.Headers { *; }
+-keep class okhttp3.Callback { *; }
+-keep class okhttp3.ConnectionPool { *; }
+-keep class okhttp3.Dispatcher { *; }
+-keep class okhttp3.Cache { *; }
+-keep class okhttp3.WebSocket { *; }
+
+-keep class okio.ByteString { *; }
+
+-keep class com.example.ok_http.RedirectReceivedCallback { *; }
+-keep class com.example.ok_http.AsyncInputStreamReader { *; }
+-keep class com.example.ok_http.DataCallback { *; }
+-keep class com.example.ok_http.WebSocketInterceptor** { *; }
+-keep class com.example.ok_http.WebSocketListenerProxy** { *; }
+-keep class com.example.ok_http.FixedResponseX509ExtendedKeyManager { *; }
+
+-keepclassmembers class com.example.ok_http.RedirectInterceptor {
+    public static com.example.ok_http.RedirectInterceptor$Companion Companion;
+}
+
+-keepclassmembers class com.example.ok_http.WebSocketInterceptor {
+    public static com.example.ok_http.WebSocketInterceptor$Companion Companion;
+}
+
+-keep class com.example.ok_http.RedirectInterceptor** { *; }

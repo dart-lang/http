@@ -2,6 +2,8 @@
 self_validate: analyze_and_format
 
 github:
+  permissions:
+    contents: read
   cron: "0 0 * * 0"
 
 merge_stages:

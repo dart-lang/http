@@ -21,7 +21,8 @@ defaults:
   run:  
     working-directory: pkgs/http_parser/
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   # Check code formatting and static analysis on a single OS (linux)
@@ -33,8 +34,10 @@ jobs:
       matrix:
         sdk: [dev]
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-      - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -56,8 +59,10 @@ jobs:
         os: [ubuntu-latest]
         sdk: [3.4, dev]
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-      - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
         with:
           sdk: ${{ matrix.sdk }}
       - id: install

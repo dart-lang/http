@@ -55,7 +55,7 @@ String formatHttpDate(DateTime date) {
 
 /// Parses an HTTP-formatted date into a UTC [DateTime].
 ///
-/// This follows [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3).
+/// This follows [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html#section-5.6.7).
 /// It will throw a [FormatException] if [date] is invalid.
 DateTime parseHttpDate(String date) =>
     wrapFormatException('HTTP date', date, () {
@@ -68,7 +68,14 @@ DateTime parseHttpDate(String date) =>
         scanner.expect('-');
         final month = _parseMonth(scanner);
         scanner.expect('-');
-        final year = 1900 + _parseInt(scanner, 2);
+        // RFC 9110, Section 5.6.7 says:
+        // Recipients of a timestamp value in rfc850-date format, which uses a
+        // two-digit year, MUST interpret a timestamp that appears to be more
+        // than 50 years in the future as representing the most recent year
+        // in the past that had the same last two digits.
+        final currentYear = DateTime.now().toUtc().year;
+        var year = currentYear - currentYear % 100 + _parseInt(scanner, 2);
+        if (year > currentYear + 50) year -= 100;
         scanner.expect(' ');
         final time = _parseTime(scanner);
         scanner.expect(' GMT');
