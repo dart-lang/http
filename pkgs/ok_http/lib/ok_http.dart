@@ -46,6 +46,8 @@
 /// After the above setup, calling [Client] methods or any of the
 /// `package:http` convenient functions (e.g. [get]) will result in
 /// [OkHttpClient] being used on Android.
+/// 
+/// Meaningless change for CI.
 library;
 
 import 'package:http/http.dart';
