@@ -19,8 +19,11 @@ import 'response_body_streamed_server_vm.dart'
 /// If [canStreamResponseBody] is `false` then tests that assume that the
 /// [Client] supports receiving HTTP responses with unbounded body sizes will
 /// be skipped
+///
+/// If [supportsAbort] is `false` then tests that assume that requests can be
+/// aborted will be skipped.
 void testResponseBodyStreamed(Client Function() clientFactory,
-    {bool canStreamResponseBody = true}) {
+    {bool canStreamResponseBody = true, bool supportsAbort = false}) {
   group('streamed response body', () {
     late Client client;
     late String host;
@@ -174,7 +177,7 @@ void testResponseBodyStreamed(Client Function() clientFactory,
       // cancelled to record that error event.
       subscription.resume();
       await aborted;
-    });
+    }, skip: supportsAbort ? false : 'does not support aborting requests');
 
     test('cancel streamed response', () async {
       final request = Request('GET', Uri.http(host, ''));
