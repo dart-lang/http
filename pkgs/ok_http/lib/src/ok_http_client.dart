@@ -14,6 +14,7 @@ library;
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -288,18 +289,28 @@ class OkHttpClient extends BaseClient {
 
       _client.dispatcher().executorService().shutdown();
 
-      // Remove all idle connections from the resource pool.
-      _client.connectionPool().evictAll();
-
-      // Close the cache and release the JNI reference to the client.
-      var cache = _client.cache();
-      if (cache != null) {
-        cache.close();
-      }
-      _client.release();
+      // Release the JNI reference to the client after it is no longer used.
+      unawaited(_evictConnectionsAndCloseCache(_client)
+          .whenComplete(_client.release));
     }
     _isClosed = true;
   }
+
+  /// Removes all idle connections from the resource pool of [client] and
+  /// closes its cache.
+  ///
+  /// Closing an idle TLS connection performs network I/O, which throws
+  /// `NetworkOnMainThreadException` on some Android API level >= 24 when done
+  /// on the main thread.
+  ///
+  /// This method is static so that the closure sent to the background isolate
+  /// does not capture `this`.
+  static Future<void> _evictConnectionsAndCloseCache(
+          bindings.OkHttpClient client) =>
+      Isolate.run(() {
+        client.connectionPool().evictAll();
+        client.cache()?.close();
+      });
 
   HttpClientRequestProfile? _createProfile(BaseRequest request) =>
       HttpClientRequestProfile.profile(

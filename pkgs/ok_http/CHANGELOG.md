@@ -12,6 +12,8 @@
 - Support `package:web_socket` 1.0.0.
 - Set `minSdk=24`.
 - Add a missing call to `TrustManagerFactory.init`.
+- Fix a `NetworkOnMainThreadException` thrown by `OkHttpClient.close()` after
+  making HTTPS requests on some Android versions.
 
 ## 0.1.0
 
