@@ -300,8 +300,8 @@ class OkHttpClient extends BaseClient {
   /// closes its cache.
   ///
   /// Closing an idle TLS connection performs network I/O, which throws
-  /// `NetworkOnMainThreadException` on some Android API level >= 24 when done
-  /// on the main thread.
+  /// `NetworkOnMainThreadException` on Android API level >= 24 when done on
+  /// the main thread.
   ///
   /// This method is static so that the closure sent to the background isolate
   /// does not capture `this`.
