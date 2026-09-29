@@ -68,16 +68,16 @@ class _IOStreamedResponseV2 extends IOStreamedResponse
 /// callers to get more detailed exception information for socket-level
 /// failures, if desired.
 ///
-/// For example:
+/// Example:
 /// ```dart
-/// final client = http.Client();
+/// final client = IOClient();
 /// late String data;
 /// try {
 ///   data = await client.read(Uri.https('example.com', ''));
-/// } on SocketException catch (e) {
-///   // Exception is transport-related, check `e.osError` for more details.
 /// } on http.ClientException catch (e) {
-///   // Exception is HTTP-related (e.g. the server returned a 404 status code).
+///   // Exception is transport-related.
+///   // If platform-specific socket details are needed, catch `SocketException`
+///   // before `ClientException` (or without `ClientException`) and inspect `osError` for more details.
 ///   // If the handler for `SocketException` were removed then all exceptions
 ///   // would be caught by this handler.
 /// }
