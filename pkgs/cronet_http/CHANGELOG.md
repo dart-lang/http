@@ -1,5 +1,13 @@
 ## 1.10.0-wip
 
+* Support streaming request bodies.
+* Add `UploadDataProviderProxy` Kotlin bridge so Dart can implement Cronet's
+  `UploadDataProvider` through JNI (jnigen cannot subclass abstract Java
+  classes).
+* Regenerate JNI bindings for `UploadDataProvider`, `UploadDataSink`, and
+  `UploadDataProviderProxy`.
+* Add `package:async` dependency for `StreamQueue` when streaming uploads.
+* Enable streamed request body conformance tests (`canStreamRequestBody: true`).
 * Update example to fetch and display scores of `package:cronet_http` from
   pub.dev.
 * Upgrade `package:jnigen` to 1.0.0.
