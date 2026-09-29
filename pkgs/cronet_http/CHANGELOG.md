@@ -1,4 +1,4 @@
-## 1.10.0-wip
+## 1.10.0
 
 * Update example to fetch and display scores of `package:cronet_http` from
   pub.dev.
