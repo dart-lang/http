@@ -482,7 +482,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
     Completer<CronetStreamedResponse> responseCompleter,
     HttpClientRequestProfile? profile) {
   StreamController<List<int>>? responseStream;
-  JByteBuffer? jByteBuffer;
   // Each call to `JByteBuffer.asUint8List` creates a new JNI global reference
   // that is only deleted when the returned `Uint8List` is garbage collected.
   // So the view is created once per response, rather than once per chunk of
@@ -514,7 +513,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             ..cancel()
             ..release();
           responseStream!.sink.close();
-          jByteBuffer?.release();
           jByteBufferView = null;
           profile?.responseData.close();
         });
@@ -561,9 +559,10 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
               responseInfo.httpStatusText!.toDartString(releaseOriginal: true)
           ..startTime = DateTime.now()
           ..statusCode = responseInfo.httpStatusCode;
-        jByteBuffer = JByteBuffer.allocateDirect(_bufferSize);
-        jByteBufferView = jByteBuffer!.asUint8List();
-        urlRequest?.read(jByteBuffer!);
+        final jByteBuffer = JByteBuffer.allocateDirect(_bufferSize)
+          ..releasedBy(arena);
+        jByteBufferView = jByteBuffer.asUint8List();
+        urlRequest?.read(jByteBuffer);
       });
     },
     onRedirectReceived$async: true,
@@ -646,7 +645,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         if (responseStreamCancelled) return;
         responseStreamCancelled = true;
         responseStream!.sink.close();
-        jByteBuffer?.release();
         jByteBufferView = null;
         profile?.responseData.close();
       });
@@ -675,7 +673,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             profile.responseData.closeWithError(error.toString());
           }
         }
-        jByteBuffer?.release();
         jByteBufferView = null;
       });
     },
@@ -704,7 +701,6 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             profile.responseData.closeWithError(error.toString());
           }
         }
-        jByteBuffer?.release();
         jByteBufferView = null;
       });
     },
