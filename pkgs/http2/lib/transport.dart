@@ -72,7 +72,28 @@ abstract class Settings {
 
   /// The default stream window size the remote peer can use when creating new
   /// streams (defaults to 65535 bytes).
+  ///
+  /// It is sent in this end's initial SETTINGS and applies to this end's
+  /// receive windows from then on, without waiting for the peer's
+  /// acknowledgement: no stream exists yet, and the peer reads the SETTINGS
+  /// before any stream.
   final int? streamWindowSize;
+
+  /// The connection-level window the remote peer can use (defaults to 65535
+  /// bytes).
+  ///
+  /// HTTP/2 has no setting for the connection window; a larger value is
+  /// granted by a WINDOW_UPDATE on stream 0 right after the initial SETTINGS.
+  /// With the default, one connection moves at most 64 KiB per round trip
+  /// however large [streamWindowSize] is.
+  final int? connectionWindowSize;
+
+  /// The largest frame payload this end accepts, sent as
+  /// SETTINGS_MAX_FRAME_SIZE (defaults to 16384 bytes; must be between 16384
+  /// and 16777215).
+  ///
+  /// Like [streamWindowSize], it applies from the initial SETTINGS on.
+  final int? maxFrameSize;
 
   /// Maximum compressed bytes retained for one inbound field block.
   ///
@@ -112,6 +133,8 @@ abstract class Settings {
   const Settings({
     this.concurrentStreamLimit,
     this.streamWindowSize,
+    this.connectionWindowSize,
+    this.maxFrameSize,
     this.maxInboundHeaderBlockSize,
     this.maxInboundHeaderListSize,
     this.inboundHeaderBlockTimeout,
@@ -125,6 +148,8 @@ class ServerSettings extends Settings {
   const ServerSettings({
     super.concurrentStreamLimit = defaultMaxConcurrentStreams,
     super.streamWindowSize,
+    super.connectionWindowSize,
+    super.maxFrameSize,
     super.maxInboundHeaderBlockSize = defaultMaxInboundHeaderBlockSize,
     super.maxInboundHeaderListSize = defaultMaxInboundHeaderListSize,
     super.inboundHeaderBlockTimeout = defaultInboundHeaderBlockTimeout,
@@ -141,6 +166,8 @@ class ClientSettings extends Settings {
   const ClientSettings({
     super.concurrentStreamLimit = defaultMaxConcurrentStreams,
     super.streamWindowSize,
+    super.connectionWindowSize,
+    super.maxFrameSize,
     super.maxInboundHeaderBlockSize = defaultMaxInboundHeaderBlockSize,
     super.maxInboundHeaderListSize = defaultMaxInboundHeaderListSize,
     super.inboundHeaderBlockTimeout = defaultInboundHeaderBlockTimeout,
