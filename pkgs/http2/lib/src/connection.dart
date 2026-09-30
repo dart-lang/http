@@ -218,6 +218,20 @@ abstract class Connection {
 
     var settings = _decodeSettings(settingsObject);
 
+    // The initial stream window and frame size bound what this end accepts
+    // from the moment they are sent: no stream exists yet, and the peer reads
+    // these SETTINGS before any stream. Waiting for the ACK left a stream
+    // opened meanwhile with the old window while the peer already used the
+    // new one, and cost every early response a round trip.
+    final streamWindowSize = settingsObject.streamWindowSize;
+    if (streamWindowSize != null) {
+      acknowledgedSettings.initialWindowSize = streamWindowSize;
+    }
+    final maxFrameSize = settingsObject.maxFrameSize;
+    if (maxFrameSize != null) {
+      acknowledgedSettings.maxFrameSize = maxFrameSize;
+    }
+
     // Do the initial settings handshake (possibly with pushes disabled).
     _settingsHandler.changeSettings(settings).catchError((Object error) {
       // TODO: The [error] can contain sensitive information we now expose via
@@ -243,6 +257,14 @@ abstract class Connection {
       _frameWriter,
       _localWindow,
     );
+
+    // The connection window has no setting: grant a larger one with a
+    // WINDOW_UPDATE on stream 0, after the preface and the SETTINGS above.
+    final connectionWindowSize = settingsObject.connectionWindowSize;
+    if (connectionWindowSize != null &&
+        connectionWindowSize > _localWindow.size) {
+      connectionWindowUpdater.raise(connectionWindowSize - _localWindow.size);
+    }
 
     // Setup queues for outgoing/incoming messages on the connection level.
     _outgoingQueue = ConnectionMessageQueueOut(
@@ -305,6 +327,12 @@ abstract class Connection {
       settingsList.add(
         Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, streamWindowSize),
       );
+    }
+
+    // By default the largest frame payload is 16 KiB.
+    var maxFrameSize = settings.maxFrameSize;
+    if (maxFrameSize != null) {
+      settingsList.add(Setting(Setting.SETTINGS_MAX_FRAME_SIZE, maxFrameSize));
     }
 
     final maxInboundHeaderListSize = settings.maxInboundHeaderListSize;
@@ -494,6 +522,33 @@ abstract class Connection {
         timeout,
         'inboundHeaderBlockTimeout',
         'must not be negative',
+      );
+    }
+    final maxFrameSize = settings.maxFrameSize;
+    if (maxFrameSize != null &&
+        (maxFrameSize < (1 << 14) || maxFrameSize >= (1 << 24))) {
+      throw ArgumentError.value(
+        maxFrameSize,
+        'maxFrameSize',
+        'must be between 16384 and 16777215',
+      );
+    }
+    final streamWindowSize = settings.streamWindowSize;
+    if (streamWindowSize != null &&
+        (streamWindowSize < 0 || streamWindowSize >= (1 << 31))) {
+      throw ArgumentError.value(
+        streamWindowSize,
+        'streamWindowSize',
+        'must be between 0 and 2147483647',
+      );
+    }
+    final connectionWindowSize = settings.connectionWindowSize;
+    if (connectionWindowSize != null &&
+        (connectionWindowSize < 0 || connectionWindowSize >= (1 << 31))) {
+      throw ArgumentError.value(
+        connectionWindowSize,
+        'connectionWindowSize',
+        'must be between 0 and 2147483647',
       );
     }
     final violations = settings.maxPeerStreamLimitViolations;

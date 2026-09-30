@@ -1,3 +1,17 @@
+## 3.2.0-wip
+
+- Add `Settings.connectionWindowSize`: a larger connection-level receive
+  window, granted by a WINDOW_UPDATE on stream 0 after the initial SETTINGS.
+  With the protocol default of 65535 bytes one connection moved at most
+  64 KiB per round trip, whatever `streamWindowSize` was.
+- Add `Settings.maxFrameSize`, sent as `SETTINGS_MAX_FRAME_SIZE`.
+- The initial `streamWindowSize` and `maxFrameSize` apply to this end's
+  receive side as soon as they are sent instead of when the peer acknowledges
+  them, so a stream opened in the meantime neither gets a flow-control error
+  nor waits a round trip.
+- When a receive window is larger than 65535 bytes, received data is
+  acknowledged once per half window instead of once per DATA frame.
+
 ## 3.1.0
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)

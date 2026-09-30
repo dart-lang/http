@@ -103,20 +103,43 @@ class IncomingWindowHandler {
   /// The stream id this window handler is for (is `0` for connection level).
   final int _streamId;
 
+  /// How much this end has let the peer send in all: the initial window plus
+  /// every [raise].
+  int _granted;
+
+  /// Bytes processed since this end last sent a WINDOW_UPDATE.
+  int _unacknowledged = 0;
+
+  /// The initial window of a connection and of a stream (RFC 9113 section
+  /// 6.9.2).
+  static const _defaultWindowSize = 65535;
+
   IncomingWindowHandler.stream(
     this._frameWriter,
-    this._localWindow,
+    Window localWindow,
     this._streamId,
-  );
+  ) : _localWindow = localWindow,
+      _granted = localWindow.size;
 
-  IncomingWindowHandler.connection(this._frameWriter, this._localWindow)
-    : _streamId = 0;
+  IncomingWindowHandler.connection(this._frameWriter, Window localWindow)
+    : _localWindow = localWindow,
+      _granted = localWindow.size,
+      _streamId = 0;
 
   /// The current size for the incoming data window.
   ///
   /// (This should never get negative, otherwise the peer send us more data
   ///  than we told it to send.)
   int get localWindowSize => _localWindow.size;
+
+  /// Grants the peer [increment] more bytes than the window allows now, with
+  /// no data received (RFC 9113 section 6.9): how a receive window grows past
+  /// its initial size.
+  void raise(int increment) {
+    _granted += increment;
+    _localWindow.modify(increment);
+    _frameWriter.writeWindowUpdate(increment, streamId: _streamId);
+  }
 
   /// Signals that we received [numberOfBytes] from the remote peer.
   void gotData(int numberOfBytes) {
@@ -158,11 +181,18 @@ class IncomingWindowHandler {
   //  - either stop sending window update frames
   //  - or decreasing the window size
   void dataProcessed(int numberOfBytes) {
-    _localWindow.modify(numberOfBytes);
-
-    // TODO: This can be optimized by delaying the window update to
-    // send one update with a bigger difference than multiple small update
-    // frames.
-    _frameWriter.writeWindowUpdate(numberOfBytes, streamId: _streamId);
+    // Past the protocol's default 65535 bytes, one WINDOW_UPDATE per half
+    // window processed rather than one per DATA frame: frame-by-frame updates
+    // double the frames on the wire (the connection and the stream each send
+    // one), and a large window leaves the peer at least half of it while an
+    // update is held back. A default-sized window is acknowledged at once, as
+    // before: holding back half of 64 KiB would halve what is in flight.
+    _unacknowledged += numberOfBytes;
+    if (_granted > _defaultWindowSize && _unacknowledged < _granted ~/ 2) {
+      return;
+    }
+    _localWindow.modify(_unacknowledged);
+    _frameWriter.writeWindowUpdate(_unacknowledged, streamId: _streamId);
+    _unacknowledged = 0;
   }
 }
