@@ -1,3 +1,22 @@
+## 4.0.0-wip
+
+- **BREAKING**: distinguish graceful peer-initiated shutdown from forceful
+  termination. When the peer sends a `GOAWAY` frame with `NO_ERROR` and then
+  closes the transport, pending operations now complete with
+  `TransportConnectionException(ErrorCode.NO_ERROR, 'Connection gracefully
+  closed by peer.')`. Previously this path raised
+  `'Connection is being forcefully terminated.'`, the same exception used for
+  genuinely forceful termination, so callers could not tell the two apart.
+  (#1913)
+- **BREAKING**: on the forceful-termination path,
+  `TransportConnectionException.errorCode` now reports the error code the peer
+  sent in its `GOAWAY` frame. Previously it always reported
+  `ErrorCode.CONNECT_ERROR` regardless of what the peer sent. (#1913)
+
+  Callers that matched the `'forcefully terminated'` message text to detect
+  any peer-side shutdown should instead check
+  `TransportConnectionException.errorCode`.
+
 ## 3.1.0
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
