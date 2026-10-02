@@ -4,6 +4,8 @@
   Previously, two-digit years were always interpreted as years between 1900
   and 1999.
 * Replace reference to `dart:web` with `package:web` in README.md.
+* Fixed a bug where `chunkedCoding` failed to throw a `FormatException` when
+  decoding a chunk size that overflows a 64-bit integer.
 
 ## 4.1.2
 

@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http_parser/http_parser.dart';
 import 'package:http_parser/src/chunked_coding/charcodes.dart';
@@ -193,6 +194,13 @@ void main() {
       expect(chunkedCoding.decode([$0, $cr, $lf, $cr, $lf]), isEmpty);
     });
 
+    test('parses hex size with leading zeros', () {
+      expect(
+          chunkedCoding
+              .decode(ascii.encode('00000000000000000003\r\nabc\r\n0\r\n\r\n')),
+          equals(ascii.encode('abc')));
+    });
+
     group('disallows a message', () {
       test('that ends without any input', () {
         expect(() => chunkedCoding.decode([]), throwsFormatException);
@@ -213,6 +221,14 @@ void main() {
 
       test('that ends after insufficient bytes', () {
         expect(() => chunkedCoding.decode([$a, $cr, $lf, 1, 2, 3]),
+            throwsFormatException);
+      });
+
+      test('that ends after insufficient bytes for max chunk size', () {
+        const maxChunkSizeHex =
+            identical(1.0, 1) ? '1fffffffffffff' : '7fffffffffffffff';
+        expect(
+            () => chunkedCoding.decode(ascii.encode('$maxChunkSizeHex\r\na')),
             throwsFormatException);
       });
 
@@ -249,6 +265,26 @@ void main() {
       test('with a chunk with a non-hex size', () {
         expect(
             () => chunkedCoding.decode([$q, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
+            throwsFormatException);
+      });
+
+      test('with a chunk size that overflows 64-bit int', () {
+        expect(
+            () => chunkedCoding.decode(ascii.encode('8000000000000000\r\na')),
+            throwsFormatException);
+        expect(
+            () => chunkedCoding.decode(ascii.encode('ffffffffffffffff\r\na')),
+            throwsFormatException);
+      });
+
+      test('with a chunk size exceeding 16 hex digits', () {
+        expect(
+            () =>
+                chunkedCoding.decode(ascii.encode('10000000000000000\r\n\r\n')),
+            throwsFormatException);
+        expect(
+            () => chunkedCoding
+                .decode(ascii.encode('10000000000000003\r\nabc\r\n0\r\n\r\n')),
             throwsFormatException);
       });
     });
@@ -516,6 +552,66 @@ void main() {
                 throwsRangeError);
           });
         });
+      });
+
+      test('rejects chunk sizes that overflow 64-bit int', () {
+        expect(() => sink.add(ascii.encode('8000000000000000\r\na')),
+            throwsFormatException);
+      });
+
+      test('rejects chunk sizes that overflow 64-bit int across chunks', () {
+        sink.add(ascii.encode('80000000'));
+        expect(() => sink.add(ascii.encode('00000000\r\na')),
+            throwsFormatException);
+      });
+
+      test('rejects chunk sizes exceeding 16 hex digits across chunks', () {
+        sink.add(ascii.encode('10000000'));
+        expect(() => sink.add(ascii.encode('000000000\r\n\r\n')),
+            throwsFormatException);
+      });
+
+      test('handles max chunk size without start + size overflow', () {
+        const maxChunkSizeHex =
+            identical(1.0, 1) ? '1fffffffffffff' : '7fffffffffffffff';
+        sink.add(ascii.encode('$maxChunkSizeHex\r\na'));
+        expect(
+            results,
+            equals([
+              [$a]
+            ]));
+        expect(() => sink.close(), throwsFormatException);
+      });
+
+      test('matches single-chunk decode across random chunk splits', () {
+        final rng = Random(12345);
+        for (var iter = 0; iter < 200; iter++) {
+          final fullPayload = <int>[];
+          final encodeSink = chunkedCoding.encoder.startChunkedConversion(
+            ByteConversionSink.withCallback(fullPayload.addAll),
+          );
+          final numChunks = rng.nextInt(5) + 1;
+          for (var c = 0; c < numChunks; c++) {
+            final len = rng.nextInt(40);
+            encodeSink.add(List<int>.generate(len, (_) => rng.nextInt(256)));
+          }
+          encodeSink.close();
+
+          final expected = chunkedCoding.decode(fullPayload);
+          final actual = <int>[];
+          final decodeSink = chunkedCoding.decoder.startChunkedConversion(
+            ByteConversionSink.withCallback(actual.addAll),
+          );
+          var offset = 0;
+          while (offset < fullPayload.length) {
+            final step = rng.nextInt(7);
+            final end = min(offset + step, fullPayload.length);
+            decodeSink.addSlice(fullPayload, offset, end, false);
+            offset = end;
+          }
+          decodeSink.close();
+          expect(actual, equals(expected));
+        }
       });
     });
   });
