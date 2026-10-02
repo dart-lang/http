@@ -8,6 +8,7 @@
     * `URLRequest.fromUrl`
     * `MutableURLRequest.fromUrl`
 * Eagerly release request body data in `CupertinoClient`.
+* Mitigate a memory leak when WebSocket connections are created.
 
 ## 3.1.0
 
