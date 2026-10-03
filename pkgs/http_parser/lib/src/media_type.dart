@@ -11,7 +11,7 @@ import 'utils.dart';
 
 /// A regular expression matching a character that needs to be backslash-escaped
 /// in a quoted string.
-final _escapedChar = RegExp(r'["\x00-\x1F\x7F]');
+final _escapedChar = RegExp(r'["\x00-\x1F\x7F\\]');
 
 /// A class representing an HTTP media type, as used in Accept and Content-Type
 /// headers.
@@ -138,7 +138,7 @@ class MediaType {
 
     parameters.forEach((attribute, value) {
       buffer.write('; $attribute=');
-      if (nonToken.hasMatch(value)) {
+      if (value.isEmpty || nonToken.hasMatch(value)) {
         buffer
           ..write('"')
           ..write(

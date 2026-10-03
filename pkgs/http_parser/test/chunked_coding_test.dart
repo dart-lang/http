@@ -266,6 +266,9 @@ void main() {
         expect(
             () => chunkedCoding.decode([$q, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
             throwsFormatException);
+        expect(
+            () => chunkedCoding.decode([-1, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
+            throwsFormatException);
       });
 
       test('with a chunk size that overflows 64-bit int', () {

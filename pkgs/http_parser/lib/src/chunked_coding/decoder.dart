@@ -193,58 +193,51 @@ enum _State {
   /// next chunk.
   ///
   /// Transitions to [size].
-  boundary('boundary'),
+  boundary,
 
   /// The parser has parsed at least one digit of the chunk size header, but has
   /// not yet parsed the `CR LF` sequence that indicates the end of that header.
   ///
   /// Transitions to [sizeBeforeLF].
-  size('size'),
+  size,
 
   /// The parser has parsed the chunk size header and the CR character after it,
   /// but not the LF.
   ///
   /// Transitions to [body] or [bodyBeforeCR].
-  sizeBeforeLF('size before LF'),
+  sizeBeforeLF,
 
   /// The parser has parsed a chunk header and possibly some of the body, but
   /// still needs to consume more bytes.
   ///
   /// Transitions to [bodyBeforeCR].
-  body('body'),
+  body,
 
   // The parser has parsed all the bytes in a chunk body but not the CR LF
   // sequence that follows it.
   //
   // Transitions to [bodyBeforeLF].
-  bodyBeforeCR('body before CR'),
+  bodyBeforeCR,
 
   // The parser has parsed all the bytes in a chunk body and the CR that follows
   // it, but not the LF after that.
   //
   // Transitions to [boundary].
-  bodyBeforeLF('body before LF'),
+  bodyBeforeLF,
 
   /// The parser has parsed the final empty chunk but not the CR LF sequence
   /// that follows it.
   ///
   /// Transitions to [endBeforeLF].
-  endBeforeCR('end before CR'),
+  endBeforeCR,
 
   /// The parser has parsed the final empty chunk and the CR that follows it,
   /// but not the LF after that.
   ///
   /// Transitions to [end].
-  endBeforeLF('end before LF'),
+  endBeforeLF,
 
   /// The parser has parsed the final empty chunk as well as the CR LF that
   /// follows, and expects no more data.
-  end('end');
-
-  const _State(this.name);
-
-  final String name;
-
-  @override
-  String toString() => name;
+  end,
 }
