@@ -589,9 +589,9 @@ void main() {
       test('matches single-chunk decode across random chunk splits', () {
         final rng = Random(12345);
         for (var iter = 0; iter < 200; iter++) {
-          final fullPayload = <int>[];
+          late final List<int> fullPayload;
           final encodeSink = chunkedCoding.encoder.startChunkedConversion(
-            ByteConversionSink.withCallback(fullPayload.addAll),
+            ByteConversionSink.withCallback((bytes) => fullPayload = bytes),
           );
           final numChunks = rng.nextInt(5) + 1;
           for (var c = 0; c < numChunks; c++) {
@@ -601,9 +601,9 @@ void main() {
           encodeSink.close();
 
           final expected = chunkedCoding.decode(fullPayload);
-          final actual = <int>[];
+          late final List<int> actual;
           final decodeSink = chunkedCoding.decoder.startChunkedConversion(
-            ByteConversionSink.withCallback(actual.addAll),
+            ByteConversionSink.withCallback((bytes) => actual = bytes),
           );
           var offset = 0;
           while (offset < fullPayload.length) {
