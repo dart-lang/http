@@ -14,6 +14,16 @@ import 'charcodes.dart';
 /// The canonical instance of [ChunkedCodingDecoder].
 const chunkedCodingDecoder = ChunkedCodingDecoder._();
 
+/// The maximum value of [_Sink._size] before multiplying by 16 and adding a hex
+/// digit (`0..15`).
+///
+/// On the Dart VM and dart2wasm (64-bit signed `int`), this is
+/// `0x7fffffffffffffff ~/ 16` (`0x07ffffffffffffff`). On JavaScript (`53`-bit
+/// safe integers), this is `0x1fffffffffffff ~/ 16` (`0x01ffffffffffff`).
+const _maxSizeBeforeShift = identical(1.0, 1)
+    ? 0x01ffffffffffff
+    : (0x07ffffff * 0x100000000) + 0xffffffff;
+
 /// A converter that decodes byte arrays into chunks with size tags.
 class ChunkedCodingDecoder extends Converter<List<int>, List<int>> {
   const ChunkedCodingDecoder._();
@@ -95,7 +105,11 @@ class _Sink extends ByteConversionSinkBase {
           } else {
             // Shift four bits left since a single hex digit contains four bits
             // of information.
-            _size = (_size << 4) + _digitForByte(bytes, start);
+            final digit = _digitForByte(bytes, start);
+            if (_size > _maxSizeBeforeShift) {
+              throw FormatException('Chunk size is too large.', bytes, start);
+            }
+            _size = (_size * 16) + digit;
           }
           start++;
 
@@ -105,9 +119,10 @@ class _Sink extends ByteConversionSinkBase {
           start++;
 
         case _State.body:
-          final chunkEnd = math.min(end, start + _size);
+          final bytesToRead = math.min(end - start, _size);
+          final chunkEnd = start + bytesToRead;
           buffer.addAll(bytes, start, chunkEnd);
-          _size -= chunkEnd - start;
+          _size -= bytesToRead;
           start = chunkEnd;
           if (_size == 0) _state = _State.bodyBeforeCR;
 
@@ -178,58 +193,51 @@ enum _State {
   /// next chunk.
   ///
   /// Transitions to [size].
-  boundary('boundary'),
+  boundary,
 
   /// The parser has parsed at least one digit of the chunk size header, but has
   /// not yet parsed the `CR LF` sequence that indicates the end of that header.
   ///
   /// Transitions to [sizeBeforeLF].
-  size('size'),
+  size,
 
   /// The parser has parsed the chunk size header and the CR character after it,
   /// but not the LF.
   ///
   /// Transitions to [body] or [bodyBeforeCR].
-  sizeBeforeLF('size before LF'),
+  sizeBeforeLF,
 
   /// The parser has parsed a chunk header and possibly some of the body, but
   /// still needs to consume more bytes.
   ///
   /// Transitions to [bodyBeforeCR].
-  body('body'),
+  body,
 
   // The parser has parsed all the bytes in a chunk body but not the CR LF
   // sequence that follows it.
   //
   // Transitions to [bodyBeforeLF].
-  bodyBeforeCR('body before CR'),
+  bodyBeforeCR,
 
   // The parser has parsed all the bytes in a chunk body and the CR that follows
   // it, but not the LF after that.
   //
   // Transitions to [boundary].
-  bodyBeforeLF('body before LF'),
+  bodyBeforeLF,
 
   /// The parser has parsed the final empty chunk but not the CR LF sequence
   /// that follows it.
   ///
   /// Transitions to [endBeforeLF].
-  endBeforeCR('end before CR'),
+  endBeforeCR,
 
   /// The parser has parsed the final empty chunk and the CR that follows it,
   /// but not the LF after that.
   ///
   /// Transitions to [end].
-  endBeforeLF('end before LF'),
+  endBeforeLF,
 
   /// The parser has parsed the final empty chunk as well as the CR LF that
   /// follows, and expects no more data.
-  end('end');
-
-  const _State(this.name);
-
-  final String name;
-
-  @override
-  String toString() => name;
+  end,
 }
