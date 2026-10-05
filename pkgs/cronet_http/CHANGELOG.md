@@ -1,4 +1,4 @@
-## 1.10.0-wip
+## 1.10.0
 
 * Update example to fetch and display scores of `package:cronet_http` from
   pub.dev.
@@ -15,6 +15,9 @@
   request fall back to an expired host cache entry instead of failing with
   `ERROR_HOSTNAME_NOT_RESOLVED` when a fresh lookup fails
   (https://github.com/dart-lang/http/issues/1217).
+* Fix a bug where each chunk of response data would create a new JNI global
+  reference that is only deleted when garbage collected, which could cause a
+  `JNI ERROR (app bug): global reference table overflow` crash.
 
 ## 1.9.0
 

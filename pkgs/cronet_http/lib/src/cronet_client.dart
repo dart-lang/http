@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
@@ -481,7 +482,11 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
     Completer<CronetStreamedResponse> responseCompleter,
     HttpClientRequestProfile? profile) {
   StreamController<List<int>>? responseStream;
-  JByteBuffer? jByteBuffer;
+  // Each call to `JByteBuffer.asUint8List` creates a new JNI global reference
+  // that is only deleted when the returned `Uint8List` is garbage collected.
+  // So the view is created once per response, rather than once per chunk of
+  // response data, to avoid overflowing the JNI global reference table.
+  Uint8List? jByteBufferView;
   var numRedirects = 0;
   var responseStreamCancelled = false;
 
@@ -508,7 +513,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             ..cancel()
             ..release();
           responseStream!.sink.close();
-          jByteBuffer?.release();
+          jByteBufferView = null;
           profile?.responseData.close();
         });
         final responseHeaders = _cronetToClientHeaders(
@@ -554,8 +559,10 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
               responseInfo.httpStatusText!.toDartString(releaseOriginal: true)
           ..startTime = DateTime.now()
           ..statusCode = responseInfo.httpStatusCode;
-        jByteBuffer = JByteBuffer.allocateDirect(_bufferSize);
-        urlRequest?.read(jByteBuffer!);
+        final jByteBuffer = JByteBuffer.allocateDirect(_bufferSize)
+          ..releasedBy(arena);
+        jByteBufferView = jByteBuffer.asUint8List();
+        urlRequest?.read(jByteBuffer);
       });
     },
     onRedirectReceived$async: true,
@@ -622,8 +629,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         byteBuffer?.releasedBy(arena);
         if (responseStreamCancelled) return;
         byteBuffer!.flip();
-        final data =
-            jByteBuffer!.asUint8List().sublist(0, byteBuffer.remaining);
+        final data = jByteBufferView!.sublist(0, byteBuffer.remaining);
         responseStream!.add(data);
         profile?.responseData.bodySink.add(data);
 
@@ -639,7 +645,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         if (responseStreamCancelled) return;
         responseStreamCancelled = true;
         responseStream!.sink.close();
-        jByteBuffer?.release();
+        jByteBufferView = null;
         profile?.responseData.close();
       });
     },
@@ -667,7 +673,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             profile.responseData.closeWithError(error.toString());
           }
         }
-        jByteBuffer?.release();
+        jByteBufferView = null;
       });
     },
     onCanceled$async: true,
@@ -695,7 +701,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             profile.responseData.closeWithError(error.toString());
           }
         }
-        jByteBuffer?.release();
+        jByteBufferView = null;
       });
     },
   ));
