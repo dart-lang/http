@@ -8,6 +8,9 @@
     * `URLRequest.fromUrl`
     * `MutableURLRequest.fromUrl`
 * Eagerly release request body data in `CupertinoClient`.
+* Fix a [bug](https://github.com/dart-lang/http/issues/1791) where native
+  memory was not being deallocated when `CupertinoClient` was used in a
+  background isolate.
 
 ## 3.1.0
 

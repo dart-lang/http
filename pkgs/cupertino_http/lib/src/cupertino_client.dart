@@ -267,45 +267,17 @@ class CupertinoClient extends BaseClient {
       ..headersCommaValues = request.headers
       ..maxRedirects = request.maxRedirects;
 
-    final urlRequest = MutableURLRequest.fromUrl(request.url)
-      ..httpMethod = request.method;
-
-    if (request.contentLength != null) {
-      profile?.requestData.headersListValues = {
-        'Content-Length': ['${request.contentLength}'],
-        ...profile.requestData.headers!,
-      };
-      urlRequest.setValueForHttpHeaderField(
-        'Content-Length',
-        '${request.contentLength}',
-      );
-    }
-
-    NSInputStream? nsStream;
+    // Consume the first event of the request body stream here, outside of the
+    // `autoReleasePool` below, because an autorelease pool cannot contain
+    // asynchronous gaps. The profile must already exist because consuming the
+    // stream runs user code that can observe it.
+    final bool hasBody;
+    final Stream<List<int>> bodyStream;
     if (request is Request) {
-      // Optimize the (typical) `Request` case since assigning to
-      // `httpBodyStream` requires a lot of expensive setup and data passing.
-      final nsData = request.bodyBytes.toNSData();
-      urlRequest.httpBody = nsData;
-      nsData.ref.release();
-      profile?.requestData.bodySink.add(request.bodyBytes);
-    } else if (await _hasData(stream) case (true, final s)) {
-      // If the request is supposed to be bodyless (e.g. GET requests)
-      // then setting `httpBodyStream` will cause the request to fail -
-      // even if the stream is empty.
-      if (profile == null) {
-        nsStream = s.toNSInputStream();
-        urlRequest.httpBodyStream = nsStream;
-      } else {
-        final splitter = StreamSplitter(s);
-        nsStream = splitter.split().toNSInputStream();
-        urlRequest.httpBodyStream = nsStream;
-        unawaited(profile.requestData.bodySink.addStream(splitter.split()));
-      }
+      (hasBody, bodyStream) = (false, stream);
+    } else {
+      (hasBody, bodyStream) = await _hasData(stream);
     }
-
-    // This will preserve Apple default headers - is that what we want?
-    request.headers.forEach(urlRequest.setValueForHttpHeaderField);
 
     final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
     final responseCompleter = Completer<URLResponse>();
@@ -313,67 +285,119 @@ class CupertinoClient extends BaseClient {
     var numRedirects = 0;
     Uri? lastRedirectUrl;
 
-    final task = urlSession.dataTaskWithRequest(urlRequest);
-    final dataController = StreamController<Uint8List>(
-      onCancel: () async {
-        cancelled = true;
-        task.cancel();
-        await _tasks[task.taskIdentifier]?.future;
-      },
-    );
+    // Encompass as much logic as possible in an autorelease pool, considering
+    // that [autoReleasePool] cannot contain asynchronous gaps.
+    //
+    // [URLSession.dataTaskWithRequest] adds several objects (including the
+    // returned [URLSessionTask]) to the autorelease pool. Putting that call
+    // (and others but it is the most significant) inside an [autoReleasePool]
+    // closure ensures that the only remaining references are live references.
+    final (nsStream, task, dataController) = autoReleasePool(() {
+      final urlRequest = MutableURLRequest.fromUrl(request.url)
+        ..httpMethod = request.method;
 
-    task
-      ..taskDelegate = URLSessionTask.delegate(
-        onResponse: (session, task, response) {
-          responseCompleter.complete(response);
-          return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
+      if (request.contentLength != null) {
+        profile?.requestData.headersListValues = {
+          'Content-Length': ['${request.contentLength}'],
+          ...profile.requestData.headers!,
+        };
+        urlRequest.setValueForHttpHeaderField(
+          'Content-Length',
+          '${request.contentLength}',
+        );
+      }
+
+      NSInputStream? nsStream;
+      if (request is Request) {
+        // Optimize the (typical) `Request` case since assigning to
+        // `httpBodyStream` requires a lot of expensive setup and data passing.
+        final nsData = request.bodyBytes.toNSData();
+        urlRequest.httpBody = nsData;
+        nsData.ref.release();
+        profile?.requestData.bodySink.add(request.bodyBytes);
+      } else if (hasBody) {
+        // If the request is supposed to be bodyless (e.g. GET requests)
+        // then setting `httpBodyStream` will cause the request to fail -
+        // even if the stream is empty.
+        if (profile == null) {
+          nsStream = bodyStream.toNSInputStream();
+          urlRequest.httpBodyStream = nsStream;
+        } else {
+          final splitter = StreamSplitter(bodyStream);
+          nsStream = splitter.split().toNSInputStream();
+          urlRequest.httpBodyStream = nsStream;
+          unawaited(profile.requestData.bodySink.addStream(splitter.split()));
+        }
+      }
+
+      // This will preserve Apple default headers - is that what we want?
+      request.headers.forEach(urlRequest.setValueForHttpHeaderField);
+
+      final task = urlSession.dataTaskWithRequest(urlRequest);
+      final dataController = StreamController<Uint8List>(
+        onCancel: () async {
+          cancelled = true;
+          task.cancel();
+          await _tasks[task.taskIdentifier]?.future;
         },
-        onData: (session, task, data) {
-          if (!cancelled) {
-            dataController.add(data.toList());
-            profile?.responseData.bodySink.add(data.toList());
-          }
-        },
-        onComplete: (session, task, error) {
-          if (error != null) {
-            final mappedError = error.isCancelled
-                ? RequestAbortedException(request.url)
-                : NSErrorClientException(error, request.url);
-            if (!responseCompleter.isCompleted) {
-              responseCompleter.completeError(mappedError);
+      );
+
+      task
+        ..taskDelegate = URLSessionTask.delegate(
+          onResponse: (session, task, response) {
+            responseCompleter.complete(response);
+            return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
+          },
+          onData: (session, task, data) {
+            if (!cancelled) {
+              dataController.add(data.toList());
+              profile?.responseData.bodySink.add(data.toList());
             }
-            dataController.addError(mappedError);
+          },
+          onComplete: (session, task, error) {
+            if (error != null) {
+              final mappedError = error.isCancelled
+                  ? RequestAbortedException(request.url)
+                  : NSErrorClientException(error, request.url);
+              if (!responseCompleter.isCompleted) {
+                responseCompleter.completeError(mappedError);
+              }
+              dataController.addError(mappedError);
+              if (profile != null) {
+                profile.requestData.endTime == null
+                    ? profile.requestData.closeWithError(mappedError.toString())
+                    : profile.responseData.closeWithError(
+                        mappedError.toString(),
+                      );
+              }
+            } else {
+              unawaited(profile?.responseData.close());
+            }
+            dataController.close();
+            _tasks.remove(task.taskIdentifier)!.complete();
+          },
+          onRedirect: (session, task, response, request) {
+            numRedirects += 1;
+            if (numRedirects > maxRedirects) {
+              return null;
+            }
+            lastRedirectUrl = request.url;
             if (profile != null) {
-              profile.requestData.endTime == null
-                  ? profile.requestData.closeWithError(mappedError.toString())
-                  : profile.responseData.closeWithError(mappedError.toString());
+              profile.responseData.addRedirect(
+                HttpProfileRedirectData(
+                  statusCode: response.statusCode,
+                  method: request.httpMethod,
+                  location: request.url!.toString(),
+                ),
+              );
             }
-          } else {
-            unawaited(profile?.responseData.close());
-          }
-          dataController.close();
-          _tasks.remove(task.taskIdentifier)!.complete();
-        },
-        onRedirect: (session, task, response, request) {
-          numRedirects += 1;
-          if (numRedirects > maxRedirects) {
-            return null;
-          }
-          lastRedirectUrl = request.url;
-          if (profile != null) {
-            profile.responseData.addRedirect(
-              HttpProfileRedirectData(
-                statusCode: response.statusCode,
-                method: request.httpMethod,
-                location: request.url!.toString(),
-              ),
-            );
-          }
-          return request;
-        },
-      )
-      ..resume();
-    _tasks[task.taskIdentifier] = Completer<void>();
+            return request;
+          },
+        )
+        ..resume();
+      _tasks[task.taskIdentifier] = Completer<void>();
+      return (nsStream, task, dataController);
+    });
 
     try {
       if (request case Abortable(:final abortTrigger?)) {
@@ -408,12 +432,17 @@ class CupertinoClient extends BaseClient {
         throw ClientException('Redirect limit exceeded', request.url);
       }
 
-      final responseHeaders = _responseHeaders(response, request);
-      final contentLength = response.expectedContentLength == -1
-          ? null
-          : response.expectedContentLength;
+      final (responseHeaders, contentLength, statusCode) = autoReleasePool(
+        () => (
+          _responseHeaders(response, request),
+          response.expectedContentLength == -1
+              ? null
+              : response.expectedContentLength,
+          response.statusCode,
+        ),
+      );
       final isRedirect = !request.followRedirects && numRedirects > 0;
-      final reasonPhrase = _findReasonPhrase(response.statusCode);
+      final reasonPhrase = _findReasonPhrase(statusCode);
 
       profile?.responseData
         ?..contentLength = contentLength
@@ -421,11 +450,11 @@ class CupertinoClient extends BaseClient {
         ..isRedirect = isRedirect
         ..reasonPhrase = reasonPhrase
         ..startTime = DateTime.now()
-        ..statusCode = response.statusCode;
+        ..statusCode = statusCode;
 
       return _StreamedResponseWithUrl(
         dataController.stream,
-        response.statusCode,
+        statusCode,
         url: lastRedirectUrl ?? request.url,
         contentLength: contentLength,
         reasonPhrase: reasonPhrase,
