@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'disconnect_after_upgrade_server_vm.dart'
-    if (dart.library.html) 'disconnect_after_upgrade_server_web.dart';
+    if (dart.library.js_interop) 'disconnect_after_upgrade_server_web.dart';
 import 'utils.dart';
 
 /// Tests that the [WebSocket] generates a correct [CloseReceived] event if
