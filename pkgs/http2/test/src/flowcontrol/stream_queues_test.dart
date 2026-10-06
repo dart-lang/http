@@ -110,6 +110,17 @@ void main() {
         final window = OutgoingStreamWindowHandler(Window(initialSize: 0));
         final queue = StreamMessageQueueOut(STREAM_ID, window, connectionQueue);
 
+        final subscription = queue.bufferIndicator.bufferEmptyEvents.listen(
+          expectAsync1((_) {
+            expect(queue.isClosing, isTrue);
+            expect(
+              () => queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, false)),
+              throwsStateError,
+            );
+          }),
+        );
+        addTearDown(subscription.cancel);
+
         queue.enqueueMessage(DataMessage(STREAM_ID, [], true));
         await queue.done;
         expect(queue.wasClosed, isTrue);
