@@ -543,6 +543,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         stream.state == StreamState.ReservedRemote) {
       _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.CANCEL);
       _closeStreamAbnormally(stream, null, propagateException: false);
+    } else if (stream.state == StreamState.Closed &&
+        !stream.incomingQueue.wasClosed &&
+        !stream.incomingQueue.wasTerminated) {
+      _closeStreamAbnormally(stream, null, propagateException: false);
     }
   }
 
@@ -987,7 +991,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     Object? exception, {
     bool propagateException = false,
   }) {
-    incomingQueue.removeStreamMessageQueue(stream.id);
+    incomingQueue.removeStreamMessageQueue(
+      stream.id,
+      replenishWindow: !wasTerminated,
+    );
 
     if (stream.state != StreamState.Terminated) {
       _changeState(stream, StreamState.Terminated);
