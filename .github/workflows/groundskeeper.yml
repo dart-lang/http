@@ -1,4 +1,6 @@
 name: Groundskeeper
+permissions:
+  contents: read
 
 on:
   schedule:
@@ -34,10 +36,10 @@ jobs:
             use-flutter: true
           - package: ok_http
             use-flutter: true
-    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@main # zizmor: ignore[unpinned-uses, secrets-inherit]
+    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@5576a85fa69edea4343a1b601d4c3e755fcf6ad4
     with:
       directory: pkgs/${{ matrix.package }}
       use-flutter: ${{ matrix.use-flutter == true }}
       branch: auto-tidy-${{ matrix.package }}
       title: 'Tidy: package:${{ matrix.package }}'
-    secrets: inherit
+    secrets: inherit # zizmor: ignore[secrets-inherit]
