@@ -187,6 +187,9 @@ class IncomingWindowHandler {
     // one), and a large window leaves the peer at least half of it while an
     // update is held back. A default-sized window is acknowledged at once, as
     // before: holding back half of 64 KiB would halve what is in flight.
+    // An empty DATA frame frees nothing, and a WINDOW_UPDATE of 0 is a
+    // PROTOCOL_ERROR (RFC 9113 section 6.9).
+    if (numberOfBytes == 0) return;
     _unacknowledged += numberOfBytes;
     if (_granted > _defaultWindowSize && _unacknowledged < _granted ~/ 2) {
       return;

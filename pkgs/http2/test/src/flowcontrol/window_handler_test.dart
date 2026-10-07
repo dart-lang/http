@@ -136,6 +136,19 @@ void main() {
       verify(fw.writeWindowUpdate(100, streamId: STREAM_ID)).called(1);
       verifyNoMoreInteractions(fw);
     });
+
+    test('incoming-window-handler-empty-data', () {
+      var fw = FrameWriterMock();
+      var window = Window();
+      var handler = IncomingWindowHandler.stream(fw, window, 99);
+
+      // An empty DATA frame (e.g. END_STREAM on a reset stream) frees no
+      // window; a WINDOW_UPDATE of 0 would be a PROTOCOL_ERROR.
+      handler.dataProcessed(0);
+
+      expect(window.size, Window().size);
+      verifyZeroInteractions(fw);
+    });
   });
 }
 

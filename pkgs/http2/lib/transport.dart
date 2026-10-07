@@ -80,7 +80,7 @@ abstract class Settings {
   final int? streamWindowSize;
 
   /// The connection-level window the remote peer can use (defaults to 65535
-  /// bytes).
+  /// bytes; must be between 65535 and 2147483647).
   ///
   /// HTTP/2 has no setting for the connection window; a larger value is
   /// granted by a WINDOW_UPDATE on stream 0 right after the initial SETTINGS.

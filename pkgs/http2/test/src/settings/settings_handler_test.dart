@@ -136,6 +136,68 @@ void main() {
       verifyNoMoreInteractions(mock);
       verifyNoMoreInteractions(writer);
     });
+
+    test('initial-window-size-changes-send-windows-only-from-peer', () async {
+      var sh = SettingsHandler(
+        HPackEncoder(),
+        FrameWriterMock(),
+        ActiveSettings(),
+        ActiveSettings(),
+      );
+      var changes = <int>[];
+      sh.onInitialWindowSizeChange.listen(changes.add);
+
+      // Our own value, once acknowledged, sizes only what we receive.
+      var changed = sh.changeSettings([
+        Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 100000),
+      ]);
+      sh.handleSettingsFrame(
+        SettingsFrame(
+          FrameHeader(0, FrameType.SETTINGS, SettingsFrame.FLAG_ACK, 0),
+          [],
+        ),
+      );
+      await changed;
+      expect(sh.acknowledgedSettings.initialWindowSize, 100000);
+
+      // The peer's value changes the windows we send on.
+      sh.handleSettingsFrame(
+        SettingsFrame(FrameHeader(6, FrameType.SETTINGS, 0, 0), [
+          Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 70000),
+        ]),
+      );
+      await Future<void>.delayed(Duration.zero);
+
+      expect(changes, [70000 - 65535]);
+    });
+
+    test('remote-max-frame-size', () {
+      var sh = SettingsHandler(
+        HPackEncoder(),
+        FrameWriterMock(),
+        ActiveSettings(),
+        ActiveSettings(),
+      );
+
+      sh.handleSettingsFrame(
+        SettingsFrame(FrameHeader(6, FrameType.SETTINGS, 0, 0), [
+          Setting(Setting.SETTINGS_MAX_FRAME_SIZE, 1 << 20),
+        ]),
+      );
+      expect(sh.peerSettings.maxFrameSize, 1 << 20);
+
+      for (var invalid in [(1 << 14) - 1, 1 << 24]) {
+        expect(
+          () => sh.handleSettingsFrame(
+            SettingsFrame(FrameHeader(6, FrameType.SETTINGS, 0, 0), [
+              Setting(Setting.SETTINGS_MAX_FRAME_SIZE, invalid),
+            ]),
+          ),
+          throwsA(isProtocolException),
+        );
+      }
+      expect(sh.peerSettings.maxFrameSize, 1 << 20);
+    });
   });
 }
 

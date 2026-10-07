@@ -544,11 +544,11 @@ abstract class Connection {
     }
     final connectionWindowSize = settings.connectionWindowSize;
     if (connectionWindowSize != null &&
-        (connectionWindowSize < 0 || connectionWindowSize >= (1 << 31))) {
+        (connectionWindowSize < 65535 || connectionWindowSize >= (1 << 31))) {
       throw ArgumentError.value(
         connectionWindowSize,
         'connectionWindowSize',
-        'must be between 0 and 2147483647',
+        'must be between 65535 and 2147483647',
       );
     }
     final violations = settings.maxPeerStreamLimitViolations;

@@ -304,6 +304,7 @@ void main() {
       const ClientSettings(maxFrameSize: (1 << 14) - 1),
       const ClientSettings(maxFrameSize: 1 << 24),
       const ClientSettings(streamWindowSize: 1 << 31),
+      const ClientSettings(connectionWindowSize: 65534),
       const ClientSettings(connectionWindowSize: 1 << 31),
     ]) {
       final outgoing = StreamController<List<int>>();

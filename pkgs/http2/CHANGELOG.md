@@ -11,6 +11,11 @@
   nor waits a round trip.
 - When a receive window is larger than 65535 bytes, received data is
   acknowledged once per half window instead of once per DATA frame.
+- Honor the peer's `SETTINGS_MAX_FRAME_SIZE` when sending, and reject a value
+  outside 16384..16777215 as a protocol error.
+- The acknowledgement of this end's own `SETTINGS_INITIAL_WINDOW_SIZE` no
+  longer changes the windows of open streams this end sends on.
+- Never send a WINDOW_UPDATE with an increment of 0 for an empty DATA frame.
 
 ## 3.1.0
 
