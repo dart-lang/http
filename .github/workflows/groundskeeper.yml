@@ -27,9 +27,17 @@ jobs:
           - web_socket
           - web_socket_channel
           - web_socket_conformance_tests
+        include:
+          - package: cronet_http
+            use-flutter: true
+          - package: flutter_http_example
+            use-flutter: true
+          - package: ok_http
+            use-flutter: true
     uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@main # zizmor: ignore[unpinned-uses, secrets-inherit]
     with:
       directory: pkgs/${{ matrix.package }}
+      use-flutter: ${{ matrix.use-flutter == true }}
       branch: auto-tidy-${{ matrix.package }}
       title: 'Tidy: package:${{ matrix.package }}'
     secrets: inherit
