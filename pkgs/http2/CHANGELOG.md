@@ -1,3 +1,14 @@
+## 3.2.0-wip
+
+- Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
+  the connection-level receive window and `SETTINGS_MAX_FRAME_SIZE`. (#1997)
+- Apply a larger `streamWindowSize` and `maxFrameSize` to the receive side as
+  soon as they are sent, and acknowledge received data once per half window
+  when the window is at least twice 65535 bytes.
+- Honor the peer's `SETTINGS_MAX_FRAME_SIZE` when sending; the ACK of our own
+  `SETTINGS_INITIAL_WINDOW_SIZE` no longer resizes send windows.
+- Never send a WINDOW_UPDATE with an increment of 0.
+
 ## 3.1.0
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
