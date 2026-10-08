@@ -21,6 +21,8 @@
   Section 8.1).
 - Never write a `RST_STREAM` before the still-queued `HEADERS` of the same
   stream when a stream is cancelled; drop the stream's queued `DATA` instead.
+- Stop head-of-line blocking `HEADERS`, `RST_STREAM`, and `GOAWAY` behind
+  `DATA` that is waiting for connection-level flow-control credit.
 
 ## 3.1.0
 
