@@ -218,13 +218,16 @@ abstract class Connection {
 
     var settings = _decodeSettings(settingsObject);
 
-    // The initial stream window and frame size bound what this end accepts
-    // from the moment they are sent: no stream exists yet, and the peer reads
-    // these SETTINGS before any stream. Waiting for the ACK left a stream
-    // opened meanwhile with the old window while the peer already used the
-    // new one, and cost every early response a round trip.
+    // A larger initial stream window and the frame size bound what this end
+    // accepts from the moment they are sent, not from the peer's ACK: a peer
+    // that has not read them yet sends within the defaults, which both still
+    // allow, and one that has may already use them. Waiting for the ACK cost
+    // every early response a round trip. A smaller stream window waits for the
+    // ACK as before: a client may send on a stream before it has read the
+    // server's SETTINGS (RFC 9113 section 3.4), with the default 65535 bytes.
     final streamWindowSize = settingsObject.streamWindowSize;
-    if (streamWindowSize != null) {
+    if (streamWindowSize != null &&
+        streamWindowSize >= acknowledgedSettings.initialWindowSize) {
       acknowledgedSettings.initialWindowSize = streamWindowSize;
     }
     final maxFrameSize = settingsObject.maxFrameSize;

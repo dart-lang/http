@@ -181,17 +181,18 @@ class IncomingWindowHandler {
   //  - either stop sending window update frames
   //  - or decreasing the window size
   void dataProcessed(int numberOfBytes) {
-    // Past the protocol's default 65535 bytes, one WINDOW_UPDATE per half
-    // window processed rather than one per DATA frame: frame-by-frame updates
-    // double the frames on the wire (the connection and the stream each send
-    // one), and a large window leaves the peer at least half of it while an
-    // update is held back. A default-sized window is acknowledged at once, as
-    // before: holding back half of 64 KiB would halve what is in flight.
+    // From twice the protocol's default 65535 bytes, one WINDOW_UPDATE per
+    // half window processed rather than one per DATA frame: frame-by-frame
+    // updates double the frames on the wire (the connection and the stream
+    // each send one), and the peer keeps at least a default window in flight
+    // while an update is held back. Below that a window is acknowledged at
+    // once, as before: holding back half of it would leave the peer less than
+    // the default.
     // An empty DATA frame frees nothing, and a WINDOW_UPDATE of 0 is a
     // PROTOCOL_ERROR (RFC 9113 section 6.9).
     if (numberOfBytes == 0) return;
     _unacknowledged += numberOfBytes;
-    if (_granted > _defaultWindowSize && _unacknowledged < _granted ~/ 2) {
+    if (_granted >= 2 * _defaultWindowSize && _unacknowledged < _granted ~/ 2) {
       return;
     }
     _localWindow.modify(_unacknowledged);

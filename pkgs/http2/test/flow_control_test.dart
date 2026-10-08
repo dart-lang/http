@@ -6,16 +6,21 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:http2/src/connection_preface.dart';
+import 'package:http2/src/frames/frames.dart';
+import 'package:http2/src/hpack/hpack.dart';
+import 'package:http2/src/settings/settings.dart';
 import 'package:http2/transport.dart';
 import 'package:test/test.dart';
 
-/// The client's flow-control settings, checked frame by frame against a
-/// hand-driven peer over plain TCP: every behaviour here is a statement about
-/// what goes on the wire, not about timing.
+/// The flow-control settings, checked frame by frame against a hand-driven
+/// peer: every behaviour here is a statement about what goes on the wire, not
+/// about timing.
 
 const _data = 0x0;
 const _headers = 0x1;
 const _settings = 0x4;
+const _ping = 0x6;
 const _windowUpdate = 0x8;
 
 const _flagAck = 0x1;
@@ -94,6 +99,25 @@ class _RawPeer {
     }
     _buffer.add(all.sublist(offset));
     _changed.add(null);
+  }
+
+  var _pings = 0;
+
+  /// Resolves once the client has answered a PING sent now. It reads frames
+  /// in order and answers a PING as it reads it, so every frame it wrote
+  /// before has arrived by then: a deterministic point to check that some
+  /// frame was NOT sent.
+  Future<void> barrier() async {
+    final id = ++_pings;
+    send(_ping, 0, 0, (ByteData(8)..setUint32(4, id)).buffer.asUint8List());
+    await until(
+      () => frames.any(
+        (f) =>
+            f.type == _ping &&
+            f.flags & _flagAck != 0 &&
+            ByteData.sublistView(f.payload).getUint32(4) == id,
+      ),
+    );
   }
 
   /// Resolves once [test] holds for the frames seen so far.
@@ -185,7 +209,8 @@ void main() {
     'the defaults send no frame size and grant no connection window',
     () async {
       await connect(const ClientSettings());
-      await Future<void>.delayed(const Duration(milliseconds: 100));
+      peer.sendSettings();
+      await peer.barrier();
 
       expect(
         _settingsOf(peer.frames.first).keys,
@@ -253,8 +278,11 @@ void main() {
         .fold<int>(0, (n, f) => n + f.payload.length);
     await peer.until(() => sent() >= 65535);
     peer.ackSettings();
-    // Room for anything the client might still (wrongly) push.
-    await Future<void>.delayed(const Duration(milliseconds: 200));
+    // The first PING is read after the ACK, possibly in the same read; the
+    // second only once the first is answered, so after everything the ACK
+    // set off.
+    await peer.barrier();
+    await peer.barrier();
 
     expect(sent(), 65535);
   });
@@ -284,7 +312,7 @@ void main() {
     await stream.incomingMessages.forEach((m) {
       if (m is DataStreamMessage) received += m.bytes.length;
     });
-    await Future<void>.delayed(const Duration(milliseconds: 100));
+    await peer.barrier();
 
     expect(received, 4 << 20);
     // The stream's half window (3 MiB) was crossed once; the connection's
@@ -318,5 +346,50 @@ void main() {
       );
       unawaited(outgoing.close());
     }
+  });
+
+  test('a server with a stream window below 65535 accepts a request sent '
+      'before the client read its SETTINGS: until then the client may send '
+      'within the default window (RFC 9113 sections 3.4 and 6.9.2)', () async {
+    final clientOut = StreamController<List<int>>();
+    final fromServer = StreamController<List<int>>();
+    Stream<List<int>> toServer() async* {
+      yield CONNECTION_PREFACE;
+      yield* clientOut.stream;
+    }
+
+    final server = ServerTransportConnection.viaStreams(
+      toServer(),
+      fromServer.sink,
+      settings: const ServerSettings(streamWindowSize: 1000),
+    );
+    final goaways = <GoawayFrame>[];
+    FrameReader(fromServer.stream, ActiveSettings()).startDecoding().listen((
+      frame,
+    ) {
+      if (frame is GoawayFrame) goaways.add(frame);
+    }, onError: (_) {});
+
+    // SETTINGS, HEADERS and 65535 bytes of DATA in one go, without reading
+    // the server's SETTINGS.
+    FrameWriter(HPackEncoder(), clientOut.sink, ActiveSettings())
+      ..writeSettingsFrame([])
+      ..writeHeadersFrame(1, [
+        Header.ascii(':method', 'POST'),
+        Header.ascii(':path', '/upload'),
+        Header.ascii(':scheme', 'http'),
+        Header.ascii(':authority', 'peer'),
+      ], endStream: false)
+      ..writeDataFrame(1, Uint8List(65535), endStream: true);
+
+    var received = 0;
+    final stream = await server.incomingStreams.first;
+    await stream.incomingMessages.forEach((m) {
+      if (m is DataStreamMessage) received += m.bytes.length;
+    });
+
+    expect(received, 65535);
+    expect(goaways, isEmpty);
+    await server.terminate();
   });
 }

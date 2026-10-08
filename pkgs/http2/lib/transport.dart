@@ -73,10 +73,13 @@ abstract class Settings {
   /// The default stream window size the remote peer can use when creating new
   /// streams (defaults to 65535 bytes).
   ///
-  /// It is sent in this end's initial SETTINGS and applies to this end's
-  /// receive windows from then on, without waiting for the peer's
-  /// acknowledgement: no stream exists yet, and the peer reads the SETTINGS
-  /// before any stream.
+  /// It is sent in this end's initial SETTINGS. A value above 65535 applies
+  /// to this end's receive windows from then on, without waiting for the
+  /// peer's acknowledgement; a smaller one applies once acknowledged.
+  ///
+  /// Above 2 * 65535 bytes, received data is acknowledged once per half
+  /// window rather than once per DATA frame (also for
+  /// [connectionWindowSize]).
   final int? streamWindowSize;
 
   /// The connection-level window the remote peer can use (defaults to 65535
