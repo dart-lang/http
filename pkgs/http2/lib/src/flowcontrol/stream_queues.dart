@@ -71,13 +71,14 @@ class StreamMessageQueueOut extends Object
   void enqueueMessage(Message message) {
     if (message is! ResetStreamMessage) ensureNotClosingSync(() {});
     if (!wasTerminated) {
-      if (message.endStream) startClosing();
-
       if (message is DataMessage) {
         toBeWrittenBytes += message.bytes.length;
       }
 
       _messages.addLast(message);
+      // Closing checks the queue immediately, so enqueue the final message
+      // before checking whether all pending data has been sent.
+      if (message.endStream) startClosing();
       _trySendData();
 
       if (_messages.isNotEmpty) {

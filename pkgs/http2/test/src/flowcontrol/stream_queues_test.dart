@@ -5,6 +5,9 @@
 import 'package:http2/src/async_utils/async_utils.dart';
 import 'package:http2/src/flowcontrol/queue_messages.dart';
 import 'package:http2/src/flowcontrol/stream_queues.dart';
+import 'package:http2/src/flowcontrol/window.dart';
+import 'package:http2/src/flowcontrol/window_handler.dart';
+import 'package:http2/src/frames/frames.dart';
 import 'package:http2/transport.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -17,6 +20,145 @@ void main() {
     const BYTES = [1, 2, 3];
 
     group('stream-message-queue-out', () {
+      for (final initialWindow in [0, 1]) {
+        test('end-stream waits for updates from $initialWindow', () async {
+          final sent = <DataMessage>[];
+          final connectionQueue = MockConnectionMessageQueueOut();
+          when(connectionQueue.enqueueMessage(any)).thenAnswer((invocation) {
+            sent.add(invocation.positionalArguments.single as DataMessage);
+          });
+          final window = OutgoingStreamWindowHandler(
+            Window(initialSize: initialWindow),
+          );
+          final queue = StreamMessageQueueOut(
+            STREAM_ID,
+            window,
+            connectionQueue,
+          );
+          queue.bufferIndicator.bufferEmptyEvents.listen(
+            expectAsync1((_) {
+              // A synchronous drain callback must not reopen the closing queue.
+              expect(queue.isClosing, isTrue);
+              expect(
+                () =>
+                    queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, false)),
+                throwsStateError,
+              );
+            }),
+          );
+
+          queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
+          expect(queue.isClosing, isTrue);
+          expect(queue.wasClosed, isFalse);
+          expect(queue.pendingMessages, 1);
+          expect(queue.writtenBytes, initialWindow);
+          expect(queue.bufferIndicator.wouldBuffer, isTrue);
+          expect(
+            () => queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, false)),
+            throwsStateError,
+          );
+
+          for (var written = initialWindow; written < BYTES.length; written++) {
+            expect(queue.wasClosed, isFalse);
+            window.processWindowUpdate(
+              WindowUpdateFrame(
+                FrameHeader(4, FrameType.WINDOW_UPDATE, 0, STREAM_ID),
+                1,
+              ),
+            );
+          }
+          await queue.done;
+          expect(queue.wasClosed, isTrue);
+          expect(queue.pendingMessages, 0);
+          expect(queue.bufferIndicator.wouldBuffer, isFalse);
+          expect(queue.writtenBytes, BYTES.length);
+          expect(sent.expand((message) => message.bytes), BYTES);
+          expect(sent.take(sent.length - 1).every((m) => !m.endStream), isTrue);
+          expect(sent.last.endStream, isTrue);
+        });
+      }
+
+      test('end-stream headers close after reaching the connection queue', () {
+        final connectionQueue = MockConnectionMessageQueueOut();
+        final window = OutgoingStreamWindowHandler(Window(initialSize: 0));
+        final queue = StreamMessageQueueOut(STREAM_ID, window, connectionQueue);
+        when(connectionQueue.enqueueMessage(any)).thenAnswer((_) {
+          expect(queue.wasClosed, isFalse);
+        });
+
+        queue.enqueueMessage(HeadersMessage(STREAM_ID, [], true));
+        expect(queue.wasClosed, isTrue);
+        expect(queue.pendingMessages, 0);
+      });
+
+      test('reset remains allowed after end-stream', () {
+        final connectionQueue = MockConnectionMessageQueueOut();
+        when(connectionQueue.enqueueMessage(any)).thenReturn(null);
+        final window = OutgoingStreamWindowHandler(Window(initialSize: 0));
+        final queue = StreamMessageQueueOut(STREAM_ID, window, connectionQueue);
+        queue.enqueueMessage(HeadersMessage(STREAM_ID, [], true));
+        expect(queue.wasClosed, isTrue);
+        final reset = ResetStreamMessage(STREAM_ID, ErrorCode.CANCEL);
+        queue.enqueueMessage(reset);
+        verify(connectionQueue.enqueueMessage(reset)).called(1);
+        expect(queue.pendingMessages, 0);
+      });
+
+      test('empty end-stream data closes with an empty window', () async {
+        final connectionQueue = MockConnectionMessageQueueOut();
+        when(connectionQueue.enqueueMessage(any)).thenReturn(null);
+        final window = OutgoingStreamWindowHandler(Window(initialSize: 0));
+        final queue = StreamMessageQueueOut(STREAM_ID, window, connectionQueue);
+
+        final subscription = queue.bufferIndicator.bufferEmptyEvents.listen(
+          expectAsync1((_) {
+            expect(queue.isClosing, isTrue);
+            expect(
+              () => queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, false)),
+              throwsStateError,
+            );
+          }),
+        );
+        addTearDown(subscription.cancel);
+
+        queue.enqueueMessage(DataMessage(STREAM_ID, [], true));
+        await queue.done;
+        expect(queue.wasClosed, isTrue);
+        expect(queue.pendingMessages, 0);
+        final message =
+            verify(connectionQueue.enqueueMessage(captureAny)).captured.single
+                as DataMessage;
+        expect(message.bytes, isEmpty);
+        expect(message.endStream, isTrue);
+      });
+
+      for (final error in [null, StateError('transport failed')]) {
+        test('termination discards pending end-stream data: $error', () async {
+          final connectionQueue = MockConnectionMessageQueueOut();
+          final window = OutgoingStreamWindowHandler(Window(initialSize: 0));
+          final queue = StreamMessageQueueOut(
+            STREAM_ID,
+            window,
+            connectionQueue,
+          );
+
+          queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
+          expect(queue.wasClosed, isFalse);
+          queue.terminate(error);
+          await queue.done;
+          expect(queue.wasTerminated, isTrue);
+          expect(queue.wasClosed, isTrue);
+          expect(queue.pendingMessages, 0);
+          window.processWindowUpdate(
+            WindowUpdateFrame(
+              FrameHeader(4, FrameType.WINDOW_UPDATE, 0, STREAM_ID),
+              BYTES.length,
+            ),
+          );
+          verifyZeroInteractions(connectionQueue);
+        });
+      }
+
       test('window-big-enough', () {
         var connectionQueueMock = MockConnectionMessageQueueOut();
         when(connectionQueueMock.enqueueMessage(any)).thenReturn(null);

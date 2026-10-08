@@ -1,3 +1,8 @@
+## 3.1.1-wip
+
+- Fix responses stalling when `sendData` is called with `endStream: true` and
+  the response body exceeds the peer's stream flow-control window.
+
 ## 3.1.0
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
