@@ -68,10 +68,19 @@ class BufferedSink {
         // Currently `_doneFuture` will just complete normally if the sink
         // cancelled.
       };
-    _doneFuture = Future.wait([
-      _controller.stream.pipe(dataSink),
-      dataSink.done,
-    ]);
+    // `pipe` completes once `dataSink.close()` has completed, which for
+    // `dart:io` sinks and `StreamController`s is once `dataSink.done` has.
+    //
+    // It must not additionally wait for `dataSink.done`: when a write fails
+    // (e.g. the peer reset the connection), `addStream` completes with the
+    // error but `Stream.pipe` does not close the sink, so `dataSink.done` never
+    // completes - and neither would this future, nor `Connection.finish()` and
+    // `Connection.terminate()`, which wait for it.
+    //
+    // A failed write means the connection is dead; the owner learns about that
+    // through the incoming side, so like a cancelled sink it just completes
+    // this future normally.
+    _doneFuture = _controller.stream.pipe(dataSink).catchError((Object _) {});
   }
 
   /// The underlying sink.
