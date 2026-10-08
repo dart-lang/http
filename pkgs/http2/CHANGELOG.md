@@ -21,6 +21,10 @@
   Section 8.1).
 - Never write a `RST_STREAM` before the still-queued `HEADERS` of the same
   stream when a stream is cancelled; drop the stream's queued `DATA` instead.
+- `Http2Client` propagates pausing a response body to the underlying HTTP/2
+  stream, so a slow reader stops the server at the flow-control window instead
+  of buffering the whole response in memory, and uses a 4 MiB stream / 16 MiB
+  connection receive window instead of the protocol's 64 KiB defaults.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
