@@ -33,6 +33,10 @@
 - `Http2Client` now drops a connection from its pool as soon as it is dead,
   instead of keeping it as an idle connection no request may use, and keeps a
   healthy connection pooled when the server resets just one of its streams.
+- `Http2Client` propagates pausing a response body to the underlying HTTP/2
+  stream, so a slow reader stops the server at the flow-control window instead
+  of buffering the whole response in memory, and uses a 4 MiB stream / 16 MiB
+  connection receive window instead of the protocol's 64 KiB defaults.
 
 ## 3.1.0
 
