@@ -19,6 +19,8 @@
 - Deliver the complete response instead of a `StreamTransportException` when
   the peer sends `RST_STREAM(NO_ERROR)` after `END_STREAM` (RFC 9113
   Section 8.1).
+- Never write a `RST_STREAM` before the still-queued `HEADERS` of the same
+  stream when a stream is cancelled; drop the stream's queued `DATA` instead.
 
 ## 3.1.0
 

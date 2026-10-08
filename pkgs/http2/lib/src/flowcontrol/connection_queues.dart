@@ -63,6 +63,20 @@ class ConnectionMessageQueueOut extends Object
     });
   }
 
+  /// Drops the queued [DataMessage]s of the stream [streamId], which is about
+  /// to be reset.
+  ///
+  /// Returns `true` if a [HeadersMessage] for [streamId] is still queued, i.e.
+  /// has not been written to the [FrameWriter] yet. In that case the
+  /// `RST_STREAM` must be enqueued behind it instead of being written directly:
+  /// a `RST_STREAM` arriving before the `HEADERS` that open the stream is a
+  /// connection error for the peer (RFC 9113 section 6.4: "RST_STREAM frames
+  /// MUST NOT be sent for a stream in the "idle" state").
+  bool cancelStreamMessages(int streamId) {
+    _messages.removeWhere((m) => m is DataMessage && m.streamId == streamId);
+    return _messages.any((m) => m is HeadersMessage && m.streamId == streamId);
+  }
+
   @override
   void onTerminated(Object? error) {
     _messages.clear();
