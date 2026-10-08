@@ -258,9 +258,10 @@ void main() {
     expect(received, 100000);
   });
 
-  test('the ACK of our SETTINGS never grows what we SEND on an open '
-      'stream: an upload stops at the peer window of 65535 bytes', () async {
-    await connect(tuned);
+  test('the ACK of our SETTINGS never changes what we SEND on an open '
+      'stream; checked with a window below 65535, which is not pre-applied, '
+      'so the ACK alone carries the change', () async {
+    await connect(const ClientSettings(streamWindowSize: 1000));
     // The peer grants the connection plenty, so only the stream window can
     // hold the upload back.
     peer
@@ -283,8 +284,16 @@ void main() {
     // set off.
     await peer.barrier();
     await peer.barrier();
-
     expect(sent(), 65535);
+
+    // The peer grants the stream another default window: all of it must be
+    // usable, so the ACK of our own smaller window did not shrink the send
+    // window.
+    peer.send(_windowUpdate, 0, 1, [0x00, 0x00, 0xff, 0xff]);
+    await peer.until(() => sent() > 65535);
+    await peer.barrier();
+    await peer.barrier();
+    expect(sent(), 2 * 65535);
   });
 
   test('with large windows, 4 MiB received costs one WINDOW_UPDATE, not two '

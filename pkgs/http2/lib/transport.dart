@@ -77,7 +77,7 @@ abstract class Settings {
   /// to this end's receive windows from then on, without waiting for the
   /// peer's acknowledgement; a smaller one applies once acknowledged.
   ///
-  /// Above 2 * 65535 bytes, received data is acknowledged once per half
+  /// From 2 * 65535 bytes on, received data is acknowledged once per half
   /// window rather than once per DATA frame (also for
   /// [connectionWindowSize]).
   final int? streamWindowSize;
