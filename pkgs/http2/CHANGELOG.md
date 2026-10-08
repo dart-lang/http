@@ -1,3 +1,9 @@
+## 3.2.1-wip
+
+- `finish()` and `terminate()` no longer hang when a write to the socket fails
+  (for example because the peer closed the connection); previously they waited
+  for a `Socket.done` that never completes after a failed write.
+
 ## 3.2.0
 
 - Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
