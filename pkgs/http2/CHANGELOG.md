@@ -31,6 +31,9 @@
   now extends `StreamTransportException`, as documented for `TransportException`
   subclasses. `MultiProtocolHttpServer.startServing` forwards an unexpected ALPN
   protocol to `onError` instead of throwing inside the socket listener.
+- `finish()` and `terminate()` no longer hang when a write to the socket fails
+  (for example because the peer closed the connection); previously they waited
+  for a `Socket.done` that never completes after a failed write.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
