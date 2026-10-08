@@ -384,6 +384,33 @@ class ConnectionMessageQueueIn extends Object
     onCheckForClose();
   }
 
+  /// Flushes all pending messages for [streamId] to its [StreamMessageQueueIn],
+  /// even if the stream queue is currently buffering (e.g. when a peer sends
+  /// `RST_STREAM(NO_ERROR)` after a complete response).
+  void forceDispatchStreamMessages(int streamId) {
+    final pendingMessages = _stream2pendingMessages[streamId];
+    final mq = _stream2messageQueue[streamId];
+    if (pendingMessages == null || mq == null) return;
+    var bytesDeliveredToStream = 0;
+    while (pendingMessages.isNotEmpty) {
+      _count--;
+      final message = pendingMessages.removeFirst();
+      if (message is DataMessage) {
+        bytesDeliveredToStream += message.bytes.length;
+      }
+      mq.enqueueMessage(message);
+      if (message.endStream) {
+        _stream2messageQueue.remove(streamId);
+        _stream2pendingMessages.remove(streamId);
+        break;
+      }
+    }
+    if (bytesDeliveredToStream > 0) {
+      _windowUpdateHandler.dataProcessed(bytesDeliveredToStream);
+    }
+    onCheckForClose();
+  }
+
   void forceDispatchIncomingMessages() {
     final toBeRemoved = <int>{};
     _stream2pendingMessages.forEach((int streamId, Queue<Message> messages) {

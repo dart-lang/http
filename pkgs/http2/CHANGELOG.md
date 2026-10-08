@@ -16,6 +16,9 @@
   stream ID as a connection-level `PROTOCOL_ERROR`.
 - Fix `sendData(..., endStream: true)` stalling forever when the data exceeds
   the peer's flow-control window (#1998).
+- Deliver the complete response instead of a `StreamTransportException` when
+  the peer sends `RST_STREAM(NO_ERROR)` after `END_STREAM` (RFC 9113
+  Section 8.1).
 
 ## 3.1.0
 
