@@ -58,6 +58,14 @@ class ConnectionMessageQueueOut extends Object
     ensureNotClosingSync(() {
       if (!wasTerminated) {
         _messages.addLast(message);
+        // When the connection send window is exhausted, a newly queued
+        // DataMessage cannot be sent and cannot unblock any earlier message.
+        // Skipping _trySendMessages() avoids rescanning _messages on every
+        // sendData() call (which would otherwise be quadratic).
+        if (message is DataMessage &&
+            _connectionWindow.positiveWindow.wouldBuffer) {
+          return;
+        }
         _trySendMessages();
       }
     });
@@ -90,27 +98,60 @@ class ConnectionMessageQueueOut extends Object
     }
   }
 
+  /// The next message which can be written now, or `null` if none can.
+  ///
+  /// Normally that is the first queued message. When the connection-level send
+  /// window is exhausted and the first message is a [DataMessage], frames which
+  /// are not subject to flow control (RFC 9113 section 6.9: only DATA frames
+  /// are) may still be written: `GOAWAY`, and `HEADERS` / `RST_STREAM` of
+  /// streams that have no earlier queued message. Skipping a message of a
+  /// stream blocks all later messages of that stream, so the per-stream frame
+  /// order is preserved.
+  Message? _peekSendableMessage() {
+    if (_messages.isEmpty || _frameWriter.bufferIndicator.wouldBuffer) {
+      return null;
+    }
+    final first = _messages.first;
+    if (first is! DataMessage ||
+        !_connectionWindow.positiveWindow.wouldBuffer) {
+      return first;
+    }
+
+    final blockedStreams = <int>{};
+    for (final message in _messages) {
+      if (message is GoawayMessage) return message;
+      if (message is DataMessage || blockedStreams.contains(message.streamId)) {
+        blockedStreams.add(message.streamId);
+      } else if (message is PushPromiseMessage) {
+        // A PUSH_PROMISE must precede any frame of the promised stream and
+        // the END_STREAM of its associated stream (RFC 9113 section 8.4.1);
+        // keep it, and everything after it on both streams, in order.
+        blockedStreams
+          ..add(message.streamId)
+          ..add(message.promisedStreamId);
+      } else {
+        return message;
+      }
+    }
+    return null;
+  }
+
   void _trySendMessages() {
     if (!wasTerminated) {
       // We can make progress if
       //   * there is at least one message to send
       //   * the underlying frame writer / sink / socket doesn't block
       //   * either one
-      //     * the next message is a non-flow control message (e.g. headers)
+      //     * the next sendable message is a non-flow control message
       //     * the connection window is positive
 
-      if (_messages.isNotEmpty &&
-          !_frameWriter.bufferIndicator.wouldBuffer &&
-          (!_connectionWindow.positiveWindow.wouldBuffer ||
-              _messages.first is! DataMessage)) {
-        _trySendMessage();
+      final message = _peekSendableMessage();
+      if (message != null) {
+        _trySendMessage(message);
 
         // If we have more messages and we can send them, we'll run them
         // using `Timer.run()` to let other things get in-between.
-        if (_messages.isNotEmpty &&
-            !_frameWriter.bufferIndicator.wouldBuffer &&
-            (!_connectionWindow.positiveWindow.wouldBuffer ||
-                _messages.first is! DataMessage)) {
+        if (_peekSendableMessage() != null) {
           // TODO: If all the frame writer methods would return the
           // number of bytes written, we could just say, we loop here until 10kb
           // and after words, we'll make `Timer.run()`.
@@ -122,25 +163,28 @@ class ConnectionMessageQueueOut extends Object
     }
   }
 
-  void _trySendMessage() {
-    var message = _messages.first;
-    if (message is HeadersMessage) {
+  void _trySendMessage(Message message) {
+    // Fast path for the common case where [message] is at the head of the
+    // queue (`removeFirst()` is O(1)); only fall back to the O(n) `remove()`
+    // when `_peekSendableMessage()` skipped past blocked [DataMessage]s.
+    if (identical(message, _messages.first)) {
       _messages.removeFirst();
+    } else {
+      _messages.remove(message);
+    }
+    if (message is HeadersMessage) {
       _frameWriter.writeHeadersFrame(
         message.streamId,
         message.headers,
         endStream: message.endStream,
       );
     } else if (message is PushPromiseMessage) {
-      _messages.removeFirst();
       _frameWriter.writePushPromiseFrame(
         message.streamId,
         message.promisedStreamId,
         message.headers,
       );
     } else if (message is DataMessage) {
-      _messages.removeFirst();
-
       if (_connectionWindow.peerWindowSize >= message.bytes.length) {
         _connectionWindow.decreaseWindow(message.bytes.length);
         _frameWriter.writeDataFrame(
@@ -170,10 +214,8 @@ class ConnectionMessageQueueOut extends Object
         _messages.addFirst(tailMessage);
       }
     } else if (message is ResetStreamMessage) {
-      _messages.removeFirst();
       _frameWriter.writeRstStreamFrame(message.streamId, message.errorCode);
     } else if (message is GoawayMessage) {
-      _messages.removeFirst();
       _frameWriter.writeGoawayFrame(
         message.lastStreamId,
         message.errorCode,
