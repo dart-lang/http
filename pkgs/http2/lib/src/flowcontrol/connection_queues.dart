@@ -219,10 +219,11 @@ class ConnectionMessageQueueIn extends Object
 
   @override
   void onTerminated(Object? error) {
-    // NOTE: The higher level will be shutdown first, so all streams
-    // should have been removed at this point.
-    assert(_stream2messageQueue.isEmpty);
-    assert(_stream2pendingMessages.isEmpty);
+    for (final mq in _stream2messageQueue.values) {
+      mq.terminate(error);
+    }
+    _stream2messageQueue.clear();
+    _stream2pendingMessages.clear();
     closeWithError(error);
   }
 
@@ -262,9 +263,27 @@ class ConnectionMessageQueueIn extends Object
 
   /// Removes a stream id and its message queue from this connection-level
   /// message queue.
-  void removeStreamMessageQueue(int streamId) {
-    _stream2pendingMessages.remove(streamId);
+  ///
+  /// Buffered [DataMessage]s that were never delivered to the stream still
+  /// count against the connection receive window (RFC 9113 section 6.9.1), so
+  /// the window is replenished for them - unless [replenishWindow] is `false`,
+  /// which callers pass while the connection is being torn down and nothing
+  /// can be written to the peer any more.
+  void removeStreamMessageQueue(int streamId, {bool replenishWindow = true}) {
+    final pendingMessages = _stream2pendingMessages.remove(streamId);
     _stream2messageQueue.remove(streamId);
+    if (pendingMessages != null) {
+      var ignoredBytes = 0;
+      for (final message in pendingMessages) {
+        _count--;
+        if (message is DataMessage) {
+          ignoredBytes += message.bytes.length;
+        }
+      }
+      if (replenishWindow && ignoredBytes > 0) {
+        _windowUpdateHandler.dataProcessed(ignoredBytes);
+      }
+    }
   }
 
   /// Processes an incoming [DataFrame] which is addressed to a specific stream.
