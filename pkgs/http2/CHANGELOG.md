@@ -27,6 +27,9 @@
   now extends `StreamTransportException`, as documented for `TransportException`
   subclasses. `MultiProtocolHttpServer.startServing` forwards an unexpected ALPN
   protocol to `onError` instead of throwing inside the socket listener.
+- `finish()` and `terminate()` no longer hang when a write to the socket fails
+  (for example because the peer closed the connection); previously they waited
+  for a `Socket.done` that never completes after a failed write.
 
 ## 3.1.0
 
