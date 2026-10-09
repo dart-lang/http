@@ -136,7 +136,13 @@ class Http2Client extends BaseClient {
     final transport = ClientConnection(
       incoming,
       socket,
-      const ClientSettings(),
+      // The protocol's default windows (65535 bytes) cap what a peer may have
+      // in flight at 64 KiB per round trip, per connection. These also bound
+      // how much a paused response body can hold up (see `_sendOverHttp2`).
+      const ClientSettings(
+        streamWindowSize: 4 * 1024 * 1024,
+        connectionWindowSize: 16 * 1024 * 1024,
+      ),
     );
     try {
       await Future.any([
@@ -192,7 +198,13 @@ class Http2Client extends BaseClient {
 
     final statusCompleter = Completer<int>();
     late final StreamSubscription<StreamMessage> subscription;
+    // Pausing the body pauses the HTTP/2 stream, which then stops granting
+    // flow-control credit (WINDOW_UPDATE, RFC 9113 5.2) once what the peer
+    // was already allowed to send has arrived: a slow reader holds at most
+    // the stream window in memory rather than the whole response.
     final bodyController = StreamController<List<int>>(
+      onPause: () => subscription.pause(),
+      onResume: () => subscription.resume(),
       onCancel: () {
         lease.release();
         stream.terminate();
