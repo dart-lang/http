@@ -23,6 +23,10 @@
   stream when a stream is cancelled; drop the stream's queued `DATA` instead.
 - Stop head-of-line blocking `HEADERS`, `RST_STREAM`, and `GOAWAY` behind
   `DATA` that is waiting for connection-level flow-control credit.
+- `StreamException` (a stream reset because of a `GOAWAY` or oversized headers)
+  now extends `StreamTransportException`, as documented for `TransportException`
+  subclasses. `MultiProtocolHttpServer.startServing` forwards an unexpected ALPN
+  protocol to `onError` instead of throwing inside the socket listener.
 
 ## 3.1.0
 
