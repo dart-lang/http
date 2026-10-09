@@ -1446,6 +1446,71 @@ void main() {
 
         await Future.wait([serverFun(), clientFun()], eagerError: true);
       });
+
+      clientTest('rst-stream-is-sent-after-queued-headers-of-the-stream', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        final handshakeDone = Completer<void>();
+        final writerBuffers = Completer<void>();
+        final streamCancelled = Completer<void>();
+
+        Future<void> serverFun() async {
+          expect(await nextFrame(), isA<SettingsFrame>());
+          serverWriter.writeSettingsFrame([]);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          handshakeDone.complete();
+
+          final req1 = await nextFrame() as HeadersFrame;
+          expect(req1.header.streamId, 1);
+          // [serverReader] pauses the frame stream right after delivering this
+          // frame; the pause propagates synchronously back into the client's
+          // FrameWriter, which now reports that it would buffer. Messages the
+          // client enqueues from here on stay in its connection queue.
+          writerBuffers.complete();
+          await streamCancelled.future;
+
+          // Stream 3 was cancelled while its HEADERS were still queued: the
+          // HEADERS must still reach the wire before the RST_STREAM (RFC 9113
+          // section 6.4, RST_STREAM on an idle stream is a PROTOCOL_ERROR).
+          expect(
+            await nextFrame(),
+            isA<HeadersFrame>().having((f) => f.header.streamId, 'streamId', 3),
+          );
+          expect(
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having((f) => f.header.streamId, 'streamId', 3)
+                .having((f) => f.errorCode, 'errorCode', ErrorCode.CANCEL),
+          );
+
+          serverWriter.writeHeadersFrame(1, [
+            Header.ascii(':status', '200'),
+          ], endStream: true);
+          expect(await nextFrame(), isA<GoawayFrame>());
+          expect(await serverReader.moveNext(), isFalse);
+        }
+
+        Future<void> clientFun() async {
+          await handshakeDone.future;
+          final s1 = client.makeRequest([
+            Header.ascii(':path', '/s1'),
+          ], endStream: true);
+          await writerBuffers.future;
+
+          final s2 = client.makeRequest([Header.ascii(':path', '/s2')]);
+          s2.terminate();
+          streamCancelled.complete();
+
+          await s1.incomingMessages.drain<void>();
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
+      });
     });
   });
 }
