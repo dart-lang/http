@@ -745,7 +745,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           //     unused or closed parent stream.
           //
           // As long as we do not handle stream priorities, we can safely ignore
-          // such frames on idle streams.
+          // such frames on idle or closed streams.
           //
           // NOTE: Firefox for example sends [PriorityFrame]s even without
           // opening any streams (e.g. streams 3,5,7,9,11 [PriorityFrame]s and
@@ -753,6 +753,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           //
           // TODO: When implementing priorities for HTTP/2 streams, these frames
           // need to be taken into account.
+        } else if (frame is UnknownFrame) {
+          // RFC 9113 section 4.1: "Implementations MUST ignore and discard
+          // frames of unknown types." That includes frames an extension sends
+          // on streams this end considers idle or closed.
         } else if (frame is PushPromiseFrame) {
           throw ProtocolException(
             'Cannot push on a non-existent stream '
@@ -794,6 +798,13 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           _handleWindowUpdate(stream, frame);
         } else if (frame is RstStreamFrame) {
           _handleRstFrame(stream, frame);
+        } else if (frame is PriorityFrame) {
+          // RFC 9113 section 6.3: PRIORITY frames are deprecated and carry
+          // nothing this end acts on; they can be sent on a stream in any
+          // state.
+        } else if (frame is UnknownFrame) {
+          // RFC 9113 section 4.1: "Implementations MUST ignore and discard
+          // frames of unknown types."
         } else {
           throw ProtocolException(
             'Unsupported frame type ${frame.runtimeType}.',
