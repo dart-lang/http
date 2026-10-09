@@ -880,6 +880,25 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void _handleRstFrame(Http2StreamImpl stream, RstStreamFrame frame) {
     stream._handleTerminated(frame.errorCode);
+    if (frame.errorCode == ErrorCode.NO_ERROR &&
+        (stream.state == StreamState.HalfClosedRemote ||
+            stream.state == StreamState.Closed)) {
+      // RFC 9113 section 8.1: A server can send a complete response prior to
+      // the client sending an entire request, and then send RST_STREAM with
+      // NO_ERROR to request that the client stop transmitting the request.
+      // Preserve the already-received response messages for the caller while
+      // terminating the outgoing side.
+      incomingQueue.forceDispatchStreamMessages(stream.id);
+      _openStreams.remove(stream.id);
+      if (stream.state != StreamState.Closed) {
+        _changeState(stream, StreamState.Closed);
+      }
+      stream._outgoingCSubscription.cancel();
+      stream._outgoingC.close();
+      stream.outgoingQueue.terminate();
+      onCheckForClose();
+      return;
+    }
     var exception = StreamTransportException(
       'Stream was terminated by peer (errorCode: ${frame.errorCode}).',
     );
