@@ -89,7 +89,15 @@ class PoolLease {
   var _released = false;
 
   /// Stops the pool routing new work to this connection.
-  void markFailed() => _pooled.createFailed = true;
+  ///
+  /// May be called after [release]: a stream's failure is often only
+  /// understood once its terminal callback has already given the slot back.
+  /// The connection is then closed right away if it is idle, instead of
+  /// lingering in the pool as a connection no one may use.
+  void markFailed() {
+    _pooled.createFailed = true;
+    if (_released && !_pool._terminated) _pool._closeIfIdle(_pooled);
+  }
 
   /// Gives the slot back. Idempotent, so it is safe to call from several
   /// terminal paths that may race.
@@ -231,7 +239,9 @@ class ClientPool {
     if (pooled.inFlightCount > 0) return;
     if (!pooled.createFailed && !_hasExcessIdleCapacity(pooled)) return;
 
-    _connections.remove(pooled);
+    // Already evicted - e.g. by the release of a lease that is only now also
+    // being marked failed.
+    if (!_connections.remove(pooled)) return;
     _startClose(pooled);
   }
 

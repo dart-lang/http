@@ -248,6 +248,7 @@ class Http2Client extends BaseClient {
         lease.release();
       },
       onError: (Object error, StackTrace stackTrace) {
+        if (_isConnectionFailure(transport, error)) lease.markFailed();
         final failure =
             error is ClientException
                 ? error
@@ -305,8 +306,10 @@ class Http2Client extends BaseClient {
       }
       try {
         return await _sendOverHttp2(lease, request, bodyBytes!);
-      } catch (_) {
-        lease.markFailed();
+      } catch (error) {
+        // A reset of just this stream says nothing about the connection, which
+        // keeps serving its other streams - only drop it when it is gone.
+        if (_isConnectionFailure(lease.connection, error)) lease.markFailed();
         lease.release();
         rethrow;
       }
@@ -363,6 +366,15 @@ class _ConnectionClosedByPeer implements Exception {
       'The pooled HTTP/2 connection was closed by the peer before this '
       'request could be sent.';
 }
+
+/// Whether [error], raised by a request on [connection], means the connection
+/// itself is gone or going away - as opposed to the peer having reset just
+/// that one stream (RFC 9113 5.4.2), which leaves the connection and its other
+/// streams intact.
+bool _isConnectionFailure(ClientConnection connection, Object error) =>
+    error is TransportConnectionException ||
+    error is _ConnectionClosedByPeer ||
+    !connection.isOpen;
 
 /// HTTP/2 carries no reason phrase (RFC 9113 8.3.2 dropped it as redundant
 /// with the status code), so one is derived from the status instead - the same

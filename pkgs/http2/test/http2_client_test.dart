@@ -309,6 +309,8 @@ void main() {
         first.stream.drain<void>(),
         throwsA(isA<ClientException>()),
       );
+      // The connection died under the body, so it must have left the pool.
+      expect(client.connectionCount, 0);
 
       gate.complete();
 
@@ -441,5 +443,57 @@ void main() {
 
       await server.close();
     });
+
+    test(
+      'evicts-a-dead-connection-but-keeps-one-whose-stream-was-reset',
+      () async {
+        final context = _serverContext()..setAlpnProtocols(['h2'], true);
+        final socket = await SecureServerSocket.bind('localhost', 0, context);
+        final serverConnections = <ServerTransportConnection>[];
+        var requestCount = 0;
+
+        socket.listen((raw) {
+          final connection = ServerTransportConnection.viaSocket(raw);
+          serverConnections.add(connection);
+          connection.incomingStreams.listen((stream) async {
+            final index = requestCount++;
+            await stream.incomingMessages.drain<void>();
+            switch (index) {
+              case 0:
+                // Tear down the whole connection before any response headers.
+                await connection.terminate();
+              case 1:
+                // On a fresh connection: reset only this stream (RST_STREAM),
+                // leaving the connection itself healthy.
+                stream.terminate();
+              default:
+                stream.sendHeaders([Header.ascii(':status', '200')]);
+                stream.sendData(ascii.encode('reused'), endStream: true);
+            }
+          });
+        });
+
+        final client = _testClient(maxIdleConnections: 1);
+        final url = Uri.parse('https://localhost:${socket.port}/');
+
+        await expectLater(client.get(url), throwsA(isA<ClientException>()));
+        // The dead connection must have left the pool, not stayed as its one
+        // idle connection.
+        expect(client.connectionCount, 0);
+
+        await expectLater(client.get(url), throwsA(isA<ClientException>()));
+        // A reset of one stream says nothing about the connection.
+        expect(client.connectionCount, 1);
+
+        final response = await client.get(url);
+        expect(response.statusCode, 200);
+        expect(response.body, 'reused');
+        expect(serverConnections, hasLength(2));
+
+        client.close();
+        await client.closed;
+        await socket.close();
+      },
+    );
   });
 }
