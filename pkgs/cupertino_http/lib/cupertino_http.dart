@@ -19,14 +19,13 @@
 /// ```
 /// import 'dart:convert';
 /// import 'dart:io';
-/// import 'dart:math';
 ///
 /// import 'package:cupertino_http/cupertino_http.dart';
 ///
 /// void main() async {
 ///   var client = CupertinoClient.defaultSessionConfiguration();
 ///   final response = await client.get(
-///       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'}));
+///       Uri.https('pub.dev', '/api/packages/cupertino_http/score'));
 ///   if (response.statusCode != 200) {
 ///     throw HttpException('bad response: ${response.statusCode}');
 ///   }
@@ -34,11 +33,8 @@
 ///   final decodedResponse =
 ///       jsonDecode(utf8.decode(response.bodyBytes)) as Map;
 ///
-///   final itemCount = decodedResponse['totalItems'];
-///   print('Number of books about http: $itemCount.');
-///   for (var i = 0; i < min(itemCount, 10); ++i) {
-///     print(decodedResponse['items'][i]['volumeInfo']['title']);
-///   }
+///   final likes = decodedResponse['likeCount'];
+///   print('Likes: $likes');
 ///   client.close();
 /// }
 /// ```
@@ -55,15 +51,16 @@
 ///   if (Platform.isIOS || Platform.isMacOS) {
 ///     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
 ///       ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
-///       ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
+///       ..httpAdditionalHeaders = {'User-Agent': 'Package Client'};
 ///     httpClient = CupertinoClient.fromSessionConfiguration(config);
 ///   } else {
-///     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
+///     httpClient = IOClient(
+///         HttpClient()..userAgent = 'Package Client');
 ///   }
 ///
 ///   runApp(Provider<Client>(
 ///       create: (_) => httpClient,
-///       child: const BookSearchApp(),
+///       child: const PackageDetailsApp(),
 ///       dispose: (_, client) => client.close()));
 ///  }
 /// ```

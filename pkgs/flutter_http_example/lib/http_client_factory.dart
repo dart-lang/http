@@ -18,14 +18,14 @@ Client httpClient() {
     final engine = CronetEngine.build(
         cacheMode: CacheMode.memory,
         cacheMaxSize: _maxCacheSize,
-        userAgent: 'Book Agent');
+        userAgent: 'Package Client');
     return CronetClient.fromCronetEngine(engine);
   }
   if (Platform.isIOS || Platform.isMacOS) {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
       ..cache = URLCache.withCapacity(memoryCapacity: _maxCacheSize)
-      ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
+      ..httpAdditionalHeaders = {'User-Agent': 'Package Client'};
     return CupertinoClient.fromSessionConfiguration(config);
   }
-  return IOClient(HttpClient()..userAgent = 'Book Agent');
+  return IOClient(HttpClient()..userAgent = 'Package Client');
 }

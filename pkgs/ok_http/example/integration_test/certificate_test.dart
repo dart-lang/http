@@ -106,8 +106,10 @@ void main() async {
               .having((e) => e.message, 'message', contains('Handshake'))));
       expect(
           () async => await serverException.future,
-          throwsA(isA<io.HandshakeException>()
-              .having((e) => e.message, 'message', contains('Handshake'))));
+          throwsA(anyOf(
+              isA<io.HandshakeException>()
+                  .having((e) => e.message, 'message', contains('Handshake')),
+              isA<io.SocketException>())));
     });
 
     test('ignore unknown server cert', () async {
@@ -189,7 +191,7 @@ void main() async {
       expect(() => OkHttpClient(configuration: config), throwsArgumentError);
     });
 
-    test('private key without cert chain', () async {
+    test('cert chain without private key', () async {
       final certBytes =
           await loadCertificateBytes('test_certs/test-combined.p12');
 

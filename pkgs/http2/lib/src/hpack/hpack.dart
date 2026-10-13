@@ -56,6 +56,20 @@ class Header {
   }
 }
 
+/// Result of decoding one HPACK field block with an optional field-section
+/// size limit.
+class HPackDecodingResult {
+  final List<Header> headers;
+  final int headerListSize;
+  final bool headerListSizeExceeded;
+
+  const HPackDecodingResult(
+    this.headers,
+    this.headerListSize,
+    this.headerListSizeExceeded,
+  );
+}
+
 /// A stateful HPACK decoder.
 class HPackDecoder {
   late int _maxHeaderTableSize;
@@ -66,7 +80,21 @@ class HPackDecoder {
     _maxHeaderTableSize = newMaximumSize;
   }
 
-  List<Header> decode(List<int> data) {
+  List<Header> decode(List<int> data) => decodeWithLimit(data).headers;
+
+  /// Decodes [data] while bounding retained application-visible headers.
+  ///
+  /// Once [maxHeaderListSize] is exceeded, already retained headers are
+  /// released and subsequent fields are parsed without being added to the
+  /// result. Parsing continues so incremental-indexing updates are applied to
+  /// the connection-wide dynamic table and later field blocks remain in sync.
+  HPackDecodingResult decodeWithLimit(
+    List<int> data, {
+    int? maxHeaderListSize,
+  }) {
+    if (maxHeaderListSize case final limit? when limit < 0) {
+      throw ArgumentError.value(limit, 'maxHeaderListSize', 'must be >= 0');
+    }
     var offset = 0;
 
     int readInteger(int prefixBits) {
@@ -121,6 +149,20 @@ class HPackDecoder {
 
     try {
       var headers = <Header>[];
+      var headerListSize = 0;
+      var headerListSizeExceeded = false;
+
+      void processHeader(Header header) {
+        headerListSize += header.name.length + header.value.length + 32;
+        if (headerListSizeExceeded) return;
+        if (maxHeaderListSize != null && headerListSize > maxHeaderListSize) {
+          headers.clear();
+          headerListSizeExceeded = true;
+        } else {
+          headers.add(header);
+        }
+      }
+
       while (offset < data.length) {
         var byte = data[offset];
         var isIndexedField = (byte & 0x80) != 0;
@@ -133,15 +175,15 @@ class HPackDecoder {
         if (isIndexedField) {
           var index = readInteger(7);
           var field = _table.lookup(index);
-          headers.add(field);
+          processHeader(field);
         } else if (isIncrementalIndexing) {
           var field = readHeaderFieldInternal(readInteger(6));
           _table.addHeaderField(field);
-          headers.add(field);
+          processHeader(field);
         } else if (isWithoutIndexing) {
-          headers.add(readHeaderFieldInternal(readInteger(4)));
+          processHeader(readHeaderFieldInternal(readInteger(4)));
         } else if (isNeverIndexing) {
-          headers.add(
+          processHeader(
             readHeaderFieldInternal(readInteger(4), neverIndexed: true),
           );
         } else if (isDynamicTableSizeUpdate) {
@@ -159,7 +201,11 @@ class HPackDecoder {
           throw HPackDecodingException('Invalid encoding of headers.');
         }
       }
-      return headers;
+      return HPackDecodingResult(
+        headers,
+        headerListSize,
+        headerListSizeExceeded,
+      );
       // ignore: avoid_catching_errors
     } on RangeError catch (e) {
       throw HPackDecodingException('$e');

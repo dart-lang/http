@@ -590,6 +590,100 @@ void main() {
       });
     });
 
+    group('bounded decoder tests', () {
+      test('allows the decoded field section at the exact limit', () {
+        var context = HPackContext();
+
+        final result = context.decoder.decodeWithLimit([
+          0x84,
+        ], maxHeaderListSize: 38);
+
+        expect(result.headerListSize, 38);
+        expect(result.headerListSizeExceeded, isFalse);
+        expect(result.headers, [isHeader(':path', '/')]);
+      });
+
+      test('discards retained headers one byte over the decoded limit', () {
+        var context = HPackContext();
+
+        final result = context.decoder.decodeWithLimit([
+          0x84,
+        ], maxHeaderListSize: 37);
+
+        expect(result.headerListSize, 38);
+        expect(result.headerListSizeExceeded, isTrue);
+        expect(result.headers, isEmpty);
+      });
+
+      test('bounds repeated indexed-field amplification', () {
+        var context = HPackContext();
+
+        final result = context.decoder.decodeWithLimit(
+          List<int>.filled(300, 0x84),
+          maxHeaderListSize: 8 * 1024,
+        );
+
+        expect(result.headerListSize, 300 * 38);
+        expect(result.headerListSizeExceeded, isTrue);
+        expect(result.headers, isEmpty);
+      });
+
+      test('counts Huffman-expanded values against the decoded limit', () {
+        var context = HPackContext();
+        const huffmanAuthority = [
+          0x41,
+          0x8c,
+          0xf1,
+          0xe3,
+          0xc2,
+          0xe5,
+          0xf2,
+          0x3a,
+          0x6b,
+          0xa0,
+          0xab,
+          0x90,
+          0xf4,
+          0xff,
+        ];
+
+        final result = context.decoder.decodeWithLimit(
+          huffmanAuthority,
+          maxHeaderListSize: 56,
+        );
+
+        expect(result.headerListSize, 57);
+        expect(result.headerListSizeExceeded, isTrue);
+        expect(result.headers, isEmpty);
+      });
+
+      test('preserves dynamic-table synchronization after discarding', () {
+        const charA = 0x61;
+        const charB = 0x62;
+        var context = HPackContext();
+        final oversizedBlock = <int>[
+          ...TestHelper.insertIntoDynamicTable(40, charA, charB),
+          0x84,
+        ];
+
+        final rejected = context.decoder.decodeWithLimit(
+          oversizedBlock,
+          maxHeaderListSize: 40,
+        );
+        expect(rejected.headerListSize, 78);
+        expect(rejected.headerListSizeExceeded, isTrue);
+        expect(rejected.headers, isEmpty);
+
+        final next = context.decoder.decodeWithLimit(
+          TestHelper.dynamicTableLookup(0),
+          maxHeaderListSize: 40,
+        );
+        expect(next.headerListSizeExceeded, isFalse);
+        expect(next.headers, hasLength(1));
+        TestHelper.expectHeader(next.headers.single, 40, charA, charB);
+      });
+    });
+
     group('negative-decoder-tests', () {
       test('invalid-integer-encoding', () {
         var context = HPackContext();

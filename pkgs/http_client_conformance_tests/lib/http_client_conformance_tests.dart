@@ -105,7 +105,8 @@ void testAll(
   testBodylessRequests(clientFactory);
   testResponseBody(clientFactory, canStreamResponseBody: canStreamResponseBody);
   testResponseBodyStreamed(clientFactory,
-      canStreamResponseBody: canStreamResponseBody);
+      canStreamResponseBody: canStreamResponseBody,
+      supportsAbort: supportsAbort);
   testRequestHeaders(clientFactory);
   testRequestMethods(clientFactory, preservesMethodCase: preservesMethodCase);
   testResponseHeaders(clientFactory,

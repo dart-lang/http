@@ -136,6 +136,47 @@ void main() {
       verify(fw.writeWindowUpdate(100, streamId: STREAM_ID)).called(1);
       verifyNoMoreInteractions(fw);
     });
+
+    test('incoming-window-handler-batches-from-twice-the-default', () {
+      // Just above the default every frame is still acknowledged: holding
+      // back half the window would leave the peer less than the default.
+      var fw = FrameWriterMock();
+      var handler = IncomingWindowHandler.stream(
+        fw,
+        Window(initialSize: 2 * 65535 - 1),
+        1,
+      );
+      handler.gotData(100);
+      handler.dataProcessed(100);
+      verify(fw.writeWindowUpdate(100, streamId: 1)).called(1);
+
+      // From twice the default, updates wait for half the window.
+      fw = FrameWriterMock();
+      handler = IncomingWindowHandler.stream(
+        fw,
+        Window(initialSize: 2 * 65535),
+        1,
+      );
+      handler.gotData(65534);
+      handler.dataProcessed(65534);
+      verifyZeroInteractions(fw);
+      handler.gotData(1);
+      handler.dataProcessed(1);
+      verify(fw.writeWindowUpdate(65535, streamId: 1)).called(1);
+    });
+
+    test('incoming-window-handler-empty-data', () {
+      var fw = FrameWriterMock();
+      var window = Window();
+      var handler = IncomingWindowHandler.stream(fw, window, 99);
+
+      // An empty DATA frame (e.g. END_STREAM on a reset stream) frees no
+      // window; a WINDOW_UPDATE of 0 would be a PROTOCOL_ERROR.
+      handler.dataProcessed(0);
+
+      expect(window.size, Window().size);
+      verifyZeroInteractions(fw);
+    });
   });
 }
 

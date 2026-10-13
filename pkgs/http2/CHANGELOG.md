@@ -1,4 +1,22 @@
-## 3.1.0-wip
+## 3.2.0-wip
+
+- Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
+  the connection-level receive window and `SETTINGS_MAX_FRAME_SIZE`. (#1997)
+- Apply a larger `streamWindowSize` and `maxFrameSize` to the receive side as
+  soon as they are sent, and acknowledge received data once per half window
+  when the window is at least twice 65535 bytes.
+- Honor the peer's `SETTINGS_MAX_FRAME_SIZE` when sending; the ACK of our own
+  `SETTINGS_INITIAL_WINDOW_SIZE` no longer resizes send windows.
+- Never send a WINDOW_UPDATE with an increment of 0.
+- Bound peer-initiated concurrent streams and reject peers that ignore the
+  advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
+  are also bounded locally. The default limit is 100.
+- Bound inbound compressed field blocks, decoded field sections, CONTINUATION
+  frame counts, and incomplete field-block duration. HPACK decoding continues
+  in discard mode after the decoded limit is exceeded so the connection-wide
+  compression context remains synchronized.
+
+## 3.1.0
 
 - Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
 - Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).

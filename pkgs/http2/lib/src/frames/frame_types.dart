@@ -115,46 +115,16 @@ class HeadersFrame extends Frame {
   /// This will be set from the outside after decoding.
   late List<Header> decodedHeaders;
 
+  /// Decoded field-section size using name + value + 32 bytes per field.
+  int decodedHeaderListSize = 0;
+
+  /// Whether the decoded field section exceeded the local retention limit.
+  bool headerListSizeExceeded = false;
+
   bool get hasEndStreamFlag => _isFlagSet(header.flags, FLAG_END_STREAM);
   bool get hasEndHeadersFlag => _isFlagSet(header.flags, FLAG_END_HEADERS);
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
   bool get hasPriorityFlag => _isFlagSet(header.flags, FLAG_PRIORITY);
-
-  HeadersFrame addBlockContinuation(ContinuationFrame frame) {
-    var fragment = frame.headerBlockFragment;
-    var flags = header.flags | frame.header.flags;
-    var fh = FrameHeader(
-      header.length + fragment.length,
-      header.type,
-      flags,
-      header.streamId,
-    );
-
-    var mergedHeaderBlockFragment = Uint8List(
-      headerBlockFragment.length + fragment.length,
-    );
-
-    mergedHeaderBlockFragment.setRange(
-      0,
-      headerBlockFragment.length,
-      headerBlockFragment,
-    );
-
-    mergedHeaderBlockFragment.setRange(
-      headerBlockFragment.length,
-      mergedHeaderBlockFragment.length,
-      fragment,
-    );
-
-    return HeadersFrame(
-      fh,
-      padLength,
-      exclusiveDependency,
-      streamDependency,
-      weight,
-      mergedHeaderBlockFragment,
-    );
-  }
 
   @override
   Map toJson() =>
@@ -250,6 +220,12 @@ class PushPromiseFrame extends Frame {
   /// This will be set from the outside after decoding.
   late List<Header> decodedHeaders;
 
+  /// Decoded field-section size using name + value + 32 bytes per field.
+  int decodedHeaderListSize = 0;
+
+  /// Whether the decoded field section exceeded the local retention limit.
+  bool headerListSizeExceeded = false;
+
   PushPromiseFrame(
     super.header,
     this.padLength,
@@ -259,40 +235,6 @@ class PushPromiseFrame extends Frame {
 
   bool get hasEndHeadersFlag => _isFlagSet(header.flags, FLAG_END_HEADERS);
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
-
-  PushPromiseFrame addBlockContinuation(ContinuationFrame frame) {
-    var fragment = frame.headerBlockFragment;
-    var flags = header.flags | frame.header.flags;
-    var fh = FrameHeader(
-      header.length + fragment.length,
-      header.type,
-      flags,
-      header.streamId,
-    );
-
-    var mergedHeaderBlockFragment = Uint8List(
-      headerBlockFragment.length + fragment.length,
-    );
-
-    mergedHeaderBlockFragment.setRange(
-      0,
-      headerBlockFragment.length,
-      headerBlockFragment,
-    );
-
-    mergedHeaderBlockFragment.setRange(
-      headerBlockFragment.length,
-      mergedHeaderBlockFragment.length,
-      fragment,
-    );
-
-    return PushPromiseFrame(
-      fh,
-      padLength,
-      promisedStreamId,
-      mergedHeaderBlockFragment,
-    );
-  }
 
   @override
   Map toJson() =>
