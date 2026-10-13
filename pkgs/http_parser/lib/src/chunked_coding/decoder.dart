@@ -14,15 +14,12 @@ import 'charcodes.dart';
 /// The canonical instance of [ChunkedCodingDecoder].
 const chunkedCodingDecoder = ChunkedCodingDecoder._();
 
-/// The maximum value of [_Sink._size] before multiplying by 16 and adding a hex
-/// digit (`0..15`).
+/// The maximum supported chunk size (128 TiB).
 ///
-/// On the Dart VM and dart2wasm (64-bit signed `int`), this is
-/// `0x7fffffffffffffff ~/ 16` (`0x07ffffffffffffff`). On JavaScript (`53`-bit
-/// safe integers), this is `0x1fffffffffffff ~/ 16` (`0x01ffffffffffff`).
-const _maxSizeBeforeShift = identical(1.0, 1)
-    ? 0x01ffffffffffff
-    : (0x07ffffff * 0x100000000) + 0xffffffff;
+/// This is chosen to be too large to be a practical problem while small enough
+/// that `(_size * 16) + digit` is exactly representable on both the browser (JS
+/// 53-bit safe integers) and the VM (64-bit signed integers).
+const _maxChunkSize = 0x800000000000;
 
 /// A converter that decodes byte arrays into chunks with size tags.
 class ChunkedCodingDecoder extends Converter<List<int>, List<int>> {
@@ -106,10 +103,10 @@ class _Sink extends ByteConversionSinkBase {
             // Shift four bits left since a single hex digit contains four bits
             // of information.
             final digit = _digitForByte(bytes, start);
-            if (_size > _maxSizeBeforeShift) {
+            _size = (_size * 16) + digit;
+            if (_size > _maxChunkSize) {
               throw FormatException('Chunk size is too large.', bytes, start);
             }
-            _size = (_size * 16) + digit;
           }
           start++;
 

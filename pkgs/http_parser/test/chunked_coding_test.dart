@@ -225,10 +225,7 @@ void main() {
       });
 
       test('that ends after insufficient bytes for max chunk size', () {
-        const maxChunkSizeHex =
-            identical(1.0, 1) ? '1fffffffffffff' : '7fffffffffffffff';
-        expect(
-            () => chunkedCoding.decode(ascii.encode('$maxChunkSizeHex\r\na')),
+        expect(() => chunkedCoding.decode(ascii.encode('800000000000\r\na')),
             throwsFormatException);
       });
 
@@ -271,7 +268,9 @@ void main() {
             throwsFormatException);
       });
 
-      test('with a chunk size that overflows 64-bit int', () {
+      test('with a chunk size exceeding 128 TiB', () {
+        expect(() => chunkedCoding.decode(ascii.encode('800000000001\r\na')),
+            throwsFormatException);
         expect(
             () => chunkedCoding.decode(ascii.encode('8000000000000000\r\na')),
             throwsFormatException);
@@ -557,15 +556,17 @@ void main() {
         });
       });
 
-      test('rejects chunk sizes that overflow 64-bit int', () {
+      test('rejects chunk sizes exceeding 128 TiB', () {
+        expect(() => sink.add(ascii.encode('800000000001\r\na')),
+            throwsFormatException);
         expect(() => sink.add(ascii.encode('8000000000000000\r\na')),
             throwsFormatException);
       });
 
-      test('rejects chunk sizes that overflow 64-bit int across chunks', () {
-        sink.add(ascii.encode('80000000'));
-        expect(() => sink.add(ascii.encode('00000000\r\na')),
-            throwsFormatException);
+      test('rejects chunk sizes exceeding 128 TiB across chunks', () {
+        sink.add(ascii.encode('800000'));
+        expect(
+            () => sink.add(ascii.encode('000001\r\na')), throwsFormatException);
       });
 
       test('rejects chunk sizes exceeding 16 hex digits across chunks', () {
@@ -575,9 +576,7 @@ void main() {
       });
 
       test('handles max chunk size without start + size overflow', () {
-        const maxChunkSizeHex =
-            identical(1.0, 1) ? '1fffffffffffff' : '7fffffffffffffff';
-        sink.add(ascii.encode('$maxChunkSizeHex\r\na'));
+        sink.add(ascii.encode('800000000000\r\na'));
         expect(
             results,
             equals([
