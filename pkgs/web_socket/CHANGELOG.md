@@ -1,7 +1,5 @@
 ## 1.0.2-wip
 
-- Suppress false positive unused dependency warnings.
-
 ## 1.0.1
 
 - Fix a bug where `WebSocketException`/`WebSocketConnectionClosed` did not
