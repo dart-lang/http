@@ -83,6 +83,10 @@ for PKG in ${PKGS}; do
         echo 'xvfb-run -s "-screen 0 1024x768x24" dart test --test-randomize-ordering-seed=random --platform firefox'
         xvfb-run -s "-screen 0 1024x768x24" dart test --test-randomize-ordering-seed=random --platform firefox || EXIT_CODE=$?
         ;;
+      command_3)
+        echo 'dart update_readme.dart --validate'
+        dart update_readme.dart --validate || EXIT_CODE=$?
+        ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
