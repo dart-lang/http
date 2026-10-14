@@ -1,3 +1,8 @@
+## 3.2.3-wip
+
+* Fix `HttpMultiServer.loopback(0)` failing without retrying when the allocated
+  IPv4 ephemeral port is already bound on `[::1]` in the same process.
+
 ## 3.2.2
 
 * Require Dart 3.2
