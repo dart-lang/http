@@ -159,13 +159,9 @@ void main() {
   });
 
   group('HttpMultiServer.loopback', () {
-    late HttpServer server;
-
-    setUp(() => HttpMultiServer.loopback(0).then((s) => server = s));
-
-    tearDown(() => server.close());
-
     test('listens on all localhost interfaces', () async {
+      final server = await HttpMultiServer.loopback(0);
+      addTearDown(server.close);
       server.listen((request) {
         request.response.write('got request');
         request.response.close();
@@ -180,6 +176,23 @@ void main() {
         expect(http.read(Uri.http('[::1]:${server.port}', '/')),
             completion(equals('got request')));
       }
+    });
+
+    test('retries when the ephemeral IPv4 port is already bound on IPv6',
+        () async {
+      if (!await supportsIPv4 || !await supportsIPv6) return;
+
+      final busyV6 = await HttpServer.bind(InternetAddress.loopbackIPv6, 0);
+      addTearDown(busyV6.close);
+
+      final server = await IOOverrides.runWithIOOverrides(
+        () => HttpMultiServer.loopback(0),
+        _FirstV4PortOverride(busyV6.port),
+      );
+      addTearDown(server.close);
+
+      expect(server.port, isNot(0));
+      expect(server.port, isNot(busyV6.port));
     });
   });
 
@@ -323,3 +336,31 @@ Future<String> _read(HttpServer server) => http.read(_urlFor(server));
 /// Returns the URL for the root of [server].
 Uri _urlFor(HttpServer server) =>
     Uri.http('${server.address.host}:${server.port}', '/');
+
+final class _FirstV4PortOverride extends IOOverrides {
+  _FirstV4PortOverride(this._firstPort);
+
+  final int _firstPort;
+  var _firstV4Bind = true;
+
+  @override
+  Future<ServerSocket> serverSocketBind(
+    dynamic address,
+    int port, {
+    int backlog = 0,
+    bool v6Only = false,
+    bool shared = false,
+  }) {
+    if (_firstV4Bind && address == InternetAddress.loopbackIPv4 && port == 0) {
+      _firstV4Bind = false;
+      port = _firstPort;
+    }
+    return super.serverSocketBind(
+      address,
+      port,
+      backlog: backlog,
+      v6Only: v6Only,
+      shared: shared,
+    );
+  }
+}
