@@ -11,6 +11,9 @@
 - Replenish the connection-level receive window and release active stream slots
   when a stream with buffered unconsumed `DATA` frames is terminated, reset, or
   its incoming subscription is cancelled.
+- Ignore `PRIORITY` and unknown extension frames on open, idle, and closed
+  streams, and treat `SETTINGS`, `PING`, and `GOAWAY` frames with a non-zero
+  stream ID as a connection-level `PROTOCOL_ERROR`.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
