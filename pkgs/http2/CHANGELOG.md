@@ -1,4 +1,4 @@
-## 3.2.0-wip
+## 3.2.0
 
 - Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
   the connection-level receive window and `SETTINGS_MAX_FRAME_SIZE`. (#1997)
