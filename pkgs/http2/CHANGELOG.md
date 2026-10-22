@@ -16,11 +16,6 @@
   stream ID as a connection-level `PROTOCOL_ERROR`.
 - Fix `sendData(..., endStream: true)` stalling forever when the data exceeds
   the peer's flow-control window (#1998).
-
-## 3.1.0
-
-- Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
-- Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
@@ -28,6 +23,12 @@
   frame counts, and incomplete field-block duration. HPACK decoding continues
   in discard mode after the decoded limit is exceeded so the connection-wide
   compression context remains synchronized.
+
+## 3.1.0
+
+- Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
+- Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).
+- Enforce the locally advertised `SETTINGS_MAX_CONCURRENT_STREAMS` limit on incoming remote streams.
 - Add `Http2Client` (`package:http2/client.dart`), a pooled, multiplexed
   `package:http` `Client` backed by HTTP/2 connections.
 - Add `ClientTransportConnection.peerMaxConcurrentStreams`, exposing the peer's
