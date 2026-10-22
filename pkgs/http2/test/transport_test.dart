@@ -627,6 +627,58 @@ void main() {
       ) async {
         await testWindowSize(client, server, 8096);
       }, clientSettings: const ClientSettings(streamWindowSize: 8096));
+
+      transportTest('send-data-exceeding-window-with-end-stream-completes', (
+        ClientTransportConnection client,
+        ServerTransportConnection server,
+      ) async {
+        final uploadReceived = Completer<void>();
+        server.incomingStreams.listen((ServerTransportStream s) async {
+          var requestBytes = 0;
+          String? path;
+          await for (final m in s.incomingMessages) {
+            if (m is HeadersStreamMessage && path == null) {
+              path = String.fromCharCodes(m.headers.first.value);
+              if (path == '/download') {
+                s.sendHeaders([Header.ascii(':status', '200')]);
+                s.sendData(Uint8List(100000), endStream: true);
+              } else if (path == '/early-response-upload') {
+                s.sendHeaders([
+                  Header.ascii(':status', '200'),
+                ], endStream: true);
+              }
+            } else if (m is DataStreamMessage) {
+              requestBytes += m.bytes.length;
+            }
+          }
+          if (path == '/early-response-upload') {
+            expect(requestBytes, 100000);
+            uploadReceived.complete();
+          }
+        });
+
+        // 1. Server sendData(> 65535, endStream: true)
+        final download = client.makeRequest([
+          Header.ascii(':path', '/download'),
+        ], endStream: true);
+        var downloadBytes = 0;
+        await for (final m in download.incomingMessages) {
+          if (m is DataStreamMessage) downloadBytes += m.bytes.length;
+        }
+        expect(downloadBytes, 100000);
+
+        // 2. Client sendData(> 65535, endStream: true) when server sends
+        // END_STREAM before the upload finishes draining.
+        final upload = client.makeRequest([
+          Header.ascii(':path', '/early-response-upload'),
+        ]);
+        upload.sendData(Uint8List(100000), endStream: true);
+        await upload.incomingMessages.drain<void>();
+        await uploadReceived.future;
+
+        await client.finish();
+        await server.finish();
+      }, serverSettings: const ServerSettings(concurrentStreamLimit: 1));
     });
   });
 }

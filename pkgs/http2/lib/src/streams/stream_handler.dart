@@ -891,12 +891,13 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       _changeState(stream, StreamState.HalfClosedRemote);
     } else if (stream.state == StreamState.HalfClosedLocal) {
       _changeState(stream, StreamState.Closed);
-      // TODO: We have to make sure that we
-      //   - remove the stream for data structures which only care about the
-      //     state
-      //   - keep the stream in data structures which need to be emptied
-      //     (e.g. MessageQueues which are not empty yet).
-      _openStreams.remove(stream.id);
+      // Only remove the stream from [_openStreams] once all outgoing messages
+      // have been sent; if outgoing DATA is still waiting on flow-control
+      // credit, keep the stream registered so incoming WINDOW_UPDATE frames
+      // reach [stream.windowHandler].
+      if (stream.outgoingQueue.wasClosed) {
+        _openStreams.remove(stream.id);
+      }
     } else {
       throw StateError(
         'Got an end-of-stream from the remote end, but this stream is '
