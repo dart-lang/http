@@ -209,6 +209,16 @@ class StreamMessageQueueIn extends Object
     };
   }
 
+  @override
+  void cancel() {
+    super.cancel();
+    if (!wasClosed && !wasTerminated) {
+      _tryDispatch();
+      _tryUpdateBufferIndicator();
+      onCloseCheck();
+    }
+  }
+
   /// Debugging data: the number of pending messages in this queue.
   int get pendingMessages => _pendingMessages.length;
 
@@ -337,9 +347,11 @@ class StreamMessageQueueIn extends Object
   }
 
   void _tryUpdateBufferIndicator() {
-    if (_incomingMessagesC.isPaused || _pendingMessages.isNotEmpty) {
+    if (!wasCancelled &&
+        (_incomingMessagesC.isPaused || _pendingMessages.isNotEmpty)) {
       bufferIndicator.markBuffered();
-    } else if (bufferIndicator.wouldBuffer && !_incomingMessagesC.isPaused) {
+    } else if (bufferIndicator.wouldBuffer &&
+        (wasCancelled || !_incomingMessagesC.isPaused)) {
       bufferIndicator.markUnBuffered();
     }
   }

@@ -401,4 +401,81 @@ void main() {
     expect(goaways, isEmpty);
     await server.terminate();
   });
+
+  test('terminating a stream with unconsumed buffered DATA replenishes the '
+      'connection receive window', () async {
+    await connect(const ClientSettings());
+    peer
+      ..sendSettings()
+      ..ackSettings();
+    final stream = client.makeRequest(_get('/aborted'), endStream: true);
+    final sub = stream.incomingMessages.listen((_) {}, onError: (_) {});
+    sub.pause();
+    await peer.until(() => peer.frames.any((f) => f.type == _headers));
+
+    // Send 49152 bytes of response DATA while the stream is paused.
+    peer
+      ..sendOkHeaders(1)
+      ..send(_data, 0, 1, Uint8List(16384))
+      ..send(_data, 0, 1, Uint8List(16384))
+      ..send(_data, 0, 1, Uint8List(16384));
+    // The client has buffered the DATA once it has answered a PING sent after.
+    await peer.barrier();
+
+    // Terminate the stream before the listener ever consumes the buffered DATA.
+    stream.terminate();
+    await peer.until(
+      () => peer.frames.any((f) => f.type == _windowUpdate && f.stream == 0),
+    );
+
+    final connUpdates = peer.frames.where(
+      (f) => f.type == _windowUpdate && f.stream == 0,
+    );
+    final replenished = connUpdates.fold<int>(
+      0,
+      (sum, f) => sum + _increment(f),
+    );
+    expect(replenished, 49152);
+    await sub.cancel();
+  });
+
+  test('cancelling incomingMessages on a paused stream replenishes the '
+      'connection window and releases the active stream slot', () async {
+    await connect(const ClientSettings());
+    // Peer advertises maxConcurrentStreams = 1.
+    peer
+      ..send(_settings, 0, 0, const [0x00, 0x03, 0x00, 0x00, 0x00, 0x01])
+      ..ackSettings();
+    await client.onInitialPeerSettingsReceived;
+
+    final stream = client.makeRequest(_get('/cancel'), endStream: true);
+    final id = stream.id;
+    final sub = stream.incomingMessages.listen((_) {}, onError: (_) {});
+    sub.pause();
+    await peer.until(
+      () => peer.frames.any((f) => f.type == _headers && f.stream == id),
+    );
+
+    final updatesBefore =
+        peer.frames
+            .where((f) => f.type == _windowUpdate && f.stream == 0)
+            .length;
+    peer
+      ..sendOkHeaders(id)
+      ..send(_data, _flagEndStream, id, Uint8List(16384));
+    await peer.barrier();
+
+    await sub.cancel();
+    await peer.until(
+      () =>
+          peer.frames
+              .where((f) => f.type == _windowUpdate && f.stream == 0)
+              .length >
+          updatesBefore,
+    );
+    // Whatever the cancel set off has run once the client answers a PING sent
+    // after the WINDOW_UPDATE was seen.
+    await peer.barrier();
+    expect(client.isOpen, isTrue);
+  });
 }
