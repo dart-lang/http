@@ -1,0 +1,11 @@
+sdk:
+- dev
+
+stages:
+- analyze_and_format:
+  - analyze: --fatal-infos
+  - format:
+- unit_test:
+  - command: dart update_readme.dart --validate
+    os:
+    - linux

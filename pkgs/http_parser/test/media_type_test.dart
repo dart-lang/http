@@ -151,9 +151,27 @@ void main() {
           equals('text/plain; foo="bar baz"'));
     });
 
+    test('serializes an empty parameter as a quoted string', () {
+      final type = MediaType('text', 'plain', {'foo': ''});
+      expect(type.toString(), equals('text/plain; foo=""'));
+      expect(MediaType.parse(type.toString()).parameters, equals({'foo': ''}));
+    });
+
     test('escapes a quoted string as necessary', () {
       expect(MediaType('text', 'plain', {'foo': 'bar"\x7Fbaz'}).toString(),
           equals('text/plain; foo="bar\\"\\\x7Fbaz"'));
+    });
+
+    test('escapes backslashes in a quoted string and round-trips', () {
+      final type = MediaType.parse(
+        r'text/html; charset=utf-8; foo="bar\\baz"; trail="end\\"',
+      );
+      expect(
+        type.toString(),
+        equals(r'text/html; charset=utf-8; foo="bar\\baz"; trail="end\\"'),
+      );
+      final reparsed = MediaType.parse(type.toString());
+      expect(reparsed.parameters, equals(type.parameters));
     });
 
     test('serializes multiple parameters', () {
