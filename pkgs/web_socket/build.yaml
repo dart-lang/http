@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      dependency_validator:
+        options:
+          exclude:
+            - dart_flutter_team_lints
