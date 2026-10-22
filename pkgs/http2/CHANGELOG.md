@@ -16,6 +16,9 @@
   stream ID as a connection-level `PROTOCOL_ERROR`.
 - Fix `sendData(..., endStream: true)` stalling forever when the data exceeds
   the peer's flow-control window (#1998).
+- Deliver the complete response instead of a `StreamTransportException` when
+  the peer sends `RST_STREAM(NO_ERROR)` after `END_STREAM` (RFC 9113
+  Section 8.1).
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
