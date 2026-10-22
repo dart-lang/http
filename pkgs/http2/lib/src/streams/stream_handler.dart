@@ -541,7 +541,22 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         stream.state == StreamState.HalfClosedRemote ||
         stream.state == StreamState.ReservedLocal ||
         stream.state == StreamState.ReservedRemote) {
-      _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.CANCEL);
+      // Drop the stream's queued DATA: the RST_STREAM makes the peer discard
+      // it anyway. Its queued HEADERS are kept, with the RST_STREAM queued
+      // behind them instead of written directly: if the HEADERS that open the
+      // stream have not reached the peer yet (e.g. they are queued behind
+      // flow-controlled DATA of another stream), a RST_STREAM would arrive for
+      // a stream the peer considers idle, which is a connection error (RFC
+      // 9113 sections 5.1 and 6.4). The stream state cannot tell the two
+      // apart - it advanced when the HEADERS were queued, not written - so all
+      // queued HEADERS of the stream are treated alike.
+      if (outgoingQueue.cancelStreamMessages(stream.id)) {
+        outgoingQueue.enqueueMessage(
+          ResetStreamMessage(stream.id, ErrorCode.CANCEL),
+        );
+      } else {
+        _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.CANCEL);
+      }
       _closeStreamAbnormally(stream, null, propagateException: false);
     } else if (stream.state == StreamState.Closed &&
         !stream.incomingQueue.wasClosed &&

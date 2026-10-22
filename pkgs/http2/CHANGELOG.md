@@ -19,6 +19,8 @@
 - Deliver the complete response instead of a `StreamTransportException` when
   the peer sends `RST_STREAM(NO_ERROR)` after `END_STREAM` (RFC 9113
   Section 8.1).
+- Never write a `RST_STREAM` before the still-queued `HEADERS` of the same
+  stream when a stream is cancelled; drop the stream's queued `DATA` instead.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
