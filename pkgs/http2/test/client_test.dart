@@ -1321,7 +1321,8 @@ void main() {
           // Make sure we don't get messages/pushes on the terminated stream.
           unawaited(
             stream.incomingMessages.toList().catchError(
-              expectAsync1((e) {
+              expectAsync1((Object e) {
+                expect(e, isA<StreamTransportException>());
                 expect(
                   '$e',
                   contains(
