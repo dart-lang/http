@@ -34,6 +34,9 @@
 - `finish()` and `terminate()` no longer hang when a write to the socket fails
   (for example because the peer closed the connection); previously they waited
   for a `Socket.done` that never completes after a failed write.
+- `Http2Client` now drops a connection from its pool as soon as it is dead,
+  instead of keeping it as an idle connection no request may use, and keeps a
+  healthy connection pooled when the server resets just one of its streams.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.

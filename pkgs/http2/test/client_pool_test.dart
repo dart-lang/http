@@ -403,6 +403,22 @@ void main() {
       expect(used, [0, 1]);
     });
 
+    test('a-lease-failed-after-its-release-evicts-the-connection', () async {
+      final connections = _Connections();
+      final pool = _pool(connections, maxConcurrentStreams: 10);
+
+      final lease = await pool.acquire();
+      lease.release();
+      expect(pool.size, 1, reason: 'an idle connection is kept');
+
+      // A stream's failure is often only understood after its terminal
+      // callback has already given the slot back.
+      lease.markFailed();
+
+      expect(pool.size, 0);
+      expect(connections.closed, [0]);
+    });
+
     test('does-not-couple-a-stream-to-a-slow-close', () async {
       final connections = _Connections()..closeGate = Completer<void>().future;
       final pool = _pool(
