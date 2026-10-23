@@ -1,3 +1,10 @@
+## 1.10.1-wip
+
+* Fix a build failure when using Google Play Services with Android Gradle
+  Plugin 9 (the default for new Flutter projects since Flutter 3.44):
+  "Namespace 'org.chromium.net' is used in multiple modules and/or libraries"
+  (https://github.com/dart-lang/http/issues/1932).
+
 ## 1.10.0
 
 * Update example to fetch and display scores of `package:cronet_http` from
