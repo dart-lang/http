@@ -25,6 +25,8 @@
   stream, so a slow reader stops the server at the flow-control window instead
   of buffering the whole response in memory, and uses a 4 MiB stream / 16 MiB
   connection receive window instead of the protocol's 64 KiB defaults.
+- Stop head-of-line blocking `HEADERS`, `RST_STREAM`, and `GOAWAY` behind
+  `DATA` that is waiting for connection-level flow-control credit.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
