@@ -27,15 +27,20 @@
 library;
 
 import 'dart:async';
+import 'dart:ffi';
+import 'dart:typed_data';
 
+import 'package:ffi/ffi.dart';
 import 'package:objective_c/objective_c.dart' as objc;
 
 import 'native_cupertino_bindings.dart' as ncb;
 import 'native_cupertino_bindings.dart'
     show
         NSHTTPCookieAcceptPolicy,
+        NSURLCredentialPersistence,
         NSURLRequestCachePolicy,
         NSURLRequestNetworkServiceType,
+        NSURLSessionAuthChallengeDisposition,
         NSURLSessionMultipathServiceType,
         NSURLSessionResponseDisposition,
         NSURLSessionTaskState,
@@ -44,8 +49,10 @@ import 'native_cupertino_bindings.dart'
 export 'native_cupertino_bindings.dart'
     show
         NSHTTPCookieAcceptPolicy,
+        NSURLCredentialPersistence,
         NSURLRequestCachePolicy,
         NSURLRequestNetworkServiceType,
+        NSURLSessionAuthChallengeDisposition,
         NSURLSessionMultipathServiceType,
         NSURLSessionResponseDisposition,
         NSURLSessionTaskState,
@@ -103,6 +110,27 @@ typedef OnWebSocketTaskClosed =
       objc.NSData? reason,
     );
 
+/// Callback invoked when a task receives an authentication challenge.
+///
+/// Challenges include requests to evaluate the server's TLS certificate chain
+/// (see [NSURLAuthenticationMethodServerTrust]), requests for a client
+/// certificate (see [NSURLAuthenticationMethodClientCertificate]) and requests
+/// for HTTP credentials.
+///
+/// The returned disposition and credential are passed to the completion
+/// handler of
+/// [URLSession:task:didReceiveChallenge:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411595-urlsession).
+///
+/// If the callback throws, or the returned [Future] completes with an error,
+/// then the challenge is cancelled (i.e. the server is **not** trusted) and
+/// the error is reported to the current [Zone].
+typedef OnChallenge =
+    FutureOr<(NSURLSessionAuthChallengeDisposition, URLCredential?)> Function(
+      URLSession session,
+      URLSessionTask task,
+      URLAuthenticationChallenge challenge,
+    );
+
 @pragma('vm:prefer-inline')
 objc.ObjCProtocolBuilder _buildDelegate(
   bool isBackground, {
@@ -113,6 +141,7 @@ objc.ObjCProtocolBuilder _buildDelegate(
   OnComplete? onComplete,
   OnWebSocketTaskOpened? onWebSocketTaskOpened,
   OnWebSocketTaskClosed? onWebSocketTaskClosed,
+  OnChallenge? onChallenge,
 }) {
   final protoBuilder = objc.ObjCProtocolBuilder();
 
@@ -126,6 +155,54 @@ objc.ObjCProtocolBuilder _buildDelegate(
             URLSessionTask._(nsTask),
             nsError,
           );
+        });
+  }
+
+  if (onChallenge != null) {
+    ncb
+        .NSURLSessionDataDelegate$Builder
+        .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(protoBuilder, (
+          nsSession,
+          nsTask,
+          nsChallenge,
+          nsCompletionHandler,
+        ) {
+          void complete(
+            NSURLSessionAuthChallengeDisposition disposition,
+            URLCredential? credential,
+          ) => nsCompletionHandler.call(disposition, credential?._nsObject);
+
+          void fail(Object error, StackTrace stackTrace) {
+            // If the callback fails then don't trust the server.
+            complete(
+              NSURLSessionAuthChallengeDisposition
+                  .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
+              null,
+            );
+            Zone.current.handleUncaughtError(error, stackTrace);
+          }
+
+          final FutureOr<(NSURLSessionAuthChallengeDisposition, URLCredential?)>
+          result;
+          try {
+            result = onChallenge(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionTask._(nsTask),
+              URLAuthenticationChallenge._(nsChallenge),
+            );
+          } catch (e, s) {
+            fail(e, s);
+            return;
+          }
+          if (result
+              is Future<
+                (NSURLSessionAuthChallengeDisposition, URLCredential?)
+              >) {
+            result.then((r) => complete(r.$1, r.$2), onError: fail);
+          } else {
+            complete(result.$1, result.$2);
+          }
         });
   }
 
@@ -233,7 +310,7 @@ objc.ObjCProtocolBuilder _buildDelegate(
   return protoBuilder;
 }
 
-abstract class _ObjectHolder<T extends objc.NSObject> {
+abstract class _ObjectHolder<T extends objc.ObjCObject> {
   final T _nsObject;
 
   _ObjectHolder(this._nsObject);
@@ -248,6 +325,391 @@ abstract class _ObjectHolder<T extends objc.NSObject> {
 
   @override
   int get hashCode => _nsObject.hashCode;
+}
+
+/// Throws a [StateError] if [status] is not `errSecSuccess`.
+void _checkOSStatus(int status, String function) {
+  if (status != 0) {
+    throw StateError('$function failed with OSStatus $status');
+  }
+}
+
+/// An X.509 certificate.
+///
+/// See [SecCertificate](https://developer.apple.com/documentation/security/seccertificate).
+class SecCertificate extends _ObjectHolder<objc.ObjCObject> {
+  SecCertificate._(super.c);
+
+  /// Creates a certificate from its DER (binary) encoding.
+  ///
+  /// Throws [ArgumentError] if [der] is not a DER-encoded X.509 certificate.
+  ///
+  /// See [SecCertificateCreateWithData](https://developer.apple.com/documentation/security/1396073-seccertificatecreatewithdata).
+  factory SecCertificate.fromDer(Uint8List der) {
+    final data = der.toNSData();
+    final certificate = ncb.SecCertificateCreateWithData(
+      nullptr,
+      data.ref.pointer.cast(),
+    );
+    data.ref.release();
+    if (certificate == nullptr) {
+      throw ArgumentError('not a DER-encoded X.509 certificate', 'der');
+    }
+    return SecCertificate._(
+      objc.ObjCObject(certificate.cast(), retain: false, release: true),
+    );
+  }
+
+  ncb.SecCertificateRef get _certificateRef => _nsObject.ref.pointer.cast();
+
+  /// The DER (binary) encoding of the certificate.
+  ///
+  /// See [SecCertificateCopyData](https://developer.apple.com/documentation/security/1396080-seccertificatecopydata).
+  Uint8List get der => objc.NSData.fromPointer(
+    ncb.SecCertificateCopyData(_certificateRef).cast(),
+    retain: false,
+    release: true,
+  ).toList();
+
+  /// A human-readable summary of the certificate, such as its common name.
+  ///
+  /// See [SecCertificateCopySubjectSummary](https://developer.apple.com/documentation/security/1394814-seccertificatecopysubjectsummary).
+  String? get subjectSummary {
+    final summary = ncb.SecCertificateCopySubjectSummary(_certificateRef);
+    if (summary == nullptr) {
+      return null;
+    }
+    return objc.NSString.fromPointer(
+      summary.cast(),
+      retain: false,
+      release: true,
+    ).toDartString();
+  }
+
+  @override
+  String toString() => '[SecCertificate subjectSummary=$subjectSummary]';
+}
+
+/// An object used to evaluate the trust of a server certificate.
+///
+/// See [SecTrust](https://developer.apple.com/documentation/security/sectrust).
+class SecTrust extends _ObjectHolder<objc.ObjCObject> {
+  SecTrust._(super.c);
+
+  ncb.SecTrustRef get _trustRef => _nsObject.ref.pointer.cast();
+
+  /// The certificate chain, starting with the server's (leaf) certificate.
+  ///
+  /// See [SecTrustCopyCertificateChain](https://developer.apple.com/documentation/security/3747134-sectrustcopycertificatechain).
+  List<SecCertificate> get certificateChain {
+    final chain = ncb.SecTrustCopyCertificateChain(_trustRef);
+    if (chain == nullptr) {
+      return const [];
+    }
+    final array = objc.NSArray.fromPointer(
+      chain.cast(),
+      retain: false,
+      release: true,
+    );
+    return [for (final c in array.asDart()) SecCertificate._(c)];
+  }
+
+  /// Sets the anchor (root) certificates used when evaluating trust.
+  ///
+  /// See [SecTrustSetAnchorCertificates](https://developer.apple.com/documentation/security/1396098-sectrustsetanchorcertificates).
+  void setAnchorCertificates(Iterable<SecCertificate> certificates) {
+    final array = objc.NSMutableArray();
+    for (final certificate in certificates) {
+      array.addObject(certificate._nsObject);
+    }
+    _checkOSStatus(
+      ncb.SecTrustSetAnchorCertificates(_trustRef, array.ref.pointer.cast()),
+      'SecTrustSetAnchorCertificates',
+    );
+  }
+
+  /// Whether [evaluate] should trust only the anchors set by
+  /// [setAnchorCertificates] (`true`) or also trust the system's root
+  /// certificates (`false`).
+  ///
+  /// See [SecTrustSetAnchorCertificatesOnly](https://developer.apple.com/documentation/security/1399071-sectrustsetanchorcertificatesonl).
+  void setAnchorCertificatesOnly(bool anchorCertificatesOnly) {
+    _checkOSStatus(
+      ncb.SecTrustSetAnchorCertificatesOnly(
+        _trustRef,
+        anchorCertificatesOnly ? 1 : 0,
+      ),
+      'SecTrustSetAnchorCertificatesOnly',
+    );
+  }
+
+  /// Whether trust evaluation may access the network.
+  ///
+  /// If `true`, evaluating a server trust may fetch missing intermediate
+  /// certificates and revocation information from the network, which can
+  /// block [evaluate] (and [certificateChain]). Set to `false` to prevent
+  /// network access.
+  ///
+  /// Set before the trust is evaluated.
+  ///
+  /// See
+  /// [SecTrustGetNetworkFetchAllowed](https://developer.apple.com/documentation/security/sectrustgetnetworkfetchallowed(_:_:))
+  /// and
+  /// [SecTrustSetNetworkFetchAllowed](https://developer.apple.com/documentation/security/sectrustsetnetworkfetchallowed(_:_:)).
+  bool get networkFetchAllowed {
+    final allowFetch = calloc<UnsignedChar>();
+    try {
+      _checkOSStatus(
+        ncb.SecTrustGetNetworkFetchAllowed(_trustRef, allowFetch),
+        'SecTrustGetNetworkFetchAllowed',
+      );
+      return allowFetch.value != 0;
+    } finally {
+      calloc.free(allowFetch);
+    }
+  }
+
+  set networkFetchAllowed(bool allowFetch) {
+    _checkOSStatus(
+      ncb.SecTrustSetNetworkFetchAllowed(_trustRef, allowFetch ? 1 : 0),
+      'SecTrustSetNetworkFetchAllowed',
+    );
+  }
+
+  /// Evaluates whether the certificate chain should be trusted.
+  ///
+  /// Returns `trusted: true` if the chain is trusted. Otherwise, returns
+  /// `trusted: false` and an `error` describing why the chain is not trusted.
+  ///
+  /// Evaluation is synchronous and may block while missing intermediate
+  /// certificates or revocation information are fetched from the network.
+  /// Set [networkFetchAllowed] to `false` to prevent network access.
+  ///
+  /// See [SecTrustEvaluateWithError](https://developer.apple.com/documentation/security/2980705-sectrustevaluatewitherror).
+  ({bool trusted, objc.NSError? error}) evaluate() {
+    final error = calloc<ncb.CFErrorRef>();
+    try {
+      final trusted = objc.autoReleasePool(
+        () => ncb.SecTrustEvaluateWithError(_trustRef, error),
+      );
+      return (
+        trusted: trusted,
+        error: error.value == nullptr
+            ? null
+            : objc.NSError.fromPointer(
+                error.value.cast(),
+                retain: false,
+                release: true,
+              ),
+      );
+    } finally {
+      calloc.free(error);
+    }
+  }
+
+  @override
+  String toString() => '[SecTrust certificateChain=$certificateChain]';
+}
+
+/// A credential used to respond to an authentication challenge.
+///
+/// See [NSURLCredential](https://developer.apple.com/documentation/foundation/nsurlcredential).
+class URLCredential extends _ObjectHolder<ncb.NSURLCredential> {
+  URLCredential._(super.c);
+
+  /// A credential that indicates that [trust] should be trusted.
+  ///
+  /// See [NSURLCredential credentialForTrust:](https://developer.apple.com/documentation/foundation/nsurlcredential/credentialfortrust:?).
+  factory URLCredential.forTrust(SecTrust trust) => URLCredential._(
+    // `credentialForTrust:` returns an autoreleased object and this factory
+    // may not be called from a context with an autorelease pool (e.g. after
+    // an `await` in an `OnChallenge` callback).
+    objc.autoReleasePool(
+      () => ncb.NSServerTrust.credentialForTrust(trust._trustRef),
+    ),
+  );
+
+  /// How long the credential should be stored.
+  ///
+  /// See [NSURLCredential.persistence](https://developer.apple.com/documentation/foundation/nsurlcredential/1411184-persistence).
+  NSURLCredentialPersistence get persistence => _nsObject.persistence;
+
+  @override
+  String toString() => '[URLCredential persistence=$persistence]';
+}
+
+/// The server requests a client certificate (TLS client authentication).
+///
+/// See [NSURLAuthenticationMethodClientCertificate](https://developer.apple.com/documentation/foundation/nsurlauthenticationmethodclientcertificate).
+// ignore: non_constant_identifier_names
+final NSURLAuthenticationMethodClientCertificate =
+    ncb.NSURLAuthenticationMethodClientCertificate.toDartString();
+
+/// The default authentication method for the protocol.
+///
+/// See [NSURLAuthenticationMethodDefault](https://developer.apple.com/documentation/foundation/nsurlauthenticationmethoddefault).
+// ignore: non_constant_identifier_names
+final NSURLAuthenticationMethodDefault =
+    ncb.NSURLAuthenticationMethodDefault.toDartString();
+
+/// HTML form authentication.
+///
+/// See [NSURLAuthenticationMethodHTMLForm](https://developer.apple.com/documentation/foundation/nsurlauthenticationmethodhtmlform).
+// ignore: non_constant_identifier_names
+final NSURLAuthenticationMethodHTMLForm =
+    ncb.NSURLAuthenticationMethodHTMLForm.toDartString();
+
+/// HTTP basic authentication.
+///
+/// See [NSURLAuthenticationMethodHTTPBasic](https://developer.apple.com/documentation/foundation/nsurlauthenticationmethodhttpbasic).
+// ignore: non_constant_identifier_names
+final NSURLAuthenticationMethodHTTPBasic =
+    ncb.NSURLAuthenticationMethodHTTPBasic.toDartString();
+
+/// HTTP digest authentication.
+///
+/// See [NSURLAuthenticationMethodHTTPDigest](https://developer.apple.com/documentation/foundation/nsurlauthenticationmethodhttpdigest).
+// ignore: non_constant_identifier_names
+final NSURLAuthenticationMethodHTTPDigest =
+    ncb.NSURLAuthenticationMethodHTTPDigest.toDartString();
+
+/// Kerberos or NTLM authentication.
+///
+/// See [NSURLAuthenticationMethodNegotiate](https://developer.apple.com/documentation/foundation/nsurlauthenticationmethodnegotiate).
+// ignore: non_constant_identifier_names
+final NSURLAuthenticationMethodNegotiate =
+    ncb.NSURLAuthenticationMethodNegotiate.toDartString();
+
+/// NTLM authentication.
+///
+/// See [NSURLAuthenticationMethodNTLM](https://developer.apple.com/documentation/foundation/nsurlauthenticationmethodntlm).
+// ignore: non_constant_identifier_names
+final NSURLAuthenticationMethodNTLM =
+    ncb.NSURLAuthenticationMethodNTLM.toDartString();
+
+/// The client should decide whether to trust the server's TLS certificate
+/// chain, available as [URLProtectionSpace.serverTrust].
+///
+/// See [NSURLAuthenticationMethodServerTrust](https://developer.apple.com/documentation/foundation/nsurlauthenticationmethodservertrust).
+// ignore: non_constant_identifier_names
+final NSURLAuthenticationMethodServerTrust =
+    ncb.NSURLAuthenticationMethodServerTrust.toDartString();
+
+/// A server, or an area on a server, that requires authentication.
+///
+/// See [NSURLProtectionSpace](https://developer.apple.com/documentation/foundation/urlprotectionspace).
+class URLProtectionSpace extends _ObjectHolder<ncb.NSURLProtectionSpace> {
+  URLProtectionSpace._(super.c);
+
+  /// The authentication method, e.g. [NSURLAuthenticationMethodServerTrust].
+  ///
+  /// See [NSURLProtectionSpace.authenticationMethod](https://developer.apple.com/documentation/foundation/nsurlprotectionspace/1415028-authenticationmethod).
+  String get authenticationMethod =>
+      _nsObject.authenticationMethod.toDartString();
+
+  /// The host name of the server (or proxy).
+  ///
+  /// See [NSURLProtectionSpace.host](https://developer.apple.com/documentation/foundation/urlprotectionspace/host).
+  String get host => _nsObject.host.toDartString();
+
+  /// Whether the protection space represents a proxy.
+  ///
+  /// See [NSURLProtectionSpace.isProxy](https://developer.apple.com/documentation/foundation/nsurlprotectionspace/isproxy).
+  bool get isProxy => _nsObject.isProxy;
+
+  /// The port of the server (or proxy).
+  ///
+  /// See [NSURLProtectionSpace.port](https://developer.apple.com/documentation/foundation/urlprotectionspace/port).
+  int get port => _nsObject.port;
+
+  /// The protocol of the server (e.g. "https"), or `null` if the protection
+  /// space is a proxy.
+  ///
+  /// See [NSURLProtectionSpace.protocol](https://developer.apple.com/documentation/foundation/urlprotectionspace/protocol).
+  String? get protocol => _nsObject.protocol?.toDartString();
+
+  /// The authentication realm of the server, if any.
+  ///
+  /// See [NSURLProtectionSpace.realm](https://developer.apple.com/documentation/foundation/urlprotectionspace/realm).
+  String? get realm => _nsObject.realm?.toDartString();
+
+  /// The state of the server's TLS certificate chain.
+  ///
+  /// `null` if [authenticationMethod] is not
+  /// [NSURLAuthenticationMethodServerTrust].
+  ///
+  /// See [NSURLProtectionSpace.serverTrust](https://developer.apple.com/documentation/foundation/nsurlprotectionspace/1409926-servertrust).
+  SecTrust? get serverTrust {
+    final trust = _nsObject.serverTrust;
+    if (trust == nullptr) {
+      return null;
+    }
+    return SecTrust._(
+      objc.ObjCObject(trust.cast(), retain: true, release: true),
+    );
+  }
+
+  @override
+  String toString() =>
+      '[URLProtectionSpace '
+      'authenticationMethod=$authenticationMethod '
+      'host=$host '
+      'port=$port '
+      'protocol=$protocol '
+      'realm=$realm '
+      'isProxy=$isProxy'
+      ']';
+}
+
+/// A challenge from a server (or proxy) requiring authentication from the
+/// client.
+///
+/// See [NSURLAuthenticationChallenge](https://developer.apple.com/documentation/foundation/nsurlauthenticationchallenge).
+class URLAuthenticationChallenge
+    extends _ObjectHolder<ncb.NSURLAuthenticationChallenge> {
+  URLAuthenticationChallenge._(super.c);
+
+  /// The error from the last authentication attempt, if any.
+  ///
+  /// See [NSURLAuthenticationChallenge.error](https://developer.apple.com/documentation/foundation/urlauthenticationchallenge/error).
+  objc.NSError? get error => _nsObject.error;
+
+  /// The response from the last authentication failure.
+  ///
+  /// See [NSURLAuthenticationChallenge.failureResponse](https://developer.apple.com/documentation/foundation/urlauthenticationchallenge/failureresponse).
+  URLResponse? get failureResponse {
+    final response = _nsObject.failureResponse;
+    if (response == null) {
+      return null;
+    }
+    return URLResponse._exactURLResponseType(response);
+  }
+
+  /// The number of failed authentication attempts.
+  ///
+  /// See [NSURLAuthenticationChallenge.previousFailureCount](https://developer.apple.com/documentation/foundation/urlauthenticationchallenge/previousfailurecount).
+  int get previousFailureCount => _nsObject.previousFailureCount;
+
+  /// The credential proposed for this challenge.
+  ///
+  /// See [NSURLAuthenticationChallenge.proposedCredential](https://developer.apple.com/documentation/foundation/urlauthenticationchallenge/proposedcredential).
+  URLCredential? get proposedCredential {
+    final credential = _nsObject.proposedCredential;
+    return credential == null ? null : URLCredential._(credential);
+  }
+
+  /// The server (or proxy) that requires authentication.
+  ///
+  /// See [NSURLAuthenticationChallenge.protectionSpace](https://developer.apple.com/documentation/foundation/nsurlauthenticationchallenge/1410012-protectionspace).
+  URLProtectionSpace get protectionSpace =>
+      URLProtectionSpace._(_nsObject.protectionSpace);
+
+  @override
+  String toString() =>
+      '[URLAuthenticationChallenge '
+      'protectionSpace=$protectionSpace '
+      'previousFailureCount=$previousFailureCount'
+      ']';
 }
 
 /// A cache for [URLRequest]s. Used by [URLSessionConfiguration.cache].
@@ -745,6 +1207,16 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   set prefersIncrementalDelivery(bool value) =>
       _nsObject.prefersIncrementalDelivery = value;
 
+  /// Creates a task-specific delegate. See [taskDelegate].
+  ///
+  /// The callbacks have the same meaning as the callbacks with the same names
+  /// in [URLSession.sessionWithConfiguration].
+  ///
+  /// NOTE: Server trust is evaluated per *connection* and connections are
+  /// shared between tasks in the same session. So an [onChallenge] callback
+  /// set on a task delegate may not be called for a server trust challenge if
+  /// the task reuses an existing connection. Prefer using the same
+  /// [onChallenge] logic for all tasks in a session.
   @pragma('vm:prefer-inline')
   static ncb.NSURLSessionTaskDelegate delegate({
     OnRedirect? onRedirect,
@@ -754,6 +1226,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
     OnComplete? onComplete,
     OnWebSocketTaskOpened? onWebSocketTaskOpened,
     OnWebSocketTaskClosed? onWebSocketTaskClosed,
+    OnChallenge? onChallenge,
   }) {
     final builder = _buildDelegate(
       false,
@@ -764,6 +1237,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
       onComplete: onComplete,
       onWebSocketTaskOpened: onWebSocketTaskOpened,
       onWebSocketTaskClosed: onWebSocketTaskClosed,
+      onChallenge: onChallenge,
     );
     return ncb.NSURLSessionTaskDelegate.as(builder.build());
   }
@@ -909,6 +1383,15 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     }
   }
 
+  /// Whether the server is assumed to support HTTP/3.
+  ///
+  /// If `true`, the URL Loading System attempts HTTP/3 (QUIC) connections
+  /// without first discovering HTTP/3 support (e.g. through an `Alt-Svc`
+  /// response header).
+  ///
+  /// See [NSURLRequest.assumesHTTP3Capable](https://developer.apple.com/documentation/foundation/nsurlrequest/3738175-assumeshttp3capable)
+  bool get assumesHTTP3Capable => _nsObject.assumesHTTP3Capable;
+
   /// Controls how to deal with caching for the request.
   ///
   /// See [NSURLSession.cachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequest/1407944-cachepolicy)
@@ -976,6 +1459,9 @@ class MutableURLRequest extends URLRequest {
     ncb.NSMutableURLRequest.alloc().initWithURL(_uriToNSURL(uri)),
   );
 
+  set assumesHTTP3Capable(bool value) =>
+      _mutableUrlRequest.assumesHTTP3Capable$1 = value;
+
   set cachePolicy(NSURLRequestCachePolicy value) =>
       _mutableUrlRequest.cachePolicy$1 = value;
 
@@ -1041,6 +1527,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     OnComplete? onComplete,
     OnWebSocketTaskOpened? onWebSocketTaskOpened,
     OnWebSocketTaskClosed? onWebSocketTaskClosed,
+    OnChallenge? onChallenge,
   }) {
     final builder = _buildDelegate(
       isBackground,
@@ -1051,6 +1538,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       onComplete: onComplete,
       onWebSocketTaskOpened: onWebSocketTaskOpened,
       onWebSocketTaskClosed: onWebSocketTaskClosed,
+      onChallenge: onChallenge,
     );
     return ncb.NSURLSessionDelegate.as(builder.build());
   }
@@ -1104,6 +1592,24 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// [URLSessionWebSocketTask] receives a close control frame from the server.
   /// NOTE: A [URLSessionWebSocketTask.receiveMessage] must be in flight for
   /// [onWebSocketTaskClosed] to be called.
+  ///
+  /// If [onChallenge] is set then it will be called when a task receives an
+  /// authentication challenge, including server trust challenges (see
+  /// [NSURLAuthenticationMethodServerTrust]). Handling server trust challenges
+  /// allows trusting servers that would otherwise be rejected (e.g. servers
+  /// using self-signed certificates) or rejecting servers that would otherwise
+  /// be trusted (e.g. to implement certificate pinning). Server trust is
+  /// evaluated once per connection, not once per task.
+  ///
+  /// > [!WARNING]
+  /// > Accepting a server trust without evaluating it (see
+  /// > [SecTrust.evaluate]) disables protection against
+  /// > man-in-the-middle attacks.
+  ///
+  /// See
+  /// [URLSession:task:didReceiveChallenge:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411595-urlsession)
+  /// and
+  /// [Performing manual server trust authentication](https://developer.apple.com/documentation/foundation/url_loading_system/handling_an_authentication_challenge/performing_manual_server_trust_authentication).
   factory URLSession.sessionWithConfiguration(
     URLSessionConfiguration config, {
     OnRedirect? onRedirect,
@@ -1113,6 +1619,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     OnComplete? onComplete,
     OnWebSocketTaskOpened? onWebSocketTaskOpened,
     OnWebSocketTaskClosed? onWebSocketTaskClosed,
+    OnChallenge? onChallenge,
   }) {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
     // by only allowing callbacks to execute sequentially.
@@ -1128,7 +1635,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             onFinishedDownloading ??
             onComplete ??
             onWebSocketTaskOpened ??
-            onWebSocketTaskClosed) !=
+            onWebSocketTaskClosed ??
+            onChallenge) !=
         null;
 
     if (hasDelegate) {
@@ -1144,6 +1652,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             onComplete: onComplete,
             onWebSocketTaskOpened: onWebSocketTaskOpened,
             onWebSocketTaskClosed: onWebSocketTaskClosed,
+            onChallenge: onChallenge,
           ),
           delegateQueue: queue,
         ),

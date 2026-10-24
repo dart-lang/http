@@ -97,7 +97,10 @@ class CupertinoClient extends BaseClient {
 
   URLSession? _urlSession;
 
-  CupertinoClient._(this._urlSession);
+  final OnChallenge? _onChallenge;
+
+  CupertinoClient._(this._urlSession, {OnChallenge? onChallenge})
+    : _onChallenge = onChallenge;
 
   String? _findReasonPhrase(int statusCode) {
     switch (statusCode) {
@@ -193,11 +196,62 @@ class CupertinoClient extends BaseClient {
   }
 
   /// A [Client] configured with a [URLSessionConfiguration].
+  ///
+  /// If [onChallenge] is set then it will be called when a request receives an
+  /// authentication challenge, such as a server trust challenge (see
+  /// [NSURLAuthenticationMethodServerTrust]). Handling server trust challenges
+  /// makes it possible to connect to servers using certificates that are not
+  /// trusted by the system (e.g. self-signed certificates or certificates
+  /// issued by a private certificate authority) or to restrict the servers
+  /// that are trusted (e.g. certificate pinning). See [OnChallenge].
+  ///
+  /// If [onChallenge] cancels a challenge then the request fails with a
+  /// [ClientException]. If [onChallenge] throws then the challenge is
+  /// cancelled and the request fails with the thrown error.
+  ///
+  /// For example, to trust servers whose certificates were issued by a
+  /// particular certificate authority:
+  ///
+  /// ```dart
+  /// final ca = SecCertificate.fromDer(caCertificateBytes);
+  /// final client = CupertinoClient.fromSessionConfiguration(
+  ///   URLSessionConfiguration.ephemeralSessionConfiguration(),
+  ///   onChallenge: (session, task, challenge) {
+  ///     final trust = challenge.protectionSpace.serverTrust;
+  ///     if (trust == null) {
+  ///       return (
+  ///         NSURLSessionAuthChallengeDisposition
+  ///             .NSURLSessionAuthChallengePerformDefaultHandling,
+  ///         null,
+  ///       );
+  ///     }
+  ///     trust.setAnchorCertificates([ca]);
+  ///     return trust.evaluate().trusted
+  ///         ? (
+  ///             NSURLSessionAuthChallengeDisposition
+  ///                 .NSURLSessionAuthChallengeUseCredential,
+  ///             URLCredential.forTrust(trust),
+  ///           )
+  ///         : (
+  ///             NSURLSessionAuthChallengeDisposition
+  ///                 .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
+  ///             null,
+  ///           );
+  ///   },
+  /// );
+  /// ```
+  ///
+  /// > [!WARNING]
+  /// > Only `NSURLSessionAuthChallengeCancelAuthenticationChallenge` reliably
+  /// > rejects a server. `NSURLSessionAuthChallengeRejectProtectionSpace` and
+  /// > `NSURLSessionAuthChallengeUseCredential` without a credential fall back
+  /// > to the system's default trust evaluation.
   factory CupertinoClient.fromSessionConfiguration(
-    URLSessionConfiguration config,
-  ) {
+    URLSessionConfiguration config, {
+    OnChallenge? onChallenge,
+  }) {
     final session = URLSession.sessionWithConfiguration(config);
-    return CupertinoClient._(session);
+    return CupertinoClient._(session, onChallenge: onChallenge);
   }
 
   @override
@@ -284,6 +338,9 @@ class CupertinoClient extends BaseClient {
     var cancelled = false;
     var numRedirects = 0;
     Uri? lastRedirectUrl;
+    // Set if `_onChallenge` cancels a challenge or throws.
+    Object? challengeError;
+    StackTrace? challengeErrorStackTrace;
 
     // Encompass as much logic as possible in an autorelease pool, considering
     // that [autoReleasePool] cannot contain asynchronous gaps.
@@ -296,6 +353,7 @@ class CupertinoClient extends BaseClient {
       final urlRequest = MutableURLRequest.fromUrl(request.url)
         ..httpMethod = request.method;
 
+<<<<<<< Updated upstream
       if (request.contentLength != null) {
         profile?.requestData.headersListValues = {
           'Content-Length': ['${request.contentLength}'],
@@ -382,6 +440,67 @@ class CupertinoClient extends BaseClient {
               return null;
             }
             lastRedirectUrl = request.url;
+=======
+    final onChallenge = _onChallenge;
+    task
+      ..taskDelegate = URLSessionTask.delegate(
+        onChallenge: onChallenge == null
+            ? null
+            : (session, task, challenge) async {
+                try {
+                  final result = await onChallenge(session, task, challenge);
+                  if (result.$1 ==
+                      NSURLSessionAuthChallengeDisposition
+                          // ignore: lines_longer_than_80_chars
+                          .NSURLSessionAuthChallengeCancelAuthenticationChallenge) {
+                    final space = challenge.protectionSpace;
+                    challengeError = ClientException(
+                      'onChallenge cancelled the ${space.authenticationMethod}'
+                      ' challenge for ${space.host}:${space.port}',
+                      request.url,
+                    );
+                  }
+                  return result;
+                } catch (e, s) {
+                  challengeError = e;
+                  challengeErrorStackTrace = s;
+                  return (
+                    NSURLSessionAuthChallengeDisposition
+                        .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
+                    null,
+                  );
+                }
+              },
+        onResponse: (session, task, response) {
+          responseCompleter.complete(response);
+          return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
+        },
+        onData: (session, task, data) {
+          if (!cancelled) {
+            dataController.add(data.toList());
+            profile?.responseData.bodySink.add(data.toList());
+          }
+        },
+        onComplete: (session, task, error) {
+          if (error != null) {
+            // Cancelling a challenge cancels the task, so check for a
+            // challenge failure before treating a cancellation as an abort.
+            final challengeFailure = challengeError;
+            final Object mappedError;
+            StackTrace? stackTrace;
+            if (challengeFailure != null && !cancelled) {
+              mappedError = challengeFailure;
+              stackTrace = challengeErrorStackTrace;
+            } else if (error.isCancelled) {
+              mappedError = RequestAbortedException(request.url);
+            } else {
+              mappedError = NSErrorClientException(error, request.url);
+            }
+            if (!responseCompleter.isCompleted) {
+              responseCompleter.completeError(mappedError, stackTrace);
+            }
+            dataController.addError(mappedError, stackTrace);
+>>>>>>> Stashed changes
             if (profile != null) {
               profile.responseData.addRedirect(
                 HttpProfileRedirectData(

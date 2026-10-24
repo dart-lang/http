@@ -7,6 +7,251 @@ import 'package:objective_c/objective_c.dart' as objc;
 import 'package:ffi/ffi.dart' as pkg_ffi;
 
 const _$objcVersionCheck = objc.ObjCVersionCheck(9, 6);
+
+/// !
+/// @const NSURLAuthenticationMethodClientCertificate
+/// @abstract SSL Client certificate.  Applies to any protocol.
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'NSURLAuthenticationMethodClientCertificate',
+)
+external ffi.Pointer<objc.ObjCObjectImpl>
+_NSURLAuthenticationMethodClientCertificate;
+
+objc.NSString get NSURLAuthenticationMethodClientCertificate =>
+    objc.NSString.fromPointer(
+      _NSURLAuthenticationMethodClientCertificate,
+      retain: true,
+      release: true,
+    );
+
+set NSURLAuthenticationMethodClientCertificate(objc.NSString value) {
+  objc.NSString.fromPointer(
+    _NSURLAuthenticationMethodClientCertificate,
+    retain: false,
+    release: true,
+  ).ref.release();
+  final _$$ref = value.ref;
+  _NSURLAuthenticationMethodClientCertificate = _$$ref.retainAndReturnPointer();
+}
+
+/// !
+/// @const NSURLAuthenticationMethodDefault
+/// @abstract The default authentication method for a protocol
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'NSURLAuthenticationMethodDefault',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _NSURLAuthenticationMethodDefault;
+
+objc.NSString get NSURLAuthenticationMethodDefault => objc.NSString.fromPointer(
+  _NSURLAuthenticationMethodDefault,
+  retain: true,
+  release: true,
+);
+
+set NSURLAuthenticationMethodDefault(objc.NSString value) {
+  objc.NSString.fromPointer(
+    _NSURLAuthenticationMethodDefault,
+    retain: false,
+    release: true,
+  ).ref.release();
+  final _$$ref = value.ref;
+  _NSURLAuthenticationMethodDefault = _$$ref.retainAndReturnPointer();
+}
+
+/// !
+/// @const NSURLAuthenticationMethodHTMLForm
+/// @abstract HTML form authentication. Applies to any protocol.
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'NSURLAuthenticationMethodHTMLForm',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _NSURLAuthenticationMethodHTMLForm;
+
+objc.NSString get NSURLAuthenticationMethodHTMLForm =>
+    objc.NSString.fromPointer(
+      _NSURLAuthenticationMethodHTMLForm,
+      retain: true,
+      release: true,
+    );
+
+set NSURLAuthenticationMethodHTMLForm(objc.NSString value) {
+  objc.NSString.fromPointer(
+    _NSURLAuthenticationMethodHTMLForm,
+    retain: false,
+    release: true,
+  ).ref.release();
+  final _$$ref = value.ref;
+  _NSURLAuthenticationMethodHTMLForm = _$$ref.retainAndReturnPointer();
+}
+
+/// !
+/// @const NSURLAuthenticationMethodHTTPBasic
+/// @abstract HTTP basic authentication. Equivalent to
+/// NSURLAuthenticationMethodDefault for http.
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'NSURLAuthenticationMethodHTTPBasic',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _NSURLAuthenticationMethodHTTPBasic;
+
+objc.NSString get NSURLAuthenticationMethodHTTPBasic =>
+    objc.NSString.fromPointer(
+      _NSURLAuthenticationMethodHTTPBasic,
+      retain: true,
+      release: true,
+    );
+
+set NSURLAuthenticationMethodHTTPBasic(objc.NSString value) {
+  objc.NSString.fromPointer(
+    _NSURLAuthenticationMethodHTTPBasic,
+    retain: false,
+    release: true,
+  ).ref.release();
+  final _$$ref = value.ref;
+  _NSURLAuthenticationMethodHTTPBasic = _$$ref.retainAndReturnPointer();
+}
+
+/// !
+/// @const NSURLAuthenticationMethodHTTPDigest
+/// @abstract HTTP digest authentication.
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'NSURLAuthenticationMethodHTTPDigest',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _NSURLAuthenticationMethodHTTPDigest;
+
+objc.NSString get NSURLAuthenticationMethodHTTPDigest =>
+    objc.NSString.fromPointer(
+      _NSURLAuthenticationMethodHTTPDigest,
+      retain: true,
+      release: true,
+    );
+
+set NSURLAuthenticationMethodHTTPDigest(objc.NSString value) {
+  objc.NSString.fromPointer(
+    _NSURLAuthenticationMethodHTTPDigest,
+    retain: false,
+    release: true,
+  ).ref.release();
+  final _$$ref = value.ref;
+  _NSURLAuthenticationMethodHTTPDigest = _$$ref.retainAndReturnPointer();
+}
+
+/// !
+/// @const NSURLAuthenticationMethodNTLM
+/// @abstract NTLM authentication.
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'NSURLAuthenticationMethodNTLM',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _NSURLAuthenticationMethodNTLM;
+
+objc.NSString get NSURLAuthenticationMethodNTLM => objc.NSString.fromPointer(
+  _NSURLAuthenticationMethodNTLM,
+  retain: true,
+  release: true,
+);
+
+set NSURLAuthenticationMethodNTLM(objc.NSString value) {
+  objc.NSString.fromPointer(
+    _NSURLAuthenticationMethodNTLM,
+    retain: false,
+    release: true,
+  ).ref.release();
+  final _$$ref = value.ref;
+  _NSURLAuthenticationMethodNTLM = _$$ref.retainAndReturnPointer();
+}
+
+/// !
+/// @const NSURLAuthenticationMethodNegotiate
+/// @abstract Negotiate authentication.
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'NSURLAuthenticationMethodNegotiate',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _NSURLAuthenticationMethodNegotiate;
+
+objc.NSString get NSURLAuthenticationMethodNegotiate =>
+    objc.NSString.fromPointer(
+      _NSURLAuthenticationMethodNegotiate,
+      retain: true,
+      release: true,
+    );
+
+set NSURLAuthenticationMethodNegotiate(objc.NSString value) {
+  objc.NSString.fromPointer(
+    _NSURLAuthenticationMethodNegotiate,
+    retain: false,
+    release: true,
+  ).ref.release();
+  final _$$ref = value.ref;
+  _NSURLAuthenticationMethodNegotiate = _$$ref.retainAndReturnPointer();
+}
+
+/// !
+/// @const NSURLAuthenticationMethodServerTrust
+/// @abstract SecTrustRef validation required.  Applies to any protocol.
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'NSURLAuthenticationMethodServerTrust',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _NSURLAuthenticationMethodServerTrust;
+
+objc.NSString get NSURLAuthenticationMethodServerTrust =>
+    objc.NSString.fromPointer(
+      _NSURLAuthenticationMethodServerTrust,
+      retain: true,
+      release: true,
+    );
+
+set NSURLAuthenticationMethodServerTrust(objc.NSString value) {
+  objc.NSString.fromPointer(
+    _NSURLAuthenticationMethodServerTrust,
+    retain: false,
+    release: true,
+  ).ref.release();
+  final _$$ref = value.ref;
+  _NSURLAuthenticationMethodServerTrust = _$$ref.retainAndReturnPointer();
+}
+
+@ffi.Native<CFDataRef Function(SecCertificateRef)>()
+external CFDataRef SecCertificateCopyData(SecCertificateRef certificate);
+
+@ffi.Native<ffi.Pointer<objc.CFString> Function(SecCertificateRef)>()
+external ffi.Pointer<objc.CFString> SecCertificateCopySubjectSummary(
+  SecCertificateRef certificate,
+);
+
+@ffi.Native<SecCertificateRef Function(ffi.Pointer<__CFAllocator>, CFDataRef)>()
+external SecCertificateRef SecCertificateCreateWithData(
+  ffi.Pointer<__CFAllocator> allocator,
+  CFDataRef data,
+);
+
+@ffi.Native<CFArrayRef Function(SecTrustRef)>()
+external CFArrayRef SecTrustCopyCertificateChain(SecTrustRef trust);
+
+@ffi.Native<ffi.Bool Function(SecTrustRef, ffi.Pointer<CFErrorRef>)>()
+external bool SecTrustEvaluateWithError(
+  SecTrustRef trust,
+  ffi.Pointer<CFErrorRef> error,
+);
+
+@ffi.Native<ffi.Int Function(SecTrustRef, ffi.Pointer<ffi.UnsignedChar>)>()
+external int SecTrustGetNetworkFetchAllowed(
+  SecTrustRef trust,
+  ffi.Pointer<ffi.UnsignedChar> allowFetch,
+);
+
+@ffi.Native<ffi.Int Function(SecTrustRef, CFArrayRef)>()
+external int SecTrustSetAnchorCertificates(
+  SecTrustRef trust,
+  CFArrayRef anchorCertificates,
+);
+
+@ffi.Native<ffi.Int Function(SecTrustRef, ffi.UnsignedChar)>()
+external int SecTrustSetAnchorCertificatesOnly(
+  SecTrustRef trust,
+  int anchorCertificatesOnly,
+);
+
+@ffi.Native<ffi.Int Function(SecTrustRef, ffi.UnsignedChar)>()
+external int SecTrustSetNetworkFetchAllowed(SecTrustRef trust, int allowFetch);
+
 @ffi.Native<
   ffi.Void Function(
     ffi.Pointer<objc.ObjCObjectImpl>,
@@ -14,7 +259,7 @@ const _$objcVersionCheck = objc.ObjCVersionCheck(9, 6);
     ffi.Pointer<objc.ObjCObjectImpl>,
   )
 >()
-external void _1tf3our_protocolTrampoline_18v1jvf(
+external void _axjvnm_protocolTrampoline_18v1jvf(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -30,7 +275,7 @@ external void _1tf3our_protocolTrampoline_18v1jvf(
     ffi.Pointer<objc.ObjCObjectImpl>,
   )
 >()
-external void _1tf3our_protocolTrampoline_1lx650f(
+external void _axjvnm_protocolTrampoline_1lx650f(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -48,7 +293,7 @@ external void _1tf3our_protocolTrampoline_1lx650f(
     ffi.Pointer<objc.ObjCObjectImpl>,
   )
 >()
-external void _1tf3our_protocolTrampoline_1tz5yf(
+external void _axjvnm_protocolTrampoline_1tz5yf(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -65,7 +310,7 @@ external void _1tf3our_protocolTrampoline_1tz5yf(
     ffi.Pointer<objc.ObjCBlockImpl>,
   )
 >()
-external void _1tf3our_protocolTrampoline_bklti2(
+external void _axjvnm_protocolTrampoline_bklti2(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -81,7 +326,7 @@ external void _1tf3our_protocolTrampoline_bklti2(
     ffi.Pointer<objc.ObjCObjectImpl>,
   )
 >()
-external void _1tf3our_protocolTrampoline_fjrv01(
+external void _axjvnm_protocolTrampoline_fjrv01(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -99,7 +344,7 @@ external void _1tf3our_protocolTrampoline_fjrv01(
     ffi.Int64,
   )
 >()
-external void _1tf3our_protocolTrampoline_h68abb(
+external void _axjvnm_protocolTrampoline_h68abb(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -119,7 +364,7 @@ external void _1tf3our_protocolTrampoline_h68abb(
     ffi.Pointer<objc.ObjCBlockImpl>,
   )
 >()
-external void _1tf3our_protocolTrampoline_jyim80(
+external void _axjvnm_protocolTrampoline_jyim80(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -139,7 +384,7 @@ external void _1tf3our_protocolTrampoline_jyim80(
     ffi.Pointer<objc.ObjCBlockImpl>,
   )
 >()
-external void _1tf3our_protocolTrampoline_l2g8ke(
+external void _axjvnm_protocolTrampoline_l2g8ke(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -159,7 +404,7 @@ external void _1tf3our_protocolTrampoline_l2g8ke(
     ffi.Int64,
   )
 >()
-external void _1tf3our_protocolTrampoline_ly2579(
+external void _axjvnm_protocolTrampoline_ly2579(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -178,7 +423,7 @@ external void _1tf3our_protocolTrampoline_ly2579(
     ffi.Pointer<objc.ObjCBlockImpl>,
   )
 >()
-external void _1tf3our_protocolTrampoline_xx612k(
+external void _axjvnm_protocolTrampoline_xx612k(
   ffi.Pointer<objc.ObjCObjectImpl> target,
   ffi.Pointer<ffi.Void> arg0,
   ffi.Pointer<objc.ObjCObjectImpl> arg1,
@@ -198,7 +443,7 @@ external void _1tf3our_protocolTrampoline_xx612k(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_16sve1d(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_16sve1d(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -218,7 +463,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_16sve1d(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_18v1jvf(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_18v1jvf(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -238,7 +483,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_18v1jvf(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_1lx650f(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_1lx650f(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -258,7 +503,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_1lx650f(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_1otpo83(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_1otpo83(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -278,7 +523,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_1otpo83(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_1pl9qdv(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_1pl9qdv(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -298,7 +543,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_1pl9qdv(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_1tz5yf(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_1tz5yf(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -318,7 +563,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_1tz5yf(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_bklti2(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_bklti2(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -338,7 +583,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_bklti2(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_fjrv01(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_fjrv01(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -358,7 +603,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_fjrv01(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_h68abb(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_h68abb(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -378,7 +623,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_h68abb(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_jyim80(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_jyim80(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -398,7 +643,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_jyim80(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_l2g8ke(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_l2g8ke(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -418,7 +663,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_l2g8ke(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_ly2579(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_ly2579(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -438,7 +683,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_ly2579(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_n8yd09(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_n8yd09(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -458,7 +703,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_n8yd09(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_pfv6jd(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_pfv6jd(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -478,7 +723,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_pfv6jd(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_r8gdi7(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_r8gdi7(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -498,7 +743,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_r8gdi7(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_xtuoz7(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_xtuoz7(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -518,7 +763,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_xtuoz7(
     >,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_xx612k(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapBlockingBlock_xx612k(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
   ffi.Pointer<
@@ -533,7 +778,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapBlockingBlock_xx612k(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_16sve1d(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_16sve1d(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -544,7 +789,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_16sve1d(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_18v1jvf(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_18v1jvf(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -555,7 +800,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_18v1jvf(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_1lx650f(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_1lx650f(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -566,7 +811,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_1lx650f(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_1otpo83(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_1otpo83(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -577,7 +822,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_1otpo83(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_1pl9qdv(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_1pl9qdv(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -588,7 +833,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_1pl9qdv(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_1tz5yf(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_1tz5yf(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -599,7 +844,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_1tz5yf(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_bklti2(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_bklti2(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -610,7 +855,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_bklti2(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_fjrv01(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_fjrv01(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -621,7 +866,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_fjrv01(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_h68abb(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_h68abb(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -632,7 +877,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_h68abb(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_jyim80(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_jyim80(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -643,7 +888,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_jyim80(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_l2g8ke(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_l2g8ke(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -654,7 +899,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_l2g8ke(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_ly2579(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_ly2579(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -665,7 +910,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_ly2579(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_n8yd09(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_n8yd09(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -676,7 +921,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_n8yd09(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_pfv6jd(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_pfv6jd(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -687,7 +932,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_pfv6jd(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_r8gdi7(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_r8gdi7(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -698,7 +943,7 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_r8gdi7(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_xtuoz7(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_xtuoz7(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
@@ -709,10 +954,14 @@ external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_xtuoz7(
     ffi.Pointer<objc.DOBJC_Context>,
   )
 >(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _1tf3our_wrapListenerBlock_xx612k(
+external ffi.Pointer<objc.ObjCBlockImpl> _axjvnm_wrapListenerBlock_xx612k(
   int port,
   ffi.Pointer<objc.DOBJC_Context> context,
 );
+
+typedef CFArrayRef = ffi.Pointer<__CFArray>;
+typedef CFDataRef = ffi.Pointer<__CFData>;
+typedef CFErrorRef = ffi.Pointer<__CFError>;
 
 /// WARNING: NSCachedURLResponse is a stub. To generate bindings for this class, include
 /// NSCachedURLResponse in your config's objc-interfaces list.
@@ -749,6 +998,85 @@ extension type NSCachedURLResponse._(objc.ObjCObject object$)
       iOS: (false, (2, 0, 0)),
       macOS: (false, (10, 2, 0)),
     );
+  }
+}
+
+/// !
+/// @discussion This category defines the methods available to an NSURLCredential created to represent a client certificate credential.  Client certificates are commonly stored on the users computer in the keychain and must be presented to the server during a handshake.
+extension NSClientCertificate on NSURLCredential {
+  /// !
+  /// @abstract Returns an NSArray of SecCertificateRef objects representing the client certificate for this credential, if this credential was created with an identity and certificate.
+  /// @result an NSArray of SecCertificateRef or NULL if this is a username/password credential
+  objc.NSArray get certificates {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.certificates',
+      iOS: (false, (3, 0, 0)),
+      macOS: (false, (10, 6, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_certificates);
+    return objc.NSArray.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @abstract Returns the SecIdentityRef of this credential, if it was created with a certificate and identity
+  /// @result A SecIdentityRef or NULL if this is a username/password credential
+  ffi.Pointer<__SecIdentity> get identity {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.identity',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    return _objc_msgSend_nkb3zz(_$$ref.pointer, _sel_identity);
+  }
+
+  /// !
+  /// @method credentialWithIdentity:certificates:persistence:
+  /// @abstract Create a new NSURLCredential with an identity and certificate array
+  /// @param identity a SecIdentityRef object
+  /// @param certArray an array containing at least one SecCertificateRef objects
+  /// @param persistence enum that says to store per session, permanently or not at all
+  /// @result The new autoreleased NSURLCredential
+  static NSURLCredential credentialWithIdentity(
+    ffi.Pointer<__SecIdentity> identity, {
+    objc.NSArray? certificates,
+    required NSURLCredentialPersistence persistence,
+  }) {
+    final _$$ref = certificates?.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.credentialWithIdentity:certificates:persistence:',
+      iOS: (false, (3, 0, 0)),
+      macOS: (false, (10, 6, 0)),
+    );
+    final $ret = _objc_msgSend_jfo4g1(
+      _class_NSURLCredential,
+      _sel_credentialWithIdentity_certificates_persistence_,
+      identity,
+      _$$ref?.pointer ?? ffi.nullptr,
+      persistence.value,
+    );
+    return NSURLCredential.fromPointer($ret, retain: true, release: true);
+  }
+}
+
+/// !
+/// @discussion This category supplies additional information for use when a client certificate is required by the server in order to complete authentication.
+extension NSClientCertificateSpace on NSURLProtectionSpace {
+  /// !
+  /// @abstract Returns an array of acceptable certificate issuing authorities for client certification authentication. Issuers are identified by their distinguished name and returned as a DER encoded data.
+  /// @result An array of NSData objects.  (Nil if the authenticationMethod is not NSURLAuthenticationMethodClientCertificate)
+  objc.NSArray? get distinguishedNames {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.distinguishedNames',
+      iOS: (false, (3, 0, 0)),
+      macOS: (false, (10, 6, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_distinguishedNames);
+    return $ret.address == 0
+        ? null
+        : objc.NSArray.fromPointer($ret, retain: true, release: true);
   }
 }
 
@@ -1388,6 +1716,91 @@ extension NSHTTPURLResponse$Methods on NSHTTPURLResponse {
   }
 }
 
+/// !
+/// @discussion This category defines the methods available to an NSURLCredential created to represent an internet password credential.  These are most commonly used for resources that require a username and password combination.
+extension NSInternetPassword on NSURLCredential {
+  /// !
+  /// @abstract Find out if this credential has a password, without trying to get it
+  /// @result YES if this credential has a password, otherwise NO
+  /// @discussion If this credential's password is actually kept in an
+  /// external store, the password method may return nil even if this
+  /// method returns YES, since getting the password may fail, or the
+  /// user may refuse access.
+  bool get hasPassword {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.hasPassword',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    return _objc_msgSend_91o635(_$$ref.pointer, _sel_hasPassword);
+  }
+
+  /// !
+  /// @abstract Get the password
+  /// @result The password string
+  /// @discussion This method might actually attempt to retrieve the
+  /// password from an external store, possible resulting in prompting,
+  /// so do not call it unless needed.
+  objc.NSString? get password {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.password',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_password);
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @abstract Get the username
+  /// @result The user string
+  objc.NSString? get user {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.user',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_user);
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @method credentialWithUser:password:persistence:
+  /// @abstract Create a new NSURLCredential with a user and password
+  /// @param user the username
+  /// @param password the password
+  /// @param persistence enum that says to store per session, permanently or not at all
+  /// @result The new autoreleased NSURLCredential
+  static NSURLCredential credentialWithUser(
+    objc.NSString user, {
+    required objc.NSString password,
+    required NSURLCredentialPersistence persistence,
+  }) {
+    final _$$ref = user.ref;
+    final _$$ref$1 = password.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.credentialWithUser:password:persistence:',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_17ns785(
+      _class_NSURLCredential,
+      _sel_credentialWithUser_password_persistence_,
+      _$$ref.pointer,
+      _$$ref$1.pointer,
+      persistence.value,
+    );
+    return NSURLCredential.fromPointer($ret, retain: true, release: true);
+  }
+}
+
 /// WARNING: NSLocking is a stub. To generate bindings for this class, include
 /// NSLocking in your config's objc-protocols list.
 ///
@@ -1962,6 +2375,24 @@ extension NSMutableURLRequest$Methods on NSMutableURLRequest {
   }
 
   /// !
+  /// @abstract sets whether a connection created with this request is allowed to use
+  /// network interfaces which have been marked as ultra constrained.
+  /// @discussion NO if the receiver should not be allowed to use an interface marked as ultra constrained to
+  /// satisfy the request, YES otherwise.
+  bool get allowsUltraConstrainedNetworkAccess {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSMutableURLRequest.allowsUltraConstrainedNetworkAccess',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    return _objc_msgSend_91o635(
+      _$$ref.pointer,
+      _sel_allowsUltraConstrainedNetworkAccess,
+    );
+  }
+
+  /// !
   /// @abstract returns whether we assume that server supports HTTP/3. Enables QUIC
   /// racing without HTTP/3 service discovery.
   /// @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
@@ -2226,6 +2657,25 @@ extension NSMutableURLRequest$Methods on NSMutableURLRequest {
       macOS: (false, (15, 0, 0)),
     );
     _objc_msgSend_1s56lr9(_$$ref.pointer, _sel_setAllowsPersistentDNS_, value);
+  }
+
+  /// !
+  /// @abstract sets whether a connection created with this request is allowed to use
+  /// network interfaces which have been marked as ultra constrained.
+  /// @discussion NO if the receiver should not be allowed to use an interface marked as ultra constrained to
+  /// satisfy the request, YES otherwise.
+  set allowsUltraConstrainedNetworkAccess$1(bool value) {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSMutableURLRequest.setAllowsUltraConstrainedNetworkAccess:',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    _objc_msgSend_1s56lr9(
+      _$$ref.pointer,
+      _sel_setAllowsUltraConstrainedNetworkAccess_,
+      value,
+    );
   }
 
   /// !
@@ -2803,21 +3253,397 @@ extension type NSProgressReporting._(objc.ObjCProtocol object$)
   }) : object$ = objc.ObjCProtocol(other, retain: retain, release: release);
 }
 
-/// WARNING: NSURLAuthenticationChallenge is a stub. To generate bindings for this class, include
-/// NSURLAuthenticationChallenge in your config's objc-interfaces list.
-///
-/// NSURLAuthenticationChallenge
+/// NSServerTrust
+extension NSServerTrust on NSURLCredential {
+  /// !
+  /// @method credentialForTrust:
+  /// @abstract Create a new NSURLCredential which specifies that a handshake has been trusted.
+  /// @result The new autoreleased NSURLCredential
+  static NSURLCredential credentialForTrust(SecTrustRef trust) {
+    objc.checkOsVersionInternal(
+      'NSURLCredential.credentialForTrust:',
+      iOS: (false, (3, 0, 0)),
+      macOS: (false, (10, 6, 0)),
+    );
+    final $ret = _objc_msgSend_1s3ecd1(
+      _class_NSURLCredential,
+      _sel_credentialForTrust_,
+      trust,
+    );
+    return NSURLCredential.fromPointer($ret, retain: true, release: true);
+  }
+}
+
+/// !
+/// @discussion This category supplies additional information for use by the client to evaluate whether to trust a given server during a security handshake.
+extension NSServerTrustValidationSpace on NSURLProtectionSpace {
+  /// !
+  /// @abstract Returns a SecTrustRef which represents the state of the servers SSL transaction state
+  /// @result A SecTrustRef from Security.framework.  (Nil if the authenticationMethod is not NSURLAuthenticationMethodServerTrust)
+  SecTrustRef get serverTrust {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.serverTrust',
+      iOS: (false, (3, 0, 0)),
+      macOS: (false, (10, 6, 0)),
+    );
+    return _objc_msgSend_1ommad9(_$$ref.pointer, _sel_serverTrust);
+  }
+}
+
+/// !
+/// @class NSURLAuthenticationChallenge
+/// @discussion This class represents an authentication challenge. It
+/// provides all the information about the challenge, and has a method
+/// to indicate when it's done.
 extension type NSURLAuthenticationChallenge._(objc.ObjCObject object$)
-    implements objc.ObjCObject {
+    implements objc.ObjCObject, objc.NSObject, objc.NSSecureCoding {
   /// Constructs a [NSURLAuthenticationChallenge] that points to the same underlying object as [other].
-  NSURLAuthenticationChallenge.as(objc.ObjCObject other) : object$ = other {}
+  NSURLAuthenticationChallenge.as(objc.ObjCObject other) : object$ = other {
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    assert(isA(object$));
+  }
 
   /// Constructs a [NSURLAuthenticationChallenge] that wraps the given raw object pointer.
   NSURLAuthenticationChallenge.fromPointer(
     ffi.Pointer<objc.ObjCObjectImpl> other, {
     bool retain = false,
     bool release = false,
-  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {}
+  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    assert(isA(object$));
+  }
+
+  /// Returns whether [obj] is an instance of [NSURLAuthenticationChallenge].
+  static bool isA(objc.ObjCObject? obj) => obj == null
+      ? false
+      : _objc_msgSend_19nvye5(
+          obj.ref.pointer,
+          _sel_isKindOfClass_,
+          _class_NSURLAuthenticationChallenge,
+        );
+
+  /// alloc
+  static NSURLAuthenticationChallenge alloc() {
+    final $ret = _objc_msgSend_151sglz(
+      _class_NSURLAuthenticationChallenge,
+      _sel_alloc,
+    );
+    return NSURLAuthenticationChallenge.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// allocWithZone:
+  static NSURLAuthenticationChallenge allocWithZone(
+    ffi.Pointer<objc.NSZone> zone,
+  ) {
+    final $ret = _objc_msgSend_1cwp428(
+      _class_NSURLAuthenticationChallenge,
+      _sel_allocWithZone_,
+      zone,
+    );
+    return NSURLAuthenticationChallenge.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// new
+  static NSURLAuthenticationChallenge new$() {
+    final $ret = _objc_msgSend_151sglz(
+      _class_NSURLAuthenticationChallenge,
+      _sel_new,
+    );
+    return NSURLAuthenticationChallenge.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// supportsSecureCoding
+  static bool getSupportsSecureCoding() {
+    return _objc_msgSend_91o635(
+      _class_NSURLAuthenticationChallenge,
+      _sel_supportsSecureCoding,
+    );
+  }
+
+  /// Returns a new instance of NSURLAuthenticationChallenge constructed with the default `new` method.
+  NSURLAuthenticationChallenge() : this.as(new$().object$);
+}
+
+extension NSURLAuthenticationChallenge$Methods on NSURLAuthenticationChallenge {
+  /// encodeWithCoder:
+  void encodeWithCoder(objc.NSCoder coder) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
+    _objc_msgSend_xtuoz7(
+      _$$ref.pointer,
+      _sel_encodeWithCoder_,
+      _$$ref$1.pointer,
+    );
+  }
+
+  /// !
+  /// @abstract Get the error representing authentication failure.
+  /// @discussion If there was a previous authentication failure, and
+  /// this protocol uses errors to indicate authentication failure,
+  /// then this method will return the error. Otherwise it will
+  /// return nil.
+  objc.NSError? get error {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.error',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_error);
+    return $ret.address == 0
+        ? null
+        : objc.NSError.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @abstract Get the response representing authentication failure.
+  /// @result The failure response or nil
+  /// @discussion If there was a previous authentication failure, and
+  /// this protocol uses responses to indicate authentication failure,
+  /// then this method will return the response. Otherwise it will
+  /// return nil.
+  NSURLResponse? get failureResponse {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.failureResponse',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_failureResponse);
+    return $ret.address == 0
+        ? null
+        : NSURLResponse.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// init
+  NSURLAuthenticationChallenge init() {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.init',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 0, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.retainAndReturnPointer(),
+      _sel_init,
+    );
+    return NSURLAuthenticationChallenge.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// !
+  /// @method initWithAuthenticationChallenge:
+  /// @abstract Initialize an authentication challenge copying all parameters from another one.
+  /// @result A new challenge initialized with the parameters from the passed in challenge
+  /// @discussion This initializer may be useful to subclassers that want to proxy
+  /// one type of authentication challenge to look like another type.
+  NSURLAuthenticationChallenge initWithAuthenticationChallenge(
+    NSURLAuthenticationChallenge challenge, {
+    required NSURLAuthenticationChallengeSender sender,
+  }) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = challenge.ref;
+    final _$$ref$2 = sender.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.initWithAuthenticationChallenge:sender:',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_15qeuct(
+      _$$ref.retainAndReturnPointer(),
+      _sel_initWithAuthenticationChallenge_sender_,
+      _$$ref$1.pointer,
+      _$$ref$2.pointer,
+    );
+    return NSURLAuthenticationChallenge.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// initWithCoder:
+  NSURLAuthenticationChallenge? initWithCoder(objc.NSCoder coder) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
+    final $ret = _objc_msgSend_1sotr3r(
+      _$$ref.retainAndReturnPointer(),
+      _sel_initWithCoder_,
+      _$$ref$1.pointer,
+    );
+    return $ret.address == 0
+        ? null
+        : NSURLAuthenticationChallenge.fromPointer(
+            $ret,
+            retain: false,
+            release: true,
+          );
+  }
+
+  /// !
+  /// @method initWithProtectionSpace:proposedCredential:previousFailureCount:failureResponse:error:
+  /// @abstract Initialize an authentication challenge
+  /// @param space The NSURLProtectionSpace to use
+  /// @param credential The proposed NSURLCredential for this challenge, or nil
+  /// @param previousFailureCount A count of previous failures attempting access.
+  /// @param response The NSURLResponse for the authentication failure, if applicable, else nil
+  /// @param error The NSError for the authentication failure, if applicable, else nil
+  /// @result An authentication challenge initialized with the specified parameters
+  NSURLAuthenticationChallenge initWithProtectionSpace(
+    NSURLProtectionSpace space, {
+    NSURLCredential? proposedCredential,
+    required int previousFailureCount,
+    NSURLResponse? failureResponse,
+    objc.NSError? error,
+    required NSURLAuthenticationChallengeSender sender,
+  }) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = space.ref;
+    final _$$ref$2 = proposedCredential?.ref;
+    final _$$ref$3 = failureResponse?.ref;
+    final _$$ref$4 = error?.ref;
+    final _$$ref$5 = sender.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.initWithProtectionSpace:proposedCredential:previousFailureCount:failureResponse:error:sender:',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_1lknv2x(
+      _$$ref.retainAndReturnPointer(),
+      _sel_initWithProtectionSpace_proposedCredential_previousFailureCount_failureResponse_error_sender_,
+      _$$ref$1.pointer,
+      _$$ref$2?.pointer ?? ffi.nullptr,
+      previousFailureCount,
+      _$$ref$3?.pointer ?? ffi.nullptr,
+      _$$ref$4?.pointer ?? ffi.nullptr,
+      _$$ref$5.pointer,
+    );
+    return NSURLAuthenticationChallenge.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// !
+  /// @abstract Get count of previous failed authentication attempts
+  /// @result The count of previous failures
+  int get previousFailureCount {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.previousFailureCount',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    return _objc_msgSend_1hz7y9r(_$$ref.pointer, _sel_previousFailureCount);
+  }
+
+  /// !
+  /// @abstract Get the proposed credential for this challenge
+  /// @result The proposed credential
+  /// @discussion proposedCredential may be nil, if there is no default
+  /// credential to use for this challenge (either stored or in the
+  /// URL). If the credential is not nil and returns YES for
+  /// hasPassword, this means the NSURLConnection thinks the credential
+  /// is ready to use as-is. If it returns NO for hasPassword, then the
+  /// credential is not ready to use as-is, but provides a default
+  /// username the client could use when prompting.
+  NSURLCredential? get proposedCredential {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.proposedCredential',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_proposedCredential);
+    return $ret.address == 0
+        ? null
+        : NSURLCredential.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @abstract Get a description of the protection space that requires authentication
+  /// @result The protection space that needs authentication
+  NSURLProtectionSpace get protectionSpace {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.protectionSpace',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_protectionSpace);
+    return NSURLProtectionSpace.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @abstract Get the sender of this challenge
+  /// @result The sender of the challenge
+  /// @discussion The sender is the object you should reply to when done processing the challenge.
+  NSURLAuthenticationChallengeSender? get sender {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLAuthenticationChallenge.sender',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_sender);
+    return $ret.address == 0
+        ? null
+        : NSURLAuthenticationChallengeSender.fromPointer(
+            $ret,
+            retain: true,
+            release: true,
+          );
+  }
+}
+
+/// WARNING: NSURLAuthenticationChallengeSender is a stub. To generate bindings for this class, include
+/// NSURLAuthenticationChallengeSender in your config's objc-protocols list.
+///
+/// !
+/// @protocol NSURLAuthenticationChallengeSender
+/// @discussion This protocol represents the sender of an
+/// authentication challenge. It has methods to provide a credential,
+/// to continue without any credential, getting whatever failure
+/// result would happen in that case, cancel a challenge, perform the default
+/// action as defined by the system, or reject the currently supplied protection-space
+/// in the challenge.
+extension type NSURLAuthenticationChallengeSender._(objc.ObjCProtocol object$)
+    implements objc.ObjCProtocol, objc.NSObjectProtocol {
+  /// Constructs a [NSURLAuthenticationChallengeSender] that points to the same underlying object as [other].
+  NSURLAuthenticationChallengeSender.as(objc.ObjCObject other)
+    : object$ = other;
+
+  /// Constructs a [NSURLAuthenticationChallengeSender] that wraps the given raw object pointer.
+  NSURLAuthenticationChallengeSender.fromPointer(
+    ffi.Pointer<objc.ObjCObjectImpl> other, {
+    bool retain = false,
+    bool release = false,
+  }) : object$ = objc.ObjCProtocol(other, retain: retain, release: release);
 }
 
 /// NSURLCache
@@ -3230,21 +4056,153 @@ extension NSURLCache$Methods on NSURLCache {
   }
 }
 
-/// WARNING: NSURLCredential is a stub. To generate bindings for this class, include
-/// NSURLCredential in your config's objc-interfaces list.
-///
 /// NSURLCredential
 extension type NSURLCredential._(objc.ObjCObject object$)
-    implements objc.ObjCObject {
+    implements
+        objc.ObjCObject,
+        objc.NSObject,
+        objc.NSSecureCoding,
+        objc.NSCopying {
   /// Constructs a [NSURLCredential] that points to the same underlying object as [other].
-  NSURLCredential.as(objc.ObjCObject other) : object$ = other {}
+  NSURLCredential.as(objc.ObjCObject other) : object$ = other {
+    assert(isA(object$));
+  }
 
   /// Constructs a [NSURLCredential] that wraps the given raw object pointer.
   NSURLCredential.fromPointer(
     ffi.Pointer<objc.ObjCObjectImpl> other, {
     bool retain = false,
     bool release = false,
-  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {}
+  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {
+    assert(isA(object$));
+  }
+
+  /// Returns whether [obj] is an instance of [NSURLCredential].
+  static bool isA(objc.ObjCObject? obj) => obj == null
+      ? false
+      : _objc_msgSend_19nvye5(
+          obj.ref.pointer,
+          _sel_isKindOfClass_,
+          _class_NSURLCredential,
+        );
+
+  /// alloc
+  static NSURLCredential alloc() {
+    final $ret = _objc_msgSend_151sglz(_class_NSURLCredential, _sel_alloc);
+    return NSURLCredential.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSURLCredential allocWithZone(ffi.Pointer<objc.NSZone> zone) {
+    final $ret = _objc_msgSend_1cwp428(
+      _class_NSURLCredential,
+      _sel_allocWithZone_,
+      zone,
+    );
+    return NSURLCredential.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSURLCredential new$() {
+    final $ret = _objc_msgSend_151sglz(_class_NSURLCredential, _sel_new);
+    return NSURLCredential.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// supportsSecureCoding
+  static bool getSupportsSecureCoding() {
+    return _objc_msgSend_91o635(
+      _class_NSURLCredential,
+      _sel_supportsSecureCoding,
+    );
+  }
+
+  /// Returns a new instance of NSURLCredential constructed with the default `new` method.
+  NSURLCredential() : this.as(new$().object$);
+}
+
+extension NSURLCredential$Methods on NSURLCredential {
+  /// encodeWithCoder:
+  void encodeWithCoder(objc.NSCoder coder) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
+    _objc_msgSend_xtuoz7(
+      _$$ref.pointer,
+      _sel_encodeWithCoder_,
+      _$$ref$1.pointer,
+    );
+  }
+
+  /// init
+  NSURLCredential init() {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.init',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 0, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.retainAndReturnPointer(),
+      _sel_init,
+    );
+    return NSURLCredential.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// initWithCoder:
+  NSURLCredential? initWithCoder(objc.NSCoder coder) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
+    final $ret = _objc_msgSend_1sotr3r(
+      _$$ref.retainAndReturnPointer(),
+      _sel_initWithCoder_,
+      _$$ref$1.pointer,
+    );
+    return $ret.address == 0
+        ? null
+        : NSURLCredential.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @abstract Determine whether this credential is or should be stored persistently
+  /// @result A value indicating whether this credential is stored permanently, per session or not at all.
+  NSURLCredentialPersistence get persistence {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLCredential.persistence',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_bscj0h(_$$ref.pointer, _sel_persistence);
+    return NSURLCredentialPersistence.fromValue($ret);
+  }
+}
+
+/// !
+/// @enum NSURLCredentialPersistence
+/// @abstract Constants defining how long a credential will be kept around
+/// @constant NSURLCredentialPersistenceNone This credential won't be saved.
+/// @constant NSURLCredentialPersistenceForSession This credential will only be stored for this session.
+/// @constant NSURLCredentialPersistencePermanent This credential will be stored permanently. Note: Whereas in Mac OS X any application can access any credential provided the user gives permission, in iPhone OS an application can access only its own credentials.
+/// @constant NSURLCredentialPersistenceSynchronizable This credential will be stored permanently. Additionally, this credential will be distributed to other devices based on the owning AppleID.
+/// Note: Whereas in Mac OS X any application can access any credential provided the user gives permission, on iOS an application can
+/// access only its own credentials.
+enum NSURLCredentialPersistence {
+  NSURLCredentialPersistenceNone(0),
+  NSURLCredentialPersistenceForSession(1),
+  NSURLCredentialPersistencePermanent(2),
+  NSURLCredentialPersistenceSynchronizable(3);
+
+  final int value;
+  const NSURLCredentialPersistence(this.value);
+
+  static NSURLCredentialPersistence fromValue(int value) => switch (value) {
+    0 => NSURLCredentialPersistenceNone,
+    1 => NSURLCredentialPersistenceForSession,
+    2 => NSURLCredentialPersistencePermanent,
+    3 => NSURLCredentialPersistenceSynchronizable,
+    _ => throw ArgumentError(
+      'Unknown value for NSURLCredentialPersistence: $value',
+    ),
+  };
 }
 
 /// WARNING: NSURLCredentialStorage is a stub. To generate bindings for this class, include
@@ -3262,6 +4220,320 @@ extension type NSURLCredentialStorage._(objc.ObjCObject object$)
     bool retain = false,
     bool release = false,
   }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {}
+}
+
+/// NSURLProtectionSpace
+extension type NSURLProtectionSpace._(objc.ObjCObject object$)
+    implements
+        objc.ObjCObject,
+        objc.NSObject,
+        objc.NSSecureCoding,
+        objc.NSCopying {
+  /// Constructs a [NSURLProtectionSpace] that points to the same underlying object as [other].
+  NSURLProtectionSpace.as(objc.ObjCObject other) : object$ = other {
+    assert(isA(object$));
+  }
+
+  /// Constructs a [NSURLProtectionSpace] that wraps the given raw object pointer.
+  NSURLProtectionSpace.fromPointer(
+    ffi.Pointer<objc.ObjCObjectImpl> other, {
+    bool retain = false,
+    bool release = false,
+  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {
+    assert(isA(object$));
+  }
+
+  /// Returns whether [obj] is an instance of [NSURLProtectionSpace].
+  static bool isA(objc.ObjCObject? obj) => obj == null
+      ? false
+      : _objc_msgSend_19nvye5(
+          obj.ref.pointer,
+          _sel_isKindOfClass_,
+          _class_NSURLProtectionSpace,
+        );
+
+  /// alloc
+  static NSURLProtectionSpace alloc() {
+    final $ret = _objc_msgSend_151sglz(_class_NSURLProtectionSpace, _sel_alloc);
+    return NSURLProtectionSpace.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSURLProtectionSpace allocWithZone(ffi.Pointer<objc.NSZone> zone) {
+    final $ret = _objc_msgSend_1cwp428(
+      _class_NSURLProtectionSpace,
+      _sel_allocWithZone_,
+      zone,
+    );
+    return NSURLProtectionSpace.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSURLProtectionSpace new$() {
+    final $ret = _objc_msgSend_151sglz(_class_NSURLProtectionSpace, _sel_new);
+    return NSURLProtectionSpace.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// supportsSecureCoding
+  static bool getSupportsSecureCoding() {
+    return _objc_msgSend_91o635(
+      _class_NSURLProtectionSpace,
+      _sel_supportsSecureCoding,
+    );
+  }
+
+  /// Returns a new instance of NSURLProtectionSpace constructed with the default `new` method.
+  NSURLProtectionSpace() : this.as(new$().object$);
+}
+
+extension NSURLProtectionSpace$Methods on NSURLProtectionSpace {
+  /// !
+  /// @abstract Get the authentication method to be used for this protection space
+  /// @result The authentication method
+  objc.NSString get authenticationMethod {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.authenticationMethod',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.pointer,
+      _sel_authenticationMethod,
+    );
+    return objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// encodeWithCoder:
+  void encodeWithCoder(objc.NSCoder coder) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
+    _objc_msgSend_xtuoz7(
+      _$$ref.pointer,
+      _sel_encodeWithCoder_,
+      _$$ref$1.pointer,
+    );
+  }
+
+  /// !
+  /// @abstract Get the proxy host if this is a proxy authentication, or the host from the URL.
+  /// @result The host for this protection space.
+  objc.NSString get host {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.host',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_host);
+    return objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// init
+  NSURLProtectionSpace init() {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.init',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 0, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.retainAndReturnPointer(),
+      _sel_init,
+    );
+    return NSURLProtectionSpace.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// initWithCoder:
+  NSURLProtectionSpace? initWithCoder(objc.NSCoder coder) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = coder.ref;
+    final $ret = _objc_msgSend_1sotr3r(
+      _$$ref.retainAndReturnPointer(),
+      _sel_initWithCoder_,
+      _$$ref$1.pointer,
+    );
+    return $ret.address == 0
+        ? null
+        : NSURLProtectionSpace.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @method initWithHost:port:protocol:realm:authenticationMethod:
+  /// @abstract Initialize a protection space representing an origin server, or a realm on one
+  /// @param host The hostname of the server
+  /// @param port The port for the server
+  /// @param protocol The protocol for this server - e.g. "http", "ftp", "https"
+  /// @param realm A string indicating a protocol-specific subdivision
+  /// of a single host. For http and https, this maps to the realm
+  /// string in http authentication challenges. For many other protocols
+  /// it is unused.
+  /// @param authenticationMethod The authentication method to use to access this protection space -
+  /// valid values include nil (default method), @"digest" and @"form".
+  /// @result The initialized object.
+  NSURLProtectionSpace initWithHost(
+    objc.NSString host, {
+    required int port,
+    objc.NSString? protocol,
+    objc.NSString? realm,
+    objc.NSString? authenticationMethod,
+  }) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = host.ref;
+    final _$$ref$2 = protocol?.ref;
+    final _$$ref$3 = realm?.ref;
+    final _$$ref$4 = authenticationMethod?.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.initWithHost:port:protocol:realm:authenticationMethod:',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_qfck4v(
+      _$$ref.retainAndReturnPointer(),
+      _sel_initWithHost_port_protocol_realm_authenticationMethod_,
+      _$$ref$1.pointer,
+      port,
+      _$$ref$2?.pointer ?? ffi.nullptr,
+      _$$ref$3?.pointer ?? ffi.nullptr,
+      _$$ref$4?.pointer ?? ffi.nullptr,
+    );
+    return NSURLProtectionSpace.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @method initWithProxyHost:port:type:realm:authenticationMethod:
+  /// @abstract Initialize a protection space representing a proxy server, or a realm on one
+  /// @param host The hostname of the proxy server
+  /// @param port The port for the proxy server
+  /// @param type The type of proxy - e.g. "http", "ftp", "SOCKS"
+  /// @param realm A string indicating a protocol-specific subdivision
+  /// of a single host. For http and https, this maps to the realm
+  /// string in http authentication challenges. For many other protocols
+  /// it is unused.
+  /// @param authenticationMethod The authentication method to use to access this protection space -
+  /// valid values include nil (default method) and @"digest"
+  /// @result The initialized object.
+  NSURLProtectionSpace initWithProxyHost(
+    objc.NSString host, {
+    required int port,
+    objc.NSString? type,
+    objc.NSString? realm,
+    objc.NSString? authenticationMethod,
+  }) {
+    final _$$ref = object$.ref;
+    final _$$ref$1 = host.ref;
+    final _$$ref$2 = type?.ref;
+    final _$$ref$3 = realm?.ref;
+    final _$$ref$4 = authenticationMethod?.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.initWithProxyHost:port:type:realm:authenticationMethod:',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_qfck4v(
+      _$$ref.retainAndReturnPointer(),
+      _sel_initWithProxyHost_port_type_realm_authenticationMethod_,
+      _$$ref$1.pointer,
+      port,
+      _$$ref$2?.pointer ?? ffi.nullptr,
+      _$$ref$3?.pointer ?? ffi.nullptr,
+      _$$ref$4?.pointer ?? ffi.nullptr,
+    );
+    return NSURLProtectionSpace.fromPointer($ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @abstract Determine if this authenticating protection space is a proxy server
+  /// @result YES if a proxy, NO otherwise
+  bool get isProxy {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.isProxy',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    return _objc_msgSend_91o635(_$$ref.pointer, _sel_isProxy);
+  }
+
+  /// !
+  /// @abstract Get the proxy port if this is a proxy authentication, or the port from the URL.
+  /// @result The port for this protection space, or 0 if not set.
+  int get port {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.port',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    return _objc_msgSend_1hz7y9r(_$$ref.pointer, _sel_port);
+  }
+
+  /// !
+  /// @abstract Get the protocol of this protection space, if not a proxy
+  /// @result The type string, or nil if a proxy.
+  objc.NSString? get protocol {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.protocol',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_protocol);
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @abstract Get the type of this protection space, if a proxy
+  /// @result The type string, or nil if not a proxy.
+  objc.NSString? get proxyType {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.proxyType',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_proxyType);
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @abstract Get the authentication realm for which the protection space that
+  /// needs authentication
+  /// @discussion This is generally only available for http
+  /// authentication, and may be nil otherwise.
+  /// @result The realm string
+  objc.NSString? get realm {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.realm',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_realm);
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// !
+  /// @abstract Determine if the password for this protection space can be sent securely
+  /// @result YES if a secure authentication method or protocol will be used, NO otherwise
+  bool get receivesCredentialSecurely {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLProtectionSpace.receivesCredentialSecurely',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 2, 0)),
+    );
+    return _objc_msgSend_91o635(
+      _$$ref.pointer,
+      _sel_receivesCredentialSecurely,
+    );
+  }
 }
 
 /// NSURLRequest
@@ -3463,6 +4735,24 @@ extension NSURLRequest$Methods on NSURLRequest {
       macOS: (false, (15, 0, 0)),
     );
     return _objc_msgSend_91o635(_$$ref.pointer, _sel_allowsPersistentDNS);
+  }
+
+  /// !
+  /// @abstract returns whether a connection created with this request is allowed to use
+  /// network interfaces which have been marked as ultra constrained.
+  /// @result YES if the receiver is allowed to use an interface marked as ultra constrained to
+  /// satisfy the request, NO otherwise.
+  bool get allowsUltraConstrainedNetworkAccess {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLRequest.allowsUltraConstrainedNetworkAccess',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    return _objc_msgSend_91o635(
+      _$$ref.pointer,
+      _sel_allowsUltraConstrainedNetworkAccess,
+    );
   }
 
   /// !
@@ -5474,6 +6764,20 @@ extension NSURLSessionConfiguration$Methods on NSURLSessionConfiguration {
     );
   }
 
+  /// allow request to route over ultra constrained networks.
+  bool get allowsUltraConstrainedNetworkAccess {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionConfiguration.allowsUltraConstrainedNetworkAccess',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    return _objc_msgSend_91o635(
+      _$$ref.pointer,
+      _sel_allowsUltraConstrainedNetworkAccess,
+    );
+  }
+
   /// The proxy dictionary, as described by <CFNetwork/CFHTTPStream.h>
   objc.NSDictionary? get connectionProxyDictionary {
     final _$$ref = object$.ref;
@@ -5695,6 +6999,21 @@ extension NSURLSessionConfiguration$Methods on NSURLSessionConfiguration {
     _objc_msgSend_1s56lr9(
       _$$ref.pointer,
       _sel_setAllowsExpensiveNetworkAccess_,
+      value,
+    );
+  }
+
+  /// allow request to route over ultra constrained networks.
+  set allowsUltraConstrainedNetworkAccess(bool value) {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionConfiguration.setAllowsUltraConstrainedNetworkAccess:',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    _objc_msgSend_1s56lr9(
+      _$$ref.pointer,
+      _sel_setAllowsUltraConstrainedNetworkAccess_,
       value,
     );
   }
@@ -8159,7 +9478,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8251,7 +9570,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8328,7 +9647,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8394,7 +9713,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_xx612k)
+            >(_axjvnm_protocolTrampoline_xx612k)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8485,7 +9804,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_xx612k)
+            >(_axjvnm_protocolTrampoline_xx612k)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8567,7 +9886,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8621,7 +9940,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8683,7 +10002,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_bklti2)
+            >(_axjvnm_protocolTrampoline_bklti2)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8762,7 +10081,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8816,7 +10135,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8888,7 +10207,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_xx612k)
+            >(_axjvnm_protocolTrampoline_xx612k)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -8972,7 +10291,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -9035,7 +10354,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Int64,
                 )
               >
-            >(_1tf3our_protocolTrampoline_h68abb)
+            >(_axjvnm_protocolTrampoline_h68abb)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -9101,7 +10420,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_bklti2)
+            >(_axjvnm_protocolTrampoline_bklti2)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -9188,7 +10507,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_jyim80)
+            >(_axjvnm_protocolTrampoline_jyim80)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -9294,7 +10613,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_xx612k)
+            >(_axjvnm_protocolTrampoline_xx612k)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -9390,7 +10709,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_l2g8ke)
+            >(_axjvnm_protocolTrampoline_l2g8ke)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -9484,7 +10803,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -9537,7 +10856,7 @@ interface class NSURLSessionDataDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_18v1jvf)
+            >(_axjvnm_protocolTrampoline_18v1jvf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDataDelegate,
@@ -11295,7 +12614,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11349,7 +12668,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11411,7 +12730,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_bklti2)
+            >(_axjvnm_protocolTrampoline_bklti2)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11492,7 +12811,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11559,7 +12878,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Int64,
                 )
               >
-            >(_1tf3our_protocolTrampoline_ly2579)
+            >(_axjvnm_protocolTrampoline_ly2579)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11624,7 +12943,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Int64,
                 )
               >
-            >(_1tf3our_protocolTrampoline_h68abb)
+            >(_axjvnm_protocolTrampoline_h68abb)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11694,7 +13013,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11748,7 +13067,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11820,7 +13139,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_xx612k)
+            >(_axjvnm_protocolTrampoline_xx612k)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11904,7 +13223,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -11967,7 +13286,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Int64,
                 )
               >
-            >(_1tf3our_protocolTrampoline_h68abb)
+            >(_axjvnm_protocolTrampoline_h68abb)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -12033,7 +13352,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_bklti2)
+            >(_axjvnm_protocolTrampoline_bklti2)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -12120,7 +13439,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_jyim80)
+            >(_axjvnm_protocolTrampoline_jyim80)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -12226,7 +13545,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_xx612k)
+            >(_axjvnm_protocolTrampoline_xx612k)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -12322,7 +13641,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_l2g8ke)
+            >(_axjvnm_protocolTrampoline_l2g8ke)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -12416,7 +13735,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -12469,7 +13788,7 @@ interface class NSURLSessionDownloadDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_18v1jvf)
+            >(_axjvnm_protocolTrampoline_18v1jvf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionDownloadDelegate,
@@ -15035,7 +16354,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15089,7 +16408,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15151,7 +16470,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_bklti2)
+            >(_axjvnm_protocolTrampoline_bklti2)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15230,7 +16549,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15284,7 +16603,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15356,7 +16675,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_xx612k)
+            >(_axjvnm_protocolTrampoline_xx612k)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15440,7 +16759,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15503,7 +16822,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Int64,
                 )
               >
-            >(_1tf3our_protocolTrampoline_h68abb)
+            >(_axjvnm_protocolTrampoline_h68abb)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15569,7 +16888,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_bklti2)
+            >(_axjvnm_protocolTrampoline_bklti2)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15656,7 +16975,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_jyim80)
+            >(_axjvnm_protocolTrampoline_jyim80)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15762,7 +17081,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_xx612k)
+            >(_axjvnm_protocolTrampoline_xx612k)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15858,7 +17177,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCBlockImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_l2g8ke)
+            >(_axjvnm_protocolTrampoline_l2g8ke)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -15952,7 +17271,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_fjrv01)
+            >(_axjvnm_protocolTrampoline_fjrv01)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -16011,7 +17330,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1lx650f)
+            >(_axjvnm_protocolTrampoline_1lx650f)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -16093,7 +17412,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_1tz5yf)
+            >(_axjvnm_protocolTrampoline_1tz5yf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -16158,7 +17477,7 @@ interface class NSURLSessionWebSocketDelegate$Builder {
                   ffi.Pointer<objc.ObjCObjectImpl>,
                 )
               >
-            >(_1tf3our_protocolTrampoline_18v1jvf)
+            >(_axjvnm_protocolTrampoline_18v1jvf)
             .cast(),
         objc.getProtocolMethodSignature(
           _protocol_NSURLSessionWebSocketDelegate,
@@ -16617,7 +17936,7 @@ abstract final class ObjCBlock_ffiVoid {
   }) {
     return objc.ObjCBlock<ffi.Void Function()>(
       objc.newBlockPort(
-        _1tf3our_wrapListenerBlock_1pl9qdv,
+        _axjvnm_wrapListenerBlock_1pl9qdv,
         (ffi.Pointer<objc.ObjCObjectImpl> rawArgs) => fn(),
         keepIsolateAlive,
       ),
@@ -16642,7 +17961,7 @@ abstract final class ObjCBlock_ffiVoid {
   }) {
     return objc.ObjCBlock<ffi.Void Function()>(
       objc.newBlockingBlockPort(
-        _1tf3our_wrapBlockingBlock_1pl9qdv,
+        _axjvnm_wrapBlockingBlock_1pl9qdv,
         (ffi.Pointer<objc.ObjCObjectImpl> rawArgs) => fn(),
         keepIsolateAlive,
       ),
@@ -16751,7 +18070,7 @@ abstract final class ObjCBlock_ffiVoid_NSArray {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xtuoz7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1ucj4uc.fromPointer(
@@ -16782,7 +18101,7 @@ abstract final class ObjCBlock_ffiVoid_NSArray {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xtuoz7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1ucj4uc.fromPointer(
@@ -16949,7 +18268,7 @@ abstract final class ObjCBlock_ffiVoid_NSArray_NSArray_NSArray {
     return objc.ObjCBlock<
       ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_r8gdi7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_r8gdi7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_ih4kg4.fromPointer(
@@ -16985,7 +18304,7 @@ abstract final class ObjCBlock_ffiVoid_NSArray_NSArray_NSArray {
     return objc.ObjCBlock<
       ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_r8gdi7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_r8gdi7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_ih4kg4.fromPointer(
@@ -17163,7 +18482,7 @@ abstract final class ObjCBlock_ffiVoid_NSCachedURLResponse {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xtuoz7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_wtbfzi.fromPointer(
@@ -17194,7 +18513,7 @@ abstract final class ObjCBlock_ffiVoid_NSCachedURLResponse {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xtuoz7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_wtbfzi.fromPointer(
@@ -17336,7 +18655,7 @@ abstract final class ObjCBlock_ffiVoid_NSData {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(objc.NSData?)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xtuoz7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_lsc494.fromPointer(
@@ -17367,7 +18686,7 @@ abstract final class ObjCBlock_ffiVoid_NSData {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(objc.NSData?)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xtuoz7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_lsc494.fromPointer(
@@ -17540,7 +18859,7 @@ abstract final class ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError {
     return objc.ObjCBlock<
       ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_r8gdi7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_r8gdi7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1mv87bk.fromPointer(
@@ -17576,7 +18895,7 @@ abstract final class ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError {
     return objc.ObjCBlock<
       ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_r8gdi7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_r8gdi7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1mv87bk.fromPointer(
@@ -17754,7 +19073,7 @@ abstract final class ObjCBlock_ffiVoid_NSError {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(objc.NSError?)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xtuoz7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_117e0ww.fromPointer(
@@ -17785,7 +19104,7 @@ abstract final class ObjCBlock_ffiVoid_NSError {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(objc.NSError?)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xtuoz7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_117e0ww.fromPointer(
@@ -17928,7 +19247,7 @@ abstract final class ObjCBlock_ffiVoid_NSInputStream {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xtuoz7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1ura76.fromPointer(
@@ -17959,7 +19278,7 @@ abstract final class ObjCBlock_ffiVoid_NSInputStream {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xtuoz7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1ura76.fromPointer(
@@ -18101,7 +19420,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLRequest {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xtuoz7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1n6ph2.fromPointer(
@@ -18132,7 +19451,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLRequest {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xtuoz7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xtuoz7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1n6ph2.fromPointer(
@@ -18279,7 +19598,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSUR
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_n8yd09, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_n8yd09, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_u65oe8.fromPointer(
@@ -18310,7 +19629,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSUR
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_n8yd09, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_n8yd09, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_u65oe8.fromPointer(
@@ -18469,7 +19788,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSU
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLRequest?)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1otpo83, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1otpo83, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_171cldw.fromPointer(
@@ -18500,7 +19819,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSU
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLRequest?)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1otpo83, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1otpo83, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_171cldw.fromPointer(
@@ -18644,7 +19963,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionResponseDisposition {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(ffi.Long)>(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_16sve1d, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_16sve1d, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1y7f3jy.fromPointer(
@@ -18675,7 +19994,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionResponseDisposition {
     bool keepIsolateAlive = true,
   }) {
     return objc.ObjCBlock<ffi.Void Function(ffi.Long)>(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_16sve1d, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_16sve1d, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1y7f3jy.fromPointer(
@@ -18832,7 +20151,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError {
     return objc.ObjCBlock<
       ffi.Void Function(NSURLSessionWebSocketMessage?, objc.NSError?)
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_pfv6jd, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_pfv6jd, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_130i0xx.fromPointer(
@@ -18868,7 +20187,7 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError {
     return objc.ObjCBlock<
       ffi.Void Function(NSURLSessionWebSocketMessage?, objc.NSError?)
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_pfv6jd, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_pfv6jd, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_130i0xx.fromPointer(
@@ -19066,7 +20385,7 @@ abstract final class ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError {
     return objc.ObjCBlock<
       ffi.Void Function(objc.NSURL?, NSURLResponse?, objc.NSError?)
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_r8gdi7, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_r8gdi7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_3gru2r.fromPointer(
@@ -19102,7 +20421,7 @@ abstract final class ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError {
     return objc.ObjCBlock<
       ffi.Void Function(objc.NSURL?, NSURLResponse?, objc.NSError?)
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_r8gdi7, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_r8gdi7, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_3gru2r.fromPointer(
@@ -19289,7 +20608,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession {
     return objc.ObjCBlock<
       ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_18v1jvf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_18v1jvf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_7xicdf.fromPointer(
@@ -19323,7 +20642,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession {
     return objc.ObjCBlock<
       ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_18v1jvf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_18v1jvf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_7xicdf.fromPointer(
@@ -19506,7 +20825,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError {
     return objc.ObjCBlock<
       ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_fjrv01, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_fjrv01, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1f64crj.fromPointer(
@@ -19542,7 +20861,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError {
     return objc.ObjCBlock<
       ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_fjrv01, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_fjrv01, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1f64crj.fromPointer(
@@ -19807,7 +21126,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationC
         objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_bklti2, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_bklti2, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_de64m.fromPointer(
@@ -19859,7 +21178,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationC
         objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_bklti2, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_bklti2, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_de64m.fromPointer(
@@ -20154,7 +21473,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xx612k, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xx612k, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_15cdu5z.fromPointer(
@@ -20209,7 +21528,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xx612k, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xx612k, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_15cdu5z.fromPointer(
@@ -20500,7 +21819,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         objc.NSData,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1tz5yf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_16ix251.fromPointer(
@@ -20552,7 +21871,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         objc.NSData,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1tz5yf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_16ix251.fromPointer(
@@ -20847,7 +22166,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         objc.ObjCBlock<ffi.Void Function(ffi.Long)>,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xx612k, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xx612k, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1xfn2k3.fromPointer(
@@ -20902,7 +22221,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         objc.ObjCBlock<ffi.Void Function(ffi.Long)>,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xx612k, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xx612k, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1xfn2k3.fromPointer(
@@ -21197,7 +22516,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         NSURLSessionDownloadTask,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1tz5yf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_140cpyj.fromPointer(
@@ -21249,7 +22568,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         NSURLSessionDownloadTask,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1tz5yf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_140cpyj.fromPointer(
@@ -21531,7 +22850,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         NSURLSessionStreamTask,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1tz5yf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_43hp0b.fromPointer(
@@ -21583,7 +22902,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
         NSURLSessionStreamTask,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1tz5yf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_43hp0b.fromPointer(
@@ -21878,7 +23197,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
         ffi.Int64,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_ly2579, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_ly2579, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1l7b9ji.fromPointer(
@@ -21933,7 +23252,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
         ffi.Int64,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_ly2579, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_ly2579, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1l7b9ji.fromPointer(
@@ -22245,7 +23564,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
         ffi.Int64,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_h68abb, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_h68abb, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1pfucun.fromPointer(
@@ -22303,7 +23622,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
         ffi.Int64,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_h68abb, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_h68abb, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1pfucun.fromPointer(
@@ -22608,7 +23927,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
         objc.NSURL,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1tz5yf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_pm23bg.fromPointer(
@@ -22660,7 +23979,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
         objc.NSURL,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1tz5yf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_pm23bg.fromPointer(
@@ -22883,7 +24202,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask {
     return objc.ObjCBlock<
       ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask)
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_fjrv01, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_fjrv01, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_k1nazc.fromPointer(
@@ -22919,7 +24238,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask {
     return objc.ObjCBlock<
       ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask)
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_fjrv01, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_fjrv01, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_k1nazc.fromPointer(
@@ -23205,7 +24524,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int
         ffi.Int64,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_h68abb, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_h68abb, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_xh08sz.fromPointer(
@@ -23263,7 +24582,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int
         ffi.Int64,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_h68abb, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_h68abb, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_xh08sz.fromPointer(
@@ -23581,7 +24900,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int
         objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_jyim80, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_jyim80, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_99x6vt.fromPointer(
@@ -23636,7 +24955,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int
         objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_jyim80, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_jyim80, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_99x6vt.fromPointer(
@@ -23928,7 +25247,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSE
         objc.NSError?,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1tz5yf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_qjjttc.fromPointer(
@@ -23980,7 +25299,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSE
         objc.NSError?,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1tz5yf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_qjjttc.fromPointer(
@@ -24258,7 +25577,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSH
         NSHTTPURLResponse,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1tz5yf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1n5meg5.fromPointer(
@@ -24310,7 +25629,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSH
         NSHTTPURLResponse,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1tz5yf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1n5meg5.fromPointer(
@@ -24618,7 +25937,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSH
         objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_l2g8ke, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_l2g8ke, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1ayzt6i.fromPointer(
@@ -24676,7 +25995,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSH
         objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_l2g8ke, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_l2g8ke, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_1ayzt6i.fromPointer(
@@ -25001,7 +26320,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
         objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xx612k, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xx612k, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_31cygh.fromPointer(
@@ -25056,7 +26375,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
         objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLCredential?)>,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xx612k, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xx612k, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_31cygh.fromPointer(
@@ -25364,7 +26683,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
         objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLRequest?)>,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_xx612k, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_xx612k, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_jqba1.fromPointer(
@@ -25419,7 +26738,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
         objc.ObjCBlock<ffi.Void Function(ffi.Long, NSURLRequest?)>,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_xx612k, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_xx612k, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_jqba1.fromPointer(
@@ -25714,7 +27033,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
         NSURLSessionTaskMetrics,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1tz5yf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_i7wriu.fromPointer(
@@ -25766,7 +27085,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
         NSURLSessionTaskMetrics,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1tz5yf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_i7wriu.fromPointer(
@@ -26048,7 +27367,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffi
         objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_bklti2, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_bklti2, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_112ozxo.fromPointer(
@@ -26100,7 +27419,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffi
         objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_bklti2, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_bklti2, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_112ozxo.fromPointer(
@@ -26384,7 +27703,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
         objc.NSString?,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1tz5yf, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_xcrg5s.fromPointer(
@@ -26436,7 +27755,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
         objc.NSString?,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1tz5yf, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1tz5yf, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_xcrg5s.fromPointer(
@@ -26733,7 +28052,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
         objc.NSData?,
       )
     >(
-      objc.newBlockPort(_1tf3our_wrapListenerBlock_1lx650f, (
+      objc.newBlockPort(_axjvnm_wrapListenerBlock_1lx650f, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_17jmtfx.fromPointer(
@@ -26788,7 +28107,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
         objc.NSData?,
       )
     >(
-      objc.newBlockingBlockPort(_1tf3our_wrapBlockingBlock_1lx650f, (
+      objc.newBlockingBlockPort(_axjvnm_wrapBlockingBlock_1lx650f, (
         ffi.Pointer<objc.ObjCObjectImpl> rawArgs,
       ) {
         final args = _BlockArgs_17jmtfx.fromPointer(
@@ -26964,6 +28283,9 @@ enum SSLProtocol {
     _ => throw ArgumentError('Unknown value for SSLProtocol: $value'),
   };
 }
+
+typedef SecCertificateRef = ffi.Pointer<__SecCertificate>;
+typedef SecTrustRef = ffi.Pointer<__SecTrust>;
 
 extension type _BlockArgs_112ozxo._(objc.ObjCObject object$)
     implements objc.ObjCObject {
@@ -28820,6 +30142,20 @@ extension _BlockArgs_xh08sz$Methods on _BlockArgs_xh08sz {
   }
 }
 
+final class __CFAllocator extends ffi.Opaque {}
+
+final class __CFArray extends ffi.Opaque {}
+
+final class __CFData extends ffi.Opaque {}
+
+final class __CFError extends ffi.Opaque {}
+
+final class __SecCertificate extends ffi.Opaque {}
+
+final class __SecIdentity extends ffi.Opaque {}
+
+final class __SecTrust extends ffi.Opaque {}
+
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
   symbol: 'OBJC_CLASS_\$_NSCondition',
 )
@@ -28861,6 +30197,17 @@ final _class_NSOperationQueue = objc.getClass(
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'OBJC_CLASS_\$_NSURLAuthenticationChallenge',
+)
+external ffi.Pointer<objc.ObjCObjectImpl>
+_class_NSURLAuthenticationChallenge_raw;
+final _class_NSURLAuthenticationChallenge = objc.getClass(
+  "NSURLAuthenticationChallenge",
+  () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
+    _class_NSURLAuthenticationChallenge_raw,
+  ).cast(),
+);
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
   symbol: 'OBJC_CLASS_\$_NSURLCache',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class_NSURLCache_raw;
@@ -28868,6 +30215,26 @@ final _class_NSURLCache = objc.getClass(
   "NSURLCache",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class_NSURLCache_raw,
+  ).cast(),
+);
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'OBJC_CLASS_\$_NSURLCredential',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _class_NSURLCredential_raw;
+final _class_NSURLCredential = objc.getClass(
+  "NSURLCredential",
+  () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
+    _class_NSURLCredential_raw,
+  ).cast(),
+);
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'OBJC_CLASS_\$_NSURLProtectionSpace',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _class_NSURLProtectionSpace_raw;
+final _class_NSURLProtectionSpace = objc.getClass(
+  "NSURLProtectionSpace",
+  () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
+    _class_NSURLProtectionSpace_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
@@ -28952,371 +30319,371 @@ final _class_NSURLSessionWebSocketTask = objc.getClass(
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_bklti2',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_bklti2',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_112ozxo_raw;
 final _class__BlockArgs_112ozxo = objc.getClass(
-  "_1tf3our_BlockArgs_bklti2",
+  "_axjvnm_BlockArgs_bklti2",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_112ozxo_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xtuoz7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xtuoz7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_117e0ww_raw;
 final _class__BlockArgs_117e0ww = objc.getClass(
-  "_1tf3our_BlockArgs_xtuoz7",
+  "_axjvnm_BlockArgs_xtuoz7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_117e0ww_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_pfv6jd',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_pfv6jd',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_130i0xx_raw;
 final _class__BlockArgs_130i0xx = objc.getClass(
-  "_1tf3our_BlockArgs_pfv6jd",
+  "_axjvnm_BlockArgs_pfv6jd",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_130i0xx_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1tz5yf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1tz5yf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_140cpyj_raw;
 final _class__BlockArgs_140cpyj = objc.getClass(
-  "_1tf3our_BlockArgs_1tz5yf",
+  "_axjvnm_BlockArgs_1tz5yf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_140cpyj_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xx612k',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xx612k',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_15cdu5z_raw;
 final _class__BlockArgs_15cdu5z = objc.getClass(
-  "_1tf3our_BlockArgs_xx612k",
+  "_axjvnm_BlockArgs_xx612k",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_15cdu5z_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1tz5yf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1tz5yf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_16ix251_raw;
 final _class__BlockArgs_16ix251 = objc.getClass(
-  "_1tf3our_BlockArgs_1tz5yf",
+  "_axjvnm_BlockArgs_1tz5yf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_16ix251_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1otpo83',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1otpo83',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_171cldw_raw;
 final _class__BlockArgs_171cldw = objc.getClass(
-  "_1tf3our_BlockArgs_1otpo83",
+  "_axjvnm_BlockArgs_1otpo83",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_171cldw_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1lx650f',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1lx650f',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_17jmtfx_raw;
 final _class__BlockArgs_17jmtfx = objc.getClass(
-  "_1tf3our_BlockArgs_1lx650f",
+  "_axjvnm_BlockArgs_1lx650f",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_17jmtfx_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_l2g8ke',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_l2g8ke',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1ayzt6i_raw;
 final _class__BlockArgs_1ayzt6i = objc.getClass(
-  "_1tf3our_BlockArgs_l2g8ke",
+  "_axjvnm_BlockArgs_l2g8ke",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1ayzt6i_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_fjrv01',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_fjrv01',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1f64crj_raw;
 final _class__BlockArgs_1f64crj = objc.getClass(
-  "_1tf3our_BlockArgs_fjrv01",
+  "_axjvnm_BlockArgs_fjrv01",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1f64crj_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_ly2579',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_ly2579',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1l7b9ji_raw;
 final _class__BlockArgs_1l7b9ji = objc.getClass(
-  "_1tf3our_BlockArgs_ly2579",
+  "_axjvnm_BlockArgs_ly2579",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1l7b9ji_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_r8gdi7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_r8gdi7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1mv87bk_raw;
 final _class__BlockArgs_1mv87bk = objc.getClass(
-  "_1tf3our_BlockArgs_r8gdi7",
+  "_axjvnm_BlockArgs_r8gdi7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1mv87bk_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1tz5yf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1tz5yf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1n5meg5_raw;
 final _class__BlockArgs_1n5meg5 = objc.getClass(
-  "_1tf3our_BlockArgs_1tz5yf",
+  "_axjvnm_BlockArgs_1tz5yf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1n5meg5_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xtuoz7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xtuoz7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1n6ph2_raw;
 final _class__BlockArgs_1n6ph2 = objc.getClass(
-  "_1tf3our_BlockArgs_xtuoz7",
+  "_axjvnm_BlockArgs_xtuoz7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1n6ph2_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_h68abb',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_h68abb',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1pfucun_raw;
 final _class__BlockArgs_1pfucun = objc.getClass(
-  "_1tf3our_BlockArgs_h68abb",
+  "_axjvnm_BlockArgs_h68abb",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1pfucun_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xtuoz7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xtuoz7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1ucj4uc_raw;
 final _class__BlockArgs_1ucj4uc = objc.getClass(
-  "_1tf3our_BlockArgs_xtuoz7",
+  "_axjvnm_BlockArgs_xtuoz7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1ucj4uc_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xtuoz7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xtuoz7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1ura76_raw;
 final _class__BlockArgs_1ura76 = objc.getClass(
-  "_1tf3our_BlockArgs_xtuoz7",
+  "_axjvnm_BlockArgs_xtuoz7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1ura76_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xx612k',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xx612k',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1xfn2k3_raw;
 final _class__BlockArgs_1xfn2k3 = objc.getClass(
-  "_1tf3our_BlockArgs_xx612k",
+  "_axjvnm_BlockArgs_xx612k",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1xfn2k3_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_16sve1d',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_16sve1d',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_1y7f3jy_raw;
 final _class__BlockArgs_1y7f3jy = objc.getClass(
-  "_1tf3our_BlockArgs_16sve1d",
+  "_axjvnm_BlockArgs_16sve1d",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_1y7f3jy_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xx612k',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xx612k',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_31cygh_raw;
 final _class__BlockArgs_31cygh = objc.getClass(
-  "_1tf3our_BlockArgs_xx612k",
+  "_axjvnm_BlockArgs_xx612k",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_31cygh_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_r8gdi7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_r8gdi7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_3gru2r_raw;
 final _class__BlockArgs_3gru2r = objc.getClass(
-  "_1tf3our_BlockArgs_r8gdi7",
+  "_axjvnm_BlockArgs_r8gdi7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_3gru2r_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1tz5yf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1tz5yf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_43hp0b_raw;
 final _class__BlockArgs_43hp0b = objc.getClass(
-  "_1tf3our_BlockArgs_1tz5yf",
+  "_axjvnm_BlockArgs_1tz5yf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_43hp0b_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_18v1jvf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_18v1jvf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_7xicdf_raw;
 final _class__BlockArgs_7xicdf = objc.getClass(
-  "_1tf3our_BlockArgs_18v1jvf",
+  "_axjvnm_BlockArgs_18v1jvf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_7xicdf_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_jyim80',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_jyim80',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_99x6vt_raw;
 final _class__BlockArgs_99x6vt = objc.getClass(
-  "_1tf3our_BlockArgs_jyim80",
+  "_axjvnm_BlockArgs_jyim80",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_99x6vt_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_bklti2',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_bklti2',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_de64m_raw;
 final _class__BlockArgs_de64m = objc.getClass(
-  "_1tf3our_BlockArgs_bklti2",
+  "_axjvnm_BlockArgs_bklti2",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_de64m_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1tz5yf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1tz5yf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_i7wriu_raw;
 final _class__BlockArgs_i7wriu = objc.getClass(
-  "_1tf3our_BlockArgs_1tz5yf",
+  "_axjvnm_BlockArgs_1tz5yf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_i7wriu_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_r8gdi7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_r8gdi7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_ih4kg4_raw;
 final _class__BlockArgs_ih4kg4 = objc.getClass(
-  "_1tf3our_BlockArgs_r8gdi7",
+  "_axjvnm_BlockArgs_r8gdi7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_ih4kg4_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1pl9qdv',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1pl9qdv',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_ii17hk_raw;
 final _class__BlockArgs_ii17hk = objc.getClass(
-  "_1tf3our_BlockArgs_1pl9qdv",
+  "_axjvnm_BlockArgs_1pl9qdv",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_ii17hk_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xx612k',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xx612k',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_jqba1_raw;
 final _class__BlockArgs_jqba1 = objc.getClass(
-  "_1tf3our_BlockArgs_xx612k",
+  "_axjvnm_BlockArgs_xx612k",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_jqba1_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_fjrv01',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_fjrv01',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_k1nazc_raw;
 final _class__BlockArgs_k1nazc = objc.getClass(
-  "_1tf3our_BlockArgs_fjrv01",
+  "_axjvnm_BlockArgs_fjrv01",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_k1nazc_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xtuoz7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xtuoz7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_lsc494_raw;
 final _class__BlockArgs_lsc494 = objc.getClass(
-  "_1tf3our_BlockArgs_xtuoz7",
+  "_axjvnm_BlockArgs_xtuoz7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_lsc494_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1tz5yf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1tz5yf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_pm23bg_raw;
 final _class__BlockArgs_pm23bg = objc.getClass(
-  "_1tf3our_BlockArgs_1tz5yf",
+  "_axjvnm_BlockArgs_1tz5yf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_pm23bg_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1tz5yf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1tz5yf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_qjjttc_raw;
 final _class__BlockArgs_qjjttc = objc.getClass(
-  "_1tf3our_BlockArgs_1tz5yf",
+  "_axjvnm_BlockArgs_1tz5yf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_qjjttc_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_n8yd09',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_n8yd09',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_u65oe8_raw;
 final _class__BlockArgs_u65oe8 = objc.getClass(
-  "_1tf3our_BlockArgs_n8yd09",
+  "_axjvnm_BlockArgs_n8yd09",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_u65oe8_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_xtuoz7',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_xtuoz7',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_wtbfzi_raw;
 final _class__BlockArgs_wtbfzi = objc.getClass(
-  "_1tf3our_BlockArgs_xtuoz7",
+  "_axjvnm_BlockArgs_xtuoz7",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_wtbfzi_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_1tz5yf',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_1tz5yf',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_xcrg5s_raw;
 final _class__BlockArgs_xcrg5s = objc.getClass(
-  "_1tf3our_BlockArgs_1tz5yf",
+  "_axjvnm_BlockArgs_1tz5yf",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_xcrg5s_raw,
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
-  symbol: 'OBJC_CLASS_\$__1tf3our_BlockArgs_h68abb',
+  symbol: 'OBJC_CLASS_\$__axjvnm_BlockArgs_h68abb',
 )
 external ffi.Pointer<objc.ObjCObjectImpl> _class__BlockArgs_xh08sz_raw;
 final _class__BlockArgs_xh08sz = objc.getClass(
-  "_1tf3our_BlockArgs_h68abb",
+  "_axjvnm_BlockArgs_h68abb",
   () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
     _class__BlockArgs_xh08sz_raw,
   ).cast(),
@@ -29420,6 +30787,27 @@ final _objc_msgSend_17gvxvj = objc.msgSendPointer
       void Function(
         ffi.Pointer<objc.ObjCObjectImpl>,
         ffi.Pointer<objc.ObjCSelector>,
+        int,
+      )
+    >();
+final _objc_msgSend_17ns785 = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<objc.ObjCObjectImpl> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.UnsignedLong,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<objc.ObjCObjectImpl> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
         int,
       )
     >();
@@ -29584,6 +30972,33 @@ final _objc_msgSend_1k101e3 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCSelector>,
       )
     >();
+final _objc_msgSend_1lknv2x = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<objc.ObjCObjectImpl> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Long,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<objc.ObjCObjectImpl> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        int,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+      )
+    >();
 final _objc_msgSend_1modw1b = objc.msgSendPointer
     .cast<
       ffi.NativeFunction<
@@ -29660,6 +31075,21 @@ final _objc_msgSend_1nw1jep = objc.msgSendPointer
         int,
       )
     >();
+final _objc_msgSend_1ommad9 = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<__SecTrust> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<__SecTrust> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+      )
+    >();
 final _objc_msgSend_1pl9qdv = objc.msgSendPointer
     .cast<
       ffi.NativeFunction<
@@ -29703,6 +31133,23 @@ final _objc_msgSend_1rhk8uh = objc.msgSendPointer
       int Function(
         ffi.Pointer<objc.ObjCObjectImpl>,
         ffi.Pointer<objc.ObjCSelector>,
+      )
+    >();
+final _objc_msgSend_1s3ecd1 = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<objc.ObjCObjectImpl> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+          ffi.Pointer<__SecTrust>,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<objc.ObjCObjectImpl> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+        ffi.Pointer<__SecTrust>,
       )
     >();
 final _objc_msgSend_1s56lr9 = objc.msgSendPointer
@@ -30054,6 +31501,21 @@ final _objc_msgSend_9slupp = objc.msgSendPointer
         int,
       )
     >();
+final _objc_msgSend_bscj0h = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.UnsignedLong Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+        )
+      >
+    >()
+    .asFunction<
+      int Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+      )
+    >();
 final _objc_msgSend_cbopi9 = objc.msgSendPointer
     .cast<
       ffi.NativeFunction<
@@ -30206,6 +31668,27 @@ final _objc_msgSend_i3avs9 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCSelector>,
       )
     >();
+final _objc_msgSend_jfo4g1 = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<objc.ObjCObjectImpl> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+          ffi.Pointer<__SecIdentity>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.UnsignedLong,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<objc.ObjCObjectImpl> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+        ffi.Pointer<__SecIdentity>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        int,
+      )
+    >();
 final _objc_msgSend_l9ppnx = objc.msgSendPointer
     .cast<
       ffi.NativeFunction<
@@ -30267,6 +31750,21 @@ final _objc_msgSend_n2da1l = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObjectImpl>,
         ffi.Pointer<objc.ObjCSelector>,
         int,
+      )
+    >();
+final _objc_msgSend_nkb3zz = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<__SecIdentity> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<__SecIdentity> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
       )
     >();
 final _objc_msgSend_o762yo = objc.msgSendPointer
@@ -30335,6 +31833,31 @@ final _objc_msgSend_pysgoz = objc.msgSendPointer
       int Function(
         ffi.Pointer<objc.ObjCObjectImpl>,
         ffi.Pointer<objc.ObjCSelector>,
+      )
+    >();
+final _objc_msgSend_qfck4v = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Pointer<objc.ObjCObjectImpl> Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Long,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCObjectImpl>,
+        )
+      >
+    >()
+    .asFunction<
+      ffi.Pointer<objc.ObjCObjectImpl> Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        int,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCObjectImpl>,
       )
     >();
 final _objc_msgSend_qugqlf = objc.msgSendPointer
@@ -30531,7 +32054,7 @@ final _objc_msgSend_xw7l5 = objc.msgSendPointer
       )
     >();
 @ffi.Native<ffi.Pointer<objc.ObjCProtocolImpl> Function()>(
-  symbol: '_1tf3our_NSURLSessionDataDelegate',
+  symbol: '_axjvnm_NSURLSessionDataDelegate',
 )
 external ffi.Pointer<objc.ObjCProtocolImpl>
 _protocol_NSURLSessionDataDelegate_raw();
@@ -30540,7 +32063,7 @@ final _protocol_NSURLSessionDataDelegate = objc.getProtocol(
   _protocol_NSURLSessionDataDelegate_raw,
 );
 @ffi.Native<ffi.Pointer<objc.ObjCProtocolImpl> Function()>(
-  symbol: '_1tf3our_NSURLSessionDownloadDelegate',
+  symbol: '_axjvnm_NSURLSessionDownloadDelegate',
 )
 external ffi.Pointer<objc.ObjCProtocolImpl>
 _protocol_NSURLSessionDownloadDelegate_raw();
@@ -30549,7 +32072,7 @@ final _protocol_NSURLSessionDownloadDelegate = objc.getProtocol(
   _protocol_NSURLSessionDownloadDelegate_raw,
 );
 @ffi.Native<ffi.Pointer<objc.ObjCProtocolImpl> Function()>(
-  symbol: '_1tf3our_NSURLSessionWebSocketDelegate',
+  symbol: '_axjvnm_NSURLSessionWebSocketDelegate',
 )
 external ffi.Pointer<objc.ObjCProtocolImpl>
 _protocol_NSURLSessionWebSocketDelegate_raw();
@@ -30691,6 +32214,9 @@ late final _sel_allowsExpensiveNetworkAccess = objc.registerName(
   "allowsExpensiveNetworkAccess",
 );
 late final _sel_allowsPersistentDNS = objc.registerName("allowsPersistentDNS");
+late final _sel_allowsUltraConstrainedNetworkAccess = objc.registerName(
+  "allowsUltraConstrainedNetworkAccess",
+);
 late final _sel_arg0 = objc.registerName("arg0");
 late final _sel_arg1 = objc.registerName("arg1");
 late final _sel_arg2 = objc.registerName("arg2");
@@ -30699,6 +32225,9 @@ late final _sel_arg4 = objc.registerName("arg4");
 late final _sel_arg5 = objc.registerName("arg5");
 late final _sel_assumesHTTP3Capable = objc.registerName("assumesHTTP3Capable");
 late final _sel_attribution = objc.registerName("attribution");
+late final _sel_authenticationMethod = objc.registerName(
+  "authenticationMethod",
+);
 late final _sel_backgroundSessionConfigurationWithIdentifier_ = objc
     .registerName("backgroundSessionConfigurationWithIdentifier:");
 late final _sel_backgroundSessionConfiguration_ = objc.registerName(
@@ -30717,6 +32246,7 @@ late final _sel_cancelByProducingResumeData_ = objc.registerName(
 late final _sel_cancelWithCloseCode_reason_ = objc.registerName(
   "cancelWithCloseCode:reason:",
 );
+late final _sel_certificates = objc.registerName("certificates");
 late final _sel_closeCode = objc.registerName("closeCode");
 late final _sel_closeReason = objc.registerName("closeReason");
 late final _sel_configuration = objc.registerName("configuration");
@@ -30743,6 +32273,12 @@ late final _sel_countOfBytesReceived = objc.registerName(
   "countOfBytesReceived",
 );
 late final _sel_countOfBytesSent = objc.registerName("countOfBytesSent");
+late final _sel_credentialForTrust_ = objc.registerName("credentialForTrust:");
+late final _sel_credentialWithIdentity_certificates_persistence_ = objc
+    .registerName("credentialWithIdentity:certificates:persistence:");
+late final _sel_credentialWithUser_password_persistence_ = objc.registerName(
+  "credentialWithUser:password:persistence:",
+);
 late final _sel_currentDiskUsage = objc.registerName("currentDiskUsage");
 late final _sel_currentMemoryUsage = objc.registerName("currentMemoryUsage");
 late final _sel_currentQueue = objc.registerName("currentQueue");
@@ -30764,6 +32300,7 @@ late final _sel_defaultSessionConfiguration = objc.registerName(
 late final _sel_delegate = objc.registerName("delegate");
 late final _sel_delegateQueue = objc.registerName("delegateQueue");
 late final _sel_diskCapacity = objc.registerName("diskCapacity");
+late final _sel_distinguishedNames = objc.registerName("distinguishedNames");
 late final _sel_downloadTaskWithRequest_ = objc.registerName(
   "downloadTaskWithRequest:",
 );
@@ -30791,6 +32328,7 @@ late final _sel_error = objc.registerName("error");
 late final _sel_expectedContentLength = objc.registerName(
   "expectedContentLength",
 );
+late final _sel_failureResponse = objc.registerName("failureResponse");
 late final _sel_finishTasksAndInvalidate = objc.registerName(
   "finishTasksAndInvalidate",
 );
@@ -30805,14 +32343,28 @@ late final _sel_getCachedResponseForDataTask_completionHandler_ = objc
 late final _sel_getTasksWithCompletionHandler_ = objc.registerName(
   "getTasksWithCompletionHandler:",
 );
+late final _sel_hasPassword = objc.registerName("hasPassword");
+late final _sel_host = objc.registerName("host");
 late final _sel_identifier = objc.registerName("identifier");
+late final _sel_identity = objc.registerName("identity");
 late final _sel_init = objc.registerName("init");
+late final _sel_initWithAuthenticationChallenge_sender_ = objc.registerName(
+  "initWithAuthenticationChallenge:sender:",
+);
 late final _sel_initWithCoder_ = objc.registerName("initWithCoder:");
 late final _sel_initWithData_ = objc.registerName("initWithData:");
+late final _sel_initWithHost_port_protocol_realm_authenticationMethod_ = objc
+    .registerName("initWithHost:port:protocol:realm:authenticationMethod:");
 late final _sel_initWithMemoryCapacity_diskCapacity_directoryURL_ = objc
     .registerName("initWithMemoryCapacity:diskCapacity:directoryURL:");
 late final _sel_initWithMemoryCapacity_diskCapacity_diskPath_ = objc
     .registerName("initWithMemoryCapacity:diskCapacity:diskPath:");
+late final _sel_initWithProtectionSpace_proposedCredential_previousFailureCount_failureResponse_error_sender_ =
+    objc.registerName(
+      "initWithProtectionSpace:proposedCredential:previousFailureCount:failureResponse:error:sender:",
+    );
+late final _sel_initWithProxyHost_port_type_realm_authenticationMethod_ = objc
+    .registerName("initWithProxyHost:port:type:realm:authenticationMethod:");
 late final _sel_initWithString_ = objc.registerName("initWithString:");
 late final _sel_initWithURL_ = objc.registerName("initWithURL:");
 late final _sel_initWithURL_MIMEType_expectedContentLength_textEncodingName_ =
@@ -30827,6 +32379,7 @@ late final _sel_initWithURL_statusCode_HTTPVersion_headerFields_ = objc
 late final _sel_invalidateAndCancel = objc.registerName("invalidateAndCancel");
 late final _sel_isDiscretionary = objc.registerName("isDiscretionary");
 late final _sel_isKindOfClass_ = objc.registerName("isKindOfClass:");
+late final _sel_isProxy = objc.registerName("isProxy");
 late final _sel_isSuspended = objc.registerName("isSuspended");
 late final _sel_localizedStringForStatusCode_ = objc.registerName(
   "localizedStringForStatusCode:",
@@ -30848,15 +32401,29 @@ late final _sel_new = objc.registerName("new");
 late final _sel_operationCount = objc.registerName("operationCount");
 late final _sel_operations = objc.registerName("operations");
 late final _sel_originalRequest = objc.registerName("originalRequest");
+late final _sel_password = objc.registerName("password");
+late final _sel_persistence = objc.registerName("persistence");
+late final _sel_port = objc.registerName("port");
 late final _sel_prefersIncrementalDelivery = objc.registerName(
   "prefersIncrementalDelivery",
 );
+late final _sel_previousFailureCount = objc.registerName(
+  "previousFailureCount",
+);
 late final _sel_priority = objc.registerName("priority");
 late final _sel_progress = objc.registerName("progress");
+late final _sel_proposedCredential = objc.registerName("proposedCredential");
+late final _sel_protectionSpace = objc.registerName("protectionSpace");
+late final _sel_protocol = objc.registerName("protocol");
 late final _sel_protocolClasses = objc.registerName("protocolClasses");
+late final _sel_proxyType = objc.registerName("proxyType");
 late final _sel_qualityOfService = objc.registerName("qualityOfService");
+late final _sel_realm = objc.registerName("realm");
 late final _sel_receiveMessageWithCompletionHandler_ = objc.registerName(
   "receiveMessageWithCompletionHandler:",
+);
+late final _sel_receivesCredentialSecurely = objc.registerName(
+  "receivesCredentialSecurely",
 );
 late final _sel_removeAllCachedResponses = objc.registerName(
   "removeAllCachedResponses",
@@ -30889,6 +32456,8 @@ late final _sel_sendMessage_completionHandler_ = objc.registerName(
 late final _sel_sendPingWithPongReceiveHandler_ = objc.registerName(
   "sendPingWithPongReceiveHandler:",
 );
+late final _sel_sender = objc.registerName("sender");
+late final _sel_serverTrust = objc.registerName("serverTrust");
 late final _sel_sessionDescription = objc.registerName("sessionDescription");
 late final _sel_sessionSendsLaunchEvents = objc.registerName(
   "sessionSendsLaunchEvents",
@@ -30912,6 +32481,9 @@ late final _sel_setAllowsExpensiveNetworkAccess_ = objc.registerName(
 );
 late final _sel_setAllowsPersistentDNS_ = objc.registerName(
   "setAllowsPersistentDNS:",
+);
+late final _sel_setAllowsUltraConstrainedNetworkAccess_ = objc.registerName(
+  "setAllowsUltraConstrainedNetworkAccess:",
 );
 late final _sel_setAssumesHTTP3Capable_ = objc.registerName(
   "setAssumesHTTP3Capable:",
@@ -31102,6 +32674,7 @@ late final _sel_uploadTaskWithResumeData_completionHandler_ = objc.registerName(
 late final _sel_uploadTaskWithStreamedRequest_ = objc.registerName(
   "uploadTaskWithStreamedRequest:",
 );
+late final _sel_user = objc.registerName("user");
 late final _sel_usesClassicLoadingMode = objc.registerName(
   "usesClassicLoadingMode",
 );
