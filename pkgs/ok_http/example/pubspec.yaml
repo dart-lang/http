@@ -16,6 +16,7 @@ dependencies:
   provider: ^6.1.1
   web_socket: '>=0.1.5 <2.0.0'
 
+  material_ui: any
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
   flutter_test:
