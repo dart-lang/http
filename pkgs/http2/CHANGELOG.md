@@ -12,6 +12,25 @@
 - Honor the peer's `SETTINGS_MAX_FRAME_SIZE` when sending; the ACK of our own
   `SETTINGS_INITIAL_WINDOW_SIZE` no longer resizes send windows.
 - Never send a WINDOW_UPDATE with an increment of 0.
+- Replenish the connection-level receive window and release active stream slots
+  when a stream with buffered unconsumed `DATA` frames is terminated, reset, or
+  its incoming subscription is cancelled.
+- Ignore `PRIORITY` and unknown extension frames on open, idle, and closed
+  streams, and treat `SETTINGS`, `PING`, and `GOAWAY` frames with a non-zero
+  stream ID as a connection-level `PROTOCOL_ERROR`.
+- Fix `sendData(..., endStream: true)` stalling forever when the data exceeds
+  the peer's flow-control window (#1998).
+- Deliver the complete response instead of a `StreamTransportException` when
+  the peer sends `RST_STREAM(NO_ERROR)` after `END_STREAM` (RFC 9113
+  Section 8.1).
+- Never write a `RST_STREAM` before the still-queued `HEADERS` of the same
+  stream when a stream is cancelled; drop the stream's queued `DATA` instead.
+- `Http2Client` propagates pausing a response body to the underlying HTTP/2
+  stream, so a slow reader stops the server at the flow-control window instead
+  of buffering the whole response in memory, and uses a 4 MiB stream / 16 MiB
+  connection receive window instead of the protocol's 64 KiB defaults.
+- Stop head-of-line blocking `HEADERS`, `RST_STREAM`, and `GOAWAY` behind
+  `DATA` that is waiting for connection-level flow-control credit.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.

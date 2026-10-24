@@ -1341,6 +1341,357 @@ void main() {
 
         await Future.wait([serverFun(), clientFun()]);
       });
+
+      clientTest('rst-stream-no-error-after-end-stream-preserves-messages', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        final handshakeDone = Completer<void>();
+        final framesProcessed = Completer<void>();
+
+        Future<void> serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          handshakeDone.complete();
+
+          final req = await nextFrame() as HeadersFrame;
+          expect(req.hasEndStreamFlag, isFalse);
+
+          // RFC 9113 section 8.1: send a complete response (headers, data,
+          // trailers with END_STREAM) and then RST_STREAM(NO_ERROR) while the
+          // client request stream is still open.
+          serverWriter.writeHeadersFrame(req.header.streamId, [
+            Header.ascii(':status', '200'),
+          ], endStream: false);
+          serverWriter.writeDataFrame(req.header.streamId, [1, 2, 3, 4, 5]);
+          serverWriter.writeHeadersFrame(req.header.streamId, [
+            Header.ascii('grpc-status', '0'),
+          ], endStream: true);
+          serverWriter.writeRstStreamFrame(
+            req.header.streamId,
+            ErrorCode.NO_ERROR,
+          );
+          // Barrier: once the PING is acknowledged, the client has processed
+          // every frame above while its listener was still paused.
+          serverWriter.writePingFrame(1);
+
+          // Connection window update for the 5-byte DATA frame, sent while
+          // the RST_STREAM(NO_ERROR) hands the buffered DATA to the stream.
+          expect(
+            await nextFrame(),
+            isA<WindowUpdateFrame>().having(
+              (f) => f.header.streamId,
+              'streamId',
+              0,
+            ),
+          );
+          expect(
+            await nextFrame(),
+            isA<PingFrame>().having((f) => f.hasAckFlag, 'hasAckFlag', isTrue),
+          );
+          framesProcessed.complete();
+
+          // Stream window update once the client resumes and consumes DATA.
+          expect(
+            await nextFrame(),
+            isA<WindowUpdateFrame>().having(
+              (f) => f.header.streamId,
+              'streamId',
+              req.header.streamId,
+            ),
+          );
+          expect(await nextFrame(), isA<GoawayFrame>());
+          expect(await serverReader.moveNext(), isFalse);
+        }
+
+        Future<void> clientFun() async {
+          await handshakeDone.future;
+          final stream = client.makeRequest([
+            Header.ascii(':path', '/test'),
+          ], endStream: false);
+
+          int? terminatedCode;
+          stream.onTerminated = (code) => terminatedCode = code;
+
+          final received = <StreamMessage>[];
+          final errors = <Object>[];
+          final done = Completer<void>();
+          final sub = stream.incomingMessages.listen(
+            received.add,
+            onError: errors.add,
+            onDone: done.complete,
+          );
+          sub.pause();
+
+          await framesProcessed.future;
+          sub.resume();
+          await done.future;
+
+          expect(errors, isEmpty);
+          expect(terminatedCode, ErrorCode.NO_ERROR);
+          expect(received, hasLength(3));
+          expect(received[0], isA<HeadersStreamMessage>());
+          expect(
+            (received[1] as DataStreamMessage).bytes,
+            equals([1, 2, 3, 4, 5]),
+          );
+          expect(received[2], isA<HeadersStreamMessage>());
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
+      });
+
+      clientTest('rst-stream-is-sent-after-queued-headers-of-the-stream', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        final handshakeDone = Completer<void>();
+        final writerBuffers = Completer<void>();
+        final streamCancelled = Completer<void>();
+
+        Future<void> serverFun() async {
+          expect(await nextFrame(), isA<SettingsFrame>());
+          serverWriter.writeSettingsFrame([]);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          handshakeDone.complete();
+
+          final req1 = await nextFrame() as HeadersFrame;
+          expect(req1.header.streamId, 1);
+          // [serverReader] pauses the frame stream right after delivering this
+          // frame; the pause propagates synchronously back into the client's
+          // FrameWriter, which now reports that it would buffer. Messages the
+          // client enqueues from here on stay in its connection queue.
+          writerBuffers.complete();
+          await streamCancelled.future;
+
+          // Stream 3 was cancelled while its HEADERS were still queued: the
+          // HEADERS must still reach the wire before the RST_STREAM (RFC 9113
+          // section 6.4, RST_STREAM on an idle stream is a PROTOCOL_ERROR).
+          expect(
+            await nextFrame(),
+            isA<HeadersFrame>().having((f) => f.header.streamId, 'streamId', 3),
+          );
+          expect(
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having((f) => f.header.streamId, 'streamId', 3)
+                .having((f) => f.errorCode, 'errorCode', ErrorCode.CANCEL),
+          );
+
+          serverWriter.writeHeadersFrame(1, [
+            Header.ascii(':status', '200'),
+          ], endStream: true);
+          expect(await nextFrame(), isA<GoawayFrame>());
+          expect(await serverReader.moveNext(), isFalse);
+        }
+
+        Future<void> clientFun() async {
+          await handshakeDone.future;
+          final s1 = client.makeRequest([
+            Header.ascii(':path', '/s1'),
+          ], endStream: true);
+          await writerBuffers.future;
+
+          final s2 = client.makeRequest([Header.ascii(':path', '/s2')]);
+          s2.terminate();
+          streamCancelled.complete();
+
+          await s1.incomingMessages.drain<void>();
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
+      });
+
+      clientTest(
+        'headers-and-rst-not-blocked-or-reordered-on-exhausted-window',
+        (
+          ClientTransportConnection client,
+          FrameWriter serverWriter,
+          StreamIterator<Frame> serverReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final handshakeDone = Completer<void>();
+          final windowExhausted = Completer<void>();
+
+          Future<void> serverFun() async {
+            serverWriter.writeSettingsFrame([
+              Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 200000),
+            ]);
+            expect(await nextFrame(), isA<SettingsFrame>());
+            serverWriter.writeSettingsAckFrame();
+            expect(await nextFrame(), isA<SettingsFrame>());
+            handshakeDone.complete();
+
+            final req1 = await nextFrame() as HeadersFrame;
+            expect(req1.header.streamId, 1);
+
+            var s1Bytes = 0;
+            while (s1Bytes < 65535) {
+              final data = await nextFrame() as DataFrame;
+              expect(data.header.streamId, 1);
+              expect(data.hasEndStreamFlag, isFalse);
+              s1Bytes += data.bytes.length;
+            }
+            expect(s1Bytes, 65535);
+            windowExhausted.complete();
+
+            // Even though the connection send window is exhausted by stream 1,
+            // stream 3's HEADERS and stream 5's HEADERS + RST_STREAM must not
+            // be head-of-line blocked, and stream 5's HEADERS must precede its
+            // RST_STREAM.
+            expect(
+              await nextFrame(),
+              isA<HeadersFrame>()
+                  .having((f) => f.header.streamId, 'streamId', 3)
+                  .having((f) => f.hasEndStreamFlag, 'endStream', isTrue),
+            );
+            expect(
+              await nextFrame(),
+              isA<HeadersFrame>().having(
+                (f) => f.header.streamId,
+                'streamId',
+                5,
+              ),
+            );
+            expect(
+              await nextFrame(),
+              isA<RstStreamFrame>()
+                  .having((f) => f.header.streamId, 'streamId', 5)
+                  .having((f) => f.errorCode, 'errorCode', ErrorCode.CANCEL),
+            );
+
+            serverWriter.writeHeadersFrame(3, [
+              Header.ascii(':status', '200'),
+            ], endStream: true);
+
+            // Grant connection window credit so stream 1's tail DATA flushes.
+            serverWriter.writeWindowUpdate(10000, streamId: 0);
+            final tail = await nextFrame() as DataFrame;
+            expect(tail.header.streamId, 1);
+            expect(tail.bytes.length, 70000 - 65535);
+            expect(tail.hasEndStreamFlag, isTrue);
+
+            serverWriter.writeHeadersFrame(1, [
+              Header.ascii(':status', '200'),
+            ], endStream: true);
+
+            expect(await nextFrame(), isA<GoawayFrame>());
+            expect(await serverReader.moveNext(), isFalse);
+          }
+
+          Future<void> clientFun() async {
+            await handshakeDone.future;
+            final s1 = client.makeRequest([Header.ascii(':path', '/s1')]);
+            s1.sendData(List<int>.filled(70000, 1), endStream: true);
+
+            await windowExhausted.future;
+
+            final s2 = client.makeRequest([
+              Header.ascii(':path', '/s2'),
+            ], endStream: true);
+            final s3 = client.makeRequest([Header.ascii(':path', '/s3')]);
+            s3.terminate();
+
+            await s2.incomingMessages.drain<void>();
+            await s1.incomingMessages.drain<void>();
+            await client.finish();
+          }
+
+          await Future.wait([serverFun(), clientFun()], eagerError: true);
+        },
+      );
+
+      clientTest(
+        'trailers-stay-behind-blocked-data-while-other-headers-bypass',
+        (
+          ClientTransportConnection client,
+          FrameWriter serverWriter,
+          StreamIterator<Frame> serverReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final handshakeDone = Completer<void>();
+          final windowExhausted = Completer<void>();
+
+          Future<void> serverFun() async {
+            serverWriter.writeSettingsFrame([
+              Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 200000),
+            ]);
+            expect(await nextFrame(), isA<SettingsFrame>());
+            serverWriter.writeSettingsAckFrame();
+            expect(await nextFrame(), isA<SettingsFrame>());
+            handshakeDone.complete();
+
+            final req1 = await nextFrame() as HeadersFrame;
+            expect(req1.header.streamId, 1);
+            var s1Bytes = 0;
+            while (s1Bytes < 65535) {
+              final data = await nextFrame() as DataFrame;
+              expect(data.header.streamId, 1);
+              s1Bytes += data.bytes.length;
+            }
+            expect(s1Bytes, 65535);
+            windowExhausted.complete();
+
+            // Stream 1 still has DATA and its trailers queued. Stream 3's
+            // HEADERS may pass them, stream 1's trailers may not.
+            expect(
+              await nextFrame(),
+              isA<HeadersFrame>().having(
+                (f) => f.header.streamId,
+                'streamId',
+                3,
+              ),
+            );
+            serverWriter.writeWindowUpdate(10000, streamId: 0);
+            final tail = await nextFrame() as DataFrame;
+            expect(tail.header.streamId, 1);
+            expect(tail.bytes.length, 70000 - 65535);
+            expect(tail.hasEndStreamFlag, isFalse);
+            expect(
+              await nextFrame(),
+              isA<HeadersFrame>()
+                  .having((f) => f.header.streamId, 'streamId', 1)
+                  .having((f) => f.hasEndStreamFlag, 'endStream', isTrue),
+            );
+
+            for (final streamId in [1, 3]) {
+              serverWriter.writeHeadersFrame(streamId, [
+                Header.ascii(':status', '200'),
+              ], endStream: true);
+            }
+            expect(await nextFrame(), isA<GoawayFrame>());
+            expect(await serverReader.moveNext(), isFalse);
+          }
+
+          Future<void> clientFun() async {
+            await handshakeDone.future;
+            final s1 = client.makeRequest([Header.ascii(':path', '/s1')]);
+            s1.sendData(List<int>.filled(70000, 1));
+            s1.sendHeaders([Header.ascii('x-trailer', '1')], endStream: true);
+
+            await windowExhausted.future;
+            final s2 = client.makeRequest([
+              Header.ascii(':path', '/s2'),
+            ], endStream: true);
+
+            await s2.incomingMessages.drain<void>();
+            await s1.incomingMessages.drain<void>();
+            await client.finish();
+          }
+
+          await Future.wait([serverFun(), clientFun()], eagerError: true);
+        },
+      );
     });
   });
 }

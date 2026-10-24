@@ -541,7 +541,26 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         stream.state == StreamState.HalfClosedRemote ||
         stream.state == StreamState.ReservedLocal ||
         stream.state == StreamState.ReservedRemote) {
-      _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.CANCEL);
+      // Drop the stream's queued DATA: the RST_STREAM makes the peer discard
+      // it anyway. Its queued HEADERS are kept, with the RST_STREAM queued
+      // behind them instead of written directly: if the HEADERS that open the
+      // stream have not reached the peer yet (e.g. they are queued behind
+      // flow-controlled DATA of another stream), a RST_STREAM would arrive for
+      // a stream the peer considers idle, which is a connection error (RFC
+      // 9113 sections 5.1 and 6.4). The stream state cannot tell the two
+      // apart - it advanced when the HEADERS were queued, not written - so all
+      // queued HEADERS of the stream are treated alike.
+      if (outgoingQueue.cancelStreamMessages(stream.id)) {
+        outgoingQueue.enqueueMessage(
+          ResetStreamMessage(stream.id, ErrorCode.CANCEL),
+        );
+      } else {
+        _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.CANCEL);
+      }
+      _closeStreamAbnormally(stream, null, propagateException: false);
+    } else if (stream.state == StreamState.Closed &&
+        !stream.incomingQueue.wasClosed &&
+        !stream.incomingQueue.wasTerminated) {
       _closeStreamAbnormally(stream, null, propagateException: false);
     }
   }
@@ -741,7 +760,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           //     unused or closed parent stream.
           //
           // As long as we do not handle stream priorities, we can safely ignore
-          // such frames on idle streams.
+          // such frames on idle or closed streams.
           //
           // NOTE: Firefox for example sends [PriorityFrame]s even without
           // opening any streams (e.g. streams 3,5,7,9,11 [PriorityFrame]s and
@@ -749,6 +768,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           //
           // TODO: When implementing priorities for HTTP/2 streams, these frames
           // need to be taken into account.
+        } else if (frame is UnknownFrame) {
+          // RFC 9113 section 4.1: "Implementations MUST ignore and discard
+          // frames of unknown types." That includes frames an extension sends
+          // on streams this end considers idle or closed.
         } else if (frame is PushPromiseFrame) {
           throw ProtocolException(
             'Cannot push on a non-existent stream '
@@ -790,6 +813,13 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           _handleWindowUpdate(stream, frame);
         } else if (frame is RstStreamFrame) {
           _handleRstFrame(stream, frame);
+        } else if (frame is PriorityFrame) {
+          // RFC 9113 section 6.3: PRIORITY frames are deprecated and carry
+          // nothing this end acts on; they can be sent on a stream in any
+          // state.
+        } else if (frame is UnknownFrame) {
+          // RFC 9113 section 4.1: "Implementations MUST ignore and discard
+          // frames of unknown types."
         } else {
           throw ProtocolException(
             'Unsupported frame type ${frame.runtimeType}.',
@@ -865,6 +895,25 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void _handleRstFrame(Http2StreamImpl stream, RstStreamFrame frame) {
     stream._handleTerminated(frame.errorCode);
+    if (frame.errorCode == ErrorCode.NO_ERROR &&
+        (stream.state == StreamState.HalfClosedRemote ||
+            stream.state == StreamState.Closed)) {
+      // RFC 9113 section 8.1: A server can send a complete response prior to
+      // the client sending an entire request, and then send RST_STREAM with
+      // NO_ERROR to request that the client stop transmitting the request.
+      // Preserve the already-received response messages for the caller while
+      // terminating the outgoing side.
+      incomingQueue.forceDispatchStreamMessages(stream.id);
+      _openStreams.remove(stream.id);
+      if (stream.state != StreamState.Closed) {
+        _changeState(stream, StreamState.Closed);
+      }
+      stream._outgoingCSubscription.cancel();
+      stream._outgoingC.close();
+      stream.outgoingQueue.terminate();
+      onCheckForClose();
+      return;
+    }
     var exception = StreamTransportException(
       'Stream was terminated by peer (errorCode: ${frame.errorCode}).',
     );
@@ -879,7 +928,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       // NOTE: The stream stays in [_openStreams] until its queues are done and
       // [_cleanupClosedStream] runs, the same as when it is closed by our own
       // END_STREAM. Removing it here would hide it from [onTerminated] while
-      // its undelivered messages are still in the connection queue.
+      // its undelivered messages are still in the connection queue, and would
+      // stop incoming WINDOW_UPDATE frames from reaching
+      // [stream.windowHandler] while outgoing DATA waits on flow control.
     } else {
       throw StateError(
         'Got an end-of-stream from the remote end, but this stream is '
@@ -985,7 +1036,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     Object? exception, {
     bool propagateException = false,
   }) {
-    incomingQueue.removeStreamMessageQueue(stream.id);
+    incomingQueue.removeStreamMessageQueue(
+      stream.id,
+      replenishWindow: !wasTerminated,
+    );
 
     if (stream.state != StreamState.Terminated) {
       _changeState(stream, StreamState.Terminated);

@@ -477,6 +477,16 @@ abstract class Connection {
           'Cannot handle frame type ${frame.runtimeType} with stream-id 0.',
         );
       }
+    } else if (frame is SettingsFrame ||
+        frame is PingFrame ||
+        frame is GoawayFrame) {
+      // RFC 9113 sections 6.5, 6.7, and 6.8: SETTINGS, PING, and GOAWAY frames
+      // always apply to the connection as a whole; a non-zero stream identifier
+      // must be treated as a connection error of type PROTOCOL_ERROR.
+      throw ProtocolException(
+        'Cannot handle frame type ${frame.runtimeType} with non-zero '
+        'stream-id ${frame.header.streamId}.',
+      );
     } else {
       _streams.processStreamFrame(_state, frame);
     }
