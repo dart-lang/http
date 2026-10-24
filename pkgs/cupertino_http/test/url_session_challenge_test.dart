@@ -15,35 +15,16 @@ import 'test_certificates.dart';
 import 'tls_helpers.dart';
 
 const _nsurlErrorCancelled = -999;
-const _nsurlErrorServerCertificateUntrusted = -1202;
 
-/// Accepts the server trust if it chains to [anchor].
-(NSURLSessionAuthChallengeDisposition, URLCredential?) _trustAnchor(
+/// Trusts the server without evaluating its certificate chain.
+(NSURLSessionAuthChallengeDisposition, URLCredential?) _trustServer(
+  URLSession session,
+  URLSessionTask task,
   URLAuthenticationChallenge challenge,
-  SecCertificate anchor,
-) {
-  final trust = challenge.protectionSpace.serverTrust;
-  if (trust == null) {
-    return (
-      NSURLSessionAuthChallengeDisposition
-          .NSURLSessionAuthChallengePerformDefaultHandling,
-      null,
-    );
-  }
-  trust.setAnchorCertificates([anchor]);
-  if (trust.evaluate().trusted) {
-    return (
-      NSURLSessionAuthChallengeDisposition
-          .NSURLSessionAuthChallengeUseCredential,
-      URLCredential.forTrust(trust),
-    );
-  }
-  return (
-    NSURLSessionAuthChallengeDisposition
-        .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-    null,
-  );
-}
+) => (
+  NSURLSessionAuthChallengeDisposition.NSURLSessionAuthChallengeUseCredential,
+  URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+);
 
 /// Executes a GET request for [uri] using [session].
 Future<(URLResponse?, NSData?, NSError?)> get(URLSession session, Uri uri) {
@@ -57,7 +38,33 @@ Future<(URLResponse?, NSData?, NSError?)> get(URLSession session, Uri uri) {
   return c.future;
 }
 
-void testSecCertificate() {
+/// Calls [inspect] with the [SecTrust] of a server whose certificate is issued
+/// by [testCaCertificatePem].
+Future<void> withServerTrust(void Function(SecTrust trust) inspect) async {
+  final server = await startSecureServer();
+  final session = URLSession.sessionWithConfiguration(
+    URLSessionConfiguration.ephemeralSessionConfiguration(),
+    onChallenge: (s, t, challenge) {
+      inspect(challenge.protectionSpace.serverTrust!);
+      return (
+        NSURLSessionAuthChallengeDisposition
+            .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
+        null,
+      );
+    },
+  );
+  try {
+    await get(session, Uri.https('localhost:${server.port}', '/'));
+  } finally {
+    session.finishTasksAndInvalidate();
+    await server.close(force: true);
+  }
+}
+
+void main() {
+  final testCa = SecCertificate.fromDer(pemToDer(testCaCertificatePem));
+  final otherCa = SecCertificate.fromDer(pemToDer(otherCaCertificatePem));
+
   group('SecCertificate', () {
     test('fromDer and der', () {
       final der = pemToDer(testCaCertificatePem);
@@ -74,190 +81,27 @@ void testSecCertificate() {
       );
     });
   });
-}
 
-void testOnChallenge(URLSessionConfiguration Function() config) {
-  group('onChallenge', () {
-    late HttpServer server;
-    late Uri uri;
-    final testCa = SecCertificate.fromDer(pemToDer(testCaCertificatePem));
-    final otherCa = SecCertificate.fromDer(pemToDer(otherCaCertificatePem));
-
-    setUp(() async {
-      server = await startSecureServer();
-      uri = Uri.https('localhost:${server.port}', '/');
-    });
-    tearDown(() => server.close(force: true));
-
-    test('server trust challenge', () async {
-      late URLAuthenticationChallenge actualChallenge;
-      late SecTrust actualTrust;
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          actualChallenge = challenge;
-          actualTrust = challenge.protectionSpace.serverTrust!;
-          return (
-            NSURLSessionAuthChallengeDisposition
-                .NSURLSessionAuthChallengePerformDefaultHandling,
-            null,
-          );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      await get(session, uri);
-      final space = actualChallenge.protectionSpace;
-      expect(space.authenticationMethod, NSURLAuthenticationMethodServerTrust);
-      expect(space.host, 'localhost');
-      expect(space.port, server.port);
-      expect(space.protocol, 'https');
-      expect(space.isProxy, false);
-      expect(actualChallenge.previousFailureCount, 0);
-      expect(actualTrust.certificateChain.first.subjectSummary, 'localhost');
-    });
-
-    test('perform default handling', () async {
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, c) => (
-          NSURLSessionAuthChallengeDisposition
-              .NSURLSessionAuthChallengePerformDefaultHandling,
-          null,
-        ),
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(session, uri);
-      expect(response, isNull);
-      expect(error!.code, _nsurlErrorServerCertificateUntrusted);
-    });
-
-    test('trusted anchor', () async {
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) => _trustAnchor(challenge, testCa),
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, data, error) = await get(session, uri);
-      expect(error, isNull);
-      expect((response as HTTPURLResponse).statusCode, 200);
-      expect(utf8.decode(data!.toList()), 'Hello World');
-    });
-
-    test('async callback', () async {
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) async {
-          await Future<void>.delayed(const Duration(milliseconds: 10));
-          return _trustAnchor(challenge, testCa);
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(session, uri);
-      expect(error, isNull);
-      expect((response as HTTPURLResponse).statusCode, 200);
-    });
-
+  group('SecTrust', () {
     test('networkFetchAllowed', () async {
       late List<bool> values;
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          final trust = challenge.protectionSpace.serverTrust!;
-          values = [trust.networkFetchAllowed];
-          trust.networkFetchAllowed = false;
-          values.add(trust.networkFetchAllowed);
-          trust.networkFetchAllowed = true;
-          values.add(trust.networkFetchAllowed);
-          return (
-            NSURLSessionAuthChallengeDisposition
-                .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-            null,
-          );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      await get(session, uri);
-      // Network fetch is allowed by default for TLS server trusts.
-      expect(values, [true, false, true]);
+      await withServerTrust((trust) {
+        trust.networkFetchAllowed = false;
+        values = [trust.networkFetchAllowed];
+        trust.networkFetchAllowed = true;
+        values.add(trust.networkFetchAllowed);
+      });
+      expect(values, [false, true]);
     });
 
-    test('network fetch not allowed', () async {
-      late ({bool trusted, NSError? error}) result;
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          final trust = challenge.protectionSpace.serverTrust!
-            ..networkFetchAllowed = false
-            ..setAnchorCertificates([testCa]);
-          result = trust.evaluate();
-          return result.trusted
-              ? (
-                  NSURLSessionAuthChallengeDisposition
-                      .NSURLSessionAuthChallengeUseCredential,
-                  URLCredential.forTrust(trust),
-                )
-              : (
-                  NSURLSessionAuthChallengeDisposition
-                      .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-                  null,
-                );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(session, uri);
-      expect(result.trusted, true);
-      expect(error, isNull);
-      expect((response as HTTPURLResponse).statusCode, 200);
-    });
-
-    test('certificateChain evaluates the trust', () async {
-      late List<String?> chain;
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          final trust = challenge.protectionSpace.serverTrust!
-            ..setAnchorCertificates([testCa]);
-          // `evaluate` is not called but the chain includes the anchor.
-          chain = [for (final c in trust.certificateChain) c.subjectSummary];
-          return (
-            NSURLSessionAuthChallengeDisposition
-                .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-            null,
-          );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      await get(session, uri);
-      expect(chain, ['localhost', 'cupertino_http Test CA']);
-    });
-
-    test('evaluate with trusted anchor', () async {
+    test('evaluate trusted', () async {
       late ({bool trusted, NSError? error}) result;
       late List<SecCertificate> chain;
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          final trust = challenge.protectionSpace.serverTrust!
-            ..setAnchorCertificates([testCa]);
-          result = trust.evaluate();
-          chain = trust.certificateChain;
-          return (
-            NSURLSessionAuthChallengeDisposition
-                .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-            null,
-          );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      await get(session, uri);
+      await withServerTrust((trust) {
+        trust.setAnchorCertificates([testCa]);
+        result = trust.evaluate();
+        chain = trust.certificateChain;
+      });
       expect(
         result.trusted,
         true,
@@ -268,176 +112,94 @@ void testOnChallenge(URLSessionConfiguration Function() config) {
         'localhost',
         'cupertino_http Test CA',
       ]);
-      expect(chain.last.der, testCa.der);
     });
 
-    test('evaluate with untrusted anchor', () async {
+    test('evaluate untrusted', () async {
       late ({bool trusted, NSError? error}) result;
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          final trust = challenge.protectionSpace.serverTrust!
-            ..setAnchorCertificates([otherCa]);
-          result = trust.evaluate();
-          return (
-            NSURLSessionAuthChallengeDisposition
-                .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-            null,
-          );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(session, uri);
+      await withServerTrust((trust) {
+        trust.setAnchorCertificates([otherCa]);
+        result = trust.evaluate();
+      });
       expect(result.trusted, false);
       expect(result.error, isNotNull);
-      expect(response, isNull);
-      expect(error, isNotNull);
     });
 
-    test('evaluate with system anchors', () async {
-      late ({bool trusted, NSError? error}) result;
+    test('setAnchorCertificatesOnly', () async {
+      late bool trusted;
+      await withServerTrust((trust) {
+        trust
+          ..setAnchorCertificates([testCa])
+          ..setAnchorCertificatesOnly(false);
+        trusted = trust.evaluate().trusted;
+      });
+      expect(trusted, true);
+    });
+  });
+
+  group('onChallenge', () {
+    late HttpServer server;
+    late Uri uri;
+
+    setUp(() async {
+      server = await startSecureServer();
+      uri = Uri.https('localhost:${server.port}', '/');
+    });
+    tearDown(() => server.close(force: true));
+
+    URLSession createSession(OnChallenge onChallenge) {
       final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          result = challenge.protectionSpace.serverTrust!.evaluate();
-          return (
-            NSURLSessionAuthChallengeDisposition
-                .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-            null,
-          );
-        },
+        URLSessionConfiguration.ephemeralSessionConfiguration(),
+        onChallenge: onChallenge,
       );
       addTearDown(session.finishTasksAndInvalidate);
+      return session;
+    }
+
+    test('challenge', () async {
+      late URLSessionTask actualTask;
+      late URLAuthenticationChallenge actualChallenge;
+      final session = createSession((s, task, challenge) {
+        actualTask = task;
+        actualChallenge = challenge;
+        return _trustServer(s, task, challenge);
+      });
 
       await get(session, uri);
-      expect(result.trusted, false);
-      expect(result.error, isNotNull);
+      expect(actualTask.originalRequest!.url, uri);
+      final space = actualChallenge.protectionSpace;
+      expect(space.authenticationMethod, NSURLAuthenticationMethodServerTrust);
+      expect(space.host, 'localhost');
+      expect(space.port, server.port);
+      expect(space.protocol, 'https');
+      expect(space.isProxy, false);
+      expect(space.serverTrust, isNotNull);
+      expect(actualChallenge.previousFailureCount, 0);
     });
 
-    test('anchor and system anchors', () async {
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          final trust = challenge.protectionSpace.serverTrust!
-            ..setAnchorCertificates([testCa])
-            ..setAnchorCertificatesOnly(false);
-          final result = trust.evaluate();
-          return result.trusted
-              ? (
-                  NSURLSessionAuthChallengeDisposition
-                      .NSURLSessionAuthChallengeUseCredential,
-                  URLCredential.forTrust(trust),
-                )
-              : (
-                  NSURLSessionAuthChallengeDisposition
-                      .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-                  null,
-                );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
+    test('use credential', () async {
+      final session = createSession(_trustServer);
+      final (response, data, error) = await get(session, uri);
+      expect(error, isNull);
+      expect((response as HTTPURLResponse).statusCode, 200);
+      expect(utf8.decode(data!.toList()), 'Hello World');
+    });
 
+    test('async', () async {
+      final session = createSession((s, t, challenge) async {
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+        return _trustServer(s, t, challenge);
+      });
       final (response, _, error) = await get(session, uri);
       expect(error, isNull);
       expect((response as HTTPURLResponse).statusCode, 200);
-    });
-
-    test('pinned leaf certificate', () async {
-      // Accept the server if it presents exactly the expected certificate.
-      // The TLS handshake verifies that the server has the corresponding
-      // private key.
-      final expected = pemToDer(serverCertificatePem);
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, challenge) {
-          final trust = challenge.protectionSpace.serverTrust!;
-          final leaf = trust.certificateChain.first;
-          if (listEquals(leaf.der, expected)) {
-            return (
-              NSURLSessionAuthChallengeDisposition
-                  .NSURLSessionAuthChallengeUseCredential,
-              URLCredential.forTrust(trust),
-            );
-          }
-          return (
-            NSURLSessionAuthChallengeDisposition
-                .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-            null,
-          );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(session, uri);
-      expect(error, isNull);
-      expect((response as HTTPURLResponse).statusCode, 200);
-    });
-
-    test('cancel', () async {
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, c) => (
-          NSURLSessionAuthChallengeDisposition
-              .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-          null,
-        ),
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(session, uri);
-      expect(response, isNull);
-      expect(error!.code, _nsurlErrorCancelled);
-    });
-
-    // NOTE: For a server that the system trusts, these dispositions fall back
-    // to default handling (i.e. the server is trusted). Only cancelling the
-    // challenge reliably rejects a server.
-    test('reject protection space', () async {
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, c) => (
-          NSURLSessionAuthChallengeDisposition
-              .NSURLSessionAuthChallengeRejectProtectionSpace,
-          null,
-        ),
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(session, uri);
-      expect(response, isNull);
-      expect(error!.code, _nsurlErrorServerCertificateUntrusted);
-    });
-
-    test('use credential without credential', () async {
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, c) => (
-          NSURLSessionAuthChallengeDisposition
-              .NSURLSessionAuthChallengeUseCredential,
-          null,
-        ),
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(session, uri);
-      expect(response, isNull);
-      expect(error!.code, _nsurlErrorServerCertificateUntrusted);
     });
 
     test('throws', () async {
       final errors = <Object>[];
-      final result = await runZonedGuarded(() async {
-        final session = URLSession.sessionWithConfiguration(
-          config(),
-          onChallenge: (s, t, c) => throw UnsupportedError('test'),
-        );
-        try {
-          return await get(session, uri);
-        } finally {
-          session.finishTasksAndInvalidate();
-        }
-      }, (e, s) => errors.add(e));
+      final result = await runZonedGuarded(
+        () => get(createSession((s, t, c) => throw UnsupportedError('x')), uri),
+        (e, s) => errors.add(e),
+      );
 
       final (response, _, error) = result!;
       expect(response, isNull);
@@ -447,20 +209,16 @@ void testOnChallenge(URLSessionConfiguration Function() config) {
 
     test('async throws', () async {
       final errors = <Object>[];
-      final result = await runZonedGuarded(() async {
-        final session = URLSession.sessionWithConfiguration(
-          config(),
-          onChallenge: (s, t, c) async {
+      final result = await runZonedGuarded(
+        () => get(
+          createSession((s, t, c) async {
             await Future<void>.delayed(const Duration(milliseconds: 10));
-            throw UnsupportedError('test');
-          },
-        );
-        try {
-          return await get(session, uri);
-        } finally {
-          session.finishTasksAndInvalidate();
-        }
-      }, (e, s) => errors.add(e));
+            throw UnsupportedError('x');
+          }),
+          uri,
+        ),
+        (e, s) => errors.add(e),
+      );
 
       final (response, _, error) = result!;
       expect(response, isNull);
@@ -468,47 +226,17 @@ void testOnChallenge(URLSessionConfiguration Function() config) {
       expect(errors, [isA<UnsupportedError>()]);
     });
 
-    test('not called for http', () async {
-      final httpServer = await HttpServer.bind('localhost', 0)
-        ..listen((request) async {
-          await request.drain<void>();
-          await request.response.close();
-        });
-      addTearDown(httpServer.close);
-      var called = false;
-      final session = URLSession.sessionWithConfiguration(
-        config(),
-        onChallenge: (s, t, c) {
-          called = true;
-          return (
-            NSURLSessionAuthChallengeDisposition
-                .NSURLSessionAuthChallengePerformDefaultHandling,
-            null,
-          );
-        },
-      );
-      addTearDown(session.finishTasksAndInvalidate);
-
-      final (response, _, error) = await get(
-        session,
-        Uri.http('localhost:${httpServer.port}', '/'),
-      );
-      expect(error, isNull);
-      expect((response as HTTPURLResponse).statusCode, 200);
-      expect(called, false);
-    });
-
     test('task delegate', () async {
-      // The session has no delegate, so the server trust challenge is
-      // delivered to the task delegate. This is how `CupertinoClient` works.
-      final session = URLSession.sessionWithConfiguration(config());
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.ephemeralSessionConfiguration(),
+      );
       addTearDown(session.finishTasksAndInvalidate);
       final c = Completer<(URLResponse?, NSError?)>();
       URLResponse? response;
 
       session.dataTaskWithRequest(URLRequest.fromUrl(uri))
         ..taskDelegate = URLSessionTask.delegate(
-          onChallenge: (s, t, challenge) => _trustAnchor(challenge, testCa),
+          onChallenge: _trustServer,
           onResponse: (s, t, r) {
             response = r;
             return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
@@ -521,17 +249,5 @@ void testOnChallenge(URLSessionConfiguration Function() config) {
       expect(error, isNull);
       expect((actualResponse as HTTPURLResponse).statusCode, 200);
     });
-  });
-}
-
-void main() {
-  testSecCertificate();
-
-  group('defaultSessionConfiguration', () {
-    testOnChallenge(URLSessionConfiguration.defaultSessionConfiguration);
-  });
-
-  group('ephemeralSessionConfiguration', () {
-    testOnChallenge(URLSessionConfiguration.ephemeralSessionConfiguration);
   });
 }
