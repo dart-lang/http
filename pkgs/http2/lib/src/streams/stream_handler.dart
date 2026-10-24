@@ -925,13 +925,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       _changeState(stream, StreamState.HalfClosedRemote);
     } else if (stream.state == StreamState.HalfClosedLocal) {
       _changeState(stream, StreamState.Closed);
-      // Only remove the stream from [_openStreams] once all outgoing messages
-      // have been sent; if outgoing DATA is still waiting on flow-control
-      // credit, keep the stream registered so incoming WINDOW_UPDATE frames
-      // reach [stream.windowHandler].
-      if (stream.outgoingQueue.wasClosed) {
-        _openStreams.remove(stream.id);
-      }
+      // NOTE: The stream stays in [_openStreams] until its queues are done and
+      // [_cleanupClosedStream] runs, the same as when it is closed by our own
+      // END_STREAM. Removing it here would hide it from [onTerminated] while
+      // its undelivered messages are still in the connection queue, and would
+      // stop incoming WINDOW_UPDATE frames from reaching
+      // [stream.windowHandler] while outgoing DATA waits on flow control.
     } else {
       throw StateError(
         'Got an end-of-stream from the remote end, but this stream is '

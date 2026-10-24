@@ -444,6 +444,51 @@ void main() {
       await Future.wait([serverFun(), clientFun()]);
     });
 
+    // A stream that is fully closed while the application has not yet read
+    // its incoming messages must still be torn down with the connection,
+    // whichever side sent END_STREAM first.
+    for (var serverEndsFirst in [true, false]) {
+      transportTest('terminate-with-undrained-closed-stream--'
+          '${serverEndsFirst ? 'server' : 'client'}-ends-first', (
+        ClientTransportConnection client,
+        ServerTransportConnection server,
+      ) async {
+        var serverStreamC = Completer<ServerTransportStream>();
+        // The server never listens to the stream's incoming messages.
+        server.incomingStreams.listen(serverStreamC.complete);
+
+        var clientStream = client.makeRequest([
+          Header.ascii(':method', 'POST'),
+          Header.ascii(':path', '/'),
+        ], endStream: false);
+        clientStream.incomingMessages.listen((_) {}, onError: (_) {});
+        var serverStream = await serverStreamC.future;
+
+        Future<void> serverEnds() async {
+          serverStream.sendHeaders([
+            Header.ascii(':status', '200'),
+          ], endStream: true);
+          await Future<void>.delayed(const Duration(milliseconds: 10));
+        }
+
+        Future<void> clientEnds() async {
+          clientStream.sendData([1, 2, 3], endStream: true);
+          await Future<void>.delayed(const Duration(milliseconds: 10));
+        }
+
+        if (serverEndsFirst) {
+          await serverEnds();
+          await clientEnds();
+        } else {
+          await clientEnds();
+          await serverEnds();
+        }
+
+        await server.terminate();
+        await client.terminate();
+      });
+    }
+
     transportTest('idle-handler', (
       ClientTransportConnection client,
       ServerTransportConnection server,
