@@ -124,6 +124,14 @@ typedef OnWebSocketTaskClosed =
 /// If the callback throws, or the returned [Future] completes with an error,
 /// then the challenge is cancelled (i.e. the server is **not** trusted) and
 /// the error is reported to the current [Zone].
+///
+/// > [!WARNING]
+/// > Accepting a server trust without evaluating it (see [SecTrust.evaluate])
+/// > disables protection against man-in-the-middle attacks. Only
+/// > `NSURLSessionAuthChallengeCancelAuthenticationChallenge` reliably rejects
+/// > a server: `NSURLSessionAuthChallengeRejectProtectionSpace` and
+/// > `NSURLSessionAuthChallengeUseCredential` without a credential fall back
+/// > to the system's default trust evaluation.
 typedef OnChallenge =
     FutureOr<(NSURLSessionAuthChallengeDisposition, URLCredential?)> Function(
       URLSession session,
@@ -1599,14 +1607,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// allows trusting servers that would otherwise be rejected (e.g. servers
   /// using self-signed certificates) or rejecting servers that would otherwise
   /// be trusted (e.g. to implement certificate pinning). Server trust is
-  /// evaluated once per connection, not once per task.
-  ///
-  /// > [!WARNING]
-  /// > Accepting a server trust without evaluating it (see
-  /// > [SecTrust.evaluate]) disables protection against
-  /// > man-in-the-middle attacks.
-  ///
-  /// See
+  /// evaluated once per connection, not once per task. See [OnChallenge],
   /// [URLSession:task:didReceiveChallenge:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411595-urlsession)
   /// and
   /// [Performing manual server trust authentication](https://developer.apple.com/documentation/foundation/url_loading_system/handling_an_authentication_challenge/performing_manual_server_trust_authentication).

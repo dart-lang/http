@@ -240,12 +240,6 @@ class CupertinoClient extends BaseClient {
   ///   },
   /// );
   /// ```
-  ///
-  /// > [!WARNING]
-  /// > Only `NSURLSessionAuthChallengeCancelAuthenticationChallenge` reliably
-  /// > rejects a server. `NSURLSessionAuthChallengeRejectProtectionSpace` and
-  /// > `NSURLSessionAuthChallengeUseCredential` without a credential fall back
-  /// > to the system's default trust evaluation.
   factory CupertinoClient.fromSessionConfiguration(
     URLSessionConfiguration config, {
     OnChallenge? onChallenge,
