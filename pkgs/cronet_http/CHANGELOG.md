@@ -4,8 +4,7 @@
   Plugin 9 (the default for new Flutter projects since Flutter 3.44):
   "Namespace 'org.chromium.net' is used in multiple modules and/or libraries"
   (https://github.com/dart-lang/http/issues/1932).
-* Upgrade `package:jni` to 1.1.0.
-* Upgrade `package:jnigen` to 1.1.0.
+* Upgrade `package:jni` to 1.1.0 and `package:jnigen` to 1.0.1.
 
 ## 1.10.0
 
