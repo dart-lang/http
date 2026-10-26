@@ -922,6 +922,23 @@ extension NSCondition$Methods on NSCondition {
   }
 }
 
+/// WARNING: NSDateInterval is a stub. To generate bindings for this class, include
+/// NSDateInterval in your config's objc-interfaces list.
+///
+/// NSDateInterval
+extension type NSDateInterval._(objc.ObjCObject object$)
+    implements objc.ObjCObject {
+  /// Constructs a [NSDateInterval] that points to the same underlying object as [other].
+  NSDateInterval.as(objc.ObjCObject other) : object$ = other {}
+
+  /// Constructs a [NSDateInterval] that wraps the given raw object pointer.
+  NSDateInterval.fromPointer(
+    ffi.Pointer<objc.ObjCObjectImpl> other, {
+    bool retain = false,
+    bool release = false,
+  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {}
+}
+
 /// NSDeprecated
 extension NSDeprecated on NSOperationQueue {
   /// operationCount
@@ -13355,9 +13372,6 @@ extension type NSURLSessionTaskDelegate._(objc.ObjCProtocol object$)
   }) : object$ = objc.ObjCProtocol(other, retain: retain, release: release);
 }
 
-/// WARNING: NSURLSessionTaskMetrics is a stub. To generate bindings for this class, include
-/// NSURLSessionTaskMetrics in your config's objc-interfaces list.
-///
 /// NSURLSessionTaskMetrics
 extension type NSURLSessionTaskMetrics._(objc.ObjCObject object$)
     implements objc.ObjCObject, objc.NSObject {
@@ -13368,6 +13382,7 @@ extension type NSURLSessionTaskMetrics._(objc.ObjCObject object$)
       iOS: (false, (10, 0, 0)),
       macOS: (false, (10, 12, 0)),
     );
+    assert(isA(object$));
   }
 
   /// Constructs a [NSURLSessionTaskMetrics] that wraps the given raw object pointer.
@@ -13381,7 +13396,179 @@ extension type NSURLSessionTaskMetrics._(objc.ObjCObject object$)
       iOS: (false, (10, 0, 0)),
       macOS: (false, (10, 12, 0)),
     );
+    assert(isA(object$));
   }
+
+  /// Returns whether [obj] is an instance of [NSURLSessionTaskMetrics].
+  static bool isA(objc.ObjCObject? obj) => obj == null
+      ? false
+      : _objc_msgSend_19nvye5(
+          obj.ref.pointer,
+          _sel_isKindOfClass_,
+          _class_NSURLSessionTaskMetrics,
+        );
+
+  /// alloc
+  static NSURLSessionTaskMetrics alloc() {
+    final $ret = _objc_msgSend_151sglz(
+      _class_NSURLSessionTaskMetrics,
+      _sel_alloc,
+    );
+    return NSURLSessionTaskMetrics.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// allocWithZone:
+  static NSURLSessionTaskMetrics allocWithZone(ffi.Pointer<objc.NSZone> zone) {
+    final $ret = _objc_msgSend_1cwp428(
+      _class_NSURLSessionTaskMetrics,
+      _sel_allocWithZone_,
+      zone,
+    );
+    return NSURLSessionTaskMetrics.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// new
+  static NSURLSessionTaskMetrics new$() {
+    final $ret = _objc_msgSend_151sglz(
+      _class_NSURLSessionTaskMetrics,
+      _sel_new,
+    );
+    return NSURLSessionTaskMetrics.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// Returns a new instance of NSURLSessionTaskMetrics constructed with the default `new` method.
+  NSURLSessionTaskMetrics() : this.as(new$().object$);
+}
+
+extension NSURLSessionTaskMetrics$Methods on NSURLSessionTaskMetrics {
+  /// init
+  NSURLSessionTaskMetrics init() {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskMetrics.init',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 0, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.retainAndReturnPointer(),
+      _sel_init,
+    );
+    return NSURLSessionTaskMetrics.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// redirectCount is the number of redirects that were recorded.
+  int get redirectCount {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskMetrics.redirectCount',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    return _objc_msgSend_xw2lbc(_$$ref.pointer, _sel_redirectCount);
+  }
+
+  /// Interval from the task creation time to the task completion time.
+  /// Task creation time is the time when the task was instantiated.
+  /// Task completion time is the time when the task is about to change its internal state to completed.
+  NSDateInterval get taskInterval {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskMetrics.taskInterval',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_taskInterval);
+    return NSDateInterval.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// transactionMetrics array contains the metrics collected for every request/response transaction created during the task execution.
+  objc.NSArray get transactionMetrics {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskMetrics.transactionMetrics',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_transactionMetrics);
+    return objc.NSArray.fromPointer($ret, retain: true, release: true);
+  }
+}
+
+/// DNS protocol used for domain resolution.
+enum NSURLSessionTaskMetricsDomainResolutionProtocol {
+  NSURLSessionTaskMetricsDomainResolutionProtocolUnknown(0),
+
+  /// Resolution used DNS over UDP.
+  NSURLSessionTaskMetricsDomainResolutionProtocolUDP(1),
+
+  /// Resolution used DNS over TCP.
+  NSURLSessionTaskMetricsDomainResolutionProtocolTCP(2),
+
+  /// Resolution used DNS over TLS.
+  NSURLSessionTaskMetricsDomainResolutionProtocolTLS(3),
+
+  /// Resolution used DNS over HTTPS.
+  NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS(4);
+
+  final int value;
+  const NSURLSessionTaskMetricsDomainResolutionProtocol(this.value);
+
+  static NSURLSessionTaskMetricsDomainResolutionProtocol fromValue(
+    int value,
+  ) => switch (value) {
+    0 => NSURLSessionTaskMetricsDomainResolutionProtocolUnknown,
+    1 => NSURLSessionTaskMetricsDomainResolutionProtocolUDP,
+    2 => NSURLSessionTaskMetricsDomainResolutionProtocolTCP,
+    3 => NSURLSessionTaskMetricsDomainResolutionProtocolTLS,
+    4 => NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS,
+    _ => throw ArgumentError(
+      'Unknown value for NSURLSessionTaskMetricsDomainResolutionProtocol: $value',
+    ),
+  };
+}
+
+/// The resource fetch type.
+enum NSURLSessionTaskMetricsResourceFetchType {
+  NSURLSessionTaskMetricsResourceFetchTypeUnknown(0),
+
+  /// The resource was loaded over the network.
+  NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad(1),
+
+  /// The resource was pushed by the server to the client.
+  NSURLSessionTaskMetricsResourceFetchTypeServerPush(2),
+
+  /// The resource was retrieved from the local storage.
+  NSURLSessionTaskMetricsResourceFetchTypeLocalCache(3);
+
+  final int value;
+  const NSURLSessionTaskMetricsResourceFetchType(this.value);
+
+  static NSURLSessionTaskMetricsResourceFetchType fromValue(int value) =>
+      switch (value) {
+        0 => NSURLSessionTaskMetricsResourceFetchTypeUnknown,
+        1 => NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad,
+        2 => NSURLSessionTaskMetricsResourceFetchTypeServerPush,
+        3 => NSURLSessionTaskMetricsResourceFetchTypeLocalCache,
+        _ => throw ArgumentError(
+          'Unknown value for NSURLSessionTaskMetricsResourceFetchType: $value',
+        ),
+      };
 }
 
 enum NSURLSessionTaskState {
@@ -13405,6 +13592,646 @@ enum NSURLSessionTaskState {
     3 => NSURLSessionTaskStateCompleted,
     _ => throw ArgumentError('Unknown value for NSURLSessionTaskState: $value'),
   };
+}
+
+/// This class defines the performance metrics collected for a request/response transaction during the task execution.
+extension type NSURLSessionTaskTransactionMetrics._(objc.ObjCObject object$)
+    implements objc.ObjCObject, objc.NSObject {
+  /// Constructs a [NSURLSessionTaskTransactionMetrics] that points to the same underlying object as [other].
+  NSURLSessionTaskTransactionMetrics.as(objc.ObjCObject other)
+    : object$ = other {
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    assert(isA(object$));
+  }
+
+  /// Constructs a [NSURLSessionTaskTransactionMetrics] that wraps the given raw object pointer.
+  NSURLSessionTaskTransactionMetrics.fromPointer(
+    ffi.Pointer<objc.ObjCObjectImpl> other, {
+    bool retain = false,
+    bool release = false,
+  }) : object$ = objc.ObjCObject(other, retain: retain, release: release) {
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    assert(isA(object$));
+  }
+
+  /// Returns whether [obj] is an instance of [NSURLSessionTaskTransactionMetrics].
+  static bool isA(objc.ObjCObject? obj) => obj == null
+      ? false
+      : _objc_msgSend_19nvye5(
+          obj.ref.pointer,
+          _sel_isKindOfClass_,
+          _class_NSURLSessionTaskTransactionMetrics,
+        );
+
+  /// alloc
+  static NSURLSessionTaskTransactionMetrics alloc() {
+    final $ret = _objc_msgSend_151sglz(
+      _class_NSURLSessionTaskTransactionMetrics,
+      _sel_alloc,
+    );
+    return NSURLSessionTaskTransactionMetrics.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// allocWithZone:
+  static NSURLSessionTaskTransactionMetrics allocWithZone(
+    ffi.Pointer<objc.NSZone> zone,
+  ) {
+    final $ret = _objc_msgSend_1cwp428(
+      _class_NSURLSessionTaskTransactionMetrics,
+      _sel_allocWithZone_,
+      zone,
+    );
+    return NSURLSessionTaskTransactionMetrics.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// new
+  static NSURLSessionTaskTransactionMetrics new$() {
+    final $ret = _objc_msgSend_151sglz(
+      _class_NSURLSessionTaskTransactionMetrics,
+      _sel_new,
+    );
+    return NSURLSessionTaskTransactionMetrics.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// Returns a new instance of NSURLSessionTaskTransactionMetrics constructed with the default `new` method.
+  NSURLSessionTaskTransactionMetrics() : this.as(new$().object$);
+}
+
+extension NSURLSessionTaskTransactionMetrics$Methods
+    on NSURLSessionTaskTransactionMetrics {
+  /// connectEndDate is the time immediately after the user agent finished establishing the connection to the server, including completion of security-related and other handshakes.
+  objc.NSDate? get connectEndDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.connectEndDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_connectEndDate);
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// connectStartDate is the time immediately before the user agent started establishing the connection to the server.
+  ///
+  /// For example, this would correspond to the time immediately before the user agent started trying to establish the TCP connection.
+  objc.NSDate? get connectStartDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.connectStartDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_connectStartDate);
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// countOfRequestBodyBytesBeforeEncoding is the size of upload body data, file, or stream.
+  int get countOfRequestBodyBytesBeforeEncoding {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.countOfRequestBodyBytesBeforeEncoding',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_pysgoz(
+      _$$ref.pointer,
+      _sel_countOfRequestBodyBytesBeforeEncoding,
+    );
+  }
+
+  /// countOfRequestBodyBytesSent is the number of bytes transferred for request body.
+  /// It includes protocol-specific framing, transfer encoding, and content encoding.
+  int get countOfRequestBodyBytesSent {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.countOfRequestBodyBytesSent',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_pysgoz(
+      _$$ref.pointer,
+      _sel_countOfRequestBodyBytesSent,
+    );
+  }
+
+  /// countOfRequestHeaderBytesSent is the number of bytes transferred for request header.
+  int get countOfRequestHeaderBytesSent {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.countOfRequestHeaderBytesSent',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_pysgoz(
+      _$$ref.pointer,
+      _sel_countOfRequestHeaderBytesSent,
+    );
+  }
+
+  /// countOfResponseBodyBytesAfterDecoding is the size of data delivered to your delegate or completion handler.
+  int get countOfResponseBodyBytesAfterDecoding {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.countOfResponseBodyBytesAfterDecoding',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_pysgoz(
+      _$$ref.pointer,
+      _sel_countOfResponseBodyBytesAfterDecoding,
+    );
+  }
+
+  /// countOfResponseBodyBytesReceived is the number of bytes transferred for response header.
+  /// It includes protocol-specific framing, transfer encoding, and content encoding.
+  int get countOfResponseBodyBytesReceived {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.countOfResponseBodyBytesReceived',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_pysgoz(
+      _$$ref.pointer,
+      _sel_countOfResponseBodyBytesReceived,
+    );
+  }
+
+  /// countOfResponseHeaderBytesReceived is the number of bytes transferred for response header.
+  int get countOfResponseHeaderBytesReceived {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.countOfResponseHeaderBytesReceived',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_pysgoz(
+      _$$ref.pointer,
+      _sel_countOfResponseHeaderBytesReceived,
+    );
+  }
+
+  /// domainLookupEndDate returns the time after the name lookup was completed.
+  objc.NSDate? get domainLookupEndDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.domainLookupEndDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.pointer,
+      _sel_domainLookupEndDate,
+    );
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// domainLookupStartDate returns the time immediately before the user agent started the name lookup for the resource.
+  objc.NSDate? get domainLookupStartDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.domainLookupStartDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.pointer,
+      _sel_domainLookupStartDate,
+    );
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// DNS protocol used for domain resolution.
+  NSURLSessionTaskMetricsDomainResolutionProtocol get domainResolutionProtocol {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.domainResolutionProtocol',
+      iOS: (false, (14, 0, 0)),
+      macOS: (false, (11, 0, 0)),
+    );
+    final $ret = _objc_msgSend_72el7f(
+      _$$ref.pointer,
+      _sel_domainResolutionProtocol,
+    );
+    return NSURLSessionTaskMetricsDomainResolutionProtocol.fromValue($ret);
+  }
+
+  /// fetchStartDate returns the time when the user agent started fetching the resource, whether or not the resource was retrieved from the server or local resources.
+  ///
+  /// The following metrics will be set to nil, if a persistent connection was used or the resource was retrieved from local resources:
+  ///
+  /// domainLookupStartDate
+  /// domainLookupEndDate
+  /// connectStartDate
+  /// connectEndDate
+  /// secureConnectionStartDate
+  /// secureConnectionEndDate
+  objc.NSDate? get fetchStartDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.fetchStartDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_fetchStartDate);
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// init
+  NSURLSessionTaskTransactionMetrics init() {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.init',
+      iOS: (false, (2, 0, 0)),
+      macOS: (false, (10, 0, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.retainAndReturnPointer(),
+      _sel_init,
+    );
+    return NSURLSessionTaskTransactionMetrics.fromPointer(
+      $ret,
+      retain: false,
+      release: true,
+    );
+  }
+
+  /// Whether the connection is established over a cellular interface.
+  bool get isCellular {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.isCellular',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_91o635(_$$ref.pointer, _sel_isCellular);
+  }
+
+  /// Whether the connection is established over a constrained interface.
+  bool get isConstrained {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.isConstrained',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_91o635(_$$ref.pointer, _sel_isConstrained);
+  }
+
+  /// Whether the connection is established over an expensive interface.
+  bool get isExpensive {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.isExpensive',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_91o635(_$$ref.pointer, _sel_isExpensive);
+  }
+
+  /// Whether a multipath protocol is successfully negotiated for the connection.
+  bool get isMultipath {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.isMultipath',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    return _objc_msgSend_91o635(_$$ref.pointer, _sel_isMultipath);
+  }
+
+  /// This property is set to YES if a proxy connection was used to fetch the resource.
+  bool get isProxyConnection {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.isProxyConnection',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    return _objc_msgSend_91o635(_$$ref.pointer, _sel_isProxyConnection);
+  }
+
+  /// This property is set to YES if a persistent connection was used to fetch the resource.
+  bool get isReusedConnection {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.isReusedConnection',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    return _objc_msgSend_91o635(_$$ref.pointer, _sel_isReusedConnection);
+  }
+
+  /// localAddress is the IP address string of the local interface for the connection.
+  ///
+  /// For multipath protocols, this is the local address of the initial flow.
+  ///
+  /// If a connection was not used, this attribute is set to nil.
+  objc.NSString? get localAddress {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.localAddress',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_localAddress);
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// localPort is the port number of the local interface for the connection.
+  ///
+  /// For multipath protocols, this is the local port of the initial flow.
+  ///
+  /// If a connection was not used, this attribute is set to nil.
+  objc.NSNumber? get localPort {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.localPort',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_localPort);
+    return $ret.address == 0
+        ? null
+        : objc.NSNumber.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// negotiatedTLSCipherSuite is the TLS cipher suite negotiated for the connection.
+  /// It is a 2-byte sequence in host byte order.
+  ///
+  /// Please refer to tls_ciphersuite_t enum in Security/SecProtocolTypes.h
+  ///
+  /// If an encrypted connection was not used, this attribute is set to nil.
+  objc.NSNumber? get negotiatedTLSCipherSuite {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.negotiatedTLSCipherSuite',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.pointer,
+      _sel_negotiatedTLSCipherSuite,
+    );
+    return $ret.address == 0
+        ? null
+        : objc.NSNumber.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// negotiatedTLSProtocolVersion is the TLS protocol version negotiated for the connection.
+  /// It is a 2-byte sequence in host byte order.
+  ///
+  /// Please refer to tls_protocol_version_t enum in Security/SecProtocolTypes.h
+  ///
+  /// If an encrypted connection was not used, this attribute is set to nil.
+  objc.NSNumber? get negotiatedTLSProtocolVersion {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.negotiatedTLSProtocolVersion',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.pointer,
+      _sel_negotiatedTLSProtocolVersion,
+    );
+    return $ret.address == 0
+        ? null
+        : objc.NSNumber.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// The network protocol used to fetch the resource, as identified by the ALPN Protocol ID Identification Sequence [RFC7301].
+  /// E.g., h3, h2, http/1.1.
+  ///
+  /// When a proxy is configured AND a tunnel connection is established, then this attribute returns the value for the tunneled protocol.
+  ///
+  /// For example:
+  /// If no proxy were used, and HTTP/2 was negotiated, then h2 would be returned.
+  /// If HTTP/1.1 were used to the proxy, and the tunneled connection was HTTP/2, then h2 would be returned.
+  /// If HTTP/1.1 were used to the proxy, and there were no tunnel, then http/1.1 would be returned.
+  objc.NSString? get networkProtocolName {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.networkProtocolName',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.pointer,
+      _sel_networkProtocolName,
+    );
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// remoteAddress is the IP address string of the remote interface for the connection.
+  ///
+  /// For multipath protocols, this is the remote address of the initial flow.
+  ///
+  /// If a connection was not used, this attribute is set to nil.
+  objc.NSString? get remoteAddress {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.remoteAddress',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_remoteAddress);
+    return $ret.address == 0
+        ? null
+        : objc.NSString.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// remotePort is the port number of the remote interface for the connection.
+  ///
+  /// For multipath protocols, this is the remote port of the initial flow.
+  ///
+  /// If a connection was not used, this attribute is set to nil.
+  objc.NSNumber? get remotePort {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.remotePort',
+      iOS: (false, (13, 0, 0)),
+      macOS: (false, (10, 15, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_remotePort);
+    return $ret.address == 0
+        ? null
+        : objc.NSNumber.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// Represents the transaction request.
+  NSURLRequest get request {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.request',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_request);
+    return NSURLRequest.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// requestEndDate is the time immediately after the user agent finished requesting the source, regardless of whether the resource was retrieved from the server or local resources.
+  ///
+  /// For example, this would correspond to the time immediately after the user agent finished sending the last byte of the request.
+  objc.NSDate? get requestEndDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.requestEndDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_requestEndDate);
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// requestStartDate is the time immediately before the user agent started requesting the source, regardless of whether the resource was retrieved from the server or local resources.
+  ///
+  /// For example, this would correspond to the time immediately before the user agent sent an HTTP GET request.
+  objc.NSDate? get requestStartDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.requestStartDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_requestStartDate);
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// Indicates whether the resource was loaded, pushed or retrieved from the local cache.
+  NSURLSessionTaskMetricsResourceFetchType get resourceFetchType {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.resourceFetchType',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_16kf8g7(_$$ref.pointer, _sel_resourceFetchType);
+    return NSURLSessionTaskMetricsResourceFetchType.fromValue($ret);
+  }
+
+  /// Represents the transaction response. Can be nil if error occurred and no response was generated.
+  NSURLResponse? get response {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.response',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_response);
+    return $ret.address == 0
+        ? null
+        : NSURLResponse.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// responseEndDate is the time immediately after the user agent received the last byte of the resource.
+  objc.NSDate? get responseEndDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.responseEndDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_responseEndDate);
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// responseStartDate is the time immediately after the user agent received the first byte of the response from the server or from local resources.
+  ///
+  /// For example, this would correspond to the time immediately after the user agent received the first byte of an HTTP response.
+  objc.NSDate? get responseStartDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.responseStartDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(_$$ref.pointer, _sel_responseStartDate);
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// If an encrypted connection was used, secureConnectionEndDate is the time immediately after the security handshake completed.
+  ///
+  /// If an encrypted connection was not used, this attribute is set to nil.
+  objc.NSDate? get secureConnectionEndDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.secureConnectionEndDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.pointer,
+      _sel_secureConnectionEndDate,
+    );
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
+
+  /// If an encrypted connection was used, secureConnectionStartDate is the time immediately before the user agent started the security handshake to secure the current connection.
+  ///
+  /// For example, this would correspond to the time immediately before the user agent started the TLS handshake.
+  ///
+  /// If an encrypted connection was not used, this attribute is set to nil.
+  objc.NSDate? get secureConnectionStartDate {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionTaskTransactionMetrics.secureConnectionStartDate',
+      iOS: (false, (10, 0, 0)),
+      macOS: (false, (10, 12, 0)),
+    );
+    final $ret = _objc_msgSend_151sglz(
+      _$$ref.pointer,
+      _sel_secureConnectionStartDate,
+    );
+    return $ret.address == 0
+        ? null
+        : objc.NSDate.fromPointer($ret, retain: true, release: true);
+  }
 }
 
 /// WARNING: NSURLSessionUploadTask is a stub. To generate bindings for this class, include
@@ -28931,6 +29758,27 @@ final _class_NSURLSessionTask = objc.getClass(
   ).cast(),
 );
 @ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'OBJC_CLASS_\$_NSURLSessionTaskMetrics',
+)
+external ffi.Pointer<objc.ObjCObjectImpl> _class_NSURLSessionTaskMetrics_raw;
+final _class_NSURLSessionTaskMetrics = objc.getClass(
+  "NSURLSessionTaskMetrics",
+  () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
+    _class_NSURLSessionTaskMetrics_raw,
+  ).cast(),
+);
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
+  symbol: 'OBJC_CLASS_\$_NSURLSessionTaskTransactionMetrics',
+)
+external ffi.Pointer<objc.ObjCObjectImpl>
+_class_NSURLSessionTaskTransactionMetrics_raw;
+final _class_NSURLSessionTaskTransactionMetrics = objc.getClass(
+  "NSURLSessionTaskTransactionMetrics",
+  () => ffi.Native.addressOf<ffi.Pointer<objc.ObjCObjectImpl>>(
+    _class_NSURLSessionTaskTransactionMetrics_raw,
+  ).cast(),
+);
+@ffi.Native<ffi.Pointer<objc.ObjCObjectImpl>>(
   symbol: 'OBJC_CLASS_\$_NSURLSessionWebSocketMessage',
 )
 external ffi.Pointer<objc.ObjCObjectImpl>
@@ -29404,6 +30252,21 @@ final _objc_msgSend_15qeuct = objc.msgSendPointer
         ffi.Pointer<objc.ObjCSelector>,
         ffi.Pointer<objc.ObjCObjectImpl>,
         ffi.Pointer<objc.ObjCObjectImpl>,
+      )
+    >();
+final _objc_msgSend_16kf8g7 = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Long Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+        )
+      >
+    >()
+    .asFunction<
+      int Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
       )
     >();
 final _objc_msgSend_17gvxvj = objc.msgSendPointer
@@ -29965,6 +30828,21 @@ final _objc_msgSend_6p7ndb = objc.msgSendPointer
         ffi.Pointer<objc.ObjCSelector>,
         ffi.Pointer<objc.ObjCObjectImpl>,
         bool,
+      )
+    >();
+final _objc_msgSend_72el7f = objc.msgSendPointer
+    .cast<
+      ffi.NativeFunction<
+        ffi.Long Function(
+          ffi.Pointer<objc.ObjCObjectImpl>,
+          ffi.Pointer<objc.ObjCSelector>,
+        )
+      >
+    >()
+    .asFunction<
+      int Function(
+        ffi.Pointer<objc.ObjCObjectImpl>,
+        ffi.Pointer<objc.ObjCSelector>,
       )
     >();
 final _objc_msgSend_8jm3uo = objc.msgSendPointer
@@ -30721,6 +31599,8 @@ late final _sel_closeCode = objc.registerName("closeCode");
 late final _sel_closeReason = objc.registerName("closeReason");
 late final _sel_configuration = objc.registerName("configuration");
 late final _sel_conformsToProtocol_ = objc.registerName("conformsToProtocol:");
+late final _sel_connectEndDate = objc.registerName("connectEndDate");
+late final _sel_connectStartDate = objc.registerName("connectStartDate");
 late final _sel_connectionProxyDictionary = objc.registerName(
   "connectionProxyDictionary",
 );
@@ -30743,6 +31623,24 @@ late final _sel_countOfBytesReceived = objc.registerName(
   "countOfBytesReceived",
 );
 late final _sel_countOfBytesSent = objc.registerName("countOfBytesSent");
+late final _sel_countOfRequestBodyBytesBeforeEncoding = objc.registerName(
+  "countOfRequestBodyBytesBeforeEncoding",
+);
+late final _sel_countOfRequestBodyBytesSent = objc.registerName(
+  "countOfRequestBodyBytesSent",
+);
+late final _sel_countOfRequestHeaderBytesSent = objc.registerName(
+  "countOfRequestHeaderBytesSent",
+);
+late final _sel_countOfResponseBodyBytesAfterDecoding = objc.registerName(
+  "countOfResponseBodyBytesAfterDecoding",
+);
+late final _sel_countOfResponseBodyBytesReceived = objc.registerName(
+  "countOfResponseBodyBytesReceived",
+);
+late final _sel_countOfResponseHeaderBytesReceived = objc.registerName(
+  "countOfResponseHeaderBytesReceived",
+);
 late final _sel_currentDiskUsage = objc.registerName("currentDiskUsage");
 late final _sel_currentMemoryUsage = objc.registerName("currentMemoryUsage");
 late final _sel_currentQueue = objc.registerName("currentQueue");
@@ -30764,6 +31662,13 @@ late final _sel_defaultSessionConfiguration = objc.registerName(
 late final _sel_delegate = objc.registerName("delegate");
 late final _sel_delegateQueue = objc.registerName("delegateQueue");
 late final _sel_diskCapacity = objc.registerName("diskCapacity");
+late final _sel_domainLookupEndDate = objc.registerName("domainLookupEndDate");
+late final _sel_domainLookupStartDate = objc.registerName(
+  "domainLookupStartDate",
+);
+late final _sel_domainResolutionProtocol = objc.registerName(
+  "domainResolutionProtocol",
+);
 late final _sel_downloadTaskWithRequest_ = objc.registerName(
   "downloadTaskWithRequest:",
 );
@@ -30791,6 +31696,7 @@ late final _sel_error = objc.registerName("error");
 late final _sel_expectedContentLength = objc.registerName(
   "expectedContentLength",
 );
+late final _sel_fetchStartDate = objc.registerName("fetchStartDate");
 late final _sel_finishTasksAndInvalidate = objc.registerName(
   "finishTasksAndInvalidate",
 );
@@ -30825,9 +31731,17 @@ late final _sel_initWithURL_cachePolicy_timeoutInterval_ = objc.registerName(
 late final _sel_initWithURL_statusCode_HTTPVersion_headerFields_ = objc
     .registerName("initWithURL:statusCode:HTTPVersion:headerFields:");
 late final _sel_invalidateAndCancel = objc.registerName("invalidateAndCancel");
+late final _sel_isCellular = objc.registerName("isCellular");
+late final _sel_isConstrained = objc.registerName("isConstrained");
 late final _sel_isDiscretionary = objc.registerName("isDiscretionary");
+late final _sel_isExpensive = objc.registerName("isExpensive");
 late final _sel_isKindOfClass_ = objc.registerName("isKindOfClass:");
+late final _sel_isMultipath = objc.registerName("isMultipath");
+late final _sel_isProxyConnection = objc.registerName("isProxyConnection");
+late final _sel_isReusedConnection = objc.registerName("isReusedConnection");
 late final _sel_isSuspended = objc.registerName("isSuspended");
+late final _sel_localAddress = objc.registerName("localAddress");
+late final _sel_localPort = objc.registerName("localPort");
 late final _sel_localizedStringForStatusCode_ = objc.registerName(
   "localizedStringForStatusCode:",
 );
@@ -30843,6 +31757,13 @@ late final _sel_multipathServiceType = objc.registerName(
   "multipathServiceType",
 );
 late final _sel_name = objc.registerName("name");
+late final _sel_negotiatedTLSCipherSuite = objc.registerName(
+  "negotiatedTLSCipherSuite",
+);
+late final _sel_negotiatedTLSProtocolVersion = objc.registerName(
+  "negotiatedTLSProtocolVersion",
+);
+late final _sel_networkProtocolName = objc.registerName("networkProtocolName");
 late final _sel_networkServiceType = objc.registerName("networkServiceType");
 late final _sel_new = objc.registerName("new");
 late final _sel_operationCount = objc.registerName("operationCount");
@@ -30858,6 +31779,9 @@ late final _sel_qualityOfService = objc.registerName("qualityOfService");
 late final _sel_receiveMessageWithCompletionHandler_ = objc.registerName(
   "receiveMessageWithCompletionHandler:",
 );
+late final _sel_redirectCount = objc.registerName("redirectCount");
+late final _sel_remoteAddress = objc.registerName("remoteAddress");
+late final _sel_remotePort = objc.registerName("remotePort");
 late final _sel_removeAllCachedResponses = objc.registerName(
   "removeAllCachedResponses",
 );
@@ -30870,7 +31794,10 @@ late final _sel_removeCachedResponseForRequest_ = objc.registerName(
 late final _sel_removeCachedResponsesSinceDate_ = objc.registerName(
   "removeCachedResponsesSinceDate:",
 );
+late final _sel_request = objc.registerName("request");
 late final _sel_requestCachePolicy = objc.registerName("requestCachePolicy");
+late final _sel_requestEndDate = objc.registerName("requestEndDate");
+late final _sel_requestStartDate = objc.registerName("requestStartDate");
 late final _sel_requestWithURL_ = objc.registerName("requestWithURL:");
 late final _sel_requestWithURL_cachePolicy_timeoutInterval_ = objc.registerName(
   "requestWithURL:cachePolicy:timeoutInterval:",
@@ -30881,8 +31808,17 @@ late final _sel_requiresDNSSECValidation = objc.registerName(
 late final _sel_resetWithCompletionHandler_ = objc.registerName(
   "resetWithCompletionHandler:",
 );
+late final _sel_resourceFetchType = objc.registerName("resourceFetchType");
 late final _sel_response = objc.registerName("response");
+late final _sel_responseEndDate = objc.registerName("responseEndDate");
+late final _sel_responseStartDate = objc.registerName("responseStartDate");
 late final _sel_resume = objc.registerName("resume");
+late final _sel_secureConnectionEndDate = objc.registerName(
+  "secureConnectionEndDate",
+);
+late final _sel_secureConnectionStartDate = objc.registerName(
+  "secureConnectionStartDate",
+);
 late final _sel_sendMessage_completionHandler_ = objc.registerName(
   "sendMessage:completionHandler:",
 );
@@ -31072,6 +32008,7 @@ late final _sel_supportsSecureCoding = objc.registerName(
 late final _sel_suspend = objc.registerName("suspend");
 late final _sel_taskDescription = objc.registerName("taskDescription");
 late final _sel_taskIdentifier = objc.registerName("taskIdentifier");
+late final _sel_taskInterval = objc.registerName("taskInterval");
 late final _sel_textEncodingName = objc.registerName("textEncodingName");
 late final _sel_timeoutInterval = objc.registerName("timeoutInterval");
 late final _sel_timeoutIntervalForRequest = objc.registerName(
@@ -31080,6 +32017,7 @@ late final _sel_timeoutIntervalForRequest = objc.registerName(
 late final _sel_timeoutIntervalForResource = objc.registerName(
   "timeoutIntervalForResource",
 );
+late final _sel_transactionMetrics = objc.registerName("transactionMetrics");
 late final _sel_type = objc.registerName("type");
 late final _sel_underlyingQueue = objc.registerName("underlyingQueue");
 late final _sel_unlock = objc.registerName("unlock");
