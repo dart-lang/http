@@ -11,16 +11,6 @@ import 'package:test/test.dart';
 
 import 'tls_helpers.dart';
 
-/// Trusts the server without evaluating its certificate chain.
-(NSURLSessionAuthChallengeDisposition, URLCredential?) _trustServer(
-  URLSession session,
-  URLSessionTask task,
-  URLAuthenticationChallenge challenge,
-) => (
-  NSURLSessionAuthChallengeDisposition.NSURLSessionAuthChallengeUseCredential,
-  URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
-);
-
 void main() {
   group('onChallenge', () {
     late HttpServer server;
@@ -55,7 +45,11 @@ void main() {
       final client = createClient((session, task, challenge) {
         actualTask = task;
         actualChallenge = challenge;
-        return _trustServer(session, task, challenge);
+        return (
+          NSURLSessionAuthChallengeDisposition
+              .NSURLSessionAuthChallengeUseCredential,
+          URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+        );
       });
 
       await client.get(uri);
@@ -67,7 +61,13 @@ void main() {
     });
 
     test('use credential', () async {
-      final client = createClient(_trustServer);
+      final client = createClient(
+        (session, task, challenge) => (
+          NSURLSessionAuthChallengeDisposition
+              .NSURLSessionAuthChallengeUseCredential,
+          URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+        ),
+      );
       final response = await client.get(uri);
       expect(response.statusCode, 200);
       expect(response.body, 'Hello World');
@@ -76,7 +76,11 @@ void main() {
     test('async', () async {
       final client = createClient((session, task, challenge) async {
         await Future<void>.delayed(const Duration(milliseconds: 10));
-        return _trustServer(session, task, challenge);
+        return (
+          NSURLSessionAuthChallengeDisposition
+              .NSURLSessionAuthChallengeUseCredential,
+          URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+        );
       });
       final response = await client.get(uri);
       expect(response.statusCode, 200);
@@ -126,7 +130,11 @@ void main() {
       final client = createClient((session, task, challenge) async {
         abortTrigger.complete();
         await Future<void>.delayed(const Duration(milliseconds: 100));
-        return _trustServer(session, task, challenge);
+        return (
+          NSURLSessionAuthChallengeDisposition
+              .NSURLSessionAuthChallengeUseCredential,
+          URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+        );
       });
       final request = AbortableRequest(
         'GET',

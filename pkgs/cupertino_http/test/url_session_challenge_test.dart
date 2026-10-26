@@ -16,16 +16,6 @@ import 'tls_helpers.dart';
 
 const _nsurlErrorCancelled = -999;
 
-/// Trusts the server without evaluating its certificate chain.
-(NSURLSessionAuthChallengeDisposition, URLCredential?) _trustServer(
-  URLSession session,
-  URLSessionTask task,
-  URLAuthenticationChallenge challenge,
-) => (
-  NSURLSessionAuthChallengeDisposition.NSURLSessionAuthChallengeUseCredential,
-  URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
-);
-
 /// Executes a GET request for [uri] using [session].
 Future<(URLResponse?, NSData?, NSError?)> get(URLSession session, Uri uri) {
   final c = Completer<(URLResponse?, NSData?, NSError?)>();
@@ -161,7 +151,11 @@ void main() {
       final session = createSession((s, task, challenge) {
         actualTask = task;
         actualChallenge = challenge;
-        return _trustServer(s, task, challenge);
+        return (
+          NSURLSessionAuthChallengeDisposition
+              .NSURLSessionAuthChallengeUseCredential,
+          URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+        );
       });
 
       await get(session, uri);
@@ -177,7 +171,13 @@ void main() {
     });
 
     test('use credential', () async {
-      final session = createSession(_trustServer);
+      final session = createSession(
+        (s, t, challenge) => (
+          NSURLSessionAuthChallengeDisposition
+              .NSURLSessionAuthChallengeUseCredential,
+          URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+        ),
+      );
       final (response, data, error) = await get(session, uri);
       expect(error, isNull);
       expect((response as HTTPURLResponse).statusCode, 200);
@@ -187,7 +187,11 @@ void main() {
     test('async', () async {
       final session = createSession((s, t, challenge) async {
         await Future<void>.delayed(const Duration(milliseconds: 10));
-        return _trustServer(s, t, challenge);
+        return (
+          NSURLSessionAuthChallengeDisposition
+              .NSURLSessionAuthChallengeUseCredential,
+          URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+        );
       });
       final (response, _, error) = await get(session, uri);
       expect(error, isNull);
@@ -236,7 +240,11 @@ void main() {
 
       session.dataTaskWithRequest(URLRequest.fromUrl(uri))
         ..taskDelegate = URLSessionTask.delegate(
-          onChallenge: _trustServer,
+          onChallenge: (s, t, challenge) => (
+            NSURLSessionAuthChallengeDisposition
+                .NSURLSessionAuthChallengeUseCredential,
+            URLCredential.forTrust(challenge.protectionSpace.serverTrust!),
+          ),
           onResponse: (s, t, r) {
             response = r;
             return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
