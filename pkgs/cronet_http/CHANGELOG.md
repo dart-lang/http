@@ -1,4 +1,4 @@
-## 1.10.1-wip
+## 1.10.1
 
 * Fix a build failure when using Google Play Services with Android Gradle
   Plugin 9 (the default for new Flutter projects since Flutter 3.44):
