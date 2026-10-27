@@ -15,6 +15,8 @@
   `dart:io`'s per-method default framing is used instead. A GET or HEAD request
   that streams a non-empty body while leaving `contentLength` `null` now throws
   instead of being sent chunked.
+* Fix a `StateError` in `RetryClient` when the `when` callback reads the
+  response stream before a retry.
 
 ## 1.6.0
 
