@@ -198,6 +198,42 @@ void main() {
       ),
     );
 
+    transportTest('default settings accept a field section near the limit', (
+      ClientTransportConnection client,
+      ServerTransportConnection server,
+    ) async {
+      // At the default 16 KiB frame size, the HPACK encoding of this field
+      // section spans a HEADERS frame and about 15 CONTINUATION frames, so this
+      // also exercises the default field block and CONTINUATION frame limits.
+      final value = 'v' * (defaultMaxInboundHeaderListSize - 1024);
+
+      Future serverFun() async {
+        await for (final stream in server.incomingStreams) {
+          final messages = await stream.incomingMessages.toList();
+          expect(
+            (messages.single as HeadersStreamMessage).headers.single,
+            isHeader('large', value),
+          );
+          stream.sendHeaders([Header.ascii('large', value)], endStream: true);
+        }
+        await server.finish();
+      }
+
+      Future clientFun() async {
+        final stream = client.makeRequest([
+          Header.ascii('large', value),
+        ], endStream: true);
+        final messages = await stream.incomingMessages.toList();
+        expect(
+          (messages.single as HeadersStreamMessage).headers.single,
+          isHeader('large', value),
+        );
+        await client.finish();
+      }
+
+      await Future.wait([serverFun(), clientFun()]);
+    });
+
     // By default, the stream concurrency level is set to this limit.
     const kDefaultStreamLimit = 100;
     transportTest(
