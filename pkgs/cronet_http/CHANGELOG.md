@@ -1,3 +1,6 @@
+## 1.10.2-wip
+- Migrate to Built-in Kotlin to support AGP 9.
+
 ## 1.10.1
 
 * Fix a build failure when using Google Play Services with Android Gradle
