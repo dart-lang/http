@@ -31,7 +31,7 @@ const int defaultMaxConcurrentStreams = 100;
 /// field block cannot be skipped without desynchronizing the HPACK state),
 /// whereas exceeding only [defaultMaxInboundHeaderListSize] resets just the
 /// affected stream.
-const int defaultMaxInboundHeaderBlockSize = 256 * 1024;
+const int defaultMaxInboundHeaderBlockSize = defaultMaxInboundHeaderListSize;
 
 /// Default maximum decoded size of one inbound HTTP/2 field section.
 ///

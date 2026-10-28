@@ -202,12 +202,9 @@ void main() {
       ClientTransportConnection client,
       ServerTransportConnection server,
     ) async {
-      // At the default 16 KiB frame size, the HPACK encoding of this field
-      // section spans a HEADERS frame and about 15 CONTINUATION frames, so this
-      // also exercises the default field block and CONTINUATION frame limits.
       final value = 'v' * (defaultMaxInboundHeaderListSize - 1024);
 
-      Future serverFun() async {
+      Future<void> serve() async {
         await for (final stream in server.incomingStreams) {
           final messages = await stream.incomingMessages.toList();
           expect(
@@ -219,7 +216,7 @@ void main() {
         await server.finish();
       }
 
-      Future clientFun() async {
+      Future<void> connect() async {
         final stream = client.makeRequest([
           Header.ascii('large', value),
         ], endStream: true);
@@ -231,7 +228,7 @@ void main() {
         await client.finish();
       }
 
-      await Future.wait([serverFun(), clientFun()]);
+      await [serve(), connect()].wait;
     });
 
     // By default, the stream concurrency level is set to this limit.
