@@ -138,7 +138,14 @@ final class RetryClient extends BaseClient {
 
         // Make sure the response stream is listened to so that we don't leave
         // dangling connections.
-        unawaited(response.stream.listen((_) {}).cancel().catchError((_) {}));
+        try {
+          unawaited(response.stream.listen((_) {}).cancel().catchError((_) {}));
+          // ignore: avoid_catching_errors
+        } on StateError {
+          // `when` already listened to the response stream. A
+          // single-subscription stream can't be asked whether it has a
+          // listener, so the error from `listen` is the only signal.
+        }
       }
 
       await Future<void>.delayed(_delay(i));
