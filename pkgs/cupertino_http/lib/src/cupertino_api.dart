@@ -913,45 +913,45 @@ class URLSessionWebSocketTask extends URLSessionTask {
 
 /// Metrics collected for one request/response exchange of a task.
 ///
-/// See [NSURLSessionTaskTransactionMetrics](https://developer.apple.com/documentation/foundation/nsurlsessiontasktransactionmetrics)
+/// See [NSURLSessionTaskTransactionMetrics](https://developer.apple.com/documentation/foundation/urlsessiontasktransactionmetrics)
 class URLSessionTaskTransactionMetrics
     extends _ObjectHolder<ncb.NSURLSessionTaskTransactionMetrics> {
   URLSessionTaskTransactionMetrics._(super.c);
 
   /// The protocol used to fetch the resource, as an
   /// [ALPN](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids)
-  /// identifier such as `h2`, `h3` or `http/1.1`.
+  /// identifier such as `'h2'`, `'h3'` or `'http/1.1'`.
   ///
   /// `null` if the protocol is not known, for example when the response was
   /// served from the local cache.
   ///
-  /// See [NSURLSessionTaskTransactionMetrics.networkProtocolName](https://developer.apple.com/documentation/foundation/nsurlsessiontasktransactionmetrics/1642817-networkprotocolname)
+  /// See [NSURLSessionTaskTransactionMetrics.networkProtocolName](https://developer.apple.com/documentation/foundation/urlsessiontasktransactionmetrics/networkprotocolname)
   String? get networkProtocolName =>
       _nsObject.networkProtocolName?.toDartString();
 
   /// Whether the request was sent on a connection that was already open.
   ///
-  /// See [NSURLSessionTaskTransactionMetrics.reusedConnection](https://developer.apple.com/documentation/foundation/nsurlsessiontasktransactionmetrics/1643522-reusedconnection)
-  bool get isReusedConnection => _nsObject.isReusedConnection;
+  /// See [NSURLSessionTaskTransactionMetrics.reusedConnection](https://developer.apple.com/documentation/foundation/urlsessiontasktransactionmetrics/isreusedconnection)
+  bool get reusedConnection => _nsObject.isReusedConnection;
 
   @override
   String toString() =>
       '[URLSessionTaskTransactionMetrics '
       'networkProtocolName=$networkProtocolName '
-      'isReusedConnection=$isReusedConnection'
+      'reusedConnection=$reusedConnection'
       ']';
 }
 
-/// Metrics collected for a task, passed to [OnMetrics].
+/// Metrics collected for a task.
 ///
-/// See [NSURLSessionTaskMetrics](https://developer.apple.com/documentation/foundation/nsurlsessiontaskmetrics)
+/// See [NSURLSessionTaskMetrics](https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics)
 class URLSessionTaskMetrics extends _ObjectHolder<ncb.NSURLSessionTaskMetrics> {
   URLSessionTaskMetrics._(super.c);
 
   /// The metrics of each request/response exchange of the task, in the order
   /// they happened. A redirect adds one entry.
   ///
-  /// See [NSURLSessionTaskMetrics.transactionMetrics](https://developer.apple.com/documentation/foundation/nsurlsessiontaskmetrics/1643225-transactionmetrics)
+  /// See [NSURLSessionTaskMetrics.transactionMetrics](https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/transactionmetrics)
   List<URLSessionTaskTransactionMetrics> get transactionMetrics => [
     for (final metrics in _nsObject.transactionMetrics.asDart())
       URLSessionTaskTransactionMetrics._(
@@ -961,7 +961,7 @@ class URLSessionTaskMetrics extends _ObjectHolder<ncb.NSURLSessionTaskMetrics> {
 
   /// The number of redirects the task followed.
   ///
-  /// See [NSURLSessionTaskMetrics.redirectCount](https://developer.apple.com/documentation/foundation/nsurlsessiontaskmetrics/1643180-redirectcount)
+  /// See [NSURLSessionTaskMetrics.redirectCount](https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/redirectcount)
   int get redirectCount => _nsObject.redirectCount;
 
   @override
@@ -1186,7 +1186,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// If [onMetrics] is set then it will be called when the metrics for a task
   /// have been collected, after the task completes. The metrics include the
   /// protocol the server negotiated (for example `h2` or `h3`). See
-  /// [URLSession:task:didFinishCollectingMetrics:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1643148-urlsession)
+  /// [NSURLSession:task:didFinishCollectingMetrics:](https://developer.apple.com/documentation/foundation/urlsessiontaskdelegate/urlsession(_:task:didfinishcollecting:))
   ///
   /// See [sessionWithConfiguration:delegate:delegateQueue:](https://developer.apple.com/documentation/foundation/nsurlsession/1411597-sessionwithconfiguration)
   ///
