@@ -33,7 +33,9 @@
 - Bound inbound compressed field blocks, decoded field sections, CONTINUATION
   frame counts, and incomplete field-block duration. HPACK decoding continues
   in discard mode after the decoded limit is exceeded so the connection-wide
-  compression context remains synchronized.
+  compression context remains synchronized. By default, compressed field
+  blocks and decoded field sections are limited to 256 KiB, matching Chromium,
+  and field blocks to 64 CONTINUATION frames.
 
 ## 3.1.0
 

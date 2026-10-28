@@ -198,6 +198,39 @@ void main() {
       ),
     );
 
+    transportTest('default settings accept a field section near the limit', (
+      ClientTransportConnection client,
+      ServerTransportConnection server,
+    ) async {
+      final value = 'v' * (defaultMaxInboundHeaderListSize - 1024);
+
+      Future<void> serve() async {
+        await for (final stream in server.incomingStreams) {
+          final messages = await stream.incomingMessages.toList();
+          expect(
+            (messages.single as HeadersStreamMessage).headers.single,
+            isHeader('large', value),
+          );
+          stream.sendHeaders([Header.ascii('large', value)], endStream: true);
+        }
+        await server.finish();
+      }
+
+      Future<void> connect() async {
+        final stream = client.makeRequest([
+          Header.ascii('large', value),
+        ], endStream: true);
+        final messages = await stream.incomingMessages.toList();
+        expect(
+          (messages.single as HeadersStreamMessage).headers.single,
+          isHeader('large', value),
+        );
+        await client.finish();
+      }
+
+      await [serve(), connect()].wait;
+    });
+
     // By default, the stream concurrency level is set to this limit.
     const kDefaultStreamLimit = 100;
     transportTest(
