@@ -12,6 +12,7 @@
 * Fix a [bug](https://github.com/dart-lang/http/issues/1791) where native
   memory was not being deallocated when `CupertinoClient` was used in a
   background isolate.
+* Regenerate FFI bindings with macOS 26.5 SDK.
 
 ## 3.1.0
 
