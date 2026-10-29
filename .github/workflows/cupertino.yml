@@ -26,43 +26,6 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
-  generate:
-    name: "ffigen"
-    # The generated bindings depend on the macOS SDK headers, so pin the runner
-    # image and Xcode version. Keep them in sync with the Xcode version used to
-    # generate `lib/src/native_cupertino_bindings.dart`.
-    runs-on: macos-26
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_26.0.1.app/Contents/Developer
-    defaults:
-      run:
-        working-directory: pkgs/cupertino_http
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          persist-credentials: false
-      - uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
-        with:
-          sdk: stable
-      - id: install
-        name: Install dependencies
-        run: dart pub get
-      - name: Regenerate
-        run: dart run tool/ffigen.dart
-      - name: Generated Diff
-        run: >-
-          git diff --exit-code
-          lib/src/native_cupertino_bindings.dart
-          src/native_cupertino_bindings.m
-      - name: Upload bindings
-        if: failure()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
-        with:
-          name: FFIgen Bindings
-          path: |
-            pkgs/cupertino_http/lib/src/native_cupertino_bindings.dart
-            pkgs/cupertino_http/src/native_cupertino_bindings.m
-          retention-days: 1
   format:
     name: "Format & Analyze"
     runs-on: macos-latest
