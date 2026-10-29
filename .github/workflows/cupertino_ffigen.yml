@@ -9,6 +9,14 @@ permissions:
 #
 # Only runs when the bindings or their configuration change, so that updates
 # to the runner's Xcode version do not affect unrelated pull requests.
+#
+# Changes to the `ffigen` dependency in `pubspec.yaml` should also trigger
+# this check but catching all changes to `pubspec.yaml` would result in a
+# lots of false CI failures (because the XCode version of the CI runners
+# can change without notice). The intent of this check is to make sure that
+# people are using `ffigen` to generate the bindings (and not hand-editing
+# them afterwards), which makes triggering on changes to the generated files
+# sufficient.
 on:
   push:
     branches:
