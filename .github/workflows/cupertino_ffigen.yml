@@ -53,7 +53,10 @@ jobs:
           git diff --exit-code \
             lib/src/native_cupertino_bindings.dart \
             src/native_cupertino_bindings.m || {
-            echo "::error::The generated bindings are out of date. Download the 'FFIgen Bindings' artifact from this run, unzip it into pkgs/cupertino_http and commit the result."
+            echo "::error::The generated bindings are out of date. " \
+              "Download the 'FFIgen Bindings' artifact from this run, " \
+              "unzip it into pkgs/cupertino_http and commit the result to " \
+              "this PR."
             exit 1
           }
       - name: Upload bindings
