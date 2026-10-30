@@ -5,3 +5,10 @@ analyzer:
     - lib/src/jni/jni_bindings.dart
     - lib/src/messages.dart
     - pigeons/messages.dart
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
