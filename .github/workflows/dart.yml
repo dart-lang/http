@@ -359,7 +359,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/http_profile;commands:test_5"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/http_profile;commands:test_6"
           restore-keys: |-
             os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/http_profile
             os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0
@@ -399,7 +399,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/web_socket;commands:test_7"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/web_socket;commands:test_8"
           restore-keys: |-
             os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/web_socket
             os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0
@@ -439,7 +439,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/web_socket;commands:test_6"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/web_socket;commands:test_7"
           restore-keys: |-
             os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/web_socket
             os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0
@@ -552,6 +552,46 @@ jobs:
       - job_006
       - job_007
   job_013:
+    name: "unit_test; linux; Dart 3.5.0; PKG: pkgs/http; `dart test --test-randomize-ordering-seed=random --platform firefox`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0;packages:pkgs/http;commands:test_5"
+          restore-keys: |-
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
+        with:
+          sdk: "3.5.0"
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - id: pkgs_http_pub_upgrade
+        name: pkgs/http; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/http
+      - name: "pkgs/http; dart test --test-randomize-ordering-seed=random --platform firefox"
+        run: "dart test --test-randomize-ordering-seed=random --platform firefox"
+        if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/http
+    needs:
+      - job_001
+      - job_002
+      - job_003
+      - job_004
+      - job_005
+      - job_006
+      - job_007
+  job_014:
     name: "unit_test; linux; Dart 3.5.0; PKG: pkgs/http; `dart test --test-randomize-ordering-seed=random --platform vm`"
     runs-on: ubuntu-latest
     steps:
@@ -591,7 +631,7 @@ jobs:
       - job_005
       - job_006
       - job_007
-  job_014:
+  job_015:
     name: "unit_test; linux; Dart 3.5.0; PKG: pkgs/http; `dart test --test-randomize-ordering-seed=random -p node`"
     runs-on: ubuntu-latest
     steps:
@@ -621,46 +661,6 @@ jobs:
         working-directory: pkgs/http
       - name: "pkgs/http; dart test --test-randomize-ordering-seed=random -p node"
         run: "dart test --test-randomize-ordering-seed=random -p node"
-        if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
-        working-directory: pkgs/http
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
-  job_015:
-    name: "unit_test; linux; Dart 3.5.0; PKG: pkgs/http; `xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0;packages:pkgs/http;commands:command_2"
-          restore-keys: |-
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0;packages:pkgs/http
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.5.0
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
-        with:
-          sdk: "3.5.0"
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          persist-credentials: false
-      - id: pkgs_http_pub_upgrade
-        name: pkgs/http; dart pub upgrade
-        run: dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: pkgs/http
-      - name: "pkgs/http; xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox"
-        run: "xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox"
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
     needs:
@@ -752,6 +752,46 @@ jobs:
       - job_006
       - job_007
   job_018:
+    name: "unit_test; linux; Dart dev; PKG: pkgs/http; `dart test --test-randomize-ordering-seed=random --platform firefox`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:test_5"
+          restore-keys: |-
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
+        with:
+          sdk: dev
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - id: pkgs_http_pub_upgrade
+        name: pkgs/http; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/http
+      - name: "pkgs/http; dart test --test-randomize-ordering-seed=random --platform firefox"
+        run: "dart test --test-randomize-ordering-seed=random --platform firefox"
+        if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/http
+    needs:
+      - job_001
+      - job_002
+      - job_003
+      - job_004
+      - job_005
+      - job_006
+      - job_007
+  job_019:
     name: "unit_test; linux; Dart dev; PKG: pkgs/http; `dart test --test-randomize-ordering-seed=random --platform vm`"
     runs-on: ubuntu-latest
     steps:
@@ -791,7 +831,7 @@ jobs:
       - job_005
       - job_006
       - job_007
-  job_019:
+  job_020:
     name: "unit_test; linux; Dart dev; PKG: pkgs/http; `dart test --test-randomize-ordering-seed=random -p node`"
     runs-on: ubuntu-latest
     steps:
@@ -831,46 +871,6 @@ jobs:
       - job_005
       - job_006
       - job_007
-  job_020:
-    name: "unit_test; linux; Dart dev; PKG: pkgs/http; `xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox`"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache Pub hosted dependencies
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
-        with:
-          path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:command_2"
-          restore-keys: |-
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev
-            os:ubuntu-latest;pub-cache-hosted
-            os:ubuntu-latest
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
-        with:
-          sdk: dev
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          persist-credentials: false
-      - id: pkgs_http_pub_upgrade
-        name: pkgs/http; dart pub upgrade
-        run: dart pub upgrade
-        if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: pkgs/http
-      - name: "pkgs/http; xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox"
-        run: "xvfb-run -s \"-screen 0 1024x768x24\" dart test --test-randomize-ordering-seed=random --platform firefox"
-        if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
-        working-directory: pkgs/http
-    needs:
-      - job_001
-      - job_002
-      - job_003
-      - job_004
-      - job_005
-      - job_006
-      - job_007
   job_021:
     name: "unit_test; linux; Dart dev; PKG: pkgs/http_profile; `dart test --platform vm`"
     runs-on: ubuntu-latest
@@ -879,7 +879,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http_profile;commands:test_5"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http_profile;commands:test_6"
           restore-keys: |-
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http_profile
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -919,7 +919,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/web_socket;commands:test_7"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/web_socket;commands:test_8"
           restore-keys: |-
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/web_socket
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -959,7 +959,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/web_socket;commands:test_6"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/web_socket;commands:test_7"
           restore-keys: |-
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/web_socket
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
@@ -999,7 +999,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:tool;commands:command_3"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:tool;commands:command_2"
           restore-keys: |-
             os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:tool
             os:ubuntu-latest;pub-cache-hosted;sdk:dev

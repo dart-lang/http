@@ -80,10 +80,6 @@ for PKG in ${PKGS}; do
         dart run --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
         ;;
       command_2)
-        echo 'xvfb-run -s "-screen 0 1024x768x24" dart test --test-randomize-ordering-seed=random --platform firefox'
-        xvfb-run -s "-screen 0 1024x768x24" dart test --test-randomize-ordering-seed=random --platform firefox || EXIT_CODE=$?
-        ;;
-      command_3)
         echo 'dart update_readme.dart --validate'
         dart update_readme.dart --validate || EXIT_CODE=$?
         ;;
@@ -108,14 +104,18 @@ for PKG in ${PKGS}; do
         dart test --test-randomize-ordering-seed=random -p node || EXIT_CODE=$?
         ;;
       test_5)
+        echo 'dart test --test-randomize-ordering-seed=random --platform firefox'
+        dart test --test-randomize-ordering-seed=random --platform firefox || EXIT_CODE=$?
+        ;;
+      test_6)
         echo 'dart test --platform vm'
         dart test --platform vm || EXIT_CODE=$?
         ;;
-      test_6)
+      test_7)
         echo 'dart test --test-randomize-ordering-seed=random -p vm'
         dart test --test-randomize-ordering-seed=random -p vm || EXIT_CODE=$?
         ;;
-      test_7)
+      test_8)
         echo 'dart test --test-randomize-ordering-seed=random -p chrome -c dart2js,dart2wasm'
         dart test --test-randomize-ordering-seed=random -p chrome -c dart2js,dart2wasm || EXIT_CODE=$?
         ;;
