@@ -12,7 +12,7 @@ permissions:
 #
 # Changes to the `ffigen` dependency in `pubspec.yaml` should also trigger
 # this check but catching all changes to `pubspec.yaml` would result in a
-# lots of false CI failures (because the XCode version of the CI runners
+# lot of false CI failures (because the Xcode version of the CI runners
 # can change without notice). The intent of this check is to make sure that
 # people are using `ffigen` to generate the bindings (and not hand-editing
 # them afterwards), which makes triggering on changes to the generated files
@@ -61,10 +61,10 @@ jobs:
           git diff --exit-code \
             lib/src/native_cupertino_bindings.dart \
             src/native_cupertino_bindings.m || {
-            echo "::error::The generated bindings are out of date. " \
-              "Download the 'FFIgen Bindings' artifact from this run, " \
-              "unzip it into pkgs/cupertino_http and commit the result to " \
-              "this PR."
+            echo "::error::The generated bindings are out of date." \
+              "Download the 'FFIgen Bindings' artifact from the Artifacts" \
+              "section of this run's Summary page, unzip it into" \
+              "pkgs/cupertino_http and commit the result to this PR."
             exit 1
           }
       - name: Upload bindings
