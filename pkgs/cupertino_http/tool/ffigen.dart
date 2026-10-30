@@ -52,6 +52,8 @@ FfiGenerator getConfig(Uri packageRoot) {
             'NSURLSessionConfiguration',
             'NSURLSessionDownloadTask',
             'NSURLSessionTask',
+            'NSURLSessionTaskMetrics',
+            'NSURLSessionTaskTransactionMetrics',
             'NSURLSessionWebSocketMessage',
             'NSURLSessionWebSocketTask',
           };

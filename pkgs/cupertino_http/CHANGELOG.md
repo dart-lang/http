@@ -1,5 +1,9 @@
 ## 3.1.1-wip
 
+* Add `OnMetrics`, the `onMetrics` argument of `URLSession.sessionWithConfiguration`,
+  and `URLSessionTaskMetrics` / `URLSessionTaskTransactionMetrics`, so the
+  protocol negotiated for a request (`h2`, `h3`, `http/1.1`) can be read with
+  `URLSessionTaskTransactionMetrics.networkProtocolName`.
 * Update example to fetch and display scores of `package:cupertino_http` from
   pub.dev.
 * Update to `package:ffigen` `22.0.0`.
