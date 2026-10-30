@@ -178,6 +178,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   final int? _maxPeerStreamLimitViolations;
   final void Function(String)? _onPeerStreamLimitAbuse;
   final bool _allowPeerPushes;
+
+  /// The size each stream's receive window may grow to, starting from the
+  /// initial window size (see [IncomingWindowHandler.stream]).
+  final int? _maxStreamWindowSize;
   int _consecutivePeerStreamLimitViolations = 0;
 
   /// Limits how fast the peer may reset the streams it opened, see
@@ -221,6 +225,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     this._maxPeerStreamLimitViolations,
     this._onPeerStreamLimitAbuse,
     this._allowPeerPushes,
+    this._maxStreamWindowSize,
   );
 
   factory StreamHandler.client(
@@ -234,6 +239,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     int? maxPeerStreamLimitViolations,
     void Function(String)? onPeerStreamLimitAbuse,
     bool allowPeerPushes = false,
+    int? maxStreamWindowSize,
   ]) {
     return StreamHandler._(
       writer,
@@ -248,6 +254,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       maxPeerStreamLimitViolations,
       onPeerStreamLimitAbuse,
       allowPeerPushes,
+      maxStreamWindowSize,
     );
   }
 
@@ -276,6 +283,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       maxPeerStreamLimitViolations,
       onPeerStreamLimitAbuse,
       allowPeerPushes,
+      null,
     );
   }
 
@@ -489,6 +497,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       _frameWriter,
       incomingStreamWindow,
       streamId,
+      maxWindowSize: _maxStreamWindowSize,
     );
 
     var streamQueueIn = StreamMessageQueueIn(windowInHandler);
