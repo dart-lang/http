@@ -157,8 +157,9 @@ abstract class Connection {
     StreamSink<List<int>> outgoing,
     Settings settings, {
     this.isClientConnection = true,
+    int? maxStreamWindowSize,
   }) {
-    _setupConnection(incoming, outgoing, settings);
+    _setupConnection(incoming, outgoing, settings, maxStreamWindowSize);
   }
 
   /// Runs all setup necessary before new streams can be created with the remote
@@ -167,6 +168,7 @@ abstract class Connection {
     Stream<List<int>> incoming,
     StreamSink<List<int>> outgoing,
     Settings settingsObject,
+    int? maxStreamWindowSize,
   ) {
     _validateSettings(settingsObject);
     _maxInboundHeaderListSize = settingsObject.maxInboundHeaderListSize;
@@ -291,6 +293,7 @@ abstract class Connection {
         settingsObject.maxPeerStreamLimitViolations,
         _terminateForPeerStreamLimitAbuse,
         settingsObject is ClientSettings && settingsObject.allowServerPushes,
+        maxStreamWindowSize,
       );
     } else {
       _streams = StreamHandler.server(
@@ -666,16 +669,35 @@ abstract class Connection {
 }
 
 class ClientConnection extends Connection implements ClientTransportConnection {
-  ClientConnection._(super.incoming, super.outgoing, super.settings)
-    : super(isClientConnection: true);
+  ClientConnection._(
+    super.incoming,
+    super.outgoing,
+    super.settings, {
+    super.maxStreamWindowSize,
+  }) : super(isClientConnection: true);
 
+  /// A client connection.
+  ///
+  /// If [maxStreamWindowSize] is larger than the settings' `streamWindowSize`,
+  /// each stream's receive window starts at `streamWindowSize` and doubles
+  /// whenever half of it has been consumed, up to [maxStreamWindowSize].
   factory ClientConnection(
     Stream<List<int>> incoming,
     StreamSink<List<int>> outgoing,
-    ClientSettings clientSettings,
-  ) {
+    ClientSettings clientSettings, {
+    int? maxStreamWindowSize,
+  }) {
+    assert(
+      maxStreamWindowSize == null ||
+          maxStreamWindowSize <= Window.MAX_WINDOW_SIZE,
+    );
     outgoing.add(CONNECTION_PREFACE);
-    return ClientConnection._(incoming, outgoing, clientSettings);
+    return ClientConnection._(
+      incoming,
+      outgoing,
+      clientSettings,
+      maxStreamWindowSize: maxStreamWindowSize,
+    );
   }
 
   @override
