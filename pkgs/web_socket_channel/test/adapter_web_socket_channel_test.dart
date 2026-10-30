@@ -41,6 +41,37 @@ void main() {
           channel.ready, throwsA(isA<WebSocketChannelException>()));
     });
 
+    test('failed connect, close before failure', () async {
+      final channel =
+          AdapterWebSocketChannel.connect(Uri.parse('ws://notahost'));
+      final closeFuture = channel.sink.close();
+
+      await expectLater(
+          channel.ready, throwsA(isA<WebSocketChannelException>()));
+      await expectLater(closeFuture, completes);
+    });
+
+    test('failed connect, close after failure', () async {
+      final channel =
+          AdapterWebSocketChannel.connect(Uri.parse('ws://notahost'));
+
+      await expectLater(
+          channel.ready, throwsA(isA<WebSocketChannelException>()));
+      await expectLater(channel.sink.close(), completes);
+    });
+
+    test('failed connect, listen, add and close before failure', () async {
+      final channel =
+          AdapterWebSocketChannel.connect(Uri.parse('ws://notahost'));
+      channel.stream.listen(null, onError: (_) {});
+      channel.sink.add('Hello World!');
+      final closeFuture = channel.sink.close();
+
+      await expectLater(
+          channel.ready, throwsA(isA<WebSocketChannelException>()));
+      await expectLater(closeFuture, completes);
+    });
+
     test('good connect', () async {
       final channel = AdapterWebSocketChannel.connect(uri);
       await expectLater(channel.ready, completes);
