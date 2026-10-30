@@ -109,6 +109,16 @@ class Http2Client extends BaseClient {
         'Server did not negotiate HTTP/2 (got ${socket.selectedProtocol})',
       );
     }
+    // Disable Nagle's algorithm, as dart:io's own HttpClient and HttpServer
+    // do. Nagle holds back a write smaller than a full TCP segment while any
+    // earlier data is unacknowledged, and the peer may in turn delay its ACK
+    // (by up to 40 ms on Linux) while it waits for more data - such as the
+    // rest of the frame that write would complete. HTTP/2 constantly ends
+    // writes with such a short segment (HEADERS, WINDOW_UPDATE, the tail of a
+    // DATA frame), and multiplexing puts many of them on one connection, so
+    // with Nagle a request or upload regularly stalls until the peer's
+    // delayed-ACK timer fires.
+    socket.setOption(SocketOption.tcpNoDelay, true);
 
     // A connection can't be multiplexed onto until the peer has said how many
     // concurrent streams it allows, which it does in a SETTINGS frame sent
@@ -137,12 +147,17 @@ class Http2Client extends BaseClient {
       incoming,
       socket,
       // The protocol's default windows (65535 bytes) cap what a peer may have
-      // in flight at 64 KiB per round trip, per connection. These also bound
-      // how much a paused response body can hold up (see `_sendOverHttp2`).
+      // in flight at 64 KiB per round trip, per connection. The stream window
+      // also bounds how much a paused response body can hold up (see
+      // `_sendOverHttp2`), and how much of a cancelled response must still be
+      // read off the connection, delaying its other streams. So each stream
+      // starts with a small window, which doubles every time half of it has
+      // been read, up to `_maxStreamWindowSize`.
       const ClientSettings(
-        streamWindowSize: 4 * 1024 * 1024,
+        streamWindowSize: _initialStreamWindowSize,
         connectionWindowSize: 16 * 1024 * 1024,
       ),
+      maxStreamWindowSize: _maxStreamWindowSize,
     );
     try {
       await Future.any([
@@ -387,6 +402,12 @@ bool _isConnectionFailure(ClientConnection connection, Object error) =>
     error is TransportConnectionException ||
     error is _ConnectionClosedByPeer ||
     !connection.isOpen;
+
+/// The receive window each stream starts with.
+const _initialStreamWindowSize = 256 * 1024;
+
+/// The largest receive window a stream grows to while its body is read.
+const _maxStreamWindowSize = 4 * 1024 * 1024;
 
 /// HTTP/2 carries no reason phrase (RFC 9113 8.3.2 dropped it as redundant
 /// with the status code), so one is derived from the status instead - the same

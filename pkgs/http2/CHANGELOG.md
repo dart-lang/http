@@ -23,8 +23,16 @@
   stream when a stream is cancelled; drop the stream's queued `DATA` instead.
 - `Http2Client` propagates pausing a response body to the underlying HTTP/2
   stream, so a slow reader stops the server at the flow-control window instead
-  of buffering the whole response in memory, and uses a 4 MiB stream / 16 MiB
-  connection receive window instead of the protocol's 64 KiB defaults.
+  of buffering the whole response in memory, and uses a 16 MiB connection
+  receive window instead of the protocol's 64 KiB default. Each stream's
+  receive window starts at 256 KiB and doubles every time half of it has been
+  read, up to 4 MiB, so that a response that is paused or cancelled early has
+  only let the server send a little - all of which must still be read off the
+  connection before the responses to later requests on it.
+- `Http2Client` disables Nagle's algorithm (`TCP_NODELAY`) on its connections,
+  as `dart:io`'s `HttpClient` does: with Nagle's algorithm, requests and
+  uploads regularly stalled until the server's delayed-acknowledgement timer
+  fired (40 ms on Linux).
 - Stop head-of-line blocking `HEADERS`, `RST_STREAM`, and `GOAWAY` behind
   `DATA` that is waiting for connection-level flow-control credit.
 - `StreamException` (a stream reset because of a `GOAWAY` or oversized headers)
