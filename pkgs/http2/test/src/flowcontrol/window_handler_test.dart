@@ -177,6 +177,61 @@ void main() {
       expect(window.size, Window().size);
       verifyZeroInteractions(fw);
     });
+
+    test('incoming-stream-window-grows-up-to-max-window-size', () {
+      const kib = 1024;
+      var fw = FrameWriterMock();
+      var window = Window(initialSize: 256 * kib);
+      var handler = IncomingWindowHandler.stream(
+        fw,
+        window,
+        1,
+        maxWindowSize: 1024 * kib,
+      );
+
+      // Each update acknowledges half the window and doubles it.
+      handler.gotData(256 * kib);
+      handler.dataProcessed(128 * kib - 1);
+      verifyZeroInteractions(fw);
+      handler.dataProcessed(1);
+      verify(
+        fw.writeWindowUpdate(128 * kib + 256 * kib, streamId: 1),
+      ).called(1);
+      expect(window.size, 512 * kib - 128 * kib);
+
+      handler.gotData(384 * kib);
+      handler.dataProcessed(128 * kib);
+      verifyNoMoreInteractions(fw);
+      handler.dataProcessed(128 * kib);
+      verify(
+        fw.writeWindowUpdate(256 * kib + 512 * kib, streamId: 1),
+      ).called(1);
+      expect(window.size, 1024 * kib - 256 * kib);
+
+      // At maxWindowSize, updates only acknowledge what was processed.
+      handler.gotData(768 * kib);
+      handler.dataProcessed(512 * kib);
+      verify(fw.writeWindowUpdate(512 * kib, streamId: 1)).called(1);
+      expect(window.size, 512 * kib);
+      handler.dataProcessed(512 * kib);
+      verify(fw.writeWindowUpdate(512 * kib, streamId: 1)).called(1);
+      expect(window.size, 1024 * kib);
+      verifyNoMoreInteractions(fw);
+    });
+
+    test('incoming-connection-window-does-not-grow', () {
+      var fw = FrameWriterMock();
+      var window = Window();
+      var handler = IncomingWindowHandler.connection(fw, window);
+      handler.raise(4 * 65535);
+      verify(fw.writeWindowUpdate(4 * 65535, streamId: 0)).called(1);
+
+      handler.gotData(3 * 65535);
+      handler.dataProcessed(3 * 65535);
+      verify(fw.writeWindowUpdate(3 * 65535, streamId: 0)).called(1);
+      expect(window.size, 5 * 65535);
+      verifyNoMoreInteractions(fw);
+    });
   });
 }
 
