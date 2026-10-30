@@ -22,6 +22,8 @@ void main(List<String> args) async {
       sources: ['src/native_cupertino_bindings.m'],
       language: Language.objectiveC,
       flags: ['-fobjc-arc'],
+      // Security is needed for the `SecTrust` and `SecCertificate` functions.
+      frameworks: ['Foundation', 'Security'],
     ).run(
       input: input,
       output: output,
