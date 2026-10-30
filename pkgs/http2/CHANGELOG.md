@@ -27,6 +27,10 @@
   connection receive window instead of the protocol's 64 KiB defaults.
 - Stop head-of-line blocking `HEADERS`, `RST_STREAM`, and `GOAWAY` behind
   `DATA` that is waiting for connection-level flow-control credit.
+- `StreamException` (a stream reset because of a `GOAWAY` or oversized headers)
+  now extends `StreamTransportException`, as documented for `TransportException`
+  subclasses. `MultiProtocolHttpServer.startServing` forwards an unexpected ALPN
+  protocol to `onError` instead of throwing inside the socket listener.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
