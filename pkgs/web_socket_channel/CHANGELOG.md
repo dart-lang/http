@@ -3,6 +3,9 @@
 - Remove obsolete documentation for `WebSocketChannel.new`.
 - Fix broken links in README.
 - Replace `dart:html` with `package:web` in dartdoc.
+- Fix a [bug](https://github.com/dart-lang/http/issues/1465) where the future
+  returned by `WebSocketChannel.sink.close()` never completed if the
+  connection could not be established.
 
 ## 3.0.3
 
