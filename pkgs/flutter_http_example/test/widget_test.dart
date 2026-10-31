@@ -2,11 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_http_example/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 const _completionResponse = '''
