@@ -36,7 +36,7 @@ jobs:
             use-flutter: true
           - package: ok_http
             use-flutter: true
-    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@5576a85fa69edea4343a1b601d4c3e755fcf6ad4
+    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@27c2fc841818cce349e1f424af51cca9ea381f47
     with:
       directory: pkgs/${{ matrix.package }}
       use-flutter: ${{ matrix.use-flutter == true }}
