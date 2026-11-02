@@ -163,8 +163,30 @@ void main() {
       var header = FrameHeader(0, 0, 0, STREAM_ID);
       queue.processIgnoredDataFrame(DataFrame(header, 0, bytes));
       expect(queue.pendingMessages, 0);
-      verify(windowMock.dataProcessed(bytes.length)).called(1);
+      verifyInOrder([
+        windowMock.gotData(bytes.length),
+        windowMock.dataProcessed(bytes.length),
+      ]);
       verifyNoMoreInteractions(windowMock);
+    });
+
+    test('connection-ignored-data-keeps-window-in-sync', () {
+      final bytes = [1, 2, 3];
+
+      var fw = MockFrameWriter();
+      var window = Window();
+      var queue = ConnectionMessageQueueIn(
+        IncomingWindowHandler.connection(fw, window),
+        (f) => f(),
+      );
+
+      // The peer counted the bytes against its send window, so the local
+      // mirror must be debited before it is replenished.
+      queue.processIgnoredDataFrame(
+        DataFrame(FrameHeader(0, 0, 0, 99), 0, bytes),
+      );
+      verify(fw.writeWindowUpdate(bytes.length, streamId: 0)).called(1);
+      expect(window.size, Window().size);
     });
   });
 }
