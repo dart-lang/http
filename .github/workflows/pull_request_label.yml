@@ -5,11 +5,11 @@
 # https://github.com/actions/labeler.
 
 name: Pull Request Labeler
-permissions:
-  contents: read
+permissions: {}
 
 on:
-  pull_request_target
+  # zizmor: ignore[dangerous-triggers] - labels fork and Dependabot PRs; no PR code is checked out
+  pull_request_target:
 
 jobs:
   label:

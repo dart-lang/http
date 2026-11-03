@@ -1,14 +1,51 @@
-## 3.1.0
+## 3.2.0-wip
 
-- Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
-- Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).
+- Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
+  the connection-level receive window and `SETTINGS_MAX_FRAME_SIZE`. (#1997)
+- Apply a larger `streamWindowSize` and `maxFrameSize` to the receive side as
+  soon as they are sent, and acknowledge received data once per half window
+  when the window is at least twice 65535 bytes.
+- Honor the peer's `SETTINGS_MAX_FRAME_SIZE` when sending; the ACK of our own
+  `SETTINGS_INITIAL_WINDOW_SIZE` no longer resizes send windows.
+- Never send a WINDOW_UPDATE with an increment of 0.
+- Replenish the connection-level receive window and release active stream slots
+  when a stream with buffered unconsumed `DATA` frames is terminated, reset, or
+  its incoming subscription is cancelled.
+- Ignore `PRIORITY` and unknown extension frames on open, idle, and closed
+  streams, and treat `SETTINGS`, `PING`, and `GOAWAY` frames with a non-zero
+  stream ID as a connection-level `PROTOCOL_ERROR`.
+- Fix `sendData(..., endStream: true)` stalling forever when the data exceeds
+  the peer's flow-control window (#1998).
+- Deliver the complete response instead of a `StreamTransportException` when
+  the peer sends `RST_STREAM(NO_ERROR)` after `END_STREAM` (RFC 9113
+  Section 8.1).
+- Never write a `RST_STREAM` before the still-queued `HEADERS` of the same
+  stream when a stream is cancelled; drop the stream's queued `DATA` instead.
+- `Http2Client` propagates pausing a response body to the underlying HTTP/2
+  stream, so a slow reader stops the server at the flow-control window instead
+  of buffering the whole response in memory, and uses a 4 MiB stream / 16 MiB
+  connection receive window instead of the protocol's 64 KiB defaults.
+- Stop head-of-line blocking `HEADERS`, `RST_STREAM`, and `GOAWAY` behind
+  `DATA` that is waiting for connection-level flow-control credit.
+- `StreamException` (a stream reset because of a `GOAWAY` or oversized headers)
+  now extends `StreamTransportException`, as documented for `TransportException`
+  subclasses. `MultiProtocolHttpServer.startServing` forwards an unexpected ALPN
+  protocol to `onError` instead of throwing inside the socket listener.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
 - Bound inbound compressed field blocks, decoded field sections, CONTINUATION
   frame counts, and incomplete field-block duration. HPACK decoding continues
   in discard mode after the decoded limit is exceeded so the connection-wide
-  compression context remains synchronized.
+  compression context remains synchronized. By default, compressed field
+  blocks and decoded field sections are limited to 256 KiB, matching Chromium,
+  and field blocks to 64 CONTINUATION frames.
+
+## 3.1.0
+
+- Gracefully handle receiving headers on a stream that the client has canceled. (#1799)
+- Treat incoming server push streams as connection protocol error when pushes are disabled (SETTINGS_ENABLE_PUSH=0).
+- Enforce the locally advertised `SETTINGS_MAX_CONCURRENT_STREAMS` limit on incoming remote streams.
 - Add `Http2Client` (`package:http2/client.dart`), a pooled, multiplexed
   `package:http` `Client` backed by HTTP/2 connections.
 - Add `ClientTransportConnection.peerMaxConcurrentStreams`, exposing the peer's

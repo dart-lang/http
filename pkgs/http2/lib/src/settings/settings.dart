@@ -219,11 +219,24 @@ class SettingsHandler extends Object with TerminatableMixin {
 
         case Setting.SETTINGS_INITIAL_WINDOW_SIZE:
           if (setting.value < (1 << 31)) {
-            var difference = setting.value - base.initialWindowSize;
-            _onInitialWindowSizeChangeController.add(difference);
+            // Only the peer's value sizes the windows this end sends on (RFC
+            // 9113 section 6.9.2); this end's own value, once acknowledged,
+            // changes nothing it sends.
+            if (peerSettings) {
+              var difference = setting.value - base.initialWindowSize;
+              _onInitialWindowSizeChangeController.add(difference);
+            }
             base.initialWindowSize = setting.value;
           } else {
             throw FlowControlException('Invalid initial window size.');
+          }
+          break;
+
+        case Setting.SETTINGS_MAX_FRAME_SIZE:
+          if (setting.value >= (1 << 14) && setting.value < (1 << 24)) {
+            base.maxFrameSize = setting.value;
+          } else {
+            throw ProtocolException('Invalid max frame size.');
           }
           break;
 

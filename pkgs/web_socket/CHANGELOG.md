@@ -1,3 +1,5 @@
+## 1.0.2-wip
+
 ## 1.0.1
 
 - Fix a bug where `WebSocketException`/`WebSocketConnectionClosed` did not

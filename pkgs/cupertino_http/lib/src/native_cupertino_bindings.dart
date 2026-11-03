@@ -1962,6 +1962,24 @@ extension NSMutableURLRequest$Methods on NSMutableURLRequest {
   }
 
   /// !
+  /// @abstract sets whether a connection created with this request is allowed to use
+  /// network interfaces which have been marked as ultra constrained.
+  /// @discussion NO if the receiver should not be allowed to use an interface marked as ultra constrained to
+  /// satisfy the request, YES otherwise.
+  bool get allowsUltraConstrainedNetworkAccess {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSMutableURLRequest.allowsUltraConstrainedNetworkAccess',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    return _objc_msgSend_91o635(
+      _$$ref.pointer,
+      _sel_allowsUltraConstrainedNetworkAccess,
+    );
+  }
+
+  /// !
   /// @abstract returns whether we assume that server supports HTTP/3. Enables QUIC
   /// racing without HTTP/3 service discovery.
   /// @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
@@ -2226,6 +2244,25 @@ extension NSMutableURLRequest$Methods on NSMutableURLRequest {
       macOS: (false, (15, 0, 0)),
     );
     _objc_msgSend_1s56lr9(_$$ref.pointer, _sel_setAllowsPersistentDNS_, value);
+  }
+
+  /// !
+  /// @abstract sets whether a connection created with this request is allowed to use
+  /// network interfaces which have been marked as ultra constrained.
+  /// @discussion NO if the receiver should not be allowed to use an interface marked as ultra constrained to
+  /// satisfy the request, YES otherwise.
+  set allowsUltraConstrainedNetworkAccess$1(bool value) {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSMutableURLRequest.setAllowsUltraConstrainedNetworkAccess:',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    _objc_msgSend_1s56lr9(
+      _$$ref.pointer,
+      _sel_setAllowsUltraConstrainedNetworkAccess_,
+      value,
+    );
   }
 
   /// !
@@ -3463,6 +3500,24 @@ extension NSURLRequest$Methods on NSURLRequest {
       macOS: (false, (15, 0, 0)),
     );
     return _objc_msgSend_91o635(_$$ref.pointer, _sel_allowsPersistentDNS);
+  }
+
+  /// !
+  /// @abstract returns whether a connection created with this request is allowed to use
+  /// network interfaces which have been marked as ultra constrained.
+  /// @result YES if the receiver is allowed to use an interface marked as ultra constrained to
+  /// satisfy the request, NO otherwise.
+  bool get allowsUltraConstrainedNetworkAccess {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLRequest.allowsUltraConstrainedNetworkAccess',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    return _objc_msgSend_91o635(
+      _$$ref.pointer,
+      _sel_allowsUltraConstrainedNetworkAccess,
+    );
   }
 
   /// !
@@ -5474,6 +5529,20 @@ extension NSURLSessionConfiguration$Methods on NSURLSessionConfiguration {
     );
   }
 
+  /// allow request to route over ultra constrained networks.
+  bool get allowsUltraConstrainedNetworkAccess {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionConfiguration.allowsUltraConstrainedNetworkAccess',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    return _objc_msgSend_91o635(
+      _$$ref.pointer,
+      _sel_allowsUltraConstrainedNetworkAccess,
+    );
+  }
+
   /// The proxy dictionary, as described by <CFNetwork/CFHTTPStream.h>
   objc.NSDictionary? get connectionProxyDictionary {
     final _$$ref = object$.ref;
@@ -5695,6 +5764,21 @@ extension NSURLSessionConfiguration$Methods on NSURLSessionConfiguration {
     _objc_msgSend_1s56lr9(
       _$$ref.pointer,
       _sel_setAllowsExpensiveNetworkAccess_,
+      value,
+    );
+  }
+
+  /// allow request to route over ultra constrained networks.
+  set allowsUltraConstrainedNetworkAccess(bool value) {
+    final _$$ref = object$.ref;
+    objc.checkOsVersionInternal(
+      'NSURLSessionConfiguration.setAllowsUltraConstrainedNetworkAccess:',
+      iOS: (false, (26, 1, 0)),
+      macOS: (false, (26, 1, 0)),
+    );
+    _objc_msgSend_1s56lr9(
+      _$$ref.pointer,
+      _sel_setAllowsUltraConstrainedNetworkAccess_,
       value,
     );
   }
@@ -30691,6 +30775,9 @@ late final _sel_allowsExpensiveNetworkAccess = objc.registerName(
   "allowsExpensiveNetworkAccess",
 );
 late final _sel_allowsPersistentDNS = objc.registerName("allowsPersistentDNS");
+late final _sel_allowsUltraConstrainedNetworkAccess = objc.registerName(
+  "allowsUltraConstrainedNetworkAccess",
+);
 late final _sel_arg0 = objc.registerName("arg0");
 late final _sel_arg1 = objc.registerName("arg1");
 late final _sel_arg2 = objc.registerName("arg2");
@@ -30912,6 +30999,9 @@ late final _sel_setAllowsExpensiveNetworkAccess_ = objc.registerName(
 );
 late final _sel_setAllowsPersistentDNS_ = objc.registerName(
   "setAllowsPersistentDNS:",
+);
+late final _sel_setAllowsUltraConstrainedNetworkAccess_ = objc.registerName(
+  "setAllowsUltraConstrainedNetworkAccess:",
 );
 late final _sel_setAssumesHTTP3Capable_ = objc.registerName(
   "setAssumesHTTP3Capable:",

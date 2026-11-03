@@ -652,6 +652,159 @@ void main() {
 
         await Future.wait([serverFun(), clientFun()]);
       });
+
+      test(
+        'ignores-priority-and-unknown-frames-on-open-and-idle-streams',
+        () async {
+          final streams = ClientErrorStreams();
+          final server = streams.serverConnection;
+          final clientReader = streams.clientConnectionFrameReader;
+          final encoder = HPackEncoder();
+
+          Future<Frame> nextFrame() async {
+            expect(await clientReader.moveNext(), isTrue);
+            return clientReader.current;
+          }
+
+          Future<void> serverFun() async {
+            final it = StreamIterator(server.incomingStreams);
+            expect(await it.moveNext(), isTrue);
+            final stream = it.current;
+            final messages = await stream.incomingMessages.toList();
+            expect(messages, hasLength(2));
+            expect(messages[0], isA<HeadersStreamMessage>());
+            expect(messages[1], isA<DataStreamMessage>());
+            stream.sendHeaders([
+              Header.ascii(':status', '200'),
+            ], endStream: true);
+            expect(await it.moveNext(), isFalse);
+            await server.finish();
+          }
+
+          Future<void> clientFun() async {
+            streams.writeConnectionPreface();
+            expect(await nextFrame(), isA<SettingsFrame>());
+            streams.writeRawFrame(
+              type: FrameType.SETTINGS,
+              flags: SettingsFrame.FLAG_ACK,
+              streamId: 0,
+              payload: const [],
+            );
+            streams.writeRawFrame(
+              type: FrameType.SETTINGS,
+              flags: 0,
+              streamId: 0,
+              payload: const [],
+            );
+            expect(await nextFrame(), isA<SettingsFrame>());
+
+            streams.writeRawFrame(
+              type: FrameType.HEADERS,
+              flags: HeadersFrame.FLAG_END_HEADERS,
+              streamId: 1,
+              payload: encoder.encode([Header.ascii('a', 'b')]),
+            );
+            // Send PRIORITY on open stream 1 and unknown frame (0xfa) on open
+            // stream 1 and idle stream 5.
+            streams.writeRawFrame(
+              type: FrameType.PRIORITY,
+              flags: 0,
+              streamId: 1,
+              payload: const [0, 0, 0, 0, 16],
+            );
+            streams.writeRawFrame(
+              type: 0xfa,
+              flags: 0,
+              streamId: 1,
+              payload: const [1, 2],
+            );
+            streams.writeRawFrame(
+              type: 0xfa,
+              flags: 0,
+              streamId: 5,
+              payload: const [],
+            );
+            streams.writeRawFrame(
+              type: FrameType.DATA,
+              flags: DataFrame.FLAG_END_STREAM,
+              streamId: 1,
+              payload: const [42],
+            );
+
+            expect(await nextFrame(), isA<WindowUpdateFrame>());
+            expect(await nextFrame(), isA<WindowUpdateFrame>());
+            expect(await nextFrame(), isA<HeadersFrame>());
+
+            streams.writeRawFrame(
+              type: FrameType.GOAWAY,
+              flags: 0,
+              streamId: 0,
+              payload: const [0, 0, 0, 1, 0, 0, 0, 0],
+            );
+            expect(await clientReader.moveNext(), isFalse);
+          }
+
+          await Future.wait([serverFun(), clientFun()]);
+        },
+      );
+
+      test('rejects-control-frames-with-nonzero-stream-id', () async {
+        for (final frameType in [
+          FrameType.SETTINGS,
+          FrameType.PING,
+          FrameType.GOAWAY,
+        ]) {
+          final streams = ClientErrorStreams();
+          final server = streams.serverConnection;
+          final incoming = server.incomingStreams.toList();
+          final clientReader = streams.clientConnectionFrameReader;
+
+          Future<Frame> nextFrame() async {
+            expect(await clientReader.moveNext(), isTrue);
+            return clientReader.current;
+          }
+
+          streams.writeConnectionPreface();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          streams.writeRawFrame(
+            type: FrameType.SETTINGS,
+            flags: SettingsFrame.FLAG_ACK,
+            streamId: 0,
+            payload: const [],
+          );
+          streams.writeRawFrame(
+            type: FrameType.SETTINGS,
+            flags: 0,
+            streamId: 0,
+            payload: const [],
+          );
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          final payload = switch (frameType) {
+            FrameType.SETTINGS => const <int>[],
+            FrameType.PING => const <int>[0, 0, 0, 0, 0, 0, 0, 1],
+            FrameType.GOAWAY => const <int>[0, 0, 0, 0, 0, 0, 0, 0],
+            _ => const <int>[],
+          };
+          streams.writeRawFrame(
+            type: frameType,
+            flags: 0,
+            streamId: 1,
+            payload: payload,
+          );
+
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
+            ),
+          );
+          expect(await clientReader.moveNext(), isFalse);
+          expect(await incoming, isEmpty);
+        }
+      });
     });
 
     group('server-errors', () {

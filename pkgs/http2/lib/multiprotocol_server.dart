@@ -91,7 +91,14 @@ class MultiProtocolHttpServer {
         );
       } else {
         socket.destroy();
-        throw Exception('Unexpected negotiated ALPN protocol: $protocol.');
+        final error = Exception(
+          'Unexpected negotiated ALPN protocol: $protocol.',
+        );
+        if (onError != null) {
+          onError(error, StackTrace.current);
+        } else {
+          throw error;
+        }
       }
     }, onError: onError);
 

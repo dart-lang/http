@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'close_remote_server_vm.dart'
-    if (dart.library.html) 'close_remote_server_web.dart';
+    if (dart.library.js_interop) 'close_remote_server_web.dart';
 import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly receive Close frames from the peer.

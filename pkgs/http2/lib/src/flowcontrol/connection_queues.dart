@@ -58,9 +58,31 @@ class ConnectionMessageQueueOut extends Object
     ensureNotClosingSync(() {
       if (!wasTerminated) {
         _messages.addLast(message);
+        // When the connection send window is exhausted, a newly queued
+        // DataMessage cannot be sent and cannot unblock any earlier message.
+        // Skipping _trySendMessages() avoids rescanning _messages on every
+        // sendData() call (which would otherwise be quadratic).
+        if (message is DataMessage &&
+            _connectionWindow.positiveWindow.wouldBuffer) {
+          return;
+        }
         _trySendMessages();
       }
     });
+  }
+
+  /// Drops the queued [DataMessage]s of the stream [streamId], which is about
+  /// to be reset.
+  ///
+  /// Returns `true` if a [HeadersMessage] for [streamId] is still queued, i.e.
+  /// has not been written to the [FrameWriter] yet. In that case the
+  /// `RST_STREAM` must be enqueued behind it instead of being written directly:
+  /// a `RST_STREAM` arriving before the `HEADERS` that open the stream is a
+  /// connection error for the peer (RFC 9113 section 6.4: "RST_STREAM frames
+  /// MUST NOT be sent for a stream in the "idle" state").
+  bool cancelStreamMessages(int streamId) {
+    _messages.removeWhere((m) => m is DataMessage && m.streamId == streamId);
+    return _messages.any((m) => m is HeadersMessage && m.streamId == streamId);
   }
 
   @override
@@ -76,27 +98,60 @@ class ConnectionMessageQueueOut extends Object
     }
   }
 
+  /// The next message which can be written now, or `null` if none can.
+  ///
+  /// Normally that is the first queued message. When the connection-level send
+  /// window is exhausted and the first message is a [DataMessage], frames which
+  /// are not subject to flow control (RFC 9113 section 6.9: only DATA frames
+  /// are) may still be written: `GOAWAY`, and `HEADERS` / `RST_STREAM` of
+  /// streams that have no earlier queued message. Skipping a message of a
+  /// stream blocks all later messages of that stream, so the per-stream frame
+  /// order is preserved.
+  Message? _peekSendableMessage() {
+    if (_messages.isEmpty || _frameWriter.bufferIndicator.wouldBuffer) {
+      return null;
+    }
+    final first = _messages.first;
+    if (first is! DataMessage ||
+        !_connectionWindow.positiveWindow.wouldBuffer) {
+      return first;
+    }
+
+    final blockedStreams = <int>{};
+    for (final message in _messages) {
+      if (message is GoawayMessage) return message;
+      if (message is DataMessage || blockedStreams.contains(message.streamId)) {
+        blockedStreams.add(message.streamId);
+      } else if (message is PushPromiseMessage) {
+        // A PUSH_PROMISE must precede any frame of the promised stream and
+        // the END_STREAM of its associated stream (RFC 9113 section 8.4.1);
+        // keep it, and everything after it on both streams, in order.
+        blockedStreams
+          ..add(message.streamId)
+          ..add(message.promisedStreamId);
+      } else {
+        return message;
+      }
+    }
+    return null;
+  }
+
   void _trySendMessages() {
     if (!wasTerminated) {
       // We can make progress if
       //   * there is at least one message to send
       //   * the underlying frame writer / sink / socket doesn't block
       //   * either one
-      //     * the next message is a non-flow control message (e.g. headers)
+      //     * the next sendable message is a non-flow control message
       //     * the connection window is positive
 
-      if (_messages.isNotEmpty &&
-          !_frameWriter.bufferIndicator.wouldBuffer &&
-          (!_connectionWindow.positiveWindow.wouldBuffer ||
-              _messages.first is! DataMessage)) {
-        _trySendMessage();
+      final message = _peekSendableMessage();
+      if (message != null) {
+        _trySendMessage(message);
 
         // If we have more messages and we can send them, we'll run them
         // using `Timer.run()` to let other things get in-between.
-        if (_messages.isNotEmpty &&
-            !_frameWriter.bufferIndicator.wouldBuffer &&
-            (!_connectionWindow.positiveWindow.wouldBuffer ||
-                _messages.first is! DataMessage)) {
+        if (_peekSendableMessage() != null) {
           // TODO: If all the frame writer methods would return the
           // number of bytes written, we could just say, we loop here until 10kb
           // and after words, we'll make `Timer.run()`.
@@ -108,25 +163,28 @@ class ConnectionMessageQueueOut extends Object
     }
   }
 
-  void _trySendMessage() {
-    var message = _messages.first;
-    if (message is HeadersMessage) {
+  void _trySendMessage(Message message) {
+    // Fast path for the common case where [message] is at the head of the
+    // queue (`removeFirst()` is O(1)); only fall back to the O(n) `remove()`
+    // when `_peekSendableMessage()` skipped past blocked [DataMessage]s.
+    if (identical(message, _messages.first)) {
       _messages.removeFirst();
+    } else {
+      _messages.remove(message);
+    }
+    if (message is HeadersMessage) {
       _frameWriter.writeHeadersFrame(
         message.streamId,
         message.headers,
         endStream: message.endStream,
       );
     } else if (message is PushPromiseMessage) {
-      _messages.removeFirst();
       _frameWriter.writePushPromiseFrame(
         message.streamId,
         message.promisedStreamId,
         message.headers,
       );
     } else if (message is DataMessage) {
-      _messages.removeFirst();
-
       if (_connectionWindow.peerWindowSize >= message.bytes.length) {
         _connectionWindow.decreaseWindow(message.bytes.length);
         _frameWriter.writeDataFrame(
@@ -156,10 +214,8 @@ class ConnectionMessageQueueOut extends Object
         _messages.addFirst(tailMessage);
       }
     } else if (message is ResetStreamMessage) {
-      _messages.removeFirst();
       _frameWriter.writeRstStreamFrame(message.streamId, message.errorCode);
     } else if (message is GoawayMessage) {
-      _messages.removeFirst();
       _frameWriter.writeGoawayFrame(
         message.lastStreamId,
         message.errorCode,
@@ -219,10 +275,11 @@ class ConnectionMessageQueueIn extends Object
 
   @override
   void onTerminated(Object? error) {
-    // NOTE: The higher level will be shutdown first, so all streams
-    // should have been removed at this point.
-    assert(_stream2messageQueue.isEmpty);
-    assert(_stream2pendingMessages.isEmpty);
+    for (final mq in _stream2messageQueue.values) {
+      mq.terminate(error);
+    }
+    _stream2messageQueue.clear();
+    _stream2pendingMessages.clear();
     closeWithError(error);
   }
 
@@ -262,9 +319,27 @@ class ConnectionMessageQueueIn extends Object
 
   /// Removes a stream id and its message queue from this connection-level
   /// message queue.
-  void removeStreamMessageQueue(int streamId) {
-    _stream2pendingMessages.remove(streamId);
+  ///
+  /// Buffered [DataMessage]s that were never delivered to the stream still
+  /// count against the connection receive window (RFC 9113 section 6.9.1), so
+  /// the window is replenished for them - unless [replenishWindow] is `false`,
+  /// which callers pass while the connection is being torn down and nothing
+  /// can be written to the peer any more.
+  void removeStreamMessageQueue(int streamId, {bool replenishWindow = true}) {
+    final pendingMessages = _stream2pendingMessages.remove(streamId);
     _stream2messageQueue.remove(streamId);
+    if (pendingMessages != null) {
+      var ignoredBytes = 0;
+      for (final message in pendingMessages) {
+        _count--;
+        if (message is DataMessage) {
+          ignoredBytes += message.bytes.length;
+        }
+      }
+      if (replenishWindow && ignoredBytes > 0) {
+        _windowUpdateHandler.dataProcessed(ignoredBytes);
+      }
+    }
   }
 
   /// Processes an incoming [DataFrame] which is addressed to a specific stream.
@@ -362,6 +437,33 @@ class ConnectionMessageQueueIn extends Object
       _windowUpdateHandler.dataProcessed(bytesDeliveredToStream);
     }
 
+    onCheckForClose();
+  }
+
+  /// Flushes all pending messages for [streamId] to its [StreamMessageQueueIn],
+  /// even if the stream queue is currently buffering (e.g. when a peer sends
+  /// `RST_STREAM(NO_ERROR)` after a complete response).
+  void forceDispatchStreamMessages(int streamId) {
+    final pendingMessages = _stream2pendingMessages[streamId];
+    final mq = _stream2messageQueue[streamId];
+    if (pendingMessages == null || mq == null) return;
+    var bytesDeliveredToStream = 0;
+    while (pendingMessages.isNotEmpty) {
+      _count--;
+      final message = pendingMessages.removeFirst();
+      if (message is DataMessage) {
+        bytesDeliveredToStream += message.bytes.length;
+      }
+      mq.enqueueMessage(message);
+      if (message.endStream) {
+        _stream2messageQueue.remove(streamId);
+        _stream2pendingMessages.remove(streamId);
+        break;
+      }
+    }
+    if (bytesDeliveredToStream > 0) {
+      _windowUpdateHandler.dataProcessed(bytesDeliveredToStream);
+    }
     onCheckForClose();
   }
 
