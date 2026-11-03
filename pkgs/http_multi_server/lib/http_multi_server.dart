@@ -10,15 +10,6 @@ import 'package:async/async.dart';
 import 'src/multi_headers.dart';
 import 'src/utils.dart';
 
-/// The error code for an error caused by a port already being in use.
-final _addressInUseErrno = _computeAddressInUseErrno();
-int _computeAddressInUseErrno() {
-  if (Platform.isWindows) return 10048;
-  if (Platform.isMacOS) return 48;
-  assert(Platform.isLinux);
-  return 98;
-}
-
 /// An implementation of `dart:io`'s [HttpServer] that wraps multiple servers
 /// and forwards methods to all of them.
 ///
@@ -212,19 +203,22 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       // the same ephemeral port.
       final v6Server = await bind(InternetAddress.loopbackIPv6, v4Server.port);
       return HttpMultiServer([v4Server, v6Server]);
-    } on SocketException catch (error) {
-      // If there is already a server listening we'll lose the reference on a
-      // rethrow.
-      await v4Server.close();
-
-      if (error.osError?.errorCode != _addressInUseErrno) rethrow;
-      if (port != 0) rethrow;
-      if (remainingRetries == 0) rethrow;
+    } on SocketException {
+      if (port != 0 || remainingRetries == 0) {
+        await v4Server.close();
+        rethrow;
+      }
 
       // A port being available on IPv4 doesn't necessarily mean that the same
       // port is available on IPv6. If it's not (which is rare in practice),
-      // we try again until we find one that's available on both.
-      return await _loopback(port, bind, remainingRetries - 1);
+      // we try again until we find one that's available on both. Keep
+      // [v4Server] open during the retry so the OS cannot allocate the same
+      // IPv4 port again.
+      try {
+        return await _loopback(port, bind, remainingRetries - 1);
+      } finally {
+        await v4Server.close();
+      }
     }
   }
 

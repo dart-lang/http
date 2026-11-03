@@ -57,6 +57,18 @@ class ConnectionException extends WebSocketException {
 /// > can be used to adapt a [CupertinoWebSocket] into a
 /// > [`WebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html).
 class CupertinoWebSocket implements WebSocket {
+  /// The session used by every connection that does not supply its own
+  /// [URLSessionConfiguration].
+  ///
+  /// A `NSURLSession` is not released until it is invalidated and, once it has
+  /// run a WebSocket task, not even then. So creating one per connection
+  /// permanently leaks the session, its delegate queue and its configuration.
+  static final URLSession _sharedSession = objc.autoReleasePool(
+    () => URLSession.sessionWithConfiguration(
+      URLSessionConfiguration.defaultSessionConfiguration(),
+    ),
+  );
+
   /// Create a new WebSocket connection using the
   /// [NSURLSessionWebSocketTask API](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask).
   ///
@@ -84,58 +96,78 @@ class CupertinoWebSocket implements WebSocket {
     final readyCompleter = Completer<CupertinoWebSocket>();
     late CupertinoWebSocket webSocket;
 
-    final session = URLSession.sessionWithConfiguration(
-      config ?? URLSessionConfiguration.defaultSessionConfiguration(),
-      // In a successful flow, the callbacks will be made in this order:
-      // onWebSocketTaskOpened(...)        // Good connect.
-      // <receive/send messages to the peer>
-      // onWebSocketTaskClosed(...)        // Optional: peer sent Close frame.
-      // onComplete(..., error=null)       // Disconnected.
-      //
-      // In a failure to connect to the peer, the flow will be:
-      // onComplete(session, task, error=error):
-      //
-      // `onComplete` can also be called at any point if the peer is
-      // disconnected without Close frames being exchanged.
-      onWebSocketTaskOpened: (session, task, protocol) {
-        webSocket = CupertinoWebSocket._(task, protocol ?? '');
-        readyCompleter.complete(webSocket);
-      },
-      onWebSocketTaskClosed: (session, task, closeCode, reason) {
-        assert(readyCompleter.isCompleted);
-        webSocket._connectionClosed(closeCode, reason);
-      },
-      onComplete: (session, task, error) {
-        if (!readyCompleter.isCompleted) {
-          // `onWebSocketTaskOpened should have been called and completed
-          // `readyCompleter`. So either there was a error creating the
-          // connection or a logic error.
-          if (error == null) {
-            throw AssertionError(
-              'expected an error or "onWebSocketTaskOpened" to be called '
-              'first',
-            );
-          }
-          readyCompleter.completeError(
-            ConnectionException('connection ended unexpectedly', error),
-          );
-        } else {
-          // There are three possibilities here:
-          // 1. the peer sent a close Frame, `onWebSocketTaskClosed` was already
-          //    called and `_connectionClosed` is a no-op.
-          // 2. we sent a close Frame (through `close()`) and
-          //    `_connectionClosed` is a no-op.
-          // 3. an error occurred (e.g. network failure) and `_connectionClosed`
-          //    will signal that and close `event`.
-          webSocket._connectionClosed(
-            1006,
-            'abnormal close'.codeUnits.toNSData(),
-          );
-        }
-      },
-    );
+    // Encapsulating `sessionWithConfiguration` and `webSocketTaskWithURL`
+    // in an `autoReleasePool` reclaims 2.3KiB of memory per connection.
+    // 1.1KiB per connection still leaks but that leak occurs with Objective-C
+    // ARC code as well:
+    // - https://stackoverflow.com/questions/76986336/urlsessionwebsockettask-not-being-released-after-invalidate-session
+    // - https://developer.apple.com/forums/thread/650733
+    objc.autoReleasePool(() {
+      final session = config == null
+          ? _sharedSession
+          : URLSession.sessionWithConfiguration(config);
+      final ownedSession = config == null ? null : session;
 
-    session.webSocketTaskWithURL(url, protocols: protocols).resume();
+      session.webSocketTaskWithURL(url, protocols: protocols)
+        ..taskDelegate = URLSessionTask.delegate(
+          // In a successful flow, the callbacks will be made in this order:
+          // onWebSocketTaskOpened(...)        // Good connect.
+          // <receive/send messages to the peer>
+          // onWebSocketTaskClosed(...)        // Optional: peer sent Close frame.
+          // onComplete(..., error=null)       // Disconnected.
+          //
+          // In a failure to connect to the peer, the flow will be:
+          // onComplete(session, task, error=error):
+          //
+          // `onComplete` can also be called at any point if the peer is
+          // disconnected without Close frames being exchanged.
+          onWebSocketTaskOpened: (session, task, protocol) {
+            webSocket = CupertinoWebSocket._(task, protocol ?? '');
+            readyCompleter.complete(webSocket);
+          },
+          onWebSocketTaskClosed: (session, task, closeCode, reason) {
+            assert(readyCompleter.isCompleted);
+            webSocket._connectionClosed(closeCode, reason);
+          },
+          onComplete: (session, task, error) {
+            if (!readyCompleter.isCompleted) {
+              // `onWebSocketTaskOpened should have been called and completed
+              // `readyCompleter`. So either there was a error creating the
+              // connection or a logic error.
+              if (error == null) {
+                readyCompleter.completeError(
+                  AssertionError(
+                    'expected an error or "onWebSocketTaskOpened" to be called '
+                    'first',
+                  ),
+                );
+              } else {
+                readyCompleter.completeError(
+                  ConnectionException('connection ended unexpectedly', error),
+                );
+              }
+            } else {
+              // There are three possibilities here:
+              // 1. the peer sent a close Frame, `onWebSocketTaskClosed` was
+              //    already called and `_connectionClosed` is a no-op.
+              // 2. we sent a close Frame (through `close()`) and
+              //    `_connectionClosed` is a no-op.
+              // 3. an error occurred (e.g. network failure) and
+              //    `_connectionClosed` will signal that and close `event`.
+              webSocket._connectionClosed(
+                1006,
+                'abnormal close'.codeUnits.toNSData(),
+              );
+            }
+
+            // This doesn't actually reclaim any memory (see the comment) above
+            // the call to `autoReleasePool`) but it might one day.
+            ownedSession?.finishTasksAndInvalidate();
+          },
+        )
+        ..resume();
+    });
+
     return readyCompleter.future;
   }
 

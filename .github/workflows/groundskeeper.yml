@@ -1,4 +1,6 @@
 name: Groundskeeper
+permissions:
+  contents: read
 
 on:
   schedule:
@@ -27,9 +29,17 @@ jobs:
           - web_socket
           - web_socket_channel
           - web_socket_conformance_tests
-    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@main # zizmor: ignore[unpinned-uses, secrets-inherit]
+        include:
+          - package: cronet_http
+            use-flutter: true
+          - package: flutter_http_example
+            use-flutter: true
+          - package: ok_http
+            use-flutter: true
+    uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@5576a85fa69edea4343a1b601d4c3e755fcf6ad4
     with:
       directory: pkgs/${{ matrix.package }}
+      use-flutter: ${{ matrix.use-flutter == true }}
       branch: auto-tidy-${{ matrix.package }}
       title: 'Tidy: package:${{ matrix.package }}'
-    secrets: inherit
+    secrets: inherit # zizmor: ignore[secrets-inherit]

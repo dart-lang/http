@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'peer_protocol_errors_server_vm.dart'
-    if (dart.library.html) 'peer_protocol_errors_server_web.dart';
+    if (dart.library.js_interop) 'peer_protocol_errors_server_web.dart';
 import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly handle incorrect WebSocket frames.
