@@ -9,6 +9,20 @@ import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('assumesHTTP3Capable', () {
+    final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');
+    late MutableURLRequest request;
+
+    setUp(() => request = MutableURLRequest.fromUrl(uri));
+
+    test('set', () {
+      request.assumesHTTP3Capable = true;
+      expect(request.assumesHTTP3Capable, true);
+      request.assumesHTTP3Capable = false;
+      expect(request.assumesHTTP3Capable, false);
+    });
+  });
+
   group('cachePolicy', () {
     final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');
     late MutableURLRequest request;
