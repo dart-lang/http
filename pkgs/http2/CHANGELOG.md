@@ -54,6 +54,10 @@
   compression context remains synchronized. By default, compressed field
   blocks and decoded field sections are limited to 256 KiB, matching Chromium,
   and field blocks to 64 CONTINUATION frames.
+- The incomplete field-block timeout (`inboundHeaderBlockTimeout`) only starts
+  a timer once the bytes received so far end inside a field block. Creating
+  and cancelling a `Timer` for every HEADERS frame, even one that had arrived
+  in full, cost small gRPC calls up to a fifth of their throughput.
 
 ## 3.1.0
 

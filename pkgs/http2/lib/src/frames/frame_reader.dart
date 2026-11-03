@@ -12,11 +12,17 @@ class FrameReader {
   /// complying with.
   final ActiveSettings _localSettings;
 
-  /// Called after an inbound HEADERS or PUSH_PROMISE frame header is parsed,
-  /// before waiting for its payload bytes.
-  final void Function()? _onFieldBlockStart;
+  /// Called when all buffered input has been read and it ends inside an
+  /// inbound field block: after the header of a HEADERS or PUSH_PROMISE frame
+  /// was read, but before the frame with END_HEADERS that completes the block.
+  ///
+  /// The reader checks this after every chunk of input, so this is called
+  /// again for every chunk that leaves the field block incomplete, and not at
+  /// all for a field block that starts and ends in the same chunk.
+  final void Function()? _onFieldBlockIncomplete;
 
-  /// Called after the final frame of an inbound field block is fully read.
+  /// Called after the final frame of an inbound field block is fully read,
+  /// whether or not [_onFieldBlockIncomplete] was called for it.
   final void Function()? _onFieldBlockEnd;
 
   final _framesController = StreamController<Frame>();
@@ -24,15 +30,19 @@ class FrameReader {
   FrameReader(
     this._inputStream,
     this._localSettings, {
-    void Function()? onFieldBlockStart,
+    void Function()? onFieldBlockIncomplete,
     void Function()? onFieldBlockEnd,
-  }) : _onFieldBlockStart = onFieldBlockStart,
+  }) : _onFieldBlockIncomplete = onFieldBlockIncomplete,
        _onFieldBlockEnd = onFieldBlockEnd;
 
   /// Starts to listen on the input stream and decodes HTTP/2 transport frames.
   Stream<Frame> startDecoding() {
     var bufferedData = <List<int>>[];
     var bufferedLength = 0;
+
+    // Whether the header of a HEADERS or PUSH_PROMISE frame has been read,
+    // but not yet the frame with END_HEADERS that completes its field block.
+    var inFieldBlock = false;
 
     FrameHeader? tryReadHeader() {
       if (bufferedLength >= FRAME_HEADER_SIZE) {
@@ -41,11 +51,9 @@ class FrameReader {
 
         // Read the frame header from the first byte array.
         final header = _readFrameHeader(bufferedData[0], 0);
-        final isFieldBlockStart =
-            header.type == FrameType.HEADERS ||
-            header.type == FrameType.PUSH_PROMISE;
-        if (isFieldBlockStart) {
-          _onFieldBlockStart?.call();
+        if (header.type == FrameType.HEADERS ||
+            header.type == FrameType.PUSH_PROMISE) {
+          inFieldBlock = true;
         }
         return header;
       }
@@ -67,6 +75,7 @@ class FrameReader {
           _ => false,
         };
         if (completesFieldBlock) {
+          inFieldBlock = false;
           _onFieldBlockEnd?.call();
         }
 
@@ -127,6 +136,11 @@ class FrameReader {
               } else {
                 break;
               }
+            }
+            // All complete frames have been read. If the input ended inside a
+            // field block, the rest of the block has to come from the peer.
+            if (inFieldBlock) {
+              _onFieldBlockIncomplete?.call();
             }
           } catch (error, stack) {
             terminateWithError(error, stack);
