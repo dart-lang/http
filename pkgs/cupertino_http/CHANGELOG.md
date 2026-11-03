@@ -13,6 +13,9 @@
   certificate pinning.
 * Add `URLRequest.assumesHTTP3Capable` and
   `MutableURLRequest.assumesHTTP3Capable`.
+
+## 3.1.1
+
 * Update example to fetch and display scores of `package:cupertino_http` from
   pub.dev.
 * Update to `package:ffigen` `22.0.0`.
@@ -25,6 +28,7 @@
 * Fix a [bug](https://github.com/dart-lang/http/issues/1791) where native
   memory was not being deallocated when `CupertinoClient` was used in a
   background isolate.
+* Regenerate FFI bindings with macOS 26.5 SDK.
 
 ## 3.1.0
 

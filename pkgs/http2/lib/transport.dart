@@ -23,19 +23,23 @@ const int defaultMaxConcurrentStreams = 100;
 
 /// Default maximum compressed size of one inbound HTTP/2 field block.
 ///
-/// 16 KiB matches the protocol's initial maximum frame payload size from
-/// [RFC 9113 section 4.1](https://www.rfc-editor.org/rfc/rfc9113.html#section-4.1).
-/// This bounds fragmented field-block buffering to the byte budget of one
-/// default-sized frame.
-const int defaultMaxInboundHeaderBlockSize = 16 * 1024;
+/// This matches [defaultMaxInboundHeaderListSize]. An HPACK-encoded field
+/// block is normally smaller than the decoded size of its field section,
+/// which counts 32 bytes of overhead per field, so a field section within
+/// [defaultMaxInboundHeaderListSize] also fits within this limit. This matters
+/// because exceeding this limit terminates the connection (the rest of the
+/// field block cannot be skipped without desynchronizing the HPACK state),
+/// whereas exceeding only [defaultMaxInboundHeaderListSize] resets just the
+/// affected stream.
+const int defaultMaxInboundHeaderBlockSize = defaultMaxInboundHeaderListSize;
 
 /// Default maximum decoded size of one inbound HTTP/2 field section.
 ///
-/// 8 KiB is a conservative application-visible budget that bounds HPACK
-/// amplification before headers reach application code. The field-size
-/// accounting follows
+/// 256 KiB matches the limit that Chromium/Cronet apply to field sections
+/// sent by servers, bounding HPACK amplification before headers reach
+/// application code. The field-size accounting follows
 /// [RFC 9113 section 6.5.2](https://www.rfc-editor.org/rfc/rfc9113.html#section-6.5.2).
-const int defaultMaxInboundHeaderListSize = 8 * 1024;
+const int defaultMaxInboundHeaderListSize = 256 * 1024;
 
 /// Default absolute time allowed to finish an inbound HTTP/2 field block.
 ///
@@ -46,10 +50,14 @@ const Duration defaultInboundHeaderBlockTimeout = Duration(seconds: 10);
 /// Default maximum number of CONTINUATION frames in one field block.
 ///
 /// The byte limit alone does not bound floods of empty or very small frames.
-/// 16 still permits a 16 KiB block to be split into fragments averaging 1 KiB
-/// while placing a finite bound on per-frame processing, addressing the class
-/// of issue described by [CERT VU#421644](https://kb.cert.org/vuls/id/421644).
-const int defaultMaxContinuationFramesPerBlock = 16;
+/// A [defaultMaxInboundHeaderBlockSize] field block sent in frames of the
+/// protocol's initial maximum size (16 KiB, see
+/// [RFC 9113 section 4.1](https://www.rfc-editor.org/rfc/rfc9113.html#section-4.1))
+/// needs up to 16 CONTINUATION frames. 64 still permits such a block to be
+/// split into fragments averaging about 4 KiB while placing a finite bound on
+/// per-frame processing, addressing the class of issue described by
+/// [CERT VU#421644](https://kb.cert.org/vuls/id/421644).
+const int defaultMaxContinuationFramesPerBlock = 64;
 
 /// Default number of consecutive peer stream-limit violations before GOAWAY.
 ///
