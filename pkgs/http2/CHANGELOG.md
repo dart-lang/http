@@ -9,6 +9,10 @@
   as `dart:io`'s `HttpClient` does: with Nagle's algorithm, requests and
   uploads regularly stalled until the server's delayed-acknowledgement timer
   fired (40 ms on Linux).
+- The incomplete field-block timeout (`inboundHeaderBlockTimeout`) only starts
+  a timer once the bytes received so far end inside a field block. Creating
+  and cancelling a `Timer` for every HEADERS frame, even one that had arrived
+  in full, cost small gRPC calls up to a fifth of their throughput.
 
 ## 3.2.0
 
