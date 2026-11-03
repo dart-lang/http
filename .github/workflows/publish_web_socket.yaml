@@ -1,0 +1,18 @@
+# A CI configuration to publish package:web_socket to pub.dev.
+
+name: Publish package:web_socket
+
+on:
+  push:
+    tags:
+      - 'web_socket-v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publish:
+    if: ${{ github.repository_owner == 'dart-lang' }}
+    permissions:
+      id-token: write
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@a5bff6576dfc51b47eb77d4b7084bba6a4daf8d2 # main
+    with:
+      working-directory: pkgs/web_socket
+      use-flutter: false

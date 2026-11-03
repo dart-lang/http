@@ -9,8 +9,10 @@ on:
 
 jobs:
   health:
-    uses: dart-lang/ecosystem/.github/workflows/health.yaml@fc3dd9a17a8e18b3b4aa5abac8a0f4a679fe2d57
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@78abf72b3cfcc7c6c822032d8915153019fe79b7 # main
     with:
+      fail_on: "changelog,do-not-submit,publish"
+      warn_on: "license,coverage,breaking,leaking,unused-dependencies"
       sdk: dev
       channel: dev
       flutter_packages: "pkgs/cronet_http,pkgs/cupertino_http,pkgs/ok_http"

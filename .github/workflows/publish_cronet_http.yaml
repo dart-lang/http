@@ -1,0 +1,18 @@
+# A CI configuration to publish package:cronet_http to pub.dev.
+
+name: Publish package:cronet_http
+
+on:
+  push:
+    tags:
+      - 'cronet_http-v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publish:
+    if: ${{ github.repository_owner == 'dart-lang' }}
+    permissions:
+      id-token: write
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@a5bff6576dfc51b47eb77d4b7084bba6a4daf8d2 # main
+    with:
+      working-directory: pkgs/cronet_http
+      use-flutter: true

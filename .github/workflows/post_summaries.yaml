@@ -1,19 +1,21 @@
+# A CI configuration to write comments on PRs.
+
 name: Comment on the pull request
 permissions:
   contents: read
 
 on:
-  # Trigger this workflow after the Health workflow completes. This workflow will have permissions to
-  # do things like create comments on the PR, even if the original workflow couldn't.
+  # Trigger this workflow after the Health workflow completes. This workflow
+  # will have permissions to do things like create comments on the PR, even if
+  # the original workflow couldn't.
   workflow_run: # zizmor: ignore[dangerous-triggers]
-    workflows: 
+    workflows:
       - Health
-      - Publish
     types:
       - completed
 
 jobs:
   upload:
-    uses: dart-lang/ecosystem/.github/workflows/post_summaries.yaml@fc3dd9a17a8e18b3b4aa5abac8a0f4a679fe2d57
+    uses: dart-lang/ecosystem/.github/workflows/post_summaries.yaml@78abf72b3cfcc7c6c822032d8915153019fe79b7 # main
     permissions:
       pull-requests: write
