@@ -1,4 +1,4 @@
-## 3.1.1-wip
+## 3.1.1
 
 * Update example to fetch and display scores of `package:cupertino_http` from
   pub.dev.
