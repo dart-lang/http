@@ -8,6 +8,7 @@
 library;
 
 import 'dart:convert' show ascii;
+import 'dart:math' show min;
 import 'dart:typed_data';
 
 import '../byte_utils.dart';
@@ -216,13 +217,27 @@ class HPackDecoder {
 }
 
 /// A stateful HPACK encoder.
-// TODO: Currently we encode all headers:
-//    - without huffman encoding
-//    - without using the dynamic table
 class HPackEncoder {
+  /// Mirrors the peer decoder's dynamic table, so that repeated header fields
+  /// are sent as an index instead of their full literal value.
+  final IndexTable _table = IndexTable();
+
+  /// The smallest table size the peer allowed since the last header block,
+  /// and the latest one, which [encode] must announce before using the table
+  /// again (RFC 7541 section 4.2).
+  int? _pendingMinimumSize;
+  int? _pendingSize;
+
+  /// The largest dynamic table this encoder uses, whatever the peer allows:
+  /// [IndexTable.find] scans it on every header field.
+  static const int _maximumTableSize = 4096;
+
   void updateMaxSendingHeaderTableSize(int newMaximumSize) {
-    // TODO: Once we start encoding via dynamic table we need to let the other
-    // side know the maximum table size we're using.
+    final size = min(newMaximumSize, _maximumTableSize);
+    if (size == _table.maximumSize && _pendingSize == null) return;
+    _pendingSize = size;
+    _pendingMinimumSize = min(_pendingMinimumSize ?? size, size);
+    _table.updateMaxSize(size);
   }
 
   List<int> encode(List<Header> headers) {
@@ -253,24 +268,82 @@ class HPackEncoder {
     }
 
     void writeStringLiteral(List<int> bytes) {
-      // TODO: Support huffman encoding.
-      currentByte = 0; // 1 would be huffman encoding
-      writeInteger(7, bytes.length);
-      bytesBuilder.add(bytes);
+      var huffman = http2HuffmanCodec.encode(bytes);
+      if (huffman.length < bytes.length) {
+        currentByte = 0x80;
+        writeInteger(7, huffman.length);
+        bytesBuilder.add(huffman);
+      } else {
+        currentByte = 0;
+        writeInteger(7, bytes.length);
+        bytesBuilder.add(bytes);
+      }
     }
 
-    void writeLiteralHeaderWithoutIndexing(Header header) {
-      bytesBuilder.addByte(0);
-      writeStringLiteral(header.name);
+    void writeLiteral(
+      Header header,
+      int pattern,
+      int prefixBits,
+      int nameIndex,
+    ) {
+      currentByte = pattern;
+      writeInteger(prefixBits, nameIndex);
+      if (nameIndex == 0) writeStringLiteral(header.name);
       writeStringLiteral(header.value);
     }
 
+    if (_pendingSize case final size?) {
+      final minimum = _pendingMinimumSize!;
+      if (minimum < size) {
+        currentByte = 0x20;
+        writeInteger(5, minimum);
+      }
+      currentByte = 0x20;
+      writeInteger(5, size);
+      _pendingSize = _pendingMinimumSize = null;
+    }
+
     for (var header in headers) {
-      writeLiteralHeaderWithoutIndexing(header);
+      final (:index, :nameIndex) = _table.find(header);
+      if (index != 0) {
+        // Indexed Header Field.
+        currentByte = 0x80;
+        writeInteger(7, index);
+      } else if (header.neverIndexed || _isSensitive(header)) {
+        // Literal Header Field Never Indexed.
+        writeLiteral(header, 0x10, 4, nameIndex);
+      } else if (IndexTable.sizeOf(header) > _table.maximumSize) {
+        // Indexing it would only empty the table: Literal Header Field
+        // without Indexing.
+        writeLiteral(header, 0x00, 4, nameIndex);
+      } else {
+        // Literal Header Field with Incremental Indexing.
+        writeLiteral(header, 0x40, 6, nameIndex);
+        _table.addHeaderField(header);
+      }
     }
 
     return bytesBuilder.takeBytes();
   }
+
+  /// Whether [header] is a short credential, whose value an attacker able to
+  /// inject header fields on the same connection could guess by observing how
+  /// well it compresses (RFC 7541 section 7.1). Long credentials such as
+  /// bearer tokens have too much entropy for that, and are indexed.
+  static bool _isSensitive(Header header) =>
+      header.value.length < 20 &&
+      (_equals(header.name, _authorization) || _equals(header.name, _cookie));
+
+  static final _authorization = ascii.encode('authorization');
+  static final _cookie = ascii.encode('cookie');
+}
+
+bool _equals(List<int> a, List<int> b) {
+  if (a.length != b.length) return false;
+  for (var i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
 }
 
 class IndexTable {
@@ -350,6 +423,9 @@ class IndexTable {
 
   IndexTable();
 
+  /// The maximum size the dynamic table can grow to.
+  int get maximumSize => _maximumSize;
+
   /// Updates the maximum size which the dynamic table can grow to.
   void updateMaxSize(int newMaxDynTableSize) {
     _maximumSize = newMaxDynTableSize;
@@ -375,11 +451,35 @@ class IndexTable {
     );
   }
 
+  /// The index of the entry equal to [header], and the index of an entry with
+  /// the same name, or `0` when there is none.
+  ({int index, int nameIndex}) find(Header header) {
+    var nameIndex = 0;
+    for (var i = 1; i < _staticTable.length; i++) {
+      final entry = _staticTable[i]!;
+      if (!_equals(entry.name, header.name)) continue;
+      if (_equals(entry.value, header.value)) {
+        return (index: i, nameIndex: i);
+      }
+      if (nameIndex == 0) nameIndex = i;
+    }
+    for (var i = 0; i < _dynamicTable.length; i++) {
+      final entry = _dynamicTable[i];
+      if (!_equals(entry.name, header.name)) continue;
+      final index = _staticTable.length + i;
+      if (_equals(entry.value, header.value)) {
+        return (index: index, nameIndex: index);
+      }
+      if (nameIndex == 0) nameIndex = index;
+    }
+    return (index: 0, nameIndex: nameIndex);
+  }
+
   /// Adds a new header field to the dynamic table - and evicts entries as
   /// necessary.
   void addHeaderField(Header header) {
     _dynamicTable.insert(0, header);
-    _currentSize += _sizeOf(header);
+    _currentSize += sizeOf(header);
     _reduce();
   }
 
@@ -388,12 +488,13 @@ class IndexTable {
   void _reduce() {
     while (_currentSize > _maximumSize) {
       var h = _dynamicTable.removeLast();
-      _currentSize -= _sizeOf(h);
+      _currentSize -= sizeOf(h);
     }
   }
 
   /// Returns the "size" a [header] has.
   ///
   /// This is specified to be the number of octets of name/value plus 32.
-  int _sizeOf(Header header) => header.name.length + header.value.length + 32;
+  static int sizeOf(Header header) =>
+      header.name.length + header.value.length + 32;
 }

@@ -1,5 +1,10 @@
 ## 3.2.0-wip
 
+- Encode header fields with the HPACK dynamic table and Huffman coding instead
+  of sending every field as a plain literal, so a header field repeated across
+  requests (an `authorization` token, a gRPC `:path`) costs one byte. Short
+  `authorization` and `cookie` values, and fields marked `neverIndexed`, are
+  never indexed.
 - Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
   the connection-level receive window and `SETTINGS_MAX_FRAME_SIZE`. (#1997)
 - Apply a larger `streamWindowSize` and `maxFrameSize` to the receive side as
