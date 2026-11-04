@@ -5,6 +5,10 @@
   requests (an `authorization` token, a gRPC `:path`) costs one byte. Short
   `authorization` and `cookie` values, and fields marked `neverIndexed`, are
   never indexed.
+- Write all sendable queued frames in one go instead of yielding to the event
+  loop after each frame, which made each queued frame wait a full turn of a
+  busy isolate. `GOAWAY` is now also sent when finishing a connection whose
+  last frames were still queued.
 - Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
   the connection-level receive window and `SETTINGS_MAX_FRAME_SIZE`. (#1997)
 - Apply a larger `streamWindowSize` and `maxFrameSize` to the receive side as

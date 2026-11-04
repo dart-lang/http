@@ -892,6 +892,16 @@ void main() {
             ),
           );
 
+          // Finishing the connection announces it with a GOAWAY.
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.NO_ERROR,
+            ),
+          );
+
           // Wait for the client finish.
           expect(await serverReader.moveNext(), false);
           await serverWriter.close();
