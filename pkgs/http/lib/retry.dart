@@ -47,7 +47,7 @@ final class RetryClient extends BaseClient {
   /// `(response as StreamedResponse).stream`), it is responsible for draining
   /// or cancelling the stream. A body can only be read once, so if [when]
   /// returns `false`, reading the returned response's body (including through
-  /// [get], [post], etc.) will throw a [StateError].
+  /// [RetryClient.get], [RetryClient.post], etc.) will throw a [StateError].
   ///
   /// By default, this waits 500ms between the original request and the first
   /// retry, then increases the delay by 1.5x for each subsequent retry. If
