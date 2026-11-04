@@ -107,6 +107,15 @@ void main() {
     );
   });
 
+  test('closes using an existing closed WebSocket', () async {
+    final webSocket = WebSocket('ws://localhost:$port');
+    webSocket.close();
+
+    final channel = HtmlWebSocketChannel(webSocket);
+    channel.ready.ignore();
+    await expectLater(channel.sink.close(), completes);
+  });
+
   test('.connect defaults to binary lists', () async {
     final channel = HtmlWebSocketChannel.connect('ws://localhost:$port');
 
@@ -157,8 +166,46 @@ void main() {
 
   test('.connect wraps a connection error in WebSocketChannelException',
       () async {
-    // Spawn a server that will immediately reject the connection.
-    final serverChannel = spawnHybridCode(r'''
+    // TODO(nweiz): Make this channel use a port number that's guaranteed to be
+    // invalid.
+    final channel = HtmlWebSocketChannel.connect(
+        'ws://localhost:${await _spawnRejectingServer()}');
+    expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
+    expect(channel.stream.toList(), throwsA(isA<WebSocketChannelException>()));
+  });
+
+  test('.connect with a connection error, close before failure', () async {
+    final channel = HtmlWebSocketChannel.connect(
+        'ws://localhost:${await _spawnRejectingServer()}');
+    final closeFuture = channel.sink.close();
+
+    await expectLater(channel.ready, throwsA(isA<WebSocketChannelException>()));
+    await expectLater(closeFuture, completes);
+  });
+
+  test('.connect with a connection error, close after failure', () async {
+    final channel = HtmlWebSocketChannel.connect(
+        'ws://localhost:${await _spawnRejectingServer()}');
+
+    await expectLater(channel.ready, throwsA(isA<WebSocketChannelException>()));
+    await expectLater(channel.sink.close(), completes);
+  });
+
+  test('.connect with a connection error, listen, add and close before failure',
+      () async {
+    final channel = HtmlWebSocketChannel.connect(
+        'ws://localhost:${await _spawnRejectingServer()}');
+    channel.stream.listen(null, onError: (_) {});
+    channel.sink.add('Hello World!');
+    final closeFuture = channel.sink.close();
+
+    await expectLater(channel.ready, throwsA(isA<WebSocketChannelException>()));
+    await expectLater(closeFuture, completes);
+  });
+}
+
+/// Spawns a server that immediately rejects connections and returns its port.
+Future<int> _spawnRejectingServer() => spawnHybridCode(r'''
       import 'dart:io';
 
       import 'package:stream_channel/stream_channel.dart';
@@ -170,16 +217,7 @@ void main() {
         });
         channel.sink.add(server.port);
       }
-    ''');
-
-    // TODO(nweiz): Make this channel use a port number that's guaranteed to be
-    // invalid.
-    final channel = HtmlWebSocketChannel.connect(
-        'ws://localhost:${await serverChannel.firstAsInt}');
-    expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
-    expect(channel.stream.toList(), throwsA(isA<WebSocketChannelException>()));
-  });
-}
+    ''').firstAsInt;
 
 Future<List<int>> _decodeBlob(Blob blob) async {
   final reader = FileReader();
