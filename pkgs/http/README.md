@@ -179,7 +179,7 @@ To abort a request, complete the [`Abortable.abortTrigger`][aborttrigger] `Futur
 
 If the request is aborted before the response `Future` completes, then the response
 `Future` will complete with [`RequestAbortedException`][requestabortedexception]. If
-the response is a `StreamedResponse` and the the request is cancelled while the
+the response is a `StreamedResponse` and the request is aborted while the
 response stream is being consumed, then the response stream will contain a
 [`RequestAbortedException`][requestabortedexception].
 
@@ -189,55 +189,44 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 Future<void> main() async {
+  // Abort the request if it hasn't completed within 60 seconds.
+  //
+  // To abort the request in response to some other event. For example, when
+  // the user clicks a cancel button, complete `abortTrigger` from that event
+  // instead.
   final abortTrigger = Completer<void>();
-  final client = Client();
-  final request = AbortableRequest(
-    'GET',
-    Uri.https('example.com'),
-    abortTrigger: abortTrigger.future,
-  );
-
-  // Whenever abortion is required:
-  // > abortTrigger.complete();
-
-  // Send request
-  final StreamedResponse response;
+  final timeout = Timer(const Duration(seconds: 60), abortTrigger.complete);
+  final client = http.Client();
   try {
-    response = await client.send(request);
-  } on RequestAbortedException {
-    // request aborted before it was fully sent
-    rethrow;
-  }
+    final request = http.AbortableRequest(
+      'GET',
+      Uri.https('example.com'),
+      abortTrigger: abortTrigger.future,
+    );
 
-  // Using full response bytes listener
-  response.stream.listen(
-    (data) {
-      // consume response bytes
-    },
-    onError: (Object err) {
-      if (err is RequestAbortedException) {
-        // request aborted whilst response bytes are being streamed;
-        // the stream will always be finished early
-      }
-    },
-    onDone: () {
-      // response bytes consumed, or partially consumed if finished
-      // early due to abortion
-    },
-  );
+    // Send request
+    final http.StreamedResponse response;
+    try {
+      response = await client.send(request);
+    } on http.RequestAbortedException {
+      // The request aborted before the response headers were received.
+      rethrow;
+    }
 
-  // Alternatively, using `asFuture`
-  try {
-    await response.stream.listen(
-      (data) {
-        // consume response bytes
-      },
-    ).asFuture<void>();
-  } on RequestAbortedException {
-    // request aborted whilst response bytes are being streamed
-    rethrow;
+    try {
+      await response.stream.listen(
+        (data) {
+          // Consume the response bytes.
+        },
+      ).asFuture<void>();
+    } on http.RequestAbortedException {
+      // The request aborted whilst response bytes are being streamed.
+      rethrow;
+    }
+  } finally {
+    timeout.cancel();
+    client.close();
   }
-    // response bytes fully consumed
 }
 ```
 
