@@ -191,8 +191,9 @@ import 'package:http/http.dart' as http;
 Future<void> main() async {
   // Abort the request if it hasn't completed within 60 seconds.
   //
-  // To abort the request in response to some other event, e.g., when the user
-  // clicks a cancel button, complete `abortTrigger` from that event instead.
+  // To abort the request in response to some other event. For example, when
+  // the user clicks a cancel button, complete `abortTrigger` from that event
+  // instead.
   final abortTrigger = Completer<void>();
   final timeout = Timer(const Duration(seconds: 60), abortTrigger.complete);
   final client = http.Client();
