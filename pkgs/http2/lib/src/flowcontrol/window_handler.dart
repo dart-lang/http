@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:math';
+
 import '../async_utils/async_utils.dart';
 import '../frames/frames.dart';
 import '../sync_errors.dart';
@@ -107,6 +109,9 @@ class IncomingWindowHandler {
   /// every [raise].
   int _granted;
 
+  /// The largest [_granted] may grow to on its own (see [dataProcessed]).
+  final int _maxGranted;
+
   /// Bytes processed since this end last sent a WINDOW_UPDATE.
   int _unacknowledged = 0;
 
@@ -114,16 +119,24 @@ class IncomingWindowHandler {
   /// 6.9.2).
   static const _defaultWindowSize = 65535;
 
+  /// A stream's window handler.
+  ///
+  /// If [maxWindowSize] is larger than the size of [localWindow], the window
+  /// starts at that size and grows towards [maxWindowSize] as the stream's
+  /// data is consumed (see [dataProcessed]).
   IncomingWindowHandler.stream(
     this._frameWriter,
     Window localWindow,
-    this._streamId,
-  ) : _localWindow = localWindow,
-      _granted = localWindow.size;
+    this._streamId, {
+    int? maxWindowSize,
+  }) : _localWindow = localWindow,
+       _granted = localWindow.size,
+       _maxGranted = maxWindowSize ?? localWindow.size;
 
   IncomingWindowHandler.connection(this._frameWriter, Window localWindow)
     : _localWindow = localWindow,
       _granted = localWindow.size,
+      _maxGranted = localWindow.size,
       _streamId = 0;
 
   /// The current size for the incoming data window.
@@ -195,8 +208,19 @@ class IncomingWindowHandler {
     if (_granted >= 2 * _defaultWindowSize && _unacknowledged < _granted ~/ 2) {
       return;
     }
-    _localWindow.modify(_unacknowledged);
-    _frameWriter.writeWindowUpdate(_unacknowledged, streamId: _streamId);
+    // A stream with room to grow doubles its window with each update: data is
+    // only processed while the stream's listener is not paused, so half the
+    // window has been consumed as it arrived. A fast reader is soon allowed a
+    // large window, enough for a fast or distant peer, while a stream that is
+    // paused or cancelled early only ever let the peer send a small one - all
+    // of which must still be read off the connection, delaying its other
+    // streams, once the stream is cancelled.
+    final growth =
+        _granted < _maxGranted ? min(_granted, _maxGranted - _granted) : 0;
+    _granted += growth;
+    final increment = _unacknowledged + growth;
+    _localWindow.modify(increment);
+    _frameWriter.writeWindowUpdate(increment, streamId: _streamId);
     _unacknowledged = 0;
   }
 }

@@ -113,6 +113,88 @@ void Function(ServerTransportStream) _respondWith(
   };
 }
 
+/// A server that speaks HTTP/2 frame by frame, so a test sees exactly which
+/// frames the client sends, and when.
+class _FrameLevelServer {
+  _FrameLevelServer._(this._serverSocket) {
+    _serverSocket.listen(_accepted.complete);
+  }
+
+  static Future<_FrameLevelServer> start() async {
+    final context = _serverContext()..setAlpnProtocols(['h2'], true);
+    return _FrameLevelServer._(
+      await SecureServerSocket.bind('localhost', 0, context),
+    );
+  }
+
+  final SecureServerSocket _serverSocket;
+  final _accepted = Completer<SecureSocket>();
+  late final SecureSocket _socket;
+  late final StreamIterator<Frame> _frames;
+  late final FrameWriter writer;
+
+  int get port => _serverSocket.port;
+
+  /// Accepts the client's connection and exchanges SETTINGS, then returns the
+  /// stream id of the first request, the client's SETTINGS_INITIAL_WINDOW_SIZE
+  /// and its connection window.
+  Future<(int, {int? streamWindowSetting, int connectionWindowSize})>
+  acceptRequest() async {
+    _socket = await _accepted.future;
+    writer = FrameWriter(HPackEncoder(), _socket, ActiveSettings());
+    _frames = StreamIterator(
+      FrameReader(
+        readConnectionPreface(_socket),
+        ActiveSettings(),
+      ).startDecoding(),
+    );
+    // The client only sends its request once it has the server's SETTINGS.
+    writer.writeSettingsFrame([]);
+    int? streamWindowSetting;
+    var connectionWindowSize = 65535;
+    while (true) {
+      final frame = await nextFrame();
+      if (frame is SettingsFrame && !frame.hasAckFlag) {
+        for (final setting in frame.settings) {
+          if (setting.identifier == Setting.SETTINGS_INITIAL_WINDOW_SIZE) {
+            streamWindowSetting = setting.value;
+          }
+        }
+        writer.writeSettingsAckFrame();
+      } else if (frame is WindowUpdateFrame && frame.header.streamId == 0) {
+        connectionWindowSize += frame.windowSizeIncrement;
+      } else if (frame is HeadersFrame) {
+        return (
+          frame.header.streamId,
+          streamWindowSetting: streamWindowSetting,
+          connectionWindowSize: connectionWindowSize,
+        );
+      }
+    }
+  }
+
+  Future<Frame> nextFrame() async {
+    expect(await _frames.moveNext(), isTrue, reason: 'connection closed');
+    return _frames.current;
+  }
+
+  /// Skips frames until the client grants credit on [streamId].
+  Future<WindowUpdateFrame> nextStreamWindowUpdate(int streamId) async {
+    while (true) {
+      final frame = await nextFrame();
+      if (frame is WindowUpdateFrame && frame.header.streamId == streamId) {
+        return frame;
+      }
+    }
+  }
+
+  Future<void> close() async {
+    await _frames.cancel();
+    _socket.destroy();
+    await _serverSocket.close();
+  }
+}
+
 void main() {
   group('http2-client-test', () {
     test('sends-request-and-receives-response', () async {
@@ -450,62 +532,20 @@ void main() {
     });
 
     test('a-paused-response-body-stops-granting-flow-control-credit', () async {
-      const streamWindow = 4 * 1024 * 1024;
+      const streamWindow = 256 * 1024;
       const connectionWindow = 16 * 1024 * 1024;
       const frameSize = 16 * 1024; // The default SETTINGS_MAX_FRAME_SIZE.
 
-      // A frame-level server, so the test sees exactly which WINDOW_UPDATE
-      // frames the client sends, and when.
-      final context = _serverContext()..setAlpnProtocols(['h2'], true);
-      final serverSocket = await SecureServerSocket.bind(
-        'localhost',
-        0,
-        context,
-      );
-      final accepted = Completer<SecureSocket>();
-      serverSocket.listen(accepted.complete);
-
+      final server = await _FrameLevelServer.start();
       final client = _testClient();
       final responseFuture = client.send(
-        Request('GET', Uri.parse('https://localhost:${serverSocket.port}/')),
+        Request('GET', Uri.parse('https://localhost:${server.port}/')),
       );
-
-      final socket = await accepted.future;
-      final writer = FrameWriter(HPackEncoder(), socket, ActiveSettings());
-      final frames = StreamIterator(
-        FrameReader(
-          readConnectionPreface(socket),
-          ActiveSettings(),
-        ).startDecoding(),
-      );
-      Future<Frame> nextFrame() async {
-        expect(await frames.moveNext(), isTrue, reason: 'connection closed');
-        return frames.current;
-      }
-
-      // The client only sends its request once it has the server's SETTINGS.
-      writer.writeSettingsFrame([]);
-      int? advertisedStreamWindow;
-      var advertisedConnectionWindow = 65535;
-      late final int streamId;
-      while (true) {
-        final frame = await nextFrame();
-        if (frame is SettingsFrame && !frame.hasAckFlag) {
-          for (final setting in frame.settings) {
-            if (setting.identifier == Setting.SETTINGS_INITIAL_WINDOW_SIZE) {
-              advertisedStreamWindow = setting.value;
-            }
-          }
-          writer.writeSettingsAckFrame();
-        } else if (frame is WindowUpdateFrame && frame.header.streamId == 0) {
-          advertisedConnectionWindow += frame.windowSizeIncrement;
-        } else if (frame is HeadersFrame) {
-          streamId = frame.header.streamId;
-          break;
-        }
-      }
-      expect(advertisedStreamWindow, streamWindow);
-      expect(advertisedConnectionWindow, connectionWindow);
+      final (streamId, :streamWindowSetting, :connectionWindowSize) =
+          await server.acceptRequest();
+      expect(streamWindowSetting, streamWindow);
+      expect(connectionWindowSize, connectionWindow);
+      final writer = server.writer;
 
       writer.writeHeadersFrame(streamId, [
         Header.ascii(':status', '200'),
@@ -522,7 +562,7 @@ void main() {
       }
       writer.writePingFrame(1);
       while (true) {
-        final frame = await nextFrame();
+        final frame = await server.nextFrame();
         if (frame is PingFrame && frame.hasAckFlag) break;
         if (frame is WindowUpdateFrame && frame.header.streamId == streamId) {
           fail(
@@ -533,16 +573,11 @@ void main() {
       }
       expect(received, isEmpty);
 
-      // Resuming lets the client consume the window and grant it back.
+      // Resuming lets the client consume the window and grant it back - and,
+      // since the body is being read, twice as much again.
       body.resume();
-      var granted = 0;
-      while (granted < streamWindow) {
-        final frame = await nextFrame();
-        if (frame is WindowUpdateFrame && frame.header.streamId == streamId) {
-          granted += frame.windowSizeIncrement;
-        }
-      }
-      expect(granted, streamWindow);
+      final frame = await server.nextStreamWindowUpdate(streamId);
+      expect(frame.windowSizeIncrement, streamWindow ~/ 2 + streamWindow);
 
       writer.writeDataFrame(streamId, ascii.encode('end'), endStream: true);
       await body.asFuture<void>();
@@ -550,9 +585,119 @@ void main() {
 
       client.close();
       await client.closed;
-      await frames.cancel();
-      socket.destroy();
-      await serverSocket.close();
+      await server.close();
+    });
+
+    test('a-stream-window-doubles-as-the-body-is-read', () async {
+      const kib = 1024;
+      const total = 8 * 1024 * kib;
+
+      final server = await _FrameLevelServer.start();
+      final client = _testClient();
+      final responseFuture = client.send(
+        Request('GET', Uri.parse('https://localhost:${server.port}/')),
+      );
+      final (streamId, :streamWindowSetting, connectionWindowSize: _) =
+          await server.acceptRequest();
+      server.writer.writeHeadersFrame(streamId, [
+        Header.ascii(':status', '200'),
+      ], endStream: false);
+      final response = await responseFuture;
+      var received = 0;
+      final body = response.stream.listen((chunk) => received += chunk.length);
+
+      // Send as fast as the client's credit allows.
+      var window = streamWindowSetting!;
+      var largestWindow = window;
+      final increments = <int>[];
+      var sent = 0;
+      while (sent < total) {
+        while (window > 0 && sent < total) {
+          final size = min(16 * kib, min(window, total - sent));
+          sent += size;
+          window -= size;
+          server.writer.writeDataFrame(
+            streamId,
+            Uint8List(size),
+            endStream: sent == total,
+          );
+        }
+        if (sent == total) break;
+        final frame = await server.nextStreamWindowUpdate(streamId);
+        increments.add(frame.windowSizeIncrement);
+        window += frame.windowSizeIncrement;
+        largestWindow = max(largestWindow, window);
+      }
+      await body.asFuture<void>();
+      expect(received, total);
+
+      // Each update acknowledges half the window and doubles it, up to 4 MiB.
+      expect(increments.take(4), [
+        128 * kib + 256 * kib,
+        256 * kib + 512 * kib,
+        512 * kib + 1024 * kib,
+        1024 * kib + 2048 * kib,
+      ]);
+      expect(increments.skip(4), everyElement(2048 * kib));
+      expect(largestWindow, lessThanOrEqualTo(4096 * kib));
+
+      client.close();
+      await client.closed;
+      await server.close();
+    });
+
+    test('a-response-cancelled-early-had-a-small-window', () async {
+      const kib = 1024;
+
+      final server = await _FrameLevelServer.start();
+      final client = _testClient();
+      final responseFuture = client.send(
+        Request('GET', Uri.parse('https://localhost:${server.port}/')),
+      );
+      final (streamId, :streamWindowSetting, connectionWindowSize: _) =
+          await server.acceptRequest();
+      server.writer.writeHeadersFrame(streamId, [
+        Header.ascii(':status', '200'),
+      ], endStream: false);
+      final response = await responseFuture;
+
+      // Cancel the body once 256 KiB have been read, like an app abandoning
+      // an image that scrolled out of view.
+      var received = 0;
+      late final StreamSubscription<List<int>> body;
+      body = response.stream.listen((chunk) {
+        received += chunk.length;
+        if (received >= 256 * kib) unawaited(body.cancel());
+      });
+
+      // Send as fast as the client's credit allows, until it resets the
+      // stream. All of it has to be read off the connection - before the
+      // response to any later request on it.
+      var window = streamWindowSetting!;
+      var sent = 0;
+      while (true) {
+        while (window > 0) {
+          final size = min(16 * kib, window);
+          sent += size;
+          window -= size;
+          server.writer.writeDataFrame(streamId, Uint8List(size));
+        }
+        final frame = await server.nextFrame();
+        if (frame is RstStreamFrame && frame.header.streamId == streamId) {
+          break;
+        }
+        if (frame is WindowUpdateFrame && frame.header.streamId == streamId) {
+          window += frame.windowSizeIncrement;
+        }
+      }
+      // 640 KiB: the initial 256 KiB window, then the 128 KiB acknowledged at
+      // half of it plus the 256 KiB the window grew by. A fixed 4 MiB window
+      // let the server send all 4 MiB at once.
+      expect(sent, lessThanOrEqualTo(1024 * kib));
+
+      client.close();
+      await client.closed;
+      await server.close();
     });
 
     test(
