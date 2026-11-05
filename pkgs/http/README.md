@@ -179,7 +179,7 @@ To abort a request, complete the [`Abortable.abortTrigger`][aborttrigger] `Futur
 
 If the request is aborted before the response `Future` completes, then the response
 `Future` will complete with [`RequestAbortedException`][requestabortedexception]. If
-the response is a `StreamedResponse` and the the request is cancelled while the
+the response is a `StreamedResponse` and the request is aborted while the
 response stream is being consumed, then the response stream will contain a
 [`RequestAbortedException`][requestabortedexception].
 
@@ -189,17 +189,18 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 Future<void> main() async {
-  // Cancel the request after 60 seconds.
+  // Abort the request if it hasn't completed within 60 seconds.
   //
-  // Use a `Completer` instead if you want to explicitly control when the
-  // request is aborted, e.g., when the user clicks a cancel button.
-  final abortTrigger = Future<void>.delayed(const Duration(seconds: 60));
+  // To abort the request in response to some other event, e.g., when the user
+  // clicks a cancel button, complete `abortTrigger` from that event instead.
+  final abortTrigger = Completer<void>();
+  final timeout = Timer(const Duration(seconds: 60), abortTrigger.complete);
   final client = http.Client();
   try {
     final request = http.AbortableRequest(
       'GET',
       Uri.https('example.com'),
-      abortTrigger: abortTrigger,
+      abortTrigger: abortTrigger.future,
     );
 
     // Send request
@@ -207,22 +208,22 @@ Future<void> main() async {
     try {
       response = await client.send(request);
     } on http.RequestAbortedException {
-      // request aborted before it was fully sent
+      // The request aborted before the response headers were received.
       rethrow;
     }
 
     try {
       await response.stream.listen(
         (data) {
-          // consume response bytes
+          // Consume the response bytes.
         },
       ).asFuture<void>();
     } on http.RequestAbortedException {
-      // request aborted whilst response bytes are being streamed
+      // The request aborted whilst response bytes are being streamed.
       rethrow;
     }
-    // response bytes fully consumed
   } finally {
+    timeout.cancel();
     client.close();
   }
 }
