@@ -14,6 +14,7 @@ import 'package:http2/src/settings/settings.dart';
 import 'package:http2/transport.dart';
 import 'package:test/test.dart';
 
+import 'src/async_utils/async_utils_test.dart' show FailingSink;
 import 'src/hpack/hpack_test.dart' show isHeader;
 
 void main() {
@@ -1691,6 +1692,27 @@ void main() {
           }
 
           await Future.wait([serverFun(), clientFun()], eagerError: true);
+        },
+      );
+
+      test(
+        'finish-and-terminate-complete-when-the-socket-write-fails',
+        () async {
+          // Before any of the client's bytes reach the wire, the peer has gone
+          // away: every write fails and the sink's `done` never completes (as
+          // with a `dart:io` Socket whose `addStream` failed).
+          for (final close in [
+            (ClientTransportConnection c) => c.finish(),
+            (ClientTransportConnection c) => c.terminate(),
+          ]) {
+            final incoming = StreamController<List<int>>();
+            final connection = ClientTransportConnection.viaStreams(
+              incoming.stream,
+              FailingSink(),
+            );
+            await close(connection).timeout(const Duration(seconds: 2));
+            await incoming.close();
+          }
         },
       );
     });
