@@ -58,21 +58,26 @@ final class RetryClient extends BaseClient {
   /// `response` parameter will be null if the request was retried due to an
   /// error for which [whenError] returned `true`.
   ///
-  /// If [retryDelay] is passed, it is called with the response and the
-  /// zero-based retry count immediately before the delay is applied. If it
-  /// returns a non-null [Duration], that value is used as the wait time for
-  /// that attempt. If it returns `null`, the [delay] callback is used instead.
+  /// If [retryDelay] is provided, it is called with the response and the
+  /// zero-based retry count immediately before the delay is applied. A
+  /// non-null [Duration] returned by [retryDelay] is used as the wait time for
+  /// that attempt. If [retryDelay] returns `null`, the [delay] callback is used
+  /// instead.
   ///
-  /// Example — honouring a `Retry-After` header:
+  /// For example, pass a [retryDelay] callback to honor a `Retry-After` header:
+  ///
   /// ```dart
-  /// retryDelay: (response, retryCount) {
-  ///   final retryAfter = response.headers['retry-after'];
-  ///   if (retryAfter != null) {
-  ///     final seconds = int.tryParse(retryAfter);
-  ///     if (seconds != null) return Duration(seconds: seconds);
-  ///   }
-  ///   return null; // fall back to exponential backoff
-  /// },
+  /// final client = RetryClient(
+  ///   Client(),
+  ///   retryDelay: (response, retryCount) {
+  ///     final retryAfter = response.headers['retry-after'];
+  ///     if (retryAfter != null) {
+  ///       final seconds = int.tryParse(retryAfter);
+  ///       if (seconds != null) return Duration(seconds: seconds);
+  ///     }
+  ///     return null; // Fall back to exponential backoff.
+  ///   },
+  /// );
   /// ```
   ///
   /// If the inner client supports aborting requests, then this client will
@@ -165,9 +170,11 @@ final class RetryClient extends BaseClient {
         unawaited(response.stream.listen((_) {}).cancel().catchError((_) {}));
       }
 
-      await Future<void>.delayed(
-        (response != null ? _retryDelay?.call(response, i) : null) ?? _delay(i),
-      );
+      final retryDelay = switch (response, _retryDelay) {
+        (final response?, final retryDelay?) => retryDelay.call(response, i),
+        (_, _) => null,
+      };
+      await Future<void>.delayed(retryDelay ?? _delay(i));
       await _onRetry?.call(request, response, i);
       i++;
     }

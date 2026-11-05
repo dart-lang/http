@@ -369,6 +369,7 @@ void main() {
               if (count == 1) {
                 return Response('', 503, headers: {'retry-after': '10'});
               }
+              expect(fake.elapsed, equals(const Duration(seconds: 10)));
               return Response('', 200);
             },
             count: 2,
@@ -386,11 +387,7 @@ void main() {
       );
 
       expect(client.get(Uri.http('example.org', '')), completes);
-      fake.elapse(const Duration(minutes: 1));
-
-      // The Retry-After header requests 10 s; after the fix the client must
-      // wait exactly 10 s, not the default 500 ms.
-      expect(fake.elapsed, greaterThanOrEqualTo(const Duration(seconds: 10)));
+      fake.elapse(const Duration(seconds: 10));
     });
   });
 
