@@ -1,5 +1,5 @@
 ## 1.10.2-wip
-- Migrate to Built-in Kotlin to support AGP 9.
+* Migrate to Built-in Kotlin to support AGP 9.
 
 ## 1.10.1
 
