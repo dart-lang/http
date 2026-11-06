@@ -15,32 +15,51 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package:
-          - cronet_http
-          - cupertino_http
-          - flutter_http_example
-          - http
-          - http2
-          - http_client_conformance_tests
-          - http_multi_server
-          - http_parser
-          - http_profile
-          - ok_http
-          - web_socket
-          - web_socket_channel
-          - web_socket_conformance_tests
         include:
           - package: cronet_http
             use-flutter: true
+            sdk: stable
+          - package: cupertino_http
+            use-flutter: false
+            sdk: dev
           - package: flutter_http_example
             use-flutter: true
+            sdk: stable
+          - package: http
+            use-flutter: false
+            sdk: dev
+          - package: http2
+            use-flutter: false
+            sdk: stable
+          - package: http_client_conformance_tests
+            use-flutter: false
+            sdk: dev
+          - package: http_multi_server
+            use-flutter: false
+            sdk: dev
+          - package: http_parser
+            use-flutter: false
+            sdk: dev
+          - package: http_profile
+            use-flutter: false
+            sdk: dev
           - package: ok_http
             use-flutter: true
+            sdk: stable
+          - package: web_socket
+            use-flutter: false
+            sdk: dev
+          - package: web_socket_channel
+            use-flutter: false
+            sdk: dev
+          - package: web_socket_conformance_tests
+            use-flutter: false
+            sdk: dev
     uses: dart-lang/ecosystem/.github/workflows/groundskeeper.yml@27c2fc841818cce349e1f424af51cca9ea381f47
     with:
       directory: pkgs/${{ matrix.package }}
-      use-flutter: ${{ matrix.use-flutter == true }}
-      sdk: ${{ matrix.use-flutter == true && 'stable' || 'dev' }}
+      use-flutter: ${{ matrix.use-flutter }}
+      sdk: ${{ matrix.sdk }}
       branch: auto-tidy-${{ matrix.package }}
       title: 'Tidy: package:${{ matrix.package }}'
     secrets: inherit # zizmor: ignore[secrets-inherit]
