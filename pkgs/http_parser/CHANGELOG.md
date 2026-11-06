@@ -1,4 +1,4 @@
-## 4.1.3-wip
+## 4.2.0-wip
 
 * **BREAKING:** Apply the RFC 9110 50-year rule when parsing RFC 850 dates.
   Previously, two-digit years were always interpreted as years between 1900
@@ -8,6 +8,8 @@
   decoding a chunk size that overflows a 64-bit integer.
 * Fixed `MediaType.toString()` to escape backslashes in quoted parameter values
   and quote empty parameter values.
+* Add `MediaType.tryParse`, which returns `null` instead of throwing a
+  `FormatException` if the media type is invalid.
 
 ## 4.1.2
 

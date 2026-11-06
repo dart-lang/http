@@ -82,6 +82,24 @@ void main() {
     });
   });
 
+  group('tryParse', () {
+    test('parses a valid media type', () {
+      final type = MediaType.tryParse('text/plain; charset=utf-8')!;
+      expect(type.mimeType, equals('text/plain'));
+      expect(type.parameters, equals({'charset': 'utf-8'}));
+    });
+
+    test('returns null for an invalid media type', () {
+      expect(MediaType.tryParse(''), isNull);
+      expect(MediaType.tryParse('text'), isNull);
+      expect(MediaType.tryParse('te(xt/plain'), isNull);
+      expect(MediaType.tryParse('text /plain'), isNull);
+      expect(MediaType.tryParse('text/plain; foo =bar'), isNull);
+      expect(MediaType.tryParse('text/plain; foo=b@ar'), isNull);
+      expect(MediaType.tryParse('text/plain; foo="bar'), isNull);
+    });
+  });
+
   group('change', () {
     late MediaType type;
     setUp(() {
