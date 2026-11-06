@@ -8,6 +8,9 @@
 - Honor the peer's `SETTINGS_MAX_FRAME_SIZE` when sending; the ACK of our own
   `SETTINGS_INITIAL_WINDOW_SIZE` no longer resizes send windows.
 - Never send a WINDOW_UPDATE with an increment of 0.
+- Count `DATA` frames received on closed or ignored streams against the
+  connection-level receive window before replenishing it, so the local view of
+  the window no longer grows past what the peer was granted (#2051).
 - Replenish the connection-level receive window and release active stream slots
   when a stream with buffered unconsumed `DATA` frames is terminated, reset, or
   its incoming subscription is cancelled.
