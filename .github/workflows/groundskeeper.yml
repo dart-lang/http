@@ -40,6 +40,7 @@ jobs:
     with:
       directory: pkgs/${{ matrix.package }}
       use-flutter: ${{ matrix.use-flutter == true }}
+      sdk: ${{ matrix.use-flutter == true && 'stable' || 'dev' }}
       branch: auto-tidy-${{ matrix.package }}
       title: 'Tidy: package:${{ matrix.package }}'
     secrets: inherit # zizmor: ignore[secrets-inherit]
