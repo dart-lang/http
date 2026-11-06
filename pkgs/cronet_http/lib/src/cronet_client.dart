@@ -132,7 +132,17 @@ ClientException _convertCronetException(jb.CronetException? e, Uri uri) {
   }
 
   if (e.isA(jb.CallbackException.type)) {
-    return CallbackException._(message, uri);
+    // Cronet's message is "Exception received from UploadDataProvider".
+    // The IOException passed to the sink is the cause.
+    final cause = e.cause;
+    final causeMessage = cause?.message?.toDartString(releaseOriginal: true);
+    cause?.release();
+    return CallbackException._(
+      causeMessage == null || causeMessage.isEmpty
+          ? message
+          : '$message: $causeMessage',
+      uri,
+    );
   }
 
   return CronetException(message, uri);

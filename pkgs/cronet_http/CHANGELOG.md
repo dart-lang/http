@@ -11,6 +11,8 @@
 * Fix a bug where each upload `read` would create a new JNI global reference
   that is only deleted when garbage collected, which could cause a
   `JNI ERROR (app bug): global reference table overflow` crash.
+* Keep the `IOException` message when Cronet wraps an upload failure in a
+  `CallbackException`.
 
 ## 1.10.1
 
