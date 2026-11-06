@@ -1,3 +1,7 @@
+## 1.10.2-wip
+* Migrate to Built-in Kotlin to support AGP 9.
+* Require Dart 3.12 and Flutter 3.44
+
 ## 1.10.1
 
 * Fix a build failure when using Google Play Services with Android Gradle
