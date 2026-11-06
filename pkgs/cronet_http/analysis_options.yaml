@@ -2,6 +2,6 @@ include: ../../analysis_options.yaml
 
 analyzer:
   exclude:
-    - build/**
-    - android/**
     - lib/src/jni/jni_bindings.dart
+    - lib/src/messages.dart
+    - pigeons/messages.dart
