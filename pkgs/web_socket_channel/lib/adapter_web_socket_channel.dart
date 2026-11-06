@@ -125,6 +125,11 @@ class AdapterWebSocketChannel extends StreamChannelMixin
         error = WebSocketChannelException.from(e);
       }
       _readyCompleter.completeError(error);
+      // There is no connection to send events to, so discard them. Without a
+      // listener, the future returned by `sink.close()` would never complete.
+      // This must happen before `_controller.local.sink` is closed, after
+      // which `_controller.local.stream` no longer forwards any events.
+      _controller.local.stream.listen(null);
       _controller.local.sink.addError(error);
       _controller.local.sink.close();
     });

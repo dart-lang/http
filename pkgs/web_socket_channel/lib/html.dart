@@ -95,6 +95,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
           innerWebSocket.readyState == WebSocket.CLOSED) {
         _readyCompleter.completeError(WebSocketChannelException(
             'WebSocket state error: ${innerWebSocket.readyState}'));
+        _discardUserEvents();
       }
       // The socket API guarantees that only a single open event will be
       // emitted.
@@ -112,6 +113,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       final error = WebSocketChannelException('WebSocket connection failed.');
       if (!_readyCompleter.isCompleted) {
         _readyCompleter.completeError(error);
+        _discardUserEvents();
       }
       _controller.local.sink.addError(error);
       _controller.local.sink.close();
@@ -142,6 +144,15 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       data = eventData;
     }
     _controller.local.sink.add(data);
+  }
+
+  /// Discards user events because there is no connection to send them to.
+  ///
+  /// Without a listener, the future returned by `sink.close()` would never
+  /// complete. This must happen before `_controller.local.sink` is closed,
+  /// after which `_controller.local.stream` no longer forwards any events.
+  void _discardUserEvents() {
+    _controller.local.stream.listen(null);
   }
 
   /// Pipes user events to [innerWebSocket].
