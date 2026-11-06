@@ -1,3 +1,19 @@
+## 3.2.0-wip
+
+* Add support for handling authentication challenges, such as TLS server
+  trust evaluation:
+  * Add an `onChallenge` callback to `URLSession.sessionWithConfiguration`,
+    `URLSession.delegate` and `URLSessionTask.delegate`.
+  * Add `URLAuthenticationChallenge`, `URLProtectionSpace`, `URLCredential`,
+    `SecTrust`, `SecCertificate` and the `NSURLAuthenticationMethod...`
+    constants (e.g. `NSURLAuthenticationMethodServerTrust`).
+* Add an `onChallenge` parameter to `CupertinoClient.fromSessionConfiguration`,
+  which makes it possible to trust servers using self-signed certificates or
+  certificates issued by a private certificate authority, or to implement
+  certificate pinning.
+* Add `URLRequest.assumesHTTP3Capable` and
+  `MutableURLRequest.assumesHTTP3Capable`.
+
 ## 3.1.1
 
 * Update example to fetch and display scores of `package:cupertino_http` from
