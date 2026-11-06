@@ -790,6 +790,10 @@ class CronetClient extends BaseClient {
     // every read non-empty. The final zero-byte read is handled
     // via onReadSucceeded(true).
     final queue = StreamQueue<List<int>>(stream.where((c) => c.isNotEmpty));
+    // Each call to `JByteBuffer.asUint8List` creates a new JNI global reference
+    // that is only deleted when the returned `Uint8List` is garbage collected.
+    // So the view is created once per upload, rather than once per read.
+    Uint8List? uploadView;
     Uint8List? current;
     var offset = 0;
     var bytesSent = 0;
@@ -797,6 +801,7 @@ class CronetClient extends BaseClient {
     Future<void> dispose() async {
       if (disposed) return;
       disposed = true;
+      uploadView = null;
       await queue.cancel(immediate: true);
     }
 
@@ -819,7 +824,7 @@ class CronetClient extends BaseClient {
     /// [StreamQueue.cancel] with `immediate: true` completes a pending
     /// `hasNext` with `false`, which is the same signal as end-of-stream, so a
     /// canceled upload must be reported as an error rather than a final chunk.
-    Future<(bool, String?)> fill(JByteBuffer dst) async {
+    Future<(bool, String?)> fill(JByteBuffer dst, Uint8List view) async {
       try {
         final hasData = await ensureChunk();
         if (disposed) {
@@ -835,7 +840,7 @@ class CronetClient extends BaseClient {
         }
         final pos = dst.position;
         final n = min(dst.remaining, available);
-        dst.asUint8List().setRange(pos, pos + n, current!, offset);
+        view.setRange(pos, pos + n, current!, offset);
         dst.position = pos + n;
         profile?.requestData.bodySink.add(
           Uint8List.sublistView(current!, offset, offset + n),
@@ -862,7 +867,8 @@ class CronetClient extends BaseClient {
         read: (uploadDataSink, byteBuffer) => using((arena) async {
           final sink = uploadDataSink!..releasedBy(arena);
           final dst = byteBuffer!..releasedBy(arena);
-          final (lastChunk, error) = await fill(dst);
+          final view = uploadView ??= dst.asUint8List();
+          final (lastChunk, error) = await fill(dst, view);
           if (error == null) {
             sink.onReadSucceeded(lastChunk);
           } else {
