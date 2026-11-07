@@ -1,4 +1,5 @@
 ## 1.10.2-wip
+
 * Migrate to Built-in Kotlin to support AGP 9.
 * Require Dart 3.12 and Flutter 3.44
 
