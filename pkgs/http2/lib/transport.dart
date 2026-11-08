@@ -121,10 +121,12 @@ abstract class Settings {
 
   /// Absolute time allowed to receive a complete inbound field block.
   ///
-  /// The timer starts as soon as the initial HEADERS or PUSH_PROMISE frame
-  /// header is parsed, before its payload is buffered. It is not extended by
-  /// CONTINUATION frames and ends only after the final frame is fully read.
-  /// Set to `null` to disable the timeout.
+  /// The timer starts once the initial HEADERS or PUSH_PROMISE frame header
+  /// has been received but the bytes received so far end before the field
+  /// block is complete (for example inside that frame's payload, or before a
+  /// CONTINUATION frame). It is not extended by CONTINUATION frames and ends
+  /// only after the final frame is fully read. Set to `null` to disable the
+  /// timeout.
   final Duration? inboundHeaderBlockTimeout;
 
   /// Maximum number of CONTINUATION frames accepted for one field block.

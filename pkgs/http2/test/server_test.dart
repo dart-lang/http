@@ -524,6 +524,89 @@ void main() {
           expect(await incoming, isEmpty);
         },
       );
+
+      test(
+        'creates a field-block timer only while a field block is incomplete',
+        () async {
+          // Tells the field-block timer apart from any other timer.
+          const timeout = Duration(seconds: 1234);
+          final timers = <Timer>[];
+          final spec = ZoneSpecification(
+            createTimer: (self, parent, zone, duration, callback) {
+              final timer = parent.createTimer(zone, duration, callback);
+              if (duration == timeout) timers.add(timer);
+              return timer;
+            },
+          );
+
+          await runZoned(() async {
+            final streams = ClientErrorStreams(
+              const ServerSettings(inboundHeaderBlockTimeout: timeout),
+            );
+            final server = streams.serverConnection;
+            final incoming = StreamIterator(server.incomingStreams);
+            final clientReader = streams.clientConnectionFrameReader;
+
+            streams.writeConnectionPreface();
+
+            expect(await clientReader.moveNext(), isTrue);
+            expect(clientReader.current, isA<SettingsFrame>());
+            streams.writeRawFrame(
+              type: FrameType.SETTINGS,
+              flags: SettingsFrame.FLAG_ACK,
+              streamId: 0,
+              payload: const [],
+            );
+            streams.writeRawFrame(
+              type: FrameType.SETTINGS,
+              flags: 0,
+              streamId: 0,
+              payload: const [],
+            );
+            expect(await clientReader.moveNext(), isTrue);
+            expect(clientReader.current, isA<SettingsFrame>());
+
+            // :method GET, :scheme http, :path /
+            const fieldBlock = [0x82, 0x86, 0x84];
+            const flags =
+                HeadersFrame.FLAG_END_HEADERS | HeadersFrame.FLAG_END_STREAM;
+
+            // A field block that is received in full needs no timer.
+            streams.writeRawFrame(
+              type: FrameType.HEADERS,
+              flags: flags,
+              streamId: 1,
+              payload: fieldBlock,
+            );
+            expect(await incoming.moveNext(), isTrue);
+            expect(incoming.current.id, 1);
+            expect(timers, isEmpty);
+
+            // One whose payload is still to come starts the timer, and
+            // completing the field block cancels it.
+            streams.writeRawFrameHeader(
+              length: fieldBlock.length,
+              type: FrameType.HEADERS,
+              flags: flags,
+              streamId: 3,
+            );
+            await pumpEventQueue();
+            expect(timers, hasLength(1));
+            expect(timers.single.isActive, isTrue);
+
+            streams.writeB.add(fieldBlock);
+            expect(await incoming.moveNext(), isTrue);
+            expect(incoming.current.id, 3);
+            expect(timers, hasLength(1));
+            expect(timers.single.isActive, isFalse);
+
+            final terminated = server.terminate();
+            while (await clientReader.moveNext()) {}
+            await terminated;
+            expect(await incoming.moveNext(), isFalse);
+          }, zoneSpecification: spec);
+        },
+      );
     });
 
     group('client-errors', () {

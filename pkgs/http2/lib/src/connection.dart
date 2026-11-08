@@ -183,7 +183,7 @@ abstract class Connection {
         FrameReader(
           incoming,
           acknowledgedSettings,
-          onFieldBlockStart: _startInboundHeaderBlockTimer,
+          onFieldBlockIncomplete: _startInboundHeaderBlockTimer,
           onFieldBlockEnd: _cancelInboundHeaderBlockTimer,
         ).startDecoding();
     _frameReaderSubscription = incomingFrames.listen(
@@ -495,6 +495,13 @@ abstract class Connection {
     }
   }
 
+  /// Starts the [Settings.inboundHeaderBlockTimeout] timer for the inbound
+  /// field block the frame reader is waiting to complete, unless it is
+  /// already running: reading more of the block does not extend it.
+  ///
+  /// The frame reader calls this only when its input ends inside a field
+  /// block, so a field block that arrives in one chunk, the common case,
+  /// never creates (and cancels) a [Timer].
   void _startInboundHeaderBlockTimer() {
     final timeout = _inboundHeaderBlockTimeout;
     if (timeout == null || _inboundHeaderBlockTimer != null) return;
