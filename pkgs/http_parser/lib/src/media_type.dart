@@ -75,6 +75,18 @@ class MediaType {
         return MediaType(type, subtype, parameters);
       });
 
+  /// Parses a media type, returning `null` if [mediaType] is invalid.
+  ///
+  /// Like [MediaType.parse], except that this returns `null` where a similar
+  /// call to [MediaType.parse] would throw a [FormatException].
+  static MediaType? tryParse(String mediaType) {
+    try {
+      return MediaType.parse(mediaType);
+    } on FormatException {
+      return null;
+    }
+  }
+
   MediaType(String type, String subtype, [Map<String, String>? parameters])
       : type = type.toLowerCase(),
         subtype = subtype.toLowerCase(),
