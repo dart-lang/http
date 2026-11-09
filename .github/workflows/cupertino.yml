@@ -66,7 +66,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-      - uses: dart-lang/setup-dart@7654d458321ee25acccccfdb86cd48bd95768ff1
+      - uses: dart-lang/setup-dart@6afc89df92d6eb3834022f73cd65adc8cdfcb92d
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -101,7 +101,7 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-      - uses: futureware-tech/simulator-action@e89aa8f93d3aec35083ff49d2854d07f7186f7f5
+      - uses: futureware-tech/simulator-action@c768f52966d5f70335ec77881f9806b24a52f80e
         with:
           os: iOS
           os_version: '>=15.0'

@@ -491,6 +491,33 @@ void testTaskDelegate() {
       session.finishTasksAndInvalidate();
     });
 
+    test('onMetrics', () async {
+      final completer = Completer<URLSessionTaskMetrics>();
+      late URLSessionTask actualTask;
+
+      final session = URLSession.sessionWithConfiguration(
+        URLSessionConfiguration.defaultSessionConfiguration(),
+      );
+
+      final task =
+          session.dataTaskWithRequest(
+              URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+            )
+            ..taskDelegate = URLSessionTask.delegate(
+              onMetrics: (session, task, metrics) {
+                actualTask = task;
+                completer.complete(metrics);
+              },
+            )
+            ..resume();
+      final metrics = await completer.future;
+
+      expect(actualTask, task);
+      expect(metrics.transactionMetrics, hasLength(1));
+      expect(metrics.transactionMetrics.single.networkProtocolName, 'http/1.1');
+      session.finishTasksAndInvalidate();
+    });
+
     test('onComplete error', () async {
       final completer = Completer<void>();
       NSError? actualError;

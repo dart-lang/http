@@ -65,6 +65,23 @@ void main() {
     expect(response.statusCode, equals(503));
   });
 
+  test('retries when when() reads the response stream', () async {
+    var count = 0;
+    final client = RetryClient(
+        MockClient(expectAsync1((request) async {
+          count++;
+          return count < 2 ? Response('retry', 503) : Response('', 200);
+        }, count: 2)),
+        when: (response) async =>
+            response.statusCode == 503 &&
+            await (response as StreamedResponse).stream.bytesToString() ==
+                'retry',
+        delay: (_) => Duration.zero);
+
+    final response = await client.get(Uri.http('example.org', ''));
+    expect(response.statusCode, equals(200));
+  });
+
   test('retries on any request where whenError() returns true', () async {
     var count = 0;
     final client = RetryClient(

@@ -27,13 +27,19 @@
   connection receive window instead of the protocol's 64 KiB defaults.
 - Stop head-of-line blocking `HEADERS`, `RST_STREAM`, and `GOAWAY` behind
   `DATA` that is waiting for connection-level flow-control credit.
+- `StreamException` (a stream reset because of a `GOAWAY` or oversized headers)
+  now extends `StreamTransportException`, as documented for `TransportException`
+  subclasses. `MultiProtocolHttpServer.startServing` forwards an unexpected ALPN
+  protocol to `onError` instead of throwing inside the socket listener.
 - Bound peer-initiated concurrent streams and reject peers that ignore the
   advertised `SETTINGS_MAX_CONCURRENT_STREAMS` value. Reserved peer streams
   are also bounded locally. The default limit is 100.
 - Bound inbound compressed field blocks, decoded field sections, CONTINUATION
   frame counts, and incomplete field-block duration. HPACK decoding continues
   in discard mode after the decoded limit is exceeded so the connection-wide
-  compression context remains synchronized.
+  compression context remains synchronized. By default, compressed field
+  blocks and decoded field sections are limited to 256 KiB, matching Chromium,
+  and field blocks to 64 CONTINUATION frames.
 
 ## 3.1.0
 
