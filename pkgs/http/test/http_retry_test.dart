@@ -345,19 +345,6 @@ void main() {
     );
   });
 
-  // -------------------------------------------------------------------------
-  // Task 1 — Bug Condition Exploration Test
-  // -------------------------------------------------------------------------
-  // Property 1: Bug Condition — retryDelay callback is used when provided
-  //
-  // This test MUST FAIL on unfixed code (compile error because retryDelay
-  // parameter does not exist yet). Failure proves the bug: RetryClient has no
-  // mechanism to honour a Retry-After header.
-  //
-  // After the fix is applied (Task 3), this same test must PASS, proving the
-  // bug is resolved.
-  //
-  // Validates: Requirements 1.1, 1.3, 1.4
   test('retryDelay callback is used when Retry-After header is present', () {
     FakeAsync().run((fake) {
       var count = 0;
@@ -390,14 +377,6 @@ void main() {
       fake.elapse(const Duration(seconds: 10));
     });
   });
-
-  // -------------------------------------------------------------------------
-  // Task 2 — Preservation Property Tests
-  // -------------------------------------------------------------------------
-  // Property 2: Preservation — existing delay logic unchanged when retryDelay
-  // is absent or returns null.
-  //
-  // Validates: Requirements 3.1, 3.2, 3.3
 
   test('default backoff is preserved when retryDelay is not provided', () {
     FakeAsync().run((fake) {
