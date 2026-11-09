@@ -376,12 +376,18 @@ abstract class Connection {
     _finishing(active: true);
 
     // TODO: There is probably more we need to wait for.
-    return _streams.done.whenComplete(
-      () => Future.wait([
-        _frameWriter.close(),
-        _frameReaderSubscription.cancel(),
-      ]),
-    );
+    return _streams.done.whenComplete(() {
+      // The streams are done once their last frames are queued on the
+      // connection, which may not have written them yet: the sink may be
+      // buffering, or the connection window may be exhausted.
+      _outgoingQueue.startClosing();
+      return _outgoingQueue.done.whenComplete(
+        () => Future.wait([
+          _frameWriter.close(),
+          _frameReaderSubscription.cancel(),
+        ]),
+      );
+    });
   }
 
   /// Terminates this connection forcefully.
@@ -625,7 +631,9 @@ abstract class Connection {
       _cancelInboundHeaderBlockTimer();
 
       var cancelFuture = Future.sync(_frameReaderSubscription.cancel);
-      if (!causedByTransportError) {
+      // A queue that closes, as `finish()` writes the last frames, takes no
+      // more messages; what it still holds is dropped below.
+      if (!causedByTransportError && !_outgoingQueue.isClosing) {
         _outgoingQueue.enqueueMessage(
           GoawayMessage(
             _streams.highestPeerInitiatedStream,

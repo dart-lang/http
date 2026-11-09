@@ -215,7 +215,10 @@ abstract class TransportConnection {
 
   /// Finish this connection.
   ///
-  /// No new streams will be accepted or can be created.
+  /// No new streams will be accepted or can be created. The returned future
+  /// completes once the open streams have ended and every frame queued on the
+  /// connection has been written, and the connection is closed. Use
+  /// [terminate] to close it without waiting.
   Future finish();
 
   /// Terminates this connection forcefully.

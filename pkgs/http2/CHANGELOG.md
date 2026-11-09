@@ -40,6 +40,11 @@
   compression context remains synchronized. By default, compressed field
   blocks and decoded field sections are limited to 256 KiB, matching Chromium,
   and field blocks to 64 CONTINUATION frames.
+- `finish()` writes the frames still queued on the connection before it closes
+  it. It closed the connection once every stream had queued its last frames,
+  so whatever the connection had not written yet was dropped: the end of a
+  response or request, and the `GOAWAY`. The peer then saw the connection
+  terminated instead.
 
 ## 3.1.0
 
