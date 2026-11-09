@@ -1,5 +1,9 @@
 ## 1.7.0-wip
 
+* Add `retryDelay` callback to `RetryClient` to allow response-aware retry
+  delays. When provided and returning a non-null `Duration`, the callback's
+  return value is used as the wait time for that retry attempt instead of the
+  `delay` callback.
 * Update example to fetch and display scores of `package:http` from pub.dev.
 * Add `BrowserCredentialsMode` to support the `omit` browser fetch credentials
   mode. The constructor argument should be preferred over `withCredentials`.

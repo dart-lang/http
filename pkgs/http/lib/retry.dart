@@ -30,6 +30,11 @@ final class RetryClient extends BaseClient {
   /// The callback that determines how long to wait before retrying a request.
   final Duration Function(int) _delay;
 
+  /// The callback that determines how long to wait before retrying a request,
+  /// given the response and the retry count. When non-null and returning
+  /// non-null, overrides [_delay].
+  final Duration? Function(BaseResponse, int)? _retryDelay;
+
   /// The callback to call to indicate that a request is being retried.
   final FutureOr<void> Function(BaseRequest, BaseResponse?, int)? _onRetry;
 
@@ -59,6 +64,28 @@ final class RetryClient extends BaseClient {
   /// `response` parameter will be null if the request was retried due to an
   /// error for which [whenError] returned `true`.
   ///
+  /// If [retryDelay] is provided, it is called with the response and the
+  /// zero-based retry count immediately before the delay is applied. A
+  /// non-null [Duration] returned by [retryDelay] is used as the wait time for
+  /// that attempt. If [retryDelay] returns `null`, the [delay] callback is used
+  /// instead.
+  ///
+  /// For example, pass a [retryDelay] callback to honor a `Retry-After` header:
+  ///
+  /// ```dart
+  /// final client = RetryClient(
+  ///   Client(),
+  ///   retryDelay: (response, retryCount) {
+  ///     final retryAfter = response.headers['retry-after'];
+  ///     if (retryAfter != null) {
+  ///       final seconds = int.tryParse(retryAfter);
+  ///       if (seconds != null) return Duration(seconds: seconds);
+  ///     }
+  ///     return null; // Fall back to exponential backoff.
+  ///   },
+  /// );
+  /// ```
+  ///
   /// If the inner client supports aborting requests, then this client will
   /// forward any [RequestAbortedException]s thrown. A request will not be
   /// retried if it is aborted (even if the inner client does not support
@@ -69,12 +96,14 @@ final class RetryClient extends BaseClient {
     FutureOr<bool> Function(BaseResponse) when = _defaultWhen,
     FutureOr<bool> Function(Object, StackTrace) whenError = _defaultWhenError,
     Duration Function(int retryCount) delay = _defaultDelay,
+    Duration? Function(BaseResponse response, int retryCount)? retryDelay,
     FutureOr<void> Function(BaseRequest, BaseResponse?, int retryCount)?
         onRetry,
   })  : _retries = retries,
         _when = when,
         _whenError = whenError,
         _delay = delay,
+        _retryDelay = retryDelay,
         _onRetry = onRetry {
     RangeError.checkNotNegative(_retries, 'retries');
   }
@@ -154,7 +183,11 @@ final class RetryClient extends BaseClient {
         }
       }
 
-      await Future<void>.delayed(_delay(i));
+      final retryDelay = switch (response, _retryDelay) {
+        (final response?, final retryDelay?) => retryDelay.call(response, i),
+        (_, _) => null,
+      };
+      await Future<void>.delayed(retryDelay ?? _delay(i));
       await _onRetry?.call(request, response, i);
       i++;
     }
