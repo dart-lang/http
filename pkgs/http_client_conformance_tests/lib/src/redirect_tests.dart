@@ -72,6 +72,14 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       }
     });
 
+    test('relative redirect', () async {
+      final request = Request('GET', Uri.http(host, '/relative'))
+        ..followRedirects = true;
+      final response = await client.send(request);
+      expect(response.statusCode, 200);
+      expect(response.isRedirect, false);
+    });
+
     test('allow redirect, 0 maxRedirects', () async {
       final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = true

@@ -19,6 +19,8 @@ import 'package:stream_channel/stream_channel.dart';
 ///        ... |           ...
 ///    ".../1" |           "/"
 ///        "/" |  &lt;200 return&gt;
+///
+/// ".../relative" redirects to "/" with a relative Location header.
 void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;
 
@@ -27,6 +29,8 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       if (request.requestedUri.pathSegments.isEmpty) {
         unawaited(request.response.close());
+      } else if (request.requestedUri.pathSegments.last == 'relative') {
+        unawaited(request.response.redirect(Uri(path: '/')));
       } else if (request.requestedUri.pathSegments.last == 'loop') {
         unawaited(request.response
             .redirect(Uri.http('localhost:${server.port}', '/loop')));
