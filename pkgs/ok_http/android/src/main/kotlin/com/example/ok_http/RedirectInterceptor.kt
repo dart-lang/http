@@ -56,8 +56,10 @@ class RedirectInterceptor {
 
                     redirectCallback.onRedirectReceived(response, location)
 
-                    req = req.newBuilder().url(location).build()
                     response.close()
+                    val url = req.url.resolve(location)
+                        ?: throw IOException("Invalid redirect location: $location")
+                    req = req.newBuilder().url(url).build()
                     response = chain.proceed(req)
                     redirectCount++
                 }
