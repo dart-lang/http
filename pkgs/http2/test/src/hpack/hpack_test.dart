@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:http2/src/hpack/hpack.dart';
 import 'package:test/test.dart';
 
@@ -797,82 +799,188 @@ void main() {
     });
 
     group('encoder-tests', () {
-      test('simple-encoding', () {
-        var context = HPackContext();
-        var headers = [Header.ascii('key', 'value')];
-        expect(context.encoder.encode(headers), [
-          0x00,
-          0x03,
-          0x6b,
-          0x65,
-          0x79,
-          0x05,
-          0x76,
-          0x61,
-          0x6c,
-          0x75,
-          0x65,
-        ]);
+      test('C.4 requests with huffman encoding', () {
+        var encoder = HPackContext().encoder;
+
+        expect(
+          encoder.encode([
+            Header.ascii(':method', 'GET'),
+            Header.ascii(':scheme', 'http'),
+            Header.ascii(':path', '/'),
+            Header.ascii(':authority', 'www.example.com'),
+          ]),
+          [
+            0x82, 0x86, 0x84, 0x41, 0x8c, 0xf1, 0xe3, 0xc2, 0xe5, 0xf2, 0x3a, //
+            0x6b, 0xa0, 0xab, 0x90, 0xf4, 0xff,
+          ],
+        );
+        expect(
+          encoder.encode([
+            Header.ascii(':method', 'GET'),
+            Header.ascii(':scheme', 'http'),
+            Header.ascii(':path', '/'),
+            Header.ascii(':authority', 'www.example.com'),
+            Header.ascii('cache-control', 'no-cache'),
+          ]),
+          [
+            0x82,
+            0x86,
+            0x84,
+            0xbe,
+            0x58,
+            0x86,
+            0xa8,
+            0xeb,
+            0x10,
+            0x64,
+            0x9c,
+            0xbf,
+          ],
+        );
+        expect(
+          encoder.encode([
+            Header.ascii(':method', 'GET'),
+            Header.ascii(':scheme', 'https'),
+            Header.ascii(':path', '/index.html'),
+            Header.ascii(':authority', 'www.example.com'),
+            Header.ascii('custom-key', 'custom-value'),
+          ]),
+          [
+            0x82, 0x87, 0x85, 0xbf, 0x40, 0x88, 0x25, 0xa8, 0x49, 0xe9, 0x5b, //
+            0xa9, 0x7d, 0x7f, 0x89, 0x25, 0xa8, 0x49, 0xe9, 0x5b, 0xb8, 0xe8, //
+            0xb4, 0xbf,
+          ],
+        );
       });
 
-      test('simple-encoding-long-value', () {
+      test('a repeated header field is sent as an index', () {
+        var context = HPackContext();
+        var headers = [Header.ascii('key', 'value')];
+
+        var first = context.encoder.encode(headers);
+        var second = context.encoder.encode(headers);
+
+        // Literal Header Field with Incremental Indexing - New Name.
+        expect(first[0], 0x40);
+        // Indexed Header Field, the first dynamic table entry.
+        expect(second, [0x80 | 62]);
+        expect(context.decoder.decode(first).single, equalsHeader(headers[0]));
+        expect(context.decoder.decode(second).single, equalsHeader(headers[0]));
+      });
+
+      test('a value huffman would lengthen is sent as is', () {
         var context = HPackContext();
         var headers = [
           Header([0x42], List.filled(300, 0x84)),
         ];
 
+        var encoded = context.encoder.encode(headers);
+
+        expect(encoded.sublist(0, 6), [0x40, 0x01, 0x42, 0x7f, 0xad, 0x01]);
+        expect(encoded.sublist(6), headers[0].value);
         expect(
-          context.decoder.decode(context.encoder.encode(headers)).first,
-          equalsHeader(headers.first),
+          context.decoder.decode(encoded).single,
+          equalsHeader(headers[0]),
         );
+      });
 
-        expect(context.encoder.encode(headers), [
-          // Literal Header Field with Incremental Indexing - Indexed Name
-          0x00,
+      test('a header field marked as never indexed is never indexed', () {
+        var context = HPackContext();
+        var headers = [
+          Header(
+            ascii.encode('key'),
+            ascii.encode('value'),
+            neverIndexed: true,
+          ),
+        ];
 
-          // Key: Length
-          0x01,
+        var first = context.encoder.encode(headers);
+        var second = context.encoder.encode(headers);
 
-          // Key: Bytes
-          0x42,
+        expect(first[0], 0x10);
+        expect(second, first);
+        expect(context.decoder.decode(second).single.neverIndexed, isTrue);
+      });
 
-          // Value: (first 7 bits + rest)
-          0x7f, 0xad, 0x01,
+      test('a short credential is never indexed, a long one is', () {
+        var context = HPackContext();
+        var short = [Header.ascii('authorization', 'Basic YTpi')];
+        var long = [Header.ascii('authorization', 'Bearer ${'x' * 40}')];
 
-          // Value: Bytes
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
+        expect(context.encoder.encode(short)[0] & 0xf0, 0x10);
+        expect(context.encoder.encode(short)[0] & 0xf0, 0x10);
+        context.encoder.encode(long);
+        expect(context.encoder.encode(long), [0x80 | 62]);
+      });
 
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
+      test('a header field larger than the table is not indexed', () {
+        var context = HPackContext();
+        var headers = [Header.ascii('key', 'v' * 5000)];
 
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
-          0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84, 0x84,
+        var first = context.encoder.encode(headers);
+        var second = context.encoder.encode(headers);
+
+        // Literal Header Field without Indexing - New Name.
+        expect(first[0], 0x00);
+        expect(second, first);
+        expect(context.decoder.decode(second).single, equalsHeader(headers[0]));
+      });
+
+      test('a smaller table allowed by the peer is announced', () {
+        var context = HPackContext();
+        var headers = [Header.ascii('key', 'value')];
+        context.decoder.decode(context.encoder.encode(headers));
+
+        context.encoder.updateMaxSendingHeaderTableSize(0);
+        var encoded = context.encoder.encode(headers);
+
+        // Dynamic Table Size Update to 0, then the evicted field as a literal.
+        expect(encoded[0], 0x20);
+        expect(encoded[1], 0x00);
+        expect(
+          context.decoder.decode(encoded).single,
+          equalsHeader(headers[0]),
+        );
+        // A table of size 0 cannot hold an entry.
+        expect(context.encoder.encode(headers), encoded.sublist(1));
+      });
+
+      test('the smallest of several table sizes is announced first', () {
+        var context = HPackContext();
+        var headers = [Header.ascii('key', 'value')];
+        context.decoder.decode(context.encoder.encode(headers));
+
+        context.encoder
+          ..updateMaxSendingHeaderTableSize(0)
+          ..updateMaxSendingHeaderTableSize(4096);
+        var encoded = context.encoder.encode(headers);
+
+        expect(encoded.sublist(0, 4), [
+          ...TestHelper.setDynamicTableSize(0),
+          ...TestHelper.setDynamicTableSize(4096),
         ]);
+        expect(
+          context.decoder.decode(encoded).single,
+          equalsHeader(headers[0]),
+        );
+      });
+
+      test('the peer decoder stays in sync while entries are evicted', () {
+        var context = HPackContext();
+
+        for (var i = 0; i < 500; i++) {
+          var headers = [
+            Header.ascii(':path', '/service/Method'),
+            Header.ascii('authorization', 'Bearer ${'t' * 1200}'),
+            Header.ascii('grpc-timeout', '${i}m'),
+            Header.ascii('x-request-${i % 7}', 'value-${i % 13}'),
+          ];
+          var decoded = context.decoder.decode(context.encoder.encode(headers));
+          expect(decoded, hasLength(headers.length));
+          for (var j = 0; j < headers.length; j++) {
+            expect(decoded[j], equalsHeader(headers[j]));
+          }
+        }
       });
     });
   });
