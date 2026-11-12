@@ -93,6 +93,16 @@ typedef OnFinishedDownloading =
 typedef OnComplete =
     void Function(URLSession session, URLSessionTask task, objc.NSError? error);
 
+/// Callback invoked when the metrics for a task have been collected.
+///
+/// It is called once per task, after the task completes.
+typedef OnMetrics =
+    void Function(
+      URLSession session,
+      URLSessionTask task,
+      URLSessionTaskMetrics metrics,
+    );
+
 /// Callback invoked when a WebSocket handshake succeeds.
 typedef OnWebSocketTaskOpened =
     void Function(
@@ -147,6 +157,7 @@ objc.ObjCProtocolBuilder _buildDelegate(
   OnData? onData,
   OnFinishedDownloading? onFinishedDownloading,
   OnComplete? onComplete,
+  OnMetrics? onMetrics,
   OnWebSocketTaskOpened? onWebSocketTaskOpened,
   OnWebSocketTaskClosed? onWebSocketTaskClosed,
   OnChallenge? onChallenge,
@@ -162,6 +173,19 @@ objc.ObjCProtocolBuilder _buildDelegate(
             URLSession._(nsSession, isBackground: isBackground),
             URLSessionTask._(nsTask),
             nsError,
+          );
+        });
+  }
+
+  if (onMetrics != null) {
+    ncb
+        .NSURLSessionDataDelegate$Builder
+        .URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(protoBuilder, (nsSession, nsTask, nsMetrics) {
+          onMetrics(
+            URLSession._(nsSession, isBackground: isBackground),
+            URLSessionTask._(nsTask),
+            URLSessionTaskMetrics._(nsMetrics),
           );
         });
   }
@@ -1232,6 +1256,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
     OnData? onData,
     OnFinishedDownloading? onFinishedDownloading,
     OnComplete? onComplete,
+    OnMetrics? onMetrics,
     OnWebSocketTaskOpened? onWebSocketTaskOpened,
     OnWebSocketTaskClosed? onWebSocketTaskClosed,
     OnChallenge? onChallenge,
@@ -1243,6 +1268,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
       onData: onData,
       onFinishedDownloading: onFinishedDownloading,
       onComplete: onComplete,
+      onMetrics: onMetrics,
       onWebSocketTaskOpened: onWebSocketTaskOpened,
       onWebSocketTaskClosed: onWebSocketTaskClosed,
       onChallenge: onChallenge,
@@ -1365,6 +1391,67 @@ class URLSessionWebSocketTask extends URLSessionTask {
 
   @override
   String toString() => _toStringHelper('NSURLSessionWebSocketTask');
+}
+
+/// Metrics collected for one request/response exchange of a task.
+///
+/// See [NSURLSessionTaskTransactionMetrics](https://developer.apple.com/documentation/foundation/urlsessiontasktransactionmetrics)
+class URLSessionTaskTransactionMetrics
+    extends _ObjectHolder<ncb.NSURLSessionTaskTransactionMetrics> {
+  URLSessionTaskTransactionMetrics._(super.c);
+
+  /// The protocol used to fetch the resource, as an
+  /// [ALPN](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids)
+  /// identifier such as `'h2'`, `'h3'` or `'http/1.1'`.
+  ///
+  /// `null` if the protocol is not known, for example when the response was
+  /// served from the local cache.
+  ///
+  /// See [NSURLSessionTaskTransactionMetrics.networkProtocolName](https://developer.apple.com/documentation/foundation/urlsessiontasktransactionmetrics/networkprotocolname)
+  String? get networkProtocolName =>
+      _nsObject.networkProtocolName?.toDartString();
+
+  /// Whether the request was sent on a connection that was already open.
+  ///
+  /// See [NSURLSessionTaskTransactionMetrics.reusedConnection](https://developer.apple.com/documentation/foundation/urlsessiontasktransactionmetrics/isreusedconnection)
+  bool get reusedConnection => _nsObject.isReusedConnection;
+
+  @override
+  String toString() =>
+      '[URLSessionTaskTransactionMetrics '
+      'networkProtocolName=$networkProtocolName '
+      'reusedConnection=$reusedConnection'
+      ']';
+}
+
+/// Metrics collected for a task.
+///
+/// See [NSURLSessionTaskMetrics](https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics)
+class URLSessionTaskMetrics extends _ObjectHolder<ncb.NSURLSessionTaskMetrics> {
+  URLSessionTaskMetrics._(super.c);
+
+  /// The metrics of each request/response exchange of the task, in the order
+  /// they happened. A redirect adds one entry.
+  ///
+  /// See [NSURLSessionTaskMetrics.transactionMetrics](https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/transactionmetrics)
+  List<URLSessionTaskTransactionMetrics> get transactionMetrics => [
+    for (final metrics in _nsObject.transactionMetrics.asDart())
+      URLSessionTaskTransactionMetrics._(
+        ncb.NSURLSessionTaskTransactionMetrics.as(metrics),
+      ),
+  ];
+
+  /// The number of redirects the task followed.
+  ///
+  /// See [NSURLSessionTaskMetrics.redirectCount](https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/redirectcount)
+  int get redirectCount => _nsObject.redirectCount;
+
+  @override
+  String toString() =>
+      '[URLSessionTaskMetrics '
+      'transactionMetrics=$transactionMetrics '
+      'redirectCount=$redirectCount'
+      ']';
 }
 
 /// A request to load a URL.
@@ -1533,6 +1620,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     OnData? onData,
     OnFinishedDownloading? onFinishedDownloading,
     OnComplete? onComplete,
+    OnMetrics? onMetrics,
     OnWebSocketTaskOpened? onWebSocketTaskOpened,
     OnWebSocketTaskClosed? onWebSocketTaskClosed,
     OnChallenge? onChallenge,
@@ -1544,6 +1632,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       onData: onData,
       onFinishedDownloading: onFinishedDownloading,
       onComplete: onComplete,
+      onMetrics: onMetrics,
       onWebSocketTaskOpened: onWebSocketTaskOpened,
       onWebSocketTaskClosed: onWebSocketTaskClosed,
       onChallenge: onChallenge,
@@ -1590,6 +1679,11 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// `error` is `null` then the request completed successfully. See
   /// [URLSession:task:didCompleteWithError:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411610-urlsession)
   ///
+  /// If [onMetrics] is set then it will be called when the metrics for a task
+  /// have been collected, after the task completes. The metrics include the
+  /// protocol the server negotiated (for example `h2` or `h3`). See
+  /// [NSURLSession:task:didFinishCollectingMetrics:](https://developer.apple.com/documentation/foundation/urlsessiontaskdelegate/urlsession(_:task:didfinishcollecting:))
+  ///
   /// See [sessionWithConfiguration:delegate:delegateQueue:](https://developer.apple.com/documentation/foundation/nsurlsession/1411597-sessionwithconfiguration)
   ///
   /// If [onWebSocketTaskOpened] is set then it will be called when a
@@ -1618,6 +1712,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     OnData? onData,
     OnFinishedDownloading? onFinishedDownloading,
     OnComplete? onComplete,
+    OnMetrics? onMetrics,
     OnWebSocketTaskOpened? onWebSocketTaskOpened,
     OnWebSocketTaskClosed? onWebSocketTaskClosed,
     OnChallenge? onChallenge,
@@ -1635,6 +1730,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             onData ??
             onFinishedDownloading ??
             onComplete ??
+            onMetrics ??
             onWebSocketTaskOpened ??
             onWebSocketTaskClosed ??
             onChallenge) !=
@@ -1651,6 +1747,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             onData: onData,
             onFinishedDownloading: onFinishedDownloading,
             onComplete: onComplete,
+            onMetrics: onMetrics,
             onWebSocketTaskOpened: onWebSocketTaskOpened,
             onWebSocketTaskClosed: onWebSocketTaskClosed,
             onChallenge: onChallenge,

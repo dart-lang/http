@@ -13,6 +13,10 @@
   certificate pinning.
 * Add `URLRequest.assumesHTTP3Capable` and
   `MutableURLRequest.assumesHTTP3Capable`.
+* Add `OnMetrics`, the `onMetrics` argument of `URLSession.sessionWithConfiguration`,
+  and `URLSessionTaskMetrics` / `URLSessionTaskTransactionMetrics`, so the
+  protocol negotiated for a request (`h2`, `h3`, `http/1.1`) can be read with
+  `URLSessionTaskTransactionMetrics.networkProtocolName`.
 
 ## 3.1.1
 
