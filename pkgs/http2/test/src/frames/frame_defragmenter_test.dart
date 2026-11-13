@@ -237,6 +237,30 @@ void main() {
 
         expect(result.headerBlockFragment, List<int>.generate(65, (i) => i));
       });
+
+      test('masks unused CONTINUATION flags on completion', () {
+        final defrag = FrameDefragmenter();
+        // RFC 9113 sections 4.1 and 6.10: undefined flags (such as 0x01,
+        // END_STREAM on HEADERS) on CONTINUATION must be ignored rather than
+        // OR-ed onto the completed HeadersFrame.
+        expect(
+          defrag.tryDefragmentFrame(headersFrame([1, 2], fragmented: true)),
+          isNull,
+        );
+        final contWithBogusEndStream = ContinuationFrame(
+          FrameHeader(
+            2,
+            FrameType.CONTINUATION,
+            ContinuationFrame.FLAG_END_HEADERS | HeadersFrame.FLAG_END_STREAM,
+            1,
+          ),
+          [3, 4],
+        );
+        final combined =
+            defrag.tryDefragmentFrame(contWithBogusEndStream) as HeadersFrame;
+        expect(combined.hasEndHeadersFlag, isTrue);
+        expect(combined.hasEndStreamFlag, isFalse);
+      });
     });
   });
 }

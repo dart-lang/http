@@ -72,7 +72,7 @@ class HPackDecodingResult {
 
 /// A stateful HPACK decoder.
 class HPackDecoder {
-  late int _maxHeaderTableSize;
+  int _maxHeaderTableSize = 4096;
 
   final IndexTable _table = IndexTable();
 
@@ -108,12 +108,32 @@ class HPackDecoder {
         integer = 0;
         var shift = 0;
         while (true) {
-          var done = (data[offset] & 0x80) != 0x80;
-          integer += (data[offset++] & 0x7f) << shift;
+          // RFC 7541 section 5.1: integer encodings that exceed implementation
+          // limits in value or octet length must be treated as decoding errors.
+          if (shift > 28) {
+            throw HPackDecodingException(
+              'HPACK integer encoding exceeds 31-bit limit.',
+            );
+          }
+          var nextByte = data[offset++];
+          var done = (nextByte & 0x80) != 0x80;
+          var addend = (nextByte & 0x7f) << shift;
+          if (integer > 0x7fffffff - addend) {
+            throw HPackDecodingException(
+              'HPACK integer encoding exceeds 31-bit limit.',
+            );
+          }
+          integer += addend;
           shift += 7;
           if (done) break;
         }
-        integer += (1 << prefixBits) - 1;
+        var prefixMax = (1 << prefixBits) - 1;
+        if (integer > 0x7fffffff - prefixMax) {
+          throw HPackDecodingException(
+            'HPACK integer encoding exceeds 31-bit limit.',
+          );
+        }
+        integer += prefixMax;
       } else {
         // In place length.
         integer = byte;
@@ -125,6 +145,11 @@ class HPackDecoder {
     List<int> readStringLiteral() {
       var isHuffmanEncoding = (data[offset] & 0x80) != 0;
       var length = readInteger(7);
+      if (length > data.length - offset) {
+        throw HPackDecodingException(
+          'HPACK string literal exceeds remaining field block bytes.',
+        );
+      }
 
       var sublist = viewOrSublist(data, offset, length);
       offset += length;
@@ -151,8 +176,10 @@ class HPackDecoder {
       var headers = <Header>[];
       var headerListSize = 0;
       var headerListSizeExceeded = false;
+      var sawHeaderField = false;
 
       void processHeader(Header header) {
+        sawHeaderField = true;
         headerListSize += header.name.length + header.value.length + 32;
         if (headerListSizeExceeded) return;
         if (maxHeaderListSize != null && headerListSize > maxHeaderListSize) {
@@ -187,6 +214,15 @@ class HPackDecoder {
             readHeaderFieldInternal(readInteger(4), neverIndexed: true),
           );
         } else if (isDynamicTableSizeUpdate) {
+          // RFC 7541 section 4.2: dynamic table size updates must occur at the
+          // very beginning of the first header block following the SETTINGS
+          // change, before any header field representation.
+          if (sawHeaderField) {
+            throw HPackDecodingException(
+              'Dynamic table size update must occur at the start of a header '
+              'block.',
+            );
+          }
           var newMaxSize = readInteger(5);
           if (newMaxSize <= _maxHeaderTableSize) {
             _table.updateMaxSize(newMaxSize);
@@ -378,8 +414,23 @@ class IndexTable {
   /// Adds a new header field to the dynamic table - and evicts entries as
   /// necessary.
   void addHeaderField(Header header) {
-    _dynamicTable.insert(0, header);
-    _currentSize += _sizeOf(header);
+    final entrySize = _sizeOf(header);
+    // RFC 7541 section 4.4: attempting to add an entry larger than the maximum
+    // size empties the table and is not an error.
+    if (entrySize > _maximumSize) {
+      _dynamicTable.clear();
+      _currentSize = 0;
+      return;
+    }
+    // Store owned compact copies so long-lived dynamic table entries cannot pin
+    // large defragmented header-block ByteBuffers.
+    final owned = Header(
+      Uint8List.fromList(header.name),
+      Uint8List.fromList(header.value),
+      neverIndexed: header.neverIndexed,
+    );
+    _dynamicTable.insert(0, owned);
+    _currentSize += entrySize;
     _reduce();
   }
 
