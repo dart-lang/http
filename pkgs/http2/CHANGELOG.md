@@ -71,6 +71,12 @@
 - Count stream errors that make this endpoint reset a peer-opened stream toward
   the same reset rate limit, and report the reset to `onTerminated` and
   `incomingMessages` ("MadeYouReset", CVE-2025-8671).
+- Keep counting a peer-initiated stream toward `SETTINGS_MAX_CONCURRENT_STREAMS`
+  until its outgoing `END_STREAM` frame has left the stream queue, so a peer
+  with a zero flow-control window cannot stack unsent responses past the
+  concurrent stream limit (CVE-2023-26964, CVE-2023-45802), and fix a
+  `RangeError` when sending an empty `END_STREAM` `DATA` frame with a negative
+  send window.
 
 ## 3.1.0
 

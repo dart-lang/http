@@ -57,6 +57,9 @@ class Http2StreamImpl extends TransportStream
   // The state of this stream.
   StreamState state = StreamState.Idle;
 
+  // Whether this stream currently counts toward the active stream limit.
+  bool _countedAsActive = false;
+
   // Error code from RST_STREAM frame, if the stream has been terminated
   // remotely.
   int? _terminatedErrorCode;
@@ -495,6 +498,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     // NOTE: We are not interested whether the streams were normally finished
     // or abnormally terminated. Therefore we use 'catchError((_) {})'!
+    streamQueueOut.done.catchError((_) {}).whenComplete(() {
+      _updateStreamActiveCount(stream);
+    });
     var streamDone = [streamQueueIn.done, streamQueueOut.done];
     Future.wait(streamDone).catchError((_) => const <void>[]).whenComplete(() {
       _cleanupClosedStream(stream);
@@ -945,6 +951,11 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     var pushedStream = newRemoteStream(frame.promisedStreamId);
     if (pushedStream == null) return;
+    // A client never sends frames on a pushed stream, so its outgoing queue is
+    // already done.
+    pushedStream.outgoingQueue
+      ..startClosing()
+      ..onCheckForClose();
     _changeState(pushedStream, StreamState.ReservedRemote);
 
     incomingQueue.processPushPromiseFrame(frame, pushedStream);
@@ -1177,46 +1188,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           (from != StreamState.Terminated && to == StreamState.Terminated),
     );
 
-    // Locally initiated streams remain counted until buffered output is done.
-    // Peer-initiated streams follow the RFC active-state definition and stop
-    // counting when they enter Closed.
-    int updateActiveCount(int count, {required bool countClosedAsActive}) {
-      switch (from) {
-        case StreamState.ReservedLocal:
-        case StreamState.ReservedRemote:
-        case StreamState.Idle:
-          if (to == StreamState.Open ||
-              to == StreamState.HalfClosedLocal ||
-              to == StreamState.HalfClosedRemote) {
-            return count + 1;
-          }
-          break;
-        case StreamState.Open:
-        case StreamState.HalfClosedLocal:
-        case StreamState.HalfClosedRemote:
-          if (to == StreamState.Terminated ||
-              (!countClosedAsActive && to == StreamState.Closed)) {
-            return count - 1;
-          }
-          break;
-        case StreamState.Closed:
-          if (countClosedAsActive && to == StreamState.Terminated) {
-            return count - 1;
-          }
-          break;
-        case StreamState.Terminated:
-          // There is nothing to do here.
-          break;
-      }
-      return count;
-    }
-
-    if (_didInitiateStream(stream)) {
-      _numberOfActiveStreams = updateActiveCount(
-        _numberOfActiveStreams,
-        countClosedAsActive: true,
-      );
-    } else {
+    if (!_didInitiateStream(stream)) {
       if (from == StreamState.Idle && to == StreamState.ReservedRemote) {
         _numberOfReservedPeerStreams++;
       } else if (from == StreamState.ReservedRemote &&
@@ -1224,12 +1196,41 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         _numberOfReservedPeerStreams--;
         assert(_numberOfReservedPeerStreams >= 0);
       }
-      _numberOfActivePeerStreams = updateActiveCount(
-        _numberOfActivePeerStreams,
-        countClosedAsActive: false,
-      );
     }
     stream.state = to;
+    _updateStreamActiveCount(stream);
+  }
+
+  void _updateStreamActiveCount(Http2StreamImpl stream) {
+    final bool shouldCount;
+    if (_didInitiateStream(stream)) {
+      // Locally initiated streams remain counted until buffered output is done
+      // and _cleanupClosedStream transitions them to Terminated.
+      shouldCount =
+          stream.state == StreamState.Open ||
+          stream.state == StreamState.HalfClosedLocal ||
+          stream.state == StreamState.HalfClosedRemote ||
+          stream.state == StreamState.Closed;
+    } else {
+      // A half-closed (remote) stream only enters "closed" on the wire once
+      // this endpoint sends a frame with END_STREAM (RFC 9113 section 5.1).
+      // StreamState.Closed is set as soon as that message is enqueued, so keep
+      // counting the stream while its outgoing queue still holds unsent data.
+      shouldCount =
+          stream.state == StreamState.Open ||
+          stream.state == StreamState.HalfClosedLocal ||
+          stream.state == StreamState.HalfClosedRemote ||
+          (stream.state == StreamState.Closed &&
+              !stream.outgoingQueue.wasClosed);
+    }
+    if (shouldCount == stream._countedAsActive) return;
+    stream._countedAsActive = shouldCount;
+    final delta = shouldCount ? 1 : -1;
+    if (_didInitiateStream(stream)) {
+      _numberOfActiveStreams += delta;
+    } else {
+      _numberOfActivePeerStreams += delta;
+    }
   }
 
   bool _didInitiateStream(Http2StreamImpl stream) {
