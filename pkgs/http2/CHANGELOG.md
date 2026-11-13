@@ -46,6 +46,12 @@
   compression context remains synchronized. By default, compressed field
   blocks and decoded field sections are limited to 256 KiB, matching Chromium,
   and field blocks to 64 CONTINUATION frames.
+- Terminate the connection with `ENHANCE_YOUR_CALM` when the peer keeps sending
+  frames that require a reply - PINGs, SETTINGS frames, or frames that cause a
+  stream error, such as DATA frames on a closed stream - but does not read the
+  replies, instead of queueing them without limit (the "Ping Flood", "Settings
+  Flood" and "Reset Flood": CVE-2019-9512, CVE-2019-9515, CVE-2019-9514). At
+  most 10000 replies are queued while the transport takes no data.
 
 ## 3.1.0
 
