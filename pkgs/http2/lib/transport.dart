@@ -294,6 +294,10 @@ abstract class TransportStream {
   Stream<StreamMessage> get incomingMessages;
 
   /// A sink for writing data and/or headers to the remote end.
+  ///
+  /// Messages added after this stream was terminated (by a RST_STREAM from the
+  /// remote end, by [terminate], or because the connection was terminated) are
+  /// dropped.
   StreamSink<StreamMessage> get outgoingMessages;
 
   /// Sets the termination handler on this stream.
