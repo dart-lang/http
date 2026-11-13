@@ -751,5 +751,277 @@ void main() {
         await socket.close();
       },
     );
+
+    test('validates-outbound-headers-and-brackets-ipv6-authority', () async {
+      final server = await _bind();
+      var requestsSeen = 0;
+      server.startServing((_) {}, (_) => requestsSeen++);
+
+      final client = _testClient();
+      final liveUrl = Uri.parse('https://localhost:${server.port}/');
+      await expectLater(
+        client.get(Uri.parse('https:///no-authority')),
+        throwsA(isA<ClientException>()),
+      );
+      await expectLater(
+        client.get(liveUrl, headers: {':authority': 'spoofed.example'}),
+        throwsA(isA<ClientException>()),
+      );
+      await expectLater(
+        client.get(liveUrl, headers: {'x-bad': 'line1\r\nline2'}),
+        throwsA(isA<ClientException>()),
+      );
+      await expectLater(
+        client.get(liveUrl, headers: {'te': 'gzip'}),
+        throwsA(isA<ClientException>()),
+      );
+      expect(requestsSeen, 0);
+      expect(client.connectionCount, 0);
+      await server.close();
+
+      final context = _serverContext()..setAlpnProtocols(['h2'], true);
+      SecureServerSocket? ipv6Socket;
+      try {
+        ipv6Socket = await SecureServerSocket.bind(
+          InternetAddress.loopbackIPv6,
+          0,
+          context,
+        );
+      } on SocketException {
+        // IPv6 loopback unavailable in this environment.
+      }
+      if (ipv6Socket != null) {
+        String? receivedAuthority;
+        final serverConnections = <ServerTransportConnection>[];
+        ipv6Socket.listen((raw) {
+          final conn = ServerTransportConnection.viaSocket(raw);
+          serverConnections.add(conn);
+          conn.incomingStreams.listen((stream) async {
+            await for (final msg in stream.incomingMessages) {
+              if (msg is HeadersStreamMessage) {
+                for (final h in msg.headers) {
+                  if (ascii.decode(h.name) == ':authority') {
+                    receivedAuthority = ascii.decode(h.value);
+                  }
+                }
+              }
+            }
+            stream.sendHeaders([Header.ascii(':status', '200')]);
+            stream.sendData(ascii.encode('ok'), endStream: true);
+          });
+        });
+
+        final response = await client.get(
+          Uri.parse('https://[::1]:${ipv6Socket.port}/'),
+        );
+        expect(response.statusCode, 200);
+        expect(receivedAuthority, '[::1]:${ipv6Socket.port}');
+
+        for (final c in serverConnections) {
+          await c.terminate();
+        }
+        await ipv6Socket.close();
+      }
+
+      client.close();
+      await client.closed;
+    });
+
+    test(
+      'rejects-missing-status-and-data-before-headers-and-ignores-1xx-headers',
+      () async {
+        final context = _serverContext()..setAlpnProtocols(['h2'], true);
+        final socket = await SecureServerSocket.bind('localhost', 0, context);
+        final serverConnections = <ServerTransportConnection>[];
+
+        socket.listen((raw) {
+          final conn = ServerTransportConnection.viaSocket(raw);
+          serverConnections.add(conn);
+          conn.incomingStreams.listen((stream) async {
+            String? path;
+            await for (final msg in stream.incomingMessages) {
+              if (msg is HeadersStreamMessage) {
+                for (final h in msg.headers) {
+                  if (ascii.decode(h.name) == ':path') {
+                    path = ascii.decode(h.value);
+                  }
+                }
+              }
+            }
+            if (path == '/no-status') {
+              stream.sendHeaders([
+                Header.ascii('x-only', '1'),
+              ], endStream: true);
+            } else if (path == '/data-first') {
+              stream.sendData(ascii.encode('premature'), endStream: true);
+            } else if (path == '/early-hints') {
+              stream.sendHeaders([
+                Header.ascii(':status', '103'),
+                Header.ascii('x-early', 'hint'),
+              ]);
+              stream.sendHeaders([
+                Header.ascii(':status', '200'),
+                Header.ascii('x-final', 'ok'),
+              ]);
+              stream.sendData(ascii.encode('done'), endStream: true);
+            }
+          });
+        });
+
+        final client = _testClient();
+        await expectLater(
+          client.get(Uri.parse('https://localhost:${socket.port}/no-status')),
+          throwsA(isA<ClientException>()),
+        );
+        await expectLater(
+          client.get(Uri.parse('https://localhost:${socket.port}/data-first')),
+          throwsA(isA<ClientException>()),
+        );
+
+        final response = await client.get(
+          Uri.parse('https://localhost:${socket.port}/early-hints'),
+        );
+        expect(response.statusCode, 200);
+        expect(response.headers['x-early'], isNull);
+        expect(response.headers['x-final'], 'ok');
+        expect(response.body, 'done');
+
+        client.close();
+        await client.closed;
+        for (final c in serverConnections) {
+          await c.terminate();
+        }
+        await socket.close();
+      },
+    );
+
+    test('does-not-grant-credit-for-unread-response-body', () async {
+      const streamWindow = 256 * 1024;
+      const frameSize = 16 * 1024;
+
+      final server = await _FrameLevelServer.start();
+      final client = _testClient();
+      final responseFuture = client.send(
+        Request('GET', Uri.parse('https://localhost:${server.port}/')),
+      );
+      final (streamId, streamWindowSetting: _, connectionWindowSize: _) =
+          await server.acceptRequest();
+      final writer = server.writer;
+
+      writer.writeHeadersFrame(streamId, [
+        Header.ascii(':status', '200'),
+      ], endStream: false);
+      final response = await responseFuture;
+      expect(response.statusCode, 200);
+      // Intentionally do NOT listen to response.stream yet.
+
+      for (var sent = 0; sent < streamWindow; sent += frameSize) {
+        writer.writeDataFrame(streamId, Uint8List(frameSize));
+      }
+      writer.writePingFrame(7);
+      while (true) {
+        final frame = await server.nextFrame();
+        if (frame is PingFrame && frame.hasAckFlag) break;
+        if (frame is WindowUpdateFrame && frame.header.streamId == streamId) {
+          fail(
+            'The client granted ${frame.windowSizeIncrement} bytes of credit '
+            'before response.stream was listened to.',
+          );
+        }
+      }
+
+      // Cancel/drain cleanly so client.close() completes.
+      final sub = response.stream.listen((_) {});
+      await sub.cancel();
+      client.close();
+      await client.closed;
+      await server.close();
+    });
+
+    test('stream-reset-on-full-connection-keeps-connection-healthy', () async {
+      final context = _serverContext()..setAlpnProtocols(['h2'], true);
+      final socket = await SecureServerSocket.bind('localhost', 0, context);
+      var acceptedConnections = 0;
+      final firstOpen = Completer<void>();
+      final holdFirst = Completer<void>();
+
+      socket.listen((raw) async {
+        final connNum = ++acceptedConnections;
+        final writer = FrameWriter(HPackEncoder(), raw, ActiveSettings());
+        final reader = StreamIterator(
+          FrameReader(
+            readConnectionPreface(raw),
+            ActiveSettings(),
+          ).startDecoding(),
+        );
+        writer.writeSettingsFrame([
+          Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS, 2),
+        ]);
+        while (await reader.moveNext()) {
+          final frame = reader.current;
+          if (frame is SettingsFrame && !frame.hasAckFlag) {
+            writer.writeSettingsAckFrame();
+          } else if (frame is HeadersFrame) {
+            if (connNum == 1 && frame.header.streamId == 1) {
+              writer.writeHeadersFrame(1, [
+                Header.ascii(':status', '200'),
+              ], endStream: false);
+              firstOpen.complete();
+              unawaited(
+                holdFirst.future.then((_) {
+                  writer.writeDataFrame(
+                    1,
+                    ascii.encode('held'),
+                    endStream: true,
+                  );
+                }),
+              );
+            } else if (connNum == 1 && frame.header.streamId == 3) {
+              // Lower SETTINGS_MAX_CONCURRENT_STREAMS to 1 while stream 1 is
+              // still active (making connection.isOpen false while the
+              // connection is alive), then reset stream 3.
+              writer.writeSettingsFrame([
+                Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS, 1),
+              ]);
+              writer.writeRstStreamFrame(3, ErrorCode.CANCEL);
+            } else {
+              writer
+                ..writeHeadersFrame(frame.header.streamId, [
+                  Header.ascii(':status', '200'),
+                ], endStream: false)
+                ..writeDataFrame(
+                  frame.header.streamId,
+                  ascii.encode('reused'),
+                  endStream: true,
+                );
+            }
+          }
+        }
+      });
+
+      final client = _testClient(
+        maxStreamsPerConnection: 2,
+        maxIdleConnections: 1,
+      );
+      final base = 'https://localhost:${socket.port}';
+      final firstResponseFuture = client.get(Uri.parse('$base/hold'));
+      await firstOpen.future;
+
+      await expectLater(
+        client.get(Uri.parse('$base/reset')),
+        throwsA(isA<ClientException>()),
+      );
+
+      holdFirst.complete();
+      expect((await firstResponseFuture).body, 'held');
+
+      final third = await client.get(Uri.parse('$base/third'));
+      expect(third.body, 'reused');
+      expect(acceptedConnections, 1);
+
+      client.close();
+      await client.closed;
+      await socket.close();
+    });
   });
 }

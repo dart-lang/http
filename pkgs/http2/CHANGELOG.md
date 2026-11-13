@@ -97,6 +97,11 @@
   values, pseudo-headers, connection-specific headers, trailers without
   `END_STREAM`, and mismatched `content-length` payloads (RFC 9113 Sections
   8.1–8.5, CVE-2021-33197, CVE-2022-22720, CVE-2023-25690).
+- Harden `Http2Client` outbound header/authority validation (including IPv6
+  `:authority` bracketing), ignore `1xx` and trailer header blocks when
+  building `StreamedResponse.headers`, pause unread response streams until
+  listened to, and keep full pooled connections alive across single-stream
+  resets.
 
 ## 3.1.0
 
