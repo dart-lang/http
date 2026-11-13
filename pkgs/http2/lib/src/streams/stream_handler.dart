@@ -404,6 +404,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void _rejectOversizedNewRemoteStream(HeadersFrame frame) {
     _registerNewRemoteStreamId(frame.header.streamId);
+    _chargePeerStreamReset(frame.header.streamId);
     _frameWriter.writeRstStreamReply(
       frame.header.streamId,
       ErrorCode.ENHANCE_YOUR_CALM,
@@ -411,7 +412,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _rejectOversizedHeaders(Http2StreamImpl stream, HeadersFrame frame) {
+    _chargePeerStreamReset(stream.id);
     _frameWriter.writeRstStreamReply(stream.id, ErrorCode.ENHANCE_YOUR_CALM);
+    stream._handleTerminated(ErrorCode.ENHANCE_YOUR_CALM);
     _closeStreamAbnormally(
       stream,
       StreamException(
@@ -662,23 +665,51 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     try {
       _processStreamFrameInternal(connectionState, frame);
     } on StreamClosedException catch (exception) {
-      _frameWriter.writeRstStreamReply(
+      _resetStreamForPeerError(
         exception.streamId,
         ErrorCode.STREAM_CLOSED,
+        exception,
       );
-      _closeStreamIdAbnormally(exception.streamId, exception);
     } on StreamRefusedException catch (exception) {
-      _frameWriter.writeRstStreamReply(
+      _resetStreamForPeerError(
         exception.streamId,
         ErrorCode.REFUSED_STREAM,
+        exception,
       );
-      _closeStreamIdAbnormally(exception.streamId, exception);
     } on StreamException catch (exception) {
-      _frameWriter.writeRstStreamReply(
+      _resetStreamForPeerError(
         exception.streamId,
         ErrorCode.INTERNAL_ERROR,
+        exception,
       );
-      _closeStreamIdAbnormally(exception.streamId, exception);
+    }
+  }
+
+  void _resetStreamForPeerError(
+    int streamId,
+    int errorCode,
+    Exception exception,
+  ) {
+    final stream = _openStreams[streamId];
+    if (stream != null) {
+      _chargePeerStreamReset(streamId);
+    }
+    _frameWriter.writeRstStreamReply(streamId, errorCode);
+    if (stream != null) {
+      stream._handleTerminated(errorCode);
+      _closeStreamAbnormally(stream, exception, propagateException: true);
+    }
+  }
+
+  void _chargePeerStreamReset(int streamId) {
+    if (_isPeerInitiatedStream(streamId) && !_peerStreamResets.tryTake()) {
+      // RFC 9113 section 10.5: "An endpoint MAY treat activity that is
+      // suspicious as a connection error (Section 5.4.1) of type
+      // ENHANCE_YOUR_CALM."
+      throw EnhanceYourCalmException(
+        'The peer reset more than $maxPeerStreamResetBurst of the streams it '
+        'opened at once, or more than $peerStreamResetsPerSecond per second.',
+      );
     }
   }
 
@@ -904,6 +935,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     if (frame.headerListSizeExceeded) {
       _registerNewRemoteStreamId(frame.promisedStreamId);
+      _chargePeerStreamReset(frame.promisedStreamId);
       _frameWriter.writeRstStreamReply(
         frame.promisedStreamId,
         ErrorCode.ENHANCE_YOUR_CALM,
@@ -923,15 +955,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _handleRstFrame(Http2StreamImpl stream, RstStreamFrame frame) {
-    if (_isPeerInitiatedStream(stream.id) && !_peerStreamResets.tryTake()) {
-      // RFC 9113 section 10.5: "An endpoint MAY treat activity that is
-      // suspicious as a connection error (Section 5.4.1) of type
-      // ENHANCE_YOUR_CALM."
-      throw EnhanceYourCalmException(
-        'The peer reset more than $maxPeerStreamResetBurst of the streams it '
-        'opened at once, or more than $peerStreamResetsPerSecond per second.',
-      );
-    }
+    _chargePeerStreamReset(stream.id);
     stream._handleTerminated(frame.errorCode);
     if (frame.errorCode == ErrorCode.NO_ERROR &&
         (stream.state == StreamState.HalfClosedRemote ||

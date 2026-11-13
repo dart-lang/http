@@ -68,6 +68,9 @@
   streams it opened faster than 33 per second, after a burst of 1000 (the
   "Rapid Reset", CVE-2023-44487). A reset stream no longer counts toward the
   concurrent stream limit, so this was not bounded otherwise.
+- Count stream errors that make this endpoint reset a peer-opened stream toward
+  the same reset rate limit, and report the reset to `onTerminated` and
+  `incomingMessages` ("MadeYouReset", CVE-2025-8671).
 
 ## 3.1.0
 

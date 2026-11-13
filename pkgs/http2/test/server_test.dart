@@ -765,6 +765,78 @@ void main() {
           await Future.wait([serverFun(), clientFun()]);
         },
       );
+
+      serverTest(
+        'terminates a peer that makes this endpoint reset the streams it opens '
+        'too fast',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          const resets = 2 * StreamHandler.maxPeerStreamResetBurst;
+          final terminatedErrorCodes = <int?>[];
+
+          Future serverFun() async {
+            var streams = 0;
+            await for (final stream in server.incomingStreams) {
+              stream.onTerminated = terminatedErrorCodes.add;
+              // Only reached if the server let the peer reset all its streams.
+              if (++streams == resets) unawaited(server.terminate());
+            }
+          }
+
+          Future clientFun() async {
+            expect(await nextFrame(), isA<SettingsFrame>());
+            clientWriter.writeSettingsAckFrame();
+            clientWriter.writeSettingsFrame([]);
+            expect(await nextFrame(), isA<SettingsFrame>());
+
+            // Open each stream half-closed (END_STREAM) and then send a DATA
+            // frame on it: a stream error of type STREAM_CLOSED (RFC 9113
+            // section 5.1) that makes the server reset the stream with
+            // RST_STREAM ("MadeYouReset", CVE-2025-8671). Read the replies so
+            // maxQueuedReplyFrames is never reached.
+            Frame? terminal;
+            for (var i = 0; i < resets && terminal == null; i++) {
+              final streamId = 2 * i + 1;
+              clientWriter
+                ..writeHeadersFrame(streamId, [
+                  Header.ascii('a', 'b'),
+                ], endStream: true)
+                ..writeDataFrame(streamId, const []);
+              final reply = await nextFrame();
+              if (reply is GoawayFrame) {
+                terminal = reply;
+              } else {
+                expect(
+                  reply,
+                  isA<RstStreamFrame>().having(
+                    (f) => f.errorCode,
+                    'errorCode',
+                    ErrorCode.STREAM_CLOSED,
+                  ),
+                );
+              }
+            }
+            terminal ??= await nextFrame();
+            expect(
+              terminal,
+              isA<GoawayFrame>().having(
+                (f) => f.errorCode,
+                'errorCode',
+                ErrorCode.ENHANCE_YOUR_CALM,
+              ),
+            );
+            expect(await clientReader.moveNext(), isFalse);
+            expect(terminatedErrorCodes, isNotEmpty);
+            expect(terminatedErrorCodes, everyElement(ErrorCode.STREAM_CLOSED));
+          }
+
+          await Future.wait([serverFun(), clientFun()]);
+        },
+      );
     });
 
     group('client-errors', () {
