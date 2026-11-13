@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:collection';
 
 import '../../transport.dart';
+import '../async_utils/async_utils.dart';
 import '../byte_utils.dart';
 import '../error_handler.dart';
 import '../frames/frames.dart';
@@ -41,6 +42,12 @@ class ConnectionMessageQueueOut extends Object
   /// The [FrameWriter] used for writing Headers/Data/PushPromise frames.
   final FrameWriter _frameWriter;
 
+  /// Indicates whether outgoing [DataMessage]s would currently buffer at the
+  /// connection level (either because the transport sink is paused, the
+  /// connection send window is exhausted, or earlier [DataMessage]s are still
+  /// queued), propagating backpressure up to stream producers (CVE-2019-9517).
+  final BufferIndicator dataBufferIndicator = BufferIndicator();
+
   ConnectionMessageQueueOut(this._connectionWindow, this._frameWriter) {
     _frameWriter.bufferIndicator.bufferEmptyEvents.listen((_) {
       _trySendMessages();
@@ -48,10 +55,25 @@ class ConnectionMessageQueueOut extends Object
     _connectionWindow.positiveWindow.bufferEmptyEvents.listen((_) {
       _trySendMessages();
     });
+    _updateDataBufferIndicator();
   }
 
   /// The number of pending messages which haven't been written to the wire.
   int get pendingMessages => _messages.length;
+
+  /// Whether any queued [DataMessage] belongs to [streamId].
+  bool hasQueuedDataForStream(int streamId) =>
+      _messages.any((m) => m is DataMessage && m.streamId == streamId);
+
+  void _updateDataBufferIndicator() {
+    if (_frameWriter.bufferIndicator.wouldBuffer ||
+        _connectionWindow.positiveWindow.wouldBuffer ||
+        _messages.any((m) => m is DataMessage && m.bytes.isNotEmpty)) {
+      dataBufferIndicator.markBuffered();
+    } else {
+      dataBufferIndicator.markUnBuffered();
+    }
+  }
 
   /// Enqueues a new [Message] which should be delivered to the remote peer.
   void enqueueMessage(Message message) {
@@ -59,11 +81,13 @@ class ConnectionMessageQueueOut extends Object
       if (!wasTerminated) {
         _messages.addLast(message);
         // When the connection send window is exhausted, a newly queued
-        // DataMessage cannot be sent and cannot unblock any earlier message.
-        // Skipping _trySendMessages() avoids rescanning _messages on every
-        // sendData() call (which would otherwise be quadratic).
+        // non-empty DataMessage cannot be sent and cannot unblock any earlier
+        // message. Skipping _trySendMessages() avoids rescanning _messages on
+        // every sendData() call (which would otherwise be quadratic).
         if (message is DataMessage &&
+            message.bytes.isNotEmpty &&
             _connectionWindow.positiveWindow.wouldBuffer) {
+          _updateDataBufferIndicator();
           return;
         }
         _trySendMessages();
@@ -82,6 +106,7 @@ class ConnectionMessageQueueOut extends Object
   /// MUST NOT be sent for a stream in the "idle" state").
   bool cancelStreamMessages(int streamId) {
     _messages.removeWhere((m) => m is DataMessage && m.streamId == streamId);
+    _updateDataBufferIndicator();
     return _messages.any((m) => m is HeadersMessage && m.streamId == streamId);
   }
 
@@ -113,6 +138,7 @@ class ConnectionMessageQueueOut extends Object
     }
     final first = _messages.first;
     if (first is! DataMessage ||
+        first.bytes.isEmpty ||
         !_connectionWindow.positiveWindow.wouldBuffer) {
       return first;
     }
@@ -120,7 +146,8 @@ class ConnectionMessageQueueOut extends Object
     final blockedStreams = <int>{};
     for (final message in _messages) {
       if (message is GoawayMessage) return message;
-      if (message is DataMessage || blockedStreams.contains(message.streamId)) {
+      if ((message is DataMessage && message.bytes.isNotEmpty) ||
+          blockedStreams.contains(message.streamId)) {
         blockedStreams.add(message.streamId);
       } else if (message is PushPromiseMessage) {
         // A PUSH_PROMISE must precede any frame of the promised stream and
@@ -160,6 +187,7 @@ class ConnectionMessageQueueOut extends Object
           onCheckForClose();
         }
       }
+      _updateDataBufferIndicator();
     }
   }
 
@@ -185,8 +213,11 @@ class ConnectionMessageQueueOut extends Object
         message.headers,
       );
     } else if (message is DataMessage) {
-      if (_connectionWindow.peerWindowSize >= message.bytes.length) {
-        _connectionWindow.decreaseWindow(message.bytes.length);
+      if (message.bytes.isEmpty ||
+          _connectionWindow.peerWindowSize >= message.bytes.length) {
+        if (message.bytes.isNotEmpty) {
+          _connectionWindow.decreaseWindow(message.bytes.length);
+        }
         _frameWriter.writeDataFrame(
           message.streamId,
           message.bytes,

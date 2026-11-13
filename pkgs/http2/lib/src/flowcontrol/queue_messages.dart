@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:typed_data';
+
 import '../../transport.dart';
 
 /// The subclasses of [Message] are objects that are coming from the
@@ -39,13 +41,16 @@ class DataMessage extends Message {
   bool streamWindowAccounted;
 
   DataMessage(
-    int streamId,
-    this.bytes,
-    bool endStream, {
+    super.streamId,
+    List<int> bytes,
+    super.endStream, {
     int? flowControlledLength,
     this.streamWindowAccounted = false,
-  }) : flowControlledLength = flowControlledLength ?? bytes.length,
-       super(streamId, endStream);
+  }) : bytes =
+           bytes is Uint8List || bytes.length <= 64
+               ? bytes
+               : Uint8List.fromList(bytes),
+       flowControlledLength = flowControlledLength ?? bytes.length;
 
   @override
   String toString() =>
