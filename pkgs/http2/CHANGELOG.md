@@ -64,6 +64,10 @@
   replies, instead of queueing them without limit (the "Ping Flood", "Settings
   Flood" and "Reset Flood": CVE-2019-9512, CVE-2019-9515, CVE-2019-9514). At
   most 10000 replies are queued while the transport takes no data.
+- Terminate the connection with `ENHANCE_YOUR_CALM` when the peer resets the
+  streams it opened faster than 33 per second, after a burst of 1000 (the
+  "Rapid Reset", CVE-2023-44487). A reset stream no longer counts toward the
+  concurrent stream limit, so this was not bounded otherwise.
 
 ## 3.1.0
 
