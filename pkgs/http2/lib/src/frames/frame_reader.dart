@@ -220,7 +220,10 @@ class FrameReader {
         }
         var dataLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(dataLen >= 0);
-        var dataBytes = viewOrSublist(bytes, offset, dataLen);
+        var dataBytes =
+            dataLen == 0
+                ? const <int>[]
+                : viewOrSublist(bytes, offset, dataLen);
         return DataFrame(header, padLength, dataBytes);
 
       case FrameType.HEADERS:

@@ -1011,6 +1011,113 @@ void main() {
           await Future.wait([serverFun(), clientFun()]);
         },
       );
+
+      serverTest(
+        'enforces connection flow control on ignored DATA and does not inflate '
+        'the receive window',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final sub = server.incomingStreams.listen((_) {});
+          expect(await nextFrame(), isA<SettingsFrame>());
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          // Ignored DATA on non-existent stream 3 is replenished, so the
+          // connection window stays 65535 - it must not grow to 65535 + 10000.
+          clientWriter.writeDataFrame(3, List<int>.filled(10000, 0));
+          expect(await nextFrame(), isA<WindowUpdateFrame>());
+          expect(await nextFrame(), isA<RstStreamFrame>());
+
+          // Open stream 1 without reading its incomingMessages, then send
+          // 65536 bytes (> 65535 connection window) across frames.
+          clientWriter
+            ..writeHeadersFrame(1, [Header.ascii('a', 'b')], endStream: false)
+            ..writeDataFrame(1, List<int>.filled(16384, 0))
+            ..writeDataFrame(1, List<int>.filled(16384, 0))
+            ..writeDataFrame(1, List<int>.filled(16384, 0))
+            ..writeDataFrame(1, List<int>.filled(16384, 0));
+          final frameFuture = nextFrame();
+          await pumpEventQueue();
+          // Only reached if the server inflated its receive window above 65535.
+          unawaited(server.terminate());
+
+          expect(
+            await frameFuture,
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.FLOW_CONTROL_ERROR,
+            ),
+          );
+          await sub.cancel();
+        },
+      );
+
+      test('counts DATA padding toward flow control and checks stream window '
+          'while paused', () async {
+        final streams = ClientErrorStreams(
+          const ServerSettings(streamWindowSize: 100),
+        );
+        final server = streams.serverConnection;
+        final sub = server.incomingStreams.listen((_) {});
+        final clientReader = streams.clientConnectionFrameReader;
+
+        Future<Frame> nextFrame() async {
+          expect(await clientReader.moveNext(), isTrue);
+          return clientReader.current;
+        }
+
+        streams.writeConnectionPreface();
+        expect(await nextFrame(), isA<SettingsFrame>());
+        streams.writeRawFrame(
+          type: FrameType.SETTINGS,
+          flags: SettingsFrame.FLAG_ACK,
+          streamId: 0,
+          payload: const [],
+        );
+        streams.writeRawFrame(
+          type: FrameType.SETTINGS,
+          flags: 0,
+          streamId: 0,
+          payload: const [],
+        );
+        expect(await nextFrame(), isA<SettingsFrame>());
+
+        // Open stream 1 without reading its incomingMessages, then send a
+        // padded 0-data DATA frame whose 1-byte Pad Length + 100 pad bytes
+        // (101 bytes total) exceed the 100-byte stream window (RFC 9113
+        // section 6.1).
+        final frameFuture = nextFrame();
+        streams.writeRawFrame(
+          type: FrameType.HEADERS,
+          flags: HeadersFrame.FLAG_END_HEADERS,
+          streamId: 1,
+          payload: HPackEncoder().encode([Header.ascii('a', 'b')]),
+        );
+        streams.writeRawFrame(
+          type: FrameType.DATA,
+          flags: DataFrame.FLAG_PADDED,
+          streamId: 1,
+          payload: [100, ...List<int>.filled(100, 0)],
+        );
+        await pumpEventQueue();
+        unawaited(server.terminate());
+
+        expect(
+          await frameFuture,
+          isA<GoawayFrame>().having(
+            (f) => f.errorCode,
+            'errorCode',
+            ErrorCode.FLOW_CONTROL_ERROR,
+          ),
+        );
+        await sub.cancel();
+      });
     });
 
     group('client-errors', () {
