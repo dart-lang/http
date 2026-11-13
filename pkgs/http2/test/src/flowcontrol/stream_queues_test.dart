@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:collection';
+
 import 'package:http2/src/async_utils/async_utils.dart';
 import 'package:http2/src/flowcontrol/queue_messages.dart';
 import 'package:http2/src/flowcontrol/stream_queues.dart';
@@ -107,6 +109,29 @@ void main() {
         verifyNoMoreInteractions(windowMock);
         verifyZeroInteractions(connectionQueueMock);
       });
+
+      test('dribble-fragmentation-is-linear-for-custom-byte-lists', () {
+        var connectionQueueMock = MockConnectionMessageQueueOut();
+        when(connectionQueueMock.enqueueMessage(any)).thenReturn(null);
+        var windowMock = MockOutgoingStreamWindowHandler();
+        when(windowMock.positiveWindow).thenReturn(BufferIndicator());
+        when(windowMock.decreaseWindow(any)).thenReturn(null);
+        windowMock.positiveWindow.markUnBuffered();
+        var queue = StreamMessageQueueOut(
+          STREAM_ID,
+          windowMock,
+          connectionQueueMock,
+        );
+
+        // CVE-2019-9511 (Data Dribble): fragmenting a 1024-byte non-Uint8List
+        // payload into 1-byte chunks must read each input byte once (O(N)),
+        // rather than copying remaining tails on every byte (O(N^2)).
+        final countingBytes = _CountingByteList(1024);
+        when(windowMock.peerWindowSize).thenReturn(1);
+        queue.enqueueMessage(DataMessage(STREAM_ID, countingBytes, true));
+
+        expect(countingBytes.reads, 1024);
+      });
     });
 
     group('stream-message-queue-in', () {
@@ -161,4 +186,48 @@ void main() {
 
     // TODO: Add tests for Headers/HeadersPush messages.
   });
+}
+
+class _ReadCounter {
+  int value = 0;
+}
+
+class _CountingByteList extends ListBase<int> {
+  final List<int> _data;
+  final _ReadCounter _counter;
+
+  _CountingByteList(int length)
+    : _data = List<int>.generate(length, (i) => i & 0xff),
+      _counter = _ReadCounter();
+
+  _CountingByteList._(this._data, this._counter);
+
+  int get reads => _counter.value;
+
+  @override
+  int get length => _data.length;
+
+  @override
+  int operator [](int index) {
+    _counter.value++;
+    return _data[index];
+  }
+
+  @override
+  List<int> sublist(int start, [int? end]) {
+    final actualEnd = RangeError.checkValidRange(start, end, length);
+    return _CountingByteList._([
+      for (var i = start; i < actualEnd; i++) this[i],
+    ], _counter);
+  }
+
+  @override
+  void operator []=(int index, int value) {
+    throw UnsupportedError('unmodifiable');
+  }
+
+  @override
+  set length(int newLength) {
+    throw UnsupportedError('unmodifiable');
+  }
 }
