@@ -637,6 +637,40 @@ void main() {
           );
         },
       );
+
+      serverTest(
+        'terminates a peer that does not read the acknowledgements of its '
+        'settings',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final queued = await expectTerminatedWhileNotReading(
+            server,
+            clientWriter,
+            clientReader,
+            nextFrame,
+            () {
+              for (var i = 0; i <= FrameWriter.maxQueuedReplyFrames; i++) {
+                clientWriter.writeSettingsFrame([]);
+              }
+            },
+          );
+          expect(queued, hasLength(FrameWriter.maxQueuedReplyFrames));
+          expect(
+            queued,
+            everyElement(
+              isA<SettingsFrame>().having(
+                (f) => f.hasAckFlag,
+                'hasAckFlag',
+                true,
+              ),
+            ),
+          );
+        },
+      );
     });
 
     group('client-errors', () {

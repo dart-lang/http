@@ -202,6 +202,10 @@ class FrameWriter {
     _writeData(buffer);
   }
 
+  /// Writes the reply to a SETTINGS frame of the peer.
+  ///
+  /// Throws an [EnhanceYourCalmException] instead if the transport has not
+  /// taken the last [maxQueuedReplyFrames] replies yet.
   void writeSettingsAckFrame() {
     var type = FrameType.SETTINGS;
     var flags = SettingsFrame.FLAG_ACK;
@@ -212,7 +216,7 @@ class FrameWriter {
     _setFrameHeader(buffer, offset, type, flags, 0, 0);
     offset += FRAME_HEADER_SIZE;
 
-    _writeData(buffer);
+    _writeReplyFrame(buffer);
   }
 
   void writePushPromiseFrame(

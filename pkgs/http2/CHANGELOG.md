@@ -62,6 +62,8 @@
   PING frames but does not read the acknowledgements, instead of queueing them
   without limit (the "Ping Flood", CVE-2019-9512). At most 10000 frames sent in
   reply to frames of the peer are queued while the transport takes no data.
+- The same limit applies to the acknowledgements of the peer's SETTINGS frames
+  (the "Settings Flood", CVE-2019-9515).
 
 ## 3.1.0
 
