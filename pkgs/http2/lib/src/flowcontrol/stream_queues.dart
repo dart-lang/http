@@ -244,9 +244,6 @@ class StreamMessageQueueIn extends Object
           return;
         }
 
-        if (message is DataMessage) {
-          windowHandler.gotData(message.bytes.length);
-        }
         _pendingMessages.add(message);
         if (message.endStream) startClosing();
 
@@ -326,7 +323,9 @@ class StreamMessageQueueIn extends Object
               _incomingMessagesC.add(
                 DataStreamMessage(message.bytes, endStream: message.endStream),
               );
-              windowHandler.dataProcessed(message.bytes.length);
+            }
+            if (message.flowControlledLength > 0) {
+              windowHandler.dataProcessed(message.flowControlledLength);
             }
           } else {
             // This can never happen.

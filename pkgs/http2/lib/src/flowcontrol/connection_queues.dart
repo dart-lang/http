@@ -333,7 +333,7 @@ class ConnectionMessageQueueIn extends Object
       for (final message in pendingMessages) {
         _count--;
         if (message is DataMessage) {
-          ignoredBytes += message.bytes.length;
+          ignoredBytes += message.flowControlledLength;
         }
       }
       if (replenishWindow && ignoredBytes > 0) {
@@ -344,17 +344,32 @@ class ConnectionMessageQueueIn extends Object
 
   /// Processes an incoming [DataFrame] which is addressed to a specific stream.
   void processDataFrame(DataFrame frame) {
-    var streamId = frame.header.streamId;
-    var message = DataMessage(streamId, frame.bytes, frame.hasEndStreamFlag);
+    final flowControlledLength = frame.flowControlledLength;
+    // Drop unpadded 0-byte DATA frames without END_STREAM so a paused stream
+    // cannot accumulate empty messages without bound (CVE-2019-9518).
+    if (!frame.hasEndStreamFlag && flowControlledLength == 0) {
+      return;
+    }
 
-    _windowUpdateHandler.gotData(message.bytes.length);
+    var streamId = frame.header.streamId;
+    var message = DataMessage(
+      streamId,
+      frame.bytes,
+      frame.hasEndStreamFlag,
+      paddingLength: frame.paddingLength,
+    );
+
+    _windowUpdateHandler.gotData(flowControlledLength);
+    _stream2messageQueue[streamId]!.windowHandler.gotData(flowControlledLength);
     _addMessage(streamId, message);
   }
 
   /// If a [DataFrame] will be ignored, this method will take the minimal
   /// action necessary.
   void processIgnoredDataFrame(DataFrame frame) {
-    _windowUpdateHandler.dataProcessed(frame.bytes.length);
+    final length = frame.flowControlledLength;
+    _windowUpdateHandler.gotData(length);
+    _windowUpdateHandler.dataProcessed(length);
   }
 
   /// Processes an incoming [HeadersFrame] which is addressed to a specific
@@ -423,7 +438,7 @@ class ConnectionMessageQueueIn extends Object
 
       var message = pendingMessages.removeFirst();
       if (message is DataMessage) {
-        bytesDeliveredToStream += message.bytes.length;
+        bytesDeliveredToStream += message.flowControlledLength;
       }
       mq.enqueueMessage(message);
       if (message.endStream) {
@@ -452,7 +467,7 @@ class ConnectionMessageQueueIn extends Object
       _count--;
       final message = pendingMessages.removeFirst();
       if (message is DataMessage) {
-        bytesDeliveredToStream += message.bytes.length;
+        bytesDeliveredToStream += message.flowControlledLength;
       }
       mq.enqueueMessage(message);
       if (message.endStream) {

@@ -30,8 +30,20 @@ class HeadersMessage extends Message {
 class DataMessage extends Message {
   final List<int> bytes;
 
-  DataMessage(int streamId, this.bytes, bool endStream)
-    : super(streamId, endStream);
+  /// Wire bytes of DATA frame padding (`1 + padLength` when `FLAG_PADDED` is
+  /// set, `0` otherwise).
+  final int paddingLength;
+
+  /// Bytes charged against flow-control windows (includes DATA padding, RFC
+  /// 9113 section 6.1).
+  int get flowControlledLength => bytes.length + paddingLength;
+
+  DataMessage(
+    int streamId,
+    this.bytes,
+    bool endStream, {
+    this.paddingLength = 0,
+  }) : super(streamId, endStream);
 
   @override
   String toString() =>
