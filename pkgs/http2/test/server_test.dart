@@ -607,6 +607,114 @@ void main() {
           }, zoneSpecification: spec);
         },
       );
+
+      serverTest(
+        'terminates a peer that does not read the acknowledgements of its '
+        'pings',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final queued = await expectTerminatedWhileNotReading(
+            server,
+            clientWriter,
+            clientReader,
+            nextFrame,
+            () {
+              for (var i = 0; i <= FrameWriter.maxQueuedReplyFrames; i++) {
+                clientWriter.writePingFrame(i);
+              }
+            },
+          );
+          expect(queued, hasLength(FrameWriter.maxQueuedReplyFrames));
+          expect(
+            queued,
+            everyElement(
+              isA<PingFrame>().having((f) => f.hasAckFlag, 'hasAckFlag', true),
+            ),
+          );
+        },
+      );
+
+      serverTest(
+        'terminates a peer that does not read the acknowledgements of its '
+        'settings',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final queued = await expectTerminatedWhileNotReading(
+            server,
+            clientWriter,
+            clientReader,
+            nextFrame,
+            () {
+              for (var i = 0; i <= FrameWriter.maxQueuedReplyFrames; i++) {
+                clientWriter.writeSettingsFrame([]);
+              }
+            },
+          );
+          expect(queued, hasLength(FrameWriter.maxQueuedReplyFrames));
+          expect(
+            queued,
+            everyElement(
+              isA<SettingsFrame>().having(
+                (f) => f.hasAckFlag,
+                'hasAckFlag',
+                true,
+              ),
+            ),
+          );
+        },
+      );
+
+      serverTest(
+        'terminates a peer that does not read the RST_STREAM frames sent in '
+        'reply to its frames',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final queued = await expectTerminatedWhileNotReading(
+            server,
+            clientWriter,
+            clientReader,
+            nextFrame,
+            () {
+              // Every DATA frame on the closed stream 3 is a stream error of
+              // type STREAM_CLOSED (RFC 9113 section 6.1), even an empty one,
+              // which uses no flow-control window.
+              clientWriter
+                ..writeHeadersFrame(3, [
+                  Header.ascii('a', 'b'),
+                ], endStream: false)
+                ..writeRstStreamFrame(3, ErrorCode.CANCEL);
+              for (var i = 0; i <= FrameWriter.maxQueuedReplyFrames; i++) {
+                clientWriter.writeDataFrame(3, const []);
+              }
+            },
+          );
+          expect(queued, hasLength(FrameWriter.maxQueuedReplyFrames));
+          expect(
+            queued,
+            everyElement(
+              isA<RstStreamFrame>()
+                  .having((f) => f.header.streamId, 'header.streamId', 3)
+                  .having(
+                    (f) => f.errorCode,
+                    'errorCode',
+                    ErrorCode.STREAM_CLOSED,
+                  ),
+            ),
+          );
+        },
+      );
     });
 
     group('client-errors', () {
@@ -1019,6 +1127,53 @@ void main() {
       });
     });
   });
+}
+
+/// Lets [flood] write frames to the server while the client reads nothing,
+/// and expects the server to terminate the connection with
+/// `ENHANCE_YOUR_CALM` rather than queue its replies without limit.
+///
+/// Returns the frames the server had queued, which are still delivered.
+Future<List<Frame>> expectTerminatedWhileNotReading(
+  ServerTransportConnection server,
+  FrameWriter clientWriter,
+  StreamIterator<Frame> clientReader,
+  Future<Frame> Function() nextFrame,
+  void Function() flood,
+) async {
+  expect(await nextFrame(), isA<SettingsFrame>());
+  clientWriter.writeSettingsAckFrame();
+  clientWriter.writeSettingsFrame([]);
+  expect(await nextFrame(), isA<SettingsFrame>());
+
+  // An open stream reports the error the connection is terminated with.
+  final streams = StreamIterator(server.incomingStreams);
+  clientWriter.writeHeadersFrame(1, [Header.ascii('a', 'b')], endStream: false);
+  expect(await streams.moveNext(), isTrue);
+  Object? error;
+  streams.current.incomingMessages.listen(
+    null,
+    onError: (Object e) => error = e,
+  );
+
+  // The client does not call `nextFrame()` until the server is done, so the
+  // server's frames cannot be written.
+  flood();
+  await pumpEventQueue();
+  expect(
+    error,
+    isA<TransportConnectionException>().having(
+      (e) => e.errorCode,
+      'errorCode',
+      ErrorCode.ENHANCE_YOUR_CALM,
+    ),
+  );
+
+  final queued = <Frame>[];
+  while (await clientReader.moveNext()) {
+    queued.add(clientReader.current);
+  }
+  return queued;
 }
 
 void serverTest(

@@ -7,6 +7,15 @@ part of 'frames.dart';
 // TODO: No support for writing padded information.
 // TODO: No support for stream priorities.
 class FrameWriter {
+  /// The most frames sent in reply to frames of the peer (such as PING
+  /// acknowledgements) that may be queued while the transport does not take
+  /// them.
+  ///
+  /// A peer that keeps sending frames which require a reply, but does not read
+  /// the replies, would otherwise make this endpoint queue them without limit
+  /// (RFC 9113 section 10.5).
+  static const maxQueuedReplyFrames = 10000;
+
   /// The HPack compression context.
   final HPackEncoder _hpackEncoder;
 
@@ -19,6 +28,10 @@ class FrameWriter {
   /// This is the maximum over all stream id's we've written to the underlying
   /// sink.
   int _highestWrittenStreamId = 0;
+
+  /// For each reply frame the transport may not have taken yet, its position
+  /// in the output (see [BufferedBytesWriter.chunksAdded]).
+  final _queuedReplyFrames = ListQueue<int>();
 
   FrameWriter(
     this._hpackEncoder,
@@ -154,6 +167,19 @@ class FrameWriter {
   }
 
   void writeRstStreamFrame(int streamId, int errorCode) {
+    _writeData(_rstStreamFrame(streamId, errorCode));
+  }
+
+  /// Writes the RST_STREAM frame with which this endpoint answers a frame of
+  /// the peer that caused a stream error (RFC 9113 section 5.4.2).
+  ///
+  /// Throws an [EnhanceYourCalmException] instead if the transport has not
+  /// taken the last [maxQueuedReplyFrames] replies yet.
+  void writeRstStreamReply(int streamId, int errorCode) {
+    _writeReplyFrame(_rstStreamFrame(streamId, errorCode));
+  }
+
+  Uint8List _rstStreamFrame(int streamId, int errorCode) {
     var type = FrameType.RST_STREAM;
     var flags = 0;
 
@@ -167,7 +193,7 @@ class FrameWriter {
 
     setInt32(buffer, offset, errorCode);
 
-    _writeData(buffer);
+    return buffer;
   }
 
   void writeSettingsFrame(List<Setting> settings) {
@@ -189,6 +215,10 @@ class FrameWriter {
     _writeData(buffer);
   }
 
+  /// Writes the reply to a SETTINGS frame of the peer.
+  ///
+  /// Throws an [EnhanceYourCalmException] instead if the transport has not
+  /// taken the last [maxQueuedReplyFrames] replies yet.
   void writeSettingsAckFrame() {
     var type = FrameType.SETTINGS;
     var flags = SettingsFrame.FLAG_ACK;
@@ -199,7 +229,7 @@ class FrameWriter {
     _setFrameHeader(buffer, offset, type, flags, 0, 0);
     offset += FRAME_HEADER_SIZE;
 
-    _writeData(buffer);
+    _writeReplyFrame(buffer);
   }
 
   void writePushPromiseFrame(
@@ -257,6 +287,11 @@ class FrameWriter {
     _writeData(buffer);
   }
 
+  /// Writes a PING frame, or with [ack] the reply to the peer's PING frame
+  /// with [opaqueData].
+  ///
+  /// Throws an [EnhanceYourCalmException] instead of writing a reply if the
+  /// transport has not taken the last [maxQueuedReplyFrames] replies yet.
   void writePingFrame(int opaqueData, {bool ack = false}) {
     var type = FrameType.PING;
     var flags = ack ? PingFrame.FLAG_ACK : 0;
@@ -268,7 +303,11 @@ class FrameWriter {
     offset += FRAME_HEADER_SIZE;
 
     setInt64(buffer, offset, opaqueData);
-    _writeData(buffer);
+    if (ack) {
+      _writeReplyFrame(buffer);
+    } else {
+      _writeData(buffer);
+    }
   }
 
   void writeGoawayFrame(int lastStreamId, int errorCode, List<int> debugData) {
@@ -307,6 +346,29 @@ class FrameWriter {
 
   void _writeData(List<int> bytes) {
     _outWriter.add(bytes);
+  }
+
+  /// Writes [bytes], a frame this endpoint has to send in reply to a frame of
+  /// the peer.
+  ///
+  /// Throws an [EnhanceYourCalmException] instead if the transport has not
+  /// taken the last [maxQueuedReplyFrames] replies yet.
+  void _writeReplyFrame(List<int> bytes) {
+    final taken = _outWriter.chunksTaken;
+    while (_queuedReplyFrames.isNotEmpty && _queuedReplyFrames.first < taken) {
+      _queuedReplyFrames.removeFirst();
+    }
+    if (_queuedReplyFrames.length >= maxQueuedReplyFrames) {
+      // RFC 9113 section 10.5: "An endpoint MAY treat activity that is
+      // suspicious as a connection error (Section 5.4.1) of type
+      // ENHANCE_YOUR_CALM."
+      throw EnhanceYourCalmException(
+        'The peer does not read the frames sent in reply to its frames '
+        '($maxQueuedReplyFrames are queued).',
+      );
+    }
+    _queuedReplyFrames.add(_outWriter.chunksAdded);
+    _writeData(bytes);
   }
 
   /// Closes the underlying sink and returns [doneFuture].

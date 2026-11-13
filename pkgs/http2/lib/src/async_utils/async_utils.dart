@@ -56,6 +56,13 @@ class BufferedSink {
   /// A future which completes once the sink has been closed.
   late final Future _doneFuture;
 
+  /// The number of chunks added to [sink] that the underlying sink has taken.
+  ///
+  /// The other chunks are buffered here, because the underlying sink is not
+  /// accepting more data.
+  int get chunksTaken => _chunksTaken;
+  int _chunksTaken = 0;
+
   BufferedSink(StreamSink<List<int>> dataSink) {
     bufferIndicator.markBuffered();
 
@@ -80,7 +87,13 @@ class BufferedSink {
     // A failed write means the connection is dead; the owner learns about that
     // through the incoming side, so like a cancelled sink it just completes
     // this future normally.
-    _doneFuture = _controller.stream.pipe(dataSink).catchError((Object _) {});
+    _doneFuture = _controller.stream
+        .map((chunk) {
+          _chunksTaken++;
+          return chunk;
+        })
+        .pipe(dataSink)
+        .catchError((Object _) {});
   }
 
   /// The underlying sink.
@@ -104,6 +117,14 @@ class BufferedBytesWriter {
   /// An indicator whether the underlying sink is buffering at the moment.
   BufferIndicator get bufferIndicator => _bufferedSink.bufferIndicator;
 
+  /// The number of chunks written to the underlying [BufferedSink].
+  int get chunksAdded => _chunksAdded;
+  int _chunksAdded = 0;
+
+  /// The number of those chunks the transport has taken; the others are
+  /// buffered (see [BufferedSink.chunksTaken]).
+  int get chunksTaken => _bufferedSink.chunksTaken;
+
   /// Adds [data] immediately to the underlying buffer.
   ///
   /// If there is buffered data which was added with [addBufferedData] and it
@@ -114,6 +135,7 @@ class BufferedBytesWriter {
         'Cannot trigger an asynchronous write while there is buffered data.',
       );
     }
+    _chunksAdded++;
     _bufferedSink.sink.add(data);
   }
 
@@ -125,6 +147,7 @@ class BufferedBytesWriter {
   /// Flushes all data which was enqueued by [addBufferedData].
   void flushBufferedData() {
     if (_builder.length > 0) {
+      _chunksAdded++;
       _bufferedSink.sink.add(_builder.takeBytes());
     }
   }
