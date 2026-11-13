@@ -88,7 +88,10 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.38.1", "any"]
+        # Flutter < 3.47 pins package:meta to <= 1.18.0, but cupertino_http's
+        # code_assets ^2.0.0 needs hooks >= 2.2.0, whose record_use ^1.0.0
+        # needs meta ^1.19.0, so `flutter pub get` fails on older versions.
+        flutter-version: ["3.47.0", "any"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
