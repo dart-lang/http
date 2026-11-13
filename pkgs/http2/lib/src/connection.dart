@@ -407,6 +407,8 @@ abstract class Connection {
       _terminate(ErrorCode.FRAME_SIZE_ERROR, message: '$error');
     } on HeaderBlockProcessingException catch (error) {
       _terminate(ErrorCode.ENHANCE_YOUR_CALM, message: '$error');
+    } on EnhanceYourCalmException catch (error) {
+      _terminate(ErrorCode.ENHANCE_YOUR_CALM, message: '$error');
     } on HPackDecodingException catch (error) {
       _terminate(ErrorCode.COMPRESSION_ERROR, message: '$error');
     } on TerminatedException {

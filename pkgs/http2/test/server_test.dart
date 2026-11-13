@@ -607,6 +607,36 @@ void main() {
           }, zoneSpecification: spec);
         },
       );
+
+      serverTest(
+        'terminates a peer that does not read the acknowledgements of its '
+        'pings',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final queued = await expectTerminatedWhileNotReading(
+            server,
+            clientWriter,
+            clientReader,
+            nextFrame,
+            () {
+              for (var i = 0; i <= FrameWriter.maxQueuedReplyFrames; i++) {
+                clientWriter.writePingFrame(i);
+              }
+            },
+          );
+          expect(queued, hasLength(FrameWriter.maxQueuedReplyFrames));
+          expect(
+            queued,
+            everyElement(
+              isA<PingFrame>().having((f) => f.hasAckFlag, 'hasAckFlag', true),
+            ),
+          );
+        },
+      );
     });
 
     group('client-errors', () {
@@ -1019,6 +1049,53 @@ void main() {
       });
     });
   });
+}
+
+/// Lets [flood] write frames to the server while the client reads nothing,
+/// and expects the server to terminate the connection with
+/// `ENHANCE_YOUR_CALM` rather than queue its replies without limit.
+///
+/// Returns the frames the server had queued, which are still delivered.
+Future<List<Frame>> expectTerminatedWhileNotReading(
+  ServerTransportConnection server,
+  FrameWriter clientWriter,
+  StreamIterator<Frame> clientReader,
+  Future<Frame> Function() nextFrame,
+  void Function() flood,
+) async {
+  expect(await nextFrame(), isA<SettingsFrame>());
+  clientWriter.writeSettingsAckFrame();
+  clientWriter.writeSettingsFrame([]);
+  expect(await nextFrame(), isA<SettingsFrame>());
+
+  // An open stream reports the error the connection is terminated with.
+  final streams = StreamIterator(server.incomingStreams);
+  clientWriter.writeHeadersFrame(1, [Header.ascii('a', 'b')], endStream: false);
+  expect(await streams.moveNext(), isTrue);
+  Object? error;
+  streams.current.incomingMessages.listen(
+    null,
+    onError: (Object e) => error = e,
+  );
+
+  // The client does not call `nextFrame()` until the server is done, so the
+  // server's frames cannot be written.
+  flood();
+  await pumpEventQueue();
+  expect(
+    error,
+    isA<TransportConnectionException>().having(
+      (e) => e.errorCode,
+      'errorCode',
+      ErrorCode.ENHANCE_YOUR_CALM,
+    ),
+  );
+
+  final queued = <Frame>[];
+  while (await clientReader.moveNext()) {
+    queued.add(clientReader.current);
+  }
+  return queued;
 }
 
 void serverTest(

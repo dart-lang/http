@@ -58,6 +58,10 @@
   a timer once the bytes received so far end inside a field block. Creating
   and cancelling a `Timer` for every HEADERS frame, even one that had arrived
   in full, cost small gRPC calls up to a fifth of their throughput.
+- Terminate the connection with `ENHANCE_YOUR_CALM` when the peer keeps sending
+  PING frames but does not read the acknowledgements, instead of queueing them
+  without limit (the "Ping Flood", CVE-2019-9512). At most 10000 frames sent in
+  reply to frames of the peer are queued while the transport takes no data.
 
 ## 3.1.0
 
