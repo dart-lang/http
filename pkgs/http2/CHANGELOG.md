@@ -1,5 +1,9 @@
 ## 3.2.0-wip
 
+- Fix a failed assertion in `ConnectionMessageQueueIn.onTerminated` when the
+  connection is terminated while a stream that was closed by the peer's
+  END_STREAM still has incoming messages the application has not read.
+  (#2021)
 - Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
   the connection-level receive window and `SETTINGS_MAX_FRAME_SIZE`. (#1997)
 - Apply a larger `streamWindowSize` and `maxFrameSize` to the receive side as
