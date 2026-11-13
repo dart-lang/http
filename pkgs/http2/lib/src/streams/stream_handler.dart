@@ -908,8 +908,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       if (stream.state != StreamState.Closed) {
         _changeState(stream, StreamState.Closed);
       }
+      // Like [_closeStreamAbnormally], drop later outgoing messages instead
+      // of closing [Http2StreamImpl._outgoingC].
       stream._outgoingCSubscription.cancel();
-      stream._outgoingC.close();
       stream.outgoingQueue.terminate();
       onCheckForClose();
       return;
@@ -1046,8 +1047,11 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       _changeState(stream, StreamState.Terminated);
     }
     stream.incomingQueue.terminate(propagateException ? exception : null);
+    // Stop forwarding the application's outgoing messages, but leave
+    // [Http2StreamImpl._outgoingC] open: the application can't know when the
+    // stream ends, so adding to a closed controller would throw at it. With
+    // the subscription canceled, later messages are dropped.
     stream._outgoingCSubscription.cancel();
-    stream._outgoingC.close();
 
     // NOTE: we're not adding an error here.
     stream.outgoingQueue.terminate();

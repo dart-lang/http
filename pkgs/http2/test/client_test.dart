@@ -1448,6 +1448,68 @@ void main() {
         await Future.wait([serverFun(), clientFun()], eagerError: true);
       });
 
+      clientTest('writes-after-rst-stream-no-error-are-dropped', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        final handshakeDone = Completer<void>();
+        final framesProcessed = Completer<void>();
+
+        Future<void> serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          handshakeDone.complete();
+
+          final req = await nextFrame() as HeadersFrame;
+          expect(req.hasEndStreamFlag, isFalse);
+
+          // RFC 9113 section 8.1: a complete response, then
+          // RST_STREAM(NO_ERROR) to ask the client to stop sending its request.
+          serverWriter.writeHeadersFrame(req.header.streamId, [
+            Header.ascii(':status', '200'),
+          ], endStream: true);
+          serverWriter.writeRstStreamFrame(
+            req.header.streamId,
+            ErrorCode.NO_ERROR,
+          );
+          // Barrier: once the PING is acknowledged, the client has processed
+          // the RST_STREAM.
+          serverWriter.writePingFrame(1);
+          expect(
+            await nextFrame(),
+            isA<PingFrame>().having((f) => f.hasAckFlag, 'hasAckFlag', isTrue),
+          );
+          framesProcessed.complete();
+
+          // The client drops the writes below, so its next frame is the GOAWAY
+          // of client.finish().
+          expect(await nextFrame(), isA<GoawayFrame>());
+          expect(await serverReader.moveNext(), isFalse);
+        }
+
+        Future<void> clientFun() async {
+          await handshakeDone.future;
+          final stream = client.makeRequest([
+            Header.ascii(':path', '/test'),
+          ], endStream: false);
+          final messages = stream.incomingMessages.toList();
+
+          await framesProcessed.future;
+          stream.sendData([1, 2, 3]);
+          stream.sendData([4, 5, 6], endStream: true);
+          await stream.outgoingMessages.done;
+          expect(await messages, hasLength(1));
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
+      });
+
       clientTest('rst-stream-is-sent-after-queued-headers-of-the-stream', (
         ClientTransportConnection client,
         FrameWriter serverWriter,

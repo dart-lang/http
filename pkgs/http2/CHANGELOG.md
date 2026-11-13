@@ -40,6 +40,11 @@
   compression context remains synchronized. By default, compressed field
   blocks and decoded field sections are limited to 256 KiB, matching Chromium,
   and field blocks to 64 CONTINUATION frames.
+- Drop messages added to a stream's `outgoingMessages` after the stream was
+  terminated (by a `RST_STREAM` from the peer, by `terminate()`, or because
+  the connection was terminated) instead of throwing `Bad state: Cannot add
+  event after closing`. A writer can't know when the peer or the connection
+  ends the stream, so every write raced with the termination.
 
 ## 3.1.0
 
