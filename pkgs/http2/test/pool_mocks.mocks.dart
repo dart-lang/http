@@ -51,6 +51,11 @@ class MockClientConnection extends _i1.Mock implements _i4.ClientConnection {
           as bool);
 
   @override
+  bool get isAlive =>
+      (super.noSuchMethod(Invocation.getter(#isAlive), returnValue: false)
+          as bool);
+
+  @override
   _i5.Stream<int> get onPingReceived =>
       (super.noSuchMethod(
             Invocation.getter(#onPingReceived),
