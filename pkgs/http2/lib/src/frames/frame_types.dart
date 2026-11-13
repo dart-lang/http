@@ -76,6 +76,12 @@ class DataFrame extends Frame {
   bool get hasEndStreamFlag => _isFlagSet(header.flags, FLAG_END_STREAM);
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
 
+  /// The number of bytes this frame counts toward flow-control windows (RFC
+  /// 9113 section 6.1: the entire DATA payload, including Pad Length and
+  /// Padding when present).
+  int get flowControlledLength =>
+      bytes.length + (hasPaddedFlag ? 1 + padLength : 0);
+
   @override
   Map toJson() =>
       super.toJson()..addAll({

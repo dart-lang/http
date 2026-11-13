@@ -333,7 +333,7 @@ class ConnectionMessageQueueIn extends Object
       for (final message in pendingMessages) {
         _count--;
         if (message is DataMessage) {
-          ignoredBytes += message.bytes.length;
+          ignoredBytes += message.flowControlledLength;
         }
       }
       if (replenishWindow && ignoredBytes > 0) {
@@ -344,17 +344,55 @@ class ConnectionMessageQueueIn extends Object
 
   /// Processes an incoming [DataFrame] which is addressed to a specific stream.
   void processDataFrame(DataFrame frame) {
-    var streamId = frame.header.streamId;
-    var message = DataMessage(streamId, frame.bytes, frame.hasEndStreamFlag);
+    final streamId = frame.header.streamId;
+    final flowControlledLength = frame.flowControlledLength;
+    _windowUpdateHandler.gotData(flowControlledLength);
 
-    _windowUpdateHandler.gotData(message.bytes.length);
+    final streamMQ = _stream2messageQueue[streamId]!;
+    streamMQ.windowHandler.gotData(flowControlledLength);
+
+    // An empty DATA frame without END_STREAM carries nothing for the stream
+    // listener. Dropping unpadded ones here bounds memory when the stream is
+    // paused (CVE-2019-9518); padded ones replenish their padding immediately
+    // if the stream is not buffering, or queue their flow-control credit until
+    // it resumes.
+    if (!frame.hasEndStreamFlag && frame.bytes.isEmpty) {
+      if (flowControlledLength > 0) {
+        if (!streamMQ.bufferIndicator.wouldBuffer) {
+          _windowUpdateHandler.dataProcessed(flowControlledLength);
+          streamMQ.windowHandler.dataProcessed(flowControlledLength);
+        } else {
+          _addMessage(
+            streamId,
+            DataMessage(
+              streamId,
+              const <int>[],
+              false,
+              flowControlledLength: flowControlledLength,
+              streamWindowAccounted: true,
+            ),
+          );
+        }
+      }
+      return;
+    }
+
+    var message = DataMessage(
+      streamId,
+      frame.bytes,
+      frame.hasEndStreamFlag,
+      flowControlledLength: flowControlledLength,
+      streamWindowAccounted: true,
+    );
     _addMessage(streamId, message);
   }
 
   /// If a [DataFrame] will be ignored, this method will take the minimal
   /// action necessary.
   void processIgnoredDataFrame(DataFrame frame) {
-    _windowUpdateHandler.dataProcessed(frame.bytes.length);
+    final length = frame.flowControlledLength;
+    _windowUpdateHandler.gotData(length);
+    _windowUpdateHandler.dataProcessed(length);
   }
 
   /// Processes an incoming [HeadersFrame] which is addressed to a specific
@@ -423,7 +461,7 @@ class ConnectionMessageQueueIn extends Object
 
       var message = pendingMessages.removeFirst();
       if (message is DataMessage) {
-        bytesDeliveredToStream += message.bytes.length;
+        bytesDeliveredToStream += message.flowControlledLength;
       }
       mq.enqueueMessage(message);
       if (message.endStream) {
@@ -452,7 +490,7 @@ class ConnectionMessageQueueIn extends Object
       _count--;
       final message = pendingMessages.removeFirst();
       if (message is DataMessage) {
-        bytesDeliveredToStream += message.bytes.length;
+        bytesDeliveredToStream += message.flowControlledLength;
       }
       mq.enqueueMessage(message);
       if (message.endStream) {

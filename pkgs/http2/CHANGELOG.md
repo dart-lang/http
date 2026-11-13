@@ -77,6 +77,10 @@
   concurrent stream limit (CVE-2023-26964, CVE-2023-45802), and fix a
   `RangeError` when sending an empty `END_STREAM` `DATA` frame with a negative
   send window.
+- Enforce connection and stream receive windows on ignored `DATA` frames,
+  padded `DATA` frames (including `Pad Length` and `Padding`, RFC 9113
+  Section 6.1), and paused streams, and avoid queueing empty `DATA` frames
+  without `END_STREAM` while a stream is paused (CVE-2019-9518).
 
 ## 3.1.0
 
