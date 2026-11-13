@@ -34,6 +34,10 @@
   CVE-2019-9518), and reject zero `WINDOW_UPDATE` increments while scoping
   stream `WINDOW_UPDATE` overflows to `RST_STREAM` (RFC 9113 Sections 6.9 and
   6.9.1).
+- Propagate connection-level send-window and socket backpressure to outgoing
+  stream producers (CVE-2019-9517), count unread `WINDOW_UPDATE` replies
+  toward the queued reply limit, and avoid quadratic byte copying when
+  fragmenting non-`Uint8List` payloads across small windows (CVE-2019-9511).
 
 ## 3.2.0
 
