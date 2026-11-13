@@ -936,6 +936,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     var pushedStream = newRemoteStream(frame.promisedStreamId);
     if (pushedStream == null) return;
+    pushedStream.outgoingQueue
+      ..startClosing()
+      ..onCheckForClose();
     _changeState(pushedStream, StreamState.ReservedRemote);
 
     incomingQueue.processPushPromiseFrame(frame, pushedStream);
@@ -1168,10 +1171,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           (from != StreamState.Terminated && to == StreamState.Terminated),
     );
 
-    // Locally initiated streams remain counted until buffered output is done.
-    // Peer-initiated streams follow the RFC active-state definition and stop
-    // counting when they enter Closed.
-    int updateActiveCount(int count, {required bool countClosedAsActive}) {
+    // Streams remain counted in Closed until buffered queues finish and
+    // _cleanupClosedStream transitions them to Terminated.
+    int updateActiveCount(int count) {
       switch (from) {
         case StreamState.ReservedLocal:
         case StreamState.ReservedRemote:
@@ -1185,13 +1187,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         case StreamState.Open:
         case StreamState.HalfClosedLocal:
         case StreamState.HalfClosedRemote:
-          if (to == StreamState.Terminated ||
-              (!countClosedAsActive && to == StreamState.Closed)) {
-            return count - 1;
-          }
-          break;
         case StreamState.Closed:
-          if (countClosedAsActive && to == StreamState.Terminated) {
+          if (to == StreamState.Terminated) {
             return count - 1;
           }
           break;
@@ -1203,10 +1200,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     }
 
     if (_didInitiateStream(stream)) {
-      _numberOfActiveStreams = updateActiveCount(
-        _numberOfActiveStreams,
-        countClosedAsActive: true,
-      );
+      _numberOfActiveStreams = updateActiveCount(_numberOfActiveStreams);
     } else {
       if (from == StreamState.Idle && to == StreamState.ReservedRemote) {
         _numberOfReservedPeerStreams++;
@@ -1217,7 +1211,6 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       }
       _numberOfActivePeerStreams = updateActiveCount(
         _numberOfActivePeerStreams,
-        countClosedAsActive: false,
       );
     }
     stream.state = to;
