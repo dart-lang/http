@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:http2/src/connection.dart' show Connection;
 import 'package:http2/src/connection_preface.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/hpack/hpack.dart';
@@ -1118,6 +1119,157 @@ void main() {
         );
         await sub.cancel();
       });
+
+      serverTest('rejects a SETTINGS frame with too many entries', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        final sub = server.incomingStreams.listen((_) {});
+        expect(await nextFrame(), isA<SettingsFrame>());
+        clientWriter.writeSettingsAckFrame();
+        clientWriter.writeSettingsFrame([]);
+        expect(await nextFrame(), isA<SettingsFrame>());
+
+        // CVE-2020-11080: a single SETTINGS frame carrying more than
+        // maxSettingsPerFrame entries is rejected with ENHANCE_YOUR_CALM.
+        clientWriter.writeSettingsFrame(
+          List<Setting>.filled(
+            SettingsHandler.maxSettingsPerFrame + 1,
+            Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 65535),
+          ),
+        );
+        expect(
+          await nextFrame(),
+          isA<GoawayFrame>().having(
+            (f) => f.errorCode,
+            'errorCode',
+            ErrorCode.ENHANCE_YOUR_CALM,
+          ),
+        );
+        await sub.cancel();
+      });
+
+      serverTest(
+        'terminates a peer that floods control frames while reading replies',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          const floodFrames = 2 * Connection.maxControlFrameBurst;
+          final sub = server.incomingStreams.listen((_) {});
+          expect(await nextFrame(), isA<SettingsFrame>());
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          // CVE-2019-9512: send non-ACK PING frames while draining every PING
+          // ACK so maxQueuedReplyFrames is never reached.
+          Frame? terminal;
+          for (var i = 0; i < floodFrames && terminal == null; i++) {
+            clientWriter.writePingFrame(i);
+            final reply = await nextFrame();
+            if (reply is GoawayFrame) {
+              terminal = reply;
+            } else {
+              expect(
+                reply,
+                isA<PingFrame>().having(
+                  (f) => f.hasAckFlag,
+                  'hasAckFlag',
+                  true,
+                ),
+              );
+            }
+          }
+          if (terminal == null) {
+            unawaited(server.terminate());
+            terminal = await nextFrame();
+          }
+          expect(
+            terminal,
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.ENHANCE_YOUR_CALM,
+            ),
+          );
+          await sub.cancel();
+        },
+      );
+
+      serverTest(
+        'rejects zero WINDOW_UPDATE increments and scopes stream overflow to '
+        'the stream',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final sub = server.incomingStreams.listen((_) {});
+          expect(await nextFrame(), isA<SettingsFrame>());
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          clientWriter
+            ..writeHeadersFrame(1, [Header.ascii('a', 'b')], endStream: false)
+            ..writeHeadersFrame(3, [Header.ascii('a', 'b')], endStream: false)
+            ..writeHeadersFrame(5, [Header.ascii('a', 'b')], endStream: false);
+
+          // RFC 9113 section 6.9: zero increment on a stream is a stream error
+          // of type PROTOCOL_ERROR.
+          clientWriter
+            ..writeWindowUpdate(0, streamId: 1)
+            ..writePingFrame(1);
+          expect(
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having((f) => f.header.streamId, 'header.streamId', 1)
+                .having(
+                  (f) => f.errorCode,
+                  'errorCode',
+                  ErrorCode.PROTOCOL_ERROR,
+                ),
+          );
+          expect(await nextFrame(), isA<PingFrame>());
+
+          // RFC 9113 section 6.9.1: overflowing a stream window (> 2^31 - 1)
+          // resets only that stream with FLOW_CONTROL_ERROR, leaving stream 5
+          // open.
+          clientWriter.writeWindowUpdate(0x7fffffff, streamId: 3);
+          expect(
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having((f) => f.header.streamId, 'header.streamId', 3)
+                .having(
+                  (f) => f.errorCode,
+                  'errorCode',
+                  ErrorCode.FLOW_CONTROL_ERROR,
+                ),
+          );
+
+          // RFC 9113 section 6.9: zero increment on stream 0 is a connection
+          // error of type PROTOCOL_ERROR.
+          final frameFuture = nextFrame();
+          clientWriter.writeWindowUpdate(0, streamId: 0);
+          await pumpEventQueue();
+          unawaited(server.terminate());
+          expect(
+            await frameFuture,
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
+            ),
+          );
+          await sub.cancel();
+        },
+      );
     });
 
     group('client-errors', () {

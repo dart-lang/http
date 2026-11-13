@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:math';
 
 import '../../transport.dart';
+import '../async_utils/async_utils.dart';
 import '../connection.dart';
 import '../error_handler.dart';
 import '../flowcontrol/connection_queues.dart';
@@ -169,7 +170,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   /// Limits how fast the peer may reset the streams it opened, see
   /// [maxPeerStreamResetBurst].
-  final _peerStreamResets = _TokenBucket(
+  final _peerStreamResets = TokenBucket(
     maxPeerStreamResetBurst,
     peerStreamResetsPerSecond,
   );
@@ -287,6 +288,18 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   Stream<TransportStream> get incomingStreams => _newStreamsC.stream;
 
   List<TransportStream> get openStreams => _openStreams.values.toList();
+
+  void checkInitialWindowSizePeak(int peakDifference) {
+    for (var stream in _openStreams.values) {
+      if (stream.windowHandler.peerWindowSize + peakDifference >
+          Window.MAX_WINDOW_SIZE) {
+        throw FlowControlException(
+          'Window update received from remote peer would make flow control '
+          'window too large.',
+        );
+      }
+    }
+  }
 
   void processInitialWindowSizeSettingChange(int difference) {
     // If the initialFlowWindow size was changed via a SettingsFrame, all
@@ -682,6 +695,18 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         ErrorCode.REFUSED_STREAM,
         exception,
       );
+    } on StreamProtocolException catch (exception) {
+      _resetStreamForPeerError(
+        exception.streamId,
+        ErrorCode.PROTOCOL_ERROR,
+        exception,
+      );
+    } on StreamFlowControlException catch (exception) {
+      _resetStreamForPeerError(
+        exception.streamId,
+        ErrorCode.FLOW_CONTROL_ERROR,
+        exception,
+      );
     } on StreamException catch (exception) {
       _resetStreamForPeerError(
         exception.streamId,
@@ -795,16 +820,19 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           }
         } else if (frame is WindowUpdateFrame) {
           if (frameBelongsToIdleStream()) {
-            // We treat this as a protocol error even though not enforced
-            // or specified by the HTTP/2 spec.
+            // RFC 9113 section 6.9: receiving a WINDOW_UPDATE frame on an idle
+            // stream is a connection error of type PROTOCOL_ERROR.
             throw ProtocolException(
               'Got a WINDOW_UPDATE_FRAME for an "idle" stream id.',
             );
-          } else {
-            // We must be able to receive window update frames for streams that
-            // have been already closed. The specification does not mention
-            // what happens if the streamId is belonging to an "idle" / unused
-            // stream.
+          } else if (frame.windowSizeIncrement == 0) {
+            // RFC 9113 section 6.9: a WINDOW_UPDATE frame with a flow-control
+            // window increment of 0 on a stream is a stream error of type
+            // PROTOCOL_ERROR.
+            throw StreamProtocolException(
+              frame.header.streamId,
+              'Window update increment must not be zero.',
+            );
           }
         } else if (frame is RstStreamFrame) {
           if (frameBelongsToIdleStream()) {
@@ -962,7 +990,13 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _handleWindowUpdate(Http2StreamImpl stream, WindowUpdateFrame frame) {
-    stream.windowHandler.processWindowUpdate(frame);
+    try {
+      stream.windowHandler.processWindowUpdate(frame);
+    } on ProtocolException catch (e) {
+      throw StreamProtocolException(stream.id, '$e');
+    } on FlowControlException catch (e) {
+      throw StreamFlowControlException(stream.id, '$e');
+    }
   }
 
   void _handleRstFrame(Http2StreamImpl stream, RstStreamFrame frame) {
@@ -1244,33 +1278,4 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         'No open stream found and was not a headers frame opening a '
         'new stream.',
       );
-}
-
-/// A token bucket: lets through bursts of up to [_capacity] events, and
-/// [_perSecond] events per second on average.
-class _TokenBucket {
-  final int _capacity;
-  final int _perSecond;
-  final _clock = Stopwatch()..start();
-  int _refilledAtMicros = 0;
-  double _tokens;
-
-  _TokenBucket(this._capacity, this._perSecond)
-    : _tokens = _capacity.toDouble();
-
-  /// Takes a token, or returns `false` if there is none left.
-  bool tryTake() {
-    final now = _clock.elapsedMicroseconds;
-    _tokens = min(
-      _capacity.toDouble(),
-      _tokens +
-          (now - _refilledAtMicros) *
-              _perSecond /
-              Duration.microsecondsPerSecond,
-    );
-    _refilledAtMicros = now;
-    if (_tokens < 1) return false;
-    _tokens--;
-    return true;
-  }
 }

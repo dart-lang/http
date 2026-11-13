@@ -81,6 +81,11 @@
   padded `DATA` frames (including `Pad Length` and `Padding`, RFC 9113
   Section 6.1), and paused streams, and avoid queueing empty `DATA` frames
   without `END_STREAM` while a stream is paused (CVE-2019-9518).
+- Cap `SETTINGS` parameters per frame, coalesce `SETTINGS_INITIAL_WINDOW_SIZE`
+  updates per frame (CVE-2020-11080), rate-limit floods of control and empty
+  frames (CVE-2019-9512, CVE-2019-9513, CVE-2019-9515, CVE-2019-9518), and
+  reject zero `WINDOW_UPDATE` increments while scoping stream `WINDOW_UPDATE`
+  overflows to `RST_STREAM` (RFC 9113 Sections 6.9 and 6.9.1).
 
 ## 3.1.0
 
