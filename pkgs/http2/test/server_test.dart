@@ -671,6 +671,50 @@ void main() {
           );
         },
       );
+
+      serverTest(
+        'terminates a peer that does not read the RST_STREAM frames sent in '
+        'reply to its frames',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final queued = await expectTerminatedWhileNotReading(
+            server,
+            clientWriter,
+            clientReader,
+            nextFrame,
+            () {
+              // Every DATA frame on the closed stream 3 is a stream error of
+              // type STREAM_CLOSED (RFC 9113 section 6.1), even an empty one,
+              // which uses no flow-control window.
+              clientWriter
+                ..writeHeadersFrame(3, [
+                  Header.ascii('a', 'b'),
+                ], endStream: false)
+                ..writeRstStreamFrame(3, ErrorCode.CANCEL);
+              for (var i = 0; i <= FrameWriter.maxQueuedReplyFrames; i++) {
+                clientWriter.writeDataFrame(3, const []);
+              }
+            },
+          );
+          expect(queued, hasLength(FrameWriter.maxQueuedReplyFrames));
+          expect(
+            queued,
+            everyElement(
+              isA<RstStreamFrame>()
+                  .having((f) => f.header.streamId, 'header.streamId', 3)
+                  .having(
+                    (f) => f.errorCode,
+                    'errorCode',
+                    ErrorCode.STREAM_CLOSED,
+                  ),
+            ),
+          );
+        },
+      );
     });
 
     group('client-errors', () {

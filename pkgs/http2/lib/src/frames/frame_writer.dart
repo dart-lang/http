@@ -167,6 +167,19 @@ class FrameWriter {
   }
 
   void writeRstStreamFrame(int streamId, int errorCode) {
+    _writeData(_rstStreamFrame(streamId, errorCode));
+  }
+
+  /// Writes the RST_STREAM frame with which this endpoint answers a frame of
+  /// the peer that caused a stream error (RFC 9113 section 5.4.2).
+  ///
+  /// Throws an [EnhanceYourCalmException] instead if the transport has not
+  /// taken the last [maxQueuedReplyFrames] replies yet.
+  void writeRstStreamReply(int streamId, int errorCode) {
+    _writeReplyFrame(_rstStreamFrame(streamId, errorCode));
+  }
+
+  Uint8List _rstStreamFrame(int streamId, int errorCode) {
     var type = FrameType.RST_STREAM;
     var flags = 0;
 
@@ -180,7 +193,7 @@ class FrameWriter {
 
     setInt32(buffer, offset, errorCode);
 
-    _writeData(buffer);
+    return buffer;
   }
 
   void writeSettingsFrame(List<Setting> settings) {

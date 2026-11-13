@@ -64,6 +64,9 @@
   reply to frames of the peer are queued while the transport takes no data.
 - The same limit applies to the acknowledgements of the peer's SETTINGS frames
   (the "Settings Flood", CVE-2019-9515).
+- The same limit applies to the RST_STREAM frames sent in reply to frames of
+  the peer that cause a stream error, such as DATA frames on a closed stream
+  (the "Reset Flood", CVE-2019-9514).
 
 ## 3.1.0
 
