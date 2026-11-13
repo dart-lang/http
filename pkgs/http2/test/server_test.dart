@@ -1399,6 +1399,201 @@ void main() {
         expect(queued, hasLength(FrameWriter.maxQueuedReplyFrames));
         expect(queued, everyElement(isA<WindowUpdateFrame>()));
       });
+
+      serverTest(
+        'rejects malformed HTTP/2 headers, smuggling fields, bad trailers, '
+        'and mismatched content-length',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final acceptedIds = <int>[];
+          final sub = server.incomingStreams.listen((stream) {
+            acceptedIds.add(stream.id);
+            stream.incomingMessages.listen((_) {}, onError: (_) {});
+          });
+
+          expect(await nextFrame(), isA<SettingsFrame>());
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          var nextStreamId = 1;
+          Future<void> expectStreamProtocolError(
+            List<Header> headers, {
+            bool endStream = true,
+          }) async {
+            final id = nextStreamId;
+            nextStreamId += 2;
+            clientWriter
+              ..writeHeadersFrame(id, headers, endStream: endStream)
+              ..writePingFrame(id);
+            expect(
+              await nextFrame(),
+              isA<RstStreamFrame>()
+                  .having((f) => f.header.streamId, 'header.streamId', id)
+                  .having(
+                    (f) => f.errorCode,
+                    'errorCode',
+                    ErrorCode.PROTOCOL_ERROR,
+                  ),
+            );
+            expect(await nextFrame(), isA<PingFrame>());
+          }
+
+          // Uppercase field name (RFC 9113 section 8.2.1).
+          await expectStreamProtocolError([
+            Header('Upper'.codeUnits, 'v'.codeUnits),
+          ]);
+          // CRLF / NUL / leading-or-trailing whitespace in field value
+          // (RFC 9113 section 8.2.1, H2.CRLF).
+          await expectStreamProtocolError([
+            Header('x-test'.codeUnits, 'bad\r\nheader: 1'.codeUnits),
+          ]);
+          await expectStreamProtocolError([
+            Header('x-test'.codeUnits, ' leading'.codeUnits),
+          ]);
+          // Connection-specific headers & non-trailers TE (RFC 9113 section
+          // 8.2.2, H2.TE / CVE-2021-33197).
+          await expectStreamProtocolError([
+            Header.ascii('transfer-encoding', 'chunked'),
+          ]);
+          await expectStreamProtocolError([Header.ascii('te', 'gzip')]);
+          // Pseudo-header ordering, duplicates, unknown/response pseudo-header,
+          // and missing mandatory pseudo-headers (RFC 9113 section 8.3.1).
+          await expectStreamProtocolError([
+            Header.ascii('x-first', '1'),
+            Header.ascii(':method', 'GET'),
+            Header.ascii(':scheme', 'https'),
+            Header.ascii(':path', '/'),
+          ]);
+          await expectStreamProtocolError([Header.ascii(':status', '200')]);
+          await expectStreamProtocolError([
+            Header.ascii(':method', 'GET'),
+            Header.ascii(':scheme', 'https'),
+            Header.ascii(':path', ''),
+          ]);
+          // Content-Length mismatch at END_STREAM on HEADERS (RFC 9113 section
+          // 8.1.1, H2.CL).
+          await expectStreamProtocolError([
+            Header.ascii(':method', 'POST'),
+            Header.ascii(':scheme', 'https'),
+            Header.ascii(':path', '/'),
+            Header.ascii('content-length', '5'),
+          ]);
+          expect(acceptedIds, isEmpty);
+
+          // Content-Length mismatch across DATA frames (RFC 9113 section
+          // 8.1.1).
+          final clStream = nextStreamId;
+          nextStreamId += 2;
+          clientWriter
+            ..writeHeadersFrame(clStream, [
+              Header.ascii(':method', 'POST'),
+              Header.ascii(':scheme', 'https'),
+              Header.ascii(':path', '/'),
+              Header.ascii('content-length', '5'),
+            ], endStream: false)
+            ..writeDataFrame(clStream, [1, 2, 3], endStream: true);
+          expect(
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having((f) => f.header.streamId, 'header.streamId', clStream)
+                .having(
+                  (f) => f.errorCode,
+                  'errorCode',
+                  ErrorCode.PROTOCOL_ERROR,
+                ),
+          );
+          // Drain connection WINDOW_UPDATE for ignored/rejected DATA.
+          expect(await nextFrame(), isA<WindowUpdateFrame>());
+
+          // Trailer HEADERS without END_STREAM or containing pseudo-headers
+          // (RFC 9113 section 8.1).
+          final trailerStream = nextStreamId;
+          nextStreamId += 2;
+          clientWriter
+            ..writeHeadersFrame(trailerStream, [
+              Header.ascii(':method', 'POST'),
+              Header.ascii(':scheme', 'https'),
+              Header.ascii(':path', '/'),
+            ], endStream: false)
+            ..writeHeadersFrame(trailerStream, [
+              Header.ascii('x-trailer', '1'),
+            ], endStream: false)
+            ..writePingFrame(999);
+          expect(
+            await nextFrame(),
+            isA<RstStreamFrame>()
+                .having(
+                  (f) => f.header.streamId,
+                  'header.streamId',
+                  trailerStream,
+                )
+                .having(
+                  (f) => f.errorCode,
+                  'errorCode',
+                  ErrorCode.PROTOCOL_ERROR,
+                ),
+          );
+          expect(await nextFrame(), isA<PingFrame>());
+
+          unawaited(server.terminate());
+          await sub.cancel();
+        },
+      );
+
+      test(
+        'rejects unsolicited CONTINUATION with connection PROTOCOL_ERROR',
+        () async {
+          final streams = ClientErrorStreams();
+          final server = streams.serverConnection;
+          final sub = server.incomingStreams.listen((_) {});
+          final clientReader = streams.clientConnectionFrameReader;
+
+          Future<Frame> nextFrame() async {
+            expect(await clientReader.moveNext(), isTrue);
+            return clientReader.current;
+          }
+
+          streams.writeConnectionPreface();
+          expect(await nextFrame(), isA<SettingsFrame>());
+          streams.writeRawFrame(
+            type: FrameType.SETTINGS,
+            flags: SettingsFrame.FLAG_ACK,
+            streamId: 0,
+            payload: const [],
+          );
+          streams.writeRawFrame(
+            type: FrameType.SETTINGS,
+            flags: 0,
+            streamId: 0,
+            payload: const [],
+          );
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          // RFC 9113 section 6.10: an unsolicited CONTINUATION on an idle
+          // stream is a connection PROTOCOL_ERROR, not a stream error.
+          streams.writeRawFrame(
+            type: FrameType.CONTINUATION,
+            flags: ContinuationFrame.FLAG_END_HEADERS,
+            streamId: 1,
+            payload: const [0x82],
+          );
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
+            ),
+          );
+          unawaited(server.terminate());
+          await sub.cancel();
+        },
+      );
     });
 
     group('client-errors', () {
