@@ -30,8 +30,22 @@ class HeadersMessage extends Message {
 class DataMessage extends Message {
   final List<int> bytes;
 
-  DataMessage(int streamId, this.bytes, bool endStream)
-    : super(streamId, endStream);
+  /// Bytes charged against flow-control windows (includes DATA padding, RFC
+  /// 9113 section 6.1).
+  final int flowControlledLength;
+
+  /// Whether this message has already been charged against the stream's
+  /// receive window on arrival.
+  bool streamWindowAccounted;
+
+  DataMessage(
+    int streamId,
+    this.bytes,
+    bool endStream, {
+    int? flowControlledLength,
+    this.streamWindowAccounted = false,
+  }) : flowControlledLength = flowControlledLength ?? bytes.length,
+       super(streamId, endStream);
 
   @override
   String toString() =>
