@@ -327,6 +327,9 @@ class FrameWriter {
     _writeData(buffer);
   }
 
+  /// Writes a `WINDOW_UPDATE` frame, counting it against
+  /// [maxQueuedReplyFrames] so a peer that sends `DATA` without reading our
+  /// `WINDOW_UPDATE` replies cannot buffer them without bound.
   void writeWindowUpdate(int sizeIncrement, {int streamId = 0}) {
     var type = FrameType.WINDOW_UPDATE;
     var flags = 0;
@@ -341,7 +344,7 @@ class FrameWriter {
 
     setInt32(buffer, offset, sizeIncrement);
 
-    _writeData(buffer);
+    _writeReplyFrame(buffer);
   }
 
   void _writeData(List<int> bytes) {

@@ -475,6 +475,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       streamId,
       windowOutHandler,
       outgoingQueue,
+      connectionBufferIndicator: outgoingQueue.dataBufferIndicator,
     );
 
     incomingQueue.insertNewStreamMessageQueue(streamId, streamQueueIn);

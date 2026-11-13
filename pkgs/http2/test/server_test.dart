@@ -1270,6 +1270,135 @@ void main() {
           await sub.cancel();
         },
       );
+
+      serverTest(
+        'propagates connection backpressure to outgoing stream producers',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          const totalChunks = 50;
+          const chunkSize = 16384;
+          var chunksProduced = 0;
+          var pausedCount = 0;
+
+          Future serverFun() async {
+            await for (final stream in server.incomingStreams) {
+              unawaited(stream.incomingMessages.drain<void>());
+              late final StreamController<StreamMessage> producer;
+              var pumping = false;
+              void pump() {
+                if (pumping || producer.isPaused) return;
+                if (chunksProduced >= totalChunks) {
+                  if (!producer.isClosed) unawaited(producer.close());
+                  return;
+                }
+                pumping = true;
+                chunksProduced++;
+                producer.add(
+                  DataStreamMessage(
+                    List<int>.filled(chunkSize, 0x42),
+                    endStream: chunksProduced == totalChunks,
+                  ),
+                );
+                Future.microtask(() {
+                  pumping = false;
+                  pump();
+                });
+              }
+
+              producer = StreamController<StreamMessage>(
+                onListen: () {
+                  producer.add(
+                    HeadersStreamMessage([Header.ascii(':status', '200')]),
+                  );
+                  pump();
+                },
+                onPause: () {
+                  pausedCount++;
+                },
+                onResume: pump,
+              );
+              await stream.outgoingMessages.addStream(producer.stream);
+              await stream.outgoingMessages.close();
+            }
+          }
+
+          Future clientFun() async {
+            try {
+              expect(await nextFrame(), isA<SettingsFrame>());
+              clientWriter.writeSettingsAckFrame();
+              // Grant a huge per-stream window so only the 65,535-byte
+              // connection window restrains the response (CVE-2019-9517).
+              clientWriter.writeSettingsFrame([
+                Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 0x7fffffff),
+              ]);
+              expect(await nextFrame(), isA<SettingsFrame>());
+
+              clientWriter.writeHeadersFrame(1, [
+                Header.ascii('a', 'b'),
+              ], endStream: true);
+              expect(await nextFrame(), isA<HeadersFrame>());
+
+              var received = 0;
+              while (received < 65535) {
+                final data = await nextFrame() as DataFrame;
+                received += data.bytes.length;
+              }
+              await pumpEventQueue();
+
+              // With the 65,535-byte connection window exhausted, the server's
+              // outgoing producer must have paused rather than buffering all 50
+              // chunks internally.
+              expect(pausedCount, greaterThan(0));
+              expect(chunksProduced, lessThan(10));
+
+              clientWriter.writeWindowUpdate(
+                totalChunks * chunkSize,
+                streamId: 0,
+              );
+              while (received < totalChunks * chunkSize) {
+                final data = await nextFrame() as DataFrame;
+                received += data.bytes.length;
+              }
+              expect(received, totalChunks * chunkSize);
+              final finished = server.finish();
+              expect(await nextFrame(), isA<GoawayFrame>());
+              expect(await clientReader.moveNext(), isFalse);
+              await finished;
+            } finally {
+              unawaited(server.terminate());
+            }
+          }
+
+          await Future.wait([serverFun(), clientFun()]);
+        },
+      );
+
+      serverTest('terminates a peer that does not read WINDOW_UPDATE replies', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        final queued = await expectTerminatedWhileNotReading(
+          server,
+          clientWriter,
+          clientReader,
+          nextFrame,
+          () {
+            // Each 1-byte DATA frame on open stream 1 triggers two
+            // WINDOW_UPDATE replies (stream 0 and stream 1).
+            for (var i = 0; i <= FrameWriter.maxQueuedReplyFrames ~/ 2; i++) {
+              clientWriter.writeDataFrame(1, const [1]);
+            }
+          },
+        );
+        expect(queued, hasLength(FrameWriter.maxQueuedReplyFrames));
+        expect(queued, everyElement(isA<WindowUpdateFrame>()));
+      });
     });
 
     group('client-errors', () {
