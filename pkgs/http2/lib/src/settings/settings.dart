@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:math';
 
 import '../error_handler.dart';
 import '../frames/frames.dart';
@@ -87,6 +88,10 @@ class ActiveSettings {
 /// Changes to [_toBeAcknowledgedSettings] can be made, the peer will then be
 /// notified of the setting changes it should use.
 class SettingsHandler extends Object with TerminatableMixin {
+  /// Maximum number of parameters accepted in a single [SettingsFrame]
+  /// (CVE-2020-11080, RFC 9113 section 10.5).
+  static const maxSettingsPerFrame = 64;
+
   /// Certain settings changes can change the maximum allowed dynamic table
   /// size used by the HPack encoder.
   final HPackEncoder _hpackEncoder;
@@ -105,6 +110,12 @@ class SettingsHandler extends Object with TerminatableMixin {
   /// The peer settings, which we ACKed and are obeying.
   final ActiveSettings _peerSettings;
 
+  /// Optional callback invoked when a single [SettingsFrame] temporarily
+  /// raises `SETTINGS_INITIAL_WINDOW_SIZE` higher than its final value, so
+  /// stream send windows are still checked against overflow (`2^31 - 1`, RFC
+  /// 9113 sections 6.5 and 6.9.2).
+  final void Function(int peakDifference)? _onCheckInitialWindowSizePeak;
+
   final _onInitialWindowSizeChangeController = StreamController<int>.broadcast(
     sync: true,
   );
@@ -118,8 +129,9 @@ class SettingsHandler extends Object with TerminatableMixin {
     this._hpackEncoder,
     this._frameWriter,
     this._acknowledgedSettings,
-    this._peerSettings,
-  );
+    this._peerSettings, {
+    void Function(int peakDifference)? onCheckInitialWindowSizePeak,
+  }) : _onCheckInitialWindowSizePeak = onCheckInitialWindowSizePeak;
 
   /// The settings for this endpoint of the connection which the remote peer
   /// has ACKed and uses.
@@ -152,6 +164,12 @@ class SettingsHandler extends Object with TerminatableMixin {
         _modifySettings(_acknowledgedSettings, settingChanges, false);
         completer.complete();
       } else {
+        if (frame.settings.length > maxSettingsPerFrame) {
+          throw EnhanceYourCalmException(
+            'Received a SETTINGS frame with ${frame.settings.length} entries '
+            '(limit: $maxSettingsPerFrame).',
+          );
+        }
         _modifySettings(_peerSettings, frame.settings, true);
         _frameWriter.writeSettingsAckFrame();
       }
@@ -183,6 +201,10 @@ class SettingsHandler extends Object with TerminatableMixin {
     List<Setting> changes,
     bool peerSettings,
   ) {
+    final previousInitialWindowSize = base.initialWindowSize;
+    int? maxInitialWindowSizeSeen;
+    var initialWindowSizeChanged = false;
+
     for (var setting in changes) {
       switch (setting.identifier) {
         case Setting.SETTINGS_ENABLE_PUSH:
@@ -218,15 +240,13 @@ class SettingsHandler extends Object with TerminatableMixin {
           break;
 
         case Setting.SETTINGS_INITIAL_WINDOW_SIZE:
-          if (setting.value < (1 << 31)) {
-            // Only the peer's value sizes the windows this end sends on (RFC
-            // 9113 section 6.9.2); this end's own value, once acknowledged,
-            // changes nothing it sends.
-            if (peerSettings) {
-              var difference = setting.value - base.initialWindowSize;
-              _onInitialWindowSizeChangeController.add(difference);
-            }
+          if (setting.value >= 0 && setting.value < (1 << 31)) {
+            maxInitialWindowSizeSeen =
+                maxInitialWindowSizeSeen == null
+                    ? setting.value
+                    : max(maxInitialWindowSizeSeen, setting.value);
             base.initialWindowSize = setting.value;
+            initialWindowSizeChanged = true;
           } else {
             throw FlowControlException('Invalid initial window size.');
           }
@@ -244,6 +264,20 @@ class SettingsHandler extends Object with TerminatableMixin {
           // Spec says to ignore unknown settings.
           break;
       }
+    }
+
+    // Only the peer's value sizes the windows this end sends on (RFC 9113
+    // section 6.9.2); coalescing multiple updates within a single SETTINGS
+    // frame avoids O(S * M) stream-window walks (CVE-2020-11080) while still
+    // validating any higher intermediate window against overflow.
+    if (peerSettings && initialWindowSizeChanged) {
+      if (maxInitialWindowSizeSeen! > base.initialWindowSize) {
+        _onCheckInitialWindowSizePeak?.call(
+          maxInitialWindowSizeSeen - previousInitialWindowSize,
+        );
+      }
+      final difference = base.initialWindowSize - previousInitialWindowSize;
+      _onInitialWindowSizeChangeController.add(difference);
     }
   }
 }

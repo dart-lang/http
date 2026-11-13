@@ -169,6 +169,20 @@ void main() {
       await Future<void>.delayed(Duration.zero);
 
       expect(changes, [70000 - 65535]);
+
+      // Multiple SETTINGS_INITIAL_WINDOW_SIZE entries in one SETTINGS frame
+      // coalesce into a single stream-window update (CVE-2020-11080).
+      changes.clear();
+      sh.handleSettingsFrame(
+        SettingsFrame(FrameHeader(18, FrameType.SETTINGS, 0, 0), [
+          Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 1),
+          Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 100000),
+          Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, 80000),
+        ]),
+      );
+      await Future<void>.delayed(Duration.zero);
+
+      expect(changes, [80000 - 70000]);
     });
 
     test('remote-max-frame-size', () {
