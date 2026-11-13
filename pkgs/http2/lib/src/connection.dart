@@ -752,6 +752,13 @@ class ClientConnection extends Connection implements ClientTransportConnection {
   bool get isOpen =>
       !_state.isFinishing && !_state.isTerminated && _streams.canOpenStream;
 
+  /// Whether this connection itself is still open (as opposed to merely at its
+  /// concurrent stream limit).
+  bool get isAlive =>
+      !_state.isFinishing &&
+      !_state.isTerminated &&
+      !_streams.ranOutOfStreamIds;
+
   @override
   int? get peerMaxConcurrentStreams =>
       _settingsHandler.peerSettings.maxConcurrentStreams;

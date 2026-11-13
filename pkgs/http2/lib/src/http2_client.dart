@@ -84,7 +84,7 @@ class Http2Client extends BaseClient {
   // Synchronous (no `await`), so concurrent requests to a new host:port
   // can't race each other into creating two pools for the same key.
   ClientPool _poolFor(Uri url) {
-    final key = '${url.host}:${url.port}';
+    final key = '${_bracketIpv6Host(url.host)}:${url.port}';
     return _pools.putIfAbsent(
       key,
       () => ClientPool(
@@ -190,34 +190,39 @@ class Http2Client extends BaseClient {
   Future<StreamedResponse> _sendOverHttp2(
     PoolLease lease,
     BaseRequest request,
+    List<Header> requestHeaders,
     List<int> bodyBytes,
   ) async {
     final transport = lease.connection;
-    if (!transport.isOpen) throw const _ConnectionClosedByPeer();
+    if (!transport.isAlive) throw const _ConnectionClosedByPeer();
+    if (!transport.isOpen) {
+      throw ClientException(
+        'The HTTP/2 connection is not accepting new streams.',
+        request.url,
+      );
+    }
 
-    final rawPath = request.url.path.isEmpty ? '/' : request.url.path;
-    final path =
-        request.url.hasQuery ? '$rawPath?${request.url.query}' : rawPath;
-
-    final stream = transport.makeRequest([
-      Header.ascii(':method', request.method),
-      Header.ascii(':scheme', 'https'),
-      Header.ascii(':authority', _authorityOf(request.url)),
-      Header.ascii(':path', path),
-      for (final entry in request.headers.entries)
-        if (!_connectionSpecificHeaders.contains(entry.key.toLowerCase()))
-          Header.ascii(entry.key.toLowerCase(), entry.value),
-    ], endStream: bodyBytes.isEmpty);
+    final stream = transport.makeRequest(
+      requestHeaders,
+      endStream: bodyBytes.isEmpty,
+    );
 
     if (bodyBytes.isNotEmpty) stream.sendData(bodyBytes, endStream: true);
 
     final statusCompleter = Completer<int>();
     late final StreamSubscription<StreamMessage> subscription;
+    var failedLocally = false;
     // Pausing the body pauses the HTTP/2 stream, which then stops granting
     // flow-control credit (WINDOW_UPDATE, RFC 9113 5.2) once what the peer
     // was already allowed to send has arrived: a slow reader holds at most
-    // the stream window in memory rather than the whole response.
+    // the stream window in memory rather than the whole response. Until a
+    // caller listens to `response.stream`, `subscription` is paused as soon as
+    // final response headers arrive so unread responses cannot buffer in
+    // `bodyController` without bound.
     final bodyController = StreamController<List<int>>(
+      onListen: () {
+        if (subscription.isPaused) subscription.resume();
+      },
       onPause: () => subscription.pause(),
       onResume: () => subscription.resume(),
       onCancel: () {
@@ -228,39 +233,93 @@ class Http2Client extends BaseClient {
     );
     final responseHeaders = <String, String>{};
 
+    void failProtocol(String message) {
+      if (failedLocally) return;
+      failedLocally = true;
+      final failure = ClientException(message, request.url);
+      stream.terminate();
+      unawaited(subscription.cancel());
+      if (!statusCompleter.isCompleted) {
+        statusCompleter.completeError(failure);
+      } else {
+        bodyController.addError(failure);
+      }
+      if (!bodyController.isClosed) {
+        unawaited(bodyController.close());
+      }
+      lease.release();
+    }
+
     subscription = stream.incomingMessages.listen(
       (message) {
         if (message is HeadersStreamMessage) {
+          if (statusCompleter.isCompleted) {
+            // Trailing headers do not mutate responseHeaders.
+            return;
+          }
+          String? rawStatus;
+          final blockHeaders = <String, String>{};
           for (final header in message.headers) {
             final name = latin1.decode(header.name);
             final value = latin1.decode(header.value);
             if (name == ':status') {
-              final status = int.tryParse(value);
-              if (status == null) {
-                if (!statusCompleter.isCompleted) {
-                  statusCompleter.completeError(
-                    ClientException(
-                      'Invalid HTTP/2 ":status" value "$value"',
-                      request.url,
-                    ),
-                  );
-                }
-              } else if (status >= 200 && !statusCompleter.isCompleted) {
-                statusCompleter.complete(status);
+              if (rawStatus != null) {
+                failProtocol('Duplicate HTTP/2 ":status" pseudo-header.');
+                return;
               }
+              rawStatus = value;
+            } else if (name.startsWith(':')) {
+              failProtocol('Unexpected HTTP/2 response pseudo-header "$name".');
+              return;
             } else {
-              responseHeaders.update(
+              blockHeaders.update(
                 name,
                 (existing) => '$existing, $value',
                 ifAbsent: () => value,
               );
             }
           }
+
+          final status = _parseStatusCode(rawStatus);
+          if (status == null) {
+            failProtocol(
+              rawStatus == null
+                  ? 'Missing HTTP/2 ":status" pseudo-header.'
+                  : 'Invalid HTTP/2 ":status" value "$rawStatus".',
+            );
+            return;
+          }
+          if (status < 200) {
+            // Ignore 1xx informational header blocks (RFC 9110 section 15.2).
+            return;
+          }
+
+          final rawContentLength = blockHeaders['content-length'];
+          if (rawContentLength != null &&
+              _parseNonNegativeInt(rawContentLength) == null) {
+            failProtocol(
+              'Invalid HTTP/2 "content-length" value "$rawContentLength".',
+            );
+            return;
+          }
+
+          responseHeaders.addAll(blockHeaders);
+          statusCompleter.complete(status);
+          if (!message.endStream && !bodyController.hasListener) {
+            subscription.pause();
+          }
         } else if (message is DataStreamMessage) {
+          if (!statusCompleter.isCompleted) {
+            failProtocol(
+              'Received HTTP/2 DATA frame before response ":status" headers.',
+            );
+            return;
+          }
           bodyController.add(message.bytes);
         }
       },
       onDone: () {
+        if (failedLocally) return;
         if (!statusCompleter.isCompleted) {
           statusCompleter.completeError(
             ClientException(
@@ -275,6 +334,7 @@ class Http2Client extends BaseClient {
         lease.release();
       },
       onError: (Object error, StackTrace stackTrace) {
+        if (failedLocally) return;
         if (_isConnectionFailure(transport, error)) lease.markFailed();
         final failure =
             error is ClientException
@@ -296,8 +356,8 @@ class Http2Client extends BaseClient {
     return StreamedResponse(
       bodyController.stream,
       statusCode,
-      contentLength: int.tryParse(responseHeaders['content-length'] ?? ''),
-      headers: Map.unmodifiable(responseHeaders),
+      contentLength: _parseNonNegativeInt(responseHeaders['content-length']),
+      headers: Map.unmodifiable(Map.of(responseHeaders)),
       reasonPhrase: _reasonPhrases[statusCode],
       request: request,
     );
@@ -320,19 +380,36 @@ class Http2Client extends BaseClient {
         request.url,
       );
     }
+    if (!request.url.hasAuthority || request.url.host.isEmpty) {
+      throw ClientException(
+        'Invalid request URL: missing host authority.',
+        request.url,
+      );
+    }
+    // Validate URL, method, and caller-supplied headers before dialing, then
+    // rebuild after `finalize()` so headers added during finalization (such as
+    // MultipartRequest's `content-type` boundary) are included too.
+    _buildOutboundHeaders(request);
 
     List<int>? bodyBytes;
+    List<Header>? requestHeaders;
 
     Future<StreamedResponse> attempt() async {
       final lease = await _poolFor(request.url).acquire();
       try {
         bodyBytes ??= await request.finalize().toBytes();
+        requestHeaders ??= _buildOutboundHeaders(request);
       } catch (_) {
         lease.release();
         rethrow;
       }
       try {
-        return await _sendOverHttp2(lease, request, bodyBytes!);
+        return await _sendOverHttp2(
+          lease,
+          request,
+          requestHeaders!,
+          bodyBytes!,
+        );
       } catch (error) {
         // A reset of just this stream says nothing about the connection, which
         // keeps serving its other streams - only drop it when it is gone.
@@ -401,7 +478,7 @@ class _ConnectionClosedByPeer implements Exception {
 bool _isConnectionFailure(ClientConnection connection, Object error) =>
     error is TransportConnectionException ||
     error is _ConnectionClosedByPeer ||
-    !connection.isOpen;
+    !connection.isAlive;
 
 /// The receive window each stream starts with.
 const _initialStreamWindowSize = 256 * 1024;
@@ -463,10 +540,163 @@ const _reasonPhrases = {
   511: 'Network Authentication Required',
 };
 
-/// RFC 9113 8.3.1: ":authority" carries the port unless it is the default for
-/// the scheme - which is always https here, so 443.
-String _authorityOf(Uri url) =>
-    url.port == 443 ? url.host : '${url.host}:${url.port}';
+/// RFC 9113 8.3.1 & RFC 3986 3.2.2: ":authority" carries the host (with IPv6
+/// literals enclosed in square brackets) and the port unless it is 443.
+String _authorityOf(Uri url) {
+  final host = _bracketIpv6Host(url.host);
+  return url.port == 443 ? host : '$host:${url.port}';
+}
+
+String _bracketIpv6Host(String host) => host.contains(':') ? '[$host]' : host;
+
+List<Header> _buildOutboundHeaders(BaseRequest request) {
+  if (!_isValidToken(request.method)) {
+    throw ClientException(
+      'Invalid HTTP method "${request.method}".',
+      request.url,
+    );
+  }
+
+  final rawPath = request.url.path.isEmpty ? '/' : request.url.path;
+  final path = request.url.hasQuery ? '$rawPath?${request.url.query}' : rawPath;
+  if (!_isValidFieldValueString(path)) {
+    throw ClientException('Invalid request path.', request.url);
+  }
+  final authority = _authorityOf(request.url);
+  if (!_isValidFieldValueString(authority)) {
+    throw ClientException('Invalid request authority.', request.url);
+  }
+
+  final connectionNominated = <String>{};
+  for (final entry in request.headers.entries) {
+    if (entry.key.toLowerCase() == 'connection') {
+      for (final token in entry.value.split(',')) {
+        final trimmed = token.trim().toLowerCase();
+        if (trimmed.isNotEmpty) connectionNominated.add(trimmed);
+      }
+    }
+  }
+
+  final encoded = <Header>[
+    Header.ascii(':method', request.method),
+    Header.ascii(':scheme', 'https'),
+    Header.ascii(':authority', authority),
+    Header.ascii(':path', path),
+  ];
+
+  for (final entry in request.headers.entries) {
+    final key = entry.key;
+    if (key.startsWith(':') || !_isValidToken(key)) {
+      throw ClientException('Invalid HTTP header name "$key".', request.url);
+    }
+    final lowerKey = key.toLowerCase();
+    final trimmedValue = _trimAsciiOws(entry.value);
+    if (!_isValidFieldValueString(trimmedValue)) {
+      throw ClientException(
+        'Invalid HTTP header value for "$key".',
+        request.url,
+      );
+    }
+    if (_connectionSpecificHeaders.contains(lowerKey) ||
+        connectionNominated.contains(lowerKey)) {
+      continue;
+    }
+    if (lowerKey == 'te') {
+      if (trimmedValue.toLowerCase() != 'trailers') {
+        throw ClientException(
+          'HTTP/2 only allows "te: trailers" (got "${entry.value}").',
+          request.url,
+        );
+      }
+      encoded.add(Header.ascii('te', 'trailers'));
+      continue;
+    }
+    encoded.add(Header(ascii.encode(lowerKey), latin1.encode(trimmedValue)));
+  }
+
+  return encoded;
+}
+
+bool _isValidToken(String s) {
+  if (s.isEmpty) return false;
+  for (var i = 0; i < s.length; i++) {
+    final c = s.codeUnitAt(i);
+    final isAlphaNum =
+        (c >= 0x30 && c <= 0x39) ||
+        (c >= 0x41 && c <= 0x5a) ||
+        (c >= 0x61 && c <= 0x7a);
+    if (isAlphaNum) continue;
+    final isSymbol = switch (c) {
+      0x21 ||
+      0x23 ||
+      0x24 ||
+      0x25 ||
+      0x26 ||
+      0x27 ||
+      0x2a ||
+      0x2b ||
+      0x2d ||
+      0x2e ||
+      0x5e ||
+      0x5f ||
+      0x60 ||
+      0x7c ||
+      0x7e => true,
+      _ => false,
+    };
+    if (!isSymbol) return false;
+  }
+  return true;
+}
+
+String _trimAsciiOws(String s) {
+  var start = 0;
+  var end = s.length;
+  while (start < end) {
+    final c = s.codeUnitAt(start);
+    if (c != 0x20 && c != 0x09) break;
+    start++;
+  }
+  while (end > start) {
+    final c = s.codeUnitAt(end - 1);
+    if (c != 0x20 && c != 0x09) break;
+    end--;
+  }
+  return start == 0 && end == s.length ? s : s.substring(start, end);
+}
+
+bool _isValidFieldValueString(String s) {
+  for (var i = 0; i < s.length; i++) {
+    final c = s.codeUnitAt(i);
+    if ((c < 0x20 && c != 0x09) || c == 0x7f || c > 0xff) {
+      return false;
+    }
+  }
+  return true;
+}
+
+int? _parseStatusCode(String? value) {
+  if (value == null || value.length != 3) return null;
+  final d0 = value.codeUnitAt(0) - 0x30;
+  final d1 = value.codeUnitAt(1) - 0x30;
+  final d2 = value.codeUnitAt(2) - 0x30;
+  if (d0 < 0 || d0 > 9 || d1 < 0 || d1 > 9 || d2 < 0 || d2 > 9) return null;
+  final status = d0 * 100 + d1 * 10 + d2;
+  if (status < 100 || status > 599 || status == 101) return null;
+  return status;
+}
+
+int? _parseNonNegativeInt(String? value) {
+  if (value == null || value.isEmpty) return null;
+  var result = 0;
+  for (var i = 0; i < value.length; i++) {
+    final d = value.codeUnitAt(i) - 0x30;
+    if (d < 0 || d > 9) return null;
+    if (result > (0x7fffffffffffffff - d) ~/ 10) return null;
+    result = result * 10 + d;
+  }
+  return result;
+}
 
 /// Header fields forbidden on an HTTP/2 stream (RFC 7540 8.1.2.2), plus
 /// `host` since `:authority` already carries what it would.
