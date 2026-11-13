@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:typed_data';
+
 import 'package:http2/src/hpack/hpack.dart';
 import 'package:test/test.dart';
 
@@ -717,6 +719,56 @@ void main() {
           () => context.decoder.decode(bytes),
           throwsA(isHPackDecodingException),
         );
+      });
+
+      test('rejects overflowing HPACK integer and mid-block table resize', () {
+        final context = HPackContext();
+        // RFC 7541 section 5.1: an integer encoding that overflows 31/64 bits
+        // must fail with a decoding error rather than wrapping negative.
+        final overflowing = <int>[0x3f, ...List<int>.filled(10, 0x80), 0x01];
+        expect(
+          () => context.decoder.decode(overflowing),
+          throwsA(isHPackDecodingException),
+        );
+
+        // RFC 7541 section 4.2: a dynamic table size update must occur at the
+        // very beginning of the first header block, not after a header field.
+        final midBlockResize = <int>[
+          0x82, // :method: GET
+          0x20, // dynamic table size update (0)
+        ];
+        expect(
+          () => context.decoder.decode(midBlockResize),
+          throwsA(isHPackDecodingException),
+        );
+      });
+
+      test('copies dynamic-table entries instead of pinning input buffers', () {
+        final context = HPackContext();
+        // Incremental indexing of a tiny literal field inside a 64 KiB buffer.
+        final backing = Uint8List(65536);
+        final encoded = <int>[
+          0x40,
+          0x01,
+          0x61, // name: "a"
+          0x01,
+          0x62, // value: "b"
+          // Remaining bytes are unindexed literal padding so the input slice
+          // uses a 64 KiB ByteBuffer.
+          0x00,
+          0x01,
+          0x78,
+          ...TestHelper.newInteger(0x00, 7, 65000),
+          ...List<int>.filled(65000, 0x79),
+        ];
+        backing.setRange(0, encoded.length, encoded);
+        context.decoder.decode(
+          Uint8List.sublistView(backing, 0, encoded.length),
+        );
+
+        final lookup = context.decoder.decode([0xbe]); // dynamic index 62
+        final storedValue = lookup.single.value as Uint8List;
+        expect(storedValue.buffer.lengthInBytes, 1);
       });
     });
 

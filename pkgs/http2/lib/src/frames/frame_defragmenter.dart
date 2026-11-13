@@ -105,10 +105,14 @@ class FrameDefragmenter {
     ContinuationFrame finalFrame,
     Uint8List bytes,
   ) {
+    // RFC 9113 sections 4.1 and 6.10: only END_HEADERS (0x04) is defined on
+    // CONTINUATION; undefined flags must be ignored rather than OR-ed onto the
+    // initial HEADERS / PUSH_PROMISE frame.
     final header = FrameHeader(
       _combinedPayloadLength,
       initialFrame.header.type,
-      initialFrame.header.flags | finalFrame.header.flags,
+      initialFrame.header.flags |
+          (finalFrame.header.flags & ContinuationFrame.FLAG_END_HEADERS),
       initialFrame.header.streamId,
     );
     if (initialFrame is HeadersFrame) {

@@ -90,6 +90,13 @@
   stream producers (CVE-2019-9517), count unread `WINDOW_UPDATE` replies
   toward the queued reply limit, and avoid quadratic byte copying when
   fragmenting non-`Uint8List` payloads across small windows (CVE-2019-9511).
+- Validate HPACK integer prefixes, dynamic table resize placement, and
+  dynamic table buffer ownership (RFC 7541 Sections 4.2, 4.4, and 5.1), reject
+  unsolicited `CONTINUATION` frames and mask undefined `CONTINUATION` flags
+  (RFC 9113 Sections 4.1 and 6.10), and reject malformed HTTP/2 header names,
+  values, pseudo-headers, connection-specific headers, trailers without
+  `END_STREAM`, and mismatched `content-length` payloads (RFC 9113 Sections
+  8.1–8.5, CVE-2021-33197, CVE-2022-22720, CVE-2023-25690).
 
 ## 3.1.0
 

@@ -17,6 +17,7 @@ import '../flowcontrol/window_handler.dart';
 import '../frames/frames.dart';
 import '../settings/settings.dart';
 import '../sync_errors.dart';
+import 'http_message_validator.dart';
 
 /// Represents the current state of a stream.
 enum StreamState {
@@ -60,6 +61,14 @@ class Http2StreamImpl extends TransportStream
 
   // Whether this stream currently counts toward the active stream limit.
   bool _countedAsActive = false;
+
+  // Inbound HTTP framing state (RFC 9113 section 8.1).
+  bool _receivedNonInformationalHeaders = false;
+  bool _enforceHttpFraming = false;
+  bool _awaitingFinalHeadersAfterInformational = false;
+  bool _isHeadRequest = false;
+  int? _expectedContentLength;
+  int _receivedDataBytes = 0;
 
   // Error code from RST_STREAM frame, if the stream has been terminated
   // remotely.
@@ -702,6 +711,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         ErrorCode.PROTOCOL_ERROR,
         exception,
       );
+      if (frame is DataFrame) {
+        incomingQueue.processIgnoredDataFrame(frame);
+      }
     } on StreamFlowControlException catch (exception) {
       _resetStreamForPeerError(
         exception.streamId,
@@ -805,11 +817,34 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
               _rejectOversizedNewRemoteStream(frame);
               return;
             }
+            final (validated, error) = validateInboundHeaderBlock(
+              frame.decodedHeaders,
+              isRequest: true,
+              isTrailer: false,
+            );
+            if (error != null ||
+                (frame.hasEndStreamFlag &&
+                    validated!.contentLength != null &&
+                    validated.contentLength != 0)) {
+              _registerNewRemoteStreamId(frame.header.streamId);
+              _chargePeerStreamReset(frame.header.streamId);
+              _frameWriter.writeRstStreamReply(
+                frame.header.streamId,
+                ErrorCode.PROTOCOL_ERROR,
+              );
+              return;
+            }
             var newStream = newRemoteStream(frame.header.streamId);
             if (newStream == null) return;
             _changeState(newStream, StreamState.Open);
 
-            _handleHeadersFrame(newStream, frame);
+            newStream
+              .._receivedNonInformationalHeaders = true
+              .._enforceHttpFraming = validated!.hasPseudoHeaders
+              .._isHeadRequest = validated.isHeadRequest
+              .._expectedContentLength = validated.contentLength;
+            incomingQueue.processHeadersFrame(frame);
+            if (frame.hasEndStreamFlag) _handleEndOfStreamRemote(newStream);
             _newStreamsC.add(newStream);
           } else {
             // We must be able to receive header frames for streams that have
@@ -867,6 +902,11 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           // RFC 9113 section 4.1: "Implementations MUST ignore and discard
           // frames of unknown types." That includes frames an extension sends
           // on streams this end considers idle or closed.
+        } else if (frame is ContinuationFrame) {
+          // RFC 9113 section 6.10: a CONTINUATION frame not preceded by a
+          // HEADERS, PUSH_PROMISE, or CONTINUATION frame without END_HEADERS
+          // set must be treated as a connection error of type PROTOCOL_ERROR.
+          throw ProtocolException('Received unexpected CONTINUATION frame.');
         } else if (frame is PushPromiseFrame) {
           throw ProtocolException(
             'Cannot push on a non-existent stream '
@@ -902,6 +942,11 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           _handleHeadersFrame(stream, frame);
         } else if (frame is DataFrame) {
           _handleDataFrame(stream, frame);
+        } else if (frame is ContinuationFrame) {
+          // RFC 9113 section 6.10: a CONTINUATION frame not preceded by a
+          // HEADERS, PUSH_PROMISE, or CONTINUATION frame without END_HEADERS
+          // set must be treated as a connection error of type PROTOCOL_ERROR.
+          throw ProtocolException('Received unexpected CONTINUATION frame.');
         } else if (frame is PushPromiseFrame) {
           _handlePushPromiseFrame(stream, frame);
         } else if (frame is WindowUpdateFrame) {
@@ -937,6 +982,78 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       );
     }
 
+    final decodedHeaders = frame.decodedHeaders;
+    if (!stream._receivedNonInformationalHeaders) {
+      final (validated, error) = validateInboundHeaderBlock(
+        decodedHeaders,
+        isRequest: isServer,
+        isTrailer: false,
+      );
+      if (error != null) {
+        throw StreamProtocolException(stream.id, error);
+      }
+      if (validated!.isInformationalResponse) {
+        if (frame.hasEndStreamFlag) {
+          throw StreamProtocolException(
+            stream.id,
+            'Informational 1xx response must not carry END_STREAM.',
+          );
+        }
+        stream
+          .._awaitingFinalHeadersAfterInformational = true
+          .._enforceHttpFraming = true;
+      } else {
+        final enforceContentLength =
+            isServer ||
+            (!stream._isHeadRequest &&
+                validated.statusCode != 204 &&
+                validated.statusCode != 304);
+        final expectedLength =
+            enforceContentLength ? validated.contentLength : null;
+        if (frame.hasEndStreamFlag &&
+            expectedLength != null &&
+            stream._receivedDataBytes != expectedLength) {
+          throw StreamProtocolException(
+            stream.id,
+            'Received DATA length (${stream._receivedDataBytes}) does not '
+            'match content-length ($expectedLength).',
+          );
+        }
+        stream
+          .._receivedNonInformationalHeaders = true
+          .._awaitingFinalHeadersAfterInformational = false
+          .._enforceHttpFraming =
+              stream._enforceHttpFraming || validated.hasPseudoHeaders
+          .._isHeadRequest = stream._isHeadRequest || validated.isHeadRequest
+          .._expectedContentLength = expectedLength;
+      }
+    } else {
+      final (_, error) = validateInboundHeaderBlock(
+        decodedHeaders,
+        isRequest: isServer,
+        isTrailer: true,
+      );
+      if (error != null) {
+        throw StreamProtocolException(stream.id, error);
+      }
+      if ((stream._enforceHttpFraming || stream._receivedDataBytes > 0) &&
+          !frame.hasEndStreamFlag) {
+        throw StreamProtocolException(
+          stream.id,
+          'Trailer HEADERS frame must carry END_STREAM.',
+        );
+      }
+      if (frame.hasEndStreamFlag &&
+          stream._expectedContentLength != null &&
+          stream._receivedDataBytes != stream._expectedContentLength) {
+        throw StreamProtocolException(
+          stream.id,
+          'Received DATA length (${stream._receivedDataBytes}) does not match '
+          'content-length (${stream._expectedContentLength}).',
+        );
+      }
+    }
+
     incomingQueue.processHeadersFrame(frame);
 
     if (frame.hasEndStreamFlag) _handleEndOfStreamRemote(stream);
@@ -950,6 +1067,27 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         'Expected open state (was: ${stream.state}).',
       );
     }
+
+    if (stream._awaitingFinalHeadersAfterInformational) {
+      throw StreamProtocolException(
+        stream.id,
+        'Received DATA frame before final response headers.',
+      );
+    }
+
+    final nextDataBytes = stream._receivedDataBytes + frame.bytes.length;
+    final expectedLength = stream._expectedContentLength;
+    if (expectedLength != null) {
+      if (nextDataBytes > expectedLength ||
+          (frame.hasEndStreamFlag && nextDataBytes != expectedLength)) {
+        throw StreamProtocolException(
+          stream.id,
+          'Received DATA length ($nextDataBytes) does not match '
+          'content-length ($expectedLength).',
+        );
+      }
+    }
+    stream._receivedDataBytes = nextDataBytes;
 
     incomingQueue.processDataFrame(frame);
 
@@ -978,8 +1116,24 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       return;
     }
 
+    final (validated, error) = validateInboundHeaderBlock(
+      frame.decodedHeaders,
+      isRequest: true,
+      isTrailer: false,
+    );
+    if (error != null) {
+      _registerNewRemoteStreamId(frame.promisedStreamId);
+      _chargePeerStreamReset(frame.promisedStreamId);
+      _frameWriter.writeRstStreamReply(
+        frame.promisedStreamId,
+        ErrorCode.PROTOCOL_ERROR,
+      );
+      return;
+    }
+
     var pushedStream = newRemoteStream(frame.promisedStreamId);
     if (pushedStream == null) return;
+    pushedStream._isHeadRequest = validated!.isHeadRequest;
     // A client never sends frames on a pushed stream, so its outgoing queue is
     // already done.
     pushedStream.outgoingQueue
@@ -1067,6 +1221,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     stream.outgoingQueue.enqueueMessage(
       HeadersMessage(stream.id, headers, endStream),
     );
+
+    if (!isServer && isHeadRequestHeaders(headers)) {
+      stream._isHeadRequest = true;
+    }
 
     if (stream.state == StreamState.Idle) {
       _changeState(stream, StreamState.Open);
