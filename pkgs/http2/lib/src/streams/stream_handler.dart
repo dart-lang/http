@@ -132,6 +132,19 @@ class Http2StreamImpl extends TransportStream
 class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   static const int MAX_STREAM_ID = (1 << 31) - 1;
 
+  /// How many of the streams it opened the peer may reset at once.
+  ///
+  /// A reset stream no longer counts toward the concurrent stream limit (RFC
+  /// 9113 section 5.1.2), so without a limit on resets a peer could make this
+  /// endpoint set up streams, and the application start handling them, as
+  /// fast as it can send HEADERS and RST_STREAM frames (the "Rapid Reset",
+  /// CVE-2023-44487).
+  static const maxPeerStreamResetBurst = 1000;
+
+  /// How many of the streams it opened the peer may reset per second, once it
+  /// has used up [maxPeerStreamResetBurst].
+  static const peerStreamResetsPerSecond = 33;
+
   final FrameWriter _frameWriter;
   final ConnectionMessageQueueIn incomingQueue;
   final ConnectionMessageQueueOut outgoingQueue;
@@ -150,6 +163,13 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   /// initial window size (see [IncomingWindowHandler.stream]).
   final int? _maxStreamWindowSize;
   int _consecutivePeerStreamLimitViolations = 0;
+
+  /// Limits how fast the peer may reset the streams it opened, see
+  /// [maxPeerStreamResetBurst].
+  final _peerStreamResets = _TokenBucket(
+    maxPeerStreamResetBurst,
+    peerStreamResetsPerSecond,
+  );
 
   final Map<int, Http2StreamImpl> _openStreams = {};
   int nextStreamId;
@@ -903,6 +923,15 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _handleRstFrame(Http2StreamImpl stream, RstStreamFrame frame) {
+    if (_isPeerInitiatedStream(stream.id) && !_peerStreamResets.tryTake()) {
+      // RFC 9113 section 10.5: "An endpoint MAY treat activity that is
+      // suspicious as a connection error (Section 5.4.1) of type
+      // ENHANCE_YOUR_CALM."
+      throw EnhanceYourCalmException(
+        'The peer reset more than $maxPeerStreamResetBurst of the streams it '
+        'opened at once, or more than $peerStreamResetsPerSecond per second.',
+      );
+    }
     stream._handleTerminated(frame.errorCode);
     if (frame.errorCode == ErrorCode.NO_ERROR &&
         (stream.state == StreamState.HalfClosedRemote ||
@@ -1190,4 +1219,33 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         'No open stream found and was not a headers frame opening a '
         'new stream.',
       );
+}
+
+/// A token bucket: lets through bursts of up to [_capacity] events, and
+/// [_perSecond] events per second on average.
+class _TokenBucket {
+  final int _capacity;
+  final int _perSecond;
+  final _clock = Stopwatch()..start();
+  int _refilledAtMicros = 0;
+  double _tokens;
+
+  _TokenBucket(this._capacity, this._perSecond)
+    : _tokens = _capacity.toDouble();
+
+  /// Takes a token, or returns `false` if there is none left.
+  bool tryTake() {
+    final now = _clock.elapsedMicroseconds;
+    _tokens = min(
+      _capacity.toDouble(),
+      _tokens +
+          (now - _refilledAtMicros) *
+              _perSecond /
+              Duration.microsecondsPerSecond,
+    );
+    _refilledAtMicros = now;
+    if (_tokens < 1) return false;
+    _tokens--;
+    return true;
+  }
 }

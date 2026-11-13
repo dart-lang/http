@@ -9,6 +9,7 @@ import 'package:http2/src/connection_preface.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/settings/settings.dart';
+import 'package:http2/src/streams/stream_handler.dart' show StreamHandler;
 import 'package:http2/src/sync_errors.dart';
 import 'package:http2/transport.dart';
 import 'package:test/test.dart';
@@ -713,6 +714,55 @@ void main() {
                   ),
             ),
           );
+        },
+      );
+
+      serverTest(
+        'terminates a peer that resets the streams it opens too fast',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          // Twice the burst: the bucket refills by just 33 per second while the
+          // server handles them.
+          const resets = 2 * StreamHandler.maxPeerStreamResetBurst;
+
+          Future serverFun() async {
+            var streams = 0;
+            await for (final _ in server.incomingStreams) {
+              // Only reached if the server let the peer reset all its streams.
+              if (++streams == resets) unawaited(server.terminate());
+            }
+          }
+
+          Future clientFun() async {
+            expect(await nextFrame(), isA<SettingsFrame>());
+            clientWriter.writeSettingsAckFrame();
+            clientWriter.writeSettingsFrame([]);
+            expect(await nextFrame(), isA<SettingsFrame>());
+
+            for (var i = 0; i < resets; i++) {
+              final streamId = 2 * i + 1;
+              clientWriter
+                ..writeHeadersFrame(streamId, [
+                  Header.ascii('a', 'b'),
+                ], endStream: false)
+                ..writeRstStreamFrame(streamId, ErrorCode.CANCEL);
+            }
+            expect(
+              await nextFrame(),
+              isA<GoawayFrame>().having(
+                (f) => f.errorCode,
+                'errorCode',
+                ErrorCode.ENHANCE_YOUR_CALM,
+              ),
+            );
+            expect(await clientReader.moveNext(), isFalse);
+          }
+
+          await Future.wait([serverFun(), clientFun()]);
         },
       );
     });
