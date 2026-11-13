@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert' show utf8;
 
 import '../transport.dart';
+import 'async_utils/async_utils.dart';
 import 'connection_preface.dart';
 import 'flowcontrol/connection_queues.dart';
 import 'flowcontrol/queue_messages.dart';
@@ -84,6 +85,23 @@ class ConnectionState {
 }
 
 abstract class Connection {
+  /// The most control or empty frames (non-ACK `PING`, non-ACK `SETTINGS`,
+  /// `PRIORITY`, unknown extension frames, and unpadded 0-byte `DATA` without
+  /// `END_STREAM`) a peer may send at once, and the rate at which that
+  /// allowance refills (RFC 9113 section 10.5, CVE-2019-9512, CVE-2019-9513,
+  /// CVE-2019-9515, CVE-2019-9518).
+  ///
+  /// 10,000 burst and 330 per second match [nghttp2's][nghttp2]
+  /// `NGHTTP2_DEFAULT_GLITCH_BURST` and `NGHTTP2_DEFAULT_GLITCH_RATE` (10x
+  /// [StreamHandler.maxPeerStreamResetBurst] and
+  /// [StreamHandler.peerStreamResetsPerSecond]); Envoy
+  /// (`DEFAULT_MAX_OUTBOUND_FRAMES`) and Netty
+  /// (`DEFAULT_MAX_QUEUED_CONTROL_FRAMES`) also cap frame floods at 10,000.
+  ///
+  /// [nghttp2]: https://github.com/nghttp2/nghttp2/blob/v1.71.0/lib/nghttp2_session.h#L106-L107
+  static const maxControlFrameBurst = 10000;
+  static const controlFramesPerSecond = 330;
+
   /// The settings the other end has acknowledged to use when communicating with
   /// us.
   final ActiveSettings acknowledgedSettings = ActiveSettings();
@@ -151,6 +169,11 @@ abstract class Connection {
 
   /// The state of this connection.
   late ConnectionState _state;
+
+  final _peerControlFrames = TokenBucket(
+    maxControlFrameBurst,
+    controlFramesPerSecond,
+  );
 
   Connection(
     Stream<List<int>> incoming,
@@ -421,7 +444,8 @@ abstract class Connection {
   void _handleFrameImpl(Frame? frame) {
     // The first frame from the other side must be a [SettingsFrame], otherwise
     // we terminate the connection.
-    if (_state.isInitialized) {
+    final isInitialSettings = _state.isInitialized;
+    if (isInitialSettings) {
       if (frame is! SettingsFrame) {
         _terminate(
           ErrorCode.PROTOCOL_ERROR,
@@ -436,6 +460,18 @@ abstract class Connection {
     // Try to defragment [frame] if it is a Headers/PushPromise frame.
     frame = _defragmenter.tryDefragmentFrame(frame);
     if (frame == null) return;
+
+    if (!isInitialSettings && _isRateLimitedControlOrEmptyFrame(frame)) {
+      if (!_peerControlFrames.tryTake()) {
+        // RFC 9113 section 10.5: "An endpoint MAY treat activity that is
+        // suspicious as a connection error (Section 5.4.1) of type
+        // ENHANCE_YOUR_CALM."
+        throw EnhanceYourCalmException(
+          'The peer sent more than $maxControlFrameBurst control or empty '
+          'frames at once, or more than $controlFramesPerSecond per second.',
+        );
+      }
+    }
 
     // Try to decode headers if it's a Headers/PushPromise frame.
     // [This needs to be done even if the frames get ignored, since the entire
@@ -493,6 +529,15 @@ abstract class Connection {
       _streams.processStreamFrame(_state, frame);
     }
   }
+
+  static bool _isRateLimitedControlOrEmptyFrame(Frame frame) =>
+      (frame is PingFrame && !frame.hasAckFlag) ||
+      (frame is SettingsFrame && !frame.hasAckFlag) ||
+      frame is PriorityFrame ||
+      frame is UnknownFrame ||
+      (frame is DataFrame &&
+          !frame.hasEndStreamFlag &&
+          frame.flowControlledLength == 0);
 
   void _startInboundHeaderBlockTimer() {
     final timeout = _inboundHeaderBlockTimeout;
