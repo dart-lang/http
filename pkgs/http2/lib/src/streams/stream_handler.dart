@@ -365,7 +365,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _rejectPeerStreamLimitViolation(int streamId) {
-    _frameWriter.writeRstStreamFrame(streamId, ErrorCode.REFUSED_STREAM);
+    _frameWriter.writeRstStreamReply(streamId, ErrorCode.REFUSED_STREAM);
     // Enforce local admission immediately, but do not treat the peer as abusive
     // until it has acknowledged the advertised limit and can be expected to
     // obey it.
@@ -384,14 +384,14 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void _rejectOversizedNewRemoteStream(HeadersFrame frame) {
     _registerNewRemoteStreamId(frame.header.streamId);
-    _frameWriter.writeRstStreamFrame(
+    _frameWriter.writeRstStreamReply(
       frame.header.streamId,
       ErrorCode.ENHANCE_YOUR_CALM,
     );
   }
 
   void _rejectOversizedHeaders(Http2StreamImpl stream, HeadersFrame frame) {
-    _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.ENHANCE_YOUR_CALM);
+    _frameWriter.writeRstStreamReply(stream.id, ErrorCode.ENHANCE_YOUR_CALM);
     _closeStreamAbnormally(
       stream,
       StreamException(
@@ -642,19 +642,19 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     try {
       _processStreamFrameInternal(connectionState, frame);
     } on StreamClosedException catch (exception) {
-      _frameWriter.writeRstStreamFrame(
+      _frameWriter.writeRstStreamReply(
         exception.streamId,
         ErrorCode.STREAM_CLOSED,
       );
       _closeStreamIdAbnormally(exception.streamId, exception);
     } on StreamRefusedException catch (exception) {
-      _frameWriter.writeRstStreamFrame(
+      _frameWriter.writeRstStreamReply(
         exception.streamId,
         ErrorCode.REFUSED_STREAM,
       );
       _closeStreamIdAbnormally(exception.streamId, exception);
     } on StreamException catch (exception) {
-      _frameWriter.writeRstStreamFrame(
+      _frameWriter.writeRstStreamReply(
         exception.streamId,
         ErrorCode.INTERNAL_ERROR,
       );
@@ -884,7 +884,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     if (frame.headerListSizeExceeded) {
       _registerNewRemoteStreamId(frame.promisedStreamId);
-      _frameWriter.writeRstStreamFrame(
+      _frameWriter.writeRstStreamReply(
         frame.promisedStreamId,
         ErrorCode.ENHANCE_YOUR_CALM,
       );
