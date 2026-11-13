@@ -114,7 +114,7 @@ class StreamMessageQueueOut extends Object
           var messageToSend = message;
           var messageBytes = message.bytes;
           // TODO: Do not fragment if the number of bytes we can send is too low
-          if (messageBytes.length > bytesAvailable) {
+          if (messageBytes.isNotEmpty && messageBytes.length > bytesAvailable) {
             var partA = viewOrSublist(messageBytes, 0, bytesAvailable);
             var partB = viewOrSublist(
               messageBytes,
