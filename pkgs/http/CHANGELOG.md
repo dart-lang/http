@@ -10,6 +10,9 @@
 * Fix a [bug](https://github.com/dart-lang/http/issues/1934) to release the
   underlying connection when an `AbortableRequest` is aborted before its body is read.
 * Require Dart 3.5 or greater.
+* Avoid a `sink.close` tear-off in `ByteStream.toBytes` that dart2wasm in
+  Dart 3.14.0 can miscompile, crashing wasm apps on every response
+  ([dart-lang/sdk#64940](https://github.com/dart-lang/sdk/issues/64940)).
 * Stop `IOClient` from sending bodyless GET/HEAD requests with
   `Transfer-Encoding: chunked` when `BaseRequest.contentLength` is `null`;
   `dart:io`'s per-method default framing is used instead. A GET or HEAD request
