@@ -38,6 +38,7 @@ class ValidatedHeaderBlock {
   String? method;
   String? scheme;
   String? authority;
+  String? host;
   String? path;
   String? protocol;
   int? statusCode;
@@ -144,6 +145,25 @@ class ValidatedHeaderBlock {
               );
             }
           }
+        case 4:
+          if (isRequest && _asciiEquals(nameBytes, 'host')) {
+            if (isTrailer) {
+              return (
+                null,
+                'The "host" header field is not allowed in trailers.',
+              );
+            }
+            if (host != null) {
+              return (null, 'Duplicate "host" header fields.');
+            }
+            if (valueBytes.contains(0x40 /* '@' */)) {
+              return (
+                null,
+                'The "host" header field must not contain userinfo.',
+              );
+            }
+            host = String.fromCharCodes(valueBytes);
+          }
         case 7:
           if (_asciiEquals(nameBytes, 'upgrade')) {
             return (null, 'Forbidden connection-specific header "upgrade".');
@@ -189,6 +209,23 @@ class ValidatedHeaderBlock {
   }
 
   if (isRequest && !isTrailer) {
+    if (authority != null &&
+        (scheme == null || scheme == 'http' || scheme == 'https') &&
+        authority.contains('@')) {
+      return (null, 'The :authority pseudo-header must not contain userinfo.');
+    }
+    if (authority != null &&
+        host != null &&
+        _normalizeAuthority(authority, scheme) !=
+            _normalizeAuthority(host, scheme)) {
+      // RFC 9113 section 8.3.1: reject requests whose Host header disagrees
+      // with :authority after scheme-based normalization (RFC 3986 section
+      // 6.2.3).
+      return (
+        null,
+        'The "host" header field disagrees with the :authority pseudo-header.',
+      );
+    }
     if (method == 'CONNECT' && protocol == null) {
       // RFC 9113 section 8.5: standard CONNECT requests carry :method and
       // :authority, and omit :scheme and :path.
@@ -298,6 +335,27 @@ bool _asciiEquals(List<int> bytes, String asciiLiteral) {
     if (bytes[i] != asciiLiteral.codeUnitAt(i)) return false;
   }
   return true;
+}
+
+/// Scheme-based normalization of `:authority` / `host` (`RFC 3986 §6.2.3` &
+/// `RFC 9113 §8.3.1`): lowercases ASCII host characters and removes an empty
+/// port or the scheme's default port (`80` for `http`, `443` for `https`).
+String _normalizeAuthority(String raw, String? scheme) {
+  final lower = raw.toLowerCase();
+  final lastBracket = lower.lastIndexOf(']');
+  final lastColon = lower.lastIndexOf(':');
+  if (lastColon > lastBracket) {
+    final port = lower.substring(lastColon + 1);
+    final defaultPort = switch (scheme) {
+      'http' => '80',
+      'https' => '443',
+      _ => null,
+    };
+    if (port.isEmpty || (defaultPort != null && port == defaultPort)) {
+      return lower.substring(0, lastColon);
+    }
+  }
+  return lower;
 }
 
 int? _parseThreeDigitStatus(List<int> bytes) {
