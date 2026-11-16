@@ -85,11 +85,11 @@ class ConnectionState {
 }
 
 abstract class Connection {
-  /// The most control or empty frames (non-ACK `PING`, non-ACK `SETTINGS`,
-  /// `PRIORITY`, unknown extension frames, and unpadded 0-byte `DATA` without
-  /// `END_STREAM`) a peer may send at once, and the rate at which that
-  /// allowance refills (RFC 9113 section 10.5, CVE-2019-9512, CVE-2019-9513,
-  /// CVE-2019-9515, CVE-2019-9518).
+  /// The most control or empty frames (non-ACK or unsolicited-ACK `PING`,
+  /// non-ACK `SETTINGS`, `PRIORITY`, unknown extension frames, and unpadded
+  /// 0-byte `DATA` without `END_STREAM`) a peer may send at once, and the rate
+  /// at which that allowance refills (RFC 9113 section 10.5, CVE-2019-9512,
+  /// CVE-2019-9513, CVE-2019-9515, CVE-2019-9518).
   static const maxControlFrameBurst = 10000;
   static const controlFramesPerSecond = 200;
 
@@ -467,15 +467,7 @@ abstract class Connection {
     if (frame == null) return;
 
     if (!isInitialSettings && _isRateLimitedControlOrEmptyFrame(frame)) {
-      if (!_peerControlFrames.tryTake()) {
-        // RFC 9113 section 10.5: "An endpoint MAY treat activity that is
-        // suspicious as a connection error (Section 5.4.1) of type
-        // ENHANCE_YOUR_CALM."
-        throw EnhanceYourCalmException(
-          'The peer sent more than $maxControlFrameBurst control or empty '
-          'frames at once, or more than $controlFramesPerSecond per second.',
-        );
-      }
+      _takeControlFrameBudget();
     }
 
     // Try to decode headers if it's a Headers/PushPromise frame.
@@ -507,7 +499,9 @@ abstract class Connection {
       if (frame is SettingsFrame) {
         _settingsHandler.handleSettingsFrame(frame);
       } else if (frame is PingFrame) {
-        _pingHandler.processPingFrame(frame);
+        if (!_pingHandler.processPingFrame(frame)) {
+          _takeControlFrameBudget();
+        }
       } else if (frame is WindowUpdateFrame) {
         _connectionWindowHandler.processWindowUpdate(frame);
       } else if (frame is GoawayFrame) {
@@ -532,6 +526,18 @@ abstract class Connection {
       );
     } else {
       _streams.processStreamFrame(_state, frame);
+    }
+  }
+
+  void _takeControlFrameBudget() {
+    if (!_peerControlFrames.tryTake()) {
+      // RFC 9113 section 10.5: "An endpoint MAY treat activity that is
+      // suspicious as a connection error (Section 5.4.1) of type
+      // ENHANCE_YOUR_CALM."
+      throw EnhanceYourCalmException(
+        'The peer sent more than $maxControlFrameBurst control or empty '
+        'frames at once, or more than $controlFramesPerSecond per second.',
+      );
     }
   }
 

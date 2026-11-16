@@ -56,10 +56,8 @@ void main() {
       verify(writer.writePingFrame(1)).called(1);
 
       var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
-      expect(
-        () => pingHandler.processPingFrame(PingFrame(header, 2)),
-        throwsA(isProtocolException),
-      );
+      expect(pingHandler.processPingFrame(PingFrame(header, 2)), isFalse);
+      verifyNoMoreInteractions(writer);
 
       // Ensure outstanding pings will be completed with an error once we call
       // `pingHandler.terminate()`.
