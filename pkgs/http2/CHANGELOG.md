@@ -90,6 +90,11 @@
   building `StreamedResponse.headers`, pause unread response streams until
   listened to, and keep full pooled connections alive across single-stream
   resets.
+- Reject HTTP/2 requests with duplicate `host` headers or a `host` header that
+  disagrees with `:authority` (RFC 9113 Section 8.3.1), reject client-sent
+  `PUSH_PROMISE` frames on servers before defragmentation (RFC 9113 Section
+  8.4), and report `STREAM_CLOSED` on `HEADERS` received for an already-closed
+  stream (RFC 9113 Section 5.1).
 
 ## 3.1.0
 
