@@ -23,6 +23,7 @@ void main(List<String> args) async {
         'org.chromium.net.CronetException',
         'org.chromium.net.NetworkException',
         'org.chromium.net.QuicException',
+        'org.chromium.net.QuicOptions',
         'org.chromium.net.UploadDataProviders',
         'org.chromium.net.UrlRequest',
         'org.chromium.net.UrlResponseInfo',
