@@ -51,7 +51,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server1;
   late HttpServer server2;
 
-  server1 = await HttpServer.bind(InternetAddress.anyIPv4, 0)
+  server1 = await HttpServer.bind(InternetAddress.loopbackIPv4, 0)
     ..listen((request) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       if (request.method == 'OPTIONS') {
@@ -131,7 +131,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       }
     });
 
-  server2 = await HttpServer.bind(InternetAddress.anyIPv4, 0)
+  server2 = await HttpServer.bind(InternetAddress.loopbackIPv4, 0)
     ..listen((request) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       if (request.method == 'OPTIONS') {
