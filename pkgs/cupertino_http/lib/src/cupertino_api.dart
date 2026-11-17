@@ -95,7 +95,7 @@ typedef OnComplete =
 
 /// Callback invoked when the metrics for a task have been collected.
 ///
-/// It is called once per task, after the task completes.
+/// It is called once per task, before [OnComplete].
 typedef OnMetrics =
     void Function(
       URLSession session,
@@ -1680,8 +1680,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// [URLSession:task:didCompleteWithError:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411610-urlsession)
   ///
   /// If [onMetrics] is set then it will be called when the metrics for a task
-  /// have been collected, after the task completes. The metrics include the
-  /// protocol the server negotiated (for example `h2` or `h3`). See
+  /// have been collected, before [onComplete] is called. The metrics include
+  /// the protocol the server negotiated (for example `h2` or `h3`). See
   /// [NSURLSession:task:didFinishCollectingMetrics:](https://developer.apple.com/documentation/foundation/urlsessiontaskdelegate/urlsession(_:task:didfinishcollecting:))
   ///
   /// See [sessionWithConfiguration:delegate:delegateQueue:](https://developer.apple.com/documentation/foundation/nsurlsession/1411597-sessionwithconfiguration)

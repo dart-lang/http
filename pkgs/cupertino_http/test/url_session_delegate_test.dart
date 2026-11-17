@@ -813,7 +813,18 @@ void testOnMetrics(URLSessionConfiguration Function() config) {
       expect(metrics.redirectCount, 0);
       expect(metrics.transactionMetrics, hasLength(1));
       // `dart:io`'s HttpServer only speaks HTTP/1.1.
-      expect(metrics.transactionMetrics.single.networkProtocolName, 'http/1.1');
+      expect(
+        metrics.toString(),
+        startsWith('[URLSessionTaskMetrics transactionMetrics=['),
+      );
+      final transaction = metrics.transactionMetrics.single;
+      expect(transaction.networkProtocolName, 'http/1.1');
+      expect(transaction.reusedConnection, isFalse);
+      expect(
+        transaction.toString(),
+        '[URLSessionTaskTransactionMetrics '
+        'networkProtocolName=http/1.1 reusedConnection=false]',
+      );
       session.finishTasksAndInvalidate();
     });
 
@@ -854,6 +865,7 @@ void main() {
     testOnComplete(config);
     // onResponse is not called for background sessions.
     testOnData(config);
+    // onMetrics is not called for background sessions.
     // onRedirect is not called for background sessions.
     testOnFinishedDownloading(config);
     // WebSocket tasks are not supported in background sessions.
