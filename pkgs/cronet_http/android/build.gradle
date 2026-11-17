@@ -64,7 +64,6 @@ kotlin {
     }
 }
 
-
 dependencies {
     if (dartDefines.cronetHttpNoPlay == 'true') {
         implementation 'org.chromium.net:cronet-embedded:143.7445.0'

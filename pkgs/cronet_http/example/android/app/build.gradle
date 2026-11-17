@@ -62,7 +62,6 @@ kotlin {
     }
 }
 
-
 flutter {
     source '../..'
 }
