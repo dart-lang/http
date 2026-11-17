@@ -88,7 +88,7 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.38.1", "any"]
+        flutter-version: ["3.47.0", "any"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
