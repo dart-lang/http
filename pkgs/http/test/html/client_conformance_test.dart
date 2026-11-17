@@ -18,6 +18,7 @@ void main() {
     canSendProxyAuthorizationHeaders: false,
     canSetUserInfo: false,
     canWorkInIsolates: false,
+    correctCrossHostRedirect: true,
     supportsMultipartRequest: false,
     supportsAbort: true,
   );
