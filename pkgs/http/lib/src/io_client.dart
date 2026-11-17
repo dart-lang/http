@@ -228,7 +228,7 @@ class IOClient extends BaseClient {
       // http://www.example.com/foo redirects to /bar
       // http://www.example.com/bar redirects to http://www.example2.com/baz
       // http://www.example2.com/baz redirects to /foo
-      // http://www.example2.com/foo
+      // http://www.example2.com/foo is the final URL
       for (final redirect in response.redirects) {
         url = url.resolveUri(redirect.location);
       }

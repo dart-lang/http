@@ -160,6 +160,9 @@ void hybridMain(StreamChannel<Object?> channel) async {
         request.response.headers.add('set-cookie', 'loopback-cookie=secret');
         unawaited(request.response
             .redirect(Uri.http('localhost:${server1.port}', '/')));
+      } else {
+        request.response.statusCode = HttpStatus.notFound;
+        unawaited(request.response.close());
       }
     });
 

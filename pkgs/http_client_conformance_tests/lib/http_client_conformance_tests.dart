@@ -64,11 +64,12 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [preservesMethodCase] is `false` then tests that assume that the
 /// [Client] preserves custom request method casing will be skipped.
 ///
-/// If [canSendCookieHeaders] is `false` then tests that require that "cookie"
-/// headers be sent by the client will not be run.
+/// If [canSendCookieHeaders] is `false` then tests will not set "cookie"
+/// headers in requests, and tests that only verify "cookie" headers will be
+/// skipped.
 ///
-/// If [canSendProxyAuthorizationHeaders] is `false` then tests that require
-/// that "proxy-authorization" headers be set by the client will not be run.
+/// If [canSendProxyAuthorizationHeaders] is `false` then tests will not set
+/// "proxy-authorization" headers in requests.
 ///
 /// If [canSetUserInfo] is `false` then tests that require that the request URL
 /// contain userinfo (e.g. `http://user:password@example.com/`) will not be

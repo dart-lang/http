@@ -12,11 +12,11 @@ import 'redirect_server_vm.dart'
 
 /// Tests that the [Client] correctly implements HTTP redirect logic.
 ///
-/// If [canSendCookieHeaders] is `false` then tests that require that "cookie"
-/// headers be sent by the client will not be run.
+/// If [canSendCookieHeaders] is `false` then tests will not set "cookie"
+/// headers in requests.
 ///
-/// If [canSendProxyAuthorizationHeaders] is `false` then tests that require
-/// that "proxy-authorization" headers be set by the client will not be run.
+/// If [canSendProxyAuthorizationHeaders] is `false` then tests will not set
+/// "proxy-authorization" headers in requests.
 ///
 /// If [canSetUserInfo] is `false` then tests that require that the request URL
 /// contain userinfo (e.g. `http://user:password@example.com/`) will not be
@@ -29,30 +29,12 @@ import 'redirect_server_vm.dart'
 /// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
 /// to limit redirects will be skipped.
 void testRedirect(Client Function() clientFactory,
-    {bool canSendCookieHeaders = true,
+    {bool canSendCookieHeaders = false,
     bool canSendProxyAuthorizationHeaders = true,
     bool canSetUserInfo = true,
     bool correctCrossHostRedirect = false,
     bool redirectAlwaysAllowed = false}) {
   group('redirects', () {
-    // RFC 9110, 15.4 says:
-    // Consider removing header fields that were not automatically generated
-    // by the implementation...where there are security implications; this
-    // includes but is not limited to Authorization and Cookie.
-    //
-    // RFC 6265, 8.5 says:
-    // Cookies do not provide isolation by port. If a cookie is readable by a
-    // service running on one port, the cookie is also readable by a service
-    // running on another port of the same server.
-    //
-    // So the behavior that we test is:
-    // - if a redirect changes hosts (e.g., localhost -> 127.0.0.1) then it
-    //   MUST drop headers with security implications.
-    // - if a redirect changes ports then it MUST drop headers with security
-    //   implications, except for cookies which MAY be dropped
-    // - headers with no security implications MUST NOT be dropped during
-    //   redirect
-
     late Client client;
     late String localhost1;
     late String localhost2;
@@ -233,6 +215,24 @@ void testRedirect(Client Function() clientFactory,
     );
 
     group('cross origin', () {
+      // RFC 9110, 15.4 says:
+      // Consider removing header fields that were not automatically generated
+      // by the implementation...where there are security implications; this
+      // includes but is not limited to Authorization and Cookie.
+      //
+      // RFC 6265, 8.5 says:
+      // Cookies do not provide isolation by port. If a cookie is readable by a
+      // service running on one port, the cookie is also readable by a service
+      // running on another port of the same server.
+      //
+      // So the behavior that we test is:
+      // - if a redirect changes hosts (e.g., localhost -> 127.0.0.1) then it
+      //   MUST drop headers with security implications.
+      // - if a redirect changes ports then it MUST drop headers with security
+      //   implications, except for cookies which MAY be dropped
+      // - headers with no security implications MUST NOT be dropped during
+      //   redirect
+
       for (final (authorization, cookie, proxyAuthorization) in [
         ('authorization', 'cookie', 'proxy-authorization'),
         ('Authorization', 'Cookie', 'Proxy-Authorization'),
@@ -302,6 +302,9 @@ void testRedirect(Client Function() clientFactory,
           await response.stream.drain<void>();
           expect(response.statusCode, 200);
           expect(response.isRedirect, false);
+          if (response case BaseResponseWithUrl(url: final url)) {
+            expect(url, Uri.http(loopback1, '/'));
+          }
 
           final [server1, _, _, headers1] =
               await httpServerQueue.next as List<Object?>;
@@ -492,7 +495,7 @@ void testRedirect(Client Function() clientFactory,
         expect(headers2, isNot(contains('proxy-authorization')));
       });
 
-      for (final code in [301, 302, 303]) {
+      for (final code in [301, 302]) {
         test('POST $code cross host redirect', () async {
           final request =
               Request('POST', Uri.http(localhost1, '/cross-host-$code'))
@@ -526,19 +529,14 @@ void testRedirect(Client Function() clientFactory,
             expect(headers1, containsPair('proxy-authorization', ['anything']));
           }
 
-          if (code == 303) {
-            // RFC 9110, 15.4.4: 303 redirects POST to GET.
-            expect(response.statusCode, 200);
-          } else {
-            // RFC 9110, 15.4.2-15.4.3:
-            // The server SHOULD generate a Location header field in the
-            // response containing a preferred URI reference for the new
-            // permanent URI. The user agent MAY use the Location field value
-            // for automatic redirection.
-            // Note: For historical reasons, a user agent MAY change the request
-            // method from POST to GET for the subsequent request.
-            expect(response.statusCode, anyOf(200, code));
-          }
+          // RFC 9110, 15.4.2-15.4.3:
+          // The server SHOULD generate a Location header field in the
+          // response containing a preferred URI reference for the new
+          // permanent URI. The user agent MAY use the Location field value
+          // for automatic redirection.
+          // Note: For historical reasons, a user agent MAY change the request
+          // method from POST to GET for the subsequent request.
+          expect(response.statusCode, anyOf(200, code));
 
           if (response.statusCode == 200) {
             expect(response.isRedirect, false);
@@ -559,6 +557,56 @@ void testRedirect(Client Function() clientFactory,
           }
         });
       }
+
+      test('POST 303 cross host redirect', () async {
+        final request = Request('POST', Uri.http(localhost1, '/cross-host-303'))
+          ..body = 'Hello World!'
+          ..followRedirects = true
+          ..maxRedirects = 1;
+        request.headers['hello'] = 'world';
+        request.headers['authorization'] = 'anything';
+        if (canSendCookieHeaders) {
+          request.headers['cookie'] = 'foo=bar';
+        }
+        if (canSendProxyAuthorizationHeaders) {
+          request.headers['proxy-authorization'] = 'anything';
+        }
+
+        final response = await client.send(request);
+        await response.stream.drain<void>();
+        // RFC 9110, 15.4.4: 303 redirects POST to GET.
+        expect(response.statusCode, 200);
+        expect(response.isRedirect, false);
+        if (response case BaseResponseWithUrl(url: final url)) {
+          expect(url, Uri.http(loopback2, '/'));
+        }
+
+        final [server1, method1, body1, headers1] =
+            await httpServerQueue.next as List<Object?>;
+        expect(server1, 'server1');
+        expect(method1, 'POST');
+        expect(body1, 'Hello World!');
+        expect(headers1, containsPair('host', [localhost1]));
+        expect(headers1, containsPair('hello', ['world']));
+        expect(headers1, containsPair('authorization', ['anything']));
+        if (canSendCookieHeaders) {
+          expect(headers1, containsPair('cookie', ['foo=bar']));
+        }
+        if (canSendProxyAuthorizationHeaders) {
+          expect(headers1, containsPair('proxy-authorization', ['anything']));
+        }
+
+        final [server2, method2, body2, headers2] =
+            await httpServerQueue.next as List<Object?>;
+        expect(server2, 'server2');
+        expect(method2, 'GET');
+        expect(body2, isEmpty);
+        expect(headers2, containsPair('host', [loopback2]));
+        expect(headers2, containsPair('hello', ['world']));
+        expect(headers2, isNot(contains('authorization')));
+        expect(headers2, isNot(contains('cookie')));
+        expect(headers2, isNot(contains('proxy-authorization')));
+      });
 
       for (final code in [307, 308]) {
         test('GET $code cross host redirect', () async {
