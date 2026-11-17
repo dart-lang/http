@@ -865,9 +865,9 @@ void main() {
     testOnComplete(config);
     // onResponse is not called for background sessions.
     testOnData(config);
-    // onMetrics is not called for background sessions.
     // onRedirect is not called for background sessions.
     testOnFinishedDownloading(config);
+    testOnMetrics(config);
     // WebSocket tasks are not supported in background sessions.
   });
 
