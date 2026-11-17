@@ -1,4 +1,4 @@
-## 3.2.2-wip
+## 3.2.2
 
 - `Http2Client` starts each stream's receive window at 256 KiB and doubles it
   every time half of it has been read, up to 4 MiB, so that a response that is
