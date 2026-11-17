@@ -13,6 +13,7 @@
   certificate pinning.
 * Add `URLRequest.assumesHTTP3Capable` and
   `MutableURLRequest.assumesHTTP3Capable`.
+* Update package description and declare supported platforms (`ios`, `macos`).
 
 ## 3.1.1
 
