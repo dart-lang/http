@@ -1,4 +1,4 @@
-## 3.2.1-wip
+## 3.2.1
 
 - `finish()` and `terminate()` no longer hang when a write to the socket fails
   (for example because the peer closed the connection); previously they waited
