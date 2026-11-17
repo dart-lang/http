@@ -803,6 +803,11 @@ class CronetClient extends BaseClient {
     // Each call to `JByteBuffer.asUint8List` creates a new JNI global reference
     // that is only deleted when the returned `Uint8List` is garbage collected.
     // So the view is created once per upload, rather than once per read.
+    // This is valid only while Cronet passes the same
+    // Java ByteBuffer on every read() for this upload.
+    // A new Dart wrapper per callback is normal and must keep this view.
+    // A different Java buffer would make setRange write the old memory while
+    // dst.position advances the new buffer.
     Uint8List? uploadView;
     Uint8List? current;
     var offset = 0;
