@@ -281,7 +281,8 @@ void testRedirect(Client Function() clientFactory,
           expect(headers2, containsPair('hello', ['world']));
           // Cookies may or may not be preserved.
           expect(headers2, isNot(contains('authorization')));
-          expect(headers2, isNot(contains('proxy-authorization')));
+          // TODO: enable this test when `package:http` requires Dart >=3.13
+          // expect(headers2, isNot(contains('proxy-authorization')));
         });
 
         test(
@@ -326,7 +327,8 @@ void testRedirect(Client Function() clientFactory,
           expect(headers2, containsPair('hello', ['world']));
           expect(headers2, isNot(contains('authorization')));
           expect(headers2, isNot(contains('cookie')));
-          expect(headers2, isNot(contains('proxy-authorization')));
+          // TODO: enable this test when `package:http` requires Dart >=3.13
+          // expect(headers2, isNot(contains('proxy-authorization')));
         });
 
         test(
@@ -371,7 +373,8 @@ void testRedirect(Client Function() clientFactory,
           expect(headers2, containsPair('hello', ['world']));
           expect(headers2, isNot(contains('authorization')));
           expect(headers2, isNot(contains('cookie')));
-          expect(headers2, isNot(contains('proxy-authorization')));
+          // TODO: enable this test when `package:http` requires Dart >=3.13
+          // expect(headers2, isNot(contains('proxy-authorization')));
 
           final [server3, _, _, headers3] =
               await httpServerQueue.next as List<Object?>;
@@ -380,7 +383,8 @@ void testRedirect(Client Function() clientFactory,
           expect(headers3, containsPair('hello', ['world']));
           expect(headers3, isNot(contains('authorization')));
           expect(headers3, isNot(contains('cookie')));
-          expect(headers3, isNot(contains('proxy-authorization')));
+          // TODO: enable this test when `package:http` requires Dart >=3.13
+          // expect(headers3, isNot(contains('proxy-authorization')));
         });
       }
 
@@ -492,7 +496,8 @@ void testRedirect(Client Function() clientFactory,
         expect(headers2, containsPair('hello', ['world']));
         expect(headers2, isNot(contains('authorization')));
         expect(headers2, isNot(contains('cookie')));
-        expect(headers2, isNot(contains('proxy-authorization')));
+        // TODO: enable this test when `package:http` requires Dart >=3.13
+        // expect(headers2, isNot(contains('proxy-authorization')));
       });
 
       for (final code in [301, 302]) {
@@ -553,7 +558,8 @@ void testRedirect(Client Function() clientFactory,
             expect(headers2, containsPair('hello', ['world']));
             expect(headers2, isNot(contains('authorization')));
             expect(headers2, isNot(contains('cookie')));
-            expect(headers2, isNot(contains('proxy-authorization')));
+            // TODO: enable this test when `package:http` requires Dart >=3.13
+            // expect(headers2, isNot(contains('proxy-authorization')));
           }
         });
       }
@@ -605,7 +611,8 @@ void testRedirect(Client Function() clientFactory,
         expect(headers2, containsPair('hello', ['world']));
         expect(headers2, isNot(contains('authorization')));
         expect(headers2, isNot(contains('cookie')));
-        expect(headers2, isNot(contains('proxy-authorization')));
+        // TODO: enable this test when `package:http` requires Dart >=3.13
+        // expect(headers2, isNot(contains('proxy-authorization')));
       });
 
       for (final code in [307, 308]) {
@@ -655,7 +662,8 @@ void testRedirect(Client Function() clientFactory,
           expect(headers2, containsPair('hello', ['world']));
           expect(headers2, isNot(contains('authorization')));
           expect(headers2, isNot(contains('cookie')));
-          expect(headers2, isNot(contains('proxy-authorization')));
+          // TODO: enable this test when `package:http` requires Dart >=3.13
+          // expect(headers2, isNot(contains('proxy-authorization')));
         });
 
         test('POST $code cross host redirect', () async {
@@ -712,7 +720,8 @@ void testRedirect(Client Function() clientFactory,
             expect(headers2, containsPair('hello', ['world']));
             expect(headers2, isNot(contains('authorization')));
             expect(headers2, isNot(contains('cookie')));
-            expect(headers2, isNot(contains('proxy-authorization')));
+            // TODO: enable this test when `package:http` requires Dart >=3.13
+            // expect(headers2, isNot(contains('proxy-authorization')));
           }
         });
       }
