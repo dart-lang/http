@@ -778,15 +778,34 @@ class CronetClient extends BaseClient {
   ///
   /// Since [_hasData] consumes [stream], returns a new stream containing the
   /// equivalent data.
+  ///
+  /// Throws [RequestAbortedException] if [abortTrigger] completes first.
   static Future<(bool, Stream<List<int>>)> _hasData(
     Stream<List<int>> stream,
+    Uri url,
+    Future<void>? abortTrigger,
   ) async {
     final queue = StreamQueue(stream);
-    while (await queue.hasNext && (await queue.peek).isEmpty) {
-      await queue.next;
+    Future<bool> skipEmptyChunks() async {
+      while (await queue.hasNext) {
+        if ((await queue.peek).isNotEmpty) return true;
+        await queue.next;
+      }
+      return false;
     }
 
-    return (await queue.hasNext, queue.rest);
+    final hasData = skipEmptyChunks();
+    if (abortTrigger != null) {
+      final isAborted = await Future.any([
+        hasData.then((_) => false),
+        abortTrigger.then((_) => true),
+      ]);
+      if (isAborted) {
+        unawaited(queue.cancel(immediate: true));
+        throw RequestAbortedException(url);
+      }
+    }
+    return (await hasData, queue.rest);
   }
 
   /// Streams [stream] to Cronet on demand.
@@ -946,12 +965,26 @@ class CronetClient extends BaseClient {
       profile?.requestData.bodySink.add(inMemoryBody);
     }
 
+    final abortTrigger = switch (request) {
+      Abortable(:final abortTrigger) => abortTrigger,
+      _ => null,
+    };
+
     final bool hasBody;
     Stream<List<int>>? bodyStream;
     if (inMemoryBody != null) {
       hasBody = inMemoryBody.isNotEmpty;
+    } else if ((request.contentLength ?? 0) > 0) {
+      hasBody = true;
+      bodyStream = stream;
     } else {
-      (hasBody, bodyStream) = await _hasData(stream);
+      try {
+        (hasBody, bodyStream) =
+            await _hasData(stream, request.url, abortTrigger);
+      } on RequestAbortedException catch (e) {
+        await profile?.requestData.closeWithError(e.toString());
+        rethrow;
+      }
     }
 
     final responseCompleter = Completer<CronetStreamedResponse>();
@@ -1008,7 +1041,7 @@ class CronetClient extends BaseClient {
 
       // Not releasing `cronetRequest` as it's used in `whenComplete` callback.
       final cronetRequest = builder.build()!;
-      if (request case Abortable(:final abortTrigger?)) {
+      if (abortTrigger != null) {
         unawaited(abortTrigger.whenComplete(cronetRequest.cancel));
       }
       try {
