@@ -49,9 +49,7 @@ jobs:
         run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
       - name: Analyze code
-        run: |
-          dart analyze --fatal-infos
-          cd ios_test && flutter analyze --fatal-infos
+        run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
   macos:
     name: "macOS: Test"
