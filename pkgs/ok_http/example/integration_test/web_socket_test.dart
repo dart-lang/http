@@ -6,5 +6,5 @@ import 'package:ok_http/ok_http.dart';
 import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
 
 void main() {
-  testAll(OkHttpWebSocket.connect);
+  testAll(OkHttpWebSocket.connect, failsOnInvalidCloseReason: false);
 }

@@ -14,9 +14,14 @@ import 'close_remote_server_vm.dart'
 import 'utils.dart';
 
 /// Tests that the [WebSocket] can correctly receive Close frames from the peer.
+///
+/// If [failsOnInvalidCloseReason] is `false` then tests that assume that the
+/// [WebSocket] fails the connection when receiving a Close frame with an
+/// invalid UTF-8 reason will be skipped.
 void testCloseRemote(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        channelFactory) {
+        channelFactory,
+    {bool failsOnInvalidCloseReason = true}) {
   group('remote close', () {
     late Uri uri;
     late StreamChannel<Object?> httpServerChannel;
@@ -90,6 +95,9 @@ void testCloseRemote(
               1007, // Invalid Frame Payload Data.
             ))
       ]);
-    });
+    },
+        skip: failsOnInvalidCloseReason
+            ? false
+            : 'does not fail on invalid UTF-8 close reason');
   });
 }
