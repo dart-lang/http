@@ -41,6 +41,17 @@ class HeaderBlockProcessingException implements Exception {
   String toString() => 'HeaderBlockProcessingException: $_message';
 }
 
+/// The peer is exhibiting a behavior that might be generating excessive load
+/// (RFC 9113 section 7, `ENHANCE_YOUR_CALM`).
+class EnhanceYourCalmException implements Exception {
+  final String _message;
+
+  EnhanceYourCalmException(this._message);
+
+  @override
+  String toString() => 'EnhanceYourCalmException: $_message';
+}
+
 class TerminatedException implements Exception {
   @override
   String toString() => 'TerminatedException: The object has been terminated.';
