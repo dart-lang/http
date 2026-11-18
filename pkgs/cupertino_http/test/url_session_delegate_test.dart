@@ -764,6 +764,94 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration Function() config) {
   });
 }
 
+void testOnMetrics(URLSessionConfiguration Function() config) {
+  group('onMetrics', () {
+    late HttpServer server;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          if (request.requestedUri.path == '/redirect') {
+            unawaited(
+              request.response.redirect(
+                Uri.parse('http://localhost:${server.port}/'),
+              ),
+            );
+            return;
+          }
+          request.response.headers.set('Content-Type', 'text/plain');
+          request.response.write('Hello World');
+          await request.response.close();
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('reports the negotiated protocol', () async {
+      final c = Completer<URLSessionTaskMetrics>();
+      late URLSession actualSession;
+      late URLSessionTask actualTask;
+
+      final session = URLSession.sessionWithConfiguration(
+        config(),
+        onMetrics: (s, t, m) {
+          actualSession = s;
+          actualTask = t;
+          c.complete(m);
+        },
+      );
+
+      final task = session.dataTaskWithRequest(
+        URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')),
+      )..resume();
+      final metrics = await c.future;
+
+      expect(actualSession, session);
+      expect(actualTask, task);
+      expect(metrics.redirectCount, 0);
+      expect(metrics.transactionMetrics, hasLength(1));
+      // `dart:io`'s HttpServer only speaks HTTP/1.1.
+      expect(
+        metrics.toString(),
+        startsWith('[URLSessionTaskMetrics transactionMetrics=['),
+      );
+      final transaction = metrics.transactionMetrics.single;
+      expect(transaction.networkProtocolName, 'http/1.1');
+      expect(transaction.reusedConnection, isFalse);
+      expect(
+        transaction.toString(),
+        '[URLSessionTaskTransactionMetrics '
+        'networkProtocolName=http/1.1 reusedConnection=false]',
+      );
+      session.finishTasksAndInvalidate();
+    });
+
+    test('counts redirects', () async {
+      final c = Completer<URLSessionTaskMetrics>();
+
+      final session = URLSession.sessionWithConfiguration(
+        config(),
+        onMetrics: (s, t, m) => c.complete(m),
+      );
+
+      session
+          .dataTaskWithRequest(
+            URLRequest.fromUrl(
+              Uri.parse('http://localhost:${server.port}/redirect'),
+            ),
+          )
+          .resume();
+      final metrics = await c.future;
+
+      expect(metrics.redirectCount, 1);
+      expect(metrics.transactionMetrics, hasLength(2));
+      session.finishTasksAndInvalidate();
+    });
+  });
+}
+
 void main() {
   group('backgroundSession', () {
     var count = 0;
@@ -779,6 +867,7 @@ void main() {
     testOnData(config);
     // onRedirect is not called for background sessions.
     testOnFinishedDownloading(config);
+    testOnMetrics(config);
     // WebSocket tasks are not supported in background sessions.
   });
 
@@ -788,6 +877,7 @@ void main() {
     testOnComplete(config);
     testOnResponse(config);
     testOnData(config);
+    testOnMetrics(config);
     testOnRedirect(config);
     testOnFinishedDownloading(config);
     testOnWebSocketTaskOpened(config);
@@ -800,6 +890,7 @@ void main() {
     testOnComplete(config);
     testOnResponse(config);
     testOnData(config);
+    testOnMetrics(config);
     testOnRedirect(config);
     testOnFinishedDownloading(config);
     testOnWebSocketTaskOpened(config);
