@@ -17,6 +17,7 @@ dependencies:
     sdk: flutter
   http: ^1.0.0
   http_image_provider: ^1.0.0
+  material_ui: ^1.11.0
   provider: ^6.0.5
 
 dev_dependencies:
