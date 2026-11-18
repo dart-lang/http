@@ -321,6 +321,93 @@ void main() {
       });
     });
 
+    group('abort while waiting for request body', () {
+      late HttpServer successServer;
+      late Uri successServerUri;
+      late HttpClientRequestProfile profile;
+
+      setUpAll(() async {
+        successServer = (await HttpServer.bind('localhost', 0))
+          ..listen((request) async {
+            await request.drain<void>();
+            request.response.headers.set('Content-Type', 'text/plain');
+            await request.response.close();
+          });
+        successServerUri = Uri.http('localhost:${successServer.port}');
+        final client = CronetClientWithProfile.defaultCronetEngine();
+        final abortCompleter = Completer<void>();
+        final request = AbortableStreamedRequest('POST', successServerUri,
+            abortTrigger: abortCompleter.future);
+        // Leave the sink open. Closing it would end the body check without
+        // the abort, so this would no longer catch a hang.
+        final responseFuture = client.send(request);
+        abortCompleter.complete();
+        try {
+          await responseFuture;
+          fail('send completed without aborting');
+        } on RequestAbortedException {
+          // Expected failure.
+        }
+        profile = client.profile!;
+      });
+      tearDownAll(() {
+        successServer.close();
+      });
+
+      test('request attributes', () {
+        expect(profile.requestData.contentLength, isNull);
+        expect(profile.requestData.startTime, isNotNull);
+        expect(profile.requestData.endTime, isNotNull);
+        expect(profile.requestData.error, contains('aborted'));
+        expect(profile.responseData.bodyBytes, isEmpty);
+      });
+
+      test('response attributes', () {
+        expect(profile.responseData.bodyBytes, isEmpty);
+        expect(profile.responseData.compressionState, isNull);
+        expect(profile.responseData.contentLength, isNull);
+        expect(profile.responseData.endTime, isNull);
+        expect(profile.responseData.error, isNull);
+        expect(profile.responseData.headers, isNull);
+        expect(profile.responseData.isRedirect, isNull);
+        expect(profile.responseData.persistentConnection, isNull);
+        expect(profile.responseData.reasonPhrase, isNull);
+        expect(profile.responseData.redirects, isEmpty);
+        expect(profile.responseData.startTime, isNull);
+        expect(profile.responseData.statusCode, isNull);
+      });
+    });
+
+    test('streamed body shorter than contentLength', () async {
+      final server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          try {
+            await request.drain<void>();
+            await request.response.close();
+          } on HttpException {
+            // The client closes the socket when the body is shorter than
+            // contentLength.
+          }
+        });
+      addTearDown(server.close);
+      final client = CronetClient.defaultCronetEngine();
+      addTearDown(client.close);
+      final request = StreamedRequest(
+        'POST',
+        Uri.http('localhost:${server.port}'),
+      )..contentLength = 4;
+      unawaited(request.sink.close());
+
+      await expectLater(
+        client.send(request),
+        throwsA(isA<ClientException>().having(
+          (e) => e.toString(),
+          'toString',
+          contains('Body ended before contentLength'),
+        )),
+      );
+    });
+
     group('abort during response', () {
       late HttpServer successServer;
       late Uri successServerUri;

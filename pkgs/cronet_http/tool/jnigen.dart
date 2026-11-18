@@ -12,6 +12,7 @@ void main(List<String> args) async {
     input: Input(
       classes: [
         'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy',
+        'io.flutter.plugins.cronet_http.UploadDataProviderProxy',
         'java.io.IOException',
         'java.lang.Exception',
         'java.lang.Throwable',
@@ -26,6 +27,8 @@ void main(List<String> args) async {
         'org.chromium.net.UploadDataProviders',
         'org.chromium.net.UrlRequest',
         'org.chromium.net.UrlResponseInfo',
+        'org.chromium.net.UploadDataSink',
+        'org.chromium.net.UploadDataProvider',
       ],
       androidSdk: AndroidSdk(
         addGradleDeps: true,
