@@ -14,6 +14,8 @@
 - Add a missing call to `TrustManagerFactory.init`.
 - Fix a `NetworkOnMainThreadException` thrown by `OkHttpClient.close()` after
   making HTTPS requests on some Android versions.
+- Send close code `1000` instead of abruptly canceling the connection when
+  `OkHttpWebSocket.close()` is called without a close code.
 
 ## 0.1.0
 

@@ -93,7 +93,11 @@ void testCloseLocal(
       final closeCode = (await httpServerQueue.next as num?)?.toInt();
       final closeReason = await httpServerQueue.next as String?;
 
-      expect(closeCode, 1005);
+      // `1005` is required by
+      // https://websockets.spec.whatwg.org/#dom-websocket-close
+      // (an empty Close frame), while some packages (e.g. `package:ok_http`)
+      // do not support sending an empty Close frame and send `1000` instead.
+      expect(closeCode, anyOf(1000, 1005));
       expect(closeReason, '');
       expect(await channel.events.isEmpty, true);
     });
