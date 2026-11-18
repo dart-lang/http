@@ -18,6 +18,7 @@
   `URLSessionTaskTransactionMetrics`, so the protocol negotiated for a request
   (`h2`, `h3`, `http/1.1`) can be read with
   `URLSessionTaskTransactionMetrics.networkProtocolName`.
+* Update package description and declare supported platforms (`ios`, `macos`).
 
 ## 3.1.1
 
