@@ -53,16 +53,13 @@ final class RetryClient extends BaseClient {
   /// [delay] is passed, it's used to determine the time to wait before the
   /// given (zero-based) retry.
   ///
-  /// If [onRetry] is passed, it's called immediately before each retry so that
-  /// the client has a chance to perform side effects like logging. The
-  /// `response` parameter will be null if the request was retried due to an
-  /// error for which [whenError] returned `true`.
-  ///
   /// If [retryDelay] is provided, it is called with the response and the
   /// zero-based retry count immediately before the delay is applied. A
   /// non-null [Duration] returned by [retryDelay] is used as the wait time for
   /// that attempt. If [retryDelay] returns `null`, the [delay] callback is used
-  /// instead.
+  /// instead. The [retryDelay] callback is not called when a request is retried
+  /// after an error for which [whenError] returned `true`; the [delay] callback
+  /// is used in that case.
   ///
   /// For example, pass a [retryDelay] callback to honor a `Retry-After` header:
   ///
@@ -79,6 +76,11 @@ final class RetryClient extends BaseClient {
   ///   },
   /// );
   /// ```
+  ///
+  /// If [onRetry] is passed, it's called immediately before each retry so that
+  /// the client has a chance to perform side effects like logging. The
+  /// `response` parameter will be null if the request was retried due to an
+  /// error for which [whenError] returned `true`.
   ///
   /// If the inner client supports aborting requests, then this client will
   /// forward any [RequestAbortedException]s thrown. A request will not be
@@ -107,12 +109,18 @@ final class RetryClient extends BaseClient {
   ///
   /// This will retry a request at most `delays.length` times, using each delay
   /// in order. It will wait for `delays[0]` after the initial request,
-  /// `delays[1]` after the first retry, and so on.
+  /// `delays[1]` after the first retry, and so on. If [retryDelay] is provided
+  /// it is called with the response and the zero-based retry count. If it
+  /// returns a non-null [Duration], that duration is used instead of the
+  /// corresponding delay. If it returns `null`, the scheduled delay is used.
+  /// It is not called when a request is retried after an error for which
+  /// [whenError] returned `true`; the scheduled delay is used in that case.
   RetryClient.withDelays(
     Client inner,
     Iterable<Duration> delays, {
     FutureOr<bool> Function(BaseResponse) when = _defaultWhen,
     FutureOr<bool> Function(Object, StackTrace) whenError = _defaultWhenError,
+    Duration? Function(BaseResponse response, int retryCount)? retryDelay,
     FutureOr<void> Function(BaseRequest, BaseResponse?, int retryCount)?
         onRetry,
   }) : this._withDelays(
@@ -120,6 +128,7 @@ final class RetryClient extends BaseClient {
           delays.toList(),
           when: when,
           whenError: whenError,
+          retryDelay: retryDelay,
           onRetry: onRetry,
         );
 
@@ -128,11 +137,13 @@ final class RetryClient extends BaseClient {
     List<Duration> delays, {
     required FutureOr<bool> Function(BaseResponse) when,
     required FutureOr<bool> Function(Object, StackTrace) whenError,
+    Duration? Function(BaseResponse response, int retryCount)? retryDelay,
     required FutureOr<void> Function(BaseRequest, BaseResponse?, int)? onRetry,
   }) : this(
           inner,
           retries: delays.length,
           delay: (retryCount) => delays[retryCount],
+          retryDelay: retryDelay,
           when: when,
           whenError: whenError,
           onRetry: onRetry,
