@@ -21,8 +21,10 @@ void testCache() {
           await request.drain<void>();
           ++numRequests;
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.headers
-              .set('Cache-Control', 'public, max-age=30, immutable');
+          request.response.headers.set(
+            'Cache-Control',
+            'public, max-age=30, immutable',
+          );
           request.response.headers.set('etag', '12345');
           await request.response.close();
         });
@@ -41,7 +43,9 @@ void testCache() {
 
     test('memory', () async {
       final engine = CronetEngine.build(
-          cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024);
+        cacheMode: CacheMode.memory,
+        cacheMaxSize: 1024 * 1024,
+      );
       final client = CronetClient.fromCronetEngine(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
       await client.get(Uri.parse('http://localhost:${server.port}'));
@@ -50,9 +54,10 @@ void testCache() {
 
     test('disk', () async {
       final engine = CronetEngine.build(
-          cacheMode: CacheMode.disk,
-          cacheMaxSize: 1024 * 1024,
-          storagePath: (await Directory.systemTemp.createTemp()).absolute.path);
+        cacheMode: CacheMode.disk,
+        cacheMaxSize: 1024 * 1024,
+        storagePath: (await Directory.systemTemp.createTemp()).absolute.path,
+      );
       final client = CronetClient.fromCronetEngine(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
       await client.get(Uri.parse('http://localhost:${server.port}'));
@@ -61,9 +66,10 @@ void testCache() {
 
     test('diskNoHttp', () async {
       final engine = CronetEngine.build(
-          cacheMode: CacheMode.diskNoHttp,
-          cacheMaxSize: 1024 * 1024,
-          storagePath: (await Directory.systemTemp.createTemp()).absolute.path);
+        cacheMode: CacheMode.diskNoHttp,
+        cacheMaxSize: 1024 * 1024,
+        storagePath: (await Directory.systemTemp.createTemp()).absolute.path,
+      );
 
       final client = CronetClient.fromCronetEngine(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
@@ -77,18 +83,23 @@ void testInvalidConfigurations() {
   group('invalidConfigurations', () {
     test('no storagePath', () async {
       expect(
-          () async => CronetEngine.build(
-              cacheMode: CacheMode.disk, cacheMaxSize: 1024 * 1024),
-          throwsArgumentError);
+        () async => CronetEngine.build(
+          cacheMode: CacheMode.disk,
+          cacheMaxSize: 1024 * 1024,
+        ),
+        throwsArgumentError,
+      );
     });
 
     test('non-existing storagePath', () async {
       expect(
-          () async => CronetEngine.build(
-              cacheMode: CacheMode.disk,
-              cacheMaxSize: 1024 * 1024,
-              storagePath: '/a/b/c/d'),
-          throwsArgumentError);
+        () async => CronetEngine.build(
+          cacheMode: CacheMode.disk,
+          cacheMaxSize: 1024 * 1024,
+          storagePath: '/a/b/c/d',
+        ),
+        throwsArgumentError,
+      );
     });
   });
 }
@@ -114,8 +125,9 @@ void testUserAgent() {
 
     test('userAgent', () async {
       final engine = CronetEngine.build(userAgent: 'fake-agent');
-      await CronetClient.fromCronetEngine(engine)
-          .get(Uri.parse('http://localhost:${server.port}'));
+      await CronetClient.fromCronetEngine(
+        engine,
+      ).get(Uri.parse('http://localhost:${server.port}'));
       expect(requestHeaders['user-agent'], ['fake-agent']);
     });
   });
@@ -125,14 +137,14 @@ void testQuicHints() {
   group('quicHints', () {
     test('quic hints', () async {
       final engine = CronetEngine.build(
-          cacheMode: CacheMode.diskNoHttp,
-          enableQuic: true,
-          enableHttp2: false,
-          quicHints: [
-            ('www.google.com', 443, 443),
-          ]);
-      final response = await CronetClient.fromCronetEngine(engine)
-          .send(Request('GET', Uri.parse('https://www.google.com/')));
+        cacheMode: CacheMode.diskNoHttp,
+        enableQuic: true,
+        enableHttp2: false,
+        quicHints: [('www.google.com', 443, 443)],
+      );
+      final response = await CronetClient.fromCronetEngine(
+        engine,
+      ).send(Request('GET', Uri.parse('https://www.google.com/')));
       expect(response.negotiatedProtocol, 'h3');
     }, skip: 'requires internet access');
 
@@ -142,8 +154,9 @@ void testQuicHints() {
         enableQuic: true,
         enableHttp2: false,
       );
-      final response = await CronetClient.fromCronetEngine(engine)
-          .send(Request('GET', Uri.parse('https://www.google.com/')));
+      final response = await CronetClient.fromCronetEngine(
+        engine,
+      ).send(Request('GET', Uri.parse('https://www.google.com/')));
       expect(response.negotiatedProtocol, 'http1.1');
     }, skip: 'requires internet access');
   });
@@ -168,23 +181,26 @@ void testDnsOptions() {
     test('system resolver', () async {
       final engine = CronetEngine.build(useBuiltInDnsResolver: false);
       final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
-      final response =
-          await client.get(Uri.parse('http://localhost:${server.port}'));
+      final response = await client.get(
+        Uri.parse('http://localhost:${server.port}'),
+      );
       expect(response.statusCode, 200);
       client.close();
     });
 
     test('persistent host cache', () async {
       final engine = CronetEngine.build(
-          cacheMode: CacheMode.disk,
-          cacheMaxSize: 1024 * 1024,
-          storagePath: (await Directory.systemTemp.createTemp()).absolute.path,
-          enableStaleDns: true,
-          persistHostCache: true,
-          persistHostCachePeriod: const Duration(seconds: 1));
+        cacheMode: CacheMode.disk,
+        cacheMaxSize: 1024 * 1024,
+        storagePath: (await Directory.systemTemp.createTemp()).absolute.path,
+        enableStaleDns: true,
+        persistHostCache: true,
+        persistHostCachePeriod: const Duration(seconds: 1),
+      );
       final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
-      final response =
-          await client.get(Uri.parse('http://localhost:${server.port}'));
+      final response = await client.get(
+        Uri.parse('http://localhost:${server.port}'),
+      );
       expect(response.statusCode, 200);
       client.close();
     });
@@ -244,8 +260,10 @@ void testEngineClose() {
     test('request after close', () async {
       final closedEngine = CronetEngine.build()..close();
       final client = CronetClient.fromCronetEngine(closedEngine);
-      await expectLater(() => client.get(Uri.https('example.com', '/')),
-          throwsA(isA<ClientException>()));
+      await expectLater(
+        () => client.get(Uri.https('example.com', '/')),
+        throwsA(isA<ClientException>()),
+      );
     });
 
     test('engine owned close', () {

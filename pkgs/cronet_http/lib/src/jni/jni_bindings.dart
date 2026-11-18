@@ -40,18 +40,23 @@ const _$jniVersionCheck = jni$_.JniVersionCheck(1, 1);
 
 /// from: `io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface`
 extension type UrlRequestCallbackProxy$UrlRequestCallbackInterface._(
-    jni$_.JObject _$this) implements jni$_.JObject {
+  jni$_.JObject _$this
+)
+    implements jni$_.JObject {
   static final _class = jni$_.JClass.forName(
-      r'io/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface');
+    r'io/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlRequestCallbackProxy$UrlRequestCallbackInterface>
-      type = $UrlRequestCallbackProxy$UrlRequestCallbackInterface$Type$();
+  type = $UrlRequestCallbackProxy$UrlRequestCallbackInterface$Type$();
 
   /// Maps a specific port to the implemented interface.
-  static final core$_
-      .Map<core$_.int, $UrlRequestCallbackProxy$UrlRequestCallbackInterface>
-      _$impls = {};
+  static final core$_.Map<
+    core$_.int,
+    $UrlRequestCallbackProxy$UrlRequestCallbackInterface
+  >
+  _$impls = {};
   static jni$_.JObjectPtr _$invoke(
     core$_.int port,
     jni$_.JObjectPtr descriptor,
@@ -59,19 +64,16 @@ extension type UrlRequestCallbackProxy$UrlRequestCallbackInterface._(
   ) {
     return _$invokeMethod(
       port,
-      jni$_.MethodInvocation.fromAddresses(
-        0,
-        descriptor.address,
-        args.address,
-      ),
+      jni$_.MethodInvocation.fromAddresses(0, descriptor.address, args.address),
     );
   }
 
   static final jni$_.Pointer<
-          jni$_.NativeFunction<
-              jni$_.JObjectPtr Function(
-                  jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)>>
-      _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
+    jni$_.NativeFunction<
+      jni$_.JObjectPtr Function(jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)
+    >
+  >
+  _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
 
   static jni$_.Pointer<jni$_.Void> _$invokeMethod(
     core$_.int $p,
@@ -188,30 +190,36 @@ extension type UrlRequestCallbackProxy$UrlRequestCallbackInterface._(
 extension UrlRequestCallbackProxy$UrlRequestCallbackInterface$$Methods
     on UrlRequestCallbackProxy$UrlRequestCallbackInterface {
   static final _id_onRedirectReceived =
-      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class
-          .instanceMethodId(
-    r'onRedirectReceived',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V',
-  );
+      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class.instanceMethodId(
+        r'onRedirectReceived',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V',
+      );
 
-  static final _onRedirectReceived = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onRedirectReceived =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onRedirectReceived(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?, newLocationUrl: kotlin.String?): kotlin.Unit`
   void onRedirectReceived(
@@ -224,34 +232,41 @@ extension UrlRequestCallbackProxy$UrlRequestCallbackInterface$$Methods
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
     final _$string = string?.reference ?? jni$_.jNullReference;
-    _onRedirectReceived(_$$selfRef.pointer, _id_onRedirectReceived.pointer,
-            _$urlRequest.pointer, _$urlResponseInfo.pointer, _$string.pointer)
-        .check();
+    _onRedirectReceived(
+      _$$selfRef.pointer,
+      _id_onRedirectReceived.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+      _$string.pointer,
+    ).check();
   }
 
   static final _id_onResponseStarted =
-      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class
-          .instanceMethodId(
-    r'onResponseStarted',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
-  );
+      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class.instanceMethodId(
+        r'onResponseStarted',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
+      );
 
-  static final _onResponseStarted = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onResponseStarted =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onResponseStarted(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?): kotlin.Unit`
   void onResponseStarted(
@@ -262,36 +277,45 @@ extension UrlRequestCallbackProxy$UrlRequestCallbackInterface$$Methods
     final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
-    _onResponseStarted(_$$selfRef.pointer, _id_onResponseStarted.pointer,
-            _$urlRequest.pointer, _$urlResponseInfo.pointer)
-        .check();
+    _onResponseStarted(
+      _$$selfRef.pointer,
+      _id_onResponseStarted.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+    ).check();
   }
 
   static final _id_onReadCompleted =
-      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class
-          .instanceMethodId(
-    r'onReadCompleted',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V',
-  );
+      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class.instanceMethodId(
+        r'onReadCompleted',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V',
+      );
 
-  static final _onReadCompleted = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onReadCompleted =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onReadCompleted(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?, byteBuffer: java.nio.ByteBuffer?): kotlin.Unit`
   void onReadCompleted(
@@ -305,115 +329,128 @@ extension UrlRequestCallbackProxy$UrlRequestCallbackInterface$$Methods
         urlResponseInfo?.reference ?? jni$_.jNullReference;
     final _$byteBuffer = byteBuffer?.reference ?? jni$_.jNullReference;
     _onReadCompleted(
-            _$$selfRef.pointer,
-            _id_onReadCompleted.pointer,
-            _$urlRequest.pointer,
-            _$urlResponseInfo.pointer,
-            _$byteBuffer.pointer)
-        .check();
+      _$$selfRef.pointer,
+      _id_onReadCompleted.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+      _$byteBuffer.pointer,
+    ).check();
   }
 
   static final _id_onSucceeded =
-      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class
-          .instanceMethodId(
-    r'onSucceeded',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
-  );
+      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class.instanceMethodId(
+        r'onSucceeded',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
+      );
 
-  static final _onSucceeded = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onSucceeded =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onSucceeded(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?): kotlin.Unit`
-  void onSucceeded(
-    UrlRequest? urlRequest,
-    UrlResponseInfo? urlResponseInfo,
-  ) {
+  void onSucceeded(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo) {
     final _$$selfRef = reference;
     final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
-    _onSucceeded(_$$selfRef.pointer, _id_onSucceeded.pointer,
-            _$urlRequest.pointer, _$urlResponseInfo.pointer)
-        .check();
+    _onSucceeded(
+      _$$selfRef.pointer,
+      _id_onSucceeded.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+    ).check();
   }
 
   static final _id_onCanceled =
-      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class
-          .instanceMethodId(
-    r'onCanceled',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
-  );
+      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class.instanceMethodId(
+        r'onCanceled',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
+      );
 
-  static final _onCanceled = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onCanceled =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onCanceled(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?): kotlin.Unit`
-  void onCanceled(
-    UrlRequest? urlRequest,
-    UrlResponseInfo? urlResponseInfo,
-  ) {
+  void onCanceled(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo) {
     final _$$selfRef = reference;
     final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
-    _onCanceled(_$$selfRef.pointer, _id_onCanceled.pointer,
-            _$urlRequest.pointer, _$urlResponseInfo.pointer)
-        .check();
+    _onCanceled(
+      _$$selfRef.pointer,
+      _id_onCanceled.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+    ).check();
   }
 
-  static final _id_onFailed =
-      UrlRequestCallbackProxy$UrlRequestCallbackInterface._class
-          .instanceMethodId(
-    r'onFailed',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V',
-  );
+  static final _id_onFailed = UrlRequestCallbackProxy$UrlRequestCallbackInterface
+      ._class
+      .instanceMethodId(
+        r'onFailed',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V',
+      );
 
-  static final _onFailed = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onFailed =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onFailed(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?, error: org.chromium.net.CronetException?): kotlin.Unit`
   void onFailed(
@@ -427,123 +464,188 @@ extension UrlRequestCallbackProxy$UrlRequestCallbackInterface$$Methods
         urlResponseInfo?.reference ?? jni$_.jNullReference;
     final _$cronetException =
         cronetException?.reference ?? jni$_.jNullReference;
-    _onFailed(_$$selfRef.pointer, _id_onFailed.pointer, _$urlRequest.pointer,
-            _$urlResponseInfo.pointer, _$cronetException.pointer)
-        .check();
+    _onFailed(
+      _$$selfRef.pointer,
+      _id_onFailed.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+      _$cronetException.pointer,
+    ).check();
   }
 }
 
 abstract base mixin class $UrlRequestCallbackProxy$UrlRequestCallbackInterface {
   factory $UrlRequestCallbackProxy$UrlRequestCallbackInterface({
-    required void Function(UrlRequest? urlRequest,
-            UrlResponseInfo? urlResponseInfo, jni$_.JString? string)
-        onRedirectReceived,
+    required void Function(
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+      jni$_.JString? string,
+    )
+    onRedirectReceived,
     core$_.bool onRedirectReceived$async,
     required void Function(
-            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-        onResponseStarted,
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+    )
+    onResponseStarted,
     core$_.bool onResponseStarted$async,
-    required void Function(UrlRequest? urlRequest,
-            UrlResponseInfo? urlResponseInfo, jni$_.JByteBuffer? byteBuffer)
-        onReadCompleted,
+    required void Function(
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+      jni$_.JByteBuffer? byteBuffer,
+    )
+    onReadCompleted,
     core$_.bool onReadCompleted$async,
     required void Function(
-            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-        onSucceeded,
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+    )
+    onSucceeded,
     core$_.bool onSucceeded$async,
     required void Function(
-            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-        onCanceled,
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+    )
+    onCanceled,
     core$_.bool onCanceled$async,
-    required void Function(UrlRequest? urlRequest,
-            UrlResponseInfo? urlResponseInfo, CronetException? cronetException)
-        onFailed,
+    required void Function(
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+      CronetException? cronetException,
+    )
+    onFailed,
     core$_.bool onFailed$async,
   }) = _$UrlRequestCallbackProxy$UrlRequestCallbackInterface;
 
-  void onRedirectReceived(UrlRequest? urlRequest,
-      UrlResponseInfo? urlResponseInfo, jni$_.JString? string);
+  void onRedirectReceived(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JString? string,
+  );
   core$_.bool get onRedirectReceived$async => false;
   void onResponseStarted(
-      UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo);
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+  );
   core$_.bool get onResponseStarted$async => false;
-  void onReadCompleted(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
-      jni$_.JByteBuffer? byteBuffer);
+  void onReadCompleted(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JByteBuffer? byteBuffer,
+  );
   core$_.bool get onReadCompleted$async => false;
   void onSucceeded(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo);
   core$_.bool get onSucceeded$async => false;
   void onCanceled(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo);
   core$_.bool get onCanceled$async => false;
-  void onFailed(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
-      CronetException? cronetException);
+  void onFailed(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    CronetException? cronetException,
+  );
   core$_.bool get onFailed$async => false;
 }
 
 final class _$UrlRequestCallbackProxy$UrlRequestCallbackInterface
     with $UrlRequestCallbackProxy$UrlRequestCallbackInterface {
   _$UrlRequestCallbackProxy$UrlRequestCallbackInterface({
-    required void Function(UrlRequest? urlRequest,
-            UrlResponseInfo? urlResponseInfo, jni$_.JString? string)
-        onRedirectReceived,
+    required void Function(
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+      jni$_.JString? string,
+    )
+    onRedirectReceived,
     this.onRedirectReceived$async = false,
     required void Function(
-            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-        onResponseStarted,
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+    )
+    onResponseStarted,
     this.onResponseStarted$async = false,
-    required void Function(UrlRequest? urlRequest,
-            UrlResponseInfo? urlResponseInfo, jni$_.JByteBuffer? byteBuffer)
-        onReadCompleted,
+    required void Function(
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+      jni$_.JByteBuffer? byteBuffer,
+    )
+    onReadCompleted,
     this.onReadCompleted$async = false,
     required void Function(
-            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-        onSucceeded,
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+    )
+    onSucceeded,
     this.onSucceeded$async = false,
     required void Function(
-            UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-        onCanceled,
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+    )
+    onCanceled,
     this.onCanceled$async = false,
-    required void Function(UrlRequest? urlRequest,
-            UrlResponseInfo? urlResponseInfo, CronetException? cronetException)
-        onFailed,
+    required void Function(
+      UrlRequest? urlRequest,
+      UrlResponseInfo? urlResponseInfo,
+      CronetException? cronetException,
+    )
+    onFailed,
     this.onFailed$async = false,
-  })  : _onRedirectReceived = onRedirectReceived,
-        _onResponseStarted = onResponseStarted,
-        _onReadCompleted = onReadCompleted,
-        _onSucceeded = onSucceeded,
-        _onCanceled = onCanceled,
-        _onFailed = onFailed;
+  }) : _onRedirectReceived = onRedirectReceived,
+       _onResponseStarted = onResponseStarted,
+       _onReadCompleted = onReadCompleted,
+       _onSucceeded = onSucceeded,
+       _onCanceled = onCanceled,
+       _onFailed = onFailed;
 
-  final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
-      jni$_.JString? string) _onRedirectReceived;
+  final void Function(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JString? string,
+  )
+  _onRedirectReceived;
   final core$_.bool onRedirectReceived$async;
   final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-      _onResponseStarted;
+  _onResponseStarted;
   final core$_.bool onResponseStarted$async;
-  final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
-      jni$_.JByteBuffer? byteBuffer) _onReadCompleted;
+  final void Function(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JByteBuffer? byteBuffer,
+  )
+  _onReadCompleted;
   final core$_.bool onReadCompleted$async;
   final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-      _onSucceeded;
+  _onSucceeded;
   final core$_.bool onSucceeded$async;
   final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo)
-      _onCanceled;
+  _onCanceled;
   final core$_.bool onCanceled$async;
-  final void Function(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
-      CronetException? cronetException) _onFailed;
+  final void Function(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    CronetException? cronetException,
+  )
+  _onFailed;
   final core$_.bool onFailed$async;
 
-  void onRedirectReceived(UrlRequest? urlRequest,
-      UrlResponseInfo? urlResponseInfo, jni$_.JString? string) {
+  void onRedirectReceived(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JString? string,
+  ) {
     return _onRedirectReceived(urlRequest, urlResponseInfo, string);
   }
 
   void onResponseStarted(
-      UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo) {
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+  ) {
     return _onResponseStarted(urlRequest, urlResponseInfo);
   }
 
-  void onReadCompleted(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
-      jni$_.JByteBuffer? byteBuffer) {
+  void onReadCompleted(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    jni$_.JByteBuffer? byteBuffer,
+  ) {
     return _onReadCompleted(urlRequest, urlResponseInfo, byteBuffer);
   }
 
@@ -555,8 +657,11 @@ final class _$UrlRequestCallbackProxy$UrlRequestCallbackInterface
     return _onCanceled(urlRequest, urlResponseInfo);
   }
 
-  void onFailed(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo,
-      CronetException? cronetException) {
+  void onFailed(
+    UrlRequest? urlRequest,
+    UrlResponseInfo? urlResponseInfo,
+    CronetException? cronetException,
+  ) {
     return _onFailed(urlRequest, urlResponseInfo, cronetException);
   }
 }
@@ -576,7 +681,8 @@ final class $UrlRequestCallbackProxy$UrlRequestCallbackInterface$Type$
 extension type UrlRequestCallbackProxy._(jni$_.JObject _$this)
     implements UrlRequest$Callback {
   static final _class = jni$_.JClass.forName(
-      r'io/flutter/plugins/cronet_http/UrlRequestCallbackProxy');
+    r'io/flutter/plugins/cronet_http/UrlRequestCallbackProxy',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlRequestCallbackProxy> type =
@@ -585,82 +691,103 @@ extension type UrlRequestCallbackProxy._(jni$_.JObject _$this)
     r'(Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;)V',
   );
 
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new$ =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface urlRequestCallbackInterface)`
   /// The returned object must be released after use, by calling the [release] method.
   factory UrlRequestCallbackProxy(
     UrlRequestCallbackProxy$UrlRequestCallbackInterface
-        urlRequestCallbackInterface,
+    urlRequestCallbackInterface,
   ) {
     final _$$classRef = _class.reference;
     final _$urlRequestCallbackInterface = urlRequestCallbackInterface.reference;
-    return _new$(_$$classRef.pointer, _id_new$.pointer,
-            _$urlRequestCallbackInterface.pointer)
-        .object<UrlRequestCallbackProxy>();
+    return _new$(
+      _$$classRef.pointer,
+      _id_new$.pointer,
+      _$urlRequestCallbackInterface.pointer,
+    ).object<UrlRequestCallbackProxy>();
   }
 }
 
 extension UrlRequestCallbackProxy$$Methods on UrlRequestCallbackProxy {
-  static final _id_get$callback =
-      UrlRequestCallbackProxy._class.instanceMethodId(
+  static final _id_get$callback = UrlRequestCallbackProxy._class.instanceMethodId(
     r'getCallback',
     r'()Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;',
   );
 
-  static final _get$callback = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$callback =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public final io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface getCallback()`
   /// The returned object must be released after use, by calling the [release] method.
   UrlRequestCallbackProxy$UrlRequestCallbackInterface get callback {
     final _$$selfRef = reference;
-    return _get$callback(_$$selfRef.pointer, _id_get$callback.pointer)
-        .object<UrlRequestCallbackProxy$UrlRequestCallbackInterface>();
+    return _get$callback(
+      _$$selfRef.pointer,
+      _id_get$callback.pointer,
+    ).object<UrlRequestCallbackProxy$UrlRequestCallbackInterface>();
   }
 
-  static final _id_onRedirectReceived =
-      UrlRequestCallbackProxy._class.instanceMethodId(
-    r'onRedirectReceived',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V',
-  );
+  static final _id_onRedirectReceived = UrlRequestCallbackProxy._class
+      .instanceMethodId(
+        r'onRedirectReceived',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V',
+      );
 
-  static final _onRedirectReceived = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onRedirectReceived =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onRedirectReceived(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?, newLocationUrl: kotlin.String?): kotlin.Unit`
   void onRedirectReceived(
@@ -673,33 +800,41 @@ extension UrlRequestCallbackProxy$$Methods on UrlRequestCallbackProxy {
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
     final _$string = string?.reference ?? jni$_.jNullReference;
-    _onRedirectReceived(_$$selfRef.pointer, _id_onRedirectReceived.pointer,
-            _$urlRequest.pointer, _$urlResponseInfo.pointer, _$string.pointer)
-        .check();
+    _onRedirectReceived(
+      _$$selfRef.pointer,
+      _id_onRedirectReceived.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+      _$string.pointer,
+    ).check();
   }
 
-  static final _id_onResponseStarted =
-      UrlRequestCallbackProxy._class.instanceMethodId(
-    r'onResponseStarted',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
-  );
+  static final _id_onResponseStarted = UrlRequestCallbackProxy._class
+      .instanceMethodId(
+        r'onResponseStarted',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
+      );
 
-  static final _onResponseStarted = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onResponseStarted =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onResponseStarted(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?): kotlin.Unit`
   void onResponseStarted(
@@ -710,35 +845,45 @@ extension UrlRequestCallbackProxy$$Methods on UrlRequestCallbackProxy {
     final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
-    _onResponseStarted(_$$selfRef.pointer, _id_onResponseStarted.pointer,
-            _$urlRequest.pointer, _$urlResponseInfo.pointer)
-        .check();
+    _onResponseStarted(
+      _$$selfRef.pointer,
+      _id_onResponseStarted.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+    ).check();
   }
 
-  static final _id_onReadCompleted =
-      UrlRequestCallbackProxy._class.instanceMethodId(
-    r'onReadCompleted',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V',
-  );
+  static final _id_onReadCompleted = UrlRequestCallbackProxy._class
+      .instanceMethodId(
+        r'onReadCompleted',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V',
+      );
 
-  static final _onReadCompleted = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onReadCompleted =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onReadCompleted(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?, byteBuffer: java.nio.ByteBuffer?): kotlin.Unit`
   void onReadCompleted(
@@ -752,49 +897,53 @@ extension UrlRequestCallbackProxy$$Methods on UrlRequestCallbackProxy {
         urlResponseInfo?.reference ?? jni$_.jNullReference;
     final _$byteBuffer = byteBuffer?.reference ?? jni$_.jNullReference;
     _onReadCompleted(
-            _$$selfRef.pointer,
-            _id_onReadCompleted.pointer,
-            _$urlRequest.pointer,
-            _$urlResponseInfo.pointer,
-            _$byteBuffer.pointer)
-        .check();
+      _$$selfRef.pointer,
+      _id_onReadCompleted.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+      _$byteBuffer.pointer,
+    ).check();
   }
 
-  static final _id_onSucceeded =
-      UrlRequestCallbackProxy._class.instanceMethodId(
-    r'onSucceeded',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
-  );
+  static final _id_onSucceeded = UrlRequestCallbackProxy._class
+      .instanceMethodId(
+        r'onSucceeded',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
+      );
 
-  static final _onSucceeded = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onSucceeded =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onSucceeded(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?): kotlin.Unit`
-  void onSucceeded(
-    UrlRequest? urlRequest,
-    UrlResponseInfo? urlResponseInfo,
-  ) {
+  void onSucceeded(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo) {
     final _$$selfRef = reference;
     final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
-    _onSucceeded(_$$selfRef.pointer, _id_onSucceeded.pointer,
-            _$urlRequest.pointer, _$urlResponseInfo.pointer)
-        .check();
+    _onSucceeded(
+      _$$selfRef.pointer,
+      _id_onSucceeded.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+    ).check();
   }
 
   static final _id_onCanceled = UrlRequestCallbackProxy._class.instanceMethodId(
@@ -802,35 +951,39 @@ extension UrlRequestCallbackProxy$$Methods on UrlRequestCallbackProxy {
     r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
   );
 
-  static final _onCanceled = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onCanceled =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onCanceled(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?): kotlin.Unit`
-  void onCanceled(
-    UrlRequest? urlRequest,
-    UrlResponseInfo? urlResponseInfo,
-  ) {
+  void onCanceled(UrlRequest? urlRequest, UrlResponseInfo? urlResponseInfo) {
     final _$$selfRef = reference;
     final _$urlRequest = urlRequest?.reference ?? jni$_.jNullReference;
     final _$urlResponseInfo =
         urlResponseInfo?.reference ?? jni$_.jNullReference;
-    _onCanceled(_$$selfRef.pointer, _id_onCanceled.pointer,
-            _$urlRequest.pointer, _$urlResponseInfo.pointer)
-        .check();
+    _onCanceled(
+      _$$selfRef.pointer,
+      _id_onCanceled.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+    ).check();
   }
 
   static final _id_onFailed = UrlRequestCallbackProxy._class.instanceMethodId(
@@ -838,24 +991,31 @@ extension UrlRequestCallbackProxy$$Methods on UrlRequestCallbackProxy {
     r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V',
   );
 
-  static final _onFailed = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onFailed =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public fun onFailed(request: org.chromium.net.UrlRequest?, info: org.chromium.net.UrlResponseInfo?, error: org.chromium.net.CronetException?): kotlin.Unit`
   void onFailed(
@@ -869,9 +1029,13 @@ extension UrlRequestCallbackProxy$$Methods on UrlRequestCallbackProxy {
         urlResponseInfo?.reference ?? jni$_.jNullReference;
     final _$cronetException =
         cronetException?.reference ?? jni$_.jNullReference;
-    _onFailed(_$$selfRef.pointer, _id_onFailed.pointer, _$urlRequest.pointer,
-            _$urlResponseInfo.pointer, _$cronetException.pointer)
-        .check();
+    _onFailed(
+      _$$selfRef.pointer,
+      _id_onFailed.pointer,
+      _$urlRequest.pointer,
+      _$urlResponseInfo.pointer,
+      _$cronetException.pointer,
+    ).check();
   }
 }
 
@@ -892,21 +1056,23 @@ extension type IOException._(jni$_.JObject _$this) implements Exception {
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<IOException> type = $IOException$Type$();
-  static final _id_new$ = _class.constructorId(
-    r'()V',
-  );
+  static final _id_new$ = _class.constructorId(r'()V');
 
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$ =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
@@ -915,91 +1081,107 @@ extension type IOException._(jni$_.JObject _$this) implements Exception {
     return _new$(_$$classRef.pointer, _id_new$.pointer).object<IOException>();
   }
 
-  static final _id_new1 = _class.constructorId(
-    r'(Ljava/lang/String;)V',
-  );
+  static final _id_new1 = _class.constructorId(r'(Ljava/lang/String;)V');
 
-  static final _new1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory IOException.new1(
-    jni$_.JString? string,
-  ) {
+  factory IOException.new1(jni$_.JString? string) {
     final _$$classRef = _class.reference;
     final _$string = string?.reference ?? jni$_.jNullReference;
-    return _new1(_$$classRef.pointer, _id_new1.pointer, _$string.pointer)
-        .object<IOException>();
+    return _new1(
+      _$$classRef.pointer,
+      _id_new1.pointer,
+      _$string.pointer,
+    ).object<IOException>();
   }
 
   static final _id_new2 = _class.constructorId(
     r'(Ljava/lang/String;Ljava/lang/Throwable;)V',
   );
 
-  static final _new2 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new2 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string, java.lang.Throwable throwable)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory IOException.new2(
-    jni$_.JString? string,
-    Throwable? throwable,
-  ) {
+  factory IOException.new2(jni$_.JString? string, Throwable? throwable) {
     final _$$classRef = _class.reference;
     final _$string = string?.reference ?? jni$_.jNullReference;
     final _$throwable = throwable?.reference ?? jni$_.jNullReference;
-    return _new2(_$$classRef.pointer, _id_new2.pointer, _$string.pointer,
-            _$throwable.pointer)
-        .object<IOException>();
+    return _new2(
+      _$$classRef.pointer,
+      _id_new2.pointer,
+      _$string.pointer,
+      _$throwable.pointer,
+    ).object<IOException>();
   }
 
-  static final _id_new3 = _class.constructorId(
-    r'(Ljava/lang/Throwable;)V',
-  );
+  static final _id_new3 = _class.constructorId(r'(Ljava/lang/Throwable;)V');
 
-  static final _new3 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new3 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.Throwable throwable)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory IOException.new3(
-    Throwable? throwable,
-  ) {
+  factory IOException.new3(Throwable? throwable) {
     final _$$classRef = _class.reference;
     final _$throwable = throwable?.reference ?? jni$_.jNullReference;
-    return _new3(_$$classRef.pointer, _id_new3.pointer, _$throwable.pointer)
-        .object<IOException>();
+    return _new3(
+      _$$classRef.pointer,
+      _id_new3.pointer,
+      _$throwable.pointer,
+    ).object<IOException>();
   }
 }
 
@@ -1018,21 +1200,23 @@ extension type Exception._(jni$_.JObject _$this) implements Throwable {
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<Exception> type = $Exception$Type$();
-  static final _id_new$ = _class.constructorId(
-    r'()V',
-  );
+  static final _id_new$ = _class.constructorId(r'()V');
 
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$ =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
@@ -1041,91 +1225,107 @@ extension type Exception._(jni$_.JObject _$this) implements Throwable {
     return _new$(_$$classRef.pointer, _id_new$.pointer).object<Exception>();
   }
 
-  static final _id_new1 = _class.constructorId(
-    r'(Ljava/lang/String;)V',
-  );
+  static final _id_new1 = _class.constructorId(r'(Ljava/lang/String;)V');
 
-  static final _new1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Exception.new1(
-    jni$_.JString? string,
-  ) {
+  factory Exception.new1(jni$_.JString? string) {
     final _$$classRef = _class.reference;
     final _$string = string?.reference ?? jni$_.jNullReference;
-    return _new1(_$$classRef.pointer, _id_new1.pointer, _$string.pointer)
-        .object<Exception>();
+    return _new1(
+      _$$classRef.pointer,
+      _id_new1.pointer,
+      _$string.pointer,
+    ).object<Exception>();
   }
 
   static final _id_new2 = _class.constructorId(
     r'(Ljava/lang/String;Ljava/lang/Throwable;)V',
   );
 
-  static final _new2 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new2 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string, java.lang.Throwable throwable)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Exception.new2(
-    jni$_.JString? string,
-    Throwable? throwable,
-  ) {
+  factory Exception.new2(jni$_.JString? string, Throwable? throwable) {
     final _$$classRef = _class.reference;
     final _$string = string?.reference ?? jni$_.jNullReference;
     final _$throwable = throwable?.reference ?? jni$_.jNullReference;
-    return _new2(_$$classRef.pointer, _id_new2.pointer, _$string.pointer,
-            _$throwable.pointer)
-        .object<Exception>();
+    return _new2(
+      _$$classRef.pointer,
+      _id_new2.pointer,
+      _$string.pointer,
+      _$throwable.pointer,
+    ).object<Exception>();
   }
 
-  static final _id_new3 = _class.constructorId(
-    r'(Ljava/lang/Throwable;)V',
-  );
+  static final _id_new3 = _class.constructorId(r'(Ljava/lang/Throwable;)V');
 
-  static final _new3 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new3 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.Throwable throwable)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Exception.new3(
-    Throwable? throwable,
-  ) {
+  factory Exception.new3(Throwable? throwable) {
     final _$$classRef = _class.reference;
     final _$throwable = throwable?.reference ?? jni$_.jNullReference;
-    return _new3(_$$classRef.pointer, _id_new3.pointer, _$throwable.pointer)
-        .object<Exception>();
+    return _new3(
+      _$$classRef.pointer,
+      _id_new3.pointer,
+      _$throwable.pointer,
+    ).object<Exception>();
   }
 }
 
@@ -1145,21 +1345,23 @@ extension type Throwable._(jni$_.JObject _$this)
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<Throwable> type = $Throwable$Type$();
-  static final _id_new$ = _class.constructorId(
-    r'()V',
-  );
+  static final _id_new$ = _class.constructorId(r'()V');
 
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$ =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
@@ -1168,91 +1370,107 @@ extension type Throwable._(jni$_.JObject _$this)
     return _new$(_$$classRef.pointer, _id_new$.pointer).object<Throwable>();
   }
 
-  static final _id_new$1 = _class.constructorId(
-    r'(Ljava/lang/String;)V',
-  );
+  static final _id_new$1 = _class.constructorId(r'(Ljava/lang/String;)V');
 
-  static final _new$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Throwable.new$1(
-    jni$_.JString? string,
-  ) {
+  factory Throwable.new$1(jni$_.JString? string) {
     final _$$classRef = _class.reference;
     final _$string = string?.reference ?? jni$_.jNullReference;
-    return _new$1(_$$classRef.pointer, _id_new$1.pointer, _$string.pointer)
-        .object<Throwable>();
+    return _new$1(
+      _$$classRef.pointer,
+      _id_new$1.pointer,
+      _$string.pointer,
+    ).object<Throwable>();
   }
 
   static final _id_new$2 = _class.constructorId(
     r'(Ljava/lang/String;Ljava/lang/Throwable;)V',
   );
 
-  static final _new$2 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$2 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string, java.lang.Throwable throwable)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Throwable.new$2(
-    jni$_.JString? string,
-    Throwable? throwable,
-  ) {
+  factory Throwable.new$2(jni$_.JString? string, Throwable? throwable) {
     final _$$classRef = _class.reference;
     final _$string = string?.reference ?? jni$_.jNullReference;
     final _$throwable = throwable?.reference ?? jni$_.jNullReference;
-    return _new$2(_$$classRef.pointer, _id_new$2.pointer, _$string.pointer,
-            _$throwable.pointer)
-        .object<Throwable>();
+    return _new$2(
+      _$$classRef.pointer,
+      _id_new$2.pointer,
+      _$string.pointer,
+      _$throwable.pointer,
+    ).object<Throwable>();
   }
 
-  static final _id_new$3 = _class.constructorId(
-    r'(Ljava/lang/Throwable;)V',
-  );
+  static final _id_new$3 = _class.constructorId(r'(Ljava/lang/Throwable;)V');
 
-  static final _new$3 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new$3 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.Throwable throwable)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Throwable.new$3(
-    Throwable? throwable,
-  ) {
+  factory Throwable.new$3(Throwable? throwable) {
     final _$$classRef = _class.reference;
     final _$throwable = throwable?.reference ?? jni$_.jNullReference;
-    return _new$3(_$$classRef.pointer, _id_new$3.pointer, _$throwable.pointer)
-        .object<Throwable>();
+    return _new$3(
+      _$$classRef.pointer,
+      _id_new$3.pointer,
+      _$throwable.pointer,
+    ).object<Throwable>();
   }
 }
 
@@ -1262,26 +1480,33 @@ extension Throwable$$Methods on Throwable {
     r'(Ljava/lang/Throwable;)V',
   );
 
-  static final _addSuppressed = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _addSuppressed =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public final void addSuppressed(java.lang.Throwable throwable)`
-  void addSuppressed(
-    Throwable? throwable,
-  ) {
+  void addSuppressed(Throwable? throwable) {
     final _$$selfRef = reference;
     final _$throwable = throwable?.reference ?? jni$_.jNullReference;
     _addSuppressed(
-            _$$selfRef.pointer, _id_addSuppressed.pointer, _$throwable.pointer)
-        .check();
+      _$$selfRef.pointer,
+      _id_addSuppressed.pointer,
+      _$throwable.pointer,
+    ).check();
   }
 
   static final _id_fillInStackTrace = Throwable._class.instanceMethodId(
@@ -1289,24 +1514,30 @@ extension Throwable$$Methods on Throwable {
     r'()Ljava/lang/Throwable;',
   );
 
-  static final _fillInStackTrace = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _fillInStackTrace =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Throwable fillInStackTrace()`
   /// The returned object must be released after use, by calling the [release] method.
   Throwable? fillInStackTrace() {
     final _$$selfRef = reference;
-    return _fillInStackTrace(_$$selfRef.pointer, _id_fillInStackTrace.pointer)
-        .object<Throwable?>();
+    return _fillInStackTrace(
+      _$$selfRef.pointer,
+      _id_fillInStackTrace.pointer,
+    ).object<Throwable?>();
   }
 
   static final _id_get$cause = Throwable._class.instanceMethodId(
@@ -1314,24 +1545,30 @@ extension Throwable$$Methods on Throwable {
     r'()Ljava/lang/Throwable;',
   );
 
-  static final _get$cause = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$cause =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Throwable getCause()`
   /// The returned object must be released after use, by calling the [release] method.
   Throwable? get cause {
     final _$$selfRef = reference;
-    return _get$cause(_$$selfRef.pointer, _id_get$cause.pointer)
-        .object<Throwable?>();
+    return _get$cause(
+      _$$selfRef.pointer,
+      _id_get$cause.pointer,
+    ).object<Throwable?>();
   }
 
   static final _id_get$localizedMessage = Throwable._class.instanceMethodId(
@@ -1339,25 +1576,30 @@ extension Throwable$$Methods on Throwable {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$localizedMessage = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$localizedMessage =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getLocalizedMessage()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get localizedMessage {
     final _$$selfRef = reference;
     return _get$localizedMessage(
-            _$$selfRef.pointer, _id_get$localizedMessage.pointer)
-        .object<jni$_.JString?>();
+      _$$selfRef.pointer,
+      _id_get$localizedMessage.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$message = Throwable._class.instanceMethodId(
@@ -1365,24 +1607,30 @@ extension Throwable$$Methods on Throwable {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$message = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$message =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getMessage()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get message {
     final _$$selfRef = reference;
-    return _get$message(_$$selfRef.pointer, _id_get$message.pointer)
-        .object<jni$_.JString?>();
+    return _get$message(
+      _$$selfRef.pointer,
+      _id_get$message.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$stackTrace = Throwable._class.instanceMethodId(
@@ -1390,24 +1638,30 @@ extension Throwable$$Methods on Throwable {
     r'()[Ljava/lang/StackTraceElement;',
   );
 
-  static final _get$stackTrace = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$stackTrace =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.StackTraceElement[] getStackTrace()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JArray<StackTraceElement?>? get stackTrace {
     final _$$selfRef = reference;
-    return _get$stackTrace(_$$selfRef.pointer, _id_get$stackTrace.pointer)
-        .object<jni$_.JArray<StackTraceElement?>?>();
+    return _get$stackTrace(
+      _$$selfRef.pointer,
+      _id_get$stackTrace.pointer,
+    ).object<jni$_.JArray<StackTraceElement?>?>();
   }
 
   static final _id_get$suppressed = Throwable._class.instanceMethodId(
@@ -1415,24 +1669,30 @@ extension Throwable$$Methods on Throwable {
     r'()[Ljava/lang/Throwable;',
   );
 
-  static final _get$suppressed = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$suppressed =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public final java.lang.Throwable[] getSuppressed()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JArray<Throwable?>? get suppressed {
     final _$$selfRef = reference;
-    return _get$suppressed(_$$selfRef.pointer, _id_get$suppressed.pointer)
-        .object<jni$_.JArray<Throwable?>?>();
+    return _get$suppressed(
+      _$$selfRef.pointer,
+      _id_get$suppressed.pointer,
+    ).object<jni$_.JArray<Throwable?>?>();
   }
 
   static final _id_initCause = Throwable._class.instanceMethodId(
@@ -1440,27 +1700,34 @@ extension Throwable$$Methods on Throwable {
     r'(Ljava/lang/Throwable;)Ljava/lang/Throwable;',
   );
 
-  static final _initCause = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _initCause =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public java.lang.Throwable initCause(java.lang.Throwable throwable)`
   /// The returned object must be released after use, by calling the [release] method.
-  Throwable? initCause(
-    Throwable? throwable,
-  ) {
+  Throwable? initCause(Throwable? throwable) {
     final _$$selfRef = reference;
     final _$throwable = throwable?.reference ?? jni$_.jNullReference;
     return _initCause(
-            _$$selfRef.pointer, _id_initCause.pointer, _$throwable.pointer)
-        .object<Throwable?>();
+      _$$selfRef.pointer,
+      _id_initCause.pointer,
+      _$throwable.pointer,
+    ).object<Throwable?>();
   }
 
   static final _id_printStackTrace = Throwable._class.instanceMethodId(
@@ -1468,17 +1735,21 @@ extension Throwable$$Methods on Throwable {
     r'()V',
   );
 
-  static final _printStackTrace = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _printStackTrace =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public void printStackTrace()`
   void printStackTrace() {
@@ -1491,26 +1762,33 @@ extension Throwable$$Methods on Throwable {
     r'(Ljava/io/PrintStream;)V',
   );
 
-  static final _printStackTrace$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _printStackTrace$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void printStackTrace(java.io.PrintStream printStream)`
-  void printStackTrace$1(
-    PrintStream? printStream,
-  ) {
+  void printStackTrace$1(PrintStream? printStream) {
     final _$$selfRef = reference;
     final _$printStream = printStream?.reference ?? jni$_.jNullReference;
-    _printStackTrace$1(_$$selfRef.pointer, _id_printStackTrace$1.pointer,
-            _$printStream.pointer)
-        .check();
+    _printStackTrace$1(
+      _$$selfRef.pointer,
+      _id_printStackTrace$1.pointer,
+      _$printStream.pointer,
+    ).check();
   }
 
   static final _id_printStackTrace$2 = Throwable._class.instanceMethodId(
@@ -1518,26 +1796,33 @@ extension Throwable$$Methods on Throwable {
     r'(Ljava/io/PrintWriter;)V',
   );
 
-  static final _printStackTrace$2 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _printStackTrace$2 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void printStackTrace(java.io.PrintWriter printWriter)`
-  void printStackTrace$2(
-    PrintWriter? printWriter,
-  ) {
+  void printStackTrace$2(PrintWriter? printWriter) {
     final _$$selfRef = reference;
     final _$printWriter = printWriter?.reference ?? jni$_.jNullReference;
-    _printStackTrace$2(_$$selfRef.pointer, _id_printStackTrace$2.pointer,
-            _$printWriter.pointer)
-        .check();
+    _printStackTrace$2(
+      _$$selfRef.pointer,
+      _id_printStackTrace$2.pointer,
+      _$printWriter.pointer,
+    ).check();
   }
 
   static final _id_set$stackTrace = Throwable._class.instanceMethodId(
@@ -1545,25 +1830,34 @@ extension Throwable$$Methods on Throwable {
     r'([Ljava/lang/StackTraceElement;)V',
   );
 
-  static final _set$stackTrace = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _set$stackTrace =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void setStackTrace(java.lang.StackTraceElement[] stackTraceElements)`
   set stackTrace(jni$_.JArray<StackTraceElement?>? stackTraceElements) {
     final _$$selfRef = reference;
     final _$stackTraceElements =
         stackTraceElements?.reference ?? jni$_.jNullReference;
-    _set$stackTrace(_$$selfRef.pointer, _id_set$stackTrace.pointer,
-            _$stackTraceElements.pointer)
-        .check();
+    _set$stackTrace(
+      _$$selfRef.pointer,
+      _id_set$stackTrace.pointer,
+      _$stackTraceElements.pointer,
+    ).check();
   }
 
   static final _id_toString$1 = Throwable._class.instanceMethodId(
@@ -1571,24 +1865,30 @@ extension Throwable$$Methods on Throwable {
     r'()Ljava/lang/String;',
   );
 
-  static final _toString$1 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _toString$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? toString$1() {
     final _$$selfRef = reference;
-    return _toString$1(_$$selfRef.pointer, _id_toString$1.pointer)
-        .object<jni$_.JString?>();
+    return _toString$1(
+      _$$selfRef.pointer,
+      _id_toString$1.pointer,
+    ).object<jni$_.JString?>();
   }
 }
 
@@ -1608,56 +1908,69 @@ extension type URL._(jni$_.JObject _$this)
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<URL> type = $URL$Type$();
-  static final _id_new$ = _class.constructorId(
-    r'(Ljava/lang/String;)V',
-  );
+  static final _id_new$ = _class.constructorId(r'(Ljava/lang/String;)V');
 
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new$ =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory URL(
-    jni$_.JString? string,
-  ) {
+  factory URL(jni$_.JString? string) {
     final _$$classRef = _class.reference;
     final _$string = string?.reference ?? jni$_.jNullReference;
-    return _new$(_$$classRef.pointer, _id_new$.pointer, _$string.pointer)
-        .object<URL>();
+    return _new$(
+      _$$classRef.pointer,
+      _id_new$.pointer,
+      _$string.pointer,
+    ).object<URL>();
   }
 
   static final _id_new$1 = _class.constructorId(
     r'(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)V',
   );
 
-  static final _new$1 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Int32,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
               core$_.int,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string, java.lang.String string1, int i, java.lang.String string2)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -1671,37 +1984,49 @@ extension type URL._(jni$_.JObject _$this)
     final _$string = string?.reference ?? jni$_.jNullReference;
     final _$string1 = string1?.reference ?? jni$_.jNullReference;
     final _$string2 = string2?.reference ?? jni$_.jNullReference;
-    return _new$1(_$$classRef.pointer, _id_new$1.pointer, _$string.pointer,
-            _$string1.pointer, i, _$string2.pointer)
-        .object<URL>();
+    return _new$1(
+      _$$classRef.pointer,
+      _id_new$1.pointer,
+      _$string.pointer,
+      _$string1.pointer,
+      i,
+      _$string2.pointer,
+    ).object<URL>();
   }
 
   static final _id_new$2 = _class.constructorId(
     r'(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/net/URLStreamHandler;)V',
   );
 
-  static final _new$2 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$2 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Int32,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
               core$_.int,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string, java.lang.String string1, int i, java.lang.String string2, java.net.URLStreamHandler uRLStreamHandler)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -1718,33 +2043,46 @@ extension type URL._(jni$_.JObject _$this)
     final _$string2 = string2?.reference ?? jni$_.jNullReference;
     final _$uRLStreamHandler =
         uRLStreamHandler?.reference ?? jni$_.jNullReference;
-    return _new$2(_$$classRef.pointer, _id_new$2.pointer, _$string.pointer,
-            _$string1.pointer, i, _$string2.pointer, _$uRLStreamHandler.pointer)
-        .object<URL>();
+    return _new$2(
+      _$$classRef.pointer,
+      _id_new$2.pointer,
+      _$string.pointer,
+      _$string1.pointer,
+      i,
+      _$string2.pointer,
+      _$uRLStreamHandler.pointer,
+    ).object<URL>();
   }
 
   static final _id_new$3 = _class.constructorId(
     r'(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V',
   );
 
-  static final _new$3 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$3 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.lang.String string, java.lang.String string1, java.lang.String string2)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -1757,68 +2095,83 @@ extension type URL._(jni$_.JObject _$this)
     final _$string = string?.reference ?? jni$_.jNullReference;
     final _$string1 = string1?.reference ?? jni$_.jNullReference;
     final _$string2 = string2?.reference ?? jni$_.jNullReference;
-    return _new$3(_$$classRef.pointer, _id_new$3.pointer, _$string.pointer,
-            _$string1.pointer, _$string2.pointer)
-        .object<URL>();
+    return _new$3(
+      _$$classRef.pointer,
+      _id_new$3.pointer,
+      _$string.pointer,
+      _$string1.pointer,
+      _$string2.pointer,
+    ).object<URL>();
   }
 
   static final _id_new$4 = _class.constructorId(
     r'(Ljava/net/URL;Ljava/lang/String;)V',
   );
 
-  static final _new$4 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$4 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.net.URL uRL, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory URL.new$4(
-    URL? uRL,
-    jni$_.JString? string,
-  ) {
+  factory URL.new$4(URL? uRL, jni$_.JString? string) {
     final _$$classRef = _class.reference;
     final _$uRL = uRL?.reference ?? jni$_.jNullReference;
     final _$string = string?.reference ?? jni$_.jNullReference;
-    return _new$4(_$$classRef.pointer, _id_new$4.pointer, _$uRL.pointer,
-            _$string.pointer)
-        .object<URL>();
+    return _new$4(
+      _$$classRef.pointer,
+      _id_new$4.pointer,
+      _$uRL.pointer,
+      _$string.pointer,
+    ).object<URL>();
   }
 
   static final _id_new$5 = _class.constructorId(
     r'(Ljava/net/URL;Ljava/lang/String;Ljava/net/URLStreamHandler;)V',
   );
 
-  static final _new$5 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _new$5 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(java.net.URL uRL, java.lang.String string, java.net.URLStreamHandler uRLStreamHandler)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -1832,9 +2185,13 @@ extension type URL._(jni$_.JObject _$this)
     final _$string = string?.reference ?? jni$_.jNullReference;
     final _$uRLStreamHandler =
         uRLStreamHandler?.reference ?? jni$_.jNullReference;
-    return _new$5(_$$classRef.pointer, _id_new$5.pointer, _$uRL.pointer,
-            _$string.pointer, _$uRLStreamHandler.pointer)
-        .object<URL>();
+    return _new$5(
+      _$$classRef.pointer,
+      _id_new$5.pointer,
+      _$uRL.pointer,
+      _$string.pointer,
+      _$uRLStreamHandler.pointer,
+    ).object<URL>();
   }
 
   static final _id_set$uRLStreamHandlerFactory = _class.staticMethodId(
@@ -1844,27 +2201,34 @@ extension type URL._(jni$_.JObject _$this)
 
   static final _set$uRLStreamHandlerFactory =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JThrowablePtr Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallStaticVoidMethod')
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticVoidMethod')
           .asFunction<
-              jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public void setURLStreamHandlerFactory(java.net.URLStreamHandlerFactory uRLStreamHandlerFactory)`
   static set uRLStreamHandlerFactory(
-      URLStreamHandlerFactory? uRLStreamHandlerFactory) {
+    URLStreamHandlerFactory? uRLStreamHandlerFactory,
+  ) {
     final _$$classRef = _class.reference;
     final _$uRLStreamHandlerFactory =
         uRLStreamHandlerFactory?.reference ?? jni$_.jNullReference;
     _set$uRLStreamHandlerFactory(
-            _$$classRef.pointer,
-            _id_set$uRLStreamHandlerFactory.pointer,
-            _$uRLStreamHandlerFactory.pointer)
-        .check();
+      _$$classRef.pointer,
+      _id_set$uRLStreamHandlerFactory.pointer,
+      _$uRLStreamHandlerFactory.pointer,
+    ).check();
   }
 }
 
@@ -1874,25 +2238,33 @@ extension URL$$Methods on URL {
     r'(Ljava/lang/Object;)Z',
   );
 
-  static final _equals = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallBooleanMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _equals =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallBooleanMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public boolean equals(java.lang.Object object)`
-  core$_.bool equals(
-    jni$_.JObject? object,
-  ) {
+  core$_.bool equals(jni$_.JObject? object) {
     final _$$selfRef = reference;
     final _$object = object?.reference ?? jni$_.jNullReference;
-    return _equals(_$$selfRef.pointer, _id_equals.pointer, _$object.pointer)
-        .boolean;
+    return _equals(
+      _$$selfRef.pointer,
+      _id_equals.pointer,
+      _$object.pointer,
+    ).boolean;
   }
 
   static final _id_get$authority = URL._class.instanceMethodId(
@@ -1900,24 +2272,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$authority = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$authority =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getAuthority()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get authority {
     final _$$selfRef = reference;
-    return _get$authority(_$$selfRef.pointer, _id_get$authority.pointer)
-        .object<jni$_.JString?>();
+    return _get$authority(
+      _$$selfRef.pointer,
+      _id_get$authority.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$content = URL._class.instanceMethodId(
@@ -1925,24 +2303,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/Object;',
   );
 
-  static final _get$content = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$content =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Object getContent()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JObject? get content {
     final _$$selfRef = reference;
-    return _get$content(_$$selfRef.pointer, _id_get$content.pointer)
-        .object<jni$_.JObject?>();
+    return _get$content(
+      _$$selfRef.pointer,
+      _id_get$content.pointer,
+    ).object<jni$_.JObject?>();
   }
 
   static final _id_getContent = URL._class.instanceMethodId(
@@ -1950,27 +2334,34 @@ extension URL$$Methods on URL {
     r'([Ljava/lang/Class;)Ljava/lang/Object;',
   );
 
-  static final _getContent = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _getContent =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public java.lang.Object getContent(java.lang.Class[] classs)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject? getContent(
-    jni$_.JArray<jni$_.JClass?>? classs,
-  ) {
+  jni$_.JObject? getContent(jni$_.JArray<jni$_.JClass?>? classs) {
     final _$$selfRef = reference;
     final _$classs = classs?.reference ?? jni$_.jNullReference;
     return _getContent(
-            _$$selfRef.pointer, _id_getContent.pointer, _$classs.pointer)
-        .object<jni$_.JObject?>();
+      _$$selfRef.pointer,
+      _id_getContent.pointer,
+      _$classs.pointer,
+    ).object<jni$_.JObject?>();
   }
 
   static final _id_get$defaultPort = URL._class.instanceMethodId(
@@ -1978,23 +2369,29 @@ extension URL$$Methods on URL {
     r'()I',
   );
 
-  static final _get$defaultPort = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$defaultPort =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int getDefaultPort()`
   core$_.int get defaultPort {
     final _$$selfRef = reference;
-    return _get$defaultPort(_$$selfRef.pointer, _id_get$defaultPort.pointer)
-        .integer;
+    return _get$defaultPort(
+      _$$selfRef.pointer,
+      _id_get$defaultPort.pointer,
+    ).integer;
   }
 
   static final _id_get$file = URL._class.instanceMethodId(
@@ -2002,24 +2399,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$file = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$file =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getFile()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get file {
     final _$$selfRef = reference;
-    return _get$file(_$$selfRef.pointer, _id_get$file.pointer)
-        .object<jni$_.JString?>();
+    return _get$file(
+      _$$selfRef.pointer,
+      _id_get$file.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$host = URL._class.instanceMethodId(
@@ -2027,24 +2430,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$host = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$host =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getHost()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get host {
     final _$$selfRef = reference;
-    return _get$host(_$$selfRef.pointer, _id_get$host.pointer)
-        .object<jni$_.JString?>();
+    return _get$host(
+      _$$selfRef.pointer,
+      _id_get$host.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$path = URL._class.instanceMethodId(
@@ -2052,42 +2461,49 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$path = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$path =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getPath()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get path {
     final _$$selfRef = reference;
-    return _get$path(_$$selfRef.pointer, _id_get$path.pointer)
-        .object<jni$_.JString?>();
+    return _get$path(
+      _$$selfRef.pointer,
+      _id_get$path.pointer,
+    ).object<jni$_.JString?>();
   }
 
-  static final _id_get$port = URL._class.instanceMethodId(
-    r'getPort',
-    r'()I',
-  );
+  static final _id_get$port = URL._class.instanceMethodId(r'getPort', r'()I');
 
-  static final _get$port = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$port =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int getPort()`
   core$_.int get port {
@@ -2100,24 +2516,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$protocol = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$protocol =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getProtocol()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get protocol {
     final _$$selfRef = reference;
-    return _get$protocol(_$$selfRef.pointer, _id_get$protocol.pointer)
-        .object<jni$_.JString?>();
+    return _get$protocol(
+      _$$selfRef.pointer,
+      _id_get$protocol.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$query = URL._class.instanceMethodId(
@@ -2125,24 +2547,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$query = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$query =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getQuery()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get query {
     final _$$selfRef = reference;
-    return _get$query(_$$selfRef.pointer, _id_get$query.pointer)
-        .object<jni$_.JString?>();
+    return _get$query(
+      _$$selfRef.pointer,
+      _id_get$query.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$ref = URL._class.instanceMethodId(
@@ -2150,24 +2578,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$ref = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$ref =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getRef()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get ref {
     final _$$selfRef = reference;
-    return _get$ref(_$$selfRef.pointer, _id_get$ref.pointer)
-        .object<jni$_.JString?>();
+    return _get$ref(
+      _$$selfRef.pointer,
+      _id_get$ref.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$userInfo = URL._class.instanceMethodId(
@@ -2175,24 +2609,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$userInfo = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$userInfo =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getUserInfo()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get userInfo {
     final _$$selfRef = reference;
-    return _get$userInfo(_$$selfRef.pointer, _id_get$userInfo.pointer)
-        .object<jni$_.JString?>();
+    return _get$userInfo(
+      _$$selfRef.pointer,
+      _id_get$userInfo.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_hashCode$1 = URL._class.instanceMethodId(
@@ -2200,17 +2640,21 @@ extension URL$$Methods on URL {
     r'()I',
   );
 
-  static final _hashCode$1 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _hashCode$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int hashCode()`
   core$_.int hashCode$1() {
@@ -2223,24 +2667,30 @@ extension URL$$Methods on URL {
     r'()Ljava/net/URLConnection;',
   );
 
-  static final _openConnection = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _openConnection =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.net.URLConnection openConnection()`
   /// The returned object must be released after use, by calling the [release] method.
   URLConnection? openConnection() {
     final _$$selfRef = reference;
-    return _openConnection(_$$selfRef.pointer, _id_openConnection.pointer)
-        .object<URLConnection?>();
+    return _openConnection(
+      _$$selfRef.pointer,
+      _id_openConnection.pointer,
+    ).object<URLConnection?>();
   }
 
   static final _id_openConnection$1 = URL._class.instanceMethodId(
@@ -2248,27 +2698,34 @@ extension URL$$Methods on URL {
     r'(Ljava/net/Proxy;)Ljava/net/URLConnection;',
   );
 
-  static final _openConnection$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _openConnection$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public java.net.URLConnection openConnection(java.net.Proxy proxy)`
   /// The returned object must be released after use, by calling the [release] method.
-  URLConnection? openConnection$1(
-    Proxy? proxy,
-  ) {
+  URLConnection? openConnection$1(Proxy? proxy) {
     final _$$selfRef = reference;
     final _$proxy = proxy?.reference ?? jni$_.jNullReference;
     return _openConnection$1(
-            _$$selfRef.pointer, _id_openConnection$1.pointer, _$proxy.pointer)
-        .object<URLConnection?>();
+      _$$selfRef.pointer,
+      _id_openConnection$1.pointer,
+      _$proxy.pointer,
+    ).object<URLConnection?>();
   }
 
   static final _id_openStream = URL._class.instanceMethodId(
@@ -2276,24 +2733,30 @@ extension URL$$Methods on URL {
     r'()Ljava/io/InputStream;',
   );
 
-  static final _openStream = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _openStream =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.io.InputStream openStream()`
   /// The returned object must be released after use, by calling the [release] method.
   InputStream? openStream() {
     final _$$selfRef = reference;
-    return _openStream(_$$selfRef.pointer, _id_openStream.pointer)
-        .object<InputStream?>();
+    return _openStream(
+      _$$selfRef.pointer,
+      _id_openStream.pointer,
+    ).object<InputStream?>();
   }
 
   static final _id_sameFile = URL._class.instanceMethodId(
@@ -2301,25 +2764,33 @@ extension URL$$Methods on URL {
     r'(Ljava/net/URL;)Z',
   );
 
-  static final _sameFile = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallBooleanMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _sameFile =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallBooleanMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public boolean sameFile(java.net.URL uRL)`
-  core$_.bool sameFile(
-    URL? uRL,
-  ) {
+  core$_.bool sameFile(URL? uRL) {
     final _$$selfRef = reference;
     final _$uRL = uRL?.reference ?? jni$_.jNullReference;
-    return _sameFile(_$$selfRef.pointer, _id_sameFile.pointer, _$uRL.pointer)
-        .boolean;
+    return _sameFile(
+      _$$selfRef.pointer,
+      _id_sameFile.pointer,
+      _$uRL.pointer,
+    ).boolean;
   }
 
   static final _id_toExternalForm = URL._class.instanceMethodId(
@@ -2327,24 +2798,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _toExternalForm = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _toExternalForm =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String toExternalForm()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? toExternalForm() {
     final _$$selfRef = reference;
-    return _toExternalForm(_$$selfRef.pointer, _id_toExternalForm.pointer)
-        .object<jni$_.JString?>();
+    return _toExternalForm(
+      _$$selfRef.pointer,
+      _id_toExternalForm.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_toString$1 = URL._class.instanceMethodId(
@@ -2352,24 +2829,30 @@ extension URL$$Methods on URL {
     r'()Ljava/lang/String;',
   );
 
-  static final _toString$1 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _toString$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? toString$1() {
     final _$$selfRef = reference;
-    return _toString$1(_$$selfRef.pointer, _id_toString$1.pointer)
-        .object<jni$_.JString?>();
+    return _toString$1(
+      _$$selfRef.pointer,
+      _id_toString$1.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_toURI = URL._class.instanceMethodId(
@@ -2377,17 +2860,21 @@ extension URL$$Methods on URL {
     r'()Ljava/net/URI;',
   );
 
-  static final _toURI = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _toURI =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.net.URI toURI()`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2417,27 +2904,34 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(Ljava/lang/Runnable;)Ljava/util/concurrent/Callable;',
   );
 
-  static final _callable = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _callable =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.Callable<java.lang.Object> callable(java.lang.Runnable runnable)`
   /// The returned object must be released after use, by calling the [release] method.
-  static Callable? callable(
-    Runnable? runnable,
-  ) {
+  static Callable? callable(Runnable? runnable) {
     final _$$classRef = _class.reference;
     final _$runnable = runnable?.reference ?? jni$_.jNullReference;
     return _callable(
-            _$$classRef.pointer, _id_callable.pointer, _$runnable.pointer)
-        .object<Callable?>();
+      _$$classRef.pointer,
+      _id_callable.pointer,
+      _$runnable.pointer,
+    ).object<Callable?>();
   }
 
   static final _id_callable$1 = _class.staticMethodId(
@@ -2445,22 +2939,26 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(Ljava/lang/Runnable;Ljava/lang/Object;)Ljava/util/concurrent/Callable;',
   );
 
-  static final _callable$1 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _callable$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.Callable<T> callable(java.lang.Runnable runnable, T object)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2471,9 +2969,12 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     final _$$classRef = _class.reference;
     final _$runnable = runnable?.reference ?? jni$_.jNullReference;
     final _$object = object?.reference ?? jni$_.jNullReference;
-    return _callable$1(_$$classRef.pointer, _id_callable$1.pointer,
-            _$runnable.pointer, _$object.pointer)
-        .object<Callable?>();
+    return _callable$1(
+      _$$classRef.pointer,
+      _id_callable$1.pointer,
+      _$runnable.pointer,
+      _$object.pointer,
+    ).object<Callable?>();
   }
 
   static final _id_callable$2 = _class.staticMethodId(
@@ -2481,28 +2982,35 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(Ljava/security/PrivilegedAction;)Ljava/util/concurrent/Callable;',
   );
 
-  static final _callable$2 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _callable$2 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.Callable<java.lang.Object> callable(java.security.PrivilegedAction<?> privilegedAction)`
   /// The returned object must be released after use, by calling the [release] method.
-  static Callable? callable$2(
-    PrivilegedAction? privilegedAction,
-  ) {
+  static Callable? callable$2(PrivilegedAction? privilegedAction) {
     final _$$classRef = _class.reference;
     final _$privilegedAction =
         privilegedAction?.reference ?? jni$_.jNullReference;
-    return _callable$2(_$$classRef.pointer, _id_callable$2.pointer,
-            _$privilegedAction.pointer)
-        .object<Callable?>();
+    return _callable$2(
+      _$$classRef.pointer,
+      _id_callable$2.pointer,
+      _$privilegedAction.pointer,
+    ).object<Callable?>();
   }
 
   static final _id_callable$3 = _class.staticMethodId(
@@ -2510,16 +3018,23 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(Ljava/security/PrivilegedExceptionAction;)Ljava/util/concurrent/Callable;',
   );
 
-  static final _callable$3 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _callable$3 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.Callable<java.lang.Object> callable(java.security.PrivilegedExceptionAction<?> privilegedExceptionAction)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2529,9 +3044,11 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     final _$$classRef = _class.reference;
     final _$privilegedExceptionAction =
         privilegedExceptionAction?.reference ?? jni$_.jNullReference;
-    return _callable$3(_$$classRef.pointer, _id_callable$3.pointer,
-            _$privilegedExceptionAction.pointer)
-        .object<Callable?>();
+    return _callable$3(
+      _$$classRef.pointer,
+      _id_callable$3.pointer,
+      _$privilegedExceptionAction.pointer,
+    ).object<Callable?>();
   }
 
   static final _id_defaultThreadFactory = _class.staticMethodId(
@@ -2539,25 +3056,30 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'()Ljava/util/concurrent/ThreadFactory;',
   );
 
-  static final _defaultThreadFactory = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _defaultThreadFactory =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ThreadFactory defaultThreadFactory()`
   /// The returned object must be released after use, by calling the [release] method.
   static ThreadFactory? defaultThreadFactory() {
     final _$$classRef = _class.reference;
     return _defaultThreadFactory(
-            _$$classRef.pointer, _id_defaultThreadFactory.pointer)
-        .object<ThreadFactory?>();
+      _$$classRef.pointer,
+      _id_defaultThreadFactory.pointer,
+    ).object<ThreadFactory?>();
   }
 
   static final _id_newCachedThreadPool = _class.staticMethodId(
@@ -2565,25 +3087,30 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'()Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _newCachedThreadPool = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _newCachedThreadPool =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService newCachedThreadPool()`
   /// The returned object must be released after use, by calling the [release] method.
   static ExecutorService? newCachedThreadPool() {
     final _$$classRef = _class.reference;
     return _newCachedThreadPool(
-            _$$classRef.pointer, _id_newCachedThreadPool.pointer)
-        .object<ExecutorService?>();
+      _$$classRef.pointer,
+      _id_newCachedThreadPool.pointer,
+    ).object<ExecutorService?>();
   }
 
   static final _id_newCachedThreadPool$1 = _class.staticMethodId(
@@ -2591,27 +3118,34 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _newCachedThreadPool$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _newCachedThreadPool$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService newCachedThreadPool(java.util.concurrent.ThreadFactory threadFactory)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ExecutorService? newCachedThreadPool$1(
-    ThreadFactory? threadFactory,
-  ) {
+  static ExecutorService? newCachedThreadPool$1(ThreadFactory? threadFactory) {
     final _$$classRef = _class.reference;
     final _$threadFactory = threadFactory?.reference ?? jni$_.jNullReference;
-    return _newCachedThreadPool$1(_$$classRef.pointer,
-            _id_newCachedThreadPool$1.pointer, _$threadFactory.pointer)
-        .object<ExecutorService?>();
+    return _newCachedThreadPool$1(
+      _$$classRef.pointer,
+      _id_newCachedThreadPool$1.pointer,
+      _$threadFactory.pointer,
+    ).object<ExecutorService?>();
   }
 
   static final _id_newFixedThreadPool = _class.staticMethodId(
@@ -2619,24 +3153,33 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(I)Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _newFixedThreadPool = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int32,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+  static final _newFixedThreadPool =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService newFixedThreadPool(int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ExecutorService? newFixedThreadPool(
-    core$_.int i,
-  ) {
+  static ExecutorService? newFixedThreadPool(core$_.int i) {
     final _$$classRef = _class.reference;
     return _newFixedThreadPool(
-            _$$classRef.pointer, _id_newFixedThreadPool.pointer, i)
-        .object<ExecutorService?>();
+      _$$classRef.pointer,
+      _id_newFixedThreadPool.pointer,
+      i,
+    ).object<ExecutorService?>();
   }
 
   static final _id_newFixedThreadPool$1 = _class.staticMethodId(
@@ -2644,17 +3187,24 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(ILjava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _newFixedThreadPool$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_
-                          .VarArgs<(jni$_.Int32, jni$_.Pointer<jni$_.Void>)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, core$_.int, jni$_.Pointer<jni$_.Void>)>();
+  static final _newFixedThreadPool$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32, jni$_.Pointer<jni$_.Void>)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService newFixedThreadPool(int i, java.util.concurrent.ThreadFactory threadFactory)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2664,9 +3214,12 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
   ) {
     final _$$classRef = _class.reference;
     final _$threadFactory = threadFactory?.reference ?? jni$_.jNullReference;
-    return _newFixedThreadPool$1(_$$classRef.pointer,
-            _id_newFixedThreadPool$1.pointer, i, _$threadFactory.pointer)
-        .object<ExecutorService?>();
+    return _newFixedThreadPool$1(
+      _$$classRef.pointer,
+      _id_newFixedThreadPool$1.pointer,
+      i,
+      _$threadFactory.pointer,
+    ).object<ExecutorService?>();
   }
 
   static final _id_newScheduledThreadPool = _class.staticMethodId(
@@ -2674,24 +3227,33 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(I)Ljava/util/concurrent/ScheduledExecutorService;',
   );
 
-  static final _newScheduledThreadPool = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int32,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+  static final _newScheduledThreadPool =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ScheduledExecutorService newScheduledThreadPool(int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ScheduledExecutorService? newScheduledThreadPool(
-    core$_.int i,
-  ) {
+  static ScheduledExecutorService? newScheduledThreadPool(core$_.int i) {
     final _$$classRef = _class.reference;
     return _newScheduledThreadPool(
-            _$$classRef.pointer, _id_newScheduledThreadPool.pointer, i)
-        .object<ScheduledExecutorService?>();
+      _$$classRef.pointer,
+      _id_newScheduledThreadPool.pointer,
+      i,
+    ).object<ScheduledExecutorService?>();
   }
 
   static final _id_newScheduledThreadPool$1 = _class.staticMethodId(
@@ -2699,17 +3261,24 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(ILjava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ScheduledExecutorService;',
   );
 
-  static final _newScheduledThreadPool$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_
-                          .VarArgs<(jni$_.Int32, jni$_.Pointer<jni$_.Void>)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, core$_.int, jni$_.Pointer<jni$_.Void>)>();
+  static final _newScheduledThreadPool$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32, jni$_.Pointer<jni$_.Void>)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ScheduledExecutorService newScheduledThreadPool(int i, java.util.concurrent.ThreadFactory threadFactory)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2719,9 +3288,12 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
   ) {
     final _$$classRef = _class.reference;
     final _$threadFactory = threadFactory?.reference ?? jni$_.jNullReference;
-    return _newScheduledThreadPool$1(_$$classRef.pointer,
-            _id_newScheduledThreadPool$1.pointer, i, _$threadFactory.pointer)
-        .object<ScheduledExecutorService?>();
+    return _newScheduledThreadPool$1(
+      _$$classRef.pointer,
+      _id_newScheduledThreadPool$1.pointer,
+      i,
+      _$threadFactory.pointer,
+    ).object<ScheduledExecutorService?>();
   }
 
   static final _id_newSingleThreadExecutor = _class.staticMethodId(
@@ -2729,25 +3301,30 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'()Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _newSingleThreadExecutor = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _newSingleThreadExecutor =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService newSingleThreadExecutor()`
   /// The returned object must be released after use, by calling the [release] method.
   static ExecutorService? newSingleThreadExecutor() {
     final _$$classRef = _class.reference;
     return _newSingleThreadExecutor(
-            _$$classRef.pointer, _id_newSingleThreadExecutor.pointer)
-        .object<ExecutorService?>();
+      _$$classRef.pointer,
+      _id_newSingleThreadExecutor.pointer,
+    ).object<ExecutorService?>();
   }
 
   static final _id_newSingleThreadExecutor$1 = _class.staticMethodId(
@@ -2755,16 +3332,23 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _newSingleThreadExecutor$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _newSingleThreadExecutor$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService newSingleThreadExecutor(java.util.concurrent.ThreadFactory threadFactory)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2773,9 +3357,11 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
   ) {
     final _$$classRef = _class.reference;
     final _$threadFactory = threadFactory?.reference ?? jni$_.jNullReference;
-    return _newSingleThreadExecutor$1(_$$classRef.pointer,
-            _id_newSingleThreadExecutor$1.pointer, _$threadFactory.pointer)
-        .object<ExecutorService?>();
+    return _newSingleThreadExecutor$1(
+      _$$classRef.pointer,
+      _id_newSingleThreadExecutor$1.pointer,
+      _$threadFactory.pointer,
+    ).object<ExecutorService?>();
   }
 
   static final _id_newSingleThreadScheduledExecutor = _class.staticMethodId(
@@ -2785,24 +3371,28 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
 
   static final _newSingleThreadScheduledExecutor =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallStaticObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor()`
   /// The returned object must be released after use, by calling the [release] method.
   static ScheduledExecutorService? newSingleThreadScheduledExecutor() {
     final _$$classRef = _class.reference;
     return _newSingleThreadScheduledExecutor(
-            _$$classRef.pointer, _id_newSingleThreadScheduledExecutor.pointer)
-        .object<ScheduledExecutorService?>();
+      _$$classRef.pointer,
+      _id_newSingleThreadScheduledExecutor.pointer,
+    ).object<ScheduledExecutorService?>();
   }
 
   static final _id_newSingleThreadScheduledExecutor$1 = _class.staticMethodId(
@@ -2812,15 +3402,21 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
 
   static final _newSingleThreadScheduledExecutor$1 =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallStaticObjectMethod')
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
           .asFunction<
-              jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor(java.util.concurrent.ThreadFactory threadFactory)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2830,10 +3426,10 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     final _$$classRef = _class.reference;
     final _$threadFactory = threadFactory?.reference ?? jni$_.jNullReference;
     return _newSingleThreadScheduledExecutor$1(
-            _$$classRef.pointer,
-            _id_newSingleThreadScheduledExecutor$1.pointer,
-            _$threadFactory.pointer)
-        .object<ScheduledExecutorService?>();
+      _$$classRef.pointer,
+      _id_newSingleThreadScheduledExecutor$1.pointer,
+      _$threadFactory.pointer,
+    ).object<ScheduledExecutorService?>();
   }
 
   static final _id_newWorkStealingPool = _class.staticMethodId(
@@ -2841,25 +3437,30 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'()Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _newWorkStealingPool = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _newWorkStealingPool =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService newWorkStealingPool()`
   /// The returned object must be released after use, by calling the [release] method.
   static ExecutorService? newWorkStealingPool() {
     final _$$classRef = _class.reference;
     return _newWorkStealingPool(
-            _$$classRef.pointer, _id_newWorkStealingPool.pointer)
-        .object<ExecutorService?>();
+      _$$classRef.pointer,
+      _id_newWorkStealingPool.pointer,
+    ).object<ExecutorService?>();
   }
 
   static final _id_newWorkStealingPool$1 = _class.staticMethodId(
@@ -2867,24 +3468,33 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(I)Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _newWorkStealingPool$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int32,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+  static final _newWorkStealingPool$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService newWorkStealingPool(int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ExecutorService? newWorkStealingPool$1(
-    core$_.int i,
-  ) {
+  static ExecutorService? newWorkStealingPool$1(core$_.int i) {
     final _$$classRef = _class.reference;
     return _newWorkStealingPool$1(
-            _$$classRef.pointer, _id_newWorkStealingPool$1.pointer, i)
-        .object<ExecutorService?>();
+      _$$classRef.pointer,
+      _id_newWorkStealingPool$1.pointer,
+      i,
+    ).object<ExecutorService?>();
   }
 
   static final _id_privilegedCallable = _class.staticMethodId(
@@ -2892,16 +3502,23 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;',
   );
 
-  static final _privilegedCallable = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _privilegedCallable =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.Callable<T> privilegedCallable(java.util.concurrent.Callable<T> callable)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2911,43 +3528,50 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
   ) {
     final _$$classRef = _class.reference;
     final _$callable = callable?.reference ?? jni$_.jNullReference;
-    return _privilegedCallable(_$$classRef.pointer,
-            _id_privilegedCallable.pointer, _$callable.pointer)
-        .object<Callable?>();
+    return _privilegedCallable(
+      _$$classRef.pointer,
+      _id_privilegedCallable.pointer,
+      _$callable.pointer,
+    ).object<Callable?>();
   }
 
-  static final _id_privilegedCallableUsingCurrentClassLoader =
-      _class.staticMethodId(
-    r'privilegedCallableUsingCurrentClassLoader',
-    r'(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;',
-  );
+  static final _id_privilegedCallableUsingCurrentClassLoader = _class
+      .staticMethodId(
+        r'privilegedCallableUsingCurrentClassLoader',
+        r'(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;',
+      );
 
   static final _privilegedCallableUsingCurrentClassLoader =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallStaticObjectMethod')
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
           .asFunction<
-              jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.Callable<T> privilegedCallableUsingCurrentClassLoader(java.util.concurrent.Callable<T> callable)`
   /// The returned object must be released after use, by calling the [release] method.
   @core$_.Deprecated('This Java method is deprecated.')
-  static Callable?
-      privilegedCallableUsingCurrentClassLoader<$T extends jni$_.JObject?>(
-    Callable? callable,
-  ) {
+  static Callable? privilegedCallableUsingCurrentClassLoader<
+    $T extends jni$_.JObject?
+  >(Callable? callable) {
     final _$$classRef = _class.reference;
     final _$callable = callable?.reference ?? jni$_.jNullReference;
     return _privilegedCallableUsingCurrentClassLoader(
-            _$$classRef.pointer,
-            _id_privilegedCallableUsingCurrentClassLoader.pointer,
-            _$callable.pointer)
-        .object<Callable?>();
+      _$$classRef.pointer,
+      _id_privilegedCallableUsingCurrentClassLoader.pointer,
+      _$callable.pointer,
+    ).object<Callable?>();
   }
 
   static final _id_privilegedThreadFactory = _class.staticMethodId(
@@ -2955,17 +3579,21 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     r'()Ljava/util/concurrent/ThreadFactory;',
   );
 
-  static final _privilegedThreadFactory = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _privilegedThreadFactory =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ThreadFactory privilegedThreadFactory()`
   /// The returned object must be released after use, by calling the [release] method.
@@ -2973,8 +3601,9 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
   static ThreadFactory? privilegedThreadFactory() {
     final _$$classRef = _class.reference;
     return _privilegedThreadFactory(
-            _$$classRef.pointer, _id_privilegedThreadFactory.pointer)
-        .object<ThreadFactory?>();
+      _$$classRef.pointer,
+      _id_privilegedThreadFactory.pointer,
+    ).object<ThreadFactory?>();
   }
 
   static final _id_unconfigurableExecutorService = _class.staticMethodId(
@@ -2984,15 +3613,21 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
 
   static final _unconfigurableExecutorService =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallStaticObjectMethod')
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
           .asFunction<
-              jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ExecutorService unconfigurableExecutorService(java.util.concurrent.ExecutorService executorService)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3003,29 +3638,34 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     final _$executorService =
         executorService?.reference ?? jni$_.jNullReference;
     return _unconfigurableExecutorService(
-            _$$classRef.pointer,
-            _id_unconfigurableExecutorService.pointer,
-            _$executorService.pointer)
-        .object<ExecutorService?>();
+      _$$classRef.pointer,
+      _id_unconfigurableExecutorService.pointer,
+      _$executorService.pointer,
+    ).object<ExecutorService?>();
   }
 
-  static final _id_unconfigurableScheduledExecutorService =
-      _class.staticMethodId(
+  static final _id_unconfigurableScheduledExecutorService = _class.staticMethodId(
     r'unconfigurableScheduledExecutorService',
     r'(Ljava/util/concurrent/ScheduledExecutorService;)Ljava/util/concurrent/ScheduledExecutorService;',
   );
 
   static final _unconfigurableScheduledExecutorService =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallStaticObjectMethod')
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
           .asFunction<
-              jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public java.util.concurrent.ScheduledExecutorService unconfigurableScheduledExecutorService(java.util.concurrent.ScheduledExecutorService scheduledExecutorService)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3036,10 +3676,10 @@ extension type Executors._(jni$_.JObject _$this) implements jni$_.JObject {
     final _$scheduledExecutorService =
         scheduledExecutorService?.reference ?? jni$_.jNullReference;
     return _unconfigurableScheduledExecutorService(
-            _$$classRef.pointer,
-            _id_unconfigurableScheduledExecutorService.pointer,
-            _$scheduledExecutorService.pointer)
-        .object<ScheduledExecutorService?>();
+      _$$classRef.pointer,
+      _id_unconfigurableScheduledExecutorService.pointer,
+      _$scheduledExecutorService.pointer,
+    ).object<ScheduledExecutorService?>();
   }
 }
 
@@ -3056,7 +3696,8 @@ final class $Executors$Type$ extends jni$_.JType<Executors> {
 extension type CronetEngine$Builder$LibraryLoader._(jni$_.JObject _$this)
     implements jni$_.JObject {
   static final _class = jni$_.JClass.forName(
-      r'org/chromium/net/CronetEngine$Builder$LibraryLoader');
+    r'org/chromium/net/CronetEngine$Builder$LibraryLoader',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<CronetEngine$Builder$LibraryLoader> type =
@@ -3065,31 +3706,36 @@ extension type CronetEngine$Builder$LibraryLoader._(jni$_.JObject _$this)
 
 extension CronetEngine$Builder$LibraryLoader$$Methods
     on CronetEngine$Builder$LibraryLoader {
-  static final _id_loadLibrary =
-      CronetEngine$Builder$LibraryLoader._class.instanceMethodId(
-    r'loadLibrary',
-    r'(Ljava/lang/String;)V',
-  );
+  static final _id_loadLibrary = CronetEngine$Builder$LibraryLoader._class
+      .instanceMethodId(r'loadLibrary', r'(Ljava/lang/String;)V');
 
-  static final _loadLibrary = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _loadLibrary =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract void loadLibrary(java.lang.String libName)`
-  void loadLibrary(
-    jni$_.JString? libName,
-  ) {
+  void loadLibrary(jni$_.JString? libName) {
     final _$$selfRef = reference;
     final _$libName = libName?.reference ?? jni$_.jNullReference;
-    _loadLibrary(_$$selfRef.pointer, _id_loadLibrary.pointer, _$libName.pointer)
-        .check();
+    _loadLibrary(
+      _$$selfRef.pointer,
+      _id_loadLibrary.pointer,
+      _$libName.pointer,
+    ).check();
   }
 }
 
@@ -3107,8 +3753,9 @@ final class $CronetEngine$Builder$LibraryLoader$Type$
 /// from: `org.chromium.net.CronetEngine$Builder`
 extension type CronetEngine$Builder._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/CronetEngine$Builder');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/CronetEngine$Builder',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<CronetEngine$Builder> type =
@@ -3125,87 +3772,102 @@ extension type CronetEngine$Builder._(jni$_.JObject _$this)
 
   /// from: `static public final int HTTP_CACHE_DISK`
   static const HTTP_CACHE_DISK = 3;
-  static final _id_new$ = _class.constructorId(
-    r'(Landroid/content/Context;)V',
-  );
+  static final _id_new$ = _class.constructorId(r'(Landroid/content/Context;)V');
 
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new$ =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(android.content.Context context)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory CronetEngine$Builder(
-    Context? context,
-  ) {
+  factory CronetEngine$Builder(Context? context) {
     final _$$classRef = _class.reference;
     final _$context = context?.reference ?? jni$_.jNullReference;
-    return _new$(_$$classRef.pointer, _id_new$.pointer, _$context.pointer)
-        .object<CronetEngine$Builder>();
+    return _new$(
+      _$$classRef.pointer,
+      _id_new$.pointer,
+      _$context.pointer,
+    ).object<CronetEngine$Builder>();
   }
 
   static final _id_new$1 = _class.constructorId(
     r'(Lorg/chromium/net/ICronetEngineBuilder;)V',
   );
 
-  static final _new$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _new$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_NewObject')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void <init>(org.chromium.net.ICronetEngineBuilder builderDelegate)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory CronetEngine$Builder.new$1(
-    ICronetEngineBuilder? builderDelegate,
-  ) {
+  factory CronetEngine$Builder.new$1(ICronetEngineBuilder? builderDelegate) {
     final _$$classRef = _class.reference;
     final _$builderDelegate =
         builderDelegate?.reference ?? jni$_.jNullReference;
     return _new$1(
-            _$$classRef.pointer, _id_new$1.pointer, _$builderDelegate.pointer)
-        .object<CronetEngine$Builder>();
+      _$$classRef.pointer,
+      _id_new$1.pointer,
+      _$builderDelegate.pointer,
+    ).object<CronetEngine$Builder>();
   }
 }
 
 extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
-  static final _id_get$defaultUserAgent =
-      CronetEngine$Builder._class.instanceMethodId(
-    r'getDefaultUserAgent',
-    r'()Ljava/lang/String;',
-  );
+  static final _id_get$defaultUserAgent = CronetEngine$Builder._class
+      .instanceMethodId(r'getDefaultUserAgent', r'()Ljava/lang/String;');
 
-  static final _get$defaultUserAgent = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$defaultUserAgent =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.String getDefaultUserAgent()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get defaultUserAgent {
     final _$$selfRef = reference;
     return _get$defaultUserAgent(
-            _$$selfRef.pointer, _id_get$defaultUserAgent.pointer)
-        .object<jni$_.JString?>();
+      _$$selfRef.pointer,
+      _id_get$defaultUserAgent.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_setUserAgent = CronetEngine$Builder._class.instanceMethodId(
@@ -3213,74 +3875,94 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     r'(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _setUserAgent = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setUserAgent =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setUserAgent(java.lang.String userAgent)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? setUserAgent(
-    jni$_.JString? userAgent,
-  ) {
+  CronetEngine$Builder? setUserAgent(jni$_.JString? userAgent) {
     final _$$selfRef = reference;
     final _$userAgent = userAgent?.reference ?? jni$_.jNullReference;
     return _setUserAgent(
-            _$$selfRef.pointer, _id_setUserAgent.pointer, _$userAgent.pointer)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_setUserAgent.pointer,
+      _$userAgent.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setStoragePath =
-      CronetEngine$Builder._class.instanceMethodId(
-    r'setStoragePath',
-    r'(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;',
-  );
+  static final _id_setStoragePath = CronetEngine$Builder._class
+      .instanceMethodId(
+        r'setStoragePath',
+        r'(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;',
+      );
 
-  static final _setStoragePath = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setStoragePath =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setStoragePath(java.lang.String value)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? setStoragePath(
-    jni$_.JString? value,
-  ) {
+  CronetEngine$Builder? setStoragePath(jni$_.JString? value) {
     final _$$selfRef = reference;
     final _$value = value?.reference ?? jni$_.jNullReference;
     return _setStoragePath(
-            _$$selfRef.pointer, _id_setStoragePath.pointer, _$value.pointer)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_setStoragePath.pointer,
+      _$value.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setLibraryLoader =
-      CronetEngine$Builder._class.instanceMethodId(
+  static final _id_setLibraryLoader = CronetEngine$Builder._class.instanceMethodId(
     r'setLibraryLoader',
     r'(Lorg/chromium/net/CronetEngine$Builder$LibraryLoader;)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _setLibraryLoader = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setLibraryLoader =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setLibraryLoader(org.chromium.net.CronetEngine$Builder$LibraryLoader loader)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3290,8 +3972,10 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     final _$$selfRef = reference;
     final _$loader = loader?.reference ?? jni$_.jNullReference;
     return _setLibraryLoader(
-            _$$selfRef.pointer, _id_setLibraryLoader.pointer, _$loader.pointer)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_setLibraryLoader.pointer,
+      _$loader.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
   static final _id_enableQuic = CronetEngine$Builder._class.instanceMethodId(
@@ -3299,25 +3983,33 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     r'(Z)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _enableQuic = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _enableQuic =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder enableQuic(boolean value)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? enableQuic(
-    core$_.bool value,
-  ) {
+  CronetEngine$Builder? enableQuic(core$_.bool value) {
     final _$$selfRef = reference;
     return _enableQuic(
-            _$$selfRef.pointer, _id_enableQuic.pointer, value ? 1 : 0)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_enableQuic.pointer,
+      value ? 1 : 0,
+    ).object<CronetEngine$Builder?>();
   }
 
   static final _id_enableHttp2 = CronetEngine$Builder._class.instanceMethodId(
@@ -3325,25 +4017,33 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     r'(Z)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _enableHttp2 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _enableHttp2 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder enableHttp2(boolean value)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? enableHttp2(
-    core$_.bool value,
-  ) {
+  CronetEngine$Builder? enableHttp2(core$_.bool value) {
     final _$$selfRef = reference;
     return _enableHttp2(
-            _$$selfRef.pointer, _id_enableHttp2.pointer, value ? 1 : 0)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_enableHttp2.pointer,
+      value ? 1 : 0,
+    ).object<CronetEngine$Builder?>();
   }
 
   static final _id_enableSdch = CronetEngine$Builder._class.instanceMethodId(
@@ -3351,26 +4051,34 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     r'(Z)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _enableSdch = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _enableSdch =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder enableSdch(boolean value)`
   /// The returned object must be released after use, by calling the [release] method.
   @core$_.Deprecated('This Java method is deprecated.')
-  CronetEngine$Builder? enableSdch(
-    core$_.bool value,
-  ) {
+  CronetEngine$Builder? enableSdch(core$_.bool value) {
     final _$$selfRef = reference;
     return _enableSdch(
-            _$$selfRef.pointer, _id_enableSdch.pointer, value ? 1 : 0)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_enableSdch.pointer,
+      value ? 1 : 0,
+    ).object<CronetEngine$Builder?>();
   }
 
   static final _id_enableBrotli = CronetEngine$Builder._class.instanceMethodId(
@@ -3378,43 +4086,59 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     r'(Z)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _enableBrotli = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _enableBrotli =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder enableBrotli(boolean value)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? enableBrotli(
-    core$_.bool value,
-  ) {
+  CronetEngine$Builder? enableBrotli(core$_.bool value) {
     final _$$selfRef = reference;
     return _enableBrotli(
-            _$$selfRef.pointer, _id_enableBrotli.pointer, value ? 1 : 0)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_enableBrotli.pointer,
+      value ? 1 : 0,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_enableHttpCache =
-      CronetEngine$Builder._class.instanceMethodId(
-    r'enableHttpCache',
-    r'(IJ)Lorg/chromium/net/CronetEngine$Builder;',
-  );
+  static final _id_enableHttpCache = CronetEngine$Builder._class
+      .instanceMethodId(
+        r'enableHttpCache',
+        r'(IJ)Lorg/chromium/net/CronetEngine$Builder;',
+      );
 
-  static final _enableHttpCache = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Int32, jni$_.Int64)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, core$_.int, core$_.int)>();
+  static final _enableHttpCache =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32, jni$_.Int64)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder enableHttpCache(int cacheMode, long maxSize)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3424,8 +4148,11 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
   ) {
     final _$$selfRef = reference;
     return _enableHttpCache(
-            _$$selfRef.pointer, _id_enableHttpCache.pointer, cacheMode, maxSize)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_enableHttpCache.pointer,
+      cacheMode,
+      maxSize,
+    ).object<CronetEngine$Builder?>();
   }
 
   static final _id_addQuicHint = CronetEngine$Builder._class.instanceMethodId(
@@ -3433,24 +4160,27 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     r'(Ljava/lang/String;II)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _addQuicHint = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _addQuicHint =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Int32
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Int32, jni$_.Int32)
+                >,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               core$_.int,
-              core$_.int)>();
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder addQuicHint(java.lang.String host, int port, int alternatePort)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3461,37 +4191,47 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
   ) {
     final _$$selfRef = reference;
     final _$host = host?.reference ?? jni$_.jNullReference;
-    return _addQuicHint(_$$selfRef.pointer, _id_addQuicHint.pointer,
-            _$host.pointer, port, alternatePort)
-        .object<CronetEngine$Builder?>();
+    return _addQuicHint(
+      _$$selfRef.pointer,
+      _id_addQuicHint.pointer,
+      _$host.pointer,
+      port,
+      alternatePort,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_addPublicKeyPins =
-      CronetEngine$Builder._class.instanceMethodId(
+  static final _id_addPublicKeyPins = CronetEngine$Builder._class.instanceMethodId(
     r'addPublicKeyPins',
     r'(Ljava/lang/String;Ljava/util/Set;ZLjava/util/Date;)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _addPublicKeyPins = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _addPublicKeyPins =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Int32,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
               core$_.int,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder addPublicKeyPins(java.lang.String hostName, java.util.Set<byte[]> pinsSha256, boolean includeSubdomains, java.util.Date expirationDate)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3506,30 +4246,38 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     final _$pinsSha256 = pinsSha256?.reference ?? jni$_.jNullReference;
     final _$expirationDate = expirationDate?.reference ?? jni$_.jNullReference;
     return _addPublicKeyPins(
-            _$$selfRef.pointer,
-            _id_addPublicKeyPins.pointer,
-            _$hostName.pointer,
-            _$pinsSha256.pointer,
-            includeSubdomains ? 1 : 0,
-            _$expirationDate.pointer)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_addPublicKeyPins.pointer,
+      _$hostName.pointer,
+      _$pinsSha256.pointer,
+      includeSubdomains ? 1 : 0,
+      _$expirationDate.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
   static final _id_enablePublicKeyPinningBypassForLocalTrustAnchors =
       CronetEngine$Builder._class.instanceMethodId(
-    r'enablePublicKeyPinningBypassForLocalTrustAnchors',
-    r'(Z)Lorg/chromium/net/CronetEngine$Builder;',
-  );
+        r'enablePublicKeyPinningBypassForLocalTrustAnchors',
+        r'(Z)Lorg/chromium/net/CronetEngine$Builder;',
+      );
 
   static final _enablePublicKeyPinningBypassForLocalTrustAnchors =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int32,)>)>>(
-              'globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder enablePublicKeyPinningBypassForLocalTrustAnchors(boolean value)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3538,112 +4286,140 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
   ) {
     final _$$selfRef = reference;
     return _enablePublicKeyPinningBypassForLocalTrustAnchors(
-            _$$selfRef.pointer,
-            _id_enablePublicKeyPinningBypassForLocalTrustAnchors.pointer,
-            value ? 1 : 0)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_enablePublicKeyPinningBypassForLocalTrustAnchors.pointer,
+      value ? 1 : 0,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setThreadPriority =
-      CronetEngine$Builder._class.instanceMethodId(
-    r'setThreadPriority',
-    r'(I)Lorg/chromium/net/CronetEngine$Builder;',
-  );
+  static final _id_setThreadPriority = CronetEngine$Builder._class
+      .instanceMethodId(
+        r'setThreadPriority',
+        r'(I)Lorg/chromium/net/CronetEngine$Builder;',
+      );
 
-  static final _setThreadPriority = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _setThreadPriority =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setThreadPriority(int priority)`
   /// The returned object must be released after use, by calling the [release] method.
   @core$_.Deprecated('This Java method is deprecated.')
-  CronetEngine$Builder? setThreadPriority(
-    core$_.int priority,
-  ) {
+  CronetEngine$Builder? setThreadPriority(core$_.int priority) {
     final _$$selfRef = reference;
     return _setThreadPriority(
-            _$$selfRef.pointer, _id_setThreadPriority.pointer, priority)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_setThreadPriority.pointer,
+      priority,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_enableNetworkQualityEstimator =
-      CronetEngine$Builder._class.instanceMethodId(
-    r'enableNetworkQualityEstimator',
-    r'(Z)Lorg/chromium/net/CronetEngine$Builder;',
-  );
+  static final _id_enableNetworkQualityEstimator = CronetEngine$Builder._class
+      .instanceMethodId(
+        r'enableNetworkQualityEstimator',
+        r'(Z)Lorg/chromium/net/CronetEngine$Builder;',
+      );
 
   static final _enableNetworkQualityEstimator =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int32,)>)>>(
-              'globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder enableNetworkQualityEstimator(boolean value)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? enableNetworkQualityEstimator(
-    core$_.bool value,
-  ) {
+  CronetEngine$Builder? enableNetworkQualityEstimator(core$_.bool value) {
     final _$$selfRef = reference;
-    return _enableNetworkQualityEstimator(_$$selfRef.pointer,
-            _id_enableNetworkQualityEstimator.pointer, value ? 1 : 0)
-        .object<CronetEngine$Builder?>();
+    return _enableNetworkQualityEstimator(
+      _$$selfRef.pointer,
+      _id_enableNetworkQualityEstimator.pointer,
+      value ? 1 : 0,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setQuicOptions =
-      CronetEngine$Builder._class.instanceMethodId(
+  static final _id_setQuicOptions = CronetEngine$Builder._class.instanceMethodId(
     r'setQuicOptions',
     r'(Lorg/chromium/net/QuicOptions;)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _setQuicOptions = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setQuicOptions =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setQuicOptions(org.chromium.net.QuicOptions quicOptions)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? setQuicOptions(
-    QuicOptions? quicOptions,
-  ) {
+  CronetEngine$Builder? setQuicOptions(QuicOptions? quicOptions) {
     final _$$selfRef = reference;
     final _$quicOptions = quicOptions?.reference ?? jni$_.jNullReference;
-    return _setQuicOptions(_$$selfRef.pointer, _id_setQuicOptions.pointer,
-            _$quicOptions.pointer)
-        .object<CronetEngine$Builder?>();
+    return _setQuicOptions(
+      _$$selfRef.pointer,
+      _id_setQuicOptions.pointer,
+      _$quicOptions.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setQuicOptions$1 =
-      CronetEngine$Builder._class.instanceMethodId(
+  static final _id_setQuicOptions$1 = CronetEngine$Builder._class.instanceMethodId(
     r'setQuicOptions',
     r'(Lorg/chromium/net/QuicOptions$Builder;)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _setQuicOptions$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setQuicOptions$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setQuicOptions(org.chromium.net.QuicOptions$Builder quicOptionsBuilder)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3653,9 +4429,11 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     final _$$selfRef = reference;
     final _$quicOptionsBuilder =
         quicOptionsBuilder?.reference ?? jni$_.jNullReference;
-    return _setQuicOptions$1(_$$selfRef.pointer, _id_setQuicOptions$1.pointer,
-            _$quicOptionsBuilder.pointer)
-        .object<CronetEngine$Builder?>();
+    return _setQuicOptions$1(
+      _$$selfRef.pointer,
+      _id_setQuicOptions$1.pointer,
+      _$quicOptionsBuilder.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
   static final _id_setDnsOptions = CronetEngine$Builder._class.instanceMethodId(
@@ -3663,75 +4441,94 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     r'(Lorg/chromium/net/DnsOptions;)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _setDnsOptions = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setDnsOptions =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setDnsOptions(org.chromium.net.DnsOptions dnsOptions)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? setDnsOptions(
-    DnsOptions? dnsOptions,
-  ) {
+  CronetEngine$Builder? setDnsOptions(DnsOptions? dnsOptions) {
     final _$$selfRef = reference;
     final _$dnsOptions = dnsOptions?.reference ?? jni$_.jNullReference;
     return _setDnsOptions(
-            _$$selfRef.pointer, _id_setDnsOptions.pointer, _$dnsOptions.pointer)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_setDnsOptions.pointer,
+      _$dnsOptions.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setDnsOptions$1 =
-      CronetEngine$Builder._class.instanceMethodId(
+  static final _id_setDnsOptions$1 = CronetEngine$Builder._class.instanceMethodId(
     r'setDnsOptions',
     r'(Lorg/chromium/net/DnsOptions$Builder;)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _setDnsOptions$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setDnsOptions$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setDnsOptions(org.chromium.net.DnsOptions$Builder dnsOptions)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? setDnsOptions$1(
-    DnsOptions$Builder? dnsOptions,
-  ) {
+  CronetEngine$Builder? setDnsOptions$1(DnsOptions$Builder? dnsOptions) {
     final _$$selfRef = reference;
     final _$dnsOptions = dnsOptions?.reference ?? jni$_.jNullReference;
-    return _setDnsOptions$1(_$$selfRef.pointer, _id_setDnsOptions$1.pointer,
-            _$dnsOptions.pointer)
-        .object<CronetEngine$Builder?>();
+    return _setDnsOptions$1(
+      _$$selfRef.pointer,
+      _id_setDnsOptions$1.pointer,
+      _$dnsOptions.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setConnectionMigrationOptions =
-      CronetEngine$Builder._class.instanceMethodId(
-    r'setConnectionMigrationOptions',
-    r'(Lorg/chromium/net/ConnectionMigrationOptions;)Lorg/chromium/net/CronetEngine$Builder;',
-  );
+  static final _id_setConnectionMigrationOptions = CronetEngine$Builder._class
+      .instanceMethodId(
+        r'setConnectionMigrationOptions',
+        r'(Lorg/chromium/net/ConnectionMigrationOptions;)Lorg/chromium/net/CronetEngine$Builder;',
+      );
 
   static final _setConnectionMigrationOptions =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallObjectMethod')
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
           .asFunction<
-              jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setConnectionMigrationOptions(org.chromium.net.ConnectionMigrationOptions connectionMigrationOptions)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3742,29 +4539,35 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     final _$connectionMigrationOptions =
         connectionMigrationOptions?.reference ?? jni$_.jNullReference;
     return _setConnectionMigrationOptions(
-            _$$selfRef.pointer,
-            _id_setConnectionMigrationOptions.pointer,
-            _$connectionMigrationOptions.pointer)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_setConnectionMigrationOptions.pointer,
+      _$connectionMigrationOptions.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setConnectionMigrationOptions$1 =
-      CronetEngine$Builder._class.instanceMethodId(
-    r'setConnectionMigrationOptions',
-    r'(Lorg/chromium/net/ConnectionMigrationOptions$Builder;)Lorg/chromium/net/CronetEngine$Builder;',
-  );
+  static final _id_setConnectionMigrationOptions$1 = CronetEngine$Builder._class
+      .instanceMethodId(
+        r'setConnectionMigrationOptions',
+        r'(Lorg/chromium/net/ConnectionMigrationOptions$Builder;)Lorg/chromium/net/CronetEngine$Builder;',
+      );
 
   static final _setConnectionMigrationOptions$1 =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallObjectMethod')
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
           .asFunction<
-              jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setConnectionMigrationOptions(org.chromium.net.ConnectionMigrationOptions$Builder connectionMigrationOptionsBuilder)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -3775,39 +4578,45 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     final _$connectionMigrationOptionsBuilder =
         connectionMigrationOptionsBuilder?.reference ?? jni$_.jNullReference;
     return _setConnectionMigrationOptions$1(
-            _$$selfRef.pointer,
-            _id_setConnectionMigrationOptions$1.pointer,
-            _$connectionMigrationOptionsBuilder.pointer)
-        .object<CronetEngine$Builder?>();
+      _$$selfRef.pointer,
+      _id_setConnectionMigrationOptions$1.pointer,
+      _$connectionMigrationOptionsBuilder.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
-  static final _id_setProxyOptions =
-      CronetEngine$Builder._class.instanceMethodId(
+  static final _id_setProxyOptions = CronetEngine$Builder._class.instanceMethodId(
     r'setProxyOptions',
     r'(Lorg/chromium/net/ProxyOptions;)Lorg/chromium/net/CronetEngine$Builder;',
   );
 
-  static final _setProxyOptions = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setProxyOptions =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine$Builder setProxyOptions(org.chromium.net.ProxyOptions proxyOptions)`
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine$Builder? setProxyOptions(
-    ProxyOptions? proxyOptions,
-  ) {
+  CronetEngine$Builder? setProxyOptions(ProxyOptions? proxyOptions) {
     final _$$selfRef = reference;
     final _$proxyOptions = proxyOptions?.reference ?? jni$_.jNullReference;
-    return _setProxyOptions(_$$selfRef.pointer, _id_setProxyOptions.pointer,
-            _$proxyOptions.pointer)
-        .object<CronetEngine$Builder?>();
+    return _setProxyOptions(
+      _$$selfRef.pointer,
+      _id_setProxyOptions.pointer,
+      _$proxyOptions.pointer,
+    ).object<CronetEngine$Builder?>();
   }
 
   static final _id_build = CronetEngine$Builder._class.instanceMethodId(
@@ -3815,24 +4624,30 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
     r'()Lorg/chromium/net/CronetEngine;',
   );
 
-  static final _build = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _build =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public org.chromium.net.CronetEngine build()`
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine? build() {
     final _$$selfRef = reference;
-    return _build(_$$selfRef.pointer, _id_build.pointer)
-        .object<CronetEngine?>();
+    return _build(
+      _$$selfRef.pointer,
+      _id_build.pointer,
+    ).object<CronetEngine?>();
   }
 }
 
@@ -3887,24 +4702,30 @@ extension CronetEngine$$Methods on CronetEngine {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$versionString = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$versionString =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.lang.String getVersionString()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get versionString {
     final _$$selfRef = reference;
-    return _get$versionString(_$$selfRef.pointer, _id_get$versionString.pointer)
-        .object<jni$_.JString?>();
+    return _get$versionString(
+      _$$selfRef.pointer,
+      _id_get$versionString.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_shutdown = CronetEngine._class.instanceMethodId(
@@ -3912,17 +4733,21 @@ extension CronetEngine$$Methods on CronetEngine {
     r'()V',
   );
 
-  static final _shutdown = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _shutdown =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract void shutdown()`
   void shutdown() {
@@ -3935,28 +4760,35 @@ extension CronetEngine$$Methods on CronetEngine {
     r'(Ljava/lang/String;Z)V',
   );
 
-  static final _startNetLogToFile = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_
-                          .VarArgs<(jni$_.Pointer<jni$_.Void>, jni$_.Int32)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>, core$_.int)>();
+  static final _startNetLogToFile =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>, jni$_.Int32)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              core$_.int,
+            )
+          >();
 
   /// from: `public abstract void startNetLogToFile(java.lang.String fileName, boolean logAll)`
-  void startNetLogToFile(
-    jni$_.JString? fileName,
-    core$_.bool logAll,
-  ) {
+  void startNetLogToFile(jni$_.JString? fileName, core$_.bool logAll) {
     final _$$selfRef = reference;
     final _$fileName = fileName?.reference ?? jni$_.jNullReference;
-    _startNetLogToFile(_$$selfRef.pointer, _id_startNetLogToFile.pointer,
-            _$fileName.pointer, logAll ? 1 : 0)
-        .check();
+    _startNetLogToFile(
+      _$$selfRef.pointer,
+      _id_startNetLogToFile.pointer,
+      _$fileName.pointer,
+      logAll ? 1 : 0,
+    ).check();
   }
 
   static final _id_stopNetLog = CronetEngine._class.instanceMethodId(
@@ -3964,17 +4796,21 @@ extension CronetEngine$$Methods on CronetEngine {
     r'()V',
   );
 
-  static final _stopNetLog = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _stopNetLog =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract void stopNetLog()`
   void stopNetLog() {
@@ -3982,23 +4818,24 @@ extension CronetEngine$$Methods on CronetEngine {
     _stopNetLog(_$$selfRef.pointer, _id_stopNetLog.pointer).check();
   }
 
-  static final _id_get$globalMetricsDeltas =
-      CronetEngine._class.instanceMethodId(
-    r'getGlobalMetricsDeltas',
-    r'()[B',
-  );
+  static final _id_get$globalMetricsDeltas = CronetEngine._class
+      .instanceMethodId(r'getGlobalMetricsDeltas', r'()[B');
 
-  static final _get$globalMetricsDeltas = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$globalMetricsDeltas =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract byte[] getGlobalMetricsDeltas()`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4006,8 +4843,9 @@ extension CronetEngine$$Methods on CronetEngine {
   jni$_.JByteArray? get globalMetricsDeltas {
     final _$$selfRef = reference;
     return _get$globalMetricsDeltas(
-            _$$selfRef.pointer, _id_get$globalMetricsDeltas.pointer)
-        .object<jni$_.JByteArray?>();
+      _$$selfRef.pointer,
+      _id_get$globalMetricsDeltas.pointer,
+    ).object<jni$_.JByteArray?>();
   }
 
   static final _id_openConnection = CronetEngine._class.instanceMethodId(
@@ -4015,55 +4853,66 @@ extension CronetEngine$$Methods on CronetEngine {
     r'(Ljava/net/URL;)Ljava/net/URLConnection;',
   );
 
-  static final _openConnection = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
-
-  /// from: `public abstract java.net.URLConnection openConnection(java.net.URL url)`
-  /// The returned object must be released after use, by calling the [release] method.
-  URLConnection? openConnection(
-    URL? url,
-  ) {
-    final _$$selfRef = reference;
-    final _$url = url?.reference ?? jni$_.jNullReference;
-    return _openConnection(
-            _$$selfRef.pointer, _id_openConnection.pointer, _$url.pointer)
-        .object<URLConnection?>();
-  }
-
-  static final _id_createURLStreamHandlerFactory =
-      CronetEngine._class.instanceMethodId(
-    r'createURLStreamHandlerFactory',
-    r'()Ljava/net/URLStreamHandlerFactory;',
-  );
-
-  static final _createURLStreamHandlerFactory =
+  static final _openConnection =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
+
+  /// from: `public abstract java.net.URLConnection openConnection(java.net.URL url)`
+  /// The returned object must be released after use, by calling the [release] method.
+  URLConnection? openConnection(URL? url) {
+    final _$$selfRef = reference;
+    final _$url = url?.reference ?? jni$_.jNullReference;
+    return _openConnection(
+      _$$selfRef.pointer,
+      _id_openConnection.pointer,
+      _$url.pointer,
+    ).object<URLConnection?>();
+  }
+
+  static final _id_createURLStreamHandlerFactory = CronetEngine._class
+      .instanceMethodId(
+        r'createURLStreamHandlerFactory',
+        r'()Ljava/net/URLStreamHandlerFactory;',
+      );
+
+  static final _createURLStreamHandlerFactory =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory()`
   /// The returned object must be released after use, by calling the [release] method.
   URLStreamHandlerFactory? createURLStreamHandlerFactory() {
     final _$$selfRef = reference;
     return _createURLStreamHandlerFactory(
-            _$$selfRef.pointer, _id_createURLStreamHandlerFactory.pointer)
-        .object<URLStreamHandlerFactory?>();
+      _$$selfRef.pointer,
+      _id_createURLStreamHandlerFactory.pointer,
+    ).object<URLStreamHandlerFactory?>();
   }
 
   static final _id_newUrlRequestBuilder = CronetEngine._class.instanceMethodId(
@@ -4071,24 +4920,31 @@ extension CronetEngine$$Methods on CronetEngine {
     r'(Ljava/lang/String;Lorg/chromium/net/UrlRequest$Callback;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;',
   );
 
-  static final _newUrlRequestBuilder = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _newUrlRequestBuilder =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract org.chromium.net.UrlRequest$Builder newUrlRequestBuilder(java.lang.String url, org.chromium.net.UrlRequest$Callback callback, java.util.concurrent.Executor executor)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4102,39 +4958,45 @@ extension CronetEngine$$Methods on CronetEngine {
     final _$callback = callback?.reference ?? jni$_.jNullReference;
     final _$executor = executor?.reference ?? jni$_.jNullReference;
     return _newUrlRequestBuilder(
-            _$$selfRef.pointer,
-            _id_newUrlRequestBuilder.pointer,
-            _$url.pointer,
-            _$callback.pointer,
-            _$executor.pointer)
-        .object<UrlRequest$Builder?>();
+      _$$selfRef.pointer,
+      _id_newUrlRequestBuilder.pointer,
+      _$url.pointer,
+      _$callback.pointer,
+      _$executor.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
-  static final _id_newBidirectionalStreamBuilder =
-      CronetEngine._class.instanceMethodId(
-    r'newBidirectionalStreamBuilder',
-    r'(Ljava/lang/String;Lorg/chromium/net/BidirectionalStream$Callback;Ljava/util/concurrent/Executor;)Lorg/chromium/net/BidirectionalStream$Builder;',
-  );
+  static final _id_newBidirectionalStreamBuilder = CronetEngine._class
+      .instanceMethodId(
+        r'newBidirectionalStreamBuilder',
+        r'(Ljava/lang/String;Lorg/chromium/net/BidirectionalStream$Callback;Ljava/util/concurrent/Executor;)Lorg/chromium/net/BidirectionalStream$Builder;',
+      );
 
   static final _newBidirectionalStreamBuilder =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<
-                          (
-                            jni$_.Pointer<jni$_.Void>,
-                            jni$_.Pointer<jni$_.Void>,
-                            jni$_.Pointer<jni$_.Void>
-                          )>)>>('globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.Pointer<jni$_.Void>)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.BidirectionalStream$Builder newBidirectionalStreamBuilder(java.lang.String url, org.chromium.net.BidirectionalStream$Callback callback, java.util.concurrent.Executor executor)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4148,96 +5010,110 @@ extension CronetEngine$$Methods on CronetEngine {
     final _$callback = callback?.reference ?? jni$_.jNullReference;
     final _$executor = executor?.reference ?? jni$_.jNullReference;
     return _newBidirectionalStreamBuilder(
-            _$$selfRef.pointer,
-            _id_newBidirectionalStreamBuilder.pointer,
-            _$url.pointer,
-            _$callback.pointer,
-            _$executor.pointer)
-        .object<BidirectionalStream$$Builder?>();
+      _$$selfRef.pointer,
+      _id_newBidirectionalStreamBuilder.pointer,
+      _$url.pointer,
+      _$callback.pointer,
+      _$executor.pointer,
+    ).object<BidirectionalStream$$Builder?>();
   }
 
-  static final _id_get$activeRequestCount =
-      CronetEngine._class.instanceMethodId(
-    r'getActiveRequestCount',
-    r'()I',
-  );
+  static final _id_get$activeRequestCount = CronetEngine._class
+      .instanceMethodId(r'getActiveRequestCount', r'()I');
 
-  static final _get$activeRequestCount = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$activeRequestCount =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int getActiveRequestCount()`
   core$_.int get activeRequestCount {
     final _$$selfRef = reference;
     return _get$activeRequestCount(
-            _$$selfRef.pointer, _id_get$activeRequestCount.pointer)
-        .integer;
+      _$$selfRef.pointer,
+      _id_get$activeRequestCount.pointer,
+    ).integer;
   }
 
-  static final _id_addRequestFinishedListener =
-      CronetEngine._class.instanceMethodId(
-    r'addRequestFinishedListener',
-    r'(Lorg/chromium/net/RequestFinishedInfo$Listener;)V',
-  );
+  static final _id_addRequestFinishedListener = CronetEngine._class
+      .instanceMethodId(
+        r'addRequestFinishedListener',
+        r'(Lorg/chromium/net/RequestFinishedInfo$Listener;)V',
+      );
 
   static final _addRequestFinishedListener =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JThrowablePtr Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallVoidMethod')
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
           .asFunction<
-              jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void addRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)`
-  void addRequestFinishedListener(
-    RequestFinishedInfo$$Listener? listener,
-  ) {
+  void addRequestFinishedListener(RequestFinishedInfo$$Listener? listener) {
     final _$$selfRef = reference;
     final _$listener = listener?.reference ?? jni$_.jNullReference;
-    _addRequestFinishedListener(_$$selfRef.pointer,
-            _id_addRequestFinishedListener.pointer, _$listener.pointer)
-        .check();
+    _addRequestFinishedListener(
+      _$$selfRef.pointer,
+      _id_addRequestFinishedListener.pointer,
+      _$listener.pointer,
+    ).check();
   }
 
-  static final _id_removeRequestFinishedListener =
-      CronetEngine._class.instanceMethodId(
-    r'removeRequestFinishedListener',
-    r'(Lorg/chromium/net/RequestFinishedInfo$Listener;)V',
-  );
+  static final _id_removeRequestFinishedListener = CronetEngine._class
+      .instanceMethodId(
+        r'removeRequestFinishedListener',
+        r'(Lorg/chromium/net/RequestFinishedInfo$Listener;)V',
+      );
 
   static final _removeRequestFinishedListener =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JThrowablePtr Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallVoidMethod')
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
           .asFunction<
-              jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void removeRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)`
-  void removeRequestFinishedListener(
-    RequestFinishedInfo$$Listener? listener,
-  ) {
+  void removeRequestFinishedListener(RequestFinishedInfo$$Listener? listener) {
     final _$$selfRef = reference;
     final _$listener = listener?.reference ?? jni$_.jNullReference;
-    _removeRequestFinishedListener(_$$selfRef.pointer,
-            _id_removeRequestFinishedListener.pointer, _$listener.pointer)
-        .check();
+    _removeRequestFinishedListener(
+      _$$selfRef.pointer,
+      _id_removeRequestFinishedListener.pointer,
+      _$listener.pointer,
+    ).check();
   }
 
   static final _id_get$httpRttMs = CronetEngine._class.instanceMethodId(
@@ -4245,23 +5121,29 @@ extension CronetEngine$$Methods on CronetEngine {
     r'()I',
   );
 
-  static final _get$httpRttMs = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$httpRttMs =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int getHttpRttMs()`
   core$_.int get httpRttMs {
     final _$$selfRef = reference;
-    return _get$httpRttMs(_$$selfRef.pointer, _id_get$httpRttMs.pointer)
-        .integer;
+    return _get$httpRttMs(
+      _$$selfRef.pointer,
+      _id_get$httpRttMs.pointer,
+    ).integer;
   }
 
   static final _id_get$transportRttMs = CronetEngine._class.instanceMethodId(
@@ -4269,51 +5151,57 @@ extension CronetEngine$$Methods on CronetEngine {
     r'()I',
   );
 
-  static final _get$transportRttMs = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$transportRttMs =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int getTransportRttMs()`
   core$_.int get transportRttMs {
     final _$$selfRef = reference;
     return _get$transportRttMs(
-            _$$selfRef.pointer, _id_get$transportRttMs.pointer)
-        .integer;
+      _$$selfRef.pointer,
+      _id_get$transportRttMs.pointer,
+    ).integer;
   }
 
-  static final _id_get$downstreamThroughputKbps =
-      CronetEngine._class.instanceMethodId(
-    r'getDownstreamThroughputKbps',
-    r'()I',
-  );
+  static final _id_get$downstreamThroughputKbps = CronetEngine._class
+      .instanceMethodId(r'getDownstreamThroughputKbps', r'()I');
 
   static final _get$downstreamThroughputKbps =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallIntMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int getDownstreamThroughputKbps()`
   core$_.int get downstreamThroughputKbps {
     final _$$selfRef = reference;
     return _get$downstreamThroughputKbps(
-            _$$selfRef.pointer, _id_get$downstreamThroughputKbps.pointer)
-        .integer;
+      _$$selfRef.pointer,
+      _id_get$downstreamThroughputKbps.pointer,
+    ).integer;
   }
 
   static final _id_startNetLogToDisk = CronetEngine._class.instanceMethodId(
@@ -4321,24 +5209,27 @@ extension CronetEngine$$Methods on CronetEngine {
     r'(Ljava/lang/String;ZI)V',
   );
 
-  static final _startNetLogToDisk = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _startNetLogToDisk =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Int32
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Int32, jni$_.Int32)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               core$_.int,
-              core$_.int)>();
+              core$_.int,
+            )
+          >();
 
   /// from: `public void startNetLogToDisk(java.lang.String dirPath, boolean logAll, int maxSize)`
   void startNetLogToDisk(
@@ -4348,9 +5239,13 @@ extension CronetEngine$$Methods on CronetEngine {
   ) {
     final _$$selfRef = reference;
     final _$dirPath = dirPath?.reference ?? jni$_.jNullReference;
-    _startNetLogToDisk(_$$selfRef.pointer, _id_startNetLogToDisk.pointer,
-            _$dirPath.pointer, logAll ? 1 : 0, maxSize)
-        .check();
+    _startNetLogToDisk(
+      _$$selfRef.pointer,
+      _id_startNetLogToDisk.pointer,
+      _$dirPath.pointer,
+      logAll ? 1 : 0,
+      maxSize,
+    ).check();
   }
 
   static final _id_bindToNetwork = CronetEngine._class.instanceMethodId(
@@ -4358,73 +5253,88 @@ extension CronetEngine$$Methods on CronetEngine {
     r'(J)V',
   );
 
-  static final _bindToNetwork = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _bindToNetwork =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int64,)>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public void bindToNetwork(long networkHandle)`
-  void bindToNetwork(
-    core$_.int networkHandle,
-  ) {
+  void bindToNetwork(core$_.int networkHandle) {
     final _$$selfRef = reference;
-    _bindToNetwork(_$$selfRef.pointer, _id_bindToNetwork.pointer, networkHandle)
-        .check();
+    _bindToNetwork(
+      _$$selfRef.pointer,
+      _id_bindToNetwork.pointer,
+      networkHandle,
+    ).check();
   }
 
-  static final _id_get$effectiveConnectionType =
-      CronetEngine._class.instanceMethodId(
-    r'getEffectiveConnectionType',
-    r'()I',
-  );
+  static final _id_get$effectiveConnectionType = CronetEngine._class
+      .instanceMethodId(r'getEffectiveConnectionType', r'()I');
 
   static final _get$effectiveConnectionType =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallIntMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int getEffectiveConnectionType()`
   core$_.int get effectiveConnectionType {
     final _$$selfRef = reference;
     return _get$effectiveConnectionType(
-            _$$selfRef.pointer, _id_get$effectiveConnectionType.pointer)
-        .integer;
+      _$$selfRef.pointer,
+      _id_get$effectiveConnectionType.pointer,
+    ).integer;
   }
 
-  static final _id_configureNetworkQualityEstimatorForTesting =
-      CronetEngine._class.instanceMethodId(
-    r'configureNetworkQualityEstimatorForTesting',
-    r'(ZZZ)V',
-  );
+  static final _id_configureNetworkQualityEstimatorForTesting = CronetEngine
+      ._class
+      .instanceMethodId(
+        r'configureNetworkQualityEstimatorForTesting',
+        r'(ZZZ)V',
+      );
 
   static final _configureNetworkQualityEstimatorForTesting =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<
-                          (
-                            jni$_.Int32,
-                            jni$_.Int32,
-                            jni$_.Int32
-                          )>)>>('globalEnv_CallVoidMethod')
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32, jni$_.Int32, jni$_.Int32)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
           .asFunction<
-              jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, core$_.int, core$_.int, core$_.int)>();
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+              core$_.int,
+              core$_.int,
+            )
+          >();
 
   /// from: `public void configureNetworkQualityEstimatorForTesting(boolean useLocalHostRequests, boolean useSmallerResponses, boolean disableOfflineCheck)`
   void configureNetworkQualityEstimatorForTesting(
@@ -4434,12 +5344,12 @@ extension CronetEngine$$Methods on CronetEngine {
   ) {
     final _$$selfRef = reference;
     _configureNetworkQualityEstimatorForTesting(
-            _$$selfRef.pointer,
-            _id_configureNetworkQualityEstimatorForTesting.pointer,
-            useLocalHostRequests ? 1 : 0,
-            useSmallerResponses ? 1 : 0,
-            disableOfflineCheck ? 1 : 0)
-        .check();
+      _$$selfRef.pointer,
+      _id_configureNetworkQualityEstimatorForTesting.pointer,
+      useLocalHostRequests ? 1 : 0,
+      useSmallerResponses ? 1 : 0,
+      disableOfflineCheck ? 1 : 0,
+    ).check();
   }
 
   static final _id_addRttListener = CronetEngine._class.instanceMethodId(
@@ -4447,26 +5357,33 @@ extension CronetEngine$$Methods on CronetEngine {
     r'(Lorg/chromium/net/NetworkQualityRttListener;)V',
   );
 
-  static final _addRttListener = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _addRttListener =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void addRttListener(org.chromium.net.NetworkQualityRttListener listener)`
-  void addRttListener(
-    NetworkQualityRttListener? listener,
-  ) {
+  void addRttListener(NetworkQualityRttListener? listener) {
     final _$$selfRef = reference;
     final _$listener = listener?.reference ?? jni$_.jNullReference;
     _addRttListener(
-            _$$selfRef.pointer, _id_addRttListener.pointer, _$listener.pointer)
-        .check();
+      _$$selfRef.pointer,
+      _id_addRttListener.pointer,
+      _$listener.pointer,
+    ).check();
   }
 
   static final _id_removeRttListener = CronetEngine._class.instanceMethodId(
@@ -4474,26 +5391,33 @@ extension CronetEngine$$Methods on CronetEngine {
     r'(Lorg/chromium/net/NetworkQualityRttListener;)V',
   );
 
-  static final _removeRttListener = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _removeRttListener =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void removeRttListener(org.chromium.net.NetworkQualityRttListener listener)`
-  void removeRttListener(
-    NetworkQualityRttListener? listener,
-  ) {
+  void removeRttListener(NetworkQualityRttListener? listener) {
     final _$$selfRef = reference;
     final _$listener = listener?.reference ?? jni$_.jNullReference;
-    _removeRttListener(_$$selfRef.pointer, _id_removeRttListener.pointer,
-            _$listener.pointer)
-        .check();
+    _removeRttListener(
+      _$$selfRef.pointer,
+      _id_removeRttListener.pointer,
+      _$listener.pointer,
+    ).check();
   }
 
   static final _id_addThroughputListener = CronetEngine._class.instanceMethodId(
@@ -4501,54 +5425,68 @@ extension CronetEngine$$Methods on CronetEngine {
     r'(Lorg/chromium/net/NetworkQualityThroughputListener;)V',
   );
 
-  static final _addThroughputListener = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _addThroughputListener =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void addThroughputListener(org.chromium.net.NetworkQualityThroughputListener listener)`
-  void addThroughputListener(
-    NetworkQualityThroughputListener? listener,
-  ) {
+  void addThroughputListener(NetworkQualityThroughputListener? listener) {
     final _$$selfRef = reference;
     final _$listener = listener?.reference ?? jni$_.jNullReference;
-    _addThroughputListener(_$$selfRef.pointer,
-            _id_addThroughputListener.pointer, _$listener.pointer)
-        .check();
+    _addThroughputListener(
+      _$$selfRef.pointer,
+      _id_addThroughputListener.pointer,
+      _$listener.pointer,
+    ).check();
   }
 
-  static final _id_removeThroughputListener =
-      CronetEngine._class.instanceMethodId(
-    r'removeThroughputListener',
-    r'(Lorg/chromium/net/NetworkQualityThroughputListener;)V',
-  );
+  static final _id_removeThroughputListener = CronetEngine._class
+      .instanceMethodId(
+        r'removeThroughputListener',
+        r'(Lorg/chromium/net/NetworkQualityThroughputListener;)V',
+      );
 
-  static final _removeThroughputListener = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _removeThroughputListener =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void removeThroughputListener(org.chromium.net.NetworkQualityThroughputListener listener)`
-  void removeThroughputListener(
-    NetworkQualityThroughputListener? listener,
-  ) {
+  void removeThroughputListener(NetworkQualityThroughputListener? listener) {
     final _$$selfRef = reference;
     final _$listener = listener?.reference ?? jni$_.jNullReference;
-    _removeThroughputListener(_$$selfRef.pointer,
-            _id_removeThroughputListener.pointer, _$listener.pointer)
-        .check();
+    _removeThroughputListener(
+      _$$selfRef.pointer,
+      _id_removeThroughputListener.pointer,
+      _$listener.pointer,
+    ).check();
   }
 }
 
@@ -4564,8 +5502,9 @@ final class $CronetEngine$Type$ extends jni$_.JType<CronetEngine> {
 /// from: `org.chromium.net.DnsOptions$Builder`
 extension type DnsOptions$Builder._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/DnsOptions$Builder');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/DnsOptions$Builder',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<DnsOptions$Builder> type =
@@ -4573,31 +5512,39 @@ extension type DnsOptions$Builder._(jni$_.JObject _$this)
 }
 
 extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
-  static final _id_useBuiltInDnsResolver =
-      DnsOptions$Builder._class.instanceMethodId(
-    r'useBuiltInDnsResolver',
-    r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
-  );
+  static final _id_useBuiltInDnsResolver = DnsOptions$Builder._class
+      .instanceMethodId(
+        r'useBuiltInDnsResolver',
+        r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
+      );
 
-  static final _useBuiltInDnsResolver = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _useBuiltInDnsResolver =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$Builder useBuiltInDnsResolver(boolean enable)`
   /// The returned object must be released after use, by calling the [release] method.
-  DnsOptions$Builder? useBuiltInDnsResolver(
-    core$_.bool enable,
-  ) {
+  DnsOptions$Builder? useBuiltInDnsResolver(core$_.bool enable) {
     final _$$selfRef = reference;
-    return _useBuiltInDnsResolver(_$$selfRef.pointer,
-            _id_useBuiltInDnsResolver.pointer, enable ? 1 : 0)
-        .object<DnsOptions$Builder?>();
+    return _useBuiltInDnsResolver(
+      _$$selfRef.pointer,
+      _id_useBuiltInDnsResolver.pointer,
+      enable ? 1 : 0,
+    ).object<DnsOptions$Builder?>();
   }
 
   static final _id_enableStaleDns = DnsOptions$Builder._class.instanceMethodId(
@@ -4605,43 +5552,57 @@ extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
     r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
   );
 
-  static final _enableStaleDns = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _enableStaleDns =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$Builder enableStaleDns(boolean enable)`
   /// The returned object must be released after use, by calling the [release] method.
-  DnsOptions$Builder? enableStaleDns(
-    core$_.bool enable,
-  ) {
+  DnsOptions$Builder? enableStaleDns(core$_.bool enable) {
     final _$$selfRef = reference;
     return _enableStaleDns(
-            _$$selfRef.pointer, _id_enableStaleDns.pointer, enable ? 1 : 0)
-        .object<DnsOptions$Builder?>();
+      _$$selfRef.pointer,
+      _id_enableStaleDns.pointer,
+      enable ? 1 : 0,
+    ).object<DnsOptions$Builder?>();
   }
 
-  static final _id_setStaleDnsOptions =
-      DnsOptions$Builder._class.instanceMethodId(
+  static final _id_setStaleDnsOptions = DnsOptions$Builder._class.instanceMethodId(
     r'setStaleDnsOptions',
     r'(Lorg/chromium/net/DnsOptions$StaleDnsOptions;)Lorg/chromium/net/DnsOptions$Builder;',
   );
 
-  static final _setStaleDnsOptions = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setStaleDnsOptions =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$Builder setStaleDnsOptions(org.chromium.net.DnsOptions$StaleDnsOptions staleDnsOptions)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4651,27 +5612,36 @@ extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
     final _$$selfRef = reference;
     final _$staleDnsOptions =
         staleDnsOptions?.reference ?? jni$_.jNullReference;
-    return _setStaleDnsOptions(_$$selfRef.pointer,
-            _id_setStaleDnsOptions.pointer, _$staleDnsOptions.pointer)
-        .object<DnsOptions$Builder?>();
+    return _setStaleDnsOptions(
+      _$$selfRef.pointer,
+      _id_setStaleDnsOptions.pointer,
+      _$staleDnsOptions.pointer,
+    ).object<DnsOptions$Builder?>();
   }
 
-  static final _id_setStaleDnsOptions$1 =
-      DnsOptions$Builder._class.instanceMethodId(
-    r'setStaleDnsOptions',
-    r'(Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;)Lorg/chromium/net/DnsOptions$Builder;',
-  );
+  static final _id_setStaleDnsOptions$1 = DnsOptions$Builder._class
+      .instanceMethodId(
+        r'setStaleDnsOptions',
+        r'(Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;)Lorg/chromium/net/DnsOptions$Builder;',
+      );
 
-  static final _setStaleDnsOptions$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setStaleDnsOptions$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$Builder setStaleDnsOptions(org.chromium.net.DnsOptions$StaleDnsOptions$Builder staleDnsOptionsBuilder)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4681,26 +5651,37 @@ extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
     final _$$selfRef = reference;
     final _$staleDnsOptionsBuilder =
         staleDnsOptionsBuilder?.reference ?? jni$_.jNullReference;
-    return _setStaleDnsOptions$1(_$$selfRef.pointer,
-            _id_setStaleDnsOptions$1.pointer, _$staleDnsOptionsBuilder.pointer)
-        .object<DnsOptions$Builder?>();
+    return _setStaleDnsOptions$1(
+      _$$selfRef.pointer,
+      _id_setStaleDnsOptions$1.pointer,
+      _$staleDnsOptionsBuilder.pointer,
+    ).object<DnsOptions$Builder?>();
   }
 
-  static final _id_preestablishConnectionsToStaleDnsResults =
-      DnsOptions$Builder._class.instanceMethodId(
-    r'preestablishConnectionsToStaleDnsResults',
-    r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
-  );
+  static final _id_preestablishConnectionsToStaleDnsResults = DnsOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'preestablishConnectionsToStaleDnsResults',
+        r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
+      );
 
   static final _preestablishConnectionsToStaleDnsResults =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int32,)>)>>(
-              'globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$Builder preestablishConnectionsToStaleDnsResults(boolean enable)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4709,54 +5690,70 @@ extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
   ) {
     final _$$selfRef = reference;
     return _preestablishConnectionsToStaleDnsResults(
-            _$$selfRef.pointer,
-            _id_preestablishConnectionsToStaleDnsResults.pointer,
-            enable ? 1 : 0)
-        .object<DnsOptions$Builder?>();
+      _$$selfRef.pointer,
+      _id_preestablishConnectionsToStaleDnsResults.pointer,
+      enable ? 1 : 0,
+    ).object<DnsOptions$Builder?>();
   }
 
-  static final _id_persistHostCache =
-      DnsOptions$Builder._class.instanceMethodId(
-    r'persistHostCache',
-    r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
-  );
+  static final _id_persistHostCache = DnsOptions$Builder._class
+      .instanceMethodId(
+        r'persistHostCache',
+        r'(Z)Lorg/chromium/net/DnsOptions$Builder;',
+      );
 
-  static final _persistHostCache = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _persistHostCache =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$Builder persistHostCache(boolean persistHostCache)`
   /// The returned object must be released after use, by calling the [release] method.
-  DnsOptions$Builder? persistHostCache(
-    core$_.bool persistHostCache,
-  ) {
+  DnsOptions$Builder? persistHostCache(core$_.bool persistHostCache) {
     final _$$selfRef = reference;
-    return _persistHostCache(_$$selfRef.pointer, _id_persistHostCache.pointer,
-            persistHostCache ? 1 : 0)
-        .object<DnsOptions$Builder?>();
+    return _persistHostCache(
+      _$$selfRef.pointer,
+      _id_persistHostCache.pointer,
+      persistHostCache ? 1 : 0,
+    ).object<DnsOptions$Builder?>();
   }
 
-  static final _id_setPersistHostCachePeriodMillis =
-      DnsOptions$Builder._class.instanceMethodId(
-    r'setPersistHostCachePeriodMillis',
-    r'(J)Lorg/chromium/net/DnsOptions$Builder;',
-  );
+  static final _id_setPersistHostCachePeriodMillis = DnsOptions$Builder._class
+      .instanceMethodId(
+        r'setPersistHostCachePeriodMillis',
+        r'(J)Lorg/chromium/net/DnsOptions$Builder;',
+      );
 
   static final _setPersistHostCachePeriodMillis =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int64,)>)>>(
-              'globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$Builder setPersistHostCachePeriodMillis(long persistHostCachePeriodMillis)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4765,10 +5762,10 @@ extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
   ) {
     final _$$selfRef = reference;
     return _setPersistHostCachePeriodMillis(
-            _$$selfRef.pointer,
-            _id_setPersistHostCachePeriodMillis.pointer,
-            persistHostCachePeriodMillis)
-        .object<DnsOptions$Builder?>();
+      _$$selfRef.pointer,
+      _id_setPersistHostCachePeriodMillis.pointer,
+      persistHostCachePeriodMillis,
+    ).object<DnsOptions$Builder?>();
   }
 
   static final _id_setPersistDelay = DnsOptions$Builder._class.instanceMethodId(
@@ -4776,27 +5773,34 @@ extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
     r'(Ljava/time/Duration;)Lorg/chromium/net/DnsOptions$Builder;',
   );
 
-  static final _setPersistDelay = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setPersistDelay =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$Builder setPersistDelay(java.time.Duration persistToDiskPeriod)`
   /// The returned object must be released after use, by calling the [release] method.
-  DnsOptions$Builder? setPersistDelay(
-    Duration persistToDiskPeriod,
-  ) {
+  DnsOptions$Builder? setPersistDelay(Duration persistToDiskPeriod) {
     final _$$selfRef = reference;
     final _$persistToDiskPeriod = persistToDiskPeriod.reference;
-    return _setPersistDelay(_$$selfRef.pointer, _id_setPersistDelay.pointer,
-            _$persistToDiskPeriod.pointer)
-        .object<DnsOptions$Builder?>();
+    return _setPersistDelay(
+      _$$selfRef.pointer,
+      _id_setPersistDelay.pointer,
+      _$persistToDiskPeriod.pointer,
+    ).object<DnsOptions$Builder?>();
   }
 
   static final _id_build = DnsOptions$Builder._class.instanceMethodId(
@@ -4804,17 +5808,21 @@ extension DnsOptions$Builder$$Methods on DnsOptions$Builder {
     r'()Lorg/chromium/net/DnsOptions;',
   );
 
-  static final _build = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _build =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions build()`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4836,8 +5844,9 @@ final class $DnsOptions$Builder$Type$ extends jni$_.JType<DnsOptions$Builder> {
 /// from: `org.chromium.net.DnsOptions$Experimental`
 extension type DnsOptions$Experimental._(jni$_.JObject _$this)
     implements jni$_.JObject, Annotation {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/DnsOptions$Experimental');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/DnsOptions$Experimental',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<DnsOptions$Experimental> type =
@@ -4852,19 +5861,16 @@ extension type DnsOptions$Experimental._(jni$_.JObject _$this)
   ) {
     return _$invokeMethod(
       port,
-      jni$_.MethodInvocation.fromAddresses(
-        0,
-        descriptor.address,
-        args.address,
-      ),
+      jni$_.MethodInvocation.fromAddresses(0, descriptor.address, args.address),
     );
   }
 
   static final jni$_.Pointer<
-          jni$_.NativeFunction<
-              jni$_.JObjectPtr Function(
-                  jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)>>
-      _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
+    jni$_.NativeFunction<
+      jni$_.JObjectPtr Function(jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)
+    >
+  >
+  _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
 
   static jni$_.Pointer<jni$_.Void> _$invokeMethod(
     core$_.int $p,
@@ -4905,9 +5911,7 @@ extension type DnsOptions$Experimental._(jni$_.JObject _$this)
     _$impls[$a] = $impl;
   }
 
-  factory DnsOptions$Experimental.implement(
-    $DnsOptions$Experimental $impl,
-  ) {
+  factory DnsOptions$Experimental.implement($DnsOptions$Experimental $impl) {
     final $i = jni$_.JImplementer();
     implementIn($i, $impl);
     return $i.implement<DnsOptions$Experimental>();
@@ -4936,7 +5940,8 @@ final class $DnsOptions$Experimental$Type$
 extension type DnsOptions$StaleDnsOptions$Builder._(jni$_.JObject _$this)
     implements jni$_.JObject {
   static final _class = jni$_.JClass.forName(
-      r'org/chromium/net/DnsOptions$StaleDnsOptions$Builder');
+    r'org/chromium/net/DnsOptions$StaleDnsOptions$Builder',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<DnsOptions$StaleDnsOptions$Builder> type =
@@ -4947,19 +5952,27 @@ extension DnsOptions$StaleDnsOptions$Builder$$Methods
     on DnsOptions$StaleDnsOptions$Builder {
   static final _id_setFreshLookupTimeoutMillis =
       DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
-    r'setFreshLookupTimeoutMillis',
-    r'(J)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
-  );
+        r'setFreshLookupTimeoutMillis',
+        r'(J)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+      );
 
   static final _setFreshLookupTimeoutMillis =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr, jni$_.VarArgs<(jni$_.Int64,)>)>>(
-              'globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder setFreshLookupTimeoutMillis(long freshLookupTimeoutMillis)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4967,27 +5980,37 @@ extension DnsOptions$StaleDnsOptions$Builder$$Methods
     core$_.int freshLookupTimeoutMillis,
   ) {
     final _$$selfRef = reference;
-    return _setFreshLookupTimeoutMillis(_$$selfRef.pointer,
-            _id_setFreshLookupTimeoutMillis.pointer, freshLookupTimeoutMillis)
-        .object<DnsOptions$StaleDnsOptions$Builder?>();
+    return _setFreshLookupTimeoutMillis(
+      _$$selfRef.pointer,
+      _id_setFreshLookupTimeoutMillis.pointer,
+      freshLookupTimeoutMillis,
+    ).object<DnsOptions$StaleDnsOptions$Builder?>();
   }
 
-  static final _id_setFreshLookupTimeout =
-      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
-    r'setFreshLookupTimeout',
-    r'(Ljava/time/Duration;)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
-  );
+  static final _id_setFreshLookupTimeout = DnsOptions$StaleDnsOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'setFreshLookupTimeout',
+        r'(Ljava/time/Duration;)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+      );
 
-  static final _setFreshLookupTimeout = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setFreshLookupTimeout =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder setFreshLookupTimeout(java.time.Duration freshLookupTimeout)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -4996,26 +6019,37 @@ extension DnsOptions$StaleDnsOptions$Builder$$Methods
   ) {
     final _$$selfRef = reference;
     final _$freshLookupTimeout = freshLookupTimeout.reference;
-    return _setFreshLookupTimeout(_$$selfRef.pointer,
-            _id_setFreshLookupTimeout.pointer, _$freshLookupTimeout.pointer)
-        .object<DnsOptions$StaleDnsOptions$Builder?>();
+    return _setFreshLookupTimeout(
+      _$$selfRef.pointer,
+      _id_setFreshLookupTimeout.pointer,
+      _$freshLookupTimeout.pointer,
+    ).object<DnsOptions$StaleDnsOptions$Builder?>();
   }
 
-  static final _id_setMaxExpiredDelayMillis =
-      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
-    r'setMaxExpiredDelayMillis',
-    r'(J)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
-  );
+  static final _id_setMaxExpiredDelayMillis = DnsOptions$StaleDnsOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'setMaxExpiredDelayMillis',
+        r'(J)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+      );
 
-  static final _setMaxExpiredDelayMillis = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _setMaxExpiredDelayMillis =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int64,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder setMaxExpiredDelayMillis(long maxExpiredDelayMillis)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -5023,27 +6057,37 @@ extension DnsOptions$StaleDnsOptions$Builder$$Methods
     core$_.int maxExpiredDelayMillis,
   ) {
     final _$$selfRef = reference;
-    return _setMaxExpiredDelayMillis(_$$selfRef.pointer,
-            _id_setMaxExpiredDelayMillis.pointer, maxExpiredDelayMillis)
-        .object<DnsOptions$StaleDnsOptions$Builder?>();
+    return _setMaxExpiredDelayMillis(
+      _$$selfRef.pointer,
+      _id_setMaxExpiredDelayMillis.pointer,
+      maxExpiredDelayMillis,
+    ).object<DnsOptions$StaleDnsOptions$Builder?>();
   }
 
-  static final _id_setMaxExpiredDelay =
-      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
-    r'setMaxExpiredDelay',
-    r'(Ljava/time/Duration;)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
-  );
+  static final _id_setMaxExpiredDelay = DnsOptions$StaleDnsOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'setMaxExpiredDelay',
+        r'(Ljava/time/Duration;)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+      );
 
-  static final _setMaxExpiredDelay = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setMaxExpiredDelay =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder setMaxExpiredDelay(java.time.Duration maxExpiredDelay)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -5052,26 +6096,37 @@ extension DnsOptions$StaleDnsOptions$Builder$$Methods
   ) {
     final _$$selfRef = reference;
     final _$maxExpiredDelay = maxExpiredDelay.reference;
-    return _setMaxExpiredDelay(_$$selfRef.pointer,
-            _id_setMaxExpiredDelay.pointer, _$maxExpiredDelay.pointer)
-        .object<DnsOptions$StaleDnsOptions$Builder?>();
+    return _setMaxExpiredDelay(
+      _$$selfRef.pointer,
+      _id_setMaxExpiredDelay.pointer,
+      _$maxExpiredDelay.pointer,
+    ).object<DnsOptions$StaleDnsOptions$Builder?>();
   }
 
-  static final _id_allowCrossNetworkUsage =
-      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
-    r'allowCrossNetworkUsage',
-    r'(Z)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
-  );
+  static final _id_allowCrossNetworkUsage = DnsOptions$StaleDnsOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'allowCrossNetworkUsage',
+        r'(Z)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+      );
 
-  static final _allowCrossNetworkUsage = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _allowCrossNetworkUsage =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder allowCrossNetworkUsage(boolean allowCrossNetworkUsage)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -5079,26 +6134,36 @@ extension DnsOptions$StaleDnsOptions$Builder$$Methods
     core$_.bool allowCrossNetworkUsage,
   ) {
     final _$$selfRef = reference;
-    return _allowCrossNetworkUsage(_$$selfRef.pointer,
-            _id_allowCrossNetworkUsage.pointer, allowCrossNetworkUsage ? 1 : 0)
-        .object<DnsOptions$StaleDnsOptions$Builder?>();
+    return _allowCrossNetworkUsage(
+      _$$selfRef.pointer,
+      _id_allowCrossNetworkUsage.pointer,
+      allowCrossNetworkUsage ? 1 : 0,
+    ).object<DnsOptions$StaleDnsOptions$Builder?>();
   }
 
   static final _id_useStaleOnNameNotResolved =
       DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
-    r'useStaleOnNameNotResolved',
-    r'(Z)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
-  );
+        r'useStaleOnNameNotResolved',
+        r'(Z)Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
+      );
 
-  static final _useStaleOnNameNotResolved = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _useStaleOnNameNotResolved =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions$Builder useStaleOnNameNotResolved(boolean useStaleOnNameNotResolved)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -5107,36 +6172,42 @@ extension DnsOptions$StaleDnsOptions$Builder$$Methods
   ) {
     final _$$selfRef = reference;
     return _useStaleOnNameNotResolved(
-            _$$selfRef.pointer,
-            _id_useStaleOnNameNotResolved.pointer,
-            useStaleOnNameNotResolved ? 1 : 0)
-        .object<DnsOptions$StaleDnsOptions$Builder?>();
+      _$$selfRef.pointer,
+      _id_useStaleOnNameNotResolved.pointer,
+      useStaleOnNameNotResolved ? 1 : 0,
+    ).object<DnsOptions$StaleDnsOptions$Builder?>();
   }
 
-  static final _id_build =
-      DnsOptions$StaleDnsOptions$Builder._class.instanceMethodId(
-    r'build',
-    r'()Lorg/chromium/net/DnsOptions$StaleDnsOptions;',
-  );
+  static final _id_build = DnsOptions$StaleDnsOptions$Builder._class
+      .instanceMethodId(
+        r'build',
+        r'()Lorg/chromium/net/DnsOptions$StaleDnsOptions;',
+      );
 
-  static final _build = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _build =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions build()`
   /// The returned object must be released after use, by calling the [release] method.
   DnsOptions$StaleDnsOptions? build() {
     final _$$selfRef = reference;
-    return _build(_$$selfRef.pointer, _id_build.pointer)
-        .object<DnsOptions$StaleDnsOptions?>();
+    return _build(
+      _$$selfRef.pointer,
+      _id_build.pointer,
+    ).object<DnsOptions$StaleDnsOptions?>();
   }
 }
 
@@ -5154,8 +6225,9 @@ final class $DnsOptions$StaleDnsOptions$Builder$Type$
 /// from: `org.chromium.net.DnsOptions$StaleDnsOptions`
 extension type DnsOptions$StaleDnsOptions._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/DnsOptions$StaleDnsOptions');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/DnsOptions$StaleDnsOptions',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<DnsOptions$StaleDnsOptions> type =
@@ -5165,137 +6237,154 @@ extension type DnsOptions$StaleDnsOptions._(jni$_.JObject _$this)
     r'()Lorg/chromium/net/DnsOptions$StaleDnsOptions$Builder;',
   );
 
-  static final _builder = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _builder =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `static public org.chromium.net.DnsOptions$StaleDnsOptions$Builder builder()`
   /// The returned object must be released after use, by calling the [release] method.
   static DnsOptions$StaleDnsOptions$Builder? builder() {
     final _$$classRef = _class.reference;
-    return _builder(_$$classRef.pointer, _id_builder.pointer)
-        .object<DnsOptions$StaleDnsOptions$Builder?>();
+    return _builder(
+      _$$classRef.pointer,
+      _id_builder.pointer,
+    ).object<DnsOptions$StaleDnsOptions$Builder?>();
   }
 }
 
 extension DnsOptions$StaleDnsOptions$$Methods on DnsOptions$StaleDnsOptions {
-  static final _id_get$freshLookupTimeoutMillis =
-      DnsOptions$StaleDnsOptions._class.instanceMethodId(
-    r'getFreshLookupTimeoutMillis',
-    r'()Ljava/lang/Long;',
-  );
+  static final _id_get$freshLookupTimeoutMillis = DnsOptions$StaleDnsOptions
+      ._class
+      .instanceMethodId(r'getFreshLookupTimeoutMillis', r'()Ljava/lang/Long;');
 
   static final _get$freshLookupTimeoutMillis =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Long getFreshLookupTimeoutMillis()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JLong? get freshLookupTimeoutMillis {
     final _$$selfRef = reference;
     return _get$freshLookupTimeoutMillis(
-            _$$selfRef.pointer, _id_get$freshLookupTimeoutMillis.pointer)
-        .object<jni$_.JLong?>();
+      _$$selfRef.pointer,
+      _id_get$freshLookupTimeoutMillis.pointer,
+    ).object<jni$_.JLong?>();
   }
 
-  static final _id_get$maxExpiredDelayMillis =
-      DnsOptions$StaleDnsOptions._class.instanceMethodId(
-    r'getMaxExpiredDelayMillis',
-    r'()Ljava/lang/Long;',
-  );
+  static final _id_get$maxExpiredDelayMillis = DnsOptions$StaleDnsOptions._class
+      .instanceMethodId(r'getMaxExpiredDelayMillis', r'()Ljava/lang/Long;');
 
-  static final _get$maxExpiredDelayMillis = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$maxExpiredDelayMillis =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Long getMaxExpiredDelayMillis()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JLong? get maxExpiredDelayMillis {
     final _$$selfRef = reference;
     return _get$maxExpiredDelayMillis(
-            _$$selfRef.pointer, _id_get$maxExpiredDelayMillis.pointer)
-        .object<jni$_.JLong?>();
+      _$$selfRef.pointer,
+      _id_get$maxExpiredDelayMillis.pointer,
+    ).object<jni$_.JLong?>();
   }
 
-  static final _id_get$allowCrossNetworkUsage =
-      DnsOptions$StaleDnsOptions._class.instanceMethodId(
-    r'getAllowCrossNetworkUsage',
-    r'()Ljava/lang/Boolean;',
-  );
+  static final _id_get$allowCrossNetworkUsage = DnsOptions$StaleDnsOptions
+      ._class
+      .instanceMethodId(r'getAllowCrossNetworkUsage', r'()Ljava/lang/Boolean;');
 
   static final _get$allowCrossNetworkUsage =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Boolean getAllowCrossNetworkUsage()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JBoolean? get allowCrossNetworkUsage {
     final _$$selfRef = reference;
     return _get$allowCrossNetworkUsage(
-            _$$selfRef.pointer, _id_get$allowCrossNetworkUsage.pointer)
-        .object<jni$_.JBoolean?>();
+      _$$selfRef.pointer,
+      _id_get$allowCrossNetworkUsage.pointer,
+    ).object<jni$_.JBoolean?>();
   }
 
-  static final _id_get$useStaleOnNameNotResolved =
-      DnsOptions$StaleDnsOptions._class.instanceMethodId(
-    r'getUseStaleOnNameNotResolved',
-    r'()Ljava/lang/Boolean;',
-  );
+  static final _id_get$useStaleOnNameNotResolved = DnsOptions$StaleDnsOptions
+      ._class
+      .instanceMethodId(
+        r'getUseStaleOnNameNotResolved',
+        r'()Ljava/lang/Boolean;',
+      );
 
   static final _get$useStaleOnNameNotResolved =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Boolean getUseStaleOnNameNotResolved()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JBoolean? get useStaleOnNameNotResolved {
     final _$$selfRef = reference;
     return _get$useStaleOnNameNotResolved(
-            _$$selfRef.pointer, _id_get$useStaleOnNameNotResolved.pointer)
-        .object<jni$_.JBoolean?>();
+      _$$selfRef.pointer,
+      _id_get$useStaleOnNameNotResolved.pointer,
+    ).object<jni$_.JBoolean?>();
   }
 }
 
@@ -5320,53 +6409,61 @@ extension type DnsOptions._(jni$_.JObject _$this) implements jni$_.JObject {
     r'()Lorg/chromium/net/DnsOptions$Builder;',
   );
 
-  static final _builder = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _builder =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `static public org.chromium.net.DnsOptions$Builder builder()`
   /// The returned object must be released after use, by calling the [release] method.
   static DnsOptions$Builder? builder() {
     final _$$classRef = _class.reference;
-    return _builder(_$$classRef.pointer, _id_builder.pointer)
-        .object<DnsOptions$Builder?>();
+    return _builder(
+      _$$classRef.pointer,
+      _id_builder.pointer,
+    ).object<DnsOptions$Builder?>();
   }
 }
 
 extension DnsOptions$$Methods on DnsOptions {
-  static final _id_get$useBuiltInDnsResolver =
-      DnsOptions._class.instanceMethodId(
-    r'getUseBuiltInDnsResolver',
-    r'()Ljava/lang/Boolean;',
-  );
+  static final _id_get$useBuiltInDnsResolver = DnsOptions._class
+      .instanceMethodId(r'getUseBuiltInDnsResolver', r'()Ljava/lang/Boolean;');
 
-  static final _get$useBuiltInDnsResolver = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$useBuiltInDnsResolver =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Boolean getUseBuiltInDnsResolver()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JBoolean? get useBuiltInDnsResolver {
     final _$$selfRef = reference;
     return _get$useBuiltInDnsResolver(
-            _$$selfRef.pointer, _id_get$useBuiltInDnsResolver.pointer)
-        .object<jni$_.JBoolean?>();
+      _$$selfRef.pointer,
+      _id_get$useBuiltInDnsResolver.pointer,
+    ).object<jni$_.JBoolean?>();
   }
 
   static final _id_get$persistHostCache = DnsOptions._class.instanceMethodId(
@@ -5374,25 +6471,30 @@ extension DnsOptions$$Methods on DnsOptions {
     r'()Ljava/lang/Boolean;',
   );
 
-  static final _get$persistHostCache = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$persistHostCache =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Boolean getPersistHostCache()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JBoolean? get persistHostCache {
     final _$$selfRef = reference;
     return _get$persistHostCache(
-            _$$selfRef.pointer, _id_get$persistHostCache.pointer)
-        .object<jni$_.JBoolean?>();
+      _$$selfRef.pointer,
+      _id_get$persistHostCache.pointer,
+    ).object<jni$_.JBoolean?>();
   }
 
   static final _id_get$enableStaleDns = DnsOptions._class.instanceMethodId(
@@ -5400,81 +6502,95 @@ extension DnsOptions$$Methods on DnsOptions {
     r'()Ljava/lang/Boolean;',
   );
 
-  static final _get$enableStaleDns = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$enableStaleDns =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Boolean getEnableStaleDns()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JBoolean? get enableStaleDns {
     final _$$selfRef = reference;
     return _get$enableStaleDns(
-            _$$selfRef.pointer, _id_get$enableStaleDns.pointer)
-        .object<jni$_.JBoolean?>();
+      _$$selfRef.pointer,
+      _id_get$enableStaleDns.pointer,
+    ).object<jni$_.JBoolean?>();
   }
 
-  static final _id_get$persistHostCachePeriodMillis =
-      DnsOptions._class.instanceMethodId(
-    r'getPersistHostCachePeriodMillis',
-    r'()Ljava/lang/Long;',
-  );
+  static final _id_get$persistHostCachePeriodMillis = DnsOptions._class
+      .instanceMethodId(
+        r'getPersistHostCachePeriodMillis',
+        r'()Ljava/lang/Long;',
+      );
 
   static final _get$persistHostCachePeriodMillis =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Long getPersistHostCachePeriodMillis()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JLong? get persistHostCachePeriodMillis {
     final _$$selfRef = reference;
     return _get$persistHostCachePeriodMillis(
-            _$$selfRef.pointer, _id_get$persistHostCachePeriodMillis.pointer)
-        .object<jni$_.JLong?>();
+      _$$selfRef.pointer,
+      _id_get$persistHostCachePeriodMillis.pointer,
+    ).object<jni$_.JLong?>();
   }
 
-  static final _id_get$preestablishConnectionsToStaleDnsResults =
-      DnsOptions._class.instanceMethodId(
-    r'getPreestablishConnectionsToStaleDnsResults',
-    r'()Ljava/lang/Boolean;',
-  );
+  static final _id_get$preestablishConnectionsToStaleDnsResults = DnsOptions
+      ._class
+      .instanceMethodId(
+        r'getPreestablishConnectionsToStaleDnsResults',
+        r'()Ljava/lang/Boolean;',
+      );
 
   static final _get$preestablishConnectionsToStaleDnsResults =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public java.lang.Boolean getPreestablishConnectionsToStaleDnsResults()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JBoolean? get preestablishConnectionsToStaleDnsResults {
     final _$$selfRef = reference;
-    return _get$preestablishConnectionsToStaleDnsResults(_$$selfRef.pointer,
-            _id_get$preestablishConnectionsToStaleDnsResults.pointer)
-        .object<jni$_.JBoolean?>();
+    return _get$preestablishConnectionsToStaleDnsResults(
+      _$$selfRef.pointer,
+      _id_get$preestablishConnectionsToStaleDnsResults.pointer,
+    ).object<jni$_.JBoolean?>();
   }
 
   static final _id_get$staleDnsOptions = DnsOptions._class.instanceMethodId(
@@ -5482,25 +6598,30 @@ extension DnsOptions$$Methods on DnsOptions {
     r'()Lorg/chromium/net/DnsOptions$StaleDnsOptions;',
   );
 
-  static final _get$staleDnsOptions = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$staleDnsOptions =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public org.chromium.net.DnsOptions$StaleDnsOptions getStaleDnsOptions()`
   /// The returned object must be released after use, by calling the [release] method.
   DnsOptions$StaleDnsOptions? get staleDnsOptions {
     final _$$selfRef = reference;
     return _get$staleDnsOptions(
-            _$$selfRef.pointer, _id_get$staleDnsOptions.pointer)
-        .object<DnsOptions$StaleDnsOptions?>();
+      _$$selfRef.pointer,
+      _id_get$staleDnsOptions.pointer,
+    ).object<DnsOptions$StaleDnsOptions?>();
   }
 }
 
@@ -5516,8 +6637,9 @@ final class $DnsOptions$Type$ extends jni$_.JType<DnsOptions> {
 /// from: `org.chromium.net.CallbackException`
 extension type CallbackException._(jni$_.JObject _$this)
     implements CronetException {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/CallbackException');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/CallbackException',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<CallbackException> type = $CallbackException$Type$();
@@ -5534,8 +6656,9 @@ final class $CallbackException$Type$ extends jni$_.JType<CallbackException> {
 
 /// from: `org.chromium.net.CronetException`
 extension type CronetException._(jni$_.JObject _$this) implements IOException {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/CronetException');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/CronetException',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<CronetException> type = $CronetException$Type$();
@@ -5553,8 +6676,9 @@ final class $CronetException$Type$ extends jni$_.JType<CronetException> {
 /// from: `org.chromium.net.NetworkException`
 extension type NetworkException._(jni$_.JObject _$this)
     implements CronetException {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/NetworkException');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/NetworkException',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<NetworkException> type = $NetworkException$Type$();
@@ -5599,76 +6723,85 @@ extension NetworkException$$Methods on NetworkException {
     r'()I',
   );
 
-  static final _get$errorCode = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$errorCode =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract int getErrorCode()`
   core$_.int get errorCode {
     final _$$selfRef = reference;
-    return _get$errorCode(_$$selfRef.pointer, _id_get$errorCode.pointer)
-        .integer;
+    return _get$errorCode(
+      _$$selfRef.pointer,
+      _id_get$errorCode.pointer,
+    ).integer;
   }
 
-  static final _id_get$cronetInternalErrorCode =
-      NetworkException._class.instanceMethodId(
-    r'getCronetInternalErrorCode',
-    r'()I',
-  );
+  static final _id_get$cronetInternalErrorCode = NetworkException._class
+      .instanceMethodId(r'getCronetInternalErrorCode', r'()I');
 
   static final _get$cronetInternalErrorCode =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                    jni$_.Pointer<jni$_.Void>,
-                    jni$_.JMethodIDPtr,
-                  )>>('globalEnv_CallIntMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract int getCronetInternalErrorCode()`
   core$_.int get cronetInternalErrorCode {
     final _$$selfRef = reference;
     return _get$cronetInternalErrorCode(
-            _$$selfRef.pointer, _id_get$cronetInternalErrorCode.pointer)
-        .integer;
+      _$$selfRef.pointer,
+      _id_get$cronetInternalErrorCode.pointer,
+    ).integer;
   }
 
-  static final _id_immediatelyRetryable =
-      NetworkException._class.instanceMethodId(
-    r'immediatelyRetryable',
-    r'()Z',
-  );
+  static final _id_immediatelyRetryable = NetworkException._class
+      .instanceMethodId(r'immediatelyRetryable', r'()Z');
 
-  static final _immediatelyRetryable = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _immediatelyRetryable =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallBooleanMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallBooleanMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract boolean immediatelyRetryable()`
   core$_.bool immediatelyRetryable() {
     final _$$selfRef = reference;
     return _immediatelyRetryable(
-            _$$selfRef.pointer, _id_immediatelyRetryable.pointer)
-        .boolean;
+      _$$selfRef.pointer,
+      _id_immediatelyRetryable.pointer,
+    ).boolean;
   }
 }
 
@@ -5691,56 +6824,60 @@ extension type QuicException._(jni$_.JObject _$this)
 }
 
 extension QuicException$$Methods on QuicException {
-  static final _id_get$quicDetailedErrorCode =
-      QuicException._class.instanceMethodId(
-    r'getQuicDetailedErrorCode',
-    r'()I',
-  );
+  static final _id_get$quicDetailedErrorCode = QuicException._class
+      .instanceMethodId(r'getQuicDetailedErrorCode', r'()I');
 
-  static final _get$quicDetailedErrorCode = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$quicDetailedErrorCode =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract int getQuicDetailedErrorCode()`
   core$_.int get quicDetailedErrorCode {
     final _$$selfRef = reference;
     return _get$quicDetailedErrorCode(
-            _$$selfRef.pointer, _id_get$quicDetailedErrorCode.pointer)
-        .integer;
+      _$$selfRef.pointer,
+      _id_get$quicDetailedErrorCode.pointer,
+    ).integer;
   }
 
-  static final _id_get$connectionCloseSource =
-      QuicException._class.instanceMethodId(
-    r'getConnectionCloseSource',
-    r'()I',
-  );
+  static final _id_get$connectionCloseSource = QuicException._class
+      .instanceMethodId(r'getConnectionCloseSource', r'()I');
 
-  static final _get$connectionCloseSource = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$connectionCloseSource =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public int getConnectionCloseSource()`
   core$_.int get connectionCloseSource {
     final _$$selfRef = reference;
     return _get$connectionCloseSource(
-            _$$selfRef.pointer, _id_get$connectionCloseSource.pointer)
-        .integer;
+      _$$selfRef.pointer,
+      _id_get$connectionCloseSource.pointer,
+    ).integer;
   }
 }
 
@@ -5756,8 +6893,9 @@ final class $QuicException$Type$ extends jni$_.JType<QuicException> {
 /// from: `org.chromium.net.UploadDataProviders`
 extension type UploadDataProviders._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/UploadDataProviders');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/UploadDataProviders',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UploadDataProviders> type =
@@ -5767,26 +6905,34 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
     r'(Ljava/io/File;)Lorg/chromium/net/UploadDataProvider;',
   );
 
-  static final _create = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _create =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public org.chromium.net.UploadDataProvider create(java.io.File file)`
   /// The returned object must be released after use, by calling the [release] method.
-  static UploadDataProvider? create(
-    File? file,
-  ) {
+  static UploadDataProvider? create(File? file) {
     final _$$classRef = _class.reference;
     final _$file = file?.reference ?? jni$_.jNullReference;
-    return _create(_$$classRef.pointer, _id_create.pointer, _$file.pointer)
-        .object<UploadDataProvider?>();
+    return _create(
+      _$$classRef.pointer,
+      _id_create.pointer,
+      _$file.pointer,
+    ).object<UploadDataProvider?>();
   }
 
   static final _id_create$1 = _class.staticMethodId(
@@ -5794,26 +6940,34 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
     r'(Landroid/os/ParcelFileDescriptor;)Lorg/chromium/net/UploadDataProvider;',
   );
 
-  static final _create$1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _create$1 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor fd)`
   /// The returned object must be released after use, by calling the [release] method.
-  static UploadDataProvider? create$1(
-    ParcelFileDescriptor? fd,
-  ) {
+  static UploadDataProvider? create$1(ParcelFileDescriptor? fd) {
     final _$$classRef = _class.reference;
     final _$fd = fd?.reference ?? jni$_.jNullReference;
-    return _create$1(_$$classRef.pointer, _id_create$1.pointer, _$fd.pointer)
-        .object<UploadDataProvider?>();
+    return _create$1(
+      _$$classRef.pointer,
+      _id_create$1.pointer,
+      _$fd.pointer,
+    ).object<UploadDataProvider?>();
   }
 
   static final _id_create$2 = _class.staticMethodId(
@@ -5821,27 +6975,34 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
     r'(Ljava/nio/ByteBuffer;)Lorg/chromium/net/UploadDataProvider;',
   );
 
-  static final _create$2 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _create$2 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer buffer)`
   /// The returned object must be released after use, by calling the [release] method.
-  static UploadDataProvider? create$2(
-    jni$_.JByteBuffer? buffer,
-  ) {
+  static UploadDataProvider? create$2(jni$_.JByteBuffer? buffer) {
     final _$$classRef = _class.reference;
     final _$buffer = buffer?.reference ?? jni$_.jNullReference;
     return _create$2(
-            _$$classRef.pointer, _id_create$2.pointer, _$buffer.pointer)
-        .object<UploadDataProvider?>();
+      _$$classRef.pointer,
+      _id_create$2.pointer,
+      _$buffer.pointer,
+    ).object<UploadDataProvider?>();
   }
 
   static final _id_create$3 = _class.staticMethodId(
@@ -5849,24 +7010,27 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
     r'([BII)Lorg/chromium/net/UploadDataProvider;',
   );
 
-  static final _create$3 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _create$3 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Int32
-                      )>)>>('globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Int32, jni$_.Int32)
+                >,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               core$_.int,
-              core$_.int)>();
+              core$_.int,
+            )
+          >();
 
   /// from: `static public org.chromium.net.UploadDataProvider create(byte[] data, int offset, int length)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -5877,9 +7041,13 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
   ) {
     final _$$classRef = _class.reference;
     final _$data = data?.reference ?? jni$_.jNullReference;
-    return _create$3(_$$classRef.pointer, _id_create$3.pointer, _$data.pointer,
-            offset, length)
-        .object<UploadDataProvider?>();
+    return _create$3(
+      _$$classRef.pointer,
+      _id_create$3.pointer,
+      _$data.pointer,
+      offset,
+      length,
+    ).object<UploadDataProvider?>();
   }
 
   static final _id_create$4 = _class.staticMethodId(
@@ -5887,26 +7055,34 @@ extension type UploadDataProviders._(jni$_.JObject _$this)
     r'([B)Lorg/chromium/net/UploadDataProvider;',
   );
 
-  static final _create$4 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallStaticObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _create$4 =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `static public org.chromium.net.UploadDataProvider create(byte[] data)`
   /// The returned object must be released after use, by calling the [release] method.
-  static UploadDataProvider? create$4(
-    jni$_.JByteArray? data,
-  ) {
+  static UploadDataProvider? create$4(jni$_.JByteArray? data) {
     final _$$classRef = _class.reference;
     final _$data = data?.reference ?? jni$_.jNullReference;
-    return _create$4(_$$classRef.pointer, _id_create$4.pointer, _$data.pointer)
-        .object<UploadDataProvider?>();
+    return _create$4(
+      _$$classRef.pointer,
+      _id_create$4.pointer,
+      _$data.pointer,
+    ).object<UploadDataProvider?>();
   }
 }
 
@@ -5923,8 +7099,9 @@ final class $UploadDataProviders$Type$
 /// from: `org.chromium.net.UrlRequest$Builder`
 extension type UrlRequest$Builder._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/UrlRequest$Builder');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/UrlRequest$Builder',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlRequest$Builder> type =
@@ -5952,27 +7129,34 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
     r'(Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;',
   );
 
-  static final _setHttpMethod = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _setHttpMethod =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract org.chromium.net.UrlRequest$Builder setHttpMethod(java.lang.String method)`
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest$Builder? setHttpMethod(
-    jni$_.JString? method,
-  ) {
+  UrlRequest$Builder? setHttpMethod(jni$_.JString? method) {
     final _$$selfRef = reference;
     final _$method = method?.reference ?? jni$_.jNullReference;
     return _setHttpMethod(
-            _$$selfRef.pointer, _id_setHttpMethod.pointer, _$method.pointer)
-        .object<UrlRequest$Builder?>();
+      _$$selfRef.pointer,
+      _id_setHttpMethod.pointer,
+      _$method.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
   static final _id_addHeader = UrlRequest$Builder._class.instanceMethodId(
@@ -5980,35 +7164,39 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
     r'(Ljava/lang/String;Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;',
   );
 
-  static final _addHeader = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _addHeader =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract org.chromium.net.UrlRequest$Builder addHeader(java.lang.String header, java.lang.String value)`
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest$Builder? addHeader(
-    jni$_.JString? header,
-    jni$_.JString? value,
-  ) {
+  UrlRequest$Builder? addHeader(jni$_.JString? header, jni$_.JString? value) {
     final _$$selfRef = reference;
     final _$header = header?.reference ?? jni$_.jNullReference;
     final _$value = value?.reference ?? jni$_.jNullReference;
-    return _addHeader(_$$selfRef.pointer, _id_addHeader.pointer,
-            _$header.pointer, _$value.pointer)
-        .object<UrlRequest$Builder?>();
+    return _addHeader(
+      _$$selfRef.pointer,
+      _id_addHeader.pointer,
+      _$header.pointer,
+      _$value.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
   static final _id_disableCache = UrlRequest$Builder._class.instanceMethodId(
@@ -6016,24 +7204,30 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
     r'()Lorg/chromium/net/UrlRequest$Builder;',
   );
 
-  static final _disableCache = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _disableCache =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract org.chromium.net.UrlRequest$Builder disableCache()`
   /// The returned object must be released after use, by calling the [release] method.
   UrlRequest$Builder? disableCache() {
     final _$$selfRef = reference;
-    return _disableCache(_$$selfRef.pointer, _id_disableCache.pointer)
-        .object<UrlRequest$Builder?>();
+    return _disableCache(
+      _$$selfRef.pointer,
+      _id_disableCache.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
   static final _id_setPriority = UrlRequest$Builder._class.instanceMethodId(
@@ -6041,48 +7235,61 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
     r'(I)Lorg/chromium/net/UrlRequest$Builder;',
   );
 
-  static final _setPriority = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _setPriority =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public abstract org.chromium.net.UrlRequest$Builder setPriority(int priority)`
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest$Builder? setPriority(
-    core$_.int priority,
-  ) {
+  UrlRequest$Builder? setPriority(core$_.int priority) {
     final _$$selfRef = reference;
-    return _setPriority(_$$selfRef.pointer, _id_setPriority.pointer, priority)
-        .object<UrlRequest$Builder?>();
+    return _setPriority(
+      _$$selfRef.pointer,
+      _id_setPriority.pointer,
+      priority,
+    ).object<UrlRequest$Builder?>();
   }
 
-  static final _id_setUploadDataProvider =
-      UrlRequest$Builder._class.instanceMethodId(
-    r'setUploadDataProvider',
-    r'(Lorg/chromium/net/UploadDataProvider;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;',
-  );
+  static final _id_setUploadDataProvider = UrlRequest$Builder._class
+      .instanceMethodId(
+        r'setUploadDataProvider',
+        r'(Lorg/chromium/net/UploadDataProvider;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;',
+      );
 
-  static final _setUploadDataProvider = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _setUploadDataProvider =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract org.chromium.net.UrlRequest$Builder setUploadDataProvider(org.chromium.net.UploadDataProvider uploadDataProvider, java.util.concurrent.Executor executor)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -6095,67 +7302,79 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
         uploadDataProvider?.reference ?? jni$_.jNullReference;
     final _$executor = executor?.reference ?? jni$_.jNullReference;
     return _setUploadDataProvider(
-            _$$selfRef.pointer,
-            _id_setUploadDataProvider.pointer,
-            _$uploadDataProvider.pointer,
-            _$executor.pointer)
-        .object<UrlRequest$Builder?>();
+      _$$selfRef.pointer,
+      _id_setUploadDataProvider.pointer,
+      _$uploadDataProvider.pointer,
+      _$executor.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
-  static final _id_allowDirectExecutor =
-      UrlRequest$Builder._class.instanceMethodId(
-    r'allowDirectExecutor',
-    r'()Lorg/chromium/net/UrlRequest$Builder;',
-  );
+  static final _id_allowDirectExecutor = UrlRequest$Builder._class
+      .instanceMethodId(
+        r'allowDirectExecutor',
+        r'()Lorg/chromium/net/UrlRequest$Builder;',
+      );
 
-  static final _allowDirectExecutor = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _allowDirectExecutor =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract org.chromium.net.UrlRequest$Builder allowDirectExecutor()`
   /// The returned object must be released after use, by calling the [release] method.
   UrlRequest$Builder? allowDirectExecutor() {
     final _$$selfRef = reference;
     return _allowDirectExecutor(
-            _$$selfRef.pointer, _id_allowDirectExecutor.pointer)
-        .object<UrlRequest$Builder?>();
+      _$$selfRef.pointer,
+      _id_allowDirectExecutor.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
-  static final _id_addRequestAnnotation =
-      UrlRequest$Builder._class.instanceMethodId(
-    r'addRequestAnnotation',
-    r'(Ljava/lang/Object;)Lorg/chromium/net/UrlRequest$Builder;',
-  );
+  static final _id_addRequestAnnotation = UrlRequest$Builder._class
+      .instanceMethodId(
+        r'addRequestAnnotation',
+        r'(Ljava/lang/Object;)Lorg/chromium/net/UrlRequest$Builder;',
+      );
 
-  static final _addRequestAnnotation = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _addRequestAnnotation =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.UrlRequest$Builder addRequestAnnotation(java.lang.Object annotation)`
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest$Builder? addRequestAnnotation(
-    jni$_.JObject? annotation,
-  ) {
+  UrlRequest$Builder? addRequestAnnotation(jni$_.JObject? annotation) {
     final _$$selfRef = reference;
     final _$annotation = annotation?.reference ?? jni$_.jNullReference;
-    return _addRequestAnnotation(_$$selfRef.pointer,
-            _id_addRequestAnnotation.pointer, _$annotation.pointer)
-        .object<UrlRequest$Builder?>();
+    return _addRequestAnnotation(
+      _$$selfRef.pointer,
+      _id_addRequestAnnotation.pointer,
+      _$annotation.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
   static final _id_bindToNetwork = UrlRequest$Builder._class.instanceMethodId(
@@ -6163,98 +7382,128 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
     r'(J)Lorg/chromium/net/UrlRequest$Builder;',
   );
 
-  static final _bindToNetwork = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _bindToNetwork =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int64,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.UrlRequest$Builder bindToNetwork(long networkHandle)`
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest$Builder? bindToNetwork(
-    core$_.int networkHandle,
-  ) {
+  UrlRequest$Builder? bindToNetwork(core$_.int networkHandle) {
     final _$$selfRef = reference;
     return _bindToNetwork(
-            _$$selfRef.pointer, _id_bindToNetwork.pointer, networkHandle)
-        .object<UrlRequest$Builder?>();
+      _$$selfRef.pointer,
+      _id_bindToNetwork.pointer,
+      networkHandle,
+    ).object<UrlRequest$Builder?>();
   }
 
-  static final _id_setTrafficStatsTag =
-      UrlRequest$Builder._class.instanceMethodId(
-    r'setTrafficStatsTag',
-    r'(I)Lorg/chromium/net/UrlRequest$Builder;',
-  );
+  static final _id_setTrafficStatsTag = UrlRequest$Builder._class
+      .instanceMethodId(
+        r'setTrafficStatsTag',
+        r'(I)Lorg/chromium/net/UrlRequest$Builder;',
+      );
 
-  static final _setTrafficStatsTag = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _setTrafficStatsTag =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.UrlRequest$Builder setTrafficStatsTag(int tag)`
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest$Builder? setTrafficStatsTag(
-    core$_.int tag,
-  ) {
+  UrlRequest$Builder? setTrafficStatsTag(core$_.int tag) {
     final _$$selfRef = reference;
     return _setTrafficStatsTag(
-            _$$selfRef.pointer, _id_setTrafficStatsTag.pointer, tag)
-        .object<UrlRequest$Builder?>();
+      _$$selfRef.pointer,
+      _id_setTrafficStatsTag.pointer,
+      tag,
+    ).object<UrlRequest$Builder?>();
   }
 
-  static final _id_setTrafficStatsUid =
-      UrlRequest$Builder._class.instanceMethodId(
-    r'setTrafficStatsUid',
-    r'(I)Lorg/chromium/net/UrlRequest$Builder;',
-  );
+  static final _id_setTrafficStatsUid = UrlRequest$Builder._class
+      .instanceMethodId(
+        r'setTrafficStatsUid',
+        r'(I)Lorg/chromium/net/UrlRequest$Builder;',
+      );
 
-  static final _setTrafficStatsUid = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _setTrafficStatsUid =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public org.chromium.net.UrlRequest$Builder setTrafficStatsUid(int uid)`
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest$Builder? setTrafficStatsUid(
-    core$_.int uid,
-  ) {
+  UrlRequest$Builder? setTrafficStatsUid(core$_.int uid) {
     final _$$selfRef = reference;
     return _setTrafficStatsUid(
-            _$$selfRef.pointer, _id_setTrafficStatsUid.pointer, uid)
-        .object<UrlRequest$Builder?>();
+      _$$selfRef.pointer,
+      _id_setTrafficStatsUid.pointer,
+      uid,
+    ).object<UrlRequest$Builder?>();
   }
 
-  static final _id_setRequestFinishedListener =
-      UrlRequest$Builder._class.instanceMethodId(
-    r'setRequestFinishedListener',
-    r'(Lorg/chromium/net/RequestFinishedInfo$Listener;)Lorg/chromium/net/UrlRequest$Builder;',
-  );
+  static final _id_setRequestFinishedListener = UrlRequest$Builder._class
+      .instanceMethodId(
+        r'setRequestFinishedListener',
+        r'(Lorg/chromium/net/RequestFinishedInfo$Listener;)Lorg/chromium/net/UrlRequest$Builder;',
+      );
 
   static final _setRequestFinishedListener =
       jni$_.ProtectedJniExtensions.lookup<
-                  jni$_.NativeFunction<
-                      jni$_.JniResult Function(
-                          jni$_.Pointer<jni$_.Void>,
-                          jni$_.JMethodIDPtr,
-                          jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-              'globalEnv_CallObjectMethod')
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
           .asFunction<
-              jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.UrlRequest$Builder setRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -6263,36 +7512,44 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
   ) {
     final _$$selfRef = reference;
     final _$listener = listener?.reference ?? jni$_.jNullReference;
-    return _setRequestFinishedListener(_$$selfRef.pointer,
-            _id_setRequestFinishedListener.pointer, _$listener.pointer)
-        .object<UrlRequest$Builder?>();
+    return _setRequestFinishedListener(
+      _$$selfRef.pointer,
+      _id_setRequestFinishedListener.pointer,
+      _$listener.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
-  static final _id_setRawCompressionDictionary =
-      UrlRequest$Builder._class.instanceMethodId(
-    r'setRawCompressionDictionary',
-    r'([BLjava/nio/ByteBuffer;Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;',
-  );
+  static final _id_setRawCompressionDictionary = UrlRequest$Builder._class
+      .instanceMethodId(
+        r'setRawCompressionDictionary',
+        r'([BLjava/nio/ByteBuffer;Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;',
+      );
 
   static final _setRawCompressionDictionary =
       jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<
-                          (
-                            jni$_.Pointer<jni$_.Void>,
-                            jni$_.Pointer<jni$_.Void>,
-                            jni$_.Pointer<jni$_.Void>
-                          )>)>>('globalEnv_CallObjectMethod')
-          .asFunction<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.Pointer<jni$_.Void>)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public org.chromium.net.UrlRequest$Builder setRawCompressionDictionary(byte[] dictionarySha256Hash, java.nio.ByteBuffer dictionary, java.lang.String dictionaryId)`
   /// The returned object must be released after use, by calling the [release] method.
@@ -6307,12 +7564,12 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
     final _$dictionary = dictionary?.reference ?? jni$_.jNullReference;
     final _$dictionaryId = dictionaryId?.reference ?? jni$_.jNullReference;
     return _setRawCompressionDictionary(
-            _$$selfRef.pointer,
-            _id_setRawCompressionDictionary.pointer,
-            _$dictionarySha256Hash.pointer,
-            _$dictionary.pointer,
-            _$dictionaryId.pointer)
-        .object<UrlRequest$Builder?>();
+      _$$selfRef.pointer,
+      _id_setRawCompressionDictionary.pointer,
+      _$dictionarySha256Hash.pointer,
+      _$dictionary.pointer,
+      _$dictionaryId.pointer,
+    ).object<UrlRequest$Builder?>();
   }
 
   static final _id_build = UrlRequest$Builder._class.instanceMethodId(
@@ -6320,17 +7577,21 @@ extension UrlRequest$Builder$$Methods on UrlRequest$Builder {
     r'()Lorg/chromium/net/UrlRequest;',
   );
 
-  static final _build = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _build =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract org.chromium.net.UrlRequest build()`
   /// The returned object must be released after use, by calling the [release] method.
@@ -6352,8 +7613,9 @@ final class $UrlRequest$Builder$Type$ extends jni$_.JType<UrlRequest$Builder> {
 /// from: `org.chromium.net.UrlRequest$Callback`
 extension type UrlRequest$Callback._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/UrlRequest$Callback');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/UrlRequest$Callback',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlRequest$Callback> type =
@@ -6361,30 +7623,36 @@ extension type UrlRequest$Callback._(jni$_.JObject _$this)
 }
 
 extension UrlRequest$Callback$$Methods on UrlRequest$Callback {
-  static final _id_onRedirectReceived =
-      UrlRequest$Callback._class.instanceMethodId(
+  static final _id_onRedirectReceived = UrlRequest$Callback._class.instanceMethodId(
     r'onRedirectReceived',
     r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V',
   );
 
-  static final _onRedirectReceived = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onRedirectReceived =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract void onRedirectReceived(org.chromium.net.UrlRequest request, org.chromium.net.UrlResponseInfo info, java.lang.String newLocationUrl)`
   void onRedirectReceived(
@@ -6396,71 +7664,85 @@ extension UrlRequest$Callback$$Methods on UrlRequest$Callback {
     final _$request = request?.reference ?? jni$_.jNullReference;
     final _$info = info?.reference ?? jni$_.jNullReference;
     final _$newLocationUrl = newLocationUrl?.reference ?? jni$_.jNullReference;
-    _onRedirectReceived(_$$selfRef.pointer, _id_onRedirectReceived.pointer,
-            _$request.pointer, _$info.pointer, _$newLocationUrl.pointer)
-        .check();
+    _onRedirectReceived(
+      _$$selfRef.pointer,
+      _id_onRedirectReceived.pointer,
+      _$request.pointer,
+      _$info.pointer,
+      _$newLocationUrl.pointer,
+    ).check();
   }
 
-  static final _id_onResponseStarted =
-      UrlRequest$Callback._class.instanceMethodId(
-    r'onResponseStarted',
-    r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
-  );
+  static final _id_onResponseStarted = UrlRequest$Callback._class
+      .instanceMethodId(
+        r'onResponseStarted',
+        r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
+      );
 
-  static final _onResponseStarted = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onResponseStarted =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract void onResponseStarted(org.chromium.net.UrlRequest request, org.chromium.net.UrlResponseInfo info)`
-  void onResponseStarted(
-    UrlRequest? request,
-    UrlResponseInfo? info,
-  ) {
+  void onResponseStarted(UrlRequest? request, UrlResponseInfo? info) {
     final _$$selfRef = reference;
     final _$request = request?.reference ?? jni$_.jNullReference;
     final _$info = info?.reference ?? jni$_.jNullReference;
-    _onResponseStarted(_$$selfRef.pointer, _id_onResponseStarted.pointer,
-            _$request.pointer, _$info.pointer)
-        .check();
+    _onResponseStarted(
+      _$$selfRef.pointer,
+      _id_onResponseStarted.pointer,
+      _$request.pointer,
+      _$info.pointer,
+    ).check();
   }
 
-  static final _id_onReadCompleted =
-      UrlRequest$Callback._class.instanceMethodId(
+  static final _id_onReadCompleted = UrlRequest$Callback._class.instanceMethodId(
     r'onReadCompleted',
     r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V',
   );
 
-  static final _onReadCompleted = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onReadCompleted =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract void onReadCompleted(org.chromium.net.UrlRequest request, org.chromium.net.UrlResponseInfo info, java.nio.ByteBuffer byteBuffer)`
   void onReadCompleted(
@@ -6472,9 +7754,13 @@ extension UrlRequest$Callback$$Methods on UrlRequest$Callback {
     final _$request = request?.reference ?? jni$_.jNullReference;
     final _$info = info?.reference ?? jni$_.jNullReference;
     final _$byteBuffer = byteBuffer?.reference ?? jni$_.jNullReference;
-    _onReadCompleted(_$$selfRef.pointer, _id_onReadCompleted.pointer,
-            _$request.pointer, _$info.pointer, _$byteBuffer.pointer)
-        .check();
+    _onReadCompleted(
+      _$$selfRef.pointer,
+      _id_onReadCompleted.pointer,
+      _$request.pointer,
+      _$info.pointer,
+      _$byteBuffer.pointer,
+    ).check();
   }
 
   static final _id_onSucceeded = UrlRequest$Callback._class.instanceMethodId(
@@ -6482,34 +7768,38 @@ extension UrlRequest$Callback$$Methods on UrlRequest$Callback {
     r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
   );
 
-  static final _onSucceeded = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onSucceeded =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract void onSucceeded(org.chromium.net.UrlRequest request, org.chromium.net.UrlResponseInfo info)`
-  void onSucceeded(
-    UrlRequest? request,
-    UrlResponseInfo? info,
-  ) {
+  void onSucceeded(UrlRequest? request, UrlResponseInfo? info) {
     final _$$selfRef = reference;
     final _$request = request?.reference ?? jni$_.jNullReference;
     final _$info = info?.reference ?? jni$_.jNullReference;
-    _onSucceeded(_$$selfRef.pointer, _id_onSucceeded.pointer, _$request.pointer,
-            _$info.pointer)
-        .check();
+    _onSucceeded(
+      _$$selfRef.pointer,
+      _id_onSucceeded.pointer,
+      _$request.pointer,
+      _$info.pointer,
+    ).check();
   }
 
   static final _id_onFailed = UrlRequest$Callback._class.instanceMethodId(
@@ -6517,24 +7807,31 @@ extension UrlRequest$Callback$$Methods on UrlRequest$Callback {
     r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V',
   );
 
-  static final _onFailed = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onFailed =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                    jni$_.Pointer<jni$_.Void>,
+                  )
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract void onFailed(org.chromium.net.UrlRequest request, org.chromium.net.UrlResponseInfo info, org.chromium.net.CronetException error)`
   void onFailed(
@@ -6546,9 +7843,13 @@ extension UrlRequest$Callback$$Methods on UrlRequest$Callback {
     final _$request = request?.reference ?? jni$_.jNullReference;
     final _$info = info?.reference ?? jni$_.jNullReference;
     final _$error = error?.reference ?? jni$_.jNullReference;
-    _onFailed(_$$selfRef.pointer, _id_onFailed.pointer, _$request.pointer,
-            _$info.pointer, _$error.pointer)
-        .check();
+    _onFailed(
+      _$$selfRef.pointer,
+      _id_onFailed.pointer,
+      _$request.pointer,
+      _$info.pointer,
+      _$error.pointer,
+    ).check();
   }
 
   static final _id_onCanceled = UrlRequest$Callback._class.instanceMethodId(
@@ -6556,34 +7857,38 @@ extension UrlRequest$Callback$$Methods on UrlRequest$Callback {
     r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V',
   );
 
-  static final _onCanceled = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onCanceled =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<
+                  (jni$_.Pointer<jni$_.Void>, jni$_.Pointer<jni$_.Void>)
+                >,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
               jni$_.Pointer<jni$_.Void>,
               jni$_.JMethodIDPtr,
               jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public void onCanceled(org.chromium.net.UrlRequest request, org.chromium.net.UrlResponseInfo info)`
-  void onCanceled(
-    UrlRequest? request,
-    UrlResponseInfo? info,
-  ) {
+  void onCanceled(UrlRequest? request, UrlResponseInfo? info) {
     final _$$selfRef = reference;
     final _$request = request?.reference ?? jni$_.jNullReference;
     final _$info = info?.reference ?? jni$_.jNullReference;
-    _onCanceled(_$$selfRef.pointer, _id_onCanceled.pointer, _$request.pointer,
-            _$info.pointer)
-        .check();
+    _onCanceled(
+      _$$selfRef.pointer,
+      _id_onCanceled.pointer,
+      _$request.pointer,
+      _$info.pointer,
+    ).check();
   }
 }
 
@@ -6600,8 +7905,9 @@ final class $UrlRequest$Callback$Type$
 /// from: `org.chromium.net.UrlRequest$Experimental`
 extension type UrlRequest$Experimental._(jni$_.JObject _$this)
     implements jni$_.JObject, Annotation {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/UrlRequest$Experimental');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/UrlRequest$Experimental',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlRequest$Experimental> type =
@@ -6616,19 +7922,16 @@ extension type UrlRequest$Experimental._(jni$_.JObject _$this)
   ) {
     return _$invokeMethod(
       port,
-      jni$_.MethodInvocation.fromAddresses(
-        0,
-        descriptor.address,
-        args.address,
-      ),
+      jni$_.MethodInvocation.fromAddresses(0, descriptor.address, args.address),
     );
   }
 
   static final jni$_.Pointer<
-          jni$_.NativeFunction<
-              jni$_.JObjectPtr Function(
-                  jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)>>
-      _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
+    jni$_.NativeFunction<
+      jni$_.JObjectPtr Function(jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)
+    >
+  >
+  _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
 
   static jni$_.Pointer<jni$_.Void> _$invokeMethod(
     core$_.int $p,
@@ -6669,9 +7972,7 @@ extension type UrlRequest$Experimental._(jni$_.JObject _$this)
     _$impls[$a] = $impl;
   }
 
-  factory UrlRequest$Experimental.implement(
-    $UrlRequest$Experimental $impl,
-  ) {
+  factory UrlRequest$Experimental.implement($UrlRequest$Experimental $impl) {
     final $i = jni$_.JImplementer();
     implementIn($i, $impl);
     return $i.implement<UrlRequest$Experimental>();
@@ -6699,8 +8000,9 @@ final class $UrlRequest$Experimental$Type$
 /// from: `org.chromium.net.UrlRequest$Status`
 extension type UrlRequest$Status._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/UrlRequest$Status');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/UrlRequest$Status',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlRequest$Status> type = $UrlRequest$Status$Type$();
@@ -6766,8 +8068,9 @@ final class $UrlRequest$Status$Type$ extends jni$_.JType<UrlRequest$Status> {
 /// from: `org.chromium.net.UrlRequest$StatusListener`
 extension type UrlRequest$StatusListener._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/UrlRequest$StatusListener');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/UrlRequest$StatusListener',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlRequest$StatusListener> type =
@@ -6780,20 +8083,26 @@ extension UrlRequest$StatusListener$$Methods on UrlRequest$StatusListener {
     r'(I)V',
   );
 
-  static final _onStatus = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _onStatus =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<(jni$_.Int32,)>)>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-              jni$_.Pointer<jni$_.Void>, jni$_.JMethodIDPtr, core$_.int)>();
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
 
   /// from: `public abstract void onStatus(int status)`
-  void onStatus(
-    core$_.int status,
-  ) {
+  void onStatus(core$_.int status) {
     final _$$selfRef = reference;
     _onStatus(_$$selfRef.pointer, _id_onStatus.pointer, status).check();
   }
@@ -6818,22 +8127,23 @@ extension type UrlRequest._(jni$_.JObject _$this) implements jni$_.JObject {
 }
 
 extension UrlRequest$$Methods on UrlRequest {
-  static final _id_start = UrlRequest._class.instanceMethodId(
-    r'start',
-    r'()V',
-  );
+  static final _id_start = UrlRequest._class.instanceMethodId(r'start', r'()V');
 
-  static final _start = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _start =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract void start()`
   void start() {
@@ -6846,17 +8156,21 @@ extension UrlRequest$$Methods on UrlRequest {
     r'()V',
   );
 
-  static final _followRedirect = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _followRedirect =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract void followRedirect()`
   void followRedirect() {
@@ -6869,21 +8183,26 @@ extension UrlRequest$$Methods on UrlRequest {
     r'(Ljava/nio/ByteBuffer;)V',
   );
 
-  static final _read = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _read =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract void read(java.nio.ByteBuffer buffer)`
-  void read(
-    jni$_.JByteBuffer? buffer,
-  ) {
+  void read(jni$_.JByteBuffer? buffer) {
     final _$$selfRef = reference;
     final _$buffer = buffer?.reference ?? jni$_.jNullReference;
     _read(_$$selfRef.pointer, _id_read.pointer, _$buffer.pointer).check();
@@ -6894,17 +8213,21 @@ extension UrlRequest$$Methods on UrlRequest {
     r'()V',
   );
 
-  static final _cancel = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _cancel =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JThrowablePtr Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract void cancel()`
   void cancel() {
@@ -6917,17 +8240,21 @@ extension UrlRequest$$Methods on UrlRequest {
     r'()Z',
   );
 
-  static final _get$isDone = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$isDone =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallBooleanMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallBooleanMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract boolean isDone()`
   core$_.bool get isDone {
@@ -6940,25 +8267,33 @@ extension UrlRequest$$Methods on UrlRequest {
     r'(Lorg/chromium/net/UrlRequest$StatusListener;)V',
   );
 
-  static final _getStatus = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JThrowablePtr Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>)>>(
-          'globalEnv_CallVoidMethod')
-      .asFunction<
-          jni$_.JThrowablePtr Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>)>();
+  static final _getStatus =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JThrowablePtr Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallVoidMethod')
+          .asFunction<
+            jni$_.JThrowablePtr Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
 
   /// from: `public abstract void getStatus(org.chromium.net.UrlRequest$StatusListener listener)`
-  void getStatus(
-    UrlRequest$StatusListener? listener,
-  ) {
+  void getStatus(UrlRequest$StatusListener? listener) {
     final _$$selfRef = reference;
     final _$listener = listener?.reference ?? jni$_.jNullReference;
-    _getStatus(_$$selfRef.pointer, _id_getStatus.pointer, _$listener.pointer)
-        .check();
+    _getStatus(
+      _$$selfRef.pointer,
+      _id_getStatus.pointer,
+      _$listener.pointer,
+    ).check();
   }
 }
 
@@ -6974,8 +8309,9 @@ final class $UrlRequest$Type$ extends jni$_.JType<UrlRequest> {
 /// from: `org.chromium.net.UrlResponseInfo$HeaderBlock`
 extension type UrlResponseInfo$HeaderBlock._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/UrlResponseInfo$HeaderBlock');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/UrlResponseInfo$HeaderBlock',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlResponseInfo$HeaderBlock> type =
@@ -6983,56 +8319,62 @@ extension type UrlResponseInfo$HeaderBlock._(jni$_.JObject _$this)
 }
 
 extension UrlResponseInfo$HeaderBlock$$Methods on UrlResponseInfo$HeaderBlock {
-  static final _id_get$asList =
-      UrlResponseInfo$HeaderBlock._class.instanceMethodId(
-    r'getAsList',
-    r'()Ljava/util/List;',
-  );
+  static final _id_get$asList = UrlResponseInfo$HeaderBlock._class
+      .instanceMethodId(r'getAsList', r'()Ljava/util/List;');
 
-  static final _get$asList = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$asList =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.util.List<java.util.Map$Entry<java.lang.String, java.lang.String>> getAsList()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JList<Map$$Entry?>? get asList {
     final _$$selfRef = reference;
-    return _get$asList(_$$selfRef.pointer, _id_get$asList.pointer)
-        .object<jni$_.JList<Map$$Entry?>?>();
+    return _get$asList(
+      _$$selfRef.pointer,
+      _id_get$asList.pointer,
+    ).object<jni$_.JList<Map$$Entry?>?>();
   }
 
-  static final _id_get$asMap =
-      UrlResponseInfo$HeaderBlock._class.instanceMethodId(
-    r'getAsMap',
-    r'()Ljava/util/Map;',
-  );
+  static final _id_get$asMap = UrlResponseInfo$HeaderBlock._class
+      .instanceMethodId(r'getAsMap', r'()Ljava/util/Map;');
 
-  static final _get$asMap = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$asMap =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.util.Map<java.lang.String, java.util.List<java.lang.String>> getAsMap()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JMap<jni$_.JString?, jni$_.JList<jni$_.JString?>?>? get asMap {
     final _$$selfRef = reference;
-    return _get$asMap(_$$selfRef.pointer, _id_get$asMap.pointer)
-        .object<jni$_.JMap<jni$_.JString?, jni$_.JList<jni$_.JString?>?>?>();
+    return _get$asMap(
+      _$$selfRef.pointer,
+      _id_get$asMap.pointer,
+    ).object<jni$_.JMap<jni$_.JString?, jni$_.JList<jni$_.JString?>?>?>();
   }
 }
 
@@ -7049,8 +8391,9 @@ final class $UrlResponseInfo$HeaderBlock$Type$
 /// from: `org.chromium.net.UrlResponseInfo`
 extension type UrlResponseInfo._(jni$_.JObject _$this)
     implements jni$_.JObject {
-  static final _class =
-      jni$_.JClass.forName(r'org/chromium/net/UrlResponseInfo');
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/UrlResponseInfo',
+  );
 
   /// The type which includes information such as the signature of this class.
   static const jni$_.JType<UrlResponseInfo> type = $UrlResponseInfo$Type$();
@@ -7062,24 +8405,30 @@ extension UrlResponseInfo$$Methods on UrlResponseInfo {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$url = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$url =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.lang.String getUrl()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get url {
     final _$$selfRef = reference;
-    return _get$url(_$$selfRef.pointer, _id_get$url.pointer)
-        .object<jni$_.JString?>();
+    return _get$url(
+      _$$selfRef.pointer,
+      _id_get$url.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$urlChain = UrlResponseInfo._class.instanceMethodId(
@@ -7087,24 +8436,30 @@ extension UrlResponseInfo$$Methods on UrlResponseInfo {
     r'()Ljava/util/List;',
   );
 
-  static final _get$urlChain = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$urlChain =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.util.List<java.lang.String> getUrlChain()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JList<jni$_.JString?>? get urlChain {
     final _$$selfRef = reference;
-    return _get$urlChain(_$$selfRef.pointer, _id_get$urlChain.pointer)
-        .object<jni$_.JList<jni$_.JString?>?>();
+    return _get$urlChain(
+      _$$selfRef.pointer,
+      _id_get$urlChain.pointer,
+    ).object<jni$_.JList<jni$_.JString?>?>();
   }
 
   static final _id_get$httpStatusCode = UrlResponseInfo._class.instanceMethodId(
@@ -7112,24 +8467,29 @@ extension UrlResponseInfo$$Methods on UrlResponseInfo {
     r'()I',
   );
 
-  static final _get$httpStatusCode = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$httpStatusCode =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallIntMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallIntMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract int getHttpStatusCode()`
   core$_.int get httpStatusCode {
     final _$$selfRef = reference;
     return _get$httpStatusCode(
-            _$$selfRef.pointer, _id_get$httpStatusCode.pointer)
-        .integer;
+      _$$selfRef.pointer,
+      _id_get$httpStatusCode.pointer,
+    ).integer;
   }
 
   static final _id_get$httpStatusText = UrlResponseInfo._class.instanceMethodId(
@@ -7137,52 +8497,59 @@ extension UrlResponseInfo$$Methods on UrlResponseInfo {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$httpStatusText = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$httpStatusText =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.lang.String getHttpStatusText()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get httpStatusText {
     final _$$selfRef = reference;
     return _get$httpStatusText(
-            _$$selfRef.pointer, _id_get$httpStatusText.pointer)
-        .object<jni$_.JString?>();
+      _$$selfRef.pointer,
+      _id_get$httpStatusText.pointer,
+    ).object<jni$_.JString?>();
   }
 
-  static final _id_get$allHeadersAsList =
-      UrlResponseInfo._class.instanceMethodId(
-    r'getAllHeadersAsList',
-    r'()Ljava/util/List;',
-  );
+  static final _id_get$allHeadersAsList = UrlResponseInfo._class
+      .instanceMethodId(r'getAllHeadersAsList', r'()Ljava/util/List;');
 
-  static final _get$allHeadersAsList = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$allHeadersAsList =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.util.List<java.util.Map$Entry<java.lang.String, java.lang.String>> getAllHeadersAsList()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JList<Map$$Entry?>? get allHeadersAsList {
     final _$$selfRef = reference;
     return _get$allHeadersAsList(
-            _$$selfRef.pointer, _id_get$allHeadersAsList.pointer)
-        .object<jni$_.JList<Map$$Entry?>?>();
+      _$$selfRef.pointer,
+      _id_get$allHeadersAsList.pointer,
+    ).object<jni$_.JList<Map$$Entry?>?>();
   }
 
   static final _id_get$allHeaders = UrlResponseInfo._class.instanceMethodId(
@@ -7190,24 +8557,30 @@ extension UrlResponseInfo$$Methods on UrlResponseInfo {
     r'()Ljava/util/Map;',
   );
 
-  static final _get$allHeaders = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$allHeaders =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.util.Map<java.lang.String, java.util.List<java.lang.String>> getAllHeaders()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JMap<jni$_.JString?, jni$_.JList<jni$_.JString?>?>? get allHeaders {
     final _$$selfRef = reference;
-    return _get$allHeaders(_$$selfRef.pointer, _id_get$allHeaders.pointer)
-        .object<jni$_.JMap<jni$_.JString?, jni$_.JList<jni$_.JString?>?>?>();
+    return _get$allHeaders(
+      _$$selfRef.pointer,
+      _id_get$allHeaders.pointer,
+    ).object<jni$_.JMap<jni$_.JString?, jni$_.JList<jni$_.JString?>?>?>();
   }
 
   static final _id_wasCached = UrlResponseInfo._class.instanceMethodId(
@@ -7215,17 +8588,21 @@ extension UrlResponseInfo$$Methods on UrlResponseInfo {
     r'()Z',
   );
 
-  static final _wasCached = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _wasCached =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallBooleanMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallBooleanMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract boolean wasCached()`
   core$_.bool wasCached() {
@@ -7233,31 +8610,33 @@ extension UrlResponseInfo$$Methods on UrlResponseInfo {
     return _wasCached(_$$selfRef.pointer, _id_wasCached.pointer).boolean;
   }
 
-  static final _id_get$negotiatedProtocol =
-      UrlResponseInfo._class.instanceMethodId(
-    r'getNegotiatedProtocol',
-    r'()Ljava/lang/String;',
-  );
+  static final _id_get$negotiatedProtocol = UrlResponseInfo._class
+      .instanceMethodId(r'getNegotiatedProtocol', r'()Ljava/lang/String;');
 
-  static final _get$negotiatedProtocol = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$negotiatedProtocol =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.lang.String getNegotiatedProtocol()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get negotiatedProtocol {
     final _$$selfRef = reference;
     return _get$negotiatedProtocol(
-            _$$selfRef.pointer, _id_get$negotiatedProtocol.pointer)
-        .object<jni$_.JString?>();
+      _$$selfRef.pointer,
+      _id_get$negotiatedProtocol.pointer,
+    ).object<jni$_.JString?>();
   }
 
   static final _id_get$proxyServer = UrlResponseInfo._class.instanceMethodId(
@@ -7265,50 +8644,58 @@ extension UrlResponseInfo$$Methods on UrlResponseInfo {
     r'()Ljava/lang/String;',
   );
 
-  static final _get$proxyServer = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$proxyServer =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract java.lang.String getProxyServer()`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString? get proxyServer {
     final _$$selfRef = reference;
-    return _get$proxyServer(_$$selfRef.pointer, _id_get$proxyServer.pointer)
-        .object<jni$_.JString?>();
+    return _get$proxyServer(
+      _$$selfRef.pointer,
+      _id_get$proxyServer.pointer,
+    ).object<jni$_.JString?>();
   }
 
-  static final _id_get$receivedByteCount =
-      UrlResponseInfo._class.instanceMethodId(
-    r'getReceivedByteCount',
-    r'()J',
-  );
+  static final _id_get$receivedByteCount = UrlResponseInfo._class
+      .instanceMethodId(r'getReceivedByteCount', r'()J');
 
-  static final _get$receivedByteCount = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
+  static final _get$receivedByteCount =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
               jni$_.JniResult Function(
                 jni$_.Pointer<jni$_.Void>,
                 jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallLongMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
+              )
+            >
+          >('globalEnv_CallLongMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
 
   /// from: `public abstract long getReceivedByteCount()`
   core$_.int get receivedByteCount {
     final _$$selfRef = reference;
     return _get$receivedByteCount(
-            _$$selfRef.pointer, _id_get$receivedByteCount.pointer)
-        .long;
+      _$$selfRef.pointer,
+      _id_get$receivedByteCount.pointer,
+    ).long;
   }
 }
 
