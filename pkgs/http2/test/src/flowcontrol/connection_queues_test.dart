@@ -116,18 +116,31 @@ void main() {
       var queue = ConnectionMessageQueueIn(windowMock, (f) => f());
       expect(queue.pendingMessages, 0);
 
+      var streamWindowMock = MockIncomingWindowHandler();
+      when(streamWindowMock.gotData(any)).thenReturn(null);
       var streamQueueMock = MockStreamMessageQueueIn();
+      when(streamQueueMock.windowHandler).thenReturn(streamWindowMock);
       when(streamQueueMock.bufferIndicator).thenReturn(BufferIndicator());
       when(streamQueueMock.enqueueMessage(any)).thenReturn(null);
 
       queue.insertNewStreamMessageQueue(STREAM_ID, streamQueueMock);
+
+      // Empty DATA frames without END_STREAM do not accumulate while paused.
+      queue.processDataFrame(DataFrame(FrameHeader(0, 0, 0, STREAM_ID), 0, []));
+      expect(queue.pendingMessages, 0);
+      clearInteractions(windowMock);
+      clearInteractions(streamWindowMock);
+      clearInteractions(streamQueueMock);
 
       // Insert a [DataFrame] and let it be buffered.
       var header = FrameHeader(0, 0, 0, STREAM_ID);
       queue.processDataFrame(DataFrame(header, 0, bytes));
       expect(queue.pendingMessages, 1);
       verify(windowMock.gotData(bytes.length)).called(1);
+      verify(streamWindowMock.gotData(bytes.length)).called(1);
       verifyNoMoreInteractions(windowMock);
+      verifyNoMoreInteractions(streamWindowMock);
+      verify(streamQueueMock.windowHandler).called(1);
       verify(streamQueueMock.bufferIndicator).called(greaterThan(0));
       verifyNoMoreInteractions(streamQueueMock);
 
@@ -157,13 +170,17 @@ void main() {
 
       var windowMock = MockIncomingWindowHandler();
       when(windowMock.gotData(any)).thenReturn(null);
+      when(windowMock.dataProcessed(any)).thenReturn(null);
       var queue = ConnectionMessageQueueIn(windowMock, (f) => f());
 
       // Insert a [DataFrame] and let it be buffered.
       var header = FrameHeader(0, 0, 0, STREAM_ID);
       queue.processIgnoredDataFrame(DataFrame(header, 0, bytes));
       expect(queue.pendingMessages, 0);
-      verify(windowMock.dataProcessed(bytes.length)).called(1);
+      verifyInOrder([
+        windowMock.gotData(bytes.length),
+        windowMock.dataProcessed(bytes.length),
+      ]);
       verifyNoMoreInteractions(windowMock);
     });
   });

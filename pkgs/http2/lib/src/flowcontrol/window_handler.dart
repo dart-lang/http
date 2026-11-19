@@ -169,7 +169,9 @@ class IncomingWindowHandler {
     //
     if (_localWindow.size < 0) {
       throw FlowControlException(
-        'Connection level flow control window became negative.',
+        _streamId == 0
+            ? 'Connection level flow control window became negative.'
+            : 'Stream $_streamId flow control window became negative.',
       );
     }
   }
