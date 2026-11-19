@@ -1,7 +1,5 @@
 ## 1.0.2-wip
 
-- Clarify `WebSocket.close` documentation when no close code is provided.
-
 ## 1.0.1
 
 - Fix a bug where `WebSocketException`/`WebSocketConnectionClosed` did not

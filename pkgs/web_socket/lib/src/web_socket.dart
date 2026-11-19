@@ -165,10 +165,8 @@ abstract interface class WebSocket {
   ///
   /// Sends a Close frame to the peer. If the optional [code] and [reason]
   /// arguments are given, they will be included in the Close frame. If no
-  /// [code] is set then the peer will see a 1000 or 1005 status code
-  /// (depending on whether the implementation supports sending a Close frame
-  /// without a status code). If no [reason] is set then the peer will not
-  /// receive a reason string.
+  /// [code] is set then the peer will see a 1005 status code. If no [reason]
+  /// is set then the peer will not receive a reason string.
   ///
   /// Throws an [ArgumentError] if [code] is not 1000 or in the range 3000-4999.
   ///

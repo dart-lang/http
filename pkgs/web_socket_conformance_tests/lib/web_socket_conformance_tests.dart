@@ -22,17 +22,11 @@ export 'src/peer_protocol_errors_tests.dart';
 export 'src/protocol_tests.dart';
 
 /// Runs the entire test suite against the given [WebSocket].
-///
-/// If [failsOnInvalidCloseReason] is `false` then tests that assume that the
-/// [WebSocket] fails the connection when receiving a Close frame with an
-/// invalid UTF-8 reason will be skipped.
 void testAll(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        webSocketFactory,
-    {bool failsOnInvalidCloseReason = true}) {
+        webSocketFactory) {
   testCloseLocal(webSocketFactory);
-  testCloseRemote(webSocketFactory,
-      failsOnInvalidCloseReason: failsOnInvalidCloseReason);
+  testCloseRemote(webSocketFactory);
   testConnectUri(webSocketFactory);
   testDisconnectAfterUpgrade(webSocketFactory);
   testNoUpgrade(webSocketFactory);
