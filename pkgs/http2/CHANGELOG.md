@@ -1,3 +1,25 @@
+## 3.2.1-wip
+
+- `finish()` and `terminate()` no longer hang when a write to the socket fails
+  (for example because the peer closed the connection); previously they waited
+  for a `Socket.done` that never completes after a failed write.
+- `Http2Client` now drops a connection from its pool as soon as it is dead,
+  instead of keeping it as an idle connection no request may use, and keeps a
+  healthy connection pooled when the server resets just one of its streams.
+- Terminate the connection with `ENHANCE_YOUR_CALM` when the peer keeps sending
+  frames that require a reply - PINGs, SETTINGS frames, or frames that cause a
+  stream error, such as DATA frames on a closed stream - but does not read the
+  replies, instead of queueing them without limit (the "Ping Flood", "Settings
+  Flood" and "Reset Flood": CVE-2019-9512, CVE-2019-9515, CVE-2019-9514). At
+  most 10000 replies are queued while the transport takes no data.
+- Terminate the connection with `ENHANCE_YOUR_CALM` when the peer resets the
+  streams it opened faster than 33 per second, after a burst of 1000 (the
+  "Rapid Reset", CVE-2023-44487). A reset stream no longer counts toward the
+  concurrent stream limit, so this was not bounded otherwise.
+- Count stream errors that make this endpoint reset a peer-opened stream toward
+  the same reset rate limit, and report the reset to `onTerminated` and
+  `incomingMessages` ("MadeYouReset", CVE-2025-8671).
+
 ## 3.2.0
 
 - Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure

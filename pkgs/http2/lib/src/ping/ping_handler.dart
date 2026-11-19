@@ -10,9 +10,10 @@ import '../sync_errors.dart';
 
 /// Responsible for pinging the other end and for handling pings from the
 /// other end.
-// TODO: We currently write unconditionally to the [FrameWriter]: we might want
-// to consider be more aware what [Framewriter.bufferIndicator.wouldBuffer]
-// says.
+///
+/// The peer's pings are acknowledged right away. [FrameWriter.writePingFrame]
+/// throws if the peer does not read the acknowledgements, see
+/// [FrameWriter.maxQueuedReplyFrames].
 class PingHandler extends Object with TerminatableMixin {
   final FrameWriter _frameWriter;
   final Map<int, Completer> _remainingPings = {};

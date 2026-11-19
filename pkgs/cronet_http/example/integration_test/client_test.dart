@@ -49,7 +49,9 @@ Future<void> testConformance() async {
     testAll(
       () {
         final engine = CronetEngine.build(
-            cacheMode: CacheMode.disabled, userAgent: 'Test Agent (Future)');
+          cacheMode: CacheMode.disabled,
+          userAgent: 'Test Agent (Future)',
+        );
         return CronetClient.fromCronetEngine(engine);
       },
       canStreamRequestBody: false,
@@ -70,8 +72,10 @@ Future<void> testCronetStreamedResponse() async {
         ..listen((request) async {
           await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.headers
-              .set('Cache-Control', 'public, max-age=30, immutable');
+          request.response.headers.set(
+            'Cache-Control',
+            'public, max-age=30, immutable',
+          );
           request.response.headers.set('etag', '12345');
           await request.response.close();
         });
@@ -101,7 +105,9 @@ Future<void> testCronetStreamedResponse() async {
 
     test('wasCached', () async {
       final engine = CronetEngine.build(
-          cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024);
+        cacheMode: CacheMode.memory,
+        cacheMaxSize: 1024 * 1024,
+      );
       final client = CronetClient.fromCronetEngine(engine);
 
       final response1 = await client.send(Request('GET', serverUri));
@@ -126,49 +132,75 @@ Future<void> testCronetExceptions() async {
     final client = CronetClient.defaultCronetEngine();
     expect(
       client.send(Request('GET', Uri.http('localhost:${server.port}'))),
-      throwsA(isA<NetworkException>()
-          .having((e) => e.errorCode, 'errorCode', 11 // ERROR_OTHER
-              )
-          .having((e) => e.cronetInternalErrorCode, 'cronetInternalErrorCode',
-              -370 // INVALID_HTTP_RESPONSE
-              )
-          .having((e) => e.toString(), 'toString',
-              startsWith('NetworkClientException:'))),
+      throwsA(
+        isA<NetworkException>()
+            .having(
+              (e) => e.errorCode,
+              'errorCode',
+              11, // ERROR_OTHER
+            )
+            .having(
+              (e) => e.cronetInternalErrorCode,
+              'cronetInternalErrorCode',
+              -370, // INVALID_HTTP_RESPONSE
+            )
+            .having(
+              (e) => e.toString(),
+              'toString',
+              startsWith('NetworkClientException:'),
+            ),
+      ),
     );
   });
 
   test('QuicException', () async {
-    final udpSocket =
-        await RawDatagramSocket.bind(InternetAddress.loopbackIPv4, 0);
+    final udpSocket = await RawDatagramSocket.bind(
+      InternetAddress.loopbackIPv4,
+      0,
+    );
     addTearDown(udpSocket.close);
 
     udpSocket.listen((event) {
       if (event == RawSocketEvent.read) {
         final datagram = udpSocket.receive();
         if (datagram != null) {
-          udpSocket
-              .send([0x01, 0x02, 0x03, 0x04], datagram.address, datagram.port);
+          udpSocket.send(
+            [0x01, 0x02, 0x03, 0x04],
+            datagram.address,
+            datagram.port,
+          );
         }
       }
     });
 
     final port = udpSocket.port;
 
-    final engine = CronetEngine.build(enableQuic: true, quicHints: [
-      ('127.0.0.1', port, port),
-    ]);
+    final engine = CronetEngine.build(
+      enableQuic: true,
+      quicHints: [('127.0.0.1', port, port)],
+    );
     final client = CronetClient.fromCronetEngine(engine);
 
     expect(
       client.send(Request('GET', Uri.parse('https://127.0.0.1:$port'))),
-      throwsA(isA<QuicException>()
-          .having(
-              (e) => e.errorCode, 'errorCode', 10 // ERROR_QUIC_PROTOCOL_FAILED
-              )
-          .having(
-              (e) => e.quicDetailedErrorCode, 'quicDetailedErrorCode', isNot(0))
-          .having(
-              (e) => e.toString(), 'toString', startsWith('QuicException:'))),
+      throwsA(
+        isA<QuicException>()
+            .having(
+              (e) => e.errorCode,
+              'errorCode',
+              10, // ERROR_QUIC_PROTOCOL_FAILED
+            )
+            .having(
+              (e) => e.quicDetailedErrorCode,
+              'quicDetailedErrorCode',
+              isNot(0),
+            )
+            .having(
+              (e) => e.toString(),
+              'toString',
+              startsWith('QuicException:'),
+            ),
+      ),
     );
   });
 }

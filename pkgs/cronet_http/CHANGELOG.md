@@ -1,5 +1,7 @@
 ## 1.11.0-wip
 
+* Migrate to Built-in Kotlin to support AGP 9.
+* Require Dart 3.12 and Flutter 3.44.
 * Add the remaining DNS options to `CronetEngine.build`:
   `preestablishConnectionsToStaleDnsResults`, which opens connections to a
   stale host cache entry while a fresh lookup confirms it, and

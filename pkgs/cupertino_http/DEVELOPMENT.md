@@ -17,8 +17,16 @@
 
 ## Running the tests
 
+### macOS
+
 ```shell
-cd example
-flutter test integration_test
+dart test
+```
+
+### iOS
+
+```shell
+cd ios_test
+flutter test integration_test/combined_test.dart
 ```
 

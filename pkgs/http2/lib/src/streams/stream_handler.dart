@@ -132,6 +132,19 @@ class Http2StreamImpl extends TransportStream
 class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   static const int MAX_STREAM_ID = (1 << 31) - 1;
 
+  /// How many of the streams it opened the peer may reset at once.
+  ///
+  /// A reset stream no longer counts toward the concurrent stream limit (RFC
+  /// 9113 section 5.1.2), so without a limit on resets a peer could make this
+  /// endpoint set up streams, and the application start handling them, as
+  /// fast as it can send HEADERS and RST_STREAM frames (the "Rapid Reset",
+  /// CVE-2023-44487).
+  static const maxPeerStreamResetBurst = 1000;
+
+  /// How many of the streams it opened the peer may reset per second, once it
+  /// has used up [maxPeerStreamResetBurst].
+  static const peerStreamResetsPerSecond = 33;
+
   final FrameWriter _frameWriter;
   final ConnectionMessageQueueIn incomingQueue;
   final ConnectionMessageQueueOut outgoingQueue;
@@ -146,6 +159,13 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   final void Function(String)? _onPeerStreamLimitAbuse;
   final bool _allowPeerPushes;
   int _consecutivePeerStreamLimitViolations = 0;
+
+  /// Limits how fast the peer may reset the streams it opened, see
+  /// [maxPeerStreamResetBurst].
+  final _peerStreamResets = _TokenBucket(
+    maxPeerStreamResetBurst,
+    peerStreamResetsPerSecond,
+  );
 
   final Map<int, Http2StreamImpl> _openStreams = {};
   int nextStreamId;
@@ -357,7 +377,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _rejectPeerStreamLimitViolation(int streamId) {
-    _frameWriter.writeRstStreamFrame(streamId, ErrorCode.REFUSED_STREAM);
+    _frameWriter.writeRstStreamReply(streamId, ErrorCode.REFUSED_STREAM);
     // Enforce local admission immediately, but do not treat the peer as abusive
     // until it has acknowledged the advertised limit and can be expected to
     // obey it.
@@ -376,14 +396,17 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void _rejectOversizedNewRemoteStream(HeadersFrame frame) {
     _registerNewRemoteStreamId(frame.header.streamId);
-    _frameWriter.writeRstStreamFrame(
+    _chargePeerStreamReset(frame.header.streamId);
+    _frameWriter.writeRstStreamReply(
       frame.header.streamId,
       ErrorCode.ENHANCE_YOUR_CALM,
     );
   }
 
   void _rejectOversizedHeaders(Http2StreamImpl stream, HeadersFrame frame) {
-    _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.ENHANCE_YOUR_CALM);
+    _chargePeerStreamReset(stream.id);
+    _frameWriter.writeRstStreamReply(stream.id, ErrorCode.ENHANCE_YOUR_CALM);
+    stream._handleTerminated(ErrorCode.ENHANCE_YOUR_CALM);
     _closeStreamAbnormally(
       stream,
       StreamException(
@@ -633,23 +656,51 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     try {
       _processStreamFrameInternal(connectionState, frame);
     } on StreamClosedException catch (exception) {
-      _frameWriter.writeRstStreamFrame(
+      _resetStreamForPeerError(
         exception.streamId,
         ErrorCode.STREAM_CLOSED,
+        exception,
       );
-      _closeStreamIdAbnormally(exception.streamId, exception);
     } on StreamRefusedException catch (exception) {
-      _frameWriter.writeRstStreamFrame(
+      _resetStreamForPeerError(
         exception.streamId,
         ErrorCode.REFUSED_STREAM,
+        exception,
       );
-      _closeStreamIdAbnormally(exception.streamId, exception);
     } on StreamException catch (exception) {
-      _frameWriter.writeRstStreamFrame(
+      _resetStreamForPeerError(
         exception.streamId,
         ErrorCode.INTERNAL_ERROR,
+        exception,
       );
-      _closeStreamIdAbnormally(exception.streamId, exception);
+    }
+  }
+
+  void _resetStreamForPeerError(
+    int streamId,
+    int errorCode,
+    Exception exception,
+  ) {
+    final stream = _openStreams[streamId];
+    if (stream != null) {
+      _chargePeerStreamReset(streamId);
+    }
+    _frameWriter.writeRstStreamReply(streamId, errorCode);
+    if (stream != null) {
+      stream._handleTerminated(errorCode);
+      _closeStreamAbnormally(stream, exception, propagateException: true);
+    }
+  }
+
+  void _chargePeerStreamReset(int streamId) {
+    if (_isPeerInitiatedStream(streamId) && !_peerStreamResets.tryTake()) {
+      // RFC 9113 section 10.5: "An endpoint MAY treat activity that is
+      // suspicious as a connection error (Section 5.4.1) of type
+      // ENHANCE_YOUR_CALM."
+      throw EnhanceYourCalmException(
+        'The peer reset more than $maxPeerStreamResetBurst of the streams it '
+        'opened at once, or more than $peerStreamResetsPerSecond per second.',
+      );
     }
   }
 
@@ -875,7 +926,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     if (frame.headerListSizeExceeded) {
       _registerNewRemoteStreamId(frame.promisedStreamId);
-      _frameWriter.writeRstStreamFrame(
+      _chargePeerStreamReset(frame.promisedStreamId);
+      _frameWriter.writeRstStreamReply(
         frame.promisedStreamId,
         ErrorCode.ENHANCE_YOUR_CALM,
       );
@@ -894,6 +946,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _handleRstFrame(Http2StreamImpl stream, RstStreamFrame frame) {
+    _chargePeerStreamReset(stream.id);
     stream._handleTerminated(frame.errorCode);
     if (frame.errorCode == ErrorCode.NO_ERROR &&
         (stream.state == StreamState.HalfClosedRemote ||
@@ -1181,4 +1234,31 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         'No open stream found and was not a headers frame opening a '
         'new stream.',
       );
+}
+
+/// A token bucket: lets through bursts of up to [_capacity] events, and
+/// `perSecond` events per second on average.
+class _TokenBucket {
+  final int _capacity;
+  final int _microsPerToken;
+  final _clock = Stopwatch()..start();
+  int _lastRefillMicros = 0;
+  int _tokens;
+
+  _TokenBucket(this._capacity, int perSecond)
+    : _microsPerToken = Duration.microsecondsPerSecond ~/ perSecond,
+      _tokens = _capacity;
+
+  /// Takes a token, or returns `false` if there is none left.
+  bool tryTake() {
+    final elapsedMicros = _clock.elapsedMicroseconds - _lastRefillMicros;
+    final refilled = elapsedMicros ~/ _microsPerToken;
+    if (refilled > 0) {
+      _tokens = min(_capacity, _tokens + refilled);
+      _lastRefillMicros += refilled * _microsPerToken;
+    }
+    if (_tokens == 0) return false;
+    _tokens--;
+    return true;
+  }
 }
