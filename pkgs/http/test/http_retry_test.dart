@@ -361,4 +361,105 @@ void main() {
       throwsA(isA<RequestAbortedException>()),
     );
   });
+
+  test('retryDelay callback is used when Retry-After header is present', () {
+    FakeAsync().run((fake) {
+      var count = 0;
+      final client = RetryClient(
+        MockClient(
+          expectAsync1(
+            (_) async {
+              count++;
+              if (count == 1) {
+                return Response('', 503, headers: {'retry-after': '10'});
+              }
+              expect(fake.elapsed, equals(const Duration(seconds: 10)));
+              return Response('', 200);
+            },
+            count: 2,
+          ),
+        ),
+        retries: 1,
+        retryDelay: (response, _) {
+          final retryAfter = response.headers['retry-after'];
+          if (retryAfter != null) {
+            final seconds = int.tryParse(retryAfter);
+            if (seconds != null) return Duration(seconds: seconds);
+          }
+          return null;
+        },
+      );
+
+      expect(client.get(Uri.http('example.org', '')), completes);
+      fake.elapse(const Duration(seconds: 10));
+    });
+  });
+
+  test('retryDelay returning null falls back to delay callback', () {
+    FakeAsync().run((fake) {
+      var count = 0;
+      final client = RetryClient(
+        MockClient(expectAsync1((_) async {
+          count++;
+          if (count == 1) {
+            expect(fake.elapsed, equals(Duration.zero));
+          } else if (count == 2) {
+            expect(fake.elapsed, equals(const Duration(seconds: 2)));
+          }
+          return Response('', 503);
+        }, count: 2)),
+        retries: 1,
+        delay: (_) => const Duration(seconds: 2),
+        retryDelay: (_, __) => null,
+      );
+
+      expect(client.get(Uri.http('example.org', '')), completes);
+      fake.elapse(const Duration(minutes: 1));
+    });
+  });
+
+  test('retryDelay is not called when retrying after an error', () async {
+    var count = 0;
+    var retryDelayCalled = false;
+    final client = RetryClient(
+      MockClient(expectAsync1((_) async {
+        if (count++ == 0) throw StateError('retry');
+        return Response('', 200);
+      }, count: 2)),
+      retries: 1,
+      whenError: (_, __) => true,
+      delay: (_) => Duration.zero,
+      retryDelay: (_, __) {
+        retryDelayCalled = true;
+        return Duration.zero;
+      },
+    );
+
+    final response = await client.get(Uri.http('example.org', ''));
+
+    expect(response.statusCode, equals(200));
+    expect(retryDelayCalled, isFalse);
+  });
+
+  test('retryDelay receives a zero-based retry count', () async {
+    var requestCount = 0;
+    final retryCounts = <int>[];
+    final client = RetryClient(
+      MockClient(expectAsync1((_) async {
+        requestCount++;
+        return Response('', requestCount < 3 ? 503 : 200);
+      }, count: 3)),
+      retries: 2,
+      delay: (_) => Duration.zero,
+      retryDelay: (_, retryCount) {
+        retryCounts.add(retryCount);
+        return Duration.zero;
+      },
+    );
+
+    final response = await client.get(Uri.http('example.org', ''));
+
+    expect(response.statusCode, equals(200));
+    expect(retryCounts, equals([0, 1]));
+  });
 }
