@@ -181,7 +181,7 @@ final class RetryClient extends BaseClient {
         unawaited(response.stream.listen((_) {}).cancel().catchError((_) {}));
       }
 
-      final retryDelay = switch (response, _retryDelay) {
+      final retryDelay = switch ((response, _retryDelay)) {
         (final response?, final retryDelay?) => retryDelay.call(response, i),
         (_, _) => null,
       };
