@@ -354,6 +354,9 @@ class ConnectionMessageQueueIn extends Object
   /// If a [DataFrame] will be ignored, this method will take the minimal
   /// action necessary.
   void processIgnoredDataFrame(DataFrame frame) {
+    // The peer counted the frame against the connection window, so it has to
+    // be received before it is replenished (RFC 9113 section 6.9).
+    _windowUpdateHandler.gotData(frame.bytes.length);
     _windowUpdateHandler.dataProcessed(frame.bytes.length);
   }
 
