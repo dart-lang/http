@@ -23,7 +23,9 @@ void hybridMain(StreamChannel<Object?> channel) async {
         ..headers.add(HttpHeaders.connectionHeader, 'Upgrade')
         ..headers.add(HttpHeaders.upgradeHeader, 'websocket')
         ..headers.add('Sec-WebSocket-Accept', accept);
-      request.response.contentLength = 0;
+      // TODO(https://github.com/dart-lang/sdk/issues/64968): Remove once min
+      // SDK is >=3.15.0.
+      request.response.headers.chunkedTransferEncoding = false;
       final socket = await request.response.detachSocket();
       socket.destroy();
     });
