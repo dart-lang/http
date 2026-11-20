@@ -894,6 +894,7 @@ void main() {
           );
 
           // Wait for the client finish.
+          expect(await nextFrame(), isA<GoawayFrame>());
           expect(await serverReader.moveNext(), false);
           await serverWriter.close();
         }
