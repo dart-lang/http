@@ -323,10 +323,26 @@ class MockConnectionMessageQueueOut extends _i1.Mock
   }
 
   @override
+  _i2.BufferIndicator get dataBufferIndicator => (super.noSuchMethod(
+        Invocation.getter(#dataBufferIndicator),
+        returnValue: _FakeBufferIndicator_0(
+          this,
+          Invocation.getter(#dataBufferIndicator),
+        ),
+      ) as _i2.BufferIndicator);
+  @override
   int get pendingMessages => (super.noSuchMethod(
         Invocation.getter(#pendingMessages),
         returnValue: 0,
       ) as int);
+  @override
+  bool hasQueuedDataForStream(int? streamId) => (super.noSuchMethod(
+        Invocation.method(
+          #hasQueuedDataForStream,
+          [streamId],
+        ),
+        returnValue: false,
+      ) as bool);
   @override
   bool get wasTerminated => (super.noSuchMethod(
         Invocation.getter(#wasTerminated),

@@ -30,6 +30,10 @@ class StreamMessageQueueOut extends Object
   /// The underlying connection-level message queue.
   final ConnectionMessageQueueOut connectionMessageQueue;
 
+  /// Optional connection-level backpressure indicator for outgoing
+  /// [DataMessage]s (CVE-2019-9517).
+  final BufferIndicator? _connectionBufferIndicator;
+
   /// A indicator for whether this queue is currently buffering.
   final BufferIndicator bufferIndicator = BufferIndicator();
 
@@ -48,9 +52,15 @@ class StreamMessageQueueOut extends Object
   StreamMessageQueueOut(
     this.streamId,
     this.streamWindow,
-    this.connectionMessageQueue,
-  ) {
+    this.connectionMessageQueue, {
+    BufferIndicator? connectionBufferIndicator,
+  }) : _connectionBufferIndicator = connectionBufferIndicator {
     streamWindow.positiveWindow.bufferEmptyEvents.listen((_) {
+      if (!wasTerminated) {
+        _trySendData();
+      }
+    });
+    _connectionBufferIndicator?.bufferEmptyEvents.listen((_) {
       if (!wasTerminated) {
         _trySendData();
       }
@@ -106,6 +116,12 @@ class StreamMessageQueueOut extends Object
         _messages.removeFirst();
         connectionMessageQueue.enqueueMessage(message);
       } else if (message is DataMessage) {
+        if (_connectionBufferIndicator != null &&
+            _connectionBufferIndicator.wouldBuffer &&
+            (message.bytes.isNotEmpty ||
+                connectionMessageQueue.hasQueuedDataForStream(streamId))) {
+          break;
+        }
         var bytesAvailable = streamWindow.peerWindowSize;
         if (bytesAvailable > 0 || message.bytes.isEmpty) {
           _messages.removeFirst();
