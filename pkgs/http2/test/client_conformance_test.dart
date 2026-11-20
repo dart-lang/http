@@ -93,12 +93,33 @@ class Http2ProxyServer {
 
       final httpResponse = await _httpClient.send(httpRequest);
 
-      // Send response headers
+      // Send response headers (stripping HTTP/1.1 connection-specific headers
+      // as required for HTTP/1.x-to-HTTP/2 intermediaries by RFC 9113
+      // Section 8.2.2).
+      const hopByHopHeaders = {
+        'connection',
+        'keep-alive',
+        'proxy-connection',
+        'transfer-encoding',
+        'upgrade',
+      };
+      final autoUncompressed = const {
+        'gzip',
+        'deflate',
+      }.contains(httpResponse.headers['content-encoding']?.toLowerCase());
       final responseHeaders = <Header>[
         Header.ascii(':status', httpResponse.statusCode.toString()),
       ];
       httpResponse.headers.forEach((k, v) {
-        responseHeaders.add(Header.ascii(k.toLowerCase(), v));
+        final lower = k.toLowerCase();
+        if (hopByHopHeaders.contains(lower)) return;
+        // IOClient auto-decompresses gzip/deflate bodies, invalidating the
+        // upstream compressed Content-Length and Content-Encoding headers.
+        if (autoUncompressed &&
+            (lower == 'content-length' || lower == 'content-encoding')) {
+          return;
+        }
+        responseHeaders.add(Header.ascii(lower, v));
       });
       stream.outgoingMessages.add(HeadersStreamMessage(responseHeaders));
 
