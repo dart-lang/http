@@ -8,6 +8,8 @@
   decoding a chunk size that overflows a 64-bit integer.
 * Fixed `MediaType.toString()` to escape backslashes in quoted parameter values
   and quote empty parameter values.
+* Remove the outdated reference to `WebSocketChannel` from README.md and
+  describe the other features of the package.
 
 ## 4.1.2
 

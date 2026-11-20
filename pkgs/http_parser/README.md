@@ -15,9 +15,20 @@ and the server, and thus avoids referencing any types from `dart:io` or
   and `Content-Type` headers. This class supports both parsing and formatting
   media types according to [HTTP/1.1][2616].
 
-* A `WebSocketChannel` class that provides a `StreamChannel` interface for both
-  the client and server sides of the [WebSocket protocol][6455] independently of
-  any specific server implementation.
+* An `AuthenticationChallenge` class that represents a challenge in a
+  `WWW-Authenticate` header. This class supports parsing challenges according to
+  [RFC 2617][2617].
+
+* A `CaseInsensitiveMap` class that represents a map with case-insensitive
+  string keys, such as HTTP header names.
+
+* A `chunkedCoding` codec that encodes and decodes the
+  [chunked transfer coding][chunked].
+
+`WebSocketChannel`, which was previously part of this package, has been moved to
+[`package:web_socket_channel`][web_socket_channel].
 
 [2616]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html
-[6455]: https://tools.ietf.org/html/rfc6455
+[2617]: https://tools.ietf.org/html/rfc2617
+[chunked]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.6.1
+[web_socket_channel]: https://pub.dev/packages/web_socket_channel
