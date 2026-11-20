@@ -83,3 +83,19 @@ class StreamRefusedException extends StreamException {
   String toString() =>
       'StreamRefusedException(stream id: $streamId): $_details';
 }
+
+class StreamProtocolException extends StreamException {
+  StreamProtocolException(super.streamId, [super.details = '']);
+
+  @override
+  String toString() =>
+      'StreamProtocolException(stream id: $streamId): $_details';
+}
+
+class StreamFlowControlException extends StreamException {
+  StreamFlowControlException(super.streamId, [super.details = '']);
+
+  @override
+  String toString() =>
+      'StreamFlowControlException(stream id: $streamId): $_details';
+}

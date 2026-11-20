@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 
 /// An interface for `StreamSink`-like classes to indicate whether adding data
@@ -160,4 +161,31 @@ class BufferedBytesWriter {
 
   /// The future which will complete once this sink has been closed.
   Future get doneFuture => _bufferedSink.doneFuture;
+}
+
+/// A token bucket: lets through bursts of up to [_capacity] events, and
+/// `perSecond` events per second on average.
+class TokenBucket {
+  final int _capacity;
+  final int _microsPerToken;
+  final _clock = Stopwatch()..start();
+  int _lastRefillMicros = 0;
+  int _tokens;
+
+  TokenBucket(this._capacity, int perSecond)
+    : _microsPerToken = Duration.microsecondsPerSecond ~/ perSecond,
+      _tokens = _capacity;
+
+  /// Takes a token, or returns `false` if there is none left.
+  bool tryTake() {
+    final elapsedMicros = _clock.elapsedMicroseconds - _lastRefillMicros;
+    final refilled = elapsedMicros ~/ _microsPerToken;
+    if (refilled > 0) {
+      _tokens = min(_capacity, _tokens + refilled);
+      _lastRefillMicros += refilled * _microsPerToken;
+    }
+    if (_tokens == 0) return false;
+    _tokens--;
+    return true;
+  }
 }

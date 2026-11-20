@@ -87,6 +87,10 @@ class ActiveSettings {
 /// Changes to [_toBeAcknowledgedSettings] can be made, the peer will then be
 /// notified of the setting changes it should use.
 class SettingsHandler extends Object with TerminatableMixin {
+  /// Maximum number of parameters accepted in a single [SettingsFrame]
+  /// (CVE-2020-11080, RFC 9113 section 10.5).
+  static const maxSettingsPerFrame = 64;
+
   /// Certain settings changes can change the maximum allowed dynamic table
   /// size used by the HPack encoder.
   final HPackEncoder _hpackEncoder;
@@ -152,6 +156,12 @@ class SettingsHandler extends Object with TerminatableMixin {
         _modifySettings(_acknowledgedSettings, settingChanges, false);
         completer.complete();
       } else {
+        if (frame.settings.length > maxSettingsPerFrame) {
+          throw EnhanceYourCalmException(
+            'Received a SETTINGS frame with ${frame.settings.length} entries '
+            '(limit: $maxSettingsPerFrame).',
+          );
+        }
         _modifySettings(_peerSettings, frame.settings, true);
         _frameWriter.writeSettingsAckFrame();
       }
@@ -218,7 +228,7 @@ class SettingsHandler extends Object with TerminatableMixin {
           break;
 
         case Setting.SETTINGS_INITIAL_WINDOW_SIZE:
-          if (setting.value < (1 << 31)) {
+          if (setting.value >= 0 && setting.value < (1 << 31)) {
             // Only the peer's value sizes the windows this end sends on (RFC
             // 9113 section 6.9.2); this end's own value, once acknowledged,
             // changes nothing it sends.
