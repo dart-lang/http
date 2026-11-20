@@ -16,6 +16,8 @@
   making HTTPS requests on some Android versions.
 - Send close code `1000` instead of abruptly canceling the connection when
   `OkHttpWebSocket.close()` is called without a close code.
+- Report close code `1007` when a received WebSocket close reason contains
+  `U+FFFD` (indicating malformed UTF-8).
 
 ## 0.1.0
 
