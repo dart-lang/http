@@ -4,6 +4,8 @@
 * Require Dart 3.12 and Flutter 3.44.
 * Release temporary JNI global references immediately instead of waiting for
   garbage collection.
+* Upgrade `package:jni` to 1.2.1, `package:jni_flutter` to 1.1.0, and
+  `package:jnigen` to 1.1.0.
 
 ## 1.10.1
 
