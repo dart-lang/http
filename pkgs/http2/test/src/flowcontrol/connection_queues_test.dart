@@ -105,6 +105,79 @@ void main() {
       );
     });
 
+    group('connection-message-queue-out drains', () {
+      late MockFrameWriter fw;
+      late MockOutgoingWindowHandler windowMock;
+      late ConnectionMessageQueueOut queue;
+
+      setUp(() {
+        fw = MockFrameWriter();
+        when(fw.bufferIndicator).thenReturn(BufferIndicator());
+        windowMock =
+            MockOutgoingWindowHandler()
+              ..peerWindowSize = 1 << 20
+              ..positiveWindow.markUnBuffered();
+        queue = ConnectionMessageQueueOut(windowMock, fw);
+      });
+
+      test('every queued message once the frame writer stops buffering', () {
+        var headers = [Header.ascii('a', 'b')];
+        for (var id = 1; id < 20; id += 2) {
+          queue.enqueueMessage(HeadersMessage(id, headers, false));
+        }
+        expect(queue.pendingMessages, 10);
+
+        fw.bufferIndicator.markUnBuffered();
+
+        // Without waiting for the event loop.
+        expect(queue.pendingMessages, 0);
+        verify(fw.writeHeadersFrame(any, headers, endStream: false)).called(10);
+      });
+
+      test('until the frame writer buffers again', () {
+        var written = 0;
+        when(
+          fw.writeHeadersFrame(any, any, endStream: anyNamed('endStream')),
+        ).thenAnswer((_) {
+          if (++written == 3) fw.bufferIndicator.markBuffered();
+        });
+        var headers = [Header.ascii('a', 'b')];
+        for (var id = 1; id < 20; id += 2) {
+          queue.enqueueMessage(HeadersMessage(id, headers, false));
+        }
+
+        fw.bufferIndicator.markUnBuffered();
+
+        expect(written, 3);
+        expect(queue.pendingMessages, 7);
+      });
+
+      test('a large upload over several turns of the event loop', () async {
+        fw.bufferIndicator.markUnBuffered();
+        var chunk = List.filled(40 * 1024, 0);
+
+        queue
+          ..enqueueMessage(HeadersMessage(1, [Header.ascii('a', 'b')], false))
+          ..enqueueMessage(DataMessage(1, chunk, false));
+        // Queued behind a message which cannot be sent yet.
+        fw.bufferIndicator.markBuffered();
+        queue
+          ..enqueueMessage(DataMessage(1, chunk, false))
+          ..enqueueMessage(DataMessage(1, chunk, false))
+          ..enqueueMessage(DataMessage(1, chunk, true));
+        clearInteractions(fw);
+
+        fw.bufferIndicator.markUnBuffered();
+        expect(queue.pendingMessages, 1);
+
+        await Future<void>.delayed(Duration.zero);
+        expect(queue.pendingMessages, 0);
+        verify(
+          fw.writeDataFrame(1, chunk, endStream: anyNamed('endStream')),
+        ).called(3);
+      });
+    });
+
     test('connection-message-queue-in', () {
       const STREAM_ID = 99;
       final bytes = [1, 2, 3];

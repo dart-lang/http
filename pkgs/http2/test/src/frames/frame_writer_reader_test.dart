@@ -213,7 +213,8 @@ void main() {
         HPackDecoder decoder,
       ) async {
         var headerName = [1];
-        var headerValue = List.filled(1 << 14, 0x42);
+        // Huffman coding would lengthen it, so it is sent as is.
+        var headerValue = List.filled(1 << 14, 0xff);
         var header = Header(headerName, headerValue);
 
         writer.writeHeadersFrame(99, [header], endStream: true);
