@@ -477,6 +477,73 @@ void main() {
       await Future.wait([serverFun(), clientFun()]);
     });
 
+    transportTest('writes-after-peer-resets-stream-are-dropped', (
+      ClientTransportConnection client,
+      ServerTransportConnection server,
+    ) async {
+      Future<void> serverFun() async {
+        await for (ServerTransportStream stream in server.incomingStreams) {
+          stream.terminate();
+        }
+        await server.finish();
+      }
+
+      Future<void> clientFun() async {
+        var stream = client.makeRequest([Header.ascii('a', 'b')]);
+        var terminated = Completer<int?>();
+        stream.onTerminated = (errorCode) => terminated.complete(errorCode);
+        await expectLater(
+          stream.incomingMessages.toList(),
+          throwsA(isA<StreamTransportException>()),
+        );
+        expect(await terminated.future, 8);
+
+        // The writer has no synchronous way to know that the stream is gone,
+        // so writing to it must not throw.
+        stream.sendData([1, 2, 3]);
+        stream.sendHeaders([Header.ascii('c', 'd')], endStream: true);
+        await stream.outgoingMessages.done;
+
+        await client.finish();
+      }
+
+      await Future.wait([serverFun(), clientFun()], eagerError: true);
+    });
+
+    transportTest('writes-after-connection-terminated-are-dropped', (
+      ClientTransportConnection client,
+      ServerTransportConnection server,
+    ) async {
+      var requestReceived = Completer<void>();
+
+      Future<void> serverFun() async {
+        await for (ServerTransportStream stream in server.incomingStreams) {
+          stream.incomingMessages.listen((_) {}, onError: (Object _) {});
+          requestReceived.complete();
+        }
+      }
+
+      Future<void> clientFun() async {
+        var stream = client.makeRequest([Header.ascii('a', 'b')]);
+        stream.onTerminated = expectAsync1((_) {}, count: 0);
+        await requestReceived.future;
+
+        await server.terminate();
+        await expectLater(
+          stream.incomingMessages.toList(),
+          throwsA(isA<TransportException>()),
+        );
+
+        // No RST_STREAM was received, so onTerminated was not called. Writing
+        // to the stream of the dead connection must not throw.
+        stream.sendData([1, 2, 3]);
+        stream.sendHeaders([Header.ascii('c', 'd')], endStream: true);
+        await stream.outgoingMessages.done;
+      }
+
+      await Future.wait([serverFun(), clientFun()], eagerError: true);
+    });
+
     transportTest('idle-handler', (
       ClientTransportConnection client,
       ServerTransportConnection server,
