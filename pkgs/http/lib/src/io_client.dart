@@ -222,6 +222,17 @@ class IOClient extends BaseClient {
         headers[key] = values.map((value) => value.trimRight()).join(',');
       });
 
+      var url = request.url;
+      // Resolve each URI relative to the previous one. For example:
+      //
+      // http://www.example.com/foo redirects to /bar
+      // http://www.example.com/bar redirects to http://www.example2.com/baz
+      // http://www.example2.com/baz redirects to /foo
+      // http://www.example2.com/foo is the final URL
+      for (final redirect in response.redirects) {
+        url = url.resolveUri(redirect.location);
+      }
+
       return _IOStreamedResponseV2(
         responseController.stream,
         response.statusCode,
@@ -230,9 +241,7 @@ class IOClient extends BaseClient {
         request: request,
         headers: headers,
         isRedirect: response.isRedirect,
-        url: response.redirects.isNotEmpty
-            ? response.redirects.last.location
-            : request.url,
+        url: url,
         persistentConnection: response.persistentConnection,
         reasonPhrase: response.reasonPhrase,
         inner: response,

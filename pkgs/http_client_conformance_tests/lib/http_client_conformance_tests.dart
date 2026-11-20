@@ -64,8 +64,20 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [preservesMethodCase] is `false` then tests that assume that the
 /// [Client] preserves custom request method casing will be skipped.
 ///
-/// If [canSendCookieHeaders] is `false` then tests that require that "cookie"
-/// headers be sent by the client will not be run.
+/// If [canSendCookieHeaders] is `false` then tests will not set "cookie"
+/// headers in requests, and tests that only verify "cookie" headers will be
+/// skipped.
+///
+/// If [canSendProxyAuthorizationHeaders] is `false` then tests will not set
+/// "proxy-authorization" headers in requests.
+///
+/// If [canSetUserInfo] is `false` then tests that require that the request URL
+/// contain userinfo (e.g. `http://user:password@example.com/`) will not be
+/// run.
+///
+/// If [correctCrossHostRedirect] is `false` then tests that verify the behavior
+/// of relative redirects and of redirects across host/port boundaries will be
+/// skipped.
 ///
 /// If [canReceiveSetCookieHeaders] is `false` then tests that require that
 /// "set-cookie" headers be received by the client will not be run.
@@ -95,6 +107,9 @@ void testAll(
   bool supportsFoldedHeaders = true,
   bool correctlyHandlesNullHeaderValues = true,
   bool canSendCookieHeaders = false,
+  bool canSendProxyAuthorizationHeaders = true,
+  bool canSetUserInfo = true,
+  bool correctCrossHostRedirect = false,
   bool canReceiveSetCookieHeaders = false,
   bool supportsMultipartRequest = true,
   bool supportsAbort = false,
@@ -113,7 +128,12 @@ void testAll(
       supportsFoldedHeaders: supportsFoldedHeaders,
       correctlyHandlesNullHeaderValues: correctlyHandlesNullHeaderValues);
   testResponseStatusLine(clientFactory);
-  testRedirect(clientFactory, redirectAlwaysAllowed: redirectAlwaysAllowed);
+  testRedirect(clientFactory,
+      canSendCookieHeaders: canSendCookieHeaders,
+      canSendProxyAuthorizationHeaders: canSendProxyAuthorizationHeaders,
+      canSetUserInfo: canSetUserInfo,
+      correctCrossHostRedirect: correctCrossHostRedirect,
+      redirectAlwaysAllowed: redirectAlwaysAllowed);
   testServerErrors(clientFactory);
   testCompressedResponseBody(clientFactory);
   testMultipleClients(clientFactory);

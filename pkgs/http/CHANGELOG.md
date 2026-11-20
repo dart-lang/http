@@ -21,6 +21,8 @@
   instead of being sent chunked.
 * Fix a `StateError` in `RetryClient` when the `when` callback reads the
   response stream before a retry.
+* Fix a bug in `IOClient` where `BaseResponseWithUrl.url` was a bare relative
+  `Uri` after a relative redirect.
 
 ## 1.6.0
 
