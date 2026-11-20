@@ -112,7 +112,6 @@ void main() {
     group('stream-message-queue-in', () {
       test('data-end-of-stream', () {
         var windowMock = MockIncomingWindowHandler();
-        when(windowMock.gotData(any)).thenReturn(null);
         when(windowMock.dataProcessed(any)).thenReturn(null);
         var queue = StreamMessageQueueIn(windowMock);
 
@@ -128,10 +127,7 @@ void main() {
         );
         queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
-        verifyInOrder([
-          windowMock.gotData(BYTES.length),
-          windowMock.dataProcessed(BYTES.length),
-        ]);
+        verify(windowMock.dataProcessed(BYTES.length)).called(1);
         verifyNoMoreInteractions(windowMock);
       });
     });
@@ -141,7 +137,6 @@ void main() {
       final bytes = [1, 2, 3];
 
       var windowMock = MockIncomingWindowHandler();
-      when(windowMock.gotData(any)).thenReturn(null);
       var queue = StreamMessageQueueIn(windowMock);
 
       var sub = queue.messages.listen(
@@ -154,9 +149,7 @@ void main() {
       queue.enqueueMessage(DataMessage(STREAM_ID, bytes, true));
       expect(queue.pendingMessages, 1);
       expect(queue.bufferIndicator.wouldBuffer, isTrue);
-      // We assert that we got the data, but it wasn't processed.
-      verify(windowMock.gotData(bytes.length)).called(1);
-      // verifyNever(windowMock.dataProcessed(any));
+      verifyZeroInteractions(windowMock);
     });
 
     // TODO: Add tests for Headers/HeadersPush messages.

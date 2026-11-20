@@ -184,9 +184,10 @@ class OkHttpWebSocket implements WebSocket {
 
     unawaited(_events.close());
 
-    // When no code is provided, cause an abnormal closure to send 1005.
+    // OkHttp does not support sending a Close frame without a status code, so
+    // send 1000 (normal closure).
     if (code == null) {
-      _webSocket.cancel();
+      _webSocket.close(1000, null);
       return;
     }
 

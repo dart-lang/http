@@ -20,6 +20,9 @@ Future<void> _invalidCloseReason(HttpRequest request) async {
     ..headers.add('Upgrade', 'websocket')
     ..headers.add('Connection', 'Upgrade')
     ..headers.add('Sec-WebSocket-Accept', accept);
+  // TODO(https://github.com/dart-lang/sdk/issues/64968): Remove once min SDK
+  // is >=3.15.0.
+  request.response.headers.chunkedTransferEncoding = false;
   final socket = await request.response.detachSocket();
 
   // From https://datatracker.ietf.org/doc/html/rfc6455#section-5.2:
