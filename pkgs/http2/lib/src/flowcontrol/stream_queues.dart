@@ -114,7 +114,7 @@ class StreamMessageQueueOut extends Object
           var messageToSend = message;
           var messageBytes = message.bytes;
           // TODO: Do not fragment if the number of bytes we can send is too low
-          if (messageBytes.length > bytesAvailable) {
+          if (messageBytes.isNotEmpty && messageBytes.length > bytesAvailable) {
             var partA = viewOrSublist(messageBytes, 0, bytesAvailable);
             var partB = viewOrSublist(
               messageBytes,
@@ -244,9 +244,6 @@ class StreamMessageQueueIn extends Object
           return;
         }
 
-        if (message is DataMessage) {
-          windowHandler.gotData(message.bytes.length);
-        }
         _pendingMessages.add(message);
         if (message.endStream) startClosing();
 
@@ -326,7 +323,9 @@ class StreamMessageQueueIn extends Object
               _incomingMessagesC.add(
                 DataStreamMessage(message.bytes, endStream: message.endStream),
               );
-              windowHandler.dataProcessed(message.bytes.length);
+            }
+            if (message.flowControlledLength > 0) {
+              windowHandler.dataProcessed(message.flowControlledLength);
             }
           } else {
             // This can never happen.

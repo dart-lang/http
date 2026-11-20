@@ -12,7 +12,7 @@ and the browser.
 | Package | Description | Version |
 |---|---|---|
 | [cronet_http](pkgs/cronet_http/) | An Android Flutter plugin that provides access to the Cronet HTTP client. | [![pub package](https://img.shields.io/pub/v/cronet_http.svg)](https://pub.dev/packages/cronet_http) |
-| [cupertino_http](pkgs/cupertino_http/) | A macOS/iOS Flutter plugin that provides access to the Foundation URL Loading System. | [![pub package](https://img.shields.io/pub/v/cupertino_http.svg)](https://pub.dev/packages/cupertino_http) |
+| [cupertino_http](pkgs/cupertino_http/) | A macOS/iOS library that provides access to the Foundation URL Loading System. | [![pub package](https://img.shields.io/pub/v/cupertino_http.svg)](https://pub.dev/packages/cupertino_http) |
 | [flutter_http_example](pkgs/flutter_http_example/) | Demonstrates how to use package:http in a Flutter app. | — |
 | [http](pkgs/http/) | A composable, multi-platform, Future-based API for HTTP requests. | [![pub package](https://img.shields.io/pub/v/http.svg)](https://pub.dev/packages/http) |
 | [http2](pkgs/http2/) | A HTTP/2 implementation in Dart. | [![pub package](https://img.shields.io/pub/v/http2.svg)](https://pub.dev/packages/http2) |

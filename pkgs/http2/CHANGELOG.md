@@ -1,4 +1,36 @@
-## 3.2.0-wip
+## 3.2.1-wip
+
+- `finish()` and `terminate()` no longer hang when a write to the socket fails
+  (for example because the peer closed the connection); previously they waited
+  for a `Socket.done` that never completes after a failed write.
+- `Http2Client` now drops a connection from its pool as soon as it is dead,
+  instead of keeping it as an idle connection no request may use, and keeps a
+  healthy connection pooled when the server resets just one of its streams.
+- Terminate the connection with `ENHANCE_YOUR_CALM` when the peer keeps sending
+  frames that require a reply - PINGs, SETTINGS frames, or frames that cause a
+  stream error, such as DATA frames on a closed stream - but does not read the
+  replies, instead of queueing them without limit (the "Ping Flood", "Settings
+  Flood" and "Reset Flood": CVE-2019-9512, CVE-2019-9515, CVE-2019-9514). At
+  most 10000 replies are queued while the transport takes no data.
+- Terminate the connection with `ENHANCE_YOUR_CALM` when the peer resets the
+  streams it opened faster than 33 per second, after a burst of 1000 (the
+  "Rapid Reset", CVE-2023-44487). A reset stream no longer counts toward the
+  concurrent stream limit, so this was not bounded otherwise.
+- Count stream errors that make this endpoint reset a peer-opened stream toward
+  the same reset rate limit, and report the reset to `onTerminated` and
+  `incomingMessages` ("MadeYouReset", CVE-2025-8671).
+- Keep counting a peer-initiated stream toward `SETTINGS_MAX_CONCURRENT_STREAMS`
+  until its outgoing `END_STREAM` frame has left the stream queue, so a peer
+  with a zero flow-control window cannot stack unsent responses past the
+  concurrent stream limit (CVE-2023-26964, CVE-2023-45802), and fix a
+  `RangeError` when sending an empty `END_STREAM` `DATA` frame with a negative
+  send window.
+- Enforce connection and stream receive windows on ignored `DATA` frames,
+  padded `DATA` frames (including `Pad Length` and `Padding`, RFC 9113
+  Section 6.1), and paused streams, and avoid queueing empty `DATA` frames
+  without `END_STREAM` while a stream is paused (CVE-2019-9518).
+
+## 3.2.0
 
 - Add `Settings.connectionWindowSize` and `Settings.maxFrameSize` to configure
   the connection-level receive window and `SETTINGS_MAX_FRAME_SIZE`. (#1997)

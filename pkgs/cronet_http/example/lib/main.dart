@@ -6,9 +6,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cronet_http/cronet_http.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -16,18 +16,22 @@ void main() {
   if (Platform.isAndroid) {
     WidgetsFlutterBinding.ensureInitialized();
     final engine = CronetEngine.build(
-        cacheMode: CacheMode.memory,
-        cacheMaxSize: 2 * 1024 * 1024,
-        userAgent: 'Package Client');
+      cacheMode: CacheMode.memory,
+      cacheMaxSize: 2 * 1024 * 1024,
+      userAgent: 'Package Client',
+    );
     httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Package Client');
   }
 
-  runApp(Provider<Client>(
+  runApp(
+    Provider<Client>(
       create: (_) => httpClient,
       child: const PackageDetailsApp(),
-      dispose: (_, client) => client.close()));
+      dispose: (_, client) => client.close(),
+    ),
+  );
 }
 
 class PackageDetailsApp extends StatelessWidget {
@@ -35,10 +39,10 @@ class PackageDetailsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Package Details',
-        home: PackageDetailsPage(),
-      );
+    debugShowCheckedModeBanner: false,
+    title: 'Package Details',
+    home: PackageDetailsPage(),
+  );
 }
 
 class PackageDetailsPage extends StatefulWidget {
@@ -67,7 +71,8 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
         final json =
             jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
         setState(() {
-          _output = 'Information about package:cronet_http:\n'
+          _output =
+              'Information about package:cronet_http:\n'
               '- Likes: ${json['likeCount']}\n'
               '- 30-day downloads: ${json['downloadCount30Days']}';
         });
@@ -85,14 +90,14 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              _output,
-              style: const TextStyle(fontSize: 18, fontFamily: 'monospace'),
-            ),
-          ),
+    body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          _output,
+          style: const TextStyle(fontSize: 18, fontFamily: 'monospace'),
         ),
-      );
+      ),
+    ),
+  );
 }
