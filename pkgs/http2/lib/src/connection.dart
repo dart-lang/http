@@ -421,6 +421,8 @@ abstract class Connection {
       fn();
     } on ProtocolException catch (error) {
       _terminate(ErrorCode.PROTOCOL_ERROR, message: '$error');
+    } on ConnectionStreamClosedException catch (error) {
+      _terminate(ErrorCode.STREAM_CLOSED, message: '$error');
     } on FlowControlException catch (error) {
       _terminate(ErrorCode.FLOW_CONTROL_ERROR, message: '$error');
     } on FrameSizeException catch (error) {
@@ -455,6 +457,15 @@ abstract class Connection {
       }
       _state.state = ConnectionState.Operational;
       _onInitialPeerSettingsReceived.complete();
+    }
+
+    // RFC 9113 section 8.4: a client cannot push; servers must treat receipt
+    // of a PUSH_PROMISE frame as a connection error of type PROTOCOL_ERROR
+    // immediately, without buffering incomplete header fragments.
+    if (!isClientConnection && frame is PushPromiseFrame) {
+      throw ProtocolException(
+        'Server received a PUSH_PROMISE frame from a client.',
+      );
     }
 
     // Try to defragment [frame] if it is a Headers/PushPromise frame.
