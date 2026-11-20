@@ -204,6 +204,98 @@ void testDnsOptions() {
       expect(response.statusCode, 200);
       client.close();
     });
+
+    test('stale DNS with a fresh lookup timeout', () async {
+      final engine = CronetEngine.build(
+        cacheMode: CacheMode.disk,
+        cacheMaxSize: 1024 * 1024,
+        storagePath: (await Directory.systemTemp.createTemp()).absolute.path,
+        useBuiltInDnsResolver: true,
+        enableStaleDns: true,
+        persistHostCache: true,
+        preestablishConnectionsToStaleDnsResults: true,
+        freshLookupTimeout: const Duration(milliseconds: 1800),
+        useStaleOnNameNotResolved: true,
+        allowCrossNetworkUsage: true,
+        maxStaleDnsExpiredDelay: const Duration(days: 10),
+      );
+      final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
+      final response = await client.get(
+        Uri.parse('http://localhost:${server.port}'),
+      );
+      expect(response.statusCode, 200);
+      client.close();
+    });
+  });
+}
+
+void testQuicOptions() {
+  group('quicOptions', () {
+    late HttpServer server;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          request.response.headers.set('Content-Type', 'text/plain');
+          await request.response.close();
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('all options', () async {
+      final engine = CronetEngine.build(
+        enableQuic: true,
+        enableTlsZeroRtt: true,
+        retryWithoutAltSvcOnQuicErrors: true,
+        delayJobsWithAvailableSpdySession: false,
+        cryptoHandshakeTimeout: const Duration(seconds: 20),
+      );
+      final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
+      final response = await client.get(
+        Uri.parse('http://localhost:${server.port}'),
+      );
+      expect(response.statusCode, 200);
+      client.close();
+    });
+
+    test('a single option', () async {
+      final engine = CronetEngine.build(
+        enableQuic: true,
+        retryWithoutAltSvcOnQuicErrors: false,
+      );
+      final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
+      final response = await client.get(
+        Uri.parse('http://localhost:${server.port}'),
+      );
+      expect(response.statusCode, 200);
+      client.close();
+    });
+
+    test('a handshake timeout is rounded down to whole seconds', () async {
+      final engine = CronetEngine.build(
+        enableQuic: true,
+        cryptoHandshakeTimeout: const Duration(milliseconds: 1500),
+      );
+      final client = CronetClient.fromCronetEngine(engine, closeEngine: true);
+      final response = await client.get(
+        Uri.parse('http://localhost:${server.port}'),
+      );
+      expect(response.statusCode, 200);
+      client.close();
+    });
+
+    test('a handshake timeout under one second is rejected', () {
+      expect(
+        () => CronetEngine.build(
+          enableQuic: true,
+          cryptoHandshakeTimeout: const Duration(milliseconds: 500),
+        ),
+        throwsArgumentError,
+      );
+    });
   });
 }
 
@@ -287,6 +379,7 @@ void main() {
   testUserAgent();
   testQuicHints();
   testDnsOptions();
+  testQuicOptions();
   testNetLog();
   testEngineClose();
 }

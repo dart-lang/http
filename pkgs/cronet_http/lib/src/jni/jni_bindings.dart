@@ -4465,7 +4465,7 @@ extension CronetEngine$Builder$$Methods on CronetEngine$Builder {
   /// from: `public org.chromium.net.CronetEngine$Builder setQuicOptions(org.chromium.net.QuicOptions$Builder quicOptionsBuilder)`
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine$Builder? setQuicOptions$1(
-    QuicOptions$$Builder? quicOptionsBuilder,
+    QuicOptions$Builder? quicOptionsBuilder,
   ) {
     final _$$selfRef = reference;
     final _$quicOptionsBuilder =
@@ -6979,6 +6979,1601 @@ final class $QuicException$Type$ extends jni$_.JType<QuicException> {
   String get className => r'org/chromium/net/QuicException';
 }
 
+/// from: `org.chromium.net.QuicOptions$Builder`
+extension type QuicOptions$Builder._(jni$_.JObject _$this)
+    implements jni$_.JObject {
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/QuicOptions$Builder',
+  );
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<QuicOptions$Builder> type =
+      $QuicOptions$Builder$Type$();
+}
+
+extension QuicOptions$Builder$$Methods on QuicOptions$Builder {
+  static final _id_addAllowedQuicHost = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'addAllowedQuicHost',
+        r'(Ljava/lang/String;)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _addAllowedQuicHost =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder addAllowedQuicHost(java.lang.String quicHost)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? addAllowedQuicHost(jni$_.JString? quicHost) {
+    final _$$selfRef = reference;
+    final _$quicHost = quicHost?.reference ?? jni$_.jNullReference;
+    return _addAllowedQuicHost(
+      _$$selfRef.nonNullPointer,
+      _id_addAllowedQuicHost.pointer,
+      _$quicHost.pointer,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_addEnabledQuicVersion = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'addEnabledQuicVersion',
+        r'(Ljava/lang/String;)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _addEnabledQuicVersion =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder addEnabledQuicVersion(java.lang.String enabledQuicVersion)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? addEnabledQuicVersion(
+    jni$_.JString? enabledQuicVersion,
+  ) {
+    final _$$selfRef = reference;
+    final _$enabledQuicVersion =
+        enabledQuicVersion?.reference ?? jni$_.jNullReference;
+    return _addEnabledQuicVersion(
+      _$$selfRef.nonNullPointer,
+      _id_addEnabledQuicVersion.pointer,
+      _$enabledQuicVersion.pointer,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_addConnectionOption = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'addConnectionOption',
+        r'(Ljava/lang/String;)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _addConnectionOption =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder addConnectionOption(java.lang.String connectionOption)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? addConnectionOption(jni$_.JString? connectionOption) {
+    final _$$selfRef = reference;
+    final _$connectionOption =
+        connectionOption?.reference ?? jni$_.jNullReference;
+    return _addConnectionOption(
+      _$$selfRef.nonNullPointer,
+      _id_addConnectionOption.pointer,
+      _$connectionOption.pointer,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_addClientConnectionOption = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'addClientConnectionOption',
+        r'(Ljava/lang/String;)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _addClientConnectionOption =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder addClientConnectionOption(java.lang.String clientConnectionOption)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? addClientConnectionOption(
+    jni$_.JString? clientConnectionOption,
+  ) {
+    final _$$selfRef = reference;
+    final _$clientConnectionOption =
+        clientConnectionOption?.reference ?? jni$_.jNullReference;
+    return _addClientConnectionOption(
+      _$$selfRef.nonNullPointer,
+      _id_addClientConnectionOption.pointer,
+      _$clientConnectionOption.pointer,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_setInMemoryServerConfigsCacheSize = QuicOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'setInMemoryServerConfigsCacheSize',
+        r'(I)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _setInMemoryServerConfigsCacheSize =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder setInMemoryServerConfigsCacheSize(int inMemoryServerConfigsCacheSize)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? setInMemoryServerConfigsCacheSize(
+    core$_.int inMemoryServerConfigsCacheSize,
+  ) {
+    final _$$selfRef = reference;
+    return _setInMemoryServerConfigsCacheSize(
+      _$$selfRef.nonNullPointer,
+      _id_setInMemoryServerConfigsCacheSize.pointer,
+      inMemoryServerConfigsCacheSize,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_setHandshakeUserAgent = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'setHandshakeUserAgent',
+        r'(Ljava/lang/String;)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _setHandshakeUserAgent =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder setHandshakeUserAgent(java.lang.String handshakeUserAgent)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? setHandshakeUserAgent(
+    jni$_.JString? handshakeUserAgent,
+  ) {
+    final _$$selfRef = reference;
+    final _$handshakeUserAgent =
+        handshakeUserAgent?.reference ?? jni$_.jNullReference;
+    return _setHandshakeUserAgent(
+      _$$selfRef.nonNullPointer,
+      _id_setHandshakeUserAgent.pointer,
+      _$handshakeUserAgent.pointer,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_retryWithoutAltSvcOnQuicErrors = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'retryWithoutAltSvcOnQuicErrors',
+        r'(Z)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _retryWithoutAltSvcOnQuicErrors =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder retryWithoutAltSvcOnQuicErrors(boolean retryWithoutAltSvcOnQuicErrors)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? retryWithoutAltSvcOnQuicErrors(
+    core$_.bool retryWithoutAltSvcOnQuicErrors,
+  ) {
+    final _$$selfRef = reference;
+    return _retryWithoutAltSvcOnQuicErrors(
+      _$$selfRef.nonNullPointer,
+      _id_retryWithoutAltSvcOnQuicErrors.pointer,
+      retryWithoutAltSvcOnQuicErrors ? 1 : 0,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_enableTlsZeroRtt = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'enableTlsZeroRtt',
+        r'(Z)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _enableTlsZeroRtt =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder enableTlsZeroRtt(boolean enableTlsZeroRtt)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? enableTlsZeroRtt(core$_.bool enableTlsZeroRtt) {
+    final _$$selfRef = reference;
+    return _enableTlsZeroRtt(
+      _$$selfRef.nonNullPointer,
+      _id_enableTlsZeroRtt.pointer,
+      enableTlsZeroRtt ? 1 : 0,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_setPreCryptoHandshakeIdleTimeoutSeconds = QuicOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'setPreCryptoHandshakeIdleTimeoutSeconds',
+        r'(J)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _setPreCryptoHandshakeIdleTimeoutSeconds =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder setPreCryptoHandshakeIdleTimeoutSeconds(long preCryptoHandshakeIdleTimeoutSeconds)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? setPreCryptoHandshakeIdleTimeoutSeconds(
+    core$_.int preCryptoHandshakeIdleTimeoutSeconds,
+  ) {
+    final _$$selfRef = reference;
+    return _setPreCryptoHandshakeIdleTimeoutSeconds(
+      _$$selfRef.nonNullPointer,
+      _id_setPreCryptoHandshakeIdleTimeoutSeconds.pointer,
+      preCryptoHandshakeIdleTimeoutSeconds,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_setCryptoHandshakeTimeoutSeconds = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'setCryptoHandshakeTimeoutSeconds',
+        r'(J)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _setCryptoHandshakeTimeoutSeconds =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder setCryptoHandshakeTimeoutSeconds(long cryptoHandshakeTimeoutSeconds)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? setCryptoHandshakeTimeoutSeconds(
+    core$_.int cryptoHandshakeTimeoutSeconds,
+  ) {
+    final _$$selfRef = reference;
+    return _setCryptoHandshakeTimeoutSeconds(
+      _$$selfRef.nonNullPointer,
+      _id_setCryptoHandshakeTimeoutSeconds.pointer,
+      cryptoHandshakeTimeoutSeconds,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_setIdleConnectionTimeoutSeconds = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'setIdleConnectionTimeoutSeconds',
+        r'(J)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _setIdleConnectionTimeoutSeconds =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder setIdleConnectionTimeoutSeconds(long idleConnectionTimeoutSeconds)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? setIdleConnectionTimeoutSeconds(
+    core$_.int idleConnectionTimeoutSeconds,
+  ) {
+    final _$$selfRef = reference;
+    return _setIdleConnectionTimeoutSeconds(
+      _$$selfRef.nonNullPointer,
+      _id_setIdleConnectionTimeoutSeconds.pointer,
+      idleConnectionTimeoutSeconds,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_setIdleConnectionTimeout = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'setIdleConnectionTimeout',
+        r'(Ljava/time/Duration;)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _setIdleConnectionTimeout =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder setIdleConnectionTimeout(java.time.Duration idleConnectionTimeout)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? setIdleConnectionTimeout(
+    Duration idleConnectionTimeout,
+  ) {
+    final _$$selfRef = reference;
+    final _$idleConnectionTimeout = idleConnectionTimeout.reference;
+    return _setIdleConnectionTimeout(
+      _$$selfRef.nonNullPointer,
+      _id_setIdleConnectionTimeout.pointer,
+      _$idleConnectionTimeout.pointer,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_setRetransmittableOnWireTimeoutMillis = QuicOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'setRetransmittableOnWireTimeoutMillis',
+        r'(J)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _setRetransmittableOnWireTimeoutMillis =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder setRetransmittableOnWireTimeoutMillis(long retransmittableOnWireTimeoutMillis)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? setRetransmittableOnWireTimeoutMillis(
+    core$_.int retransmittableOnWireTimeoutMillis,
+  ) {
+    final _$$selfRef = reference;
+    return _setRetransmittableOnWireTimeoutMillis(
+      _$$selfRef.nonNullPointer,
+      _id_setRetransmittableOnWireTimeoutMillis.pointer,
+      retransmittableOnWireTimeoutMillis,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_closeSessionsOnIpChange = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'closeSessionsOnIpChange',
+        r'(Z)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _closeSessionsOnIpChange =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder closeSessionsOnIpChange(boolean closeSessionsOnIpChange)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? closeSessionsOnIpChange(
+    core$_.bool closeSessionsOnIpChange,
+  ) {
+    final _$$selfRef = reference;
+    return _closeSessionsOnIpChange(
+      _$$selfRef.nonNullPointer,
+      _id_closeSessionsOnIpChange.pointer,
+      closeSessionsOnIpChange ? 1 : 0,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_goawaySessionsOnIpChange = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'goawaySessionsOnIpChange',
+        r'(Z)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _goawaySessionsOnIpChange =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder goawaySessionsOnIpChange(boolean goawaySessionsOnIpChange)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? goawaySessionsOnIpChange(
+    core$_.bool goawaySessionsOnIpChange,
+  ) {
+    final _$$selfRef = reference;
+    return _goawaySessionsOnIpChange(
+      _$$selfRef.nonNullPointer,
+      _id_goawaySessionsOnIpChange.pointer,
+      goawaySessionsOnIpChange ? 1 : 0,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_setInitialBrokenServicePeriodSeconds = QuicOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'setInitialBrokenServicePeriodSeconds',
+        r'(J)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _setInitialBrokenServicePeriodSeconds =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int64,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder setInitialBrokenServicePeriodSeconds(long initialBrokenServicePeriodSeconds)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? setInitialBrokenServicePeriodSeconds(
+    core$_.int initialBrokenServicePeriodSeconds,
+  ) {
+    final _$$selfRef = reference;
+    return _setInitialBrokenServicePeriodSeconds(
+      _$$selfRef.nonNullPointer,
+      _id_setInitialBrokenServicePeriodSeconds.pointer,
+      initialBrokenServicePeriodSeconds,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_increaseBrokenServicePeriodExponentially =
+      QuicOptions$Builder._class.instanceMethodId(
+        r'increaseBrokenServicePeriodExponentially',
+        r'(Z)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _increaseBrokenServicePeriodExponentially =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder increaseBrokenServicePeriodExponentially(boolean increaseBrokenServicePeriodExponentially)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? increaseBrokenServicePeriodExponentially(
+    core$_.bool increaseBrokenServicePeriodExponentially,
+  ) {
+    final _$$selfRef = reference;
+    return _increaseBrokenServicePeriodExponentially(
+      _$$selfRef.nonNullPointer,
+      _id_increaseBrokenServicePeriodExponentially.pointer,
+      increaseBrokenServicePeriodExponentially ? 1 : 0,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_delayJobsWithAvailableSpdySession = QuicOptions$Builder
+      ._class
+      .instanceMethodId(
+        r'delayJobsWithAvailableSpdySession',
+        r'(Z)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _delayJobsWithAvailableSpdySession =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Int32,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              core$_.int,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder delayJobsWithAvailableSpdySession(boolean delayJobsWithAvailableSpdySession)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? delayJobsWithAvailableSpdySession(
+    core$_.bool delayJobsWithAvailableSpdySession,
+  ) {
+    final _$$selfRef = reference;
+    return _delayJobsWithAvailableSpdySession(
+      _$$selfRef.nonNullPointer,
+      _id_delayJobsWithAvailableSpdySession.pointer,
+      delayJobsWithAvailableSpdySession ? 1 : 0,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_addExtraQuicheFlag = QuicOptions$Builder._class
+      .instanceMethodId(
+        r'addExtraQuicheFlag',
+        r'(Ljava/lang/String;)Lorg/chromium/net/QuicOptions$Builder;',
+      );
+
+  static final _addExtraQuicheFlag =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+                jni$_.VarArgs<(jni$_.Pointer<jni$_.Void>,)>,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+              jni$_.Pointer<jni$_.Void>,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions$Builder addExtraQuicheFlag(java.lang.String extraQuicheFlag)`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions$Builder? addExtraQuicheFlag(jni$_.JString? extraQuicheFlag) {
+    final _$$selfRef = reference;
+    final _$extraQuicheFlag =
+        extraQuicheFlag?.reference ?? jni$_.jNullReference;
+    return _addExtraQuicheFlag(
+      _$$selfRef.nonNullPointer,
+      _id_addExtraQuicheFlag.pointer,
+      _$extraQuicheFlag.pointer,
+    ).object<QuicOptions$Builder?>();
+  }
+
+  static final _id_build = QuicOptions$Builder._class.instanceMethodId(
+    r'build',
+    r'()Lorg/chromium/net/QuicOptions;',
+  );
+
+  static final _build =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public org.chromium.net.QuicOptions build()`
+  /// The returned object must be released after use, by calling the [release] method.
+  QuicOptions? build() {
+    final _$$selfRef = reference;
+    return _build(
+      _$$selfRef.nonNullPointer,
+      _id_build.pointer,
+    ).object<QuicOptions?>();
+  }
+}
+
+final class $QuicOptions$Builder$Type$
+    extends jni$_.JType<QuicOptions$Builder> {
+  @jni$_.internal
+  const $QuicOptions$Builder$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/QuicOptions$Builder;';
+
+  @jni$_.internal
+  @core$_.override
+  String get className => r'org/chromium/net/QuicOptions$Builder';
+}
+
+/// from: `org.chromium.net.QuicOptions$Experimental`
+extension type QuicOptions$Experimental._(jni$_.JObject _$this)
+    implements jni$_.JObject, Annotation {
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/QuicOptions$Experimental',
+  );
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<QuicOptions$Experimental> type =
+      $QuicOptions$Experimental$Type$();
+
+  /// Maps a specific port to the implemented interface.
+  static final core$_.Map<core$_.int, $QuicOptions$Experimental> _$impls = {};
+  static jni$_.JObjectPtr _$invoke(
+    core$_.int port,
+    jni$_.JObjectPtr descriptor,
+    jni$_.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      jni$_.MethodInvocation.fromAddresses(0, descriptor.address, args.address),
+    );
+  }
+
+  static final jni$_.Pointer<
+    jni$_.NativeFunction<
+      jni$_.JObjectPtr Function(jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)
+    >
+  >
+  _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
+
+  static jni$_.Pointer<jni$_.Void> _$invokeMethod(
+    core$_.int $p,
+    jni$_.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+    } catch (e) {
+      return jni$_.ProtectedJniExtensions.newDartException(e);
+    }
+    return jni$_.nullptr;
+  }
+
+  static void implementIn(
+    jni$_.JImplementer implementer,
+    $QuicOptions$Experimental $impl,
+  ) {
+    late final jni$_.RawReceivePort $p;
+    $p = jni$_.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = jni$_.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      $i.args?.release();
+      jni$_.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'org.chromium.net.QuicOptions$Experimental',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory QuicOptions$Experimental.implement($QuicOptions$Experimental $impl) {
+    final $i = jni$_.JImplementer();
+    implementIn($i, $impl);
+    return $i.implement<QuicOptions$Experimental>();
+  }
+}
+
+abstract base mixin class $QuicOptions$Experimental {
+  factory $QuicOptions$Experimental() = _$QuicOptions$Experimental;
+}
+
+final class _$QuicOptions$Experimental with $QuicOptions$Experimental {
+  _$QuicOptions$Experimental();
+}
+
+final class $QuicOptions$Experimental$Type$
+    extends jni$_.JType<QuicOptions$Experimental> {
+  @jni$_.internal
+  const $QuicOptions$Experimental$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/QuicOptions$Experimental;';
+
+  @jni$_.internal
+  @core$_.override
+  String get className => r'org/chromium/net/QuicOptions$Experimental';
+}
+
+/// from: `org.chromium.net.QuicOptions$QuichePassthroughOption`
+extension type QuicOptions$QuichePassthroughOption._(jni$_.JObject _$this)
+    implements jni$_.JObject, Annotation {
+  static final _class = jni$_.JClass.forName(
+    r'org/chromium/net/QuicOptions$QuichePassthroughOption',
+  );
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<QuicOptions$QuichePassthroughOption> type =
+      $QuicOptions$QuichePassthroughOption$Type$();
+
+  /// Maps a specific port to the implemented interface.
+  static final core$_.Map<core$_.int, $QuicOptions$QuichePassthroughOption>
+  _$impls = {};
+  static jni$_.JObjectPtr _$invoke(
+    core$_.int port,
+    jni$_.JObjectPtr descriptor,
+    jni$_.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      jni$_.MethodInvocation.fromAddresses(0, descriptor.address, args.address),
+    );
+  }
+
+  static final jni$_.Pointer<
+    jni$_.NativeFunction<
+      jni$_.JObjectPtr Function(jni$_.Int64, jni$_.JObjectPtr, jni$_.JObjectPtr)
+    >
+  >
+  _$invokePointer = jni$_.Pointer.fromFunction(_$invoke);
+
+  static jni$_.Pointer<jni$_.Void> _$invokeMethod(
+    core$_.int $p,
+    jni$_.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+    } catch (e) {
+      return jni$_.ProtectedJniExtensions.newDartException(e);
+    }
+    return jni$_.nullptr;
+  }
+
+  static void implementIn(
+    jni$_.JImplementer implementer,
+    $QuicOptions$QuichePassthroughOption $impl,
+  ) {
+    late final jni$_.RawReceivePort $p;
+    $p = jni$_.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = jni$_.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      $i.args?.release();
+      jni$_.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'org.chromium.net.QuicOptions$QuichePassthroughOption',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory QuicOptions$QuichePassthroughOption.implement(
+    $QuicOptions$QuichePassthroughOption $impl,
+  ) {
+    final $i = jni$_.JImplementer();
+    implementIn($i, $impl);
+    return $i.implement<QuicOptions$QuichePassthroughOption>();
+  }
+}
+
+abstract base mixin class $QuicOptions$QuichePassthroughOption {
+  factory $QuicOptions$QuichePassthroughOption() =
+      _$QuicOptions$QuichePassthroughOption;
+}
+
+final class _$QuicOptions$QuichePassthroughOption
+    with $QuicOptions$QuichePassthroughOption {
+  _$QuicOptions$QuichePassthroughOption();
+}
+
+final class $QuicOptions$QuichePassthroughOption$Type$
+    extends jni$_.JType<QuicOptions$QuichePassthroughOption> {
+  @jni$_.internal
+  const $QuicOptions$QuichePassthroughOption$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature =>
+      r'Lorg/chromium/net/QuicOptions$QuichePassthroughOption;';
+
+  @jni$_.internal
+  @core$_.override
+  String get className =>
+      r'org/chromium/net/QuicOptions$QuichePassthroughOption';
+}
+
+/// from: `org.chromium.net.QuicOptions`
+extension type QuicOptions._(jni$_.JObject _$this) implements jni$_.JObject {
+  static final _class = jni$_.JClass.forName(r'org/chromium/net/QuicOptions');
+
+  /// The type which includes information such as the signature of this class.
+  static const jni$_.JType<QuicOptions> type = $QuicOptions$Type$();
+  static final _id_builder = _class.staticMethodId(
+    r'builder',
+    r'()Lorg/chromium/net/QuicOptions$Builder;',
+  );
+
+  static final _builder =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallStaticObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `static public org.chromium.net.QuicOptions$Builder builder()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static QuicOptions$Builder? builder() {
+    final _$$classRef = _class.reference;
+    return _builder(
+      _$$classRef.pointer,
+      _id_builder.pointer,
+    ).object<QuicOptions$Builder?>();
+  }
+}
+
+extension QuicOptions$$Methods on QuicOptions {
+  static final _id_get$quicHostAllowlist = QuicOptions._class.instanceMethodId(
+    r'getQuicHostAllowlist',
+    r'()Ljava/util/Set;',
+  );
+
+  static final _get$quicHostAllowlist =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.util.Set<java.lang.String> getQuicHostAllowlist()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JSet<jni$_.JString?>? get quicHostAllowlist {
+    final _$$selfRef = reference;
+    return _get$quicHostAllowlist(
+      _$$selfRef.nonNullPointer,
+      _id_get$quicHostAllowlist.pointer,
+    ).object<jni$_.JSet<jni$_.JString?>?>();
+  }
+
+  static final _id_get$enabledQuicVersions = QuicOptions._class
+      .instanceMethodId(r'getEnabledQuicVersions', r'()Ljava/util/Set;');
+
+  static final _get$enabledQuicVersions =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.util.Set<java.lang.String> getEnabledQuicVersions()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JSet<jni$_.JString?>? get enabledQuicVersions {
+    final _$$selfRef = reference;
+    return _get$enabledQuicVersions(
+      _$$selfRef.nonNullPointer,
+      _id_get$enabledQuicVersions.pointer,
+    ).object<jni$_.JSet<jni$_.JString?>?>();
+  }
+
+  static final _id_get$connectionOptions = QuicOptions._class.instanceMethodId(
+    r'getConnectionOptions',
+    r'()Ljava/util/Set;',
+  );
+
+  static final _get$connectionOptions =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.util.Set<java.lang.String> getConnectionOptions()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JSet<jni$_.JString?>? get connectionOptions {
+    final _$$selfRef = reference;
+    return _get$connectionOptions(
+      _$$selfRef.nonNullPointer,
+      _id_get$connectionOptions.pointer,
+    ).object<jni$_.JSet<jni$_.JString?>?>();
+  }
+
+  static final _id_get$clientConnectionOptions = QuicOptions._class
+      .instanceMethodId(r'getClientConnectionOptions', r'()Ljava/util/Set;');
+
+  static final _get$clientConnectionOptions =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.util.Set<java.lang.String> getClientConnectionOptions()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JSet<jni$_.JString?>? get clientConnectionOptions {
+    final _$$selfRef = reference;
+    return _get$clientConnectionOptions(
+      _$$selfRef.nonNullPointer,
+      _id_get$clientConnectionOptions.pointer,
+    ).object<jni$_.JSet<jni$_.JString?>?>();
+  }
+
+  static final _id_get$inMemoryServerConfigsCacheSize = QuicOptions._class
+      .instanceMethodId(
+        r'getInMemoryServerConfigsCacheSize',
+        r'()Ljava/lang/Integer;',
+      );
+
+  static final _get$inMemoryServerConfigsCacheSize =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Integer getInMemoryServerConfigsCacheSize()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JInteger? get inMemoryServerConfigsCacheSize {
+    final _$$selfRef = reference;
+    return _get$inMemoryServerConfigsCacheSize(
+      _$$selfRef.nonNullPointer,
+      _id_get$inMemoryServerConfigsCacheSize.pointer,
+    ).object<jni$_.JInteger?>();
+  }
+
+  static final _id_get$handshakeUserAgent = QuicOptions._class.instanceMethodId(
+    r'getHandshakeUserAgent',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _get$handshakeUserAgent =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.String getHandshakeUserAgent()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JString? get handshakeUserAgent {
+    final _$$selfRef = reference;
+    return _get$handshakeUserAgent(
+      _$$selfRef.nonNullPointer,
+      _id_get$handshakeUserAgent.pointer,
+    ).object<jni$_.JString?>();
+  }
+
+  static final _id_get$retryWithoutAltSvcOnQuicErrors = QuicOptions._class
+      .instanceMethodId(
+        r'getRetryWithoutAltSvcOnQuicErrors',
+        r'()Ljava/lang/Boolean;',
+      );
+
+  static final _get$retryWithoutAltSvcOnQuicErrors =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Boolean getRetryWithoutAltSvcOnQuicErrors()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get retryWithoutAltSvcOnQuicErrors {
+    final _$$selfRef = reference;
+    return _get$retryWithoutAltSvcOnQuicErrors(
+      _$$selfRef.nonNullPointer,
+      _id_get$retryWithoutAltSvcOnQuicErrors.pointer,
+    ).object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$enableTlsZeroRtt = QuicOptions._class.instanceMethodId(
+    r'getEnableTlsZeroRtt',
+    r'()Ljava/lang/Boolean;',
+  );
+
+  static final _get$enableTlsZeroRtt =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Boolean getEnableTlsZeroRtt()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get enableTlsZeroRtt {
+    final _$$selfRef = reference;
+    return _get$enableTlsZeroRtt(
+      _$$selfRef.nonNullPointer,
+      _id_get$enableTlsZeroRtt.pointer,
+    ).object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$preCryptoHandshakeIdleTimeoutSeconds = QuicOptions._class
+      .instanceMethodId(
+        r'getPreCryptoHandshakeIdleTimeoutSeconds',
+        r'()Ljava/lang/Long;',
+      );
+
+  static final _get$preCryptoHandshakeIdleTimeoutSeconds =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Long getPreCryptoHandshakeIdleTimeoutSeconds()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JLong? get preCryptoHandshakeIdleTimeoutSeconds {
+    final _$$selfRef = reference;
+    return _get$preCryptoHandshakeIdleTimeoutSeconds(
+      _$$selfRef.nonNullPointer,
+      _id_get$preCryptoHandshakeIdleTimeoutSeconds.pointer,
+    ).object<jni$_.JLong?>();
+  }
+
+  static final _id_get$cryptoHandshakeTimeoutSeconds = QuicOptions._class
+      .instanceMethodId(
+        r'getCryptoHandshakeTimeoutSeconds',
+        r'()Ljava/lang/Long;',
+      );
+
+  static final _get$cryptoHandshakeTimeoutSeconds =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Long getCryptoHandshakeTimeoutSeconds()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JLong? get cryptoHandshakeTimeoutSeconds {
+    final _$$selfRef = reference;
+    return _get$cryptoHandshakeTimeoutSeconds(
+      _$$selfRef.nonNullPointer,
+      _id_get$cryptoHandshakeTimeoutSeconds.pointer,
+    ).object<jni$_.JLong?>();
+  }
+
+  static final _id_get$idleConnectionTimeoutSeconds = QuicOptions._class
+      .instanceMethodId(
+        r'getIdleConnectionTimeoutSeconds',
+        r'()Ljava/lang/Long;',
+      );
+
+  static final _get$idleConnectionTimeoutSeconds =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Long getIdleConnectionTimeoutSeconds()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JLong? get idleConnectionTimeoutSeconds {
+    final _$$selfRef = reference;
+    return _get$idleConnectionTimeoutSeconds(
+      _$$selfRef.nonNullPointer,
+      _id_get$idleConnectionTimeoutSeconds.pointer,
+    ).object<jni$_.JLong?>();
+  }
+
+  static final _id_get$retransmittableOnWireTimeoutMillis = QuicOptions._class
+      .instanceMethodId(
+        r'getRetransmittableOnWireTimeoutMillis',
+        r'()Ljava/lang/Long;',
+      );
+
+  static final _get$retransmittableOnWireTimeoutMillis =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Long getRetransmittableOnWireTimeoutMillis()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JLong? get retransmittableOnWireTimeoutMillis {
+    final _$$selfRef = reference;
+    return _get$retransmittableOnWireTimeoutMillis(
+      _$$selfRef.nonNullPointer,
+      _id_get$retransmittableOnWireTimeoutMillis.pointer,
+    ).object<jni$_.JLong?>();
+  }
+
+  static final _id_get$closeSessionsOnIpChange = QuicOptions._class
+      .instanceMethodId(
+        r'getCloseSessionsOnIpChange',
+        r'()Ljava/lang/Boolean;',
+      );
+
+  static final _get$closeSessionsOnIpChange =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Boolean getCloseSessionsOnIpChange()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get closeSessionsOnIpChange {
+    final _$$selfRef = reference;
+    return _get$closeSessionsOnIpChange(
+      _$$selfRef.nonNullPointer,
+      _id_get$closeSessionsOnIpChange.pointer,
+    ).object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$goawaySessionsOnIpChange = QuicOptions._class
+      .instanceMethodId(
+        r'getGoawaySessionsOnIpChange',
+        r'()Ljava/lang/Boolean;',
+      );
+
+  static final _get$goawaySessionsOnIpChange =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Boolean getGoawaySessionsOnIpChange()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get goawaySessionsOnIpChange {
+    final _$$selfRef = reference;
+    return _get$goawaySessionsOnIpChange(
+      _$$selfRef.nonNullPointer,
+      _id_get$goawaySessionsOnIpChange.pointer,
+    ).object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$initialBrokenServicePeriodSeconds = QuicOptions._class
+      .instanceMethodId(
+        r'getInitialBrokenServicePeriodSeconds',
+        r'()Ljava/lang/Long;',
+      );
+
+  static final _get$initialBrokenServicePeriodSeconds =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Long getInitialBrokenServicePeriodSeconds()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JLong? get initialBrokenServicePeriodSeconds {
+    final _$$selfRef = reference;
+    return _get$initialBrokenServicePeriodSeconds(
+      _$$selfRef.nonNullPointer,
+      _id_get$initialBrokenServicePeriodSeconds.pointer,
+    ).object<jni$_.JLong?>();
+  }
+
+  static final _id_get$increaseBrokenServicePeriodExponentially = QuicOptions
+      ._class
+      .instanceMethodId(
+        r'getIncreaseBrokenServicePeriodExponentially',
+        r'()Ljava/lang/Boolean;',
+      );
+
+  static final _get$increaseBrokenServicePeriodExponentially =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Boolean getIncreaseBrokenServicePeriodExponentially()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get increaseBrokenServicePeriodExponentially {
+    final _$$selfRef = reference;
+    return _get$increaseBrokenServicePeriodExponentially(
+      _$$selfRef.nonNullPointer,
+      _id_get$increaseBrokenServicePeriodExponentially.pointer,
+    ).object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$delayJobsWithAvailableSpdySession = QuicOptions._class
+      .instanceMethodId(
+        r'getDelayJobsWithAvailableSpdySession',
+        r'()Ljava/lang/Boolean;',
+      );
+
+  static final _get$delayJobsWithAvailableSpdySession =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.lang.Boolean getDelayJobsWithAvailableSpdySession()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JBoolean? get delayJobsWithAvailableSpdySession {
+    final _$$selfRef = reference;
+    return _get$delayJobsWithAvailableSpdySession(
+      _$$selfRef.nonNullPointer,
+      _id_get$delayJobsWithAvailableSpdySession.pointer,
+    ).object<jni$_.JBoolean?>();
+  }
+
+  static final _id_get$extraQuicheFlags = QuicOptions._class.instanceMethodId(
+    r'getExtraQuicheFlags',
+    r'()Ljava/util/Set;',
+  );
+
+  static final _get$extraQuicheFlags =
+      jni$_.ProtectedJniExtensions.lookup<
+            jni$_.NativeFunction<
+              jni$_.JniResult Function(
+                jni$_.Pointer<jni$_.Void>,
+                jni$_.JMethodIDPtr,
+              )
+            >
+          >('globalEnv_CallObjectMethod')
+          .asFunction<
+            jni$_.JniResult Function(
+              jni$_.Pointer<jni$_.Void>,
+              jni$_.JMethodIDPtr,
+            )
+          >();
+
+  /// from: `public java.util.Set<java.lang.String> getExtraQuicheFlags()`
+  /// The returned object must be released after use, by calling the [release] method.
+  jni$_.JSet<jni$_.JString?>? get extraQuicheFlags {
+    final _$$selfRef = reference;
+    return _get$extraQuicheFlags(
+      _$$selfRef.nonNullPointer,
+      _id_get$extraQuicheFlags.pointer,
+    ).object<jni$_.JSet<jni$_.JString?>?>();
+  }
+}
+
+final class $QuicOptions$Type$ extends jni$_.JType<QuicOptions> {
+  @jni$_.internal
+  const $QuicOptions$Type$();
+
+  @jni$_.internal
+  @core$_.override
+  String get signature => r'Lorg/chromium/net/QuicOptions;';
+
+  @jni$_.internal
+  @core$_.override
+  String get className => r'org/chromium/net/QuicOptions';
+}
+
 /// from: `org.chromium.net.UploadDataProviders`
 extension type UploadDataProviders._(jni$_.JObject _$this)
     implements jni$_.JObject {
@@ -9448,53 +11043,6 @@ final class $Date$Type$ extends jni$_.JType<Date> {
   @jni$_.internal
   @core$_.override
   String get className => r'java/util/Date';
-}
-
-/// from: `org.chromium.net.QuicOptions`
-///
-/// WARNING: QuicOptions is a stub. To generate bindings for this class, include
-/// org.chromium.net.QuicOptions in your config's classes list.
-///
-extension type QuicOptions._(jni$_.JObject _$this) implements jni$_.JObject {
-  static const jni$_.JType<QuicOptions> type = $QuicOptions$Type$();
-}
-
-final class $QuicOptions$Type$ extends jni$_.JType<QuicOptions> {
-  @jni$_.internal
-  const $QuicOptions$Type$();
-
-  @jni$_.internal
-  @core$_.override
-  String get signature => r'Lorg/chromium/net/QuicOptions;';
-
-  @jni$_.internal
-  @core$_.override
-  String get className => r'org/chromium/net/QuicOptions';
-}
-
-/// from: `org.chromium.net.QuicOptions$Builder`
-///
-/// WARNING: QuicOptions$$Builder is a stub. To generate bindings for this class, include
-/// org.chromium.net.QuicOptions$Builder in your config's classes list.
-///
-extension type QuicOptions$$Builder._(jni$_.JObject _$this)
-    implements jni$_.JObject {
-  static const jni$_.JType<QuicOptions$$Builder> type =
-      $QuicOptions$$Builder$Type$();
-}
-
-final class $QuicOptions$$Builder$Type$
-    extends jni$_.JType<QuicOptions$$Builder> {
-  @jni$_.internal
-  const $QuicOptions$$Builder$Type$();
-
-  @jni$_.internal
-  @core$_.override
-  String get signature => r'Lorg/chromium/net/QuicOptions$Builder;';
-
-  @jni$_.internal
-  @core$_.override
-  String get className => r'org/chromium/net/QuicOptions$Builder';
 }
 
 /// from: `org.chromium.net.ConnectionMigrationOptions`

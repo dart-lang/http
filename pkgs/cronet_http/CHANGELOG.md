@@ -1,4 +1,4 @@
-## 1.10.2-wip
+## 1.11.0-wip
 
 * Migrate to Built-in Kotlin to support AGP 9.
 * Require Dart 3.12 and Flutter 3.44.
@@ -6,6 +6,14 @@
   garbage collection.
 * Upgrade `package:jni` to 1.2.1, `package:jni_flutter` to 1.1.0, and
   `package:jnigen` to 1.1.0.
+* Add the remaining DNS options to `CronetEngine.build`:
+  `preestablishConnectionsToStaleDnsResults`, which opens connections to a
+  stale host cache entry while a fresh lookup confirms it, and
+  `freshLookupTimeout`, which sets how long to wait for a fresh lookup before
+  a stale entry is used.
+* Add QUIC options to `CronetEngine.build`: `enableTlsZeroRtt`,
+  `retryWithoutAltSvcOnQuicErrors`, `delayJobsWithAvailableSpdySession` and
+  `cryptoHandshakeTimeout`. They are backed by the new `QuicOptions` bindings.
 
 ## 1.10.1
 
