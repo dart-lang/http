@@ -2,6 +2,8 @@
 
 * Migrate to Built-in Kotlin to support AGP 9.
 * Require Dart 3.12 and Flutter 3.44.
+* Upgrade `package:jni` to 1.2.1, `package:jni_flutter` to 1.1.0, and
+  `package:jnigen` to 1.1.0.
 
 ## 1.10.1
 

@@ -13,12 +13,12 @@ dependencies:
     sdk: flutter
   http: ^1.5.0
   http_profile: ^0.1.0
-  jni: ^1.1.0
-  jni_flutter: ^1.0.0
+  jni: ^1.2.1
+  jni_flutter: ^1.1.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
-  jnigen: ^1.0.1
+  jnigen: 1.1.0  # Pinned to prevent CI failure on `jnigen` releases.
   xml: ^6.1.0
   yaml_edit: ^2.0.3
 
