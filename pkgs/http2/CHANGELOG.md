@@ -1,3 +1,15 @@
+## 3.2.2-wip
+
+- `Http2Client` starts each stream's receive window at 256 KiB and doubles it
+  every time half of it has been read, up to 4 MiB, so that a response that is
+  paused or cancelled early has only let the server send a little - all of
+  which must still be read off the connection before the responses to later
+  requests on it.
+- `Http2Client` disables Nagle's algorithm (`TCP_NODELAY`) on its connections,
+  as `dart:io`'s `HttpClient` does: with Nagle's algorithm, requests and
+  uploads regularly stalled until the server's delayed-acknowledgement timer
+  fired (40 ms on Linux).
+
 ## 3.2.1
 
 - `finish()` and `terminate()` no longer hang when a write to the socket fails
