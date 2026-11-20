@@ -29,13 +29,7 @@ const _iterations = 100;
 ///
 /// If [supportsAbort] is `false` then tests that assume that requests can be
 /// aborted will be skipped.
-///
-/// If [runLeakTests] is `false` then the tests will be skipped.
-void testLeaks(
-  Client Function() clientFactory, {
-  bool supportsAbort = false,
-  bool runLeakTests = true,
-}) {
+void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
   group('leaks', () {
     late Client client;
     late String host;
@@ -133,5 +127,5 @@ void testLeaks(
         });
       });
     }, skip: supportsAbort ? false : 'does not support aborting requests');
-  }, skip: runLeakTests ? false : 'leak tests disabled');
+  });
 }

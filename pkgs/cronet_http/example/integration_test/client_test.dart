@@ -60,6 +60,8 @@ Future<void> testConformance() async {
       supportsAbort: true,
     );
   });
+
+  testLeaks(CronetClient.defaultCronetEngine, supportsAbort: true);
 }
 
 Future<void> testCronetStreamedResponse() async {

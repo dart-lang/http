@@ -29,9 +29,6 @@ Future<void> testConformance() async {
           canSendCookieHeaders: true,
           canReceiveSetCookieHeaders: true,
           correctlyHandlesNullHeaderValues: false,
-          // TODO(https://github.com/dart-lang/http/issues/2130): Enable the
-          // leak tests.
-          runLeakTests: false,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
@@ -51,13 +48,14 @@ Future<void> testConformance() async {
           canSendCookieHeaders: true,
           canReceiveSetCookieHeaders: true,
           correctlyHandlesNullHeaderValues: false,
-          // TODO(https://github.com/dart-lang/http/issues/2130): Enable the
-          // leak tests.
-          runLeakTests: false,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
       }
     });
+
+    // TODO(https://github.com/dart-lang/http/issues/2130): Enable the leak
+    // tests.
+    // testLeaks(OkHttpClient.new);
   });
 }

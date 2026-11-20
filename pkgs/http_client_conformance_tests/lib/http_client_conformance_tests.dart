@@ -47,7 +47,7 @@ export 'src/response_headers_tests.dart' show testResponseHeaders;
 export 'src/response_status_line_tests.dart' show testResponseStatusLine;
 export 'src/server_errors_test.dart' show testServerErrors;
 
-/// Runs the entire test suite against the given [Client].
+/// Runs the test suite against the given [Client].
 ///
 /// If [canStreamRequestBody] is `false` then tests that assume that the
 /// [Client] supports sending HTTP requests with unbounded body sizes will be
@@ -84,7 +84,7 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [supportsAbort] is `false` then tests that assume that requests can be
 /// aborted will be skipped.
 ///
-/// If [runLeakTests] is `false` then leak tests will be skipped.
+/// Does not run [testLeaks], which is slow.
 ///
 /// The tests are run against a series of HTTP servers that are started by the
 /// tests. If the tests are run in the browser, then the test servers are
@@ -102,7 +102,6 @@ void testAll(
   bool canReceiveSetCookieHeaders = false,
   bool supportsMultipartRequest = true,
   bool supportsAbort = false,
-  bool runLeakTests = true,
 }) {
   testRequestBody(clientFactory);
   testRequestBodyStreamed(clientFactory,
@@ -133,6 +132,4 @@ void testAll(
       supportsAbort: supportsAbort,
       canStreamRequestBody: canStreamRequestBody,
       canStreamResponseBody: canStreamResponseBody);
-  testLeaks(clientFactory,
-      supportsAbort: supportsAbort, runLeakTests: runLeakTests);
 }

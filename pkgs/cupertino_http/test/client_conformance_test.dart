@@ -49,4 +49,5 @@ void main() {
       supportsAbort: true,
     );
   });
+  testLeaks(CupertinoClient.defaultSessionConfiguration, supportsAbort: true);
 }
