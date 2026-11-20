@@ -55,6 +55,9 @@
   `PUSH_PROMISE` frames on servers before defragmentation (RFC 9113 Section
   8.4), and report `STREAM_CLOSED` on `HEADERS` received for an already-closed
   stream (RFC 9113 Section 5.1).
+- Ignore unsolicited `PING` frames with `ACK` set while counting them toward
+  the control-frame flood limit instead of terminating the connection with
+  `PROTOCOL_ERROR` (RFC 9113 Section 6.7).
 
 ## 3.2.0
 
