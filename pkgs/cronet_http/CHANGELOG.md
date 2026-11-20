@@ -2,6 +2,10 @@
 
 * Migrate to Built-in Kotlin to support AGP 9.
 * Require Dart 3.12 and Flutter 3.44.
+* Release temporary JNI global references immediately instead of waiting for
+  garbage collection.
+* Upgrade `package:jni` to 1.2.1, `package:jni_flutter` to 1.1.0, and
+  `package:jnigen` to 1.1.0.
 * Fix memory and JNI global reference leaks across request lifecycles and
   abortable uploads (https://github.com/dart-lang/http/issues/1919,
   https://github.com/dart-lang/http/issues/2124).
