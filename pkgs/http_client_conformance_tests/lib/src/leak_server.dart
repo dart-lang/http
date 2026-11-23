@@ -13,7 +13,7 @@ const _chunkSize = 1024 * 1024;
 /// Starts an HTTP server used by leak tests.
 ///
 /// `POST` drains the request body and responds with the received byte count.
-/// `GET` responds with `length` zero bytes as specified by the `length` query
+/// `GET` responds with `length` bytes as specified by the `length` query
 /// parameter.
 ///
 /// Channel protocol:
@@ -23,6 +23,11 @@ const _chunkSize = 1024 * 1024;
 ///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
   final responseChunk = Uint8List(_chunkSize);
+  // Touch each 4 KB page with a non-zero byte so OS zero-page deduplication
+  // and compression cannot hide leaked response buffers from RSS checks.
+  for (var offset = 0; offset < responseChunk.length; offset += 4096) {
+    responseChunk[offset] = ((offset >> 12) & 0xff) | 1;
+  }
   final server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');

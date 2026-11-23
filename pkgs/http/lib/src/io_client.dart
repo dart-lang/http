@@ -145,22 +145,24 @@ class IOClient extends BaseClient {
       //        the active subscription, which destroys the connection.
       //      - Already fully read: nothing to release, so it's a no-op.
 
-      var isAborted = false;
-      var hasResponse = false;
-
+      final requestUrl = request.url;
+      _IOAbortHandler? abortHandler;
       if (request case Abortable(:final abortTrigger?)) {
-        unawaited(
-          abortTrigger.whenComplete(() {
-            isAborted = true;
-            if (!hasResponse) {
-              ioRequest.abort(RequestAbortedException(request.url));
-            }
-          }),
-        );
+        abortHandler = _IOAbortHandler()
+          ..setHandler(() {
+            ioRequest.abort(RequestAbortedException(requestUrl));
+          });
+        unawaited(abortTrigger.whenComplete(abortHandler.abort));
       }
 
-      final response = await stream.pipe(ioRequest) as HttpClientResponse;
-      hasResponse = true;
+      final HttpClientResponse response;
+      try {
+        response = await stream.pipe(ioRequest) as HttpClientResponse;
+      } catch (_) {
+        abortHandler?.clear();
+        rethrow;
+      }
+      abortHandler?.clear();
 
       StreamSubscription<List<int>>? ioResponseSubscription;
       late final StreamController<List<int>> responseController;
@@ -169,7 +171,7 @@ class IOClient extends BaseClient {
       void abortResponse() {
         if (!responseController.isClosed) {
           responseController
-            ..addError(RequestAbortedException(request.url))
+            ..addError(RequestAbortedException(requestUrl))
             ..close();
         }
         if (responseListenStarted) {
@@ -181,7 +183,7 @@ class IOClient extends BaseClient {
 
       responseController = StreamController(
         onListen: () {
-          if (isAborted) return;
+          if (abortHandler?.isAborted ?? false) return;
           responseListenStarted = true;
           ioResponseSubscription = response.listen(
             responseController.add,
@@ -190,6 +192,7 @@ class IOClient extends BaseClient {
               // callback. Assign `ioResponseSubscription` to `null` to avoid
               // calling its `cancel` method.
               ioResponseSubscription = null;
+              abortHandler?.clear();
               unawaited(responseController.close());
             },
             onError: (Object err, StackTrace stackTrace) {
@@ -206,13 +209,12 @@ class IOClient extends BaseClient {
         },
         onPause: () => ioResponseSubscription?.pause(),
         onResume: () => ioResponseSubscription?.resume(),
-        onCancel: () => ioResponseSubscription?.cancel(),
+        onCancel: () {
+          abortHandler?.clear();
+          return ioResponseSubscription?.cancel();
+        },
         sync: true,
       );
-
-      if (request case Abortable(:final abortTrigger?)) {
-        unawaited(abortTrigger.whenComplete(abortResponse));
-      }
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
@@ -221,6 +223,8 @@ class IOClient extends BaseClient {
         // package:http SDK constraint requires that version or later.
         headers[key] = values.map((value) => value.trimRight()).join(',');
       });
+
+      abortHandler?.setHandler(abortResponse);
 
       return _IOStreamedResponseV2(
         responseController.stream,
@@ -250,5 +254,33 @@ class IOClient extends BaseClient {
       _inner!.close(force: true);
       _inner = null;
     }
+  }
+}
+
+/// Holds the active abort callback for an in-flight [IOClient] request so
+/// `abortTrigger.whenComplete` retains only this small object instead of the
+/// request body, [HttpClientRequest], [HttpClientResponse], or
+/// [StreamController] once the request finishes.
+final class _IOAbortHandler {
+  bool isAborted = false;
+  void Function()? _onAbort;
+
+  void setHandler(void Function() handler) {
+    if (isAborted) {
+      handler();
+    } else {
+      _onAbort = handler;
+    }
+  }
+
+  void abort() {
+    isAborted = true;
+    final handler = _onAbort;
+    _onAbort = null;
+    handler?.call();
+  }
+
+  void clear() {
+    _onAbort = null;
   }
 }
