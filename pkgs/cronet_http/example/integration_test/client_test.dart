@@ -60,6 +60,8 @@ Future<void> testConformance() async {
       supportsAbort: true,
     );
   });
+
+  testLeaks(CronetClient.defaultCronetEngine, supportsAbort: true);
 }
 
 Future<void> testCronetStreamedResponse() async {
@@ -200,6 +202,37 @@ Future<void> testCronetExceptions() async {
               'toString',
               startsWith('QuicException:'),
             ),
+      ),
+    );
+  });
+
+  test('overflowing content-length header throws ClientException', () async {
+    final server = (await HttpServer.bind('localhost', 0))
+      ..listen((request) async {
+        await request.drain<void>();
+        final socket = await request.response.detachSocket(writeHeaders: false);
+        socket.write(
+          'HTTP/1.1 200 OK\r\n'
+          'Content-Type: text/plain\r\n'
+          'Content-Length: 99999999999999999999\r\n'
+          'Connection: close\r\n\r\n',
+        );
+        await socket.close();
+      });
+    addTearDown(server.close);
+    final client = CronetClient.defaultCronetEngine();
+    addTearDown(client.close);
+
+    await expectLater(
+      client
+          .send(Request('GET', Uri.http('localhost:${server.port}')))
+          .timeout(const Duration(seconds: 5)),
+      throwsA(
+        isA<ClientException>().having(
+          (e) => e.message,
+          'message',
+          'Invalid content-length header [99999999999999999999].',
+        ),
       ),
     );
   });

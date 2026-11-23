@@ -18,4 +18,5 @@ void main() {
         false, // https://github.com/dart-lang/sdk/issues/56636
     supportsAbort: true,
   );
+  testLeaks(IOClient.new, supportsAbort: true);
 }

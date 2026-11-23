@@ -6,6 +6,11 @@
   garbage collection.
 * Upgrade `package:jni` to 1.2.1, `package:jni_flutter` to 1.1.0, and
   `package:jnigen` to 1.1.0.
+* Fix memory and JNI global reference leaks across request lifecycles and
+  abortable uploads (https://github.com/dart-lang/http/issues/1919,
+  https://github.com/dart-lang/http/issues/2124).
+* Throw `ClientException` when a response `Content-Length` header overflows a
+  64-bit integer.
 
 ## 1.10.1
 
