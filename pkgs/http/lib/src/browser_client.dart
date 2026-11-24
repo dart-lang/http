@@ -138,12 +138,12 @@ class BrowserClient extends BaseClient {
 
     final abortController = AbortController();
     _openRequestAbortControllers.add(abortController);
-    _BrowserAbortHandler? abortHandler;
+    _AbortHandler? abortHandler;
 
     final bodyBytes = await request.finalize().toBytes();
     try {
       if (request case Abortable(:final abortTrigger?)) {
-        abortHandler = _BrowserAbortHandler(abortController);
+        abortHandler = _AbortHandler(abortController);
         unawaited(abortTrigger.whenComplete(abortHandler.abort));
       }
 
@@ -229,26 +229,6 @@ Object _toClientException(Object e, BaseRequest request) {
 
 Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
   Error.throwWithStackTrace(_toClientException(e, request), st);
-}
-
-/// Owns the [AbortController] for an in-flight [BrowserClient] request so
-/// `abortTrigger.whenComplete` retains only this small object instead of
-/// [BrowserClient.send]'s closure context or the JS [AbortController] once the
-/// request finishes.
-final class _BrowserAbortHandler {
-  AbortController? _controller;
-
-  _BrowserAbortHandler(this._controller);
-
-  void abort() {
-    final controller = _controller;
-    _controller = null;
-    controller?.abort();
-  }
-
-  void clear() {
-    _controller = null;
-  }
 }
 
 Stream<List<int>> _bodyToStream(
@@ -355,6 +335,24 @@ Future<void> _readStreamBody(
     }
   } finally {
     onDone?.call();
+  }
+}
+
+/// Owns the [AbortController] for an in-flight [BrowserClient] request so
+/// `abortTrigger.whenComplete` retains only this small object.
+final class _AbortHandler {
+  AbortController? _controller;
+
+  _AbortHandler(this._controller);
+
+  void abort() {
+    final controller = _controller;
+    _controller = null;
+    controller?.abort();
+  }
+
+  void clear() {
+    _controller = null;
   }
 }
 

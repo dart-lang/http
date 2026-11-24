@@ -146,9 +146,9 @@ class IOClient extends BaseClient {
       //      - Already fully read: nothing to release, so it's a no-op.
 
       final requestUrl = request.url;
-      _IOAbortHandler? abortHandler;
+      _AbortHandler? abortHandler;
       if (request case Abortable(:final abortTrigger?)) {
-        abortHandler = _IOAbortHandler()
+        abortHandler = _AbortHandler()
           ..setHandler(() {
             ioRequest.abort(RequestAbortedException(requestUrl));
           });
@@ -258,10 +258,8 @@ class IOClient extends BaseClient {
 }
 
 /// Holds the active abort callback for an in-flight [IOClient] request so
-/// `abortTrigger.whenComplete` retains only this small object instead of the
-/// request body, [HttpClientRequest], [HttpClientResponse], or
-/// [StreamController] once the request finishes.
-final class _IOAbortHandler {
+/// `abortTrigger.whenComplete` retains only this small object.
+final class _AbortHandler {
   bool isAborted = false;
   void Function()? _onAbort;
 
