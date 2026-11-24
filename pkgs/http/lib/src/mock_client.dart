@@ -35,6 +35,8 @@ class MockClient extends BaseClient {
   /// The handler for receiving [StreamedRequest]s and sending
   /// [StreamedResponse]s.
   final MockClientStreamHandler _handler;
+  /// Whether this client has been closed.
+  bool isClosed = false;
 
   MockClient._(this._handler);
 
@@ -81,6 +83,9 @@ class MockClient extends BaseClient {
     var bodyStream = request.finalize();
     return await _handler(request, bodyStream);
   }
+
+  @override
+  void close() => isClosed = true;
 
   /// Return a response containing a PNG image.
   static Response pngResponse({BaseRequest? request}) {

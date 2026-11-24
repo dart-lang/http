@@ -12,6 +12,14 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
+  test('tracks when the client is closed', () {
+    final client = MockClient((_) async => http.Response('', 200));
+
+    expect(client.isClosed, isFalse);
+    client.close();
+    expect(client.isClosed, isTrue);
+  });
+
   test('handles a request', () async {
     var client = MockClient((request) async => http.Response(
         json.encode(request.bodyFields), 200,

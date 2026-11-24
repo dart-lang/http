@@ -1,5 +1,7 @@
 ## 1.7.0-wip
 
+* Add an `isClosed` field to `MockClient` to verify that it was closed in
+  tests.
 * Add `retryDelay` callback to `RetryClient` to allow response-aware retry
   delays. When provided and returning a non-null `Duration`, the callback's
   return value is used as the wait time for that retry attempt instead of the
