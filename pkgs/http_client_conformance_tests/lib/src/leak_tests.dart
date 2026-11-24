@@ -22,14 +22,14 @@ import 'timeline_logging_vm.dart'
 const _payloadSize = 10 * 1024 * 1024;
 
 /// The number of HTTP requests to make before measuring the starting RSS so
-/// that one-time allocations (e.g. JIT compilation, connection setup, and heap
-/// growth) are not counted as leaks.
-const _warmUpIterations = 10;
+/// that one-time allocations are not counted as leaks.
+const _warmUpIterations = 20;
 
 /// The number of HTTP requests to make while measuring RSS growth.
+///
 /// [_iterations] * [_payloadSize] should be large enough to exceed the RSS
 /// growth threshold if the payload is not freed between iterations.
-const _iterations = 20;
+const _iterations = 60;
 
 /// Maximum allowable RSS growth across [_iterations] transfers (half of the
 /// total transferred payload size).
@@ -47,8 +47,10 @@ final _randomBytes = () {
   return bytes;
 }();
 
-/// Returns a new copy of [_randomBytes] with one multated byte per page.
-/// visible as RSS growth.
+/// A test payload.
+///
+/// Is different from all other payloads by at least one byte per page to make
+/// memory de-duplication impossible.
 Uint8List _createPayload() {
   final payload = Uint8List.fromList(_randomBytes);
   final data = ByteData.sublistView(payload);
@@ -58,8 +60,7 @@ Uint8List _createPayload() {
   return payload;
 }
 
-// @isTest
-void leakTest(Object? description, FutureOr<dynamic> Function() body) {
+void _leakTest(Object? description, FutureOr<dynamic> Function() body) {
   test(description, () async {
     expect(
       timelineLoggingEnabled,
@@ -70,13 +71,11 @@ void leakTest(Object? description, FutureOr<dynamic> Function() body) {
     for (var i = 0; i < _warmUpIterations; ++i) {
       await body();
     }
-    await collectGarbage();
-    final rssBefore = currentRss();
+    final rssBefore = currentRss!;
     for (var i = 0; i < _iterations; ++i) {
       await body();
     }
-    await collectGarbage();
-    final rssAfter = currentRss();
+    final rssAfter = currentRss!;
     final rssGrowth = rssAfter - rssBefore;
     expect(
       rssGrowth,
@@ -94,6 +93,9 @@ void leakTest(Object? description, FutureOr<dynamic> Function() body) {
 ///
 /// If [supportsAbort] is `false` then tests that assume that requests can be
 /// aborted will be skipped.
+///
+/// The tests are skipped on platforms where the process RSS is not available
+/// (e.g. the web).
 void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
   group('leaks', () {
     late Client client;
@@ -113,7 +115,7 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
     });
 
     group('request', () {
-      leakTest('repeated large request bodies', () async {
+      _leakTest('repeated large request bodies', () async {
         final uri = Uri.http(host, '/upload');
 
         final request = Request('POST', uri)..bodyBytes = _createPayload();
@@ -122,7 +124,7 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
         expect(await response.stream.bytesToString(), '$_payloadSize');
       });
 
-      leakTest('repeated large response bodies', () async {
+      _leakTest('repeated large response bodies', () async {
         final uri = Uri.http(host, '/download', {'length': '$_payloadSize'});
 
         final request = Request('GET', uri);
@@ -137,10 +139,13 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
     });
 
     group('abortable', () {
-      // Shared by every request in a test (warm-up, iterations and RSS check)
-      // so that abort listeners that outlive their request accumulate and show
-      // up as RSS growth. The group's closures keep it reachable, preventing
-      // early GC of pending listeners.
+      // A completer shared by every request in a test.
+      ///
+      /// Ensures that the completer used by an [AbortableRequest] outlives the
+      /// request to verify that request data can be GCed even if an unfinished
+      /// completer is alive.
+      ///
+      /// See https://github.com/dart-lang/http/issues/2124
       late Completer<void> abortCompleter;
 
       setUp(() {
@@ -148,14 +153,11 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
       });
 
       tearDown(() async {
-        // Runs after `leakTest`'s RSS check, even if it fails. Verifies that
-        // completing a trigger after finished requests is a safe no-op, and
-        // releases any leaked memory before later tests run.
         abortCompleter.complete();
         await Future<void>.delayed(Duration.zero);
       });
 
-      leakTest('repeated large request bodies', () async {
+      _leakTest('repeated large request bodies', () async {
         final uri = Uri.http(host, '/upload');
 
         final request = AbortableRequest(
@@ -168,7 +170,7 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
         expect(await response.stream.bytesToString(), '$_payloadSize');
       });
 
-      leakTest('repeated large response bodies', () async {
+      _leakTest('repeated large response bodies', () async {
         final uri = Uri.http(host, '/download', {'length': '$_payloadSize'});
 
         final request = AbortableRequest(
@@ -184,6 +186,9 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
         }
         expect(received, _payloadSize);
       });
-    }, skip: supportsAbort ? false : 'does not support aborting requests');
-  });
+    }, skip: supportsAbort ? null : 'does not support aborting requests');
+  },
+      skip: currentRss == null
+          ? 'process RSS is not available on this platform'
+          : null);
 }
