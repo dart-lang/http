@@ -24,7 +24,7 @@ final _digitRegex = RegExp(r'^\d+$');
 /// 256 KiB:    14.4 ms
 /// 512 KiB:    10.1 ms
 /// 1 MiB:       7.9 ms
-const _bufferSize = 512 * 1024;
+const _bufferSize = 256 * 1024;
 
 /// A [ClientException] generated from a Java [`CronetException`][1].
 ///
