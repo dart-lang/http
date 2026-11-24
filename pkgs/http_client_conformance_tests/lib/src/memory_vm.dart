@@ -5,4 +5,4 @@
 import 'dart:io';
 
 /// The current resident set size (RSS) of the process in bytes.
-int? get currentRss() => ProcessInfo.currentRss;
+int? get currentRss => ProcessInfo.currentRss;

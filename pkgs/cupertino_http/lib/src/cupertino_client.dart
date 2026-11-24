@@ -336,9 +336,10 @@ class CupertinoClient extends BaseClient {
     Object? challengeError;
     StackTrace? challengeErrorStackTrace;
 
-    final abortHandler = request is Abortable && request.abortTrigger != null
-        ? _AbortHandler()
-        : null;
+    final abortHandler = _AbortHandler();
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(abortHandler.abort));
+    }
 
     // Encompass as much logic as possible in an autorelease pool, considering
     // that [autoReleasePool] cannot contain asynchronous gaps.
@@ -439,7 +440,7 @@ class CupertinoClient extends BaseClient {
           }
         },
         onComplete: (session, task, error) {
-          abortHandler?.clear();
+          abortHandler.clear();
           if (error != null) {
             // Cancelling a challenge cancels the task, so check for a
             // challenge failure before treating a cancellation as an abort.
@@ -487,7 +488,7 @@ class CupertinoClient extends BaseClient {
           return request;
         },
       );
-      abortHandler?.setHandler(() {
+      abortHandler.setHandler(() {
         cancelled = true;
         task.cancel();
       });
@@ -497,10 +498,6 @@ class CupertinoClient extends BaseClient {
     });
 
     try {
-      if (request case Abortable(:final abortTrigger?)) {
-        unawaited(abortTrigger.whenComplete(abortHandler!.abort));
-      }
-
       final URLResponse urlResponse;
       try {
         urlResponse = await responseCompleter.future;
@@ -598,13 +595,21 @@ class CupertinoClientWithProfile extends CupertinoClient {
 /// Holds the abort callback for an in-flight [URLSessionTask] so
 /// `abortTrigger.whenComplete` retains only this small object.
 final class _AbortHandler {
+  bool _isAborted = false;
   void Function()? _onAbort;
 
+  /// Sets the callback to run on [abort], or runs it immediately if [abort]
+  /// has already been called.
   void setHandler(void Function() handler) {
-    _onAbort = handler;
+    if (_isAborted) {
+      handler();
+    } else {
+      _onAbort = handler;
+    }
   }
 
   void abort() {
+    _isAborted = true;
     final handler = _onAbort;
     _onAbort = null;
     handler?.call();
