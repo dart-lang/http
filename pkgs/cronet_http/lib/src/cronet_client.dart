@@ -16,7 +16,7 @@ final _digitRegex = RegExp(r'^\d+$');
 
 /// The size of the Cronet read buffer.
 ///
-/// Measured on an emulator running on a M4 mac, a 10 MB download took:
+/// A 10 MB download took (measured on an M4 Mac running the Android emulator):
 ///
 /// 10 KiB:    190.0 ms
 /// 64 KiB:     33.9 ms
