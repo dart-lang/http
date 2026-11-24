@@ -159,9 +159,9 @@ final class RetryClient extends BaseClient {
   Future<StreamedResponse> send(BaseRequest request) async {
     final splitter = StreamSplitter(request.finalize());
 
-    final abortFlag = _AbortFlag();
+    var aborted = false;
     if (request case Abortable(:final abortTrigger?)) {
-      unawaited(abortTrigger.whenComplete(abortFlag.abort));
+      unawaited(abortTrigger.whenComplete(() => aborted = true));
     }
 
     var i = 0;
@@ -170,7 +170,7 @@ final class RetryClient extends BaseClient {
       try {
         // If the inner client doesn't support abortable, we still try to avoid
         // re-requests when aborted
-        if (abortFlag.isAborted) throw RequestAbortedException(request.url);
+        if (aborted) throw RequestAbortedException(request.url);
 
         response = await _inner.send(_copyRequest(request, splitter.split()));
       } on RequestAbortedException {
@@ -242,12 +242,3 @@ bool _defaultWhenError(Object error, StackTrace stackTrace) => false;
 
 Duration _defaultDelay(int retryCount) =>
     const Duration(milliseconds: 500) * math.pow(1.5, retryCount);
-
-/// Tracks whether an [Abortable] request was aborted without capturing
-/// [RetryClient.send]'s closure context (such as its [StreamSplitter] or
-/// [BaseRequest]) in `abortTrigger.whenComplete`.
-final class _AbortFlag {
-  bool isAborted = false;
-
-  void abort() => isAborted = true;
-}

@@ -596,9 +596,7 @@ class CupertinoClientWithProfile extends CupertinoClient {
 }
 
 /// Holds the abort callback for an in-flight [URLSessionTask] so
-/// `abortTrigger.whenComplete` retains only this small object instead of the
-/// task, [BaseRequest], request body, or [CupertinoClient.send]'s closure
-/// context after the task completes.
+/// `abortTrigger.whenComplete` retains only this small object.
 final class _AbortHandler {
   void Function()? _onAbort;
 
