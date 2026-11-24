@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
@@ -20,27 +21,62 @@ import 'timeline_logging_vm.dart'
 /// fit into memory.
 const _payloadSize = 10 * 1024 * 1024;
 
-/// The number of HTTP requests to make. [_iterations] * [_payloadSize] should
-/// be large enough to provoke out-of-memory errors or exceed the RSS growth
-/// threshold if the payload is not freed between iterations.
-const _iterations = 100;
+/// The number of HTTP requests to make before measuring the starting RSS so
+/// that one-time allocations (e.g. JIT compilation, connection setup, and heap
+/// growth) are not counted as leaks.
+const _warmUpIterations = 10;
+
+/// The number of HTTP requests to make while measuring RSS growth.
+/// [_iterations] * [_payloadSize] should be large enough to exceed the RSS
+/// growth threshold if the payload is not freed between iterations.
+const _iterations = 20;
 
 /// Maximum allowable RSS growth across [_iterations] transfers (half of the
 /// total transferred payload size).
 const _maxRssGrowth = (_iterations * _payloadSize) ~/ 2;
 
-Uint8List _createPayload(int iteration) {
-  final body = Uint8List(_payloadSize);
-  // Touch each 4 KB page with a non-zero byte so OS zero-page deduplication
-  // and compression cannot hide leaked request buffers from RSS checks.
-  for (var offset = 0; offset < body.length; offset += 4096) {
-    body[offset] = ((iteration + (offset >> 12)) & 0xff) | 1;
+final _random = Random();
+
+/// Random (and therefore incompressible) bytes. Generated once because it is
+/// slow.
+final _randomBytes = () {
+  final bytes = Uint8List(_payloadSize);
+  for (var i = 0; i < bytes.length; ++i) {
+    bytes[i] = _random.nextInt(256);
   }
-  return body;
+  return bytes;
+}();
+
+/// Returns a new copy of [_randomBytes] with one multated byte per page.
+/// visible as RSS growth.
+Uint8List _createPayload() {
+  final payload = Uint8List.fromList(_randomBytes);
+  final data = ByteData.sublistView(payload);
+  for (var offset = 0; offset < payload.length; offset += 4096) {
+    data.setUint32(offset, _random.nextInt(256));
+  }
+  return payload;
 }
 
-void _expectNoRssLeak({required int? rssBefore, required int? rssAfter}) {
-  if (rssBefore != null && rssAfter != null) {
+// @isTest
+void leakTest(Object? description, FutureOr<dynamic> Function() body) {
+  test(description, () async {
+    expect(
+      timelineLoggingEnabled,
+      isFalse,
+      reason: 'HttpClient.enableTimelineLogging must be disabled because it '
+          'retains request and response bodies.',
+    );
+    for (var i = 0; i < _warmUpIterations; ++i) {
+      await body();
+    }
+    await collectGarbage();
+    final rssBefore = currentRss();
+    for (var i = 0; i < _iterations; ++i) {
+      await body();
+    }
+    await collectGarbage();
+    final rssAfter = currentRss();
     final rssGrowth = rssAfter - rssBefore;
     expect(
       rssGrowth,
@@ -50,7 +86,7 @@ void _expectNoRssLeak({required int? rssBefore, required int? rssAfter}) {
           '${rssAfter ~/ (1024 * 1024)} MB) after transferring '
           '${(_iterations * _payloadSize) ~/ (1024 * 1024)} MB.',
     );
-  }
+  });
 }
 
 /// Tests that the [Client] does not leak memory or native handles across
@@ -77,109 +113,76 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
     });
 
     group('request', () {
-      test('repeated large request bodies', () async {
-        await withoutTimelineLogging(() async {
-          final uri = Uri.http(host, '/upload');
-          final rssBefore = currentRss();
+      leakTest('repeated large request bodies', () async {
+        final uri = Uri.http(host, '/upload');
 
-          for (var i = 0; i < _iterations; ++i) {
-            final request = Request('POST', uri)..bodyBytes = _createPayload(i);
-            final response = await client.send(request);
-            expect(response.statusCode, 200);
-            expect(await response.stream.bytesToString(), '$_payloadSize');
-          }
-
-          _expectNoRssLeak(rssBefore: rssBefore, rssAfter: currentRss());
-        });
+        final request = Request('POST', uri)..bodyBytes = _createPayload();
+        final response = await client.send(request);
+        expect(response.statusCode, 200);
+        expect(await response.stream.bytesToString(), '$_payloadSize');
       });
 
-      test('repeated large response bodies', () async {
-        await withoutTimelineLogging(() async {
-          final uri = Uri.http(host, '/download', {'length': '$_payloadSize'});
-          final rssBefore = currentRss();
+      leakTest('repeated large response bodies', () async {
+        final uri = Uri.http(host, '/download', {'length': '$_payloadSize'});
 
-          for (var i = 0; i < _iterations; ++i) {
-            final request = Request('GET', uri);
-            final response = await client.send(request);
-            expect(response.statusCode, 200);
-            var received = 0;
-            await for (final chunk in response.stream) {
-              received += chunk.length;
-            }
-            expect(received, _payloadSize);
-          }
-
-          _expectNoRssLeak(rssBefore: rssBefore, rssAfter: currentRss());
-        });
+        final request = Request('GET', uri);
+        final response = await client.send(request);
+        expect(response.statusCode, 200);
+        var received = 0;
+        await for (final chunk in response.stream) {
+          received += chunk.length;
+        }
+        expect(received, _payloadSize);
       });
     });
 
     group('abortable', () {
-      test('repeated large request bodies', () async {
-        await withoutTimelineLogging(() async {
-          final abortCompleter = Completer<void>();
-          try {
-            final uri = Uri.http(host, '/upload');
-            final rssBefore = currentRss();
+      // Shared by every request in a test (warm-up, iterations and RSS check)
+      // so that abort listeners that outlive their request accumulate and show
+      // up as RSS growth. The group's closures keep it reachable, preventing
+      // early GC of pending listeners.
+      late Completer<void> abortCompleter;
 
-            for (var i = 0; i < _iterations; ++i) {
-              final request = AbortableRequest(
-                'POST',
-                uri,
-                abortTrigger: abortCompleter.future,
-              )..bodyBytes = _createPayload(i);
-              final response = await client.send(request);
-              expect(response.statusCode, 200);
-              expect(await response.stream.bytesToString(), '$_payloadSize');
-            }
-
-            _expectNoRssLeak(rssBefore: rssBefore, rssAfter: currentRss());
-          } finally {
-            // Referencing `abortCompleter` after the loop guarantees it stays
-            // reachable for all iterations (preventing early GC of pending
-            // listeners), verifies completing a trigger after finished requests
-            // is a safe no-op, and releases any leaked memory before later
-            // tests run.
-            abortCompleter.complete();
-            await Future<void>.delayed(Duration.zero);
-          }
-        });
+      setUp(() {
+        abortCompleter = Completer<void>();
       });
 
-      test('repeated large response bodies', () async {
-        await withoutTimelineLogging(() async {
-          final abortCompleter = Completer<void>();
-          try {
-            final uri =
-                Uri.http(host, '/download', {'length': '$_payloadSize'});
-            final rssBefore = currentRss();
+      tearDown(() async {
+        // Runs after `leakTest`'s RSS check, even if it fails. Verifies that
+        // completing a trigger after finished requests is a safe no-op, and
+        // releases any leaked memory before later tests run.
+        abortCompleter.complete();
+        await Future<void>.delayed(Duration.zero);
+      });
 
-            for (var i = 0; i < _iterations; ++i) {
-              final request = AbortableRequest(
-                'GET',
-                uri,
-                abortTrigger: abortCompleter.future,
-              );
-              final response = await client.send(request);
-              expect(response.statusCode, 200);
-              var received = 0;
-              await for (final chunk in response.stream) {
-                received += chunk.length;
-              }
-              expect(received, _payloadSize);
-            }
+      leakTest('repeated large request bodies', () async {
+        final uri = Uri.http(host, '/upload');
 
-            _expectNoRssLeak(rssBefore: rssBefore, rssAfter: currentRss());
-          } finally {
-            // Referencing `abortCompleter` after the loop guarantees it stays
-            // reachable for all iterations (preventing early GC of pending
-            // listeners), verifies completing a trigger after finished requests
-            // is a safe no-op, and releases any leaked memory before later
-            // tests run.
-            abortCompleter.complete();
-            await Future<void>.delayed(Duration.zero);
-          }
-        });
+        final request = AbortableRequest(
+          'POST',
+          uri,
+          abortTrigger: abortCompleter.future,
+        )..bodyBytes = _createPayload();
+        final response = await client.send(request);
+        expect(response.statusCode, 200);
+        expect(await response.stream.bytesToString(), '$_payloadSize');
+      });
+
+      leakTest('repeated large response bodies', () async {
+        final uri = Uri.http(host, '/download', {'length': '$_payloadSize'});
+
+        final request = AbortableRequest(
+          'GET',
+          uri,
+          abortTrigger: abortCompleter.future,
+        );
+        final response = await client.send(request);
+        expect(response.statusCode, 200);
+        var received = 0;
+        await for (final chunk in response.stream) {
+          received += chunk.length;
+        }
+        expect(received, _payloadSize);
       });
     }, skip: supportsAbort ? false : 'does not support aborting requests');
   });
