@@ -53,9 +53,8 @@ final _randomBytes = () {
 /// memory de-duplication impossible.
 Uint8List _createPayload() {
   final payload = Uint8List.fromList(_randomBytes);
-  final data = ByteData.sublistView(payload);
   for (var offset = 0; offset < payload.length; offset += 4096) {
-    data.setUint32(offset, _random.nextInt(256));
+    payload[offset] = _random.nextInt(256);
   }
   return payload;
 }
