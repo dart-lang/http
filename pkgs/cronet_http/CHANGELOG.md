@@ -1,3 +1,14 @@
+## 1.11.0-wip
+
+* Add the remaining DNS options to `CronetEngine.build`:
+  `preestablishConnectionsToStaleDnsResults`, which opens connections to a
+  stale host cache entry while a fresh lookup confirms it, and
+  `freshLookupTimeout`, which sets how long to wait for a fresh lookup before
+  a stale entry is used.
+* Add QUIC options to `CronetEngine.build`: `enableTlsZeroRtt`,
+  `retryWithoutAltSvcOnQuicErrors`, `delayJobsWithAvailableSpdySession` and
+  `cryptoHandshakeTimeout`. They are backed by the new `QuicOptions` bindings.
+
 ## 1.10.2
 
 * Migrate to Built-in Kotlin to support AGP 9.

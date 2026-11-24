@@ -285,6 +285,34 @@ class CronetEngine {
   /// have been expired for and still be eligible for stale-DNS use. Only
   /// takes effect when [enableStaleDns] is `true`.
   ///
+  /// [preestablishConnectionsToStaleDnsResults] lets the engine open
+  /// connections to servers from a stale host cache entry while a fresh lookup
+  /// confirms it. Only takes effect when [enableStaleDns] is `true`.
+  ///
+  /// [freshLookupTimeout] sets how long to wait for a fresh DNS lookup before a
+  /// stale entry is used. Only takes effect when [enableStaleDns] is `true`.
+  ///
+  /// [enableTlsZeroRtt] allows TLS 1.3 early data, so a resumed QUIC
+  /// connection can send a request without waiting for the handshake. Early
+  /// data can be replayed by an attacker, so only enable it when the server
+  /// restricts it to safe requests.
+  ///
+  /// [retryWithoutAltSvcOnQuicErrors] retries a request without the Alt-Svc
+  /// alternative when it fails on QUIC, so a broken QUIC path falls back to
+  /// HTTP/2 over TCP.
+  ///
+  /// [delayJobsWithAvailableSpdySession] makes a request wait for QUIC even
+  /// when an HTTP/2 session to the host is already available. `false` sends it
+  /// on the available session immediately.
+  ///
+  /// [cryptoHandshakeTimeout] sets how long a QUIC handshake may take before
+  /// it is abandoned. Cronet only accepts whole seconds, so the value is
+  /// rounded down, and an [ArgumentError] is thrown for anything shorter than
+  /// one second, which would otherwise become zero.
+  ///
+  /// See [QuicOptions](https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/QuicOptions)
+  /// for details on the QUIC options.
+  ///
   /// See [DnsOptions](https://developer.android.com/develop/connectivity/cronet/reference/org/chromium/net/DnsOptions)
   /// for details on the DNS configuration options.
   static CronetEngine build({
@@ -304,7 +332,21 @@ class CronetEngine {
     bool? useStaleOnNameNotResolved,
     bool? allowCrossNetworkUsage,
     Duration? maxStaleDnsExpiredDelay,
+    bool? preestablishConnectionsToStaleDnsResults,
+    Duration? freshLookupTimeout,
+    bool? enableTlsZeroRtt,
+    bool? retryWithoutAltSvcOnQuicErrors,
+    bool? delayJobsWithAvailableSpdySession,
+    Duration? cryptoHandshakeTimeout,
   }) {
+    if (cryptoHandshakeTimeout != null &&
+        cryptoHandshakeTimeout < const Duration(seconds: 1)) {
+      throw ArgumentError.value(
+        cryptoHandshakeTimeout,
+        'cryptoHandshakeTimeout',
+        'must be at least one second',
+      );
+    }
     try {
       return using((arena) {
         final builder = jb.CronetEngine$Builder(
@@ -367,9 +409,11 @@ class CronetEngine {
             enableStaleDns != null ||
             persistHostCache != null ||
             persistHostCachePeriod != null ||
+            preestablishConnectionsToStaleDnsResults != null ||
             useStaleOnNameNotResolved != null ||
             allowCrossNetworkUsage != null ||
-            maxStaleDnsExpiredDelay != null) {
+            maxStaleDnsExpiredDelay != null ||
+            freshLookupTimeout != null) {
           if (jb.DnsOptions.builder() case final dnsOptionsBuilder?) {
             dnsOptionsBuilder.releasedBy(arena);
             if (useBuiltInDnsResolver != null) {
@@ -390,9 +434,17 @@ class CronetEngine {
                   )
                   ?.release();
             }
+            if (preestablishConnectionsToStaleDnsResults != null) {
+              dnsOptionsBuilder
+                  .preestablishConnectionsToStaleDnsResults(
+                    preestablishConnectionsToStaleDnsResults,
+                  )
+                  ?.release();
+            }
             if (useStaleOnNameNotResolved != null ||
                 allowCrossNetworkUsage != null ||
-                maxStaleDnsExpiredDelay != null) {
+                maxStaleDnsExpiredDelay != null ||
+                freshLookupTimeout != null) {
               if (jb.DnsOptions$StaleDnsOptions.builder()
                   case final staleDnsOptionsBuilder?) {
                 staleDnsOptionsBuilder.releasedBy(arena);
@@ -413,6 +465,13 @@ class CronetEngine {
                       )
                       ?.release();
                 }
+                if (freshLookupTimeout != null) {
+                  staleDnsOptionsBuilder
+                      .setFreshLookupTimeoutMillis(
+                        freshLookupTimeout.inMilliseconds,
+                      )
+                      ?.release();
+                }
                 if (staleDnsOptionsBuilder.build()
                     case final staleDnsOptions?) {
                   staleDnsOptions.releasedBy(arena);
@@ -425,6 +484,43 @@ class CronetEngine {
             if (dnsOptionsBuilder.build() case final dnsOptions?) {
               dnsOptions.releasedBy(arena);
               builder.setDnsOptions(dnsOptions)?.release();
+            }
+          }
+        }
+
+        if (enableTlsZeroRtt != null ||
+            retryWithoutAltSvcOnQuicErrors != null ||
+            delayJobsWithAvailableSpdySession != null ||
+            cryptoHandshakeTimeout != null) {
+          if (jb.QuicOptions.builder() case final quicOptionsBuilder?) {
+            quicOptionsBuilder.releasedBy(arena);
+            if (enableTlsZeroRtt != null) {
+              quicOptionsBuilder.enableTlsZeroRtt(enableTlsZeroRtt)?.release();
+            }
+            if (retryWithoutAltSvcOnQuicErrors != null) {
+              quicOptionsBuilder
+                  .retryWithoutAltSvcOnQuicErrors(
+                    retryWithoutAltSvcOnQuicErrors,
+                  )
+                  ?.release();
+            }
+            if (delayJobsWithAvailableSpdySession != null) {
+              quicOptionsBuilder
+                  .delayJobsWithAvailableSpdySession(
+                    delayJobsWithAvailableSpdySession,
+                  )
+                  ?.release();
+            }
+            if (cryptoHandshakeTimeout != null) {
+              quicOptionsBuilder
+                  .setCryptoHandshakeTimeoutSeconds(
+                    cryptoHandshakeTimeout.inSeconds,
+                  )
+                  ?.release();
+            }
+            if (quicOptionsBuilder.build() case final quicOptions?) {
+              quicOptions.releasedBy(arena);
+              builder.setQuicOptions(quicOptions)?.release();
             }
           }
         }
