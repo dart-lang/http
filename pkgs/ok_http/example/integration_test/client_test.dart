@@ -53,5 +53,9 @@ Future<void> testConformance() async {
         HttpClientRequestProfile.profilingEnabled = profile;
       }
     });
+
+    // TODO(https://github.com/dart-lang/http/issues/2130): Enable the leak
+    // tests.
+    // testLeaks(OkHttpClient.new);
   });
 }

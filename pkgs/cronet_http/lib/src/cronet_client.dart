@@ -582,6 +582,37 @@ class CronetEngine {
   }
 }
 
+/// Owns the [jb.UrlRequest] global reference created in [CronetClient.send] so
+/// it can be cancelled or released from `abortTrigger`,
+/// `StreamController.onCancel`, or Cronet callbacks without double-releasing
+/// or capturing [CronetClient.send]'s local variables in a closure context.
+final class _ActiveUrlRequest {
+  jb.UrlRequest? _request;
+
+  void attach(jb.UrlRequest request) {
+    assert(_request == null);
+    _request = request;
+  }
+
+  void release() {
+    final request = _request;
+    if (request == null) return;
+    _request = null;
+    request.release();
+  }
+
+  void cancelAndRelease() {
+    final request = _request;
+    if (request == null) return;
+    _request = null;
+    try {
+      request.cancel();
+    } finally {
+      request.release();
+    }
+  }
+}
+
 Map<String, String> _cronetToClientHeaders(
   JMap<JString?, JList<JString?>?> cronetHeaders,
 ) => using((arena) {
@@ -606,6 +637,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
   BaseRequest request,
   Completer<CronetStreamedResponse> responseCompleter,
   HttpClientRequestProfile? profile,
+  _ActiveUrlRequest activeRequest,
   Arena requestArena,
 ) {
   StreamController<List<int>>? responseStream;
@@ -629,45 +661,43 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
       onResponseStarted$async: true,
       onResponseStarted: (urlRequest, responseInfo) {
         using((arena) {
-          // `urlRequest` is captured by the `onCancel` callback of the
-          // `StreamController` below. So it must not be registered to be later
-          // released here.
+          urlRequest?.releasedBy(arena);
           responseInfo?.releasedBy(arena);
+          if (responseStreamCancelled) return;
+
+          final responseHeaders = _cronetToClientHeaders(
+            responseInfo!.allHeaders!,
+          );
+          int? contentLength;
+          if (responseHeaders['content-length']
+              case final contentLengthHeader?) {
+            contentLength = int.tryParse(contentLengthHeader);
+            if (!_digitRegex.hasMatch(contentLengthHeader) ||
+                contentLength == null) {
+              final error = ClientException(
+                'Invalid content-length header [$contentLengthHeader].',
+                request.url,
+              );
+              responseStreamCancelled = true;
+              activeRequest.cancelAndRelease();
+              responseCompleter.completeError(error);
+              profile?.requestData.closeWithError(error.toString());
+              return;
+            }
+          }
+
           responseStream = StreamController(
             onCancel: () {
               // The user did `response.stream.cancel()`. We can just pretend
               // that the response completed normally.
               if (responseStreamCancelled) return;
               responseStreamCancelled = true;
-              urlRequest!
-                ..cancel()
-                ..release();
+              activeRequest.cancelAndRelease();
               responseStream!.sink.close();
               jByteBufferView = null;
               profile?.responseData.close();
             },
           );
-          final responseHeaders = _cronetToClientHeaders(
-            responseInfo!.allHeaders!,
-          );
-          int? contentLength;
-
-          switch (responseHeaders['content-length']) {
-            case final contentLengthHeader?
-                when !_digitRegex.hasMatch(contentLengthHeader):
-              responseCompleter.completeError(
-                ClientException(
-                  'Invalid content-length header [$contentLengthHeader].',
-                  request.url,
-                ),
-              );
-              urlRequest
-                ?..cancel()
-                ..release();
-              return;
-            case final contentLengthHeader?:
-              contentLength = int.parse(contentLengthHeader);
-          }
           final reasonPhrase = responseInfo.httpStatusText!.toDartString(
             releaseOriginal: true,
           );
@@ -720,7 +750,8 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             final reasonPhrase = responseInfo.httpStatusText!.toDartString(
               releaseOriginal: true,
             );
-            urlRequest!.cancel();
+            responseStreamCancelled = true;
+            activeRequest.cancelAndRelease();
             responseCompleter.complete(
               CronetStreamedResponse._(
                 const Stream.empty(), // Cronet provides no body for redirects.
@@ -740,12 +771,14 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
               ),
             );
 
+            profile?.requestData.close();
             profile?.responseData
               ?..headersCommaValues = responseHeaders
               ..isRedirect = true
               ..reasonPhrase = reasonPhrase
               ..startTime = DateTime.now()
-              ..statusCode = responseInfo.httpStatusCode;
+              ..statusCode = responseInfo.httpStatusCode
+              ..close();
 
             return;
           }
@@ -764,10 +797,14 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
             );
             urlRequest!.followRedirect();
           } else {
-            urlRequest!.cancel();
-            responseCompleter.completeError(
-              ClientException('Redirect limit exceeded', request.url),
+            final error = ClientException(
+              'Redirect limit exceeded',
+              request.url,
             );
+            responseStreamCancelled = true;
+            activeRequest.cancelAndRelease();
+            responseCompleter.completeError(error);
+            profile?.requestData.closeWithError(error.toString());
           }
         });
       },
@@ -792,6 +829,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         using((arena) {
           urlRequest?.releasedBy(arena);
           responseInfo?.releasedBy(arena);
+          activeRequest.release();
           if (responseStreamCancelled) return;
           responseStreamCancelled = true;
           responseStream!.sink.close();
@@ -805,6 +843,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
           urlRequest?.releasedBy(arena);
           responseInfo?.releasedBy(arena);
           cronetException?.releasedBy(arena);
+          activeRequest.release();
           if (responseStreamCancelled) return;
           responseStreamCancelled = true;
           final error = _convertCronetException(cronetException, request.url);
@@ -833,6 +872,7 @@ jb.UrlRequestCallbackProxy$UrlRequestCallbackInterface _urlRequestCallbacks(
         using((arena) {
           urlRequest?.releasedBy(arena);
           urlResponseInfo?.releasedBy(arena);
+          activeRequest.release();
           if (responseStreamCancelled) return;
           responseStreamCancelled = true;
           final error = RequestAbortedException(request.url);
@@ -954,19 +994,46 @@ class CronetClient extends BaseClient {
       };
     }
 
+    final responseCompleter = Completer<CronetStreamedResponse>();
+    await _startRequest(engine, request, responseCompleter, profile);
+    return responseCompleter.future;
+  }
+
+  Future<void> _startRequest(
+    CronetEngine engine,
+    BaseRequest request,
+    Completer<CronetStreamedResponse> responseCompleter,
+    HttpClientRequestProfile? profile,
+  ) async {
     final stream = request.finalize();
     final body = await stream.toBytes();
+    if (_isClosed) {
+      final error = ClientException(
+        'HTTP request failed. Client is already closed.',
+        request.url,
+      );
+      unawaited(profile?.requestData.closeWithError(error.toString()));
+      throw error;
+    }
+    if (engine._isClosed) {
+      final error = ClientException(
+        'HTTP request failed. CronetEngine is already closed.',
+        request.url,
+      );
+      unawaited(profile?.requestData.closeWithError(error.toString()));
+      throw error;
+    }
     profile?.requestData.bodySink.add(body);
 
-    final responseCompleter = Completer<CronetStreamedResponse>();
-
-    using((arena) {
+    final activeRequest = _ActiveUrlRequest();
+    final cronetRequest = using((arena) {
       final jUrl = request.url.toString().toJString()..releasedBy(arena);
       final jMethod = request.method.toJString()..releasedBy(arena);
       final callbacks = _urlRequestCallbacks(
         request,
         responseCompleter,
         profile,
+        activeRequest,
         arena,
       )..releasedBy(arena);
       final callbackProxy = jb.UrlRequestCallbackProxy(callbacks)
@@ -1020,14 +1087,19 @@ class CronetClient extends BaseClient {
             ?.release();
       }
 
-      // Not releasing `cronetRequest` as it's used in `whenComplete` callback.
-      final cronetRequest = builder.build()!;
-      if (request case Abortable(:final abortTrigger?)) {
-        unawaited(abortTrigger.whenComplete(cronetRequest.cancel));
-      }
-      cronetRequest.start();
+      return builder.build()!;
     });
-    return responseCompleter.future;
+
+    activeRequest.attach(cronetRequest);
+    try {
+      cronetRequest.start();
+    } catch (_) {
+      activeRequest.release();
+      rethrow;
+    }
+    if (request case Abortable(:final abortTrigger?)) {
+      unawaited(abortTrigger.whenComplete(activeRequest.cancelAndRelease));
+    }
   }
 }
 

@@ -1,11 +1,5 @@
 ## 1.11.0-wip
 
-* Migrate to Built-in Kotlin to support AGP 9.
-* Require Dart 3.12 and Flutter 3.44.
-* Release temporary JNI global references immediately instead of waiting for
-  garbage collection.
-* Upgrade `package:jni` to 1.2.1, `package:jni_flutter` to 1.1.0, and
-  `package:jnigen` to 1.1.0.
 * Add the remaining DNS options to `CronetEngine.build`:
   `preestablishConnectionsToStaleDnsResults`, which opens connections to a
   stale host cache entry while a fresh lookup confirms it, and
@@ -14,6 +8,20 @@
 * Add QUIC options to `CronetEngine.build`: `enableTlsZeroRtt`,
   `retryWithoutAltSvcOnQuicErrors`, `delayJobsWithAvailableSpdySession` and
   `cryptoHandshakeTimeout`. They are backed by the new `QuicOptions` bindings.
+
+## 1.10.2
+
+* Migrate to Built-in Kotlin to support AGP 9.
+* Require Dart 3.12 and Flutter 3.44.
+* Release temporary JNI global references immediately instead of waiting for
+  garbage collection.
+* Upgrade `package:jni` to 1.2.1, `package:jni_flutter` to 1.1.0, and
+  `package:jnigen` to 1.1.0.
+* Fix memory and JNI global reference leaks across request lifecycles and
+  abortable uploads (https://github.com/dart-lang/http/issues/1919,
+  https://github.com/dart-lang/http/issues/2124).
+* Throw `ClientException` when a response `Content-Length` header overflows a
+  64-bit integer.
 
 ## 1.10.1
 

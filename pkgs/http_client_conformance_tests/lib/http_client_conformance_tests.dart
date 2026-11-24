@@ -9,6 +9,7 @@ import 'src/bodyless_request_tests.dart';
 import 'src/close_tests.dart';
 import 'src/compressed_response_body_tests.dart';
 import 'src/isolate_test.dart';
+import 'src/leak_tests.dart';
 import 'src/multipart_tests.dart';
 import 'src/multiple_clients_tests.dart';
 import 'src/redirect_tests.dart';
@@ -30,6 +31,7 @@ export 'src/close_tests.dart' show testClose;
 export 'src/compressed_response_body_tests.dart'
     show testCompressedResponseBody;
 export 'src/isolate_test.dart' show testIsolate;
+export 'src/leak_tests.dart' show testLeaks;
 export 'src/multipart_tests.dart' show testMultipartRequests;
 export 'src/multiple_clients_tests.dart' show testMultipleClients;
 export 'src/redirect_tests.dart' show testRedirect;
@@ -45,7 +47,7 @@ export 'src/response_headers_tests.dart' show testResponseHeaders;
 export 'src/response_status_line_tests.dart' show testResponseStatusLine;
 export 'src/server_errors_test.dart' show testServerErrors;
 
-/// Runs the entire test suite against the given [Client].
+/// Runs the test suite against the given [Client].
 ///
 /// If [canStreamRequestBody] is `false` then tests that assume that the
 /// [Client] supports sending HTTP requests with unbounded body sizes will be
@@ -81,6 +83,8 @@ export 'src/server_errors_test.dart' show testServerErrors;
 ///
 /// If [supportsAbort] is `false` then tests that assume that requests can be
 /// aborted will be skipped.
+///
+/// Does not run [testLeaks], which is slow.
 ///
 /// The tests are run against a series of HTTP servers that are started by the
 /// tests. If the tests are run in the browser, then the test servers are
