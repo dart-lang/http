@@ -19,6 +19,21 @@
   (`h2`, `h3`, `http/1.1`) can be read with
   `URLSessionTaskTransactionMetrics.networkProtocolName`.
 * Update package description and declare supported platforms (`ios`, `macos`).
+* Fix a memory leak when the `abortTrigger` for an `Abortable` is retained
+  past the completion of `Client.send`. For example:
+
+  ```dart
+  final abortTrigger = Completer<void>();
+  // The timer will keep the `abortTrigger` alive until it fires in 60
+  // seconds, even if the request ends before then.
+  final timeout = Timer(const Duration(seconds: 60), abortTrigger.complete);
+  final request = http.AbortableRequest(
+    'GET',
+    Uri.https('example.com'),
+    abortTrigger: abortTrigger.future,
+  );
+  final response = await client.send(request)
+  ```
 
 ## 3.1.1
 
