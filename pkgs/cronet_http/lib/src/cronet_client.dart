@@ -13,7 +13,18 @@ import 'package:jni_flutter/jni_flutter.dart';
 import 'jni/jni_bindings.dart' as jb;
 
 final _digitRegex = RegExp(r'^\d+$');
-const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
+
+/// The size of the Cronet read buffer.
+///
+/// Measured on an emulator running on a M4 mac, a 10 MB download took:
+///
+/// 10 KiB:    190.0 ms
+/// 64 KiB:     33.9 ms
+/// 128 KiB:    20.4 ms
+/// 256 KiB:    14.4 ms
+/// 512 KiB:    10.1 ms
+/// 1 MiB:       7.9 ms
+const _bufferSize = 512 * 1024;
 
 /// A [ClientException] generated from a Java [`CronetException`][1].
 ///

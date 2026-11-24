@@ -1,3 +1,7 @@
+## 1.10.3-wip
+
+* Improve download performance by increasing the read buffer size.
+
 ## 1.10.2
 
 * Migrate to Built-in Kotlin to support AGP 9.
