@@ -345,6 +345,78 @@ void main() {
       await Future.wait([serverFun(), clientFun()]);
     });
 
+    group('finish-with-frames-still-queued', () {
+      // The server writes into a wire that is paused, as a socket is while it
+      // flushes, so its answer still waits in the connection's queue when it
+      // finishes.
+      late StreamSubscription<List<int>> wire;
+      late ClientTransportConnection client;
+      late ServerTransportConnection server;
+      late Future<List<StreamMessage>> response;
+
+      setUp(() async {
+        var toServer = StreamController<List<int>>();
+        var fromServer = StreamController<List<int>>();
+        var toClient = StreamController<List<int>>();
+        wire = fromServer.stream.listen(
+          toClient.add,
+          onError: toClient.addError,
+          onDone: toClient.close,
+        );
+        client = ClientTransportConnection.viaStreams(
+          toClient.stream,
+          toServer.sink,
+        );
+        server = ServerTransportConnection.viaStreams(
+          toServer.stream,
+          fromServer.sink,
+        );
+
+        var answered = Completer<void>();
+        server.incomingStreams.listen((stream) async {
+          await stream.incomingMessages.drain<void>();
+          wire.pause();
+          stream.sendHeaders([Header.ascii(':status', '200')]);
+          stream.sendData([1, 2, 3], endStream: true);
+          answered.complete();
+        });
+        response =
+            client
+                .makeRequest([Header.ascii('a', 'b')], endStream: true)
+                .incomingMessages
+                .toList();
+        await answered.future;
+      });
+
+      tearDown(() => client.terminate());
+
+      test('writes them before it closes the connection', () async {
+        var finished = server.finish();
+        wire.resume();
+
+        var messages = await response;
+        expect(messages, hasLength(2));
+        expect((messages[0] as HeadersStreamMessage).headers, [
+          isHeader(':status', '200'),
+        ]);
+        expect((messages[1] as DataStreamMessage).bytes, [1, 2, 3]);
+        await finished;
+      });
+
+      test('ends when the connection is terminated meanwhile', () async {
+        var failed = expectLater(response, throwsA(isA<TransportException>()));
+        var finished = server.finish();
+        // the stream ends, and finish() waits for the paused wire
+        await pumpEventQueue();
+        var terminated = server.terminate();
+        wire.resume();
+
+        await terminated;
+        await finished;
+        await failed;
+      });
+    });
+
     transportTest('client-terminates-stream', (
       ClientTransportConnection client,
       ServerTransportConnection server,
