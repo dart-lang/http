@@ -22,7 +22,10 @@ final class ByteStream extends StreamView<List<int>> {
         (bytes) => completer.complete(Uint8List.fromList(bytes)));
     listen(sink.add,
         onError: completer.completeError,
-        onDone: sink.close,
+        // A closure instead of the `sink.close` tear-off: dart2wasm in
+        // Dart 3.14.0 can compile that tear-off to an unreachable function
+        // (https://github.com/dart-lang/sdk/issues/64940).
+        onDone: () => sink.close(),
         cancelOnError: true);
     return completer.future;
   }
