@@ -99,8 +99,14 @@ class CupertinoClient extends BaseClient {
 
   final OnChallenge? _onChallenge;
 
-  CupertinoClient._(this._urlSession, {OnChallenge? onChallenge})
-    : _onChallenge = onChallenge;
+  final OnMetrics? _onMetrics;
+
+  CupertinoClient._(
+    this._urlSession, {
+    OnChallenge? onChallenge,
+    OnMetrics? onMetrics,
+  }) : _onChallenge = onChallenge,
+       _onMetrics = onMetrics;
 
   String? _findReasonPhrase(int statusCode) {
     switch (statusCode) {
@@ -240,12 +246,36 @@ class CupertinoClient extends BaseClient {
   ///   },
   /// );
   /// ```
+  ///
+  /// If [onMetrics] is set then it will be called once per request with the
+  /// [URLSessionTaskMetrics] collected for it, e.g. to read the protocol that
+  /// was negotiated (`h2`, `h3`, `http/1.1`) or whether the connection was
+  /// reused. It is called after the response headers are received and before
+  /// the response body stream is closed. See [OnMetrics].
+  ///
+  /// For example, to log the negotiated protocol of each request:
+  ///
+  /// ```dart
+  /// final client = CupertinoClient.fromSessionConfiguration(
+  ///   URLSessionConfiguration.ephemeralSessionConfiguration(),
+  ///   onMetrics: (session, task, metrics) {
+  ///     final transaction = metrics.transactionMetrics.lastOrNull;
+  ///     print('${task.originalRequest?.url} '
+  ///         '${transaction?.networkProtocolName}');
+  ///   },
+  /// );
+  /// ```
   factory CupertinoClient.fromSessionConfiguration(
     URLSessionConfiguration config, {
     OnChallenge? onChallenge,
+    OnMetrics? onMetrics,
   }) {
     final session = URLSession.sessionWithConfiguration(config);
-    return CupertinoClient._(session, onChallenge: onChallenge);
+    return CupertinoClient._(
+      session,
+      onChallenge: onChallenge,
+      onMetrics: onMetrics,
+    );
   }
 
   @override
@@ -425,6 +455,7 @@ class CupertinoClient extends BaseClient {
                     );
                   }
                 },
+          onMetrics: _onMetrics,
           onResponse: (session, task, response) {
             responseCompleter.complete(response);
             return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;

@@ -11,6 +11,10 @@
   which makes it possible to trust servers using self-signed certificates or
   certificates issued by a private certificate authority, or to implement
   certificate pinning.
+* Add an `onMetrics` parameter to `CupertinoClient.fromSessionConfiguration`,
+  which makes the `URLSessionTaskMetrics` of each request available, e.g. the
+  negotiated protocol (`h2`, `h3`, `http/1.1`) and whether the connection was
+  reused.
 * Add `URLRequest.assumesHTTP3Capable` and
   `MutableURLRequest.assumesHTTP3Capable`.
 * Add `OnMetrics`, the `onMetrics` argument of
