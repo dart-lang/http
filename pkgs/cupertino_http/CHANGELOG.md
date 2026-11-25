@@ -1,4 +1,4 @@
-## 3.2.0-wip
+## 3.2.0
 
 * Add support for handling authentication challenges, such as TLS server
   trust evaluation:
