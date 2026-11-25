@@ -21,6 +21,22 @@
   instead of being sent chunked.
 * Fix a `StateError` in `RetryClient` when the `when` callback reads the
   response stream before a retry.
+* Fix a memory leak when the `abortTrigger` for an `Abortable` is retained
+  past the completion of the response. For example:
+
+  ```dart
+  final abortTrigger = Completer<void>();
+  // The timer will keep `abortTrigger` alive until it fires in 60 seconds,
+  // even if the response completes before then.
+  Timer(const Duration(seconds: 60), abortTrigger.complete);
+  final request = http.AbortableRequest(
+    'GET',
+    Uri.https('example.com'),
+    abortTrigger: abortTrigger.future,
+  );
+  final response = await client.send(request);
+  await response.stream.drain<void>();
+  ```
 
 ## 1.6.0
 

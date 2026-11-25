@@ -4,14 +4,9 @@
 
 import 'dart:io';
 
-/// Runs [action] with [HttpClient.enableTimelineLogging] disabled so repeated
-/// multi-megabyte test payloads are not retained in the VM profiling buffer.
-Future<T> withoutTimelineLogging<T>(Future<T> Function() action) async {
-  final previous = HttpClient.enableTimelineLogging;
-  HttpClient.enableTimelineLogging = false;
-  try {
-    return await action();
-  } finally {
-    HttpClient.enableTimelineLogging = previous;
-  }
-}
+/// Whether [HttpClient.enableTimelineLogging] is enabled.
+///
+/// When enabled, request and response bodies are retained for profiling, both
+/// by `dart:io` and by `package:http_profile` (whose `profilingEnabled` is
+/// backed by the same flag).
+bool get timelineLoggingEnabled => HttpClient.enableTimelineLogging;

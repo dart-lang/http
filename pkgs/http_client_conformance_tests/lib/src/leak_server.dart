@@ -4,16 +4,17 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:stream_channel/stream_channel.dart';
+
+import 'utils.dart';
 
 const _chunkSize = 1024 * 1024;
 
 /// Starts an HTTP server used by leak tests.
 ///
 /// `POST` drains the request body and responds with the received byte count.
-/// `GET` responds with `length` zero bytes as specified by the `length` query
+/// `GET` responds with `length` bytes as specified by the `length` query
 /// parameter.
 ///
 /// Channel protocol:
@@ -22,7 +23,6 @@ const _chunkSize = 1024 * 1024;
 ///    When Receive Anything:
 ///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
-  final responseChunk = Uint8List(_chunkSize);
   final server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
@@ -51,13 +51,11 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.contentLength = length;
       var remaining = length;
       while (remaining >= _chunkSize) {
-        request.response.add(responseChunk);
+        request.response.add(createTestPayload(_chunkSize));
         remaining -= _chunkSize;
       }
       if (remaining > 0) {
-        request.response.add(
-          Uint8List.sublistView(responseChunk, 0, remaining),
-        );
+        request.response.add(createTestPayload(remaining));
       }
       await request.response.close();
     });

@@ -2,5 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// No-op on web where `dart:io` timeline logging is unavailable.
-Future<T> withoutTimelineLogging<T>(Future<T> Function() action) => action();
+/// Whether `HttpClient.enableTimelineLogging` is enabled.
+///
+/// Always `false` on the web.
+bool get timelineLoggingEnabled => false;
