@@ -336,8 +336,10 @@ class CupertinoClient extends BaseClient {
     Object? challengeError;
     StackTrace? challengeErrorStackTrace;
 
-    final abortHandler = _AbortHandler();
+    final requestUrl = request.url;
+    _AbortHandler? abortHandler;
     if (request case Abortable(:final abortTrigger?)) {
+      abortHandler = _AbortHandler();
       unawaited(abortTrigger.whenComplete(abortHandler.abort));
     }
 
@@ -349,7 +351,7 @@ class CupertinoClient extends BaseClient {
     // (and others but it is the most significant) inside an [autoReleasePool]
     // closure ensures that the only remaining references are live references.
     final (nsStream, task, dataController) = autoReleasePool(() {
-      final urlRequest = MutableURLRequest.fromUrl(request.url)
+      final urlRequest = MutableURLRequest.fromUrl(requestUrl)
         ..httpMethod = request.method;
 
       if (request.contentLength != null) {
@@ -414,7 +416,7 @@ class CupertinoClient extends BaseClient {
                       'onChallenge cancelled the '
                       '${space.authenticationMethod} challenge for '
                       '${space.host}:${space.port}',
-                      request.url,
+                      requestUrl,
                     );
                   }
                   return result;
@@ -440,7 +442,7 @@ class CupertinoClient extends BaseClient {
           }
         },
         onComplete: (session, task, error) {
-          abortHandler.clear();
+          abortHandler?.clear();
           if (error != null) {
             // Cancelling a challenge cancels the task, so check for a
             // challenge failure before treating a cancellation as an abort.
@@ -451,9 +453,9 @@ class CupertinoClient extends BaseClient {
               mappedError = challengeFailure;
               stackTrace = challengeErrorStackTrace;
             } else if (error.isCancelled) {
-              mappedError = RequestAbortedException(request.url);
+              mappedError = RequestAbortedException(requestUrl);
             } else {
-              mappedError = NSErrorClientException(error, request.url);
+              mappedError = NSErrorClientException(error, requestUrl);
             }
             if (!responseCompleter.isCompleted) {
               responseCompleter.completeError(mappedError, stackTrace);
@@ -488,7 +490,7 @@ class CupertinoClient extends BaseClient {
           return request;
         },
       );
-      abortHandler.setHandler(() {
+      abortHandler?.setHandler(() {
         cancelled = true;
         task.cancel();
       });
@@ -518,7 +520,7 @@ class CupertinoClient extends BaseClient {
 
       final response = urlResponse as HTTPURLResponse;
       if (request.followRedirects && numRedirects > request.maxRedirects) {
-        throw ClientException('Redirect limit exceeded', request.url);
+        throw ClientException('Redirect limit exceeded', requestUrl);
       }
 
       final (responseHeaders, contentLength, statusCode) = autoReleasePool(
@@ -544,7 +546,7 @@ class CupertinoClient extends BaseClient {
       return _StreamedResponseWithUrl(
         dataController.stream,
         statusCode,
-        url: lastRedirectUrl ?? request.url,
+        url: lastRedirectUrl ?? requestUrl,
         contentLength: contentLength,
         reasonPhrase: reasonPhrase,
         request: request,

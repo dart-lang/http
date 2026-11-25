@@ -4,9 +4,10 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:stream_channel/stream_channel.dart';
+
+import 'utils.dart';
 
 const _chunkSize = 1024 * 1024;
 
@@ -22,12 +23,6 @@ const _chunkSize = 1024 * 1024;
 ///    When Receive Anything:
 ///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
-  final responseChunk = Uint8List(_chunkSize);
-  // Touch each 4 KB page with a non-zero byte so OS zero-page deduplication
-  // and compression cannot hide leaked response buffers from RSS checks.
-  for (var offset = 0; offset < responseChunk.length; offset += 4096) {
-    responseChunk[offset] = ((offset >> 12) & 0xff) | 1;
-  }
   final server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
@@ -56,13 +51,11 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.contentLength = length;
       var remaining = length;
       while (remaining >= _chunkSize) {
-        request.response.add(responseChunk);
+        request.response.add(createTestPayload(_chunkSize));
         remaining -= _chunkSize;
       }
       if (remaining > 0) {
-        request.response.add(
-          Uint8List.sublistView(responseChunk, 0, remaining),
-        );
+        request.response.add(createTestPayload(remaining));
       }
       await request.response.close();
     });

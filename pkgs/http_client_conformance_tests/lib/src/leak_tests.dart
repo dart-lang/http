@@ -3,8 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
@@ -16,6 +14,7 @@ import 'leak_server_vm.dart'
 import 'memory_vm.dart' if (dart.library.js_interop) 'memory_web.dart';
 import 'timeline_logging_vm.dart'
     if (dart.library.js_interop) 'timeline_logging_web.dart';
+import 'utils.dart';
 
 /// The payload size of HTTP requests/responses. It should be small enough to
 /// fit into memory.
@@ -34,30 +33,6 @@ const _iterations = 60;
 /// Maximum allowable RSS growth across [_iterations] transfers (half of the
 /// total transferred payload size).
 const _maxRssGrowth = (_iterations * _payloadSize) ~/ 2;
-
-final _random = Random();
-
-/// Random (and therefore incompressible) bytes. Generated once because it is
-/// slow.
-final _randomBytes = () {
-  final bytes = Uint8List(_payloadSize);
-  for (var i = 0; i < bytes.length; ++i) {
-    bytes[i] = _random.nextInt(256);
-  }
-  return bytes;
-}();
-
-/// A test payload.
-///
-/// Is different from all other payloads by at least one byte per page to make
-/// memory de-duplication impossible.
-Uint8List _createPayload() {
-  final payload = Uint8List.fromList(_randomBytes);
-  for (var offset = 0; offset < payload.length; offset += 4096) {
-    payload[offset] = _random.nextInt(256);
-  }
-  return payload;
-}
 
 void _leakTest(Object? description, FutureOr<dynamic> Function() body) {
   test(description, () async {
@@ -117,7 +92,8 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
       _leakTest('repeated large request bodies', () async {
         final uri = Uri.http(host, '/upload');
 
-        final request = Request('POST', uri)..bodyBytes = _createPayload();
+        final request = Request('POST', uri)
+          ..bodyBytes = createTestPayload(_payloadSize);
         final response = await client.send(request);
         expect(response.statusCode, 200);
         expect(await response.stream.bytesToString(), '$_payloadSize');
@@ -139,12 +115,12 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
 
     group('abortable', () {
       // A completer shared by every request in a test.
-      ///
-      /// Ensures that the completer used by an [AbortableRequest] outlives the
-      /// request to verify that request data can be GCed even if an unfinished
-      /// completer is alive.
-      ///
-      /// See https://github.com/dart-lang/http/issues/2124
+      //
+      // Ensures that the completer used by an `AbortableRequest` outlives the
+      // request to verify that request data can be GCed even if an unfinished
+      // completer is alive.
+      //
+      // See https://github.com/dart-lang/http/issues/2124
       late Completer<void> abortCompleter;
 
       setUp(() {
@@ -163,7 +139,7 @@ void testLeaks(Client Function() clientFactory, {bool supportsAbort = false}) {
           'POST',
           uri,
           abortTrigger: abortCompleter.future,
-        )..bodyBytes = _createPayload();
+        )..bodyBytes = createTestPayload(_payloadSize);
         final response = await client.send(request);
         expect(response.statusCode, 200);
         expect(await response.stream.bytesToString(), '$_payloadSize');

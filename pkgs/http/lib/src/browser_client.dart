@@ -184,7 +184,7 @@ class BrowserClient extends BaseClient {
       }.toJS);
 
       return StreamedResponseV2(
-        _bodyToStream(request, response, onDone: abortHandler?.clear),
+        _bodyToStream(request.url, response, onDone: abortHandler?.clear),
         response.status,
         headers: headers,
         request: request,
@@ -194,7 +194,7 @@ class BrowserClient extends BaseClient {
       );
     } catch (e, st) {
       abortHandler?.clear();
-      _rethrowAsClientException(e, st, request);
+      _rethrowAsClientException(e, st, request.url);
     } finally {
       _openRequestAbortControllers.remove(abortController);
     }
@@ -213,37 +213,37 @@ class BrowserClient extends BaseClient {
   }
 }
 
-Object _toClientException(Object e, BaseRequest request) {
+Object _toClientException(Object e, Uri requestUrl) {
   if (e case DOMException(name: 'AbortError')) {
-    return RequestAbortedException(request.url);
+    return RequestAbortedException(requestUrl);
   }
   if (e is! ClientException) {
     var message = e.toString();
     if (message.startsWith('TypeError: ')) {
       message = message.substring('TypeError: '.length);
     }
-    e = ClientException(message, request.url);
+    e = ClientException(message, requestUrl);
   }
   return e;
 }
 
-Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
-  Error.throwWithStackTrace(_toClientException(e, request), st);
+Never _rethrowAsClientException(Object e, StackTrace st, Uri requestUrl) {
+  Error.throwWithStackTrace(_toClientException(e, requestUrl), st);
 }
 
 Stream<List<int>> _bodyToStream(
-  BaseRequest request,
+  Uri requestUrl,
   Response response, {
   void Function()? onDone,
 }) =>
     Stream.multi(
       isBroadcast: false,
       (listener) =>
-          _readStreamBody(request, response, listener, onDone: onDone),
+          _readStreamBody(requestUrl, response, listener, onDone: onDone),
     );
 
 Future<void> _readStreamBody(
-  BaseRequest request,
+  Uri requestUrl,
   Response response,
   MultiStreamController<List<int>> controller, {
   void Function()? onDone,
@@ -284,7 +284,7 @@ Future<void> _readStreamBody(
           // these don't look applicable here, but we want to ensure a new error
           // in cancel() is surfaced to the caller.
           if (!hadError) {
-            _rethrowAsClientException(e, s, request);
+            _rethrowAsClientException(e, s, requestUrl);
           }
         }
       };
@@ -304,7 +304,7 @@ Future<void> _readStreamBody(
         // onCancel, that should cover this case.
         if (!cancelled) {
           hadError = true;
-          controller.addErrorSync(_toClientException(e, request), s);
+          controller.addErrorSync(_toClientException(e, requestUrl), s);
           await controller.close();
         }
 
