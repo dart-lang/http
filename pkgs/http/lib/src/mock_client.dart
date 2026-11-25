@@ -35,6 +35,7 @@ class MockClient extends BaseClient {
   /// The handler for receiving [StreamedRequest]s and sending
   /// [StreamedResponse]s.
   final MockClientStreamHandler _handler;
+
   /// Whether this client has been closed.
   bool isClosed = false;
 
