@@ -82,6 +82,7 @@ jobs:
       github.event_name == 'schedule' ||
       contains(github.event.pull_request.labels.*.name, 'run-ios-tests')
     runs-on: macos-latest
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: pkgs/cupertino_http
@@ -103,12 +104,17 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-      - uses: futureware-tech/simulator-action@c768f52966d5f70335ec77881f9806b24a52f80e
+      - id: simulator
+        uses: futureware-tech/simulator-action@c768f52966d5f70335ec77881f9806b24a52f80e
         with:
           os: iOS
           os_version: '>=15.0'
+          wait_for_boot: true
+          settle_timeout_seconds: 60
       - name: Run tests
+        env:
+          SIMULATOR_UDID: ${{ steps.simulator.outputs.udid }}
         run: |
           cd ios_test
           flutter pub get
-          flutter test integration_test/combined_test.dart --test-randomize-ordering-seed=random
+          flutter test -d "$SIMULATOR_UDID" --timeout=120s --test-randomize-ordering-seed=random integration_test/combined_test.dart
