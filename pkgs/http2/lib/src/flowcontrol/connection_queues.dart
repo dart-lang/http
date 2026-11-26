@@ -136,31 +136,28 @@ class ConnectionMessageQueueOut extends Object
     return null;
   }
 
+  /// How many bytes of `DATA` [_trySendMessages] writes before yielding to
+  /// the event loop, so that a large upload does not hold the isolate.
+  static const int _maxDataBytesPerTurn = 64 * 1024;
+
   void _trySendMessages() {
-    if (!wasTerminated) {
-      // We can make progress if
-      //   * there is at least one message to send
-      //   * the underlying frame writer / sink / socket doesn't block
-      //   * either one
-      //     * the next sendable message is a non-flow control message
-      //     * the connection window is positive
+    if (wasTerminated) return;
 
-      final message = _peekSendableMessage();
-      if (message != null) {
-        _trySendMessage(message);
-
-        // If we have more messages and we can send them, we'll run them
-        // using `Timer.run()` to let other things get in-between.
-        if (_peekSendableMessage() != null) {
-          // TODO: If all the frame writer methods would return the
-          // number of bytes written, we could just say, we loop here until 10kb
-          // and after words, we'll make `Timer.run()`.
-          Timer.run(_trySendMessages);
-        } else {
-          onCheckForClose();
-        }
+    // Messages are written until the frame writer or the connection window
+    // pushes back, which already bounds a burst to what the socket accepts.
+    // Yielding after every frame instead would make each queued frame wait a
+    // full turn of the event loop, however busy the isolate is.
+    var dataBytes = 0;
+    Message? message;
+    while ((message = _peekSendableMessage()) != null) {
+      if (dataBytes >= _maxDataBytesPerTurn) {
+        Timer.run(_trySendMessages);
+        return;
       }
+      if (message is DataMessage) dataBytes += message.bytes.length;
+      _trySendMessage(message!);
     }
+    onCheckForClose();
   }
 
   void _trySendMessage(Message message) {
