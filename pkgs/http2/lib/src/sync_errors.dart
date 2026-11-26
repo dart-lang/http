@@ -13,6 +13,16 @@ class ProtocolException implements Exception {
   String toString() => 'ProtocolError: $_message';
 }
 
+/// Connection-level `STREAM_CLOSED` error (RFC 9113 section 5.1).
+class ConnectionStreamClosedException implements Exception {
+  final String _message;
+
+  ConnectionStreamClosedException(this._message);
+
+  @override
+  String toString() => 'ConnectionStreamClosedException: $_message';
+}
+
 class FlowControlException implements Exception {
   final String _message;
 

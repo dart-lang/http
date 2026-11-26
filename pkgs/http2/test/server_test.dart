@@ -1512,6 +1512,214 @@ void main() {
           await sub.cancel();
         },
       );
+
+      serverTest('rejects mismatched or duplicate host headers while allowing '
+          'normalized matches', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        final acceptedIds = <int>[];
+        final sub = server.incomingStreams.listen((stream) {
+          acceptedIds.add(stream.id);
+          stream.incomingMessages.listen((_) {});
+          stream.sendHeaders([Header.ascii(':status', '200')], endStream: true);
+        });
+
+        expect(await nextFrame(), isA<SettingsFrame>());
+        clientWriter.writeSettingsAckFrame();
+        clientWriter.writeSettingsFrame([]);
+        expect(await nextFrame(), isA<SettingsFrame>());
+
+        // Mismatched :authority vs host (RFC 9113 section 8.3.1).
+        clientWriter
+          ..writeHeadersFrame(1, [
+            Header.ascii(':method', 'GET'),
+            Header.ascii(':scheme', 'https'),
+            Header.ascii(':authority', 'example.com'),
+            Header.ascii(':path', '/'),
+            Header.ascii('host', 'evil.example'),
+          ], endStream: true)
+          ..writePingFrame(1);
+        expect(
+          await nextFrame(),
+          isA<RstStreamFrame>()
+              .having((f) => f.header.streamId, 'header.streamId', 1)
+              .having(
+                (f) => f.errorCode,
+                'errorCode',
+                ErrorCode.PROTOCOL_ERROR,
+              ),
+        );
+        expect(await nextFrame(), isA<PingFrame>());
+
+        // Duplicate host headers (RFC 9110 sections 5.3 and 7.2; RFC 9112
+        // section 3.2).
+        clientWriter
+          ..writeHeadersFrame(3, [
+            Header.ascii(':method', 'GET'),
+            Header.ascii(':scheme', 'https'),
+            Header.ascii(':path', '/'),
+            Header.ascii('host', 'a.example'),
+            Header.ascii('host', 'b.example'),
+          ], endStream: true)
+          ..writePingFrame(3);
+        expect(
+          await nextFrame(),
+          isA<RstStreamFrame>()
+              .having((f) => f.header.streamId, 'header.streamId', 3)
+              .having(
+                (f) => f.errorCode,
+                'errorCode',
+                ErrorCode.PROTOCOL_ERROR,
+              ),
+        );
+        expect(await nextFrame(), isA<PingFrame>());
+
+        // Case-insensitive + default-port normalized match is accepted.
+        clientWriter.writeHeadersFrame(5, [
+          Header.ascii(':method', 'GET'),
+          Header.ascii(':scheme', 'https'),
+          Header.ascii(':authority', 'Example.COM:443'),
+          Header.ascii(':path', '/'),
+          Header.ascii('host', 'example.com'),
+        ], endStream: true);
+        expect(
+          await nextFrame(),
+          isA<HeadersFrame>().having(
+            (f) => f.header.streamId,
+            'header.streamId',
+            5,
+          ),
+        );
+        expect(acceptedIds, [5]);
+
+        unawaited(server.terminate());
+        await sub.cancel();
+      });
+
+      test('rejects incomplete client PUSH_PROMISE immediately with '
+          'PROTOCOL_ERROR', () async {
+        final streams = ClientErrorStreams();
+        final server = streams.serverConnection;
+        final sub = server.incomingStreams.listen((_) {});
+        final clientReader = streams.clientConnectionFrameReader;
+
+        Future<Frame> nextFrame() async {
+          expect(await clientReader.moveNext(), isTrue);
+          return clientReader.current;
+        }
+
+        streams.writeConnectionPreface();
+        expect(await nextFrame(), isA<SettingsFrame>());
+        streams.writeRawFrame(
+          type: FrameType.SETTINGS,
+          flags: SettingsFrame.FLAG_ACK,
+          streamId: 0,
+          payload: const [],
+        );
+        streams.writeRawFrame(
+          type: FrameType.SETTINGS,
+          flags: 0,
+          streamId: 0,
+          payload: const [],
+        );
+        expect(await nextFrame(), isA<SettingsFrame>());
+
+        // Client sends PUSH_PROMISE without END_HEADERS (flags: 0); server
+        // must immediately reject with GOAWAY(PROTOCOL_ERROR) rather than
+        // buffering fragments (RFC 9113 section 8.4).
+        final frameFuture = nextFrame();
+        streams.writeRawFrame(
+          type: FrameType.PUSH_PROMISE,
+          flags: 0,
+          streamId: 1,
+          payload: const [0, 0, 0, 2, 0x88],
+        );
+        await pumpEventQueue();
+        unawaited(server.terminate());
+        expect(
+          await frameFuture,
+          isA<GoawayFrame>().having(
+            (f) => f.errorCode,
+            'errorCode',
+            ErrorCode.PROTOCOL_ERROR,
+          ),
+        );
+        await sub.cancel();
+      });
+
+      serverTest(
+        'distinguishes HEADERS on a closed stream (STREAM_CLOSED) from a '
+        'skipped lower stream ID (PROTOCOL_ERROR)',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final sub = server.incomingStreams.listen((stream) {
+            stream.incomingMessages.listen((_) {}, onError: (_) {});
+          });
+
+          expect(await nextFrame(), isA<SettingsFrame>());
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          // Open and reset stream 1, then send HEADERS on closed stream 1
+          // again: RFC 9113 section 5.1 requires STREAM_CLOSED.
+          clientWriter
+            ..writeHeadersFrame(1, [Header.ascii('a', 'b')], endStream: false)
+            ..writeRstStreamFrame(1, ErrorCode.CANCEL)
+            ..writeHeadersFrame(1, [Header.ascii('a', 'b')], endStream: true);
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.STREAM_CLOSED,
+            ),
+          );
+          await sub.cancel();
+        },
+      );
+
+      serverTest(
+        'rejects HEADERS on a skipped lower stream ID with PROTOCOL_ERROR',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final sub = server.incomingStreams.listen((stream) {
+            stream.incomingMessages.listen((_) {}, onError: (_) {});
+          });
+
+          expect(await nextFrame(), isA<SettingsFrame>());
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          // Opening stream 5 implicitly skips stream 3 without ever opening it;
+          // later sending HEADERS on stream 3 is a PROTOCOL_ERROR (RFC 9113
+          // section 5.1.1).
+          clientWriter
+            ..writeHeadersFrame(5, [Header.ascii('a', 'b')], endStream: true)
+            ..writeHeadersFrame(3, [Header.ascii('a', 'b')], endStream: true);
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
+            ),
+          );
+          await sub.cancel();
+        },
+      );
     });
 
     group('client-errors', () {

@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:collection';
 import 'dart:math';
 
 import '../../transport.dart';
@@ -155,6 +156,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   /// has used up [maxPeerStreamResetBurst].
   static const peerStreamResetsPerSecond = 33;
 
+  /// Bounded history of recently opened peer stream identifiers, used to
+  /// distinguish `HEADERS` on an already-closed stream (`STREAM_CLOSED`, RFC
+  /// 9113 section 5.1) from a skipped lower unused stream identifier
+  /// (`PROTOCOL_ERROR`, RFC 9113 section 5.1.1) in O(1) memory.
+  static const _maxTrackedRemoteStreams = 256;
+
   final FrameWriter _frameWriter;
   final ConnectionMessageQueueIn incomingQueue;
   final ConnectionMessageQueueOut outgoingQueue;
@@ -178,6 +185,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   );
 
   final Map<int, Http2StreamImpl> _openStreams = {};
+  final LinkedHashSet<int> _recentlyOpenedRemoteStreams = LinkedHashSet<int>();
   int nextStreamId;
   int lastRemoteStreamId;
 
@@ -363,21 +371,34 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       throw ProtocolException('Remote stream id exceeds the HTTP/2 limit.');
     }
 
-    // A new higher stream id implicitly closes lower unused stream ids, so
-    // holes in the sequence are valid but reuse and reordering are not.
-    if (remoteStreamId <= lastRemoteStreamId) {
-      throw ProtocolException(
-        'Remote tried to open new stream which is not in "idle" state.',
-      );
-    }
-
     var sameDirection = (nextStreamId + remoteStreamId).isEven;
     if (sameDirection) {
       throw ProtocolException(
         'Remote tried to open a stream with a locally initiated stream id.',
       );
     }
+
+    // A new higher stream id implicitly closes lower unused stream ids, so
+    // holes in the sequence are valid (and later using a skipped id is a
+    // PROTOCOL_ERROR, RFC 9113 section 5.1.1), while receiving HEADERS on a
+    // stream that was previously opened and closed is a connection error of
+    // type STREAM_CLOSED (RFC 9113 section 5.1).
+    if (remoteStreamId <= lastRemoteStreamId) {
+      if (_recentlyOpenedRemoteStreams.contains(remoteStreamId)) {
+        throw ConnectionStreamClosedException(
+          'Received frame on already-closed stream $remoteStreamId.',
+        );
+      }
+      throw ProtocolException(
+        'Remote tried to open new stream which is not in "idle" state.',
+      );
+    }
+
     lastRemoteStreamId = remoteStreamId;
+    if (_recentlyOpenedRemoteStreams.length >= _maxTrackedRemoteStreams) {
+      _recentlyOpenedRemoteStreams.remove(_recentlyOpenedRemoteStreams.first);
+    }
+    _recentlyOpenedRemoteStreams.add(remoteStreamId);
   }
 
   bool _canAcceptPeerInitiatedStream() {
