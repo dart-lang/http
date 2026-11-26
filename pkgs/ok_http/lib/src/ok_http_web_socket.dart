@@ -128,14 +128,24 @@ class OkHttpWebSocket implements WebSocket {
             _events.add(BinaryDataReceived(
                 Uint8List.fromList(byteString.toByteArray().asDart())));
           },
-          onClosing:
-              (bindings.WebSocket webSocket, int i, JString string) async {
+          onClosing: (bindings.WebSocket webSocket, int closeCode,
+              JString closeReason) {
+            final reason = closeReason.toDartString(releaseOriginal: true);
+            if (!_events.isClosed) {
+              if (reason.contains('\uFFFD')) {
+                // OkHttp replaces invalid UTF-8 bytes in the close reason with
+                // U+FFFD (the Unicode replacement character) instead of failing
+                // the WebSocket connection as required by RFC 6455 §8.1. It is
+                // possible that the WebSocket close reason legitimately
+                // contains U+FFFD but it is very unlikely.
+                webSocket.close(1007, null);
+                _events.add(CloseReceived(1007, ''));
+              } else {
+                _events.add(CloseReceived(closeCode, reason));
+              }
+              unawaited(_events.close());
+            }
             _okHttpClientClose();
-
-            if (_events.isClosed) return;
-
-            _events.add(CloseReceived(i, string.toDartString()));
-            await _events.close();
           },
           onFailure: (bindings.WebSocket webSocket, JObject throwable,
               bindings.Response? response) {
