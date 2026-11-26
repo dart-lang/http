@@ -1720,6 +1720,86 @@ void main() {
           await sub.cancel();
         },
       );
+
+      serverTest(
+        'ignores unsolicited PING(ACK) without closing the connection',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final sub = server.incomingStreams.listen((_) {});
+
+          expect(await nextFrame(), isA<SettingsFrame>());
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          // RFC 9113 section 6.7: an endpoint MUST NOT respond to PING frames
+          // containing ACK; an unsolicited PING(ACK) is ignored and the
+          // connection remains usable for subsequent frames.
+          clientWriter
+            ..writePingFrame(999, ack: true)
+            ..writePingFrame(42);
+          expect(
+            await nextFrame(),
+            isA<PingFrame>()
+                .having((f) => f.hasAckFlag, 'hasAckFlag', isTrue)
+                .having((f) => f.opaqueData, 'opaqueData', 42),
+          );
+
+          unawaited(server.terminate());
+          await sub.cancel();
+        },
+      );
+
+      serverTest(
+        'rate-limits unsolicited PING(ACK) floods while exempting solicited '
+        'PING(ACK) responses',
+        (
+          ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> Function() nextFrame,
+        ) async {
+          final sub = server.incomingStreams.listen((_) {});
+
+          expect(await nextFrame(), isA<SettingsFrame>());
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          // Consume nearly all of the control-frame burst with unsolicited
+          // PING(ACK)s, then verify 50 solicited `server.ping()` replies still
+          // succeed without consuming `_peerControlFrames`.
+          for (var i = 0; i < Connection.maxControlFrameBurst - 10; i++) {
+            clientWriter.writePingFrame(10000 + i, ack: true);
+          }
+          for (var i = 0; i < 50; i++) {
+            final pingFuture = server.ping();
+            final serverPing = await nextFrame() as PingFrame;
+            expect(serverPing.hasAckFlag, isFalse);
+            clientWriter.writePingFrame(serverPing.opaqueData, ack: true);
+            await pingFuture;
+          }
+
+          // Flooding past the remaining burst triggers
+          // GOAWAY(ENHANCE_YOUR_CALM).
+          for (var i = 0; i < Connection.controlFramesPerSecond + 50; i++) {
+            clientWriter.writePingFrame(50000 + i, ack: true);
+          }
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.ENHANCE_YOUR_CALM,
+            ),
+          );
+          await sub.cancel();
+        },
+      );
     });
 
     group('client-errors', () {

@@ -36,8 +36,12 @@ class PingHandler extends Object with TerminatableMixin {
     }
   }
 
-  void processPingFrame(PingFrame frame) {
-    ensureNotTerminatedSync(() {
+  /// Processes an incoming [PingFrame].
+  ///
+  /// Returns `false` if [frame] has [PingFrame.FLAG_ACK] set for opaque data
+  /// that does not match any outstanding local [ping], and `true` otherwise.
+  bool processPingFrame(PingFrame frame) {
+    return ensureNotTerminatedSync(() {
       if (frame.header.streamId != 0) {
         throw ProtocolException('Ping frames must have a stream id of 0.');
       }
@@ -47,17 +51,18 @@ class PingHandler extends Object with TerminatableMixin {
           pingReceived?.add(frame.opaqueData);
         }
         _frameWriter.writePingFrame(frame.opaqueData, ack: true);
+        return true;
       } else {
         var c = _remainingPings.remove(frame.opaqueData);
         if (c != null) {
           c.complete();
-        } else {
-          // NOTE: It is not specified what happens when one gets an ACK for a
-          // ping we never sent. We be very strict and fail in this case.
-          throw ProtocolException(
-            'Received ping ack with unknown opaque data.',
-          );
+          return true;
         }
+        // RFC 9113 section 6.7: "An endpoint MUST NOT respond to PING frames
+        // containing this flag." Ignore unsolicited PING(ACK) frames rather
+        // than replying or tearing down the connection; the caller rate-limits
+        // them against control/empty frame floods.
+        return false;
       }
     });
   }
