@@ -4,6 +4,7 @@
 
 import 'client_challenge_test.dart' as client_challenge_test;
 import 'client_conformance_test.dart' as client_conformance_test;
+import 'client_metrics_test.dart' as client_metrics_test;
 import 'client_profile_test.dart' as profile_test;
 import 'client_test.dart' as client_test;
 import 'http_url_response_test.dart' as http_url_response_test;
@@ -27,6 +28,7 @@ import 'web_socket_conformance_test.dart' as web_socket_conformance_test;
 void main() {
   client_challenge_test.main();
   client_conformance_test.main();
+  client_metrics_test.main();
   client_test.main();
   http_url_response_test.main();
   isolate_shutdown_test.main();

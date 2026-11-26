@@ -15,6 +15,19 @@ import 'cupertino_api.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
 
+/// The type of the `onMetrics` argument of
+/// [CupertinoClient.fromSessionConfiguration].
+///
+/// [request] is the request passed to [CupertinoClient.send], [task] is the
+/// [URLSessionTask] that executed it, and [metrics] holds the metrics that
+/// were collected for it.
+typedef CupertinoClientOnMetrics =
+    void Function(
+      BaseRequest request,
+      URLSessionTask task,
+      URLSessionTaskMetrics metrics,
+    );
+
 /// A [ClientException] generated from an [NSError].
 class NSErrorClientException extends ClientException {
   final NSError error;
@@ -99,12 +112,12 @@ class CupertinoClient extends BaseClient {
 
   final OnChallenge? _onChallenge;
 
-  final OnMetrics? _onMetrics;
+  final CupertinoClientOnMetrics? _onMetrics;
 
   CupertinoClient._(
     this._urlSession, {
     OnChallenge? onChallenge,
-    OnMetrics? onMetrics,
+    CupertinoClientOnMetrics? onMetrics,
   }) : _onChallenge = onChallenge,
        _onMetrics = onMetrics;
 
@@ -248,27 +261,31 @@ class CupertinoClient extends BaseClient {
   /// ```
   ///
   /// If [onMetrics] is set then it will be called once per request with the
-  /// [URLSessionTaskMetrics] collected for it, e.g. to read the protocol that
-  /// was negotiated (`h2`, `h3`, `http/1.1`) or whether the connection was
-  /// reused. It is called after the response headers are received and before
-  /// the response body stream is closed. See [OnMetrics].
+  /// request and the [URLSessionTaskMetrics] collected for it, e.g. to read
+  /// the protocol that was negotiated (`h2`, `h3`, `http/1.1`) or whether the
+  /// connection was reused.
+  ///
+  /// On a successful request, [onMetrics] is called after the response body
+  /// has been received and before [StreamedResponse.stream] closes (so it has
+  /// already run when methods like [get] or [post] complete). If a request
+  /// fails or is cancelled after starting, [onMetrics] may be called before
+  /// [send] completes.
   ///
   /// For example, to log the negotiated protocol of each request:
   ///
   /// ```dart
   /// final client = CupertinoClient.fromSessionConfiguration(
   ///   URLSessionConfiguration.ephemeralSessionConfiguration(),
-  ///   onMetrics: (session, task, metrics) {
+  ///   onMetrics: (request, task, metrics) {
   ///     final transaction = metrics.transactionMetrics.lastOrNull;
-  ///     print('${task.originalRequest?.url} '
-  ///         '${transaction?.networkProtocolName}');
+  ///     print('${request.url} ${transaction?.networkProtocolName}');
   ///   },
   /// );
   /// ```
   factory CupertinoClient.fromSessionConfiguration(
     URLSessionConfiguration config, {
     OnChallenge? onChallenge,
-    OnMetrics? onMetrics,
+    CupertinoClientOnMetrics? onMetrics,
   }) {
     final session = URLSession.sessionWithConfiguration(config);
     return CupertinoClient._(
@@ -431,6 +448,7 @@ class CupertinoClient extends BaseClient {
       );
 
       final onChallenge = _onChallenge;
+      final onMetrics = _onMetrics;
       task.taskDelegate = URLSessionTask.delegate(
         onChallenge: onChallenge == null
             ? null
@@ -461,7 +479,9 @@ class CupertinoClient extends BaseClient {
                   );
                 }
               },
-        onMetrics: _onMetrics,
+        onMetrics: onMetrics == null
+            ? null
+            : (session, task, metrics) => onMetrics(request, task, metrics),
         onResponse: (session, task, response) {
           responseCompleter.complete(response);
           return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
