@@ -1,5 +1,8 @@
 ## 3.2.1-wip
 
+- Treat `DATA` frames (and client-received `HEADERS` frames) for `idle` streams
+  as a connection error (`GOAWAY(PROTOCOL_ERROR)`) rather than resetting a
+  closed stream (RFC 9113 Section 5.1).
 - `finish()` and `terminate()` no longer hang when a write to the socket fails
   (for example because the peer closed the connection); previously they waited
   for a `Socket.done` that never completes after a failed write.
