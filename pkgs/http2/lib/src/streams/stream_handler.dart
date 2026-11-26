@@ -312,6 +312,13 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     return !isLocalStream;
   }
 
+  bool _frameBelongsToIdleStream(Frame frame) {
+    final streamId = frame.header.streamId;
+    return !_isPeerInitiatedStream(streamId)
+        ? streamId >= nextStreamId
+        : streamId > lastRemoteStreamId;
+  }
+
   Http2StreamImpl newStream(List<Header> headers, {bool endStream = false}) {
     return ensureNotTerminatedSync(() {
       var stream = newLocalStream();
@@ -750,17 +757,6 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     return ensureNotTerminatedSync(() {
       var stream = _openStreams[frame.header.streamId];
       if (stream == null) {
-        bool frameBelongsToIdleStream() {
-          var streamId = frame.header.streamId;
-          var isServerStreamId = frame.header.streamId.isEven;
-          var isLocalStream = isServerStreamId == isServer;
-          var isIdleStream =
-              isLocalStream
-                  ? streamId >= nextStreamId
-                  : streamId > lastRemoteStreamId;
-          return isIdleStream;
-        }
-
         if (_isPeerInitiatedStream(frame.header.streamId)) {
           // Update highest stream id we received and processed (we update it
           // before processing, so if it was an error, the client will not
@@ -784,7 +780,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             _handleHeadersFrame(newStream, frame);
             _newStreamsC.add(newStream);
           } else {
-            if (frameBelongsToIdleStream()) {
+            if (_frameBelongsToIdleStream(frame)) {
               // RFC 9113 section 5.1: receiving HEADERS on an idle stream on a
               // client connection is a connection error of type PROTOCOL_ERROR
               // (server pushes arrive via PUSH_PROMISE).
@@ -800,7 +796,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             throw _throwStreamClosedException(frame.header.streamId);
           }
         } else if (frame is WindowUpdateFrame) {
-          if (frameBelongsToIdleStream()) {
+          if (_frameBelongsToIdleStream(frame)) {
             // RFC 9113 section 5.1: receiving any frame other than HEADERS or
             // PRIORITY on an idle stream is a connection error of type
             // PROTOCOL_ERROR.
@@ -817,7 +813,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             );
           }
         } else if (frame is RstStreamFrame) {
-          if (frameBelongsToIdleStream()) {
+          if (_frameBelongsToIdleStream(frame)) {
             // [RstFrame]s for streams which haven't been established (known as
             // idle streams) must be treated as a connection error.
             throw ProtocolException(
@@ -854,7 +850,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             '(stream ${frame.header.streamId} does not exist)',
           );
         } else if (frame is DataFrame) {
-          if (frameBelongsToIdleStream()) {
+          if (_frameBelongsToIdleStream(frame)) {
             // RFC 9113 section 5.1: receiving any frame other than HEADERS or
             // PRIORITY on an idle stream is a connection error of type
             // PROTOCOL_ERROR.
@@ -880,7 +876,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           // Still respond with an error, as the stream is closed.
           throw _throwStreamClosedException(frame.header.streamId);
         } else {
-          if (frameBelongsToIdleStream()) {
+          if (_frameBelongsToIdleStream(frame)) {
             throw ProtocolException(
               'Got a ${frame.runtimeType} for an "idle" stream id.',
             );
