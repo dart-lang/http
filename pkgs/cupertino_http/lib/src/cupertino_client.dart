@@ -366,6 +366,13 @@ class CupertinoClient extends BaseClient {
     Object? challengeError;
     StackTrace? challengeErrorStackTrace;
 
+    final requestUrl = request.url;
+    _AbortHandler? abortHandler;
+    if (request case Abortable(:final abortTrigger?)) {
+      abortHandler = _AbortHandler();
+      unawaited(abortTrigger.whenComplete(abortHandler.abort));
+    }
+
     // Encompass as much logic as possible in an autorelease pool, considering
     // that [autoReleasePool] cannot contain asynchronous gaps.
     //
@@ -374,7 +381,7 @@ class CupertinoClient extends BaseClient {
     // (and others but it is the most significant) inside an [autoReleasePool]
     // closure ensures that the only remaining references are live references.
     final (nsStream, task, dataController) = autoReleasePool(() {
-      final urlRequest = MutableURLRequest.fromUrl(request.url)
+      final urlRequest = MutableURLRequest.fromUrl(requestUrl)
         ..httpMethod = request.method;
 
       if (request.contentLength != null) {
@@ -424,113 +431,106 @@ class CupertinoClient extends BaseClient {
       );
 
       final onChallenge = _onChallenge;
-      task
-        ..taskDelegate = URLSessionTask.delegate(
-          onChallenge: onChallenge == null
-              ? null
-              : (session, task, challenge) async {
-                  try {
-                    final result = await onChallenge(session, task, challenge);
-                    if (result.$1 ==
-                        NSURLSessionAuthChallengeDisposition
-                            // ignore: lines_longer_than_80_chars
-                            .NSURLSessionAuthChallengeCancelAuthenticationChallenge) {
-                      final space = challenge.protectionSpace;
-                      challengeError = ClientException(
-                        'onChallenge cancelled the '
-                        '${space.authenticationMethod} challenge for '
-                        '${space.host}:${space.port}',
-                        request.url,
-                      );
-                    }
-                    return result;
-                  } catch (e, s) {
-                    challengeError = e;
-                    challengeErrorStackTrace = s;
-                    return (
+      task.taskDelegate = URLSessionTask.delegate(
+        onChallenge: onChallenge == null
+            ? null
+            : (session, task, challenge) async {
+                try {
+                  final result = await onChallenge(session, task, challenge);
+                  if (result.$1 ==
                       NSURLSessionAuthChallengeDisposition
                           // ignore: lines_longer_than_80_chars
-                          .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-                      null,
+                          .NSURLSessionAuthChallengeCancelAuthenticationChallenge) {
+                    final space = challenge.protectionSpace;
+                    challengeError = ClientException(
+                      'onChallenge cancelled the '
+                      '${space.authenticationMethod} challenge for '
+                      '${space.host}:${space.port}',
+                      requestUrl,
                     );
                   }
-                },
-          onMetrics: _onMetrics,
-          onResponse: (session, task, response) {
-            responseCompleter.complete(response);
-            return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
-          },
-          onData: (session, task, data) {
-            if (!cancelled) {
-              dataController.add(data.toList());
-              profile?.responseData.bodySink.add(data.toList());
-            }
-          },
-          onComplete: (session, task, error) {
-            if (error != null) {
-              // Cancelling a challenge cancels the task, so check for a
-              // challenge failure before treating a cancellation as an abort.
-              final challengeFailure = challengeError;
-              final Object mappedError;
-              StackTrace? stackTrace;
-              if (challengeFailure != null && !cancelled) {
-                mappedError = challengeFailure;
-                stackTrace = challengeErrorStackTrace;
-              } else if (error.isCancelled) {
-                mappedError = RequestAbortedException(request.url);
-              } else {
-                mappedError = NSErrorClientException(error, request.url);
-              }
-              if (!responseCompleter.isCompleted) {
-                responseCompleter.completeError(mappedError, stackTrace);
-              }
-              dataController.addError(mappedError, stackTrace);
-              if (profile != null) {
-                profile.requestData.endTime == null
-                    ? profile.requestData.closeWithError(mappedError.toString())
-                    : profile.responseData.closeWithError(
-                        mappedError.toString(),
-                      );
-              }
+                  return result;
+                } catch (e, s) {
+                  challengeError = e;
+                  challengeErrorStackTrace = s;
+                  return (
+                    NSURLSessionAuthChallengeDisposition
+                        // ignore: lines_longer_than_80_chars
+                        .NSURLSessionAuthChallengeCancelAuthenticationChallenge,
+                    null,
+                  );
+                }
+              },
+        onMetrics: _onMetrics,
+        onResponse: (session, task, response) {
+          responseCompleter.complete(response);
+          return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
+        },
+        onData: (session, task, data) {
+          if (!cancelled) {
+            dataController.add(data.toList());
+            profile?.responseData.bodySink.add(data.toList());
+          }
+        },
+        onComplete: (session, task, error) {
+          abortHandler?.clear();
+          if (error != null) {
+            // Cancelling a challenge cancels the task, so check for a
+            // challenge failure before treating a cancellation as an abort.
+            final challengeFailure = challengeError;
+            final Object mappedError;
+            StackTrace? stackTrace;
+            if (challengeFailure != null && !cancelled) {
+              mappedError = challengeFailure;
+              stackTrace = challengeErrorStackTrace;
+            } else if (error.isCancelled) {
+              mappedError = RequestAbortedException(requestUrl);
             } else {
-              unawaited(profile?.responseData.close());
+              mappedError = NSErrorClientException(error, requestUrl);
             }
-            dataController.close();
-            _tasks.remove(task.taskIdentifier)!.complete();
-          },
-          onRedirect: (session, task, response, request) {
-            numRedirects += 1;
-            if (numRedirects > maxRedirects) {
-              return null;
+            if (!responseCompleter.isCompleted) {
+              responseCompleter.completeError(mappedError, stackTrace);
             }
-            lastRedirectUrl = request.url;
+            dataController.addError(mappedError, stackTrace);
             if (profile != null) {
-              profile.responseData.addRedirect(
-                HttpProfileRedirectData(
-                  statusCode: response.statusCode,
-                  method: request.httpMethod,
-                  location: request.url!.toString(),
-                ),
-              );
+              profile.requestData.endTime == null
+                  ? profile.requestData.closeWithError(mappedError.toString())
+                  : profile.responseData.closeWithError(mappedError.toString());
             }
-            return request;
-          },
-        )
-        ..resume();
+          } else {
+            unawaited(profile?.responseData.close());
+          }
+          dataController.close();
+          _tasks.remove(task.taskIdentifier)!.complete();
+        },
+        onRedirect: (session, task, response, request) {
+          numRedirects += 1;
+          if (numRedirects > maxRedirects) {
+            return null;
+          }
+          lastRedirectUrl = request.url;
+          if (profile != null) {
+            profile.responseData.addRedirect(
+              HttpProfileRedirectData(
+                statusCode: response.statusCode,
+                method: request.httpMethod,
+                location: request.url!.toString(),
+              ),
+            );
+          }
+          return request;
+        },
+      );
+      abortHandler?.setHandler(() {
+        cancelled = true;
+        task.cancel();
+      });
+      task.resume();
       _tasks[task.taskIdentifier] = Completer<void>();
       return (nsStream, task, dataController);
     });
 
     try {
-      if (request case Abortable(:final abortTrigger?)) {
-        unawaited(
-          abortTrigger.whenComplete(() {
-            cancelled = true;
-            task.cancel();
-          }),
-        );
-      }
-
       final URLResponse urlResponse;
       try {
         urlResponse = await responseCompleter.future;
@@ -551,7 +551,7 @@ class CupertinoClient extends BaseClient {
 
       final response = urlResponse as HTTPURLResponse;
       if (request.followRedirects && numRedirects > request.maxRedirects) {
-        throw ClientException('Redirect limit exceeded', request.url);
+        throw ClientException('Redirect limit exceeded', requestUrl);
       }
 
       final (responseHeaders, contentLength, statusCode) = autoReleasePool(
@@ -577,7 +577,7 @@ class CupertinoClient extends BaseClient {
       return _StreamedResponseWithUrl(
         dataController.stream,
         statusCode,
-        url: lastRedirectUrl ?? request.url,
+        url: lastRedirectUrl ?? requestUrl,
         contentLength: contentLength,
         reasonPhrase: reasonPhrase,
         request: request,
@@ -622,5 +622,33 @@ class CupertinoClientWithProfile extends CupertinoClient {
     final config = URLSessionConfiguration.defaultSessionConfiguration();
     final session = URLSession.sessionWithConfiguration(config);
     return CupertinoClientWithProfile._(session);
+  }
+}
+
+/// Holds the abort callback for an in-flight [URLSessionTask] so
+/// `abortTrigger.whenComplete` retains only this small object.
+final class _AbortHandler {
+  bool _isAborted = false;
+  void Function()? _onAbort;
+
+  /// Sets the callback to run on [abort], or runs it immediately if [abort]
+  /// has already been called.
+  void setHandler(void Function() handler) {
+    if (_isAborted) {
+      handler();
+    } else {
+      _onAbort = handler;
+    }
+  }
+
+  void abort() {
+    _isAborted = true;
+    final handler = _onAbort;
+    _onAbort = null;
+    handler?.call();
+  }
+
+  void clear() {
+    _onAbort = null;
   }
 }

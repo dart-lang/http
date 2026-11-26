@@ -19,5 +19,4 @@ void main() {
     supportsMultipartRequest: false,
     supportsAbort: true,
   );
-  testLeaks(BrowserClient.new, supportsAbort: true);
 }

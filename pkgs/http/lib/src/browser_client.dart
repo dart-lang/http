@@ -138,13 +138,13 @@ class BrowserClient extends BaseClient {
 
     final abortController = AbortController();
     _openRequestAbortControllers.add(abortController);
+    _AbortHandler? abortHandler;
 
     final bodyBytes = await request.finalize().toBytes();
     try {
       if (request case Abortable(:final abortTrigger?)) {
-        // Tear-offs of external extension type interop members are disallowed
-        // ignore: unnecessary_lambdas
-        unawaited(abortTrigger.whenComplete(() => abortController.abort()));
+        abortHandler = _AbortHandler(abortController);
+        unawaited(abortTrigger.whenComplete(abortHandler.abort));
       }
 
       final response = await _fetch(
@@ -184,7 +184,7 @@ class BrowserClient extends BaseClient {
       }.toJS);
 
       return StreamedResponseV2(
-        _bodyToStream(request, response),
+        _bodyToStream(request.url, response, onDone: abortHandler?.clear),
         response.status,
         headers: headers,
         request: request,
@@ -193,7 +193,8 @@ class BrowserClient extends BaseClient {
         reasonPhrase: response.statusText,
       );
     } catch (e, st) {
-      _rethrowAsClientException(e, st, request);
+      abortHandler?.clear();
+      _rethrowAsClientException(e, st, request.url);
     } finally {
       _openRequestAbortControllers.remove(abortController);
     }
@@ -212,114 +213,146 @@ class BrowserClient extends BaseClient {
   }
 }
 
-Object _toClientException(Object e, BaseRequest request) {
+Object _toClientException(Object e, Uri requestUrl) {
   if (e case DOMException(name: 'AbortError')) {
-    return RequestAbortedException(request.url);
+    return RequestAbortedException(requestUrl);
   }
   if (e is! ClientException) {
     var message = e.toString();
     if (message.startsWith('TypeError: ')) {
       message = message.substring('TypeError: '.length);
     }
-    e = ClientException(message, request.url);
+    e = ClientException(message, requestUrl);
   }
   return e;
 }
 
-Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
-  Error.throwWithStackTrace(_toClientException(e, request), st);
+Never _rethrowAsClientException(Object e, StackTrace st, Uri requestUrl) {
+  Error.throwWithStackTrace(_toClientException(e, requestUrl), st);
 }
 
-Stream<List<int>> _bodyToStream(BaseRequest request, Response response) =>
+Stream<List<int>> _bodyToStream(
+  Uri requestUrl,
+  Response response, {
+  void Function()? onDone,
+}) =>
     Stream.multi(
       isBroadcast: false,
-      (listener) => _readStreamBody(request, response, listener),
+      (listener) =>
+          _readStreamBody(requestUrl, response, listener, onDone: onDone),
     );
 
-Future<void> _readStreamBody(BaseRequest request, Response response,
-    MultiStreamController<List<int>> controller) async {
-  final reader = response.body?.getReader() as ReadableStreamDefaultReader?;
-  if (reader == null) {
-    // No response? Treat that as an empty stream.
-    await controller.close();
-    return;
-  }
-
-  Completer<void>? resumeSignal;
-  var cancelled = false;
-  var hadError = false;
-  controller
-    ..onResume = () {
-      if (resumeSignal case final resume?) {
-        resumeSignal = null;
-        resume.complete();
-      }
+Future<void> _readStreamBody(
+  Uri requestUrl,
+  Response response,
+  MultiStreamController<List<int>> controller, {
+  void Function()? onDone,
+}) async {
+  try {
+    final reader = response.body?.getReader() as ReadableStreamDefaultReader?;
+    if (reader == null) {
+      // No response? Treat that as an empty stream.
+      await controller.close();
+      return;
     }
-    ..onCancel = () async {
-      try {
-        cancelled = true;
-        // We only cancel the reader when the subscription is cancelled - we
-        // don't need to do that for normal done events because the stream is in
-        // a completed state at that point.
-        await reader.cancel().toDart;
-      } catch (e, s) {
-        // It is possible for reader.cancel() to throw. This happens either
-        // because the stream has already been in an error state (in which case
-        // we would have called addErrorSync() before and don't need to re-
-        // report the error here), or because of an issue here (MDN says the
-        // method can throw if "The source object is not a
-        // ReadableStreamDefaultReader, or the stream has no owner."). Both of
-        // these don't look applicable here, but we want to ensure a new error
-        // in cancel() is surfaced to the caller.
-        if (!hadError) {
-          _rethrowAsClientException(e, s, request);
+
+    Completer<void>? resumeSignal;
+    var cancelled = false;
+    var hadError = false;
+    controller
+      ..onResume = () {
+        if (resumeSignal case final resume?) {
+          resumeSignal = null;
+          resume.complete();
         }
       }
-    };
+      ..onCancel = () async {
+        onDone?.call();
+        try {
+          cancelled = true;
+          // We only cancel the reader when the subscription is cancelled - we
+          // don't need to do that for normal done events because the stream is
+          // in a completed state at that point.
+          await reader.cancel().toDart;
+        } catch (e, s) {
+          // It is possible for reader.cancel() to throw. This happens either
+          // because the stream has already been in an error state (in which
+          // case we would have called addErrorSync() before and don't need to
+          // re-report the error here), or because of an issue here (MDN says
+          // the method can throw if "The source object is not a
+          // ReadableStreamDefaultReader, or the stream has no owner."). Both of
+          // these don't look applicable here, but we want to ensure a new error
+          // in cancel() is surfaced to the caller.
+          if (!hadError) {
+            _rethrowAsClientException(e, s, requestUrl);
+          }
+        }
+      };
 
-  // Async loop reading chunks from `bodyStreamReader` and sending them to
-  // `controller`.
-  // Checks for pause/cancel after delivering each event.
-  // Exits if stream closes or becomes an error, or if cancelled.
-  while (true) {
-    final ReadableStreamReadResult chunk;
-    try {
-      chunk = await reader.read().toDart;
-    } catch (e, s) {
-      // After a stream was cancelled, adding error events would result in
-      // unhandled async errors. This is most likely an AbortError anyway, so
-      // not really an exceptional state. We report errors of .cancel() in
-      // onCancel, that should cover this case.
-      if (!cancelled) {
-        hadError = true;
-        controller.addErrorSync(_toClientException(e, request), s);
-        await controller.close();
+    // Async loop reading chunks from `bodyStreamReader` and sending them to
+    // `controller`.
+    // Checks for pause/cancel after delivering each event.
+    // Exits if stream closes or becomes an error, or if cancelled.
+    while (true) {
+      final ReadableStreamReadResult chunk;
+      try {
+        chunk = await reader.read().toDart;
+      } catch (e, s) {
+        // After a stream was cancelled, adding error events would result in
+        // unhandled async errors. This is most likely an AbortError anyway, so
+        // not really an exceptional state. We report errors of .cancel() in
+        // onCancel, that should cover this case.
+        if (!cancelled) {
+          hadError = true;
+          controller.addErrorSync(_toClientException(e, requestUrl), s);
+          await controller.close();
+        }
+
+        break;
       }
 
-      break;
-    }
+      if (chunk.done) {
+        // Sync because we're forwarding an async event.
+        controller.closeSync();
+        break;
+      } else {
+        // Handle chunk whether paused, cancelled or not.
+        // If subscription is cancelled, it's a no-op to add events.
+        // If subscription is paused, events will be buffered until resumed,
+        // which is what we need.
+        // We can use addSync here because we're only forwarding this async
+        // event.
+        controller.addSync((chunk.value! as JSUint8Array).toDart);
+      }
 
-    if (chunk.done) {
-      // Sync because we're forwarding an async event.
-      controller.closeSync();
-      break;
-    } else {
-      // Handle chunk whether paused, cancelled or not.
-      // If subscription is cancelled, it's a no-op to add events.
-      // If subscription is paused, events will be buffered until resumed,
-      // which is what we need.
-      // We can use addSync here because we're only forwarding this async
-      // event.
-      controller.addSync((chunk.value! as JSUint8Array).toDart);
+      // Check pause/cancel state immediately *after* delivering event,
+      // listener might have paused or cancelled.
+      if (controller.isPaused) {
+        // Will never complete if cancelled before resumed.
+        await (resumeSignal ??= Completer<void>()).future;
+      }
+      if (!controller.hasListener) break; // Is cancelled.
     }
+  } finally {
+    onDone?.call();
+  }
+}
 
-    // Check pause/cancel state immediately *after* delivering event,
-    // listener might have paused or cancelled.
-    if (controller.isPaused) {
-      // Will never complete if cancelled before resumed.
-      await (resumeSignal ??= Completer<void>()).future;
-    }
-    if (!controller.hasListener) break; // Is cancelled.
+/// Owns the [AbortController] for an in-flight [BrowserClient] request so
+/// `abortTrigger.whenComplete` retains only this small object.
+final class _AbortHandler {
+  AbortController? _controller;
+
+  _AbortHandler(this._controller);
+
+  void abort() {
+    final controller = _controller;
+    _controller = null;
+    controller?.abort();
+  }
+
+  void clear() {
+    _controller = null;
   }
 }
 
