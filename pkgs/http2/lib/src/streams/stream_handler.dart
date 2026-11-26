@@ -784,6 +784,14 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             _handleHeadersFrame(newStream, frame);
             _newStreamsC.add(newStream);
           } else {
+            if (frameBelongsToIdleStream()) {
+              // RFC 9113 section 5.1: receiving HEADERS on an idle stream on a
+              // client connection is a connection error of type PROTOCOL_ERROR
+              // (server pushes arrive via PUSH_PROMISE).
+              throw ProtocolException(
+                'Got a HEADERS_FRAME for an "idle" stream id.',
+              );
+            }
             // We must be able to receive header frames for streams that have
             // already been closed. This can occur if we send RST_STREAM while
             // the server already had header frames in flight.
@@ -846,6 +854,14 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             '(stream ${frame.header.streamId} does not exist)',
           );
         } else if (frame is DataFrame) {
+          if (frameBelongsToIdleStream()) {
+            // RFC 9113 section 5.1: receiving any frame other than HEADERS or
+            // PRIORITY on an idle stream is a connection error of type
+            // PROTOCOL_ERROR.
+            throw ProtocolException(
+              'Got a DATA_FRAME for an "idle" stream id.',
+            );
+          }
           // http/2 spec:
           //     However, after sending the RST_STREAM, the sending endpoint
           //     MUST be prepared to receive and process additional frames sent
@@ -864,6 +880,11 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           // Still respond with an error, as the stream is closed.
           throw _throwStreamClosedException(frame.header.streamId);
         } else {
+          if (frameBelongsToIdleStream()) {
+            throw ProtocolException(
+              'Got a ${frame.runtimeType} for an "idle" stream id.',
+            );
+          }
           throw _throwStreamClosedException(frame.header.streamId);
         }
       } else {

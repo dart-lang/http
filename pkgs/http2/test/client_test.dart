@@ -426,43 +426,20 @@ void main() {
             ),
           );
 
-          // Write a data frame for a non-existent stream.
+          // Write a data frame for an idle client-initiated stream.
           var invalidStreamId = headers.header.streamId + 2;
           serverWriter.writeDataFrame(invalidStreamId, [42]);
 
-          // Make sure the client sends a [RstStreamFrame] frame.
+          // RFC 9113 section 5.1: receiving DATA on an idle stream is a
+          // connection error of type PROTOCOL_ERROR.
           expect(
             await nextFrame(),
-            isA<WindowUpdateFrame>().having(
-              (p0) => p0.header.streamId,
-              'Connection update',
-              0,
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
             ),
           );
-          expect(
-            await nextFrame(),
-            isA<RstStreamFrame>()
-                .having(
-                  (f) => f.errorCode,
-                  'errorCode',
-                  ErrorCode.STREAM_CLOSED,
-                )
-                .having(
-                  (f) => f.header.streamId,
-                  'header.streamId',
-                  invalidStreamId,
-                ),
-          );
-
-          // Close the original stream.
-          serverWriter.writeDataFrame(
-            headers.header.streamId,
-            [],
-            endStream: true,
-          );
-
-          // Wait for the client finish.
-          expect(await nextFrame(), isA<GoawayFrame>());
           expect(await serverReader.moveNext(), false);
           await serverWriter.close();
         }
@@ -472,12 +449,139 @@ void main() {
 
           var stream = client.makeRequest([Header.ascii('a', 'b')]);
           await stream.outgoingMessages.close();
-          expect(await stream.incomingMessages.toList(), isEmpty);
+          await expectLater(
+            stream.incomingMessages.toList(),
+            throwsA(isA<TransportConnectionException>()),
+          );
 
           await client.finish();
         }
 
-        await Future.wait([serverFun(), clientFun()]);
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
+      });
+
+      clientTest('data-frame-for-idle-even-stream', (
+        ClientTransportConnection client,
+        FrameWriter serverWriter,
+        StreamIterator<Frame> serverReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        var handshakeCompleter = Completer<void>();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame(), isA<SettingsFrame>());
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame(), isA<SettingsFrame>());
+
+          handshakeCompleter.complete();
+
+          await nextFrame() as HeadersFrame;
+          expect(
+            await nextFrame(),
+            isA<DataFrame>().having(
+              (p0) => p0.hasEndStreamFlag,
+              'Last data frame',
+              true,
+            ),
+          );
+
+          // Idle server-initiated stream id 2 (never promised).
+          serverWriter.writeDataFrame(2, [42]);
+
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
+            ),
+          );
+          expect(await serverReader.moveNext(), false);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
+          await stream.outgoingMessages.close();
+          await expectLater(
+            stream.incomingMessages.toList(),
+            throwsA(isA<TransportConnectionException>()),
+          );
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
+      });
+
+      test('header-frame-for-idle-stream', () async {
+        for (final sendIdleStreamId in [
+          (int openStreamId) => openStreamId + 2,
+          (int _) => 2,
+        ]) {
+          final streams = ClientStreams();
+          final localClient = streams.clientConnection;
+          final localServerWriter = streams.serverConnectionFrameWriter;
+          final localServerReader = streams.serverConnectionFrameReader;
+
+          Future<Frame> readNextLocal() async {
+            expect(await localServerReader.moveNext(), true);
+            return localServerReader.current;
+          }
+
+          final handshakeDone = Completer<void>();
+
+          Future<void> serverFun() async {
+            localServerWriter.writeSettingsFrame([]);
+            expect(await readNextLocal(), isA<SettingsFrame>());
+            localServerWriter.writeSettingsAckFrame();
+            expect(await readNextLocal(), isA<SettingsFrame>());
+            handshakeDone.complete();
+
+            final headers = await readNextLocal() as HeadersFrame;
+            expect(
+              await readNextLocal(),
+              isA<DataFrame>().having(
+                (f) => f.hasEndStreamFlag,
+                'hasEndStreamFlag',
+                true,
+              ),
+            );
+
+            localServerWriter.writeHeadersFrame(
+              sendIdleStreamId(headers.header.streamId),
+              [Header.ascii(':status', '200')],
+              endStream: true,
+            );
+
+            expect(
+              await readNextLocal(),
+              isA<GoawayFrame>().having(
+                (f) => f.errorCode,
+                'errorCode',
+                ErrorCode.PROTOCOL_ERROR,
+              ),
+            );
+            expect(await localServerReader.moveNext(), false);
+            await localServerWriter.close();
+          }
+
+          Future<void> clientFun() async {
+            await handshakeDone.future;
+            final stream = localClient.makeRequest([Header.ascii('a', 'b')]);
+            await stream.outgoingMessages.close();
+            await expectLater(
+              stream.incomingMessages.toList(),
+              throwsA(isA<TransportConnectionException>()),
+            );
+            await localClient.finish();
+          }
+
+          await Future.wait([serverFun(), clientFun()], eagerError: true);
+        }
       });
 
       clientTest('data-frame-after-stream-closed', (

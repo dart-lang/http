@@ -945,20 +945,23 @@ void main() {
           clientWriter.writeSettingsFrame([]);
           expect(await nextFrame(), isA<SettingsFrame>());
 
-          // Ignored DATA on non-existent stream 3 is replenished, so the
+          // Ignored DATA on closed stream 1 is replenished, so the
           // connection window stays 65535 - it must not grow to 65535 + 10000.
-          clientWriter.writeDataFrame(3, List<int>.filled(10000, 0));
+          clientWriter
+            ..writeHeadersFrame(1, [Header.ascii('a', 'b')], endStream: false)
+            ..writeRstStreamFrame(1, ErrorCode.CANCEL)
+            ..writeDataFrame(1, List<int>.filled(10000, 0));
           expect(await nextFrame(), isA<WindowUpdateFrame>());
           expect(await nextFrame(), isA<RstStreamFrame>());
 
-          // Open stream 1 without reading its incomingMessages, then send
+          // Open stream 3 without reading its incomingMessages, then send
           // 65536 bytes (> 65535 connection window) across frames.
           clientWriter
-            ..writeHeadersFrame(1, [Header.ascii('a', 'b')], endStream: false)
-            ..writeDataFrame(1, List<int>.filled(16384, 0))
-            ..writeDataFrame(1, List<int>.filled(16384, 0))
-            ..writeDataFrame(1, List<int>.filled(16384, 0))
-            ..writeDataFrame(1, List<int>.filled(16384, 0));
+            ..writeHeadersFrame(3, [Header.ascii('a', 'b')], endStream: false)
+            ..writeDataFrame(3, List<int>.filled(16384, 0))
+            ..writeDataFrame(3, List<int>.filled(16384, 0))
+            ..writeDataFrame(3, List<int>.filled(16384, 0))
+            ..writeDataFrame(3, List<int>.filled(16384, 0));
           final frameFuture = nextFrame();
           await pumpEventQueue();
           // Only reached if the server inflated its receive window above 65535.
@@ -1232,7 +1235,7 @@ void main() {
         Future<Frame> Function() nextFrame,
       ) async {
         Future serverFun() async {
-          await server.incomingStreams.toList();
+          expect(await server.incomingStreams.toList(), isEmpty);
           await server.finish();
         }
 
@@ -1242,12 +1245,98 @@ void main() {
           clientWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
 
-          // Write data frame to non-existent stream.
+          // RFC 9113 section 5.1: receiving DATA on an idle stream is a
+          // connection error of type PROTOCOL_ERROR.
           clientWriter.writeDataFrame(3, [1, 2, 3]);
 
-          // Make sure the client gets a [RstStreamFrame] frame.
-          var frame = await nextFrame();
-          expect(frame is WindowUpdateFrame, true);
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
+            ),
+          );
+
+          // Make sure the server ended the connection.
+          expect(await clientReader.moveNext(), false);
+        }
+
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
+      });
+
+      serverTest('data-frame-for-idle-even-stream', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        Future serverFun() async {
+          expect(await server.incomingStreams.toList(), isEmpty);
+          await server.finish();
+        }
+
+        Future clientFun() async {
+          expect(await nextFrame() is SettingsFrame, true);
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+
+          // Idle server-initiated stream id 2 (never opened locally).
+          clientWriter.writeDataFrame(2, [1, 2, 3]);
+
+          expect(
+            await nextFrame(),
+            isA<GoawayFrame>().having(
+              (f) => f.errorCode,
+              'errorCode',
+              ErrorCode.PROTOCOL_ERROR,
+            ),
+          );
+          expect(await clientReader.moveNext(), false);
+        }
+
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
+      });
+
+      serverTest('data-frame-after-implicitly-closed-idle-stream', (
+        ServerTransportConnection server,
+        FrameWriter clientWriter,
+        StreamIterator<Frame> clientReader,
+        Future<Frame> Function() nextFrame,
+      ) async {
+        Future serverFun() async {
+          final streams = StreamIterator(server.incomingStreams);
+          expect(await streams.moveNext(), isTrue);
+          final stream = streams.current;
+          expect(stream.id, 3);
+          await stream.incomingMessages.drain<void>();
+          await stream.outgoingMessages.close();
+          expect(await streams.moveNext(), isFalse);
+          await server.finish();
+        }
+
+        Future clientFun() async {
+          expect(await nextFrame() is SettingsFrame, true);
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+
+          // Opening stream 3 implicitly closes skipped idle stream 1.
+          clientWriter.writeHeadersFrame(3, [
+            Header.ascii('a', 'b'),
+          ], endStream: true);
+
+          // DATA on implicitly closed stream 1 is a stream error
+          // (STREAM_CLOSED), keeping the connection open for stream 3.
+          clientWriter.writeDataFrame(1, [1, 2, 3]);
+
+          expect(
+            await nextFrame(),
+            isA<WindowUpdateFrame>()
+                .having((f) => f.header.streamId, 'header.streamId', 0)
+                .having((f) => f.windowSizeIncrement, 'windowSizeIncrement', 3),
+          );
           expect(
             await nextFrame(),
             isA<RstStreamFrame>()
@@ -1256,17 +1345,20 @@ void main() {
                   'errorCode',
                   ErrorCode.STREAM_CLOSED,
                 )
-                .having((f) => f.header.streamId, 'header.streamId', 3),
+                .having((f) => f.header.streamId, 'header.streamId', 1),
+          );
+          expect(
+            await nextFrame(),
+            isA<DataFrame>()
+                .having((f) => f.header.streamId, 'header.streamId', 3)
+                .having((f) => f.hasEndStreamFlag, 'hasEndStreamFlag', true),
           );
 
-          // Tell the server to finish.
           clientWriter.writeGoawayFrame(3, ErrorCode.NO_ERROR, []);
-
-          // Make sure the server ended the connection.
           expect(await clientReader.moveNext(), false);
         }
 
-        await Future.wait([serverFun(), clientFun()]);
+        await Future.wait([serverFun(), clientFun()], eagerError: true);
       });
 
       serverTest('data-frame-after-stream-closed', (
