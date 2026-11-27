@@ -99,8 +99,24 @@ class CupertinoClient extends BaseClient {
 
   final OnChallenge? _onChallenge;
 
-  CupertinoClient._(this._urlSession, {OnChallenge? onChallenge})
-    : _onChallenge = onChallenge;
+  final void Function(
+    BaseRequest request,
+    URLSessionTask task,
+    URLSessionTaskMetrics metrics,
+  )?
+  _onMetrics;
+
+  CupertinoClient._(
+    this._urlSession, {
+    OnChallenge? onChallenge,
+    void Function(
+      BaseRequest request,
+      URLSessionTask task,
+      URLSessionTaskMetrics metrics,
+    )?
+    onMetrics,
+  }) : _onChallenge = onChallenge,
+       _onMetrics = onMetrics;
 
   String? _findReasonPhrase(int statusCode) {
     switch (statusCode) {
@@ -240,12 +256,50 @@ class CupertinoClient extends BaseClient {
   ///   },
   /// );
   /// ```
+  ///
+  /// If [onMetrics] is set then it will be called once per request with the
+  /// `request` passed to [send], the `task` that executed it, and the
+  /// `metrics` collected for it, e.g. to read the protocol that was negotiated
+  /// (`h2`, `h3`, `http/1.1`) or whether the connection was reused.
+  ///
+  /// The `task` is provided because it includes potentially helpful
+  /// information such as [URLSessionTask.countOfBytesSent] and
+  /// [URLSessionTask.countOfBytesReceived]. Mutating the `task`, for example
+  /// by calling [URLSessionTask.cancel], can lead to undefined behavior.
+  ///
+  /// On a successful request, [onMetrics] is called after the response body
+  /// has been received and before [StreamedResponse.stream] closes (so it has
+  /// already run when methods like [get] or [post] complete). If a request
+  /// fails or is cancelled after starting, [onMetrics] may be called before
+  /// [send] completes.
+  ///
+  /// For example, to log the negotiated protocol of each request:
+  ///
+  /// ```dart
+  /// final client = CupertinoClient.fromSessionConfiguration(
+  ///   URLSessionConfiguration.ephemeralSessionConfiguration(),
+  ///   onMetrics: (request, task, metrics) {
+  ///     final transaction = metrics.transactionMetrics.lastOrNull;
+  ///     print('${request.url} ${transaction?.networkProtocolName}');
+  ///   },
+  /// );
+  /// ```
   factory CupertinoClient.fromSessionConfiguration(
     URLSessionConfiguration config, {
     OnChallenge? onChallenge,
+    void Function(
+      BaseRequest request,
+      URLSessionTask task,
+      URLSessionTaskMetrics metrics,
+    )?
+    onMetrics,
   }) {
     final session = URLSession.sessionWithConfiguration(config);
-    return CupertinoClient._(session, onChallenge: onChallenge);
+    return CupertinoClient._(
+      session,
+      onChallenge: onChallenge,
+      onMetrics: onMetrics,
+    );
   }
 
   @override
@@ -401,6 +455,7 @@ class CupertinoClient extends BaseClient {
       );
 
       final onChallenge = _onChallenge;
+      final onMetrics = _onMetrics;
       task.taskDelegate = URLSessionTask.delegate(
         onChallenge: onChallenge == null
             ? null
@@ -431,6 +486,9 @@ class CupertinoClient extends BaseClient {
                   );
                 }
               },
+        onMetrics: onMetrics == null
+            ? null
+            : (session, task, metrics) => onMetrics(request, task, metrics),
         onResponse: (session, task, response) {
           responseCompleter.complete(response);
           return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
