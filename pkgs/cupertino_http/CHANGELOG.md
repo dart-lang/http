@@ -19,9 +19,9 @@
   (`h2`, `h3`, `http/1.1`) can be read with
   `URLSessionTaskTransactionMetrics.networkProtocolName`.
 * Add an `onMetrics` parameter to `CupertinoClient.fromSessionConfiguration`,
-  and `CupertinoClientOnMetrics`, which make the `URLSessionTaskMetrics` of each
-  request available together with the request, e.g. the negotiated protocol
-  (`h2`, `h3`, `http/1.1`) and whether the connection was reused.
+  which makes the `URLSessionTaskMetrics` of each request available together
+  with the request, e.g. the negotiated protocol (`h2`, `h3`, `http/1.1`) and
+  whether the connection was reused.
 * Update package description and declare supported platforms (`ios`, `macos`).
 * Fix a memory leak when the `abortTrigger` for an `Abortable` is retained
   past the completion of the response. For example:

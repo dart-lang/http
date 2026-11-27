@@ -23,8 +23,6 @@ void main() {
             case '/redirect':
               await request.response.redirect(uri.replace(path: '/'));
             case '/stream':
-              request.response.headers.contentType = ContentType.binary;
-              request.response.headers.set('X-Content-Type-Options', 'nosniff');
               request.response.add(List.filled(65536, 0x41));
               await request.response.flush();
               await finishBody.future;
@@ -37,12 +35,16 @@ void main() {
         });
       uri = Uri.http('localhost:${server.port}', '/');
     });
-    tearDown(() async {
-      if (!finishBody.isCompleted) finishBody.complete();
-      await server.close(force: true);
-    });
+    tearDown(() => server.close(force: true));
 
-    CupertinoClient createClient(CupertinoClientOnMetrics? onMetrics) {
+    CupertinoClient createClient(
+      void Function(
+        BaseRequest request,
+        URLSessionTask task,
+        URLSessionTaskMetrics metrics,
+      )?
+      onMetrics,
+    ) {
       final client = CupertinoClient.fromSessionConfiguration(
         URLSessionConfiguration.ephemeralSessionConfiguration(),
         onMetrics: onMetrics,

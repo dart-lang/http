@@ -15,19 +15,6 @@ import 'cupertino_api.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
 
-/// The type of the `onMetrics` argument of
-/// [CupertinoClient.fromSessionConfiguration].
-///
-/// [request] is the request passed to [CupertinoClient.send], [task] is the
-/// [URLSessionTask] that executed it, and [metrics] holds the metrics that
-/// were collected for it.
-typedef CupertinoClientOnMetrics =
-    void Function(
-      BaseRequest request,
-      URLSessionTask task,
-      URLSessionTaskMetrics metrics,
-    );
-
 /// A [ClientException] generated from an [NSError].
 class NSErrorClientException extends ClientException {
   final NSError error;
@@ -112,12 +99,22 @@ class CupertinoClient extends BaseClient {
 
   final OnChallenge? _onChallenge;
 
-  final CupertinoClientOnMetrics? _onMetrics;
+  final void Function(
+    BaseRequest request,
+    URLSessionTask task,
+    URLSessionTaskMetrics metrics,
+  )?
+  _onMetrics;
 
   CupertinoClient._(
     this._urlSession, {
     OnChallenge? onChallenge,
-    CupertinoClientOnMetrics? onMetrics,
+    void Function(
+      BaseRequest request,
+      URLSessionTask task,
+      URLSessionTaskMetrics metrics,
+    )?
+    onMetrics,
   }) : _onChallenge = onChallenge,
        _onMetrics = onMetrics;
 
@@ -261,9 +258,14 @@ class CupertinoClient extends BaseClient {
   /// ```
   ///
   /// If [onMetrics] is set then it will be called once per request with the
-  /// request and the [URLSessionTaskMetrics] collected for it, e.g. to read
-  /// the protocol that was negotiated (`h2`, `h3`, `http/1.1`) or whether the
-  /// connection was reused.
+  /// `request` passed to [send], the `task` that executed it, and the
+  /// `metrics` collected for it, e.g. to read the protocol that was negotiated
+  /// (`h2`, `h3`, `http/1.1`) or whether the connection was reused.
+  ///
+  /// The `task` is provided because it includes potentially helpful
+  /// information such as [URLSessionTask.countOfBytesSent] and
+  /// [URLSessionTask.countOfBytesReceived]. Mutating the `task`, for example
+  /// by calling [URLSessionTask.cancel], can lead to undefined behavior.
   ///
   /// On a successful request, [onMetrics] is called after the response body
   /// has been received and before [StreamedResponse.stream] closes (so it has
@@ -285,7 +287,12 @@ class CupertinoClient extends BaseClient {
   factory CupertinoClient.fromSessionConfiguration(
     URLSessionConfiguration config, {
     OnChallenge? onChallenge,
-    CupertinoClientOnMetrics? onMetrics,
+    void Function(
+      BaseRequest request,
+      URLSessionTask task,
+      URLSessionTaskMetrics metrics,
+    )?
+    onMetrics,
   }) {
     final session = URLSession.sessionWithConfiguration(config);
     return CupertinoClient._(
